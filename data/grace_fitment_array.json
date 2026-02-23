@@ -1,0 +1,1199 @@
+[
+  {
+    "threadSize": "18-415",
+    "bottleName": "Slim 30ml",
+    "bottleCode": null,
+    "familyHint": "slim",
+    "capacityMl": 30,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Sleek 30ml",
+    "bottleCode": null,
+    "familyHint": "sleek",
+    "capacityMl": 30,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Cylinder 30ml",
+    "bottleCode": null,
+    "familyHint": "cylinder",
+    "capacityMl": 30,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Diva 30ml",
+    "bottleCode": null,
+    "familyHint": "diva",
+    "capacityMl": 30,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Diva 46ml",
+    "bottleCode": null,
+    "familyHint": "diva",
+    "capacityMl": 46,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Diva 46 Frosted",
+    "bottleCode": null,
+    "familyHint": "diva",
+    "capacityMl": null,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Empire 50ml",
+    "bottleCode": null,
+    "familyHint": "empire",
+    "capacityMl": 50,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Circle 50ml",
+    "bottleCode": null,
+    "familyHint": "circle",
+    "capacityMl": 50,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Circle 50ml Frosted",
+    "bottleCode": null,
+    "familyHint": "circle",
+    "capacityMl": 50,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Slim 50ml",
+    "bottleCode": null,
+    "familyHint": "slim",
+    "capacityMl": 50,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Sleek 50ml",
+    "bottleCode": null,
+    "familyHint": "sleek",
+    "capacityMl": 50,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Cylinder 50ml",
+    "bottleCode": null,
+    "familyHint": "cylinder",
+    "capacityMl": 50,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Elegant 2oz",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 59,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Elegant 2oz Frosted",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 59,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Diamond 2oz",
+    "bottleCode": null,
+    "familyHint": "diamond",
+    "capacityMl": 59,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Round 78ml",
+    "bottleCode": null,
+    "familyHint": "round",
+    "capacityMl": 78,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Round 78ml Frosted",
+    "bottleCode": null,
+    "familyHint": "round",
+    "capacityMl": 78,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "✓",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Empire 100ml",
+    "bottleCode": null,
+    "familyHint": "empire",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Elegant 100ml",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Elegant 100m Frosted",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": null,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Diva 100ml",
+    "bottleCode": null,
+    "familyHint": "diva",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Circle 100ml",
+    "bottleCode": null,
+    "familyHint": "circle",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Circle 100ml Frosted",
+    "bottleCode": null,
+    "familyHint": "circle",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Slim 100ml",
+    "bottleCode": null,
+    "familyHint": "slim",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Sleek 100ml",
+    "bottleCode": null,
+    "familyHint": "sleek",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Cylinder 100ml",
+    "bottleCode": null,
+    "familyHint": "cylinder",
+    "capacityMl": 100,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Round 128ml",
+    "bottleCode": null,
+    "familyHint": "round",
+    "capacityMl": 128,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "18-415",
+    "bottleName": "Round 128ml Frosted",
+    "bottleCode": null,
+    "familyHint": "round",
+    "capacityMl": 128,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Dropper": "—",
+      "Sprayer": "✓",
+      "Bulb Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Cyl Clear 5ml",
+    "bottleCode": null,
+    "familyHint": "cylinder",
+    "capacityMl": 5,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Cyl Blue 5ml",
+    "bottleCode": null,
+    "familyHint": "cylinder",
+    "capacityMl": 5,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Tulip clr 6ml",
+    "bottleCode": null,
+    "familyHint": "tulip",
+    "capacityMl": 6,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Tulip Amb 5ml",
+    "bottleCode": null,
+    "familyHint": "tulip",
+    "capacityMl": 5,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Sleek 5ml",
+    "bottleCode": null,
+    "familyHint": "sleek",
+    "capacityMl": 5,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Sleek 8ml",
+    "bottleCode": null,
+    "familyHint": "sleek",
+    "capacityMl": 8,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Queen 10ml",
+    "bottleCode": null,
+    "familyHint": "queen",
+    "capacityMl": 10,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Bell 12ml",
+    "bottleCode": null,
+    "familyHint": "bell",
+    "capacityMl": 12,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Royal 13ml",
+    "bottleCode": null,
+    "familyHint": "royal",
+    "capacityMl": 13,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Rectangle 15ml",
+    "bottleCode": null,
+    "familyHint": "rectangle",
+    "capacityMl": 15,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Flair 15ml",
+    "bottleCode": null,
+    "familyHint": "flair",
+    "capacityMl": 15,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Squar 15ml",
+    "bottleCode": null,
+    "familyHint": "squar",
+    "capacityMl": 15,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Elegant 15ml",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 15,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Frosted Elegant 15ml",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 15,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Tall cyl 9ml",
+    "bottleCode": null,
+    "familyHint": "cylinder",
+    "capacityMl": 9,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "13-415",
+    "bottleName": "Tall Rect 9ml",
+    "bottleCode": null,
+    "familyHint": "tall",
+    "capacityMl": 9,
+    "components": {
+      "Reducer": "✓",
+      "Short Cap with Liner": "✓",
+      "Tall Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "17-415",
+    "bottleName": "Cyl Clear",
+    "bottleCode": "GBCyl9",
+    "familyHint": "cylinder",
+    "capacityMl": null,
+    "components": {
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Reducer": "—",
+      "Short Cap with Liner": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—"
+    }
+  },
+  {
+    "threadSize": "17-415",
+    "bottleName": "Cyl Frosted",
+    "bottleCode": "GBCyl9Frst",
+    "familyHint": "cylinder",
+    "capacityMl": null,
+    "components": {
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Reducer": "—",
+      "Short Cap with Liner": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—"
+    }
+  },
+  {
+    "threadSize": "17-415",
+    "bottleName": "Swirl Clear",
+    "bottleCode": "GBCyl9Sw",
+    "familyHint": "swirl",
+    "capacityMl": null,
+    "components": {
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Reducer": "—",
+      "Short Cap with Liner": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—"
+    }
+  },
+  {
+    "threadSize": "17-415",
+    "bottleName": "Swirl Frst",
+    "bottleCode": "GBCyl9SwFrst",
+    "familyHint": "swirl",
+    "capacityMl": null,
+    "components": {
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Reducer": "—",
+      "Short Cap with Liner": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—"
+    }
+  },
+  {
+    "threadSize": "17-415",
+    "bottleName": "Blue",
+    "bottleCode": "GBCylBlu9",
+    "familyHint": "blue",
+    "capacityMl": null,
+    "components": {
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Reducer": "—",
+      "Short Cap with Liner": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—"
+    }
+  },
+  {
+    "threadSize": "17-415",
+    "bottleName": "Amber",
+    "bottleCode": "GBCylAmb9",
+    "familyHint": "amber",
+    "capacityMl": null,
+    "components": {
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Sprayer": "✓",
+      "Lotion Pump": "✓",
+      "Reducer": "—",
+      "Short Cap with Liner": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—"
+    }
+  },
+  {
+    "threadSize": "15-415",
+    "bottleName": "Elegant 1oz",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Sprayer": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "15-415",
+    "bottleName": "Elegant 1oz Frosted",
+    "bottleCode": null,
+    "familyHint": "elegant",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Sprayer": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "15-415",
+    "bottleName": "Circle 1oz",
+    "bottleCode": null,
+    "familyHint": "circle",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Sprayer": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "15-415",
+    "bottleName": "Circle 1oz Frosted",
+    "bottleCode": null,
+    "familyHint": "circle",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Sprayer": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Dropper": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "½ oz Clear",
+    "bottleCode": null,
+    "familyHint": "½",
+    "capacityMl": 15,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "1oz Clear",
+    "bottleCode": null,
+    "familyHint": "1oz",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "2oz Clear",
+    "bottleCode": null,
+    "familyHint": "2oz",
+    "capacityMl": 59,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "½ oz Blue",
+    "bottleCode": null,
+    "familyHint": "½",
+    "capacityMl": 15,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—",
+      "Dropper": "—",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "1oz Blue",
+    "bottleCode": null,
+    "familyHint": "1oz",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "2oz Blue",
+    "bottleCode": null,
+    "familyHint": "2oz",
+    "capacityMl": 59,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "½ oz Amber",
+    "bottleCode": null,
+    "familyHint": "½",
+    "capacityMl": 15,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "—",
+      "Roller Plug (Metal)": "—",
+      "Roll-On Cap": "—",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "1oz Amber",
+    "bottleCode": null,
+    "familyHint": "1oz",
+    "capacityMl": 30,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  },
+  {
+    "threadSize": "20-400",
+    "bottleName": "2oz Amber",
+    "bottleCode": null,
+    "familyHint": "2oz",
+    "capacityMl": 59,
+    "components": {
+      "Short Cap with Liner": "✓",
+      "Roller Plug (Plastic)": "✓",
+      "Roller Plug (Metal)": "✓",
+      "Roll-On Cap": "✓",
+      "Dropper": "✓",
+      "Reducer": "—",
+      "Tall Cap with Liner": "—",
+      "Sprayer": "—",
+      "Bulb Sprayer": "—",
+      "Lotion Pump": "—"
+    }
+  }
+]
