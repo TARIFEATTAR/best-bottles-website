@@ -52,7 +52,7 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
                 searchTerm: {
                     type: "string",
                     description:
-                        "The search query. Be specific: e.g. '30ml dropper', 'amber boston round', 'cylinder fine mist sprayer', 'frosted elegant 60ml'",
+                        "The search query. Be specific: e.g. '30ml dropper', 'amber boston round', 'cylinder fine mist sprayer', 'frosted elegant 60ml'. For roll-on products, use 'roller' (NOT 'roll-on') — item names use 'roller ball'.",
                 },
                 categoryLimit: {
                     type: "string",
@@ -63,6 +63,18 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
                     type: "string",
                     description:
                         "Optional: restrict to a bottle family — 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square'",
+                },
+                applicatorFilter: {
+                    type: "string",
+                    description:
+                        "Optional: restrict to products with a specific applicator type. Comma-separated list of EXACT values from the catalog. " +
+                        "Customer language → applicator values to use: " +
+                        "'roll-on / roller' → 'Metal Roller,Plastic Roller'; " +
+                        "'spray / sprayer / perfume spray' → 'Fine Mist Sprayer,Atomizer,Antique Bulb Sprayer,Antique Bulb Sprayer with Tassel'; " +
+                        "'splash-on / cologne / open mouth' → 'Reducer'; " +
+                        "'dropper / eye dropper' → 'Dropper'; " +
+                        "'lotion pump / pump' → 'Lotion Pump'; " +
+                        "'cap / closure / simple cap' → 'Cap/Closure'.",
                 },
             },
             required: ["searchTerm"],
@@ -189,6 +201,37 @@ Response: "For registered businesses, email sales@nematinternational.com with th
 
 ---
 
+## CATALOG STRUCTURE — APPLICATOR-FIRST ORGANISATION
+
+The catalog is organised by how the customer applies their product — applicator-first. When a customer asks to browse or needs direction, frame the conversation around these categories:
+
+| Customer language | Applicator category | What it means |
+|---|---|---|
+| Roll-on, roller ball, rollerball | **Roll-on** | Metal Roller or Plastic Roller ball. Best for oils, serums, rollerballs. |
+| Spray, sprayer, atomizer, mist, pump spray | **Spray** | Fine Mist Sprayer, Atomizer, Antique Bulb Sprayer. Best for eau de toilette, perfume, toners. |
+| Splash-on, cologne, pour, open mouth, reducer, orifice reducer | **Reducer** | Orifice reducer — controlled pour, no mechanical applicator. Best for colognes, concentrated perfume oil. Canonical term: Reducer. |
+| Glass wand, glass rod | **Glass Wand** | Glass rod applicator — dab or swipe application. |
+| Glass applicator, glass stopper | **Glass Applicator** | Ground glass stopper — traditional apothecary style. |
+| Dropper, eye dropper, pipette | **Dropper** | Glass or plastic dropper. Best for serums, essential oils, concentrates. |
+| Pump, lotion pump, cream pump | **Lotion Pump** | Pump dispenser. Best for thick emulsions, body lotions, face creams. |
+| Cap, closure, simple cap, lid | **Cap/Closure** | Standard cap only. Best for pure decants, concentrated perfume oils, fill-your-own. |
+
+VARIANT HIERARCHY: On each product page, the base bottle is defined by family + size + glass colour. Variants on that page differ by:
+1. Applicator type (Roll-on, Spray, Reducer, etc.)
+2. Cap/trim colour (Gold, Silver, Black, etc.)
+
+WHEN TO USE applicatorFilter IN searchCatalog:
+- Customer says "I want a roll-on bottle" → applicatorFilter: "Metal Roller,Plastic Roller"
+- Customer says "spray bottles for perfume" → applicatorFilter: "Fine Mist Sprayer,Atomizer,Antique Bulb Sprayer"
+- Customer says "dropper bottle for serum" → applicatorFilter: "Dropper"
+- Customer says "splash-on / cologne bottle" → applicatorFilter: "Reducer"
+- Customer says "reducer bottle" → applicatorFilter: "Reducer"
+- Customer says "glass wand" or "glass rod applicator" → applicatorFilter: "Glass Rod,Applicator Cap"
+- Customer says "glass applicator" or "glass stopper" → applicatorFilter: "Glass Stopper"
+- Customer asks broadly about a family first → call getFamilyOverview to see applicatorTypes, then searchCatalog with the filter
+
+---
+
 ## SUPPLY CHAIN & ASSEMBLY KNOWLEDGE
 - Viscosity: Fine mist sprayers suit thin liquids (perfume, toners). Lotion pumps suit thick emulsions. Roll-ons suit oils and serums.
 - Assembly: Roll-ons need plugs and caps. Sprayers have collars and dip tubes.
@@ -215,17 +258,18 @@ ${knowledgeSections}## HOW TO USE YOUR TOOLS
 
 You have five tools. Use them proactively — never guess product details:
 
-- getFamilyOverview: Call this FIRST whenever a customer asks broadly about a bottle family ("what sizes do Boston Rounds come in?", "tell me about Diva", "what Cylinders do you have?"). It returns every size, colour, thread, and applicator type for that family.
-- searchCatalog: Call this whenever a customer describes a specific product by size, colour, or use case. Returns up to 25 results. Search before recommending.
+- getFamilyOverview: Call this FIRST whenever a customer asks broadly about a bottle family ("what sizes do Boston Rounds come in?", "tell me about Diva", "what Cylinders do you have?"). It returns every size, colour, thread, and applicator type for that family — including the full list of applicatorTypes.
+- searchCatalog: Call this whenever a customer describes a specific product by size, colour, use case, OR applicator type. Use the applicatorFilter parameter when the customer uses applicator-first language (roll-on, spray, dropper, etc.). Returns up to 25 results. Search before recommending.
 - getBottleComponents: Call this to get the COMPLETE list of compatible components for a specific bottle. This is the definitive source — it returns every compatible sprayer, dropper, lotion pump, antique bulb sprayer, reducer, cap, and roll-on with SKU, pricing, and stock status. ALWAYS use this for compatibility questions about a specific bottle.
 - checkCompatibility: Call this when the customer asks about compatibility by thread size generically (not a specific bottle). Returns the fitment matrix for a thread size.
 - getCatalogStats: Call this if asked how many products we carry or for a catalog overview. Never use a hardcoded number.
 
 Tool rules:
 - CRITICAL: When a customer asks "what goes with" or "what fits" a specific bottle, call getBottleComponents (not checkCompatibility). First use searchCatalog to find the bottle's SKU if you don't know it, then call getBottleComponents with that SKU.
-- When a customer asks about a family broadly, call getFamilyOverview first, then searchCatalog for specifics.
+- APPLICATOR-FIRST QUERIES: When a customer uses applicator language ("I need a roll-on bottle", "show me spray options"), call searchCatalog with the appropriate applicatorFilter — see CATALOG STRUCTURE section for the exact mapping. Do NOT just search the term "roll-on" — use applicatorFilter: "Metal Roller,Plastic Roller" instead.
+- When a customer asks about a family broadly, call getFamilyOverview first — it returns applicatorTypes so you can immediately tell them which application methods are available. Then searchCatalog for specifics using applicatorFilter.
 - Never mention tool names to the customer. Use them naturally in the background.
-- If a search returns no results, try a simpler term before saying we don't carry it. For roll-on bottles, search "roller" or "5ml roller" or "9ml roller" — item names use "roller ball", not "roll-on".
+- If a search returns no results, try a simpler term before saying we don't carry it. For roll-on bottles, search "roller" or use applicatorFilter — item names use "roller ball", not "roll-on".
 - Never invent SKUs, prices, or specifications. If data isn't in a tool result, say you'll look into it further.
 - When the customer asks "do you have X or Y?" (e.g. "5ml roll-on or 9ml roll-on?"), call searchCatalog first. If both exist, answer YES and list them. Do not say "No" and then list products — that confuses the customer.
 - IMPORTANT: Some component itemNames are generic (e.g. "Sprayer Thread 18-415" for antique bulb sprayers). Always trust the component TYPE grouping from getBottleComponents (e.g. "Antique Bulb Sprayer", "Lotion Pump") rather than trying to classify by item name.
@@ -281,6 +325,9 @@ function normalizeSearchTerm(term: string): string {
     return term
         .replace(/\broll[- ]?on\b/gi, "roller")
         .replace(/\broll[- ]?on\s*bottle\b/gi, "roller bottle")
+        .replace(/\bsplash[- ]?on\b/gi, "reducer")
+        .replace(/\blotion\s*pump\s*bottle\b/gi, "lotion pump")
+        .replace(/\bdropper\s*bottle\b/gi, "dropper")
         .replace(/\b5\s*ml\b/gi, "5ml")
         .replace(/\b9\s*ml\b/gi, "9ml")
         .trim();
@@ -295,10 +342,14 @@ export const searchCatalog = query({
         searchTerm: v.string(),
         categoryLimit: v.optional(v.string()),
         familyLimit: v.optional(v.string()),
+        applicatorFilter: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
         const normalizedTerm = normalizeSearchTerm(args.searchTerm);
         const searchTermToUse = normalizedTerm || args.searchTerm;
+
+        // When an applicator filter is active, take more results before filtering
+        const takeCount = args.applicatorFilter ? 100 : 25;
 
         let q = ctx.db.query("products").withSearchIndex("search_itemName", (q) =>
             q.search("itemName", searchTermToUse)
@@ -309,7 +360,7 @@ export const searchCatalog = query({
         if (args.familyLimit) {
             q = q.filter((q) => q.eq(q.field("family"), args.familyLimit));
         }
-        let results = await q.take(25);
+        let results = await q.take(takeCount);
 
         // Fallback: if few results and term had roll-on/roller, try broader "roller" search
         if (results.length < 5 && /\b(roll|roller)\b/i.test(args.searchTerm)) {
@@ -332,11 +383,21 @@ export const searchCatalog = query({
             }
             const seen = new Set(results.map((r) => r.graceSku));
             for (const p of fallback) {
-                if (!seen.has(p.graceSku) && results.length < 25) {
+                if (!seen.has(p.graceSku) && results.length < takeCount) {
                     results = [...results, p];
                     seen.add(p.graceSku);
                 }
             }
+        }
+
+        // Apply applicator filter in JS after fetching (Convex search index doesn't support OR filters)
+        if (args.applicatorFilter) {
+            const allowed = new Set(
+                args.applicatorFilter.split(",").map((s) => s.trim().toLowerCase())
+            );
+            results = results
+                .filter((p) => p.applicator && allowed.has(p.applicator.toLowerCase()))
+                .slice(0, 25);
         }
 
         // Return a trimmed version — components arrays are large and waste tokens
@@ -737,11 +798,13 @@ export const askGrace = action({
                                     searchTerm: string;
                                     categoryLimit?: string;
                                     familyLimit?: string;
+                                    applicatorFilter?: string;
                                 };
                                 const data = await ctx.runQuery(api.grace.searchCatalog, {
                                     searchTerm: input.searchTerm,
                                     categoryLimit: input.categoryLimit,
                                     familyLimit: input.familyLimit,
+                                    applicatorFilter: input.applicatorFilter,
                                 });
                                 result = data.length > 0
                                     ? JSON.stringify(data, null, 2)

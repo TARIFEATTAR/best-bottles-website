@@ -14,9 +14,26 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    const body = (await req.json().catch(() => ({}))) as {
-        instructions?: string;
-    };
+    // Ignore the full knowledge-base instructions sent from the client.
+    // Injecting the entire Grace knowledge base (~6,000+ tokens) into every
+    // Realtime response burns through the 40k TPM rate limit in 4–5 turns.
+    // The Realtime model uses its tools to fetch product data live — it does
+    // not need product knowledge pre-loaded in the system prompt.
+    await req.json().catch(() => {});
+
+    const REALTIME_INSTRUCTIONS = `You are Grace, the luxury packaging concierge at Best Bottles — a premium glass packaging supplier for beauty, fragrance, and wellness brands. You are warm, knowledgeable, and efficient.
+
+TOOLS: You have searchCatalog, getFamilyOverview, getBottleComponents, checkCompatibility, getCatalogStats, showProducts, compareProducts, proposeCartAdd, navigateToPage, and prefillForm. ALWAYS use tools — never guess product names, specs, prices, or availability.
+
+VOICE RULES (CRITICAL — you are speaking aloud):
+- Maximum 2 sentences per reply. Total response under 40 words.
+- No lists, bullet points, or markdown. No SKU codes — say product names naturally.
+- Say thread sizes as words: "eighteen four-fifteen" not "18-415".
+- End every reply with ONE short follow-up question to keep the conversation going.
+
+APPLICATOR LANGUAGE: roll-on/roller → searchCatalog applicatorFilter "Metal Roller,Plastic Roller"; spray/mist/atomizer → "Fine Mist Sprayer,Atomizer,Antique Bulb Sprayer"; splash-on/cologne/reducer → "Reducer"; dropper/serum → "Dropper"; lotion pump → "Lotion Pump"; glass wand/glass rod → "Glass Rod,Applicator Cap"; glass applicator/glass stopper → "Glass Stopper"; cap/closure → "Cap/Closure".
+
+BEHAVIOUR: For family questions call getFamilyOverview first. Use showProducts/compareProducts so customers can see options visually. For cart adds always use proposeCartAdd — never add without customer confirmation. Language: English unless customer speaks another language first.`;
 
     const res = await fetch("https://api.openai.com/v1/realtime/sessions", {
         method: "POST",
@@ -27,33 +44,19 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
             model: "gpt-4o-realtime-preview-2025-06-03",
             voice: "sage",
-            modalities: ["text", "audio"],
-            instructions: (body.instructions || "") +
-                "\n\nCRITICAL: Always respond in English unless the customer explicitly speaks another language first. Your default language is English.",
+            instructions: REALTIME_INSTRUCTIONS,
             tools: [
                 {
                     type: "function",
                     name: "searchCatalog",
-                    description:
-                        "Search the Best Bottles product catalog by keyword. Returns top 25 products with specs and pricing. Use for roll-on, roller ball, dropper, sprayer, etc. Search '5ml roller' or '9ml roll-on' for roll-on bottles.",
+                    description: "Search catalog by keyword. Always set applicatorFilter for roll-on/spray/dropper/pump queries.",
                     parameters: {
                         type: "object",
                         properties: {
-                            searchTerm: {
-                                type: "string",
-                                description:
-                                    "Search query: e.g. '5ml roller', '9ml roll-on', '30ml dropper', 'amber boston round', 'frosted elegant 60ml'",
-                            },
-                            categoryLimit: {
-                                type: "string",
-                                description:
-                                    "Optional: 'Glass Bottle', 'Component', 'Aluminum Bottle', or 'Specialty'",
-                            },
-                            familyLimit: {
-                                type: "string",
-                                description:
-                                    "Optional: 'Cylinder', 'Elegant', 'Boston Round', etc.",
-                            },
+                            searchTerm: { type: "string", description: "Size/color/family query, e.g. '9ml cobalt blue', '30ml amber'" },
+                            applicatorFilter: { type: "string", description: "Roll-on→'Metal Roller,Plastic Roller'; Spray→'Fine Mist Sprayer,Atomizer,Antique Bulb Sprayer'; Dropper→'Dropper'; Pump→'Lotion Pump'; Splash-on→'Reducer'; Glass wand→'Glass Rod,Applicator Cap'; Glass stopper→'Glass Stopper'; Cap→'Cap/Closure'" },
+                            categoryLimit: { type: "string", description: "'Glass Bottle'|'Component'|'Aluminum Bottle'|'Specialty'" },
+                            familyLimit: { type: "string", description: "'Cylinder'|'Elegant'|'Boston Round'|'Diva'|'Empire'|etc" },
                         },
                         required: ["searchTerm"],
                     },
@@ -61,16 +64,11 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "getFamilyOverview",
-                    description:
-                        "Get a complete overview of a bottle family: sizes, colours, thread sizes, applicator types, price ranges. ALWAYS call this when asked broadly about a family.",
+                    description: "Get all sizes, colors, threads, applicator types, and price ranges for a bottle family.",
                     parameters: {
                         type: "object",
                         properties: {
-                            family: {
-                                type: "string",
-                                description:
-                                    "Family name: 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square', 'Vial', 'Grace', 'Rectangle', 'Flair'",
-                            },
+                            family: { type: "string", description: "'Cylinder'|'Elegant'|'Boston Round'|'Circle'|'Diva'|'Empire'|'Slim'|'Diamond'|'Sleek'|'Round'|'Royal'|'Square'|'Vial'|'Grace'|'Rectangle'|'Flair'" },
                         },
                         required: ["family"],
                     },
@@ -78,16 +76,11 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "checkCompatibility",
-                    description:
-                        "Check which closures/applicators are compatible with a bottle neck/thread size. Call for ANY compatibility question.",
+                    description: "List closures/applicators compatible with a thread size.",
                     parameters: {
                         type: "object",
                         properties: {
-                            threadSize: {
-                                type: "string",
-                                description:
-                                    "Neck thread size: '18-415', '20-400', '13-425', etc.",
-                            },
+                            threadSize: { type: "string", description: "e.g. '18-415', '20-400', '13-425'" },
                         },
                         required: ["threadSize"],
                     },
@@ -95,16 +88,11 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "getBottleComponents",
-                    description:
-                        "Get the complete list of compatible components (sprayers, droppers, roll-ons, lotion pumps, etc.) for a specific bottle. Call with the bottle's graceSku or websiteSku after finding it via searchCatalog.",
+                    description: "Get all compatible components for a specific bottle SKU.",
                     parameters: {
                         type: "object",
                         properties: {
-                            bottleSku: {
-                                type: "string",
-                                description:
-                                    "The bottle's SKU (e.g. GB-CYL-CLR-5ML-MRL-BKDT or from searchCatalog results)",
-                            },
+                            bottleSku: { type: "string", description: "Bottle SKU from searchCatalog" },
                         },
                         required: ["bottleSku"],
                     },
@@ -112,30 +100,18 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "getCatalogStats",
-                    description:
-                        "Get live product counts — total variants, breakdown by family, category, collection. ALWAYS call when asked about catalog size.",
-                    parameters: {
-                        type: "object",
-                        properties: {},
-                        required: [],
-                    },
+                    description: "Get total product counts by family and category.",
+                    parameters: { type: "object", properties: {}, required: [] },
                 },
                 {
                     type: "function",
                     name: "showProducts",
-                    description:
-                        "Display product cards visually in the chat. Call this when the customer wants to SEE products, not just hear about them. Shows images, specs, and prices in a card layout.",
+                    description: "Display product cards visually when customer wants to see options.",
                     parameters: {
                         type: "object",
                         properties: {
-                            query: {
-                                type: "string",
-                                description: "Search query to find products to display",
-                            },
-                            family: {
-                                type: "string",
-                                description: "Optional: filter to a specific bottle family",
-                            },
+                            query: { type: "string", description: "Search query" },
+                            family: { type: "string", description: "Optional family filter" },
                         },
                         required: ["query"],
                     },
@@ -143,19 +119,12 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "compareProducts",
-                    description:
-                        "Show a side-by-side comparison of products in the chat. Call when customer is deciding between options or asks to compare bottles.",
+                    description: "Show side-by-side product comparison.",
                     parameters: {
                         type: "object",
                         properties: {
-                            query: {
-                                type: "string",
-                                description: "Search query to find products to compare",
-                            },
-                            family: {
-                                type: "string",
-                                description: "Optional: filter to a specific family",
-                            },
+                            query: { type: "string", description: "Search query" },
+                            family: { type: "string", description: "Optional family filter" },
                         },
                         required: ["query"],
                     },
@@ -163,20 +132,18 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "proposeCartAdd",
-                    description:
-                        "Propose adding products to the customer's cart. This shows a confirmation card — the customer must approve before anything is added. Call when customer says they want to buy, order, add to cart, or when you're recommending a complete selection.",
+                    description: "Propose cart additions — requires customer confirmation via card.",
                     parameters: {
                         type: "object",
                         properties: {
                             products: {
                                 type: "array",
-                                description: "Products to propose adding",
                                 items: {
                                     type: "object",
                                     properties: {
                                         itemName: { type: "string" },
                                         graceSku: { type: "string" },
-                                        quantity: { type: "number", description: "Default 1" },
+                                        quantity: { type: "number" },
                                         webPrice1pc: { type: "number" },
                                     },
                                     required: ["itemName", "graceSku"],
@@ -189,27 +156,14 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "navigateToPage",
-                    description:
-                        "Navigate the customer to a page on the website. By default (autoNavigate=false), shows a link card. When the customer explicitly asks to be taken/moved to a page, set autoNavigate=true to navigate them directly. After showing a link, always let the customer know you can also navigate them there — say something like 'I shared the link, but I can also take you there directly if you'd like.'",
+                    description: "Show a link card or navigate customer to a page. Set autoNavigate=true only when customer explicitly asks to go there.",
                     parameters: {
                         type: "object",
                         properties: {
-                            path: {
-                                type: "string",
-                                description: "URL path: '/catalog', '/products/frosted-cylinder-30ml', '/catalog?family=Elegant'",
-                            },
-                            title: {
-                                type: "string",
-                                description: "Card title: 'View the Elegant Collection', 'Browse All Cylinders'",
-                            },
-                            description: {
-                                type: "string",
-                                description: "Brief description of what they'll find on the page",
-                            },
-                            autoNavigate: {
-                                type: "boolean",
-                                description: "If true, navigate the customer directly to the page. Set true when they say 'take me there', 'go to', 'show me', 'navigate me'. Default false (just show the link).",
-                            },
+                            path: { type: "string", description: "URL path, e.g. '/catalog', '/contact', '/catalog?family=Elegant'" },
+                            title: { type: "string", description: "Card title" },
+                            description: { type: "string", description: "What they'll find on the page" },
+                            autoNavigate: { type: "boolean", description: "True to navigate directly" },
                         },
                         required: ["path", "title"],
                     },
@@ -217,30 +171,23 @@ export async function POST(req: NextRequest) {
                 {
                     type: "function",
                     name: "prefillForm",
-                    description:
-                        "Pre-fill and display a form for the customer to review and submit. Use for sample requests, quote requests, contact forms, or newsletter signups. Gather the information conversationally first, then show the form.",
+                    description: "Pre-fill a form after collecting info conversationally. Fields: name, email, company, phone, message.",
                     parameters: {
                         type: "object",
                         properties: {
-                            formType: {
-                                type: "string",
-                                enum: ["sample", "quote", "contact", "newsletter"],
-                                description: "Type of form to show",
-                            },
-                            fields: {
-                                type: "object",
-                                description: "Key-value pairs of form field names and values collected from conversation",
-                            },
+                            formType: { type: "string", enum: ["sample", "quote", "contact", "newsletter"] },
+                            fields: { type: "object", description: "Field name→value pairs" },
                         },
                         required: ["formType", "fields"],
                     },
                 },
             ],
+            max_response_output_tokens: 300,
             turn_detection: {
                 type: "server_vad",
                 threshold: 0.5,
                 prefix_padding_ms: 300,
-                silence_duration_ms: 500,
+                silence_duration_ms: 600,
             },
             input_audio_transcription: {
                 model: "whisper-1",

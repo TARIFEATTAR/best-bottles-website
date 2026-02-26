@@ -2,9 +2,11 @@
 export const APPLICATOR_BUCKETS = [
     { value: "rollon", label: "Roll-on", productValues: ["Metal Roller", "Plastic Roller"] },
     { value: "spray", label: "Spray", productValues: ["Fine Mist Sprayer", "Atomizer", "Antique Bulb Sprayer", "Antique Bulb Sprayer with Tassel"] },
-    { value: "splashon", label: "Splash-on", productValues: ["Reducer"] },
+    { value: "reducer", label: "Reducer", productValues: ["Reducer"] },
     { value: "dropper", label: "Dropper", productValues: ["Dropper"] },
     { value: "lotionpump", label: "Lotion Pump", productValues: ["Lotion Pump"] },
+    { value: "glasswand", label: "Glass Wand", productValues: ["Glass Rod", "Applicator Cap"] },
+    { value: "glassapplicator", label: "Glass Applicator", productValues: ["Glass Stopper"] },
     { value: "capclosure", label: "Cap/Closure", productValues: ["Cap/Closure"] },
 ] as const;
 
@@ -13,7 +15,7 @@ export type ApplicatorBucket = (typeof APPLICATOR_BUCKETS)[number]["value"];
 export function applicatorBucketMatchesProductValues(bucket: ApplicatorBucket, productApplicatorTypes: string[]): boolean {
     const def = APPLICATOR_BUCKETS.find((b) => b.value === bucket);
     if (!def) return false;
-    return productApplicatorTypes.some((a) => def.productValues.includes(a));
+    return productApplicatorTypes.some((a) => (def.productValues as readonly string[]).includes(a));
 }
 
 export const SORT_OPTIONS = [
