@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Send, CheckCircle2, Loader2 } from "lucide-react";
@@ -37,6 +37,30 @@ export default function FormPage({ formType, title, subtitle, fields }: FormPage
     });
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
+
+    // React to URL searchParam changes (e.g. when Grace navigates to this page with pre-filled params)
+    useEffect(() => {
+        const prefilled: Record<string, string> = {};
+        fields.forEach((f) => {
+            const param = searchParams.get(f.name);
+            if (param) prefilled[f.name] = param;
+        });
+        if (Object.keys(prefilled).length > 0) {
+            setValues((v) => ({ ...v, ...prefilled }));
+        }
+    }, [searchParams, fields]);
+
+    // React to Grace in-place pre-fill when already on this form page
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const { formType: targetType, fields: prefilled } = (e as CustomEvent<{ formType: string; fields: Record<string, string> }>).detail;
+            if (targetType === formType) {
+                setValues((v) => ({ ...v, ...prefilled }));
+            }
+        };
+        window.addEventListener("grace:prefillForm", handler);
+        return () => window.removeEventListener("grace:prefillForm", handler);
+    }, [formType]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();

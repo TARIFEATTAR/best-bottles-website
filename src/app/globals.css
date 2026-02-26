@@ -113,6 +113,32 @@ body {
   animation: liquidShimmer 3s ease-in-out infinite;
 }
 
+/* Text shimmer — subtle highlight sweep across white text */
+@keyframes textShimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    #fff 35%,
+    rgba(197, 160, 101, 0.95) 50%,
+    #fff 65%,
+    #fff 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 3s ease-in-out infinite;
+}
+
 /* Hide scrollbar while preserving scroll behaviour */
 .hide-scroll {
   scrollbar-width: none;

@@ -191,7 +191,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
 
                 <div className="max-w-[1440px] mx-auto px-6 h-[72px] flex items-center justify-between gap-6">
                     <div className="flex items-center space-x-10 shrink-0">
-                        <Link href="/" className="font-serif text-2xl font-medium tracking-tight text-obsidian">
+                        <Link href="/" className="font-display text-2xl font-medium tracking-tight text-obsidian">
                             BEST BOTTLES
                         </Link>
                         <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-obsidian tracking-wide uppercase">

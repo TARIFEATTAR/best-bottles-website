@@ -120,11 +120,27 @@ export const getCompatibleFitments = query({
 
         if (!bottle) return { bottle: null, components: null };
 
+        const bottleThread = (bottle.neckThreadSize ?? "").toString().trim();
         const grouped = normalizeComponentsByType(bottle.components);
+
+        // 2. Filter components by thread — 18-400 caps don't fit 17-415 bottles, etc.
+        // Extract thread from SKU (e.g. CMP-CAP-BLK-18-400 → "18-400") and exclude mismatches
+        const threadFromSku = (sku: string): string | null => {
+            const m = sku.match(/(\d{2}-\d{3})/);
+            return m ? m[1] : null;
+        };
+        const filteredEntries = Object.entries(grouped).map(([type, items]) => {
+            const matching = items.filter((item) => {
+                const compThread = threadFromSku(item.graceSku);
+                return !compThread || compThread === bottleThread;
+            });
+            return [type, matching] as const;
+        });
+
         return {
             bottle,
             components: Object.fromEntries(
-                Object.entries(grouped).map(([type, items]) => [
+                filteredEntries.map(([type, items]) => [
                     type,
                     items.map((item) => ({
                         graceSku: item.graceSku,
@@ -410,18 +426,27 @@ export const getGroupsByFamily = query({
 });
 
 /**
- * Returns sibling product groups — same family + capacityMl, different glass color.
+ * Returns sibling product groups — same family + capacityMl + neckThreadSize, different glass color.
  * Used by the PDP to show glass color swatches and navigate between color variants.
+ * neckThreadSize is optional for backward compatibility; when provided only same-thread siblings are returned.
  */
 export const getSiblingGroups = query({
-    args: { family: v.string(), capacityMl: v.number(), excludeSlug: v.string() },
+    args: {
+        family: v.string(),
+        capacityMl: v.number(),
+        excludeSlug: v.string(),
+        neckThreadSize: v.optional(v.string()),
+    },
     handler: async (ctx, args) => {
         const all = await ctx.db
             .query("productGroups")
             .withIndex("by_family", (q) => q.eq("family", args.family))
             .collect();
         return all.filter(
-            (g) => g.capacityMl === args.capacityMl && g.slug !== args.excludeSlug
+            (g) =>
+                g.capacityMl === args.capacityMl &&
+                g.slug !== args.excludeSlug &&
+                (args.neckThreadSize == null || g.neckThreadSize === args.neckThreadSize)
         );
     },
 });

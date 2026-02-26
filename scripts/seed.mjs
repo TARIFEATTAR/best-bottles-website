@@ -61,6 +61,13 @@ function normalizeProduct(raw) {
     // Convert price fields — treat non-numeric values as null
     const toPrice = (v) => (typeof v === "number" && isFinite(v) ? v : null);
 
+    // Tulip fix: source data incorrectly has family "Cylinder" for Tulip bottles
+    const sku = (raw.website_sku || "").toLowerCase();
+    const name = (raw.item_name || "").toLowerCase();
+    const isTulip = sku.includes("tulip") || name.includes("tulip design");
+    const family = isTulip ? "Tulip" : (raw.family || null);
+    const bottleCollection = isTulip ? "Tulip Collection" : (raw.family || null);
+
     return {
         // ── Identity ───────────────────────────────────────────────
         productId:       raw.id || null,
@@ -69,7 +76,7 @@ function normalizeProduct(raw) {
 
         // ── Classification ─────────────────────────────────────────
         category:        raw.category || "Unknown",
-        family:          raw.family || null,
+        family,
         shape:           null,   // not in this dataset
         color:           null,   // not in this dataset
         capacity:        raw.capacity || null,
@@ -103,7 +110,7 @@ function normalizeProduct(raw) {
         imageUrl:        raw.image_url || null,
         productUrl:      raw.product_url || null,
         dataGrade:       null,
-        bottleCollection: raw.family || null, // use family as collection fallback
+        bottleCollection,
 
         // ── Fitment ────────────────────────────────────────────────
         fitmentStatus:   null,

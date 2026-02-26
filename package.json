@@ -13,10 +13,15 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
     "@openai/agents": "^0.5.1",
+    "@portabletext/react": "^6.0.2",
+    "@sanity/client": "^7.16.0",
+    "@sanity/image-url": "^2.0.3",
+    "@sanity/vision": "^5.12.0",
     "convex": "^1.32.0",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
+    "next-sanity": "^12.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "zod": "^4.3.6"

@@ -61,7 +61,7 @@ function Hero() {
               onClick={openGrace}
               className="group flex items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300"
             >
-              <span className="border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Talk to Grace — Our AI Expert</span>
+              <span className="text-shimmer border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Talk to Grace — Our AI Expert</span>
             </button>
           </FadeUp>
         </div>

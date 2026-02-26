@@ -37,6 +37,7 @@ export async function executeRealtimeTool(
             case "searchCatalog": {
                 const data = await convex.query(api.grace.searchCatalog, {
                     searchTerm: (args.searchTerm as string) ?? "",
+                    applicatorFilter: args.applicatorFilter as string | undefined,
                     categoryLimit: args.categoryLimit as string | undefined,
                     familyLimit: args.familyLimit as string | undefined,
                 });
@@ -105,14 +106,14 @@ export async function fetchGraceInstructions(): Promise<string> {
 }
 
 // ─── Fetch ephemeral token from our API route ────────────────────────────────
+// Instructions are now a compact hardcoded prompt in the token route — no need
+// to pass the full knowledge base here.
 
-export async function fetchEphemeralToken(
-    instructions: string
-): Promise<{ token: string; expiresAt: number }> {
+export async function fetchEphemeralToken(): Promise<{ token: string; expiresAt: number }> {
     const res = await fetch("/api/realtime/token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ instructions }),
+        body: JSON.stringify({}),
     });
     if (!res.ok) {
         const err = await res.json().catch(() => ({ error: "Unknown error" }));

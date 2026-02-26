@@ -36,16 +36,28 @@ interface GroupRecord {
 // PRODUCT GROUPING MIGRATION — Phase 1
 //
 // Groups all flat SKU records into parent productGroups.
-// Grouping key: family + capacityMl + color
+// Grouping key:
+//   Bottles (Glass Bottle, Lotion Bottle, Aluminum Bottle):
+//     family + capacityMl + color + neckThreadSize
+//     → slug: e.g. cylinder-5ml-clear-13-415
+//   Components / caps / applicators:
+//     family + capacityMl + color  (thread intentionally excluded — they serve multiple necks)
+//     → slug: e.g. cap-0ml-black
 //
 // Run via: node scripts/run_grouping_migration.mjs
+// IMPORTANT: Run fixCylinder5mlData BEFORE this migration to ensure clean source data.
 // ─────────────────────────────────────────────────────────────────────────────
+
+// Bottle categories that should be split by neckThreadSize.
+// Components/caps/sprayers intentionally serve multiple thread sizes and should NOT split.
+const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Lotion Bottle", "Aluminum Bottle"]);
 
 function buildSlug(
     family: string | null,
     capacityMl: number | null,
     color: string | null,
-    category: string
+    category: string,
+    neckThreadSize: string | null
 ): string {
     const f = (family || category || "unknown")
         .toLowerCase()
@@ -56,6 +68,13 @@ function buildSlug(
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/(^-|-$)/g, "");
+    if (BOTTLE_CATEGORIES.has(category) && neckThreadSize) {
+        const thread = neckThreadSize
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "");
+        return `${f}-${c}-${col}-${thread}`;
+    }
     return `${f}-${c}-${col}`;
 }
 
@@ -77,9 +96,14 @@ function buildGroupKey(
     family: string | null,
     capacityMl: number | null,
     color: string | null,
-    category: string
+    category: string,
+    neckThreadSize: string | null
 ): string {
-    return [family || category, capacityMl ?? "null", color || "null"].join("|");
+    const parts: (string | number)[] = [family || category, capacityMl ?? "null", color || "null"];
+    if (BOTTLE_CATEGORIES.has(category)) {
+        parts.push(neckThreadSize || "null");
+    }
+    return parts.join("|");
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -183,11 +207,11 @@ export const buildProductGroups = action({
             }) as PageResult;
 
             for (const p of result.page) {
-                const key = buildGroupKey(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown");
+                const key = buildGroupKey(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown", p.neckThreadSize ?? null);
 
                 if (!groupMap.has(key)) {
                     groupMap.set(key, {
-                        slug: buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown"),
+                        slug: buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown", p.neckThreadSize ?? null),
                         displayName: buildDisplayName(p.family ?? null, p.capacity ?? null, p.color ?? null, p.category ?? "unknown"),
                         family: p.family || p.category || "unknown",
                         capacity: p.capacity ?? null,
@@ -261,7 +285,7 @@ export const linkProductsToGroups = action({
 
             const links: { id: Id<"products">; groupId: Id<"productGroups"> }[] = [];
             for (const p of result.page) {
-                const slug = buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown");
+                const slug = buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown", p.neckThreadSize ?? null);
                 const groupId = slugToId.get(slug);
                 if (groupId) {
                     links.push({ id: p._id, groupId });
@@ -856,6 +880,124 @@ export const fixTulipFamily = action({
             message: fixes.length === 0
                 ? "No Tulip products needed reclassification."
                 : `Reclassified ${fixes.length} Tulip products. Run buildProductGroups + linkProductsToGroups to update groups.`,
+        };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CYLINDER 5ML DATA FIX
+//
+// Per DATA_QUALITY_AUDIT.md and Jordan's confirmation:
+//   - Valid colors: Clear, Amber, Cobalt Blue  (thread 13-415)
+//   - Remove: Black (2 SKUs), Pink (1 SKU), White (1 SKU) — 5ml doesn't come in these
+//   - Remove: any 5ml Cylinder with thread 18-400 (wrong thread for this bottle)
+//   - Standardize: "13mm" → "13-415" (same neck, different notation in source data)
+//   - Rename: "Blue" → "Cobalt Blue" for 5ml Cylinder (BLU and CBL are the same glass;
+//     BLU is just a mislabeled majority while CBL is the correct canonical name)
+//
+// Run BEFORE buildProductGroups so groups are built on clean data.
+// Run via: npx convex run migrations:fixCylinder5mlData
+// Then:    node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CYL5_WRONG_COLORS = new Set(["Black", "Pink", "White"]);
+
+export const fixCylinder5mlData = action({
+    args: {},
+    handler: async (ctx) => {
+        const PAGE_SIZE = 100;
+        let cursor: string | null = null;
+        let isDone = false;
+
+        const toDelete: { id: Id<"products">; sku: string; reason: string }[] = [];
+        // Thread standardizations and Blue→Cobalt Blue renames share the same patch mechanism
+        const toRename: { id: Id<"products">; sku: string; fields: Record<string, string> }[] = [];
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+
+            for (const p of result.page) {
+                // Only Cylinder 5ml bottles
+                if (p.family !== "Cylinder") continue;
+                if ((p.capacityMl ?? 0) !== 5) continue;
+
+                const thread = (p.neckThreadSize ?? "").trim();
+                const color = (p.color ?? "").trim();
+                const skuParts = (p.graceSku || "").split("-");
+                const isGbCyl = skuParts[0] === "GB" && skuParts[1] === "CYL";
+                const skuColorCode = isGbCyl ? skuParts[2] : "";
+
+                // Wrong thread: 18-400 is for larger bottles, not 5ml Cylinder
+                if (thread === "18-400") {
+                    toDelete.push({ id: p._id, sku: p.graceSku || "", reason: "wrong thread 18-400 for 5ml Cylinder" });
+                    continue;
+                }
+
+                // Wrong colors by field value (if enrichProductFields has run)
+                if (color && CYL5_WRONG_COLORS.has(color)) {
+                    toDelete.push({ id: p._id, sku: p.graceSku || "", reason: `wrong color "${color}" for 5ml Cylinder` });
+                    continue;
+                }
+                // Wrong colors by SKU segment (fallback if enrichProductFields hasn't run)
+                if (isGbCyl && (skuColorCode === "BLK" || skuColorCode === "PNK" || skuColorCode === "WHT")) {
+                    if (!toDelete.some(d => d.id === p._id)) {
+                        toDelete.push({ id: p._id, sku: p.graceSku || "", reason: `wrong color SKU "${skuColorCode}" for 5ml Cylinder` });
+                    }
+                    continue;
+                }
+
+                // Collect field patches for this product (thread + color fixes)
+                const fields: Record<string, string> = {};
+
+                // Standardize "13mm" → "13-415"
+                if (thread === "13mm") {
+                    fields.neckThreadSize = "13-415";
+                }
+
+                // Rename "Blue" → "Cobalt Blue": BLU SKU segment and/or color field
+                // Both BLU and CBL are the same cobalt glass; BLU is a source-data naming error.
+                if (color === "Blue" || skuColorCode === "BLU") {
+                    fields.color = "Cobalt Blue";
+                }
+
+                if (Object.keys(fields).length > 0) {
+                    toRename.push({ id: p._id, sku: p.graceSku || "", fields });
+                }
+            }
+
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        // Delete wrong-thread + wrong-color products
+        const BATCH = 50;
+        for (let i = 0; i < toDelete.length; i += BATCH) {
+            const ids = toDelete.slice(i, i + BATCH).map(d => d.id);
+            await ctx.runMutation(internal.migrations.deleteProductsBatch, { ids });
+        }
+
+        // Apply thread standardizations + Blue→Cobalt Blue renames
+        for (let i = 0; i < toRename.length; i += BATCH) {
+            const patches = toRename.slice(i, i + BATCH).map(r => ({
+                id: r.id,
+                fields: r.fields,
+            }));
+            await ctx.runMutation(internal.migrations.patchProductFields, { patches });
+        }
+
+        const threadFixes = toRename.filter(r => r.fields.neckThreadSize);
+        const colorFixes = toRename.filter(r => r.fields.color === "Cobalt Blue");
+
+        return {
+            deleted: toDelete.length,
+            threadStandardized: threadFixes.length,
+            blueRenamedToCobaltBlue: colorFixes.length,
+            deletedSkus: toDelete.map(d => `${d.sku} (${d.reason})`),
+            renamedSkus: colorFixes.map(r => r.sku),
+            message: `Removed ${toDelete.length} bad Cylinder 5ml products. Standardized ${threadFixes.length} threads "13mm"→"13-415". Renamed ${colorFixes.length} "Blue"→"Cobalt Blue". Run buildProductGroups + linkProductsToGroups to rebuild groups.`,
         };
     },
 });

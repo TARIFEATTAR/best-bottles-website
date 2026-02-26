@@ -1,8 +1,8 @@
 import { NextRequest } from "next/server";
 
-// ─── ElevenLabs TTS proxy ─────────────────────────────────────────────────────
+// ─── OpenAI TTS proxy ─────────────────────────────────────────────────────────
 
-const ELEVENLABS_TTS_URL = "https://api.elevenlabs.io/v1/text-to-speech";
+const OPENAI_TTS_URL = "https://api.openai.com/v1/audio/speech";
 
 /**
  * Normalizes text for clearer TTS output — expands prices, dimensions,
@@ -45,37 +45,31 @@ export async function POST(req: NextRequest) {
         return new Response("Missing text", { status: 400 });
     }
 
-    const apiKey = process.env.ELEVENLABS_API_KEY;
-    const voiceId = process.env.ELEVENLABS_VOICE_ID;
+    const apiKey = process.env.OPENAI_API_KEY;
 
-    if (!apiKey || !voiceId) {
+    if (!apiKey) {
         return new Response("Voice not configured", { status: 503 });
     }
 
     const ttsText = prepareTtsText(text);
 
-    const upstream = await fetch(`${ELEVENLABS_TTS_URL}/${voiceId}`, {
+    const upstream = await fetch(OPENAI_TTS_URL, {
         method: "POST",
         headers: {
-            "Accept": "audio/mpeg",
+            "Authorization": `Bearer ${apiKey}`,
             "Content-Type": "application/json",
-            "xi-api-key": apiKey,
         },
         body: JSON.stringify({
-            text: ttsText,
-            model_id: "eleven_turbo_v2_5",
-            voice_settings: {
-                stability: 0.68,
-                similarity_boost: 0.78,
-                style: 0.20,
-                use_speaker_boost: true,
-            },
+            model: "tts-1",
+            input: ttsText,
+            voice: "sage",
+            response_format: "mp3",
         }),
     });
 
     if (!upstream.ok) {
         const errorText = await upstream.text();
-        console.error("[grace/voice] ElevenLabs error:", upstream.status, errorText);
+        console.error("[grace/voice] OpenAI TTS error:", upstream.status, errorText);
         return new Response("Voice synthesis failed", { status: 502 });
     }
 

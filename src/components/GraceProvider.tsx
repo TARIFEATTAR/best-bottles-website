@@ -13,7 +13,6 @@ import { useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import {
     executeRealtimeTool,
-    fetchGraceInstructions,
     fetchEphemeralToken,
 } from "@/lib/graceRealtime";
 import { useCart } from "./CartProvider";
@@ -145,6 +144,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const closePanel = useCallback(() => {
         setPanelMode("closed");
         setConversationActive(false);
+        setMessages([]);
     }, []);
     const minimizeToStrip = useCallback(() => setPanelMode("strip"), []);
     const open = openPanel;
@@ -180,6 +180,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             audioRef.current = null;
         }
         setStatus("idle");
+        setMessages([]);
     }, [destroyRealtimeSession]);
 
     const onNavigate = useCallback((path: string) => {
@@ -257,6 +258,53 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                     break;
                 }
 
+                case "response.output_text.delta": {
+                    const delta = (event as { delta?: string }).delta ?? "";
+                    graceTranscriptRef.current += delta;
+                    setStatus("speaking");
+                    break;
+                }
+
+                case "response.output_text.done": {
+                    const fullText = ((event as { text?: string }).text ?? graceTranscriptRef.current).trim();
+                    graceTranscriptRef.current = "";
+                    if (fullText) {
+                        setMessages((prev) => [
+                            ...prev,
+                            { role: "grace", content: stripMarkdown(fullText), id: `g-${Date.now()}` },
+                        ]);
+                        if (voiceEnabled) {
+                            fetch("/api/voice", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ text: fullText }),
+                            })
+                                .then((res) => (res.ok ? res.blob() : null))
+                                .then((blob) => {
+                                    if (!blob || !voiceEnabled) {
+                                        setStatus("listening");
+                                        return;
+                                    }
+                                    const url = URL.createObjectURL(blob);
+                                    const audio = new Audio(url);
+                                    audioRef.current = audio;
+                                    audio.play().catch(() => {});
+                                    audio.onended = () => {
+                                        URL.revokeObjectURL(url);
+                                        audioRef.current = null;
+                                        setStatus("listening");
+                                    };
+                                })
+                                .catch(() => setStatus("listening"));
+                        } else {
+                            setStatus("listening");
+                        }
+                    } else {
+                        setStatus("listening");
+                    }
+                    break;
+                }
+
                 case "response.function_call_arguments.done": {
                     const e = event as {
                         call_id?: string;
@@ -319,13 +367,17 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                             });
                             sendRTEvent({ type: "response.create" });
                         } else if (e.name === "prefillForm") {
+                            const fType = (args.formType ?? "contact") as "sample" | "quote" | "contact" | "newsletter";
+                            const fFields = (args.fields ?? {}) as Record<string, string>;
+                            // Let FormPage fill in-place when already on the form page
+                            window.dispatchEvent(new CustomEvent("grace:prefillForm", { detail: { formType: fType, fields: fFields } }));
                             setMessages((prev) => [...prev, {
                                 role: "grace", content: "", id: `a-${Date.now()}`,
-                                action: { type: "prefillForm", formType: args.formType ?? "contact", fields: args.fields ?? {} },
+                                action: { type: "prefillForm", formType: fType, fields: fFields },
                             }]);
                             sendRTEvent({
                                 type: "conversation.item.create",
-                                item: { type: "function_call_output", call_id: e.call_id, output: "Form shown to customer for review." },
+                                item: { type: "function_call_output", call_id: e.call_id, output: "Form pre-filled and shown to customer for review." },
                             });
                             sendRTEvent({ type: "response.create" });
                         } else {
@@ -386,7 +438,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                     break;
             }
         },
-        [sendRTEvent]
+        [sendRTEvent, voiceEnabled]
     );
 
     // ── Start Realtime voice conversation ────────────────────────────────────
@@ -399,18 +451,10 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
 
             const t0 = performance.now();
 
-            // 1. Fetch Grace's system prompt from Convex
-            let instructions: string;
-            try {
-                instructions = await fetchGraceInstructions();
-            } catch (e) {
-                console.warn("[Grace RT] Could not load instructions from Convex, using fallback:", e);
-                instructions = "";
-            }
-            console.log(`[Grace RT] Instructions fetched: ${Math.round(performance.now() - t0)}ms (${instructions.length} chars)`);
-
-            // 2. Get ephemeral token (session pre-configured with tools + instructions)
-            const { token } = await fetchEphemeralToken(instructions);
+            // 1. Get ephemeral token — instructions are now a compact hardcoded prompt
+            // in the token route. Fetching the full knowledge base here inflated every
+            // Realtime response to ~8,800 TPM, hitting the 40k limit in 4–5 turns.
+            const { token } = await fetchEphemeralToken();
             console.log(`[Grace RT] Token acquired: ${Math.round(performance.now() - t0)}ms`);
 
             // 3. Create WebRTC peer connection
@@ -437,7 +481,6 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
 
             dc.onopen = () => {
                 console.log(`[Grace RT] Data channel open: ${Math.round(performance.now() - t0)}ms`);
-                console.log(`[Grace RT] Instructions length: ${instructions.length} chars`);
             };
 
             dc.onmessage = (ev) => {

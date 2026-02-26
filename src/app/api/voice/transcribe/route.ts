@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server";
 
-// ─── ElevenLabs STT proxy ─────────────────────────────────────────────────────
-// Keeps ELEVENLABS_API_KEY server-side. GraceAtelier POSTs an audio blob here
+// ─── OpenAI Whisper STT proxy ──────────────────────────────────────────────────
+// Keeps OPENAI_API_KEY server-side. GraceAtelier POSTs an audio blob here
 // and receives a JSON transcript back: { text: string }
 
-const ELEVENLABS_STT_URL = "https://api.elevenlabs.io/v1/speech-to-text";
+const OPENAI_STT_URL = "https://api.openai.com/v1/audio/transcriptions";
 
 export async function POST(req: NextRequest) {
-    const apiKey = process.env.ELEVENLABS_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
         return new Response("Voice not configured", { status: 503 });
@@ -22,17 +22,17 @@ export async function POST(req: NextRequest) {
 
     const upstream = new FormData();
     upstream.append("file", audio, "recording.webm");
-    upstream.append("model_id", "scribe_v1");
+    upstream.append("model", "whisper-1");
 
-    const response = await fetch(ELEVENLABS_STT_URL, {
+    const response = await fetch(OPENAI_STT_URL, {
         method: "POST",
-        headers: { "xi-api-key": apiKey },
+        headers: { "Authorization": `Bearer ${apiKey}` },
         body: upstream,
     });
 
     if (!response.ok) {
         const error = await response.text();
-        console.error("[grace/transcribe] ElevenLabs error:", response.status, error);
+        console.error("[grace/transcribe] OpenAI Whisper error:", response.status, error);
         return new Response("Transcription failed", { status: 502 });
     }
 

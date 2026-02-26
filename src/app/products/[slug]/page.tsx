@@ -226,10 +226,17 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const group = data?.group;
     const variants = (data?.variants as ProductVariant[] | undefined) ?? [];
 
-    // Sibling groups — same family + capacityMl, different glass color
+    // Sibling groups — same family + capacityMl + neckThreadSize, different glass color
     const siblingGroups = useQuery(
         api.products.getSiblingGroups,
-        group ? { family: group.family, capacityMl: group.capacityMl ?? 0, excludeSlug: slug } : "skip"
+        group
+            ? {
+                  family: group.family,
+                  capacityMl: group.capacityMl ?? 0,
+                  excludeSlug: slug,
+                  neckThreadSize: group.neckThreadSize ?? undefined,
+              }
+            : "skip"
     );
 
     // Atomizer family flag — simplified UI (glass color only, no sub-selectors)
@@ -270,7 +277,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         if (!bucket) return null;
         // Cap/Closure is excluded from applicatorOptions — handle separately
         if (bucket.value === "capclosure" && hasCapClosure) return "Cap/Closure";
-        const match = applicatorOptions.find((opt) => bucket.productValues.includes(opt));
+        const match = applicatorOptions.find((opt) => (bucket.productValues as readonly string[]).includes(opt));
         return match ?? null;
     }, [applicatorParam, applicatorOptions, hasCapClosure]);
 
