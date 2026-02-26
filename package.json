@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:smoke": "vitest run tests/catalog.smoke.test.ts"
+    "test:smoke": "vitest run tests/catalog.smoke.test.ts",
+    "scrape:apothecary": "node scripts/scrape_apothecary_full.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

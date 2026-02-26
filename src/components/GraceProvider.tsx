@@ -344,12 +344,29 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
 
                 case "response.done": {
                     const resp = event as {
-                        response?: { status?: string };
+                        response?: {
+                            status?: string;
+                            status_details?: { error?: { code?: string; message?: string }; reason?: string };
+                            error?: { code?: string; type?: string };
+                        };
                     };
                     if (resp.response?.status === "failed") {
-                        console.error("[Grace RT] Response failed:", event);
+                        const details = resp.response.status_details?.error ?? resp.response.error;
+                        const msg = (details && typeof details === "object" && "message" in details
+                            ? (details as { message?: string }).message
+                            : (details && typeof details === "object" && "code" in details
+                                ? (details as { code?: string }).code
+                                : null)) ?? "Unknown error";
+                        console.error("[Grace RT] Response failed:", msg, resp.response);
+                        setErrorMessage(msg || "Grace couldn't complete that response. Please try again.");
+                        setStatus("error");
+                        setTimeout(() => {
+                            setErrorMessage("");
+                            setStatus("listening");
+                        }, 4000);
+                    } else {
+                        setStatus("listening");
                     }
-                    setStatus("listening");
                     break;
                 }
 

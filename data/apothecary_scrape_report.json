@@ -1,0 +1,115 @@
+{
+  "sourceUrl": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/apothecary-style-bottles.php",
+  "scrapedAt": "2026-02-26T15:49:23.429Z",
+  "livePage": {
+    "productCount": 6,
+    "products": [
+      {
+        "websiteSku": "GB15ApthBlue",
+        "outOfStock": false,
+        "source": "live_category_page"
+      },
+      {
+        "websiteSku": "GB1ozApth",
+        "outOfStock": false,
+        "source": "live_category_page"
+      },
+      {
+        "websiteSku": "GB1ozApthBlue",
+        "outOfStock": false,
+        "source": "live_category_page"
+      },
+      {
+        "websiteSku": "GB1ozApthGreen",
+        "outOfStock": false,
+        "source": "live_category_page"
+      },
+      {
+        "websiteSku": "GBPearClear4ozStpr",
+        "outOfStock": true,
+        "source": "live_category_page"
+      },
+      {
+        "websiteSku": "GBRndClear4ozStpr",
+        "outOfStock": true,
+        "source": "live_category_page"
+      }
+    ]
+  },
+  "ourDatabase": {
+    "apothecaryFamilyCount": 4,
+    "products": [
+      {
+        "websiteSku": "GB15ApthBlue",
+        "graceSku": "GB-APT-BLU-15ML-BLU-T",
+        "family": "Apothecary",
+        "capacity": "15 ml (0.51 oz)"
+      },
+      {
+        "websiteSku": "GB1ozApthBlue",
+        "graceSku": "GB-APT-BLU-30ML-BLU-T",
+        "family": "Apothecary",
+        "capacity": "30 ml (1.01 oz)"
+      },
+      {
+        "websiteSku": "GB1ozApth",
+        "graceSku": "GB-APT-CLR-30ML-T",
+        "family": "Apothecary",
+        "capacity": "30 ml (1.01 oz)"
+      },
+      {
+        "websiteSku": "GB1ozApthGreen",
+        "graceSku": "GB-APT-GRN-30ML-GRN-T",
+        "family": "Apothecary",
+        "capacity": "30 ml (1.01 oz)"
+      }
+    ]
+  },
+  "gapAnalysis": {
+    "inBoth": [
+      {
+        "websiteSku": "GB15ApthBlue",
+        "outOfStock": false,
+        "source": "live_category_page",
+        "graceSku": "GB-APT-BLU-15ML-BLU-T"
+      },
+      {
+        "websiteSku": "GB1ozApth",
+        "outOfStock": false,
+        "source": "live_category_page",
+        "graceSku": "GB-APT-CLR-30ML-T"
+      },
+      {
+        "websiteSku": "GB1ozApthBlue",
+        "outOfStock": false,
+        "source": "live_category_page",
+        "graceSku": "GB-APT-BLU-30ML-BLU-T"
+      },
+      {
+        "websiteSku": "GB1ozApthGreen",
+        "outOfStock": false,
+        "source": "live_category_page",
+        "graceSku": "GB-APT-GRN-30ML-GRN-T"
+      }
+    ],
+    "inLiveOnlyMissingFromUs": [
+      {
+        "websiteSku": "GBPearClear4ozStpr",
+        "outOfStock": true,
+        "source": "live_category_page"
+      },
+      {
+        "websiteSku": "GBRndClear4ozStpr",
+        "outOfStock": true,
+        "source": "live_category_page"
+      }
+    ],
+    "inUsOnlyNotOnCategoryPage": [],
+    "summary": {
+      "liveTotal": 6,
+      "ourApothecaryTotal": 4,
+      "missingFromUs": 2,
+      "extraInUs": 0
+    }
+  }
+}

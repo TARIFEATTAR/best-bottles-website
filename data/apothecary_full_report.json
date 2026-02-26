@@ -1,0 +1,365 @@
+{
+  "scrapedAt": "2026-02-26T15:59:39.576Z",
+  "sourceUrls": [
+    "https://www.bestbottles.com/product/Apothecary-style-Clear-glass-cylindrical-4oz-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Pear-12oz-glass-bottle-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Rectangular-12oz-glass-bottle-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-clear-glass-jar-Rectangular-12oz-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-15-ml-clear-glass-bottle-clear-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-15-ml-blue-glass-bottle-blue-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-15-ml-green-glass-bottle-green-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-1-ounce-clear-glass-bottle-clear-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-1-ounce-blue-glass-bottle-blue-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-1-ounce-green-glass-bottle-green-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-2-ounces-clear-glass-bottle-clear-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-Blue-glass-cylindrical-jar-4oz-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-4-ounces-blue-glass-bottle-blue-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-4-ounces-clear-glass-bottle-clear-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-4-ounces-green-glass-bottle-green-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-10-ounces-blue-glass-bottle-blue-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-10-ounces-clear-glass-bottle-clear-glass-stopper",
+    "https://www.bestbottles.com/product/Apothecary-style-10-ounces-green-glass-bottle-green-glass-stopper"
+  ],
+  "summary": {
+    "urlsScraped": 18,
+    "scrapeSuccess": 18,
+    "scrapeFailed": 0,
+    "inDbApothecary": 4,
+    "inDbOtherFamily": 2,
+    "missingFromDb": 0,
+    "discontinued": 12
+  },
+  "products": [
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-Clear-glass-cylindrical-4oz-glass-stopper",
+      "websiteSku": "GBPearClear4ozStpr",
+      "scraped": {
+        "websiteSku": "GBPearClear4ozStpr",
+        "stockStatus": "Out of Stock"
+      },
+      "inOurDb": true,
+      "ourData": {
+        "graceSku": "GB-DEC-CLR-118ML",
+        "websiteSku": "GBPearClear4ozStpr",
+        "family": "Decorative",
+        "capacity": "118 ml (3.99 oz)",
+        "productUrl": "https://www.bestbottles.com/product/Apothecary-style-Clear-glass-cylindrical-4oz-glass-stopper"
+      },
+      "status": "misclassified",
+      "notes": "In DB as Decorative; should be Apothecary"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Pear-12oz-glass-bottle-stopper",
+      "websiteSku": "GBCB12ozPear",
+      "scraped": {
+        "websiteSku": "GBCB12ozPear",
+        "stockStatus": "Out of Stock"
+      },
+      "inOurDb": true,
+      "ourData": {
+        "graceSku": "GB-DEC-CLR-355ML-T",
+        "websiteSku": "GBCB12ozPear",
+        "family": "Decorative",
+        "capacity": "355 ml (12 oz)",
+        "productUrl": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Pear-12oz-glass-bottle-stopper"
+      },
+      "status": "misclassified",
+      "notes": "In DB as Decorative; should be Apothecary"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Rectangular-12oz-glass-bottle-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-jar-Rectangular-12oz-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-15-ml-clear-glass-bottle-clear-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-15-ml-blue-glass-bottle-blue-glass-stopper",
+      "websiteSku": "GB15ApthBlue",
+      "scraped": {
+        "websiteSku": "GB15ApthBlue",
+        "stockStatus": "In Stock"
+      },
+      "inOurDb": true,
+      "ourData": {
+        "graceSku": "GB-APT-BLU-15ML-BLU-T",
+        "websiteSku": "GB15ApthBlue",
+        "family": "Apothecary",
+        "capacity": "15 ml (0.51 oz)",
+        "productUrl": "https://www.bestbottles.com/product/Apothecary-style-15-ml-blue-glass-bottle-blue-glass-stopper"
+      },
+      "status": "match",
+      "notes": null
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-15-ml-green-glass-bottle-green-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-1-ounce-clear-glass-bottle-clear-glass-stopper",
+      "websiteSku": "GB1ozApth",
+      "scraped": {
+        "websiteSku": "GB1ozApth",
+        "stockStatus": "In Stock"
+      },
+      "inOurDb": true,
+      "ourData": {
+        "graceSku": "GB-APT-CLR-30ML-T",
+        "websiteSku": "GB1ozApth",
+        "family": "Apothecary",
+        "capacity": "30 ml (1.01 oz)",
+        "productUrl": "https://www.bestbottles.com/product/Apothecary-style-1-ounce-clear-glass-bottle-clear-glass-stopper"
+      },
+      "status": "match",
+      "notes": null
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-1-ounce-blue-glass-bottle-blue-glass-stopper",
+      "websiteSku": "GB1ozApthBlue",
+      "scraped": {
+        "websiteSku": "GB1ozApthBlue",
+        "stockStatus": "In Stock"
+      },
+      "inOurDb": true,
+      "ourData": {
+        "graceSku": "GB-APT-BLU-30ML-BLU-T",
+        "websiteSku": "GB1ozApthBlue",
+        "family": "Apothecary",
+        "capacity": "30 ml (1.01 oz)",
+        "productUrl": "https://www.bestbottles.com/product/Apothecary-style-1-ounce-blue-glass-bottle-blue-glass-stopper"
+      },
+      "status": "match",
+      "notes": null
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-1-ounce-green-glass-bottle-green-glass-stopper",
+      "websiteSku": "GB1ozApthGreen",
+      "scraped": {
+        "websiteSku": "GB1ozApthGreen",
+        "stockStatus": "In Stock"
+      },
+      "inOurDb": true,
+      "ourData": {
+        "graceSku": "GB-APT-GRN-30ML-GRN-T",
+        "websiteSku": "GB1ozApthGreen",
+        "family": "Apothecary",
+        "capacity": "30 ml (1.01 oz)",
+        "productUrl": "https://www.bestbottles.com/product/Apothecary-style-1-ounce-green-glass-bottle-green-glass-stopper"
+      },
+      "status": "match",
+      "notes": null
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-2-ounces-clear-glass-bottle-clear-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-Blue-glass-cylindrical-jar-4oz-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-4-ounces-blue-glass-bottle-blue-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-4-ounces-clear-glass-bottle-clear-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-4-ounces-green-glass-bottle-green-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-10-ounces-blue-glass-bottle-blue-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-10-ounces-clear-glass-bottle-clear-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    },
+    {
+      "url": "https://www.bestbottles.com/product/Apothecary-style-10-ounces-green-glass-bottle-green-glass-stopper",
+      "websiteSku": null,
+      "scraped": {
+        "stockStatus": "no longer available"
+      },
+      "inOurDb": false,
+      "ourData": null,
+      "status": "discontinued",
+      "notes": "Product page says no longer available"
+    }
+  ],
+  "gapAnalysis": {
+    "missingFromDb": [],
+    "misclassified": [
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-Clear-glass-cylindrical-4oz-glass-stopper",
+        "websiteSku": "GBPearClear4ozStpr",
+        "currentFamily": "Decorative",
+        "recommendedFamily": "Apothecary"
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Pear-12oz-glass-bottle-stopper",
+        "websiteSku": "GBCB12ozPear",
+        "currentFamily": "Decorative",
+        "recommendedFamily": "Apothecary"
+      }
+    ],
+    "discontinued": [
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-bottle-Rectangular-12oz-glass-bottle-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-clear-glass-jar-Rectangular-12oz-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-15-ml-clear-glass-bottle-clear-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-15-ml-green-glass-bottle-green-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-2-ounces-clear-glass-bottle-clear-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-Blue-glass-cylindrical-jar-4oz-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-4-ounces-blue-glass-bottle-blue-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-4-ounces-clear-glass-bottle-clear-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-4-ounces-green-glass-bottle-green-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-10-ounces-blue-glass-bottle-blue-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-10-ounces-clear-glass-bottle-clear-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      },
+      {
+        "url": "https://www.bestbottles.com/product/Apothecary-style-10-ounces-green-glass-bottle-green-glass-stopper",
+        "scraped": {
+          "stockStatus": "no longer available"
+        }
+      }
+    ]
+  }
+}
