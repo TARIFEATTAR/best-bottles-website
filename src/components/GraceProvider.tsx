@@ -482,14 +482,16 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             console.error("[Grace RT] Connection failed:", err);
             setConversationActive(false);
             destroyRealtimeSession();
-            setErrorMessage(
-                err instanceof Error ? err.message : "Failed to start voice conversation"
-            );
+            const msg =
+                err instanceof Error
+                    ? err.message
+                    : "Failed to start voice conversation";
+            setErrorMessage(msg);
             setStatus("error");
             setTimeout(() => {
                 setErrorMessage("");
                 setStatus("idle");
-            }, 4000);
+            }, 8000);
         }
     }, [handleRealtimeEvent, destroyRealtimeSession]);
 

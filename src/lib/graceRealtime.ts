@@ -56,6 +56,16 @@ export async function executeRealtimeTool(
                 break;
             }
 
+            case "getBottleComponents": {
+                const data = await convex.query(api.grace.getBottleComponents, {
+                    bottleSku: (args.bottleSku as string) ?? "",
+                });
+                result =
+                    data ??
+                    `No bottle found for SKU "${args.bottleSku}". Try searchCatalog first to find the bottle.`;
+                break;
+            }
+
             case "checkCompatibility": {
                 const data = await convex.query(api.grace.checkCompatibility, {
                     threadSize: (args.threadSize as string) ?? "",

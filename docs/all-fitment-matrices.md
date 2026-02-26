@@ -12,6 +12,8 @@
 
 # Large_Cyl_Rollons
 
+**⚠️ ANOMALY: Thread size not documented.** The fitment source does not specify a numeric thread size (e.g. 13-415, 17-415, 20-400) for this neck. It is only labeled "Special large mouth finish." Master sheet lists compatible roll-on caps with 17-415, but that may be a data error. Verify with Best Bottles or measure physical bottle.
+
 |    | Special large mouth finish bottles   | Roller plug Plastic   | Roller plug Metal   | Roll on cap options   | Notes                                                                 |
 |---:|:-------------------------------------|:----------------------|:--------------------|:----------------------|:----------------------------------------------------------------------|
 |  0 | Cyl Clear 30                         | x                     | x                   | x                     | Roll on bottles special finish 30ml and 50ml Cylinder roll on bottles |

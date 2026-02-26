@@ -35,14 +35,14 @@ export async function POST(req: NextRequest) {
                     type: "function",
                     name: "searchCatalog",
                     description:
-                        "Search the Best Bottles product catalog by keyword. Returns top 25 products with specs and pricing.",
+                        "Search the Best Bottles product catalog by keyword. Returns top 25 products with specs and pricing. Use for roll-on, roller ball, dropper, sprayer, etc. Search '5ml roller' or '9ml roll-on' for roll-on bottles.",
                     parameters: {
                         type: "object",
                         properties: {
                             searchTerm: {
                                 type: "string",
                                 description:
-                                    "Search query: e.g. '30ml dropper', 'amber boston round', 'frosted elegant 60ml'",
+                                    "Search query: e.g. '5ml roller', '9ml roll-on', '30ml dropper', 'amber boston round', 'frosted elegant 60ml'",
                             },
                             categoryLimit: {
                                 type: "string",
@@ -90,6 +90,23 @@ export async function POST(req: NextRequest) {
                             },
                         },
                         required: ["threadSize"],
+                    },
+                },
+                {
+                    type: "function",
+                    name: "getBottleComponents",
+                    description:
+                        "Get the complete list of compatible components (sprayers, droppers, roll-ons, lotion pumps, etc.) for a specific bottle. Call with the bottle's graceSku or websiteSku after finding it via searchCatalog.",
+                    parameters: {
+                        type: "object",
+                        properties: {
+                            bottleSku: {
+                                type: "string",
+                                description:
+                                    "The bottle's SKU (e.g. GB-CYL-CLR-5ML-MRL-BKDT or from searchCatalog results)",
+                            },
+                        },
+                        required: ["bottleSku"],
                     },
                 },
                 {
@@ -235,15 +252,29 @@ export async function POST(req: NextRequest) {
     if (!res.ok) {
         const errText = await res.text();
         console.error("[realtime/token] OpenAI session error:", res.status, errText);
+        let errMessage = "Failed to create realtime session";
+        try {
+            const errJson = JSON.parse(errText) as { error?: { message?: string; code?: string } };
+            errMessage = errJson.error?.message ?? errJson.error?.code ?? errMessage;
+        } catch {
+            if (errText.length < 200) errMessage = errText || errMessage;
+        }
+        return Response.json({ error: errMessage }, { status: 502 });
+    }
+
+    const data = (await res.json()) as {
+        client_secret?: { value?: string; expires_at?: number };
+    };
+    const token = data.client_secret?.value;
+    if (!token) {
+        console.error("[realtime/token] No token in OpenAI response:", data);
         return Response.json(
-            { error: "Failed to create realtime session" },
+            { error: "OpenAI did not return a session token" },
             { status: 502 }
         );
     }
-
-    const data = await res.json();
     return Response.json({
-        token: data.client_secret?.value,
-        expiresAt: data.client_secret?.expires_at,
+        token,
+        expiresAt: data.client_secret?.expires_at ?? 0,
     });
 }

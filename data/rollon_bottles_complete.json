@@ -1,0 +1,65 @@
+{
+  "title": "All Bottles Accepting Roll-On (Metal + Plastic)",
+  "source": "fitment_rules_ods.json + all-fitment-matrices.md",
+  "threadSizes": {
+    "13-415": {
+      "description": "13/415 neck — Reducer, Short Cap, Tall Cap, Roller Plug Plastic, Roller Plug Metal, Roll-On Cap, Sprayer. All accept BOTH metal and plastic rollers.",
+      "bottles": [
+        { "name": "Cylinder Clear 5ml", "family": "Cylinder", "capacity": "5ml" },
+        { "name": "Cylinder Blue 5ml", "family": "Cylinder", "capacity": "5ml" },
+        { "name": "Tulip Amber 5ml", "family": "Tulip", "capacity": "5ml", "note": "5ml amber glass bottle — accepts metal + plastic rollers" },
+        { "name": "Tulip Clear 6ml", "family": "Tulip", "capacity": "6ml" },
+        { "name": "Sleek 5ml", "family": "Sleek", "capacity": "5ml" },
+        { "name": "Sleek 8ml", "family": "Sleek", "capacity": "8ml" },
+        { "name": "Queen 10ml", "family": "Queen", "capacity": "10ml" },
+        { "name": "Bell 12ml", "family": "Bell", "capacity": "12ml" },
+        { "name": "Royal 13ml", "family": "Royal", "capacity": "13ml" },
+        { "name": "Rectangle 15ml", "family": "Rectangle", "capacity": "15ml" },
+        { "name": "Flair 15ml", "family": "Flair", "capacity": "15ml" },
+        { "name": "Square 15ml", "family": "Square", "capacity": "15ml" },
+        { "name": "Elegant 15ml", "family": "Elegant", "capacity": "15ml" },
+        { "name": "Frosted Elegant 15ml", "family": "Elegant", "capacity": "15ml" },
+        { "name": "Tall Cylinder 9ml", "family": "Cylinder", "capacity": "9ml" },
+        { "name": "Tall Rectangle 9ml", "family": "Rectangle", "capacity": "9ml" }
+      ]
+    },
+    "17-415": {
+      "description": "17/415 neck — 9ml Cylinder family (plastic + metal roller)",
+      "bottles": [
+        { "name": "Cylinder Clear 9ml", "family": "Cylinder", "capacity": "9ml" },
+        { "name": "Cylinder Frosted 9ml", "family": "Cylinder", "capacity": "9ml" },
+        { "name": "Swirl Clear 9ml", "family": "Swirl", "capacity": "9ml" },
+        { "name": "Swirl Frosted 9ml", "family": "Swirl", "capacity": "9ml" },
+        { "name": "Cylinder Blue 9ml", "family": "Cylinder", "capacity": "9ml" },
+        { "name": "Cylinder Amber 9ml", "family": "Cylinder", "capacity": "9ml" }
+      ]
+    },
+    "Large_Cyl_Rollons": {
+      "description": "Large mouth finish — 30ml and 50ml Cylinder roll-on",
+      "bottles": [
+        { "name": "Cylinder Clear 30ml", "family": "Cylinder", "capacity": "30ml" },
+        { "name": "Cylinder Clear 50ml", "family": "Cylinder", "capacity": "50ml" }
+      ],
+      "anomaly": {
+        "threadSizeUnknown": true,
+        "note": "Thread size NOT documented in fitment source. Bottles and Fitment options.ods / all-fitment-matrices.md only labels this as 'Special large mouth finish' with no numeric spec (e.g. 13-415, 17-415, 20-400). Master sheet lists compatible roll-on caps with neckThreadSize 17-415, but that may be a data error — 17-415 is typically the 9ml neck. Verify with Best Bottles or measure physical bottle to confirm."
+      }
+    },
+    "Boston_Rnd_20-400": {
+      "description": "Boston Round 20/400 — 1oz and 2oz",
+      "bottles": [
+        { "name": "Boston Round 1oz Clear", "family": "Boston Round", "capacity": "30ml" },
+        { "name": "Boston Round 2oz Clear", "family": "Boston Round", "capacity": "60ml" },
+        { "name": "Boston Round 1oz Blue", "family": "Boston Round", "capacity": "30ml" },
+        { "name": "Boston Round 2oz Blue", "family": "Boston Round", "capacity": "60ml" },
+        { "name": "Boston Round 1oz Amber", "family": "Boston Round", "capacity": "30ml" },
+        { "name": "Boston Round 2oz Amber", "family": "Boston Round", "capacity": "60ml" }
+      ]
+    }
+  },
+  "summary": {
+    "totalBottleTypes": 30,
+    "sizes": ["5ml", "6ml", "8ml", "9ml", "10ml", "12ml", "13ml", "15ml", "30ml", "50ml", "60ml"],
+    "families": ["Cylinder", "Tulip", "Sleek", "Queen", "Bell", "Royal", "Rectangle", "Flair", "Square", "Elegant", "Swirl", "Boston Round"]
+  }
+}

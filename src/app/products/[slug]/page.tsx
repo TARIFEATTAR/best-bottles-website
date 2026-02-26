@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback, use } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
     Check, Layers, Plus,
@@ -64,6 +65,20 @@ const COLOR_SWATCH: Record<string, string> = {
 
 // Light swatches that need a dark checkmark
 const LIGHT_SWATCHES = new Set(["White", "Shiny Silver", "Matte Silver", "Standard", "Pink", "Rose Gold"]);
+
+// Glass bottle body color hex map — used for sibling color navigation swatches
+const GLASS_COLOR_SWATCH: Record<string, string> = {
+    "Clear":   "rgba(200, 235, 245, 0.55)",
+    "Amber":   "#C8720A",
+    "Frosted": "#D8D8D8",
+    "Blue":    "#5B87B5",
+    "Green":   "#6B9A6B",
+    "Black":   "#1D1D1F",
+    "Purple":  "#7B5EA7",
+    "Pink":    "#F4A7B9",
+    "White":   "#F5F5F0",
+};
+const LIGHT_GLASS = new Set(["Clear", "Frosted", "White", "Pink"]);
 
 const COMPONENT_TYPE_ORDER = ["Reducer", "Roller Cap", "Roller", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
 
@@ -185,12 +200,15 @@ function ComponentCard({ comp }: { comp: ProductComponent }) {
 
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
+    const router = useRouter();
 
     const data = useQuery(api.products.getProductGroup, { slug });
 
     const { addItems } = useCart();
     const [fitmentDrawerOpen, setFitmentDrawerOpen] = useState(false);
     const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
+    const [selectedCapColor, setSelectedCapColor] = useState<string | null>(null);
+    const [selectedCapStyle, setSelectedCapStyle] = useState<string | null>(null);
     const [selectedTrimColor, setSelectedTrimColor] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<"specs" | "components">("specs");
     const [qty, setQty] = useState(1);
@@ -199,13 +217,26 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const group = data?.group;
     const variants = (data?.variants as ProductVariant[] | undefined) ?? [];
 
+    // Sibling groups — same family + capacityMl, different glass color
+    const siblingGroups = useQuery(
+        api.products.getSiblingGroups,
+        group ? { family: group.family, capacityMl: group.capacityMl ?? 0, excludeSlug: slug } : "skip"
+    );
+
+    // Atomizer family flag — simplified UI (glass color only, no sub-selectors)
+    const isAtomizer = useMemo(() =>
+        (group?.family ?? "").toLowerCase().includes("atomizer"),
+        [group]
+    );
+
     // ── Derived selector options ─────────────────────────────────────────────
 
+    // Applicator options — excludes "Cap/Closure" (handled separately)
     const applicatorOptions = useMemo(() => {
         const seen = new Set<string>();
         return variants
             .map((v) => v.applicator)
-            .filter((a): a is string => !!a)
+            .filter((a): a is string => !!a && a !== "Cap/Closure")
             .filter((a) => {
                 if (seen.has(a)) return false;
                 seen.add(a);
@@ -213,13 +244,21 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             });
     }, [variants]);
 
-    const activeApplicator = selectedApplicator ?? applicatorOptions[0] ?? null;
+    // Whether any variant has no applicator (plain cap closure)
+    const hasCapClosure = useMemo(() =>
+        variants.some((v) => v.applicator === "Cap/Closure"),
+        [variants]
+    );
 
-    const trimColorOptions = useMemo(() => {
+    const activeApplicator = selectedApplicator ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
+
+    // Cap color options — filtered by selected applicator
+    const capColorOptions = useMemo(() => {
         const seen = new Set<string>();
         return variants
             .filter((v) => v.applicator === activeApplicator)
-            .map((v) => v.trimColor || "Standard")
+            .map((v) => v.capColor)
+            .filter((c): c is string => !!c)
             .filter((c) => {
                 if (seen.has(c)) return false;
                 seen.add(c);
@@ -227,20 +266,58 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             });
     }, [variants, activeApplicator]);
 
+    const activeCapColor = selectedCapColor ?? capColorOptions[0] ?? null;
+
+    // Cap style options — filtered by applicator + cap color
+    const capStyleOptions = useMemo(() => {
+        const seen = new Set<string>();
+        return variants
+            .filter((v) => v.applicator === activeApplicator && v.capColor === activeCapColor)
+            .map((v) => v.capStyle)
+            .filter((s): s is string => !!s)
+            .filter((s) => {
+                if (seen.has(s)) return false;
+                seen.add(s);
+                return true;
+            });
+    }, [variants, activeApplicator, activeCapColor]);
+
+    const activeCapStyle = selectedCapStyle ?? capStyleOptions[0] ?? null;
+
+    // Trim options — filtered by applicator + cap color + cap style
+    const trimColorOptions = useMemo(() => {
+        const seen = new Set<string>();
+        return variants
+            .filter((v) =>
+                v.applicator === activeApplicator &&
+                v.capColor === activeCapColor &&
+                (capStyleOptions.length === 0 || v.capStyle === activeCapStyle)
+            )
+            .map((v) => v.trimColor || "Standard")
+            .filter((c) => {
+                if (seen.has(c)) return false;
+                seen.add(c);
+                return true;
+            });
+    }, [variants, activeApplicator, activeCapColor, activeCapStyle, capStyleOptions]);
+
     const activeTrimColor = selectedTrimColor ?? trimColorOptions[0] ?? null;
 
-    // Resolved variant based on current selections
+    // Resolved variant — 4-way match with graceful fallback
     const selectedVariant = useMemo(() => {
         return (
             variants.find(
                 (v) =>
                     v.applicator === activeApplicator &&
+                    v.capColor === activeCapColor &&
+                    (capStyleOptions.length === 0 || v.capStyle === activeCapStyle) &&
                     (v.trimColor || "Standard") === activeTrimColor
             ) ??
+            variants.find((v) => v.applicator === activeApplicator) ??
             variants[0] ??
             null
         );
-    }, [variants, activeApplicator, activeTrimColor]);
+    }, [variants, activeApplicator, activeCapColor, activeCapStyle, activeTrimColor, capStyleOptions]);
 
     // Components grouped by type from selected variant
     const componentGroups = useMemo(() => {
@@ -258,6 +335,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         (sum, arr) => sum + arr.length,
         0
     );
+
+    // Inline caps — surfaced directly on the PDP for easy access
+    // "Roller Cap" = ROC-prefix SKUs (roll-on caps), "Cap" = plain cap closures
+    const inlineCaps = useMemo(() => [
+        ...(componentGroups["Cap"] ?? []),
+        ...(componentGroups["Roller Cap"] ?? []),
+    ], [componentGroups]);
 
     // ── Dynamic SEO title ────────────────────────────────────────────────────
     useEffect(() => {
@@ -413,34 +497,40 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 )}
                             </motion.div>
 
-                            {/* Variant thumbnail strip */}
-                            {variants.length > 1 && (
-                                <div className="mt-3 flex space-x-2 overflow-x-auto pb-1">
-                                    {variants.slice(0, 10).map((v) => (
-                                        <button
-                                            key={v._id}
-                                            onClick={() => {
-                                                setSelectedApplicator(v.applicator ?? null);
-                                                setSelectedTrimColor(v.trimColor || "Standard");
-                                            }}
-                                            className={`shrink-0 w-14 h-14 rounded-sm border-2 transition-all bg-travertine flex items-center justify-center ${selectedVariant?._id === v._id
-                                                ? "border-muted-gold"
-                                                : "border-champagne/50 hover:border-muted-gold/60"
-                                                }`}
-                                            title={`${v.applicator ?? ""}${v.trimColor ? ` — ${v.trimColor}` : ""}`}
-                                        >
-                                            {v.imageUrl ? (
-                                                <img src={v.imageUrl} alt="" className="w-full h-full object-contain p-1" />
-                                            ) : (
-                                                <Package className="w-5 h-5 text-champagne" strokeWidth={1} />
-                                            )}
-                                        </button>
-                                    ))}
-                                    {variants.length > 10 && (
-                                        <div className="shrink-0 w-14 h-14 rounded-sm border-2 border-champagne/50 bg-travertine flex items-center justify-center">
-                                            <span className="text-[10px] text-slate font-semibold">+{variants.length - 10}</span>
+                            {/* Glass color siblings */}
+                            {siblingGroups && siblingGroups.length > 0 && group?.color && (
+                                <div className="mt-4">
+                                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate mb-2.5">Glass Color</p>
+                                    <div className="flex flex-wrap gap-3">
+                                        {/* Current (selected) */}
+                                        <div className="flex flex-col items-center gap-1">
+                                            <span
+                                                className="w-9 h-9 rounded-full border-2 border-obsidian scale-110 shadow-md flex items-center justify-center"
+                                                style={{ backgroundColor: GLASS_COLOR_SWATCH[group.color] ?? "#CCCCCC" }}
+                                            >
+                                                <Check
+                                                    className={`w-3.5 h-3.5 ${LIGHT_GLASS.has(group.color) ? "text-obsidian" : "text-white"}`}
+                                                    strokeWidth={2.5}
+                                                />
+                                            </span>
+                                            <span className="text-[9px] text-obsidian font-semibold">{group.color}</span>
                                         </div>
-                                    )}
+                                        {/* Sibling colors */}
+                                        {siblingGroups.map((s) => (
+                                            <button
+                                                key={s._id}
+                                                onClick={() => router.push(`/products/${s.slug}`)}
+                                                title={s.color ?? s.displayName}
+                                                className="flex flex-col items-center gap-1 group/sib"
+                                            >
+                                                <span
+                                                    className="w-9 h-9 rounded-full border-2 border-champagne/60 group-hover/sib:border-muted-gold transition-all"
+                                                    style={{ backgroundColor: GLASS_COLOR_SWATCH[s.color ?? ""] ?? "#CCCCCC" }}
+                                                />
+                                                <span className="text-[9px] text-slate group-hover/sib:text-muted-gold transition-colors">{s.color}</span>
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -503,70 +593,161 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 )}
                             </div>
 
-                            {/* ── Variant Selectors ──────────────────────────────────── */}
+                            {/* ── Variant Selectors (hidden for atomizers — glass color is the only selection) ── */}
 
-                            {/* Applicator selector */}
-                            {applicatorOptions.length > 0 && (
-                                <div className="mb-6">
-                                    <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Applicator</p>
-                                    <div className="flex flex-wrap gap-2">
-                                        {applicatorOptions.map((appl) => (
-                                            <button
-                                                key={appl}
-                                                onClick={() => {
-                                                    setSelectedApplicator(appl);
-                                                    setSelectedTrimColor(null);
-                                                }}
-                                                className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${activeApplicator === appl
-                                                    ? "border-obsidian bg-obsidian text-white"
-                                                    : "border-champagne text-obsidian hover:border-muted-gold"
-                                                    }`}
-                                            >
-                                                {appl}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                            {!isAtomizer && (
+                                <>
+                                    {/* Applicator selector */}
+                                    {(applicatorOptions.length > 0 || hasCapClosure) && (
+                                        <div className="mb-6">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Applicator</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {applicatorOptions.map((appl) => (
+                                                    <button
+                                                        key={appl}
+                                                        onClick={() => {
+                                                            setSelectedApplicator(appl);
+                                                            setSelectedCapColor(null);
+                                                            setSelectedCapStyle(null);
+                                                            setSelectedTrimColor(null);
+                                                        }}
+                                                        className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${activeApplicator === appl
+                                                            ? "border-obsidian bg-obsidian text-white"
+                                                            : "border-champagne text-obsidian hover:border-muted-gold"
+                                                            }`}
+                                                    >
+                                                        {appl}
+                                                    </button>
+                                                ))}
+                                                {/* Cap closure — not an applicator, shown separately */}
+                                                {hasCapClosure && (
+                                                    <button
+                                                        onClick={() => {
+                                                            setSelectedApplicator("Cap/Closure");
+                                                            setSelectedCapColor(null);
+                                                            setSelectedCapStyle(null);
+                                                            setSelectedTrimColor(null);
+                                                        }}
+                                                        className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all italic ${activeApplicator === "Cap/Closure"
+                                                            ? "border-obsidian bg-obsidian text-white"
+                                                            : "border-champagne/50 text-slate hover:border-muted-gold"
+                                                            }`}
+                                                    >
+                                                        Cap Closure
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
 
-                            {/* Finish / trim color selector */}
-                            {trimColorOptions.length > 0 && (
-                                <div className="mb-8">
-                                    <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
-                                        Finish
-                                        {activeTrimColor && (
-                                            <span className="ml-2 normal-case font-medium text-obsidian">{activeTrimColor}</span>
-                                        )}
-                                    </p>
-                                    <div className="flex flex-wrap gap-2.5">
-                                        {trimColorOptions.map((color) => {
-                                            const hex = COLOR_SWATCH[color] ?? "#AAAAAA";
-                                            const isSelected = activeTrimColor === color;
-                                            const useDarkCheck = LIGHT_SWATCHES.has(color);
-                                            return (
-                                                <button
-                                                    key={color}
-                                                    onClick={() => setSelectedTrimColor(color)}
-                                                    title={color}
-                                                    className={`w-9 h-9 rounded-full border-2 transition-all relative ${isSelected
-                                                        ? "border-obsidian scale-110 shadow-md"
-                                                        : "border-champagne hover:border-muted-gold"
-                                                        }`}
-                                                    style={{ backgroundColor: hex }}
-                                                >
-                                                    {isSelected && (
-                                                        <span className="absolute inset-0 flex items-center justify-center">
-                                                            <Check
-                                                                className={`w-3.5 h-3.5 ${useDarkCheck ? "text-obsidian" : "text-white"}`}
-                                                                strokeWidth={2.5}
-                                                            />
-                                                        </span>
-                                                    )}
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
+                                    {/* Cap color selector */}
+                                    {capColorOptions.length > 0 && (
+                                        <div className="mb-6">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
+                                                Cap Color
+                                                {activeCapColor && (
+                                                    <span className="ml-2 normal-case font-medium text-obsidian">{activeCapColor}</span>
+                                                )}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2.5">
+                                                {capColorOptions.map((color) => {
+                                                    const hex = COLOR_SWATCH[color] ?? GLASS_COLOR_SWATCH[color] ?? "#AAAAAA";
+                                                    const isSelected = activeCapColor === color;
+                                                    const useDarkCheck = LIGHT_SWATCHES.has(color);
+                                                    return (
+                                                        <button
+                                                            key={color}
+                                                            onClick={() => {
+                                                                setSelectedCapColor(color);
+                                                                setSelectedCapStyle(null);
+                                                                setSelectedTrimColor(null);
+                                                            }}
+                                                            title={color}
+                                                            className={`w-9 h-9 rounded-full border-2 transition-all relative ${isSelected
+                                                                ? "border-obsidian scale-110 shadow-md"
+                                                                : "border-champagne hover:border-muted-gold"
+                                                                }`}
+                                                            style={{ backgroundColor: hex }}
+                                                        >
+                                                            {isSelected && (
+                                                                <span className="absolute inset-0 flex items-center justify-center">
+                                                                    <Check
+                                                                        className={`w-3.5 h-3.5 ${useDarkCheck ? "text-obsidian" : "text-white"}`}
+                                                                        strokeWidth={2.5}
+                                                                    />
+                                                                </span>
+                                                            )}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Cap style selector — only when multiple options exist */}
+                                    {capStyleOptions.length > 1 && (
+                                        <div className="mb-6">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Cap Style</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {capStyleOptions.map((style) => (
+                                                    <button
+                                                        key={style}
+                                                        onClick={() => {
+                                                            setSelectedCapStyle(style);
+                                                            setSelectedTrimColor(null);
+                                                        }}
+                                                        className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${activeCapStyle === style
+                                                            ? "border-obsidian bg-obsidian text-white"
+                                                            : "border-champagne text-obsidian hover:border-muted-gold"
+                                                            }`}
+                                                    >
+                                                        {style}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Trim selector — the decorative accent ring */}
+                                    {trimColorOptions.length > 0 && (
+                                        <div className="mb-8">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
+                                                Trim
+                                                {activeTrimColor && (
+                                                    <span className="ml-2 normal-case font-medium text-obsidian">{activeTrimColor}</span>
+                                                )}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2.5">
+                                                {trimColorOptions.map((color) => {
+                                                    const hex = COLOR_SWATCH[color] ?? "#AAAAAA";
+                                                    const isSelected = activeTrimColor === color;
+                                                    const useDarkCheck = LIGHT_SWATCHES.has(color);
+                                                    return (
+                                                        <button
+                                                            key={color}
+                                                            onClick={() => setSelectedTrimColor(color)}
+                                                            title={color}
+                                                            className={`w-9 h-9 rounded-full border-2 transition-all relative ${isSelected
+                                                                ? "border-obsidian scale-110 shadow-md"
+                                                                : "border-champagne hover:border-muted-gold"
+                                                                }`}
+                                                            style={{ backgroundColor: hex }}
+                                                        >
+                                                            {isSelected && (
+                                                                <span className="absolute inset-0 flex items-center justify-center">
+                                                                    <Check
+                                                                        className={`w-3.5 h-3.5 ${useDarkCheck ? "text-obsidian" : "text-white"}`}
+                                                                        strokeWidth={2.5}
+                                                                    />
+                                                                </span>
+                                                            )}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
                             )}
 
                             {/* Quantity + Add to Cart */}
@@ -624,13 +805,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </button>
                             </div>
 
-                            {/* Swap Fitment CTA */}
+                            {/* View All Compatible Components CTA */}
                             <button
                                 onClick={() => setFitmentDrawerOpen(true)}
                                 className="w-full mb-6 py-2.5 flex items-center justify-center space-x-2 border border-champagne text-obsidian text-xs font-semibold uppercase tracking-widest hover:border-muted-gold hover:text-muted-gold transition-colors bg-white"
                             >
                                 <span className="w-1.5 h-1.5 rounded-full bg-muted-gold"></span>
-                                <span>Swap Applicator Type</span>
+                                <span>View All Compatible Components</span>
                                 <ChevronRight className="w-3.5 h-3.5" />
                             </button>
 
@@ -684,6 +865,28 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                         </div>
                     </div>
                 </section>
+
+                {/* ── Inline Compatible Caps ───────────────────────────────── */}
+                {inlineCaps.length > 0 && (
+                    <section className="border-t border-champagne/30">
+                        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
+                            <div className="flex items-center justify-between mb-4">
+                                <p className="text-xs uppercase tracking-wider font-bold text-slate">Compatible Caps</p>
+                                <button
+                                    onClick={() => setFitmentDrawerOpen(true)}
+                                    className="text-xs text-muted-gold hover:underline transition-colors"
+                                >
+                                    View all components →
+                                </button>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                                {inlineCaps.slice(0, 6).map((comp) => (
+                                    <ComponentCard key={comp.grace_sku} comp={comp} />
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
 
                 {/* ── Engineered Compatibility Carousel ────────────────────── */}
                 {selectedVariant?.graceSku && (

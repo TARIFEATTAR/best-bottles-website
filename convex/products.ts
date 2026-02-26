@@ -410,6 +410,23 @@ export const getGroupsByFamily = query({
 });
 
 /**
+ * Returns sibling product groups — same family + capacityMl, different glass color.
+ * Used by the PDP to show glass color swatches and navigate between color variants.
+ */
+export const getSiblingGroups = query({
+    args: { family: v.string(), capacityMl: v.number(), excludeSlug: v.string() },
+    handler: async (ctx, args) => {
+        const all = await ctx.db
+            .query("productGroups")
+            .withIndex("by_family", (q) => q.eq("family", args.family))
+            .collect();
+        return all.filter(
+            (g) => g.capacityMl === args.capacityMl && g.slug !== args.excludeSlug
+        );
+    },
+});
+
+/**
  * Data quality audit — scans for duplicates and misclassified component SKUs.
  * Returns flagged issues for review.
  */

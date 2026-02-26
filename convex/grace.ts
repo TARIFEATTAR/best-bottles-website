@@ -225,8 +225,9 @@ Tool rules:
 - CRITICAL: When a customer asks "what goes with" or "what fits" a specific bottle, call getBottleComponents (not checkCompatibility). First use searchCatalog to find the bottle's SKU if you don't know it, then call getBottleComponents with that SKU.
 - When a customer asks about a family broadly, call getFamilyOverview first, then searchCatalog for specifics.
 - Never mention tool names to the customer. Use them naturally in the background.
-- If a search returns no results, try a simpler term before saying we don't carry it.
+- If a search returns no results, try a simpler term before saying we don't carry it. For roll-on bottles, search "roller" or "5ml roller" or "9ml roller" — item names use "roller ball", not "roll-on".
 - Never invent SKUs, prices, or specifications. If data isn't in a tool result, say you'll look into it further.
+- When the customer asks "do you have X or Y?" (e.g. "5ml roll-on or 9ml roll-on?"), call searchCatalog first. If both exist, answer YES and list them. Do not say "No" and then list products — that confuses the customer.
 - IMPORTANT: Some component itemNames are generic (e.g. "Sprayer Thread 18-415" for antique bulb sprayers). Always trust the component TYPE grouping from getBottleComponents (e.g. "Antique Bulb Sprayer", "Lotion Pump") rather than trying to classify by item name.
 
 ---
@@ -275,6 +276,16 @@ GENERAL RULES:
 // These queries are called by the askGrace action as Claude tool executions.
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Normalize search terms for better matching — item names use "roller ball", not "roll-on"
+function normalizeSearchTerm(term: string): string {
+    return term
+        .replace(/\broll[- ]?on\b/gi, "roller")
+        .replace(/\broll[- ]?on\s*bottle\b/gi, "roller bottle")
+        .replace(/\b5\s*ml\b/gi, "5ml")
+        .replace(/\b9\s*ml\b/gi, "9ml")
+        .trim();
+}
+
 /**
  * AI Tool: Search Catalog
  * Grace uses this to find specific bottles or closures based on a user's text prompt.
@@ -286,8 +297,11 @@ export const searchCatalog = query({
         familyLimit: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
+        const normalizedTerm = normalizeSearchTerm(args.searchTerm);
+        const searchTermToUse = normalizedTerm || args.searchTerm;
+
         let q = ctx.db.query("products").withSearchIndex("search_itemName", (q) =>
-            q.search("itemName", args.searchTerm)
+            q.search("itemName", searchTermToUse)
         );
         if (args.categoryLimit) {
             q = q.filter((q) => q.eq(q.field("category"), args.categoryLimit));
@@ -295,7 +309,36 @@ export const searchCatalog = query({
         if (args.familyLimit) {
             q = q.filter((q) => q.eq(q.field("family"), args.familyLimit));
         }
-        const results = await q.take(25);
+        let results = await q.take(25);
+
+        // Fallback: if few results and term had roll-on/roller, try broader "roller" search
+        if (results.length < 5 && /\b(roll|roller)\b/i.test(args.searchTerm)) {
+            const fallbackQ = ctx.db
+                .query("products")
+                .withSearchIndex("search_itemName", (q) => q.search("itemName", "roller"));
+            let fallback = await fallbackQ.take(50);
+            if (args.familyLimit) {
+                fallback = fallback.filter((p) => p.family === args.familyLimit);
+            }
+            if (args.categoryLimit) {
+                fallback = fallback.filter((p) => p.category === args.categoryLimit);
+            }
+            // Prefer capacity match if user asked for specific size (e.g. 5ml, 9ml)
+            const capacityMatch = args.searchTerm.match(/\b(5|9)\s*ml\b/i);
+            if (capacityMatch) {
+                const targetMl = capacityMatch[1] === "5" ? 5 : 9;
+                const byCapacity = fallback.filter((p) => p.capacityMl === targetMl);
+                if (byCapacity.length > 0) fallback = byCapacity;
+            }
+            const seen = new Set(results.map((r) => r.graceSku));
+            for (const p of fallback) {
+                if (!seen.has(p.graceSku) && results.length < 25) {
+                    results = [...results, p];
+                    seen.add(p.graceSku);
+                }
+            }
+        }
+
         // Return a trimmed version — components arrays are large and waste tokens
         return results.map((p) => ({
             graceSku: p.graceSku,
