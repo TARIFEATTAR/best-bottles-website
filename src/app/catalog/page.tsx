@@ -11,22 +11,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
+import {
+    SORT_OPTIONS,
+    type SortValue,
+    type CatalogFilters,
+    EMPTY_FILTERS,
+    classifyComponentType,
+    filtersAreEmpty,
+    activeFilterCount,
+    filtersToParams,
+    paramsToFilters,
+} from "@/lib/catalogFilters";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const PAGE_SIZE = 24;
 const SEARCH_DEBOUNCE_MS = 300;
-
-const SORT_OPTIONS = [
-    { value: "featured", label: "Featured" },
-    { value: "price-asc", label: "Price: Low to High" },
-    { value: "price-desc", label: "Price: High to Low" },
-    { value: "name-asc", label: "Name: A–Z" },
-    { value: "name-desc", label: "Name: Z–A" },
-    { value: "variants-desc", label: "Most Variants" },
-] as const;
-
-type SortValue = (typeof SORT_OPTIONS)[number]["value"];
 
 const COLOR_SWATCH_MAP: Record<string, string> = {
     Clear: "bg-white border border-champagne/60",
@@ -57,17 +57,21 @@ const COMPONENT_CATEGORIES = new Set([
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-interface CatalogFilters {
-    category: string | null;
-    collection: string | null;
-    families: string[];
-    colors: string[];
-    capacities: string[];
-    neckThreadSizes: string[];
-    componentType: string | null;
-    priceMin: number | null;
-    priceMax: number | null;
-    search: string;
+interface CatalogGroup {
+    _id: string;
+    slug: string;
+    displayName: string;
+    family: string | null;
+    capacity: string | null;
+    capacityMl: number | null;
+    color: string | null;
+    category: string;
+    bottleCollection: string | null;
+    neckThreadSize: string | null;
+    variantCount: number;
+    priceRangeMin: number | null;
+    priceRangeMax: number | null;
+    heroImageUrl?: string | null;
 }
 
 interface Facets {
@@ -80,19 +84,6 @@ interface Facets {
     componentTypes: Record<string, number>;
     priceRange: { min: number; max: number };
 }
-
-const EMPTY_FILTERS: CatalogFilters = {
-    category: null,
-    collection: null,
-    families: [],
-    colors: [],
-    capacities: [],
-    neckThreadSizes: [],
-    componentType: null,
-    priceMin: null,
-    priceMax: null,
-    search: "",
-};
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -110,77 +101,7 @@ function countBy<T>(arr: T[], keyFn: (item: T) => string | null | undefined): Re
     return counts;
 }
 
-function classifyComponentType(displayName: string, family: string | null): string | null {
-    const name = displayName.toLowerCase();
-    const fam = (family ?? "").toLowerCase();
-    if (name.includes("sprayer") || name.includes("atomizer") || name.includes("bulb") || fam.includes("sprayer")) return "Sprayer";
-    if (name.includes("dropper") || fam.includes("dropper")) return "Dropper";
-    if (name.includes("lotion") && name.includes("pump") || fam.includes("lotion pump")) return "Lotion Pump";
-    if (name.includes("roll-on") || name.includes("roll on") || fam.includes("roll-on")) return "Roll-On";
-    if (name.includes("roller") || fam.includes("roller")) return "Roller";
-    if (name.includes("reducer") || fam.includes("reducer")) return "Reducer";
-    if (name.includes("cap") || name.includes("closure") || fam.includes("cap")) return "Cap";
-    return null;
-}
-
-function filtersAreEmpty(f: CatalogFilters): boolean {
-    return (
-        !f.category && !f.collection && f.families.length === 0 &&
-        f.colors.length === 0 && f.capacities.length === 0 &&
-        f.neckThreadSizes.length === 0 && !f.componentType &&
-        f.priceMin === null && f.priceMax === null && !f.search
-    );
-}
-
-function activeFilterCount(f: CatalogFilters): number {
-    let n = 0;
-    if (f.category) n++;
-    if (f.collection) n++;
-    n += f.families.length;
-    n += f.colors.length;
-    n += f.capacities.length;
-    n += f.neckThreadSizes.length;
-    if (f.componentType) n++;
-    if (f.priceMin !== null || f.priceMax !== null) n++;
-    if (f.search) n++;
-    return n;
-}
-
 // ─── URL Serialization ──────────────────────────────────────────────────────
-
-function filtersToParams(f: CatalogFilters, sort: SortValue): URLSearchParams {
-    const p = new URLSearchParams();
-    if (f.category) p.set("category", f.category);
-    if (f.collection) p.set("collection", f.collection);
-    if (f.families.length) p.set("families", f.families.join(","));
-    if (f.colors.length) p.set("colors", f.colors.join(","));
-    if (f.capacities.length) p.set("capacities", f.capacities.join(","));
-    if (f.neckThreadSizes.length) p.set("threads", f.neckThreadSizes.join(","));
-    if (f.componentType) p.set("componentType", f.componentType);
-    if (f.priceMin !== null) p.set("priceMin", String(f.priceMin));
-    if (f.priceMax !== null) p.set("priceMax", String(f.priceMax));
-    if (f.search) p.set("search", f.search);
-    if (sort !== "featured") p.set("sort", sort);
-    return p;
-}
-
-function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue } {
-    return {
-        filters: {
-            category: sp.get("category") || null,
-            collection: sp.get("collection") || null,
-            families: sp.get("families")?.split(",").filter(Boolean) ?? [],
-            colors: sp.get("colors")?.split(",").filter(Boolean) ?? [],
-            capacities: sp.get("capacities")?.split(",").filter(Boolean) ?? [],
-            neckThreadSizes: sp.get("threads")?.split(",").filter(Boolean) ?? [],
-            componentType: sp.get("componentType") || null,
-            priceMin: sp.get("priceMin") ? Number(sp.get("priceMin")) : null,
-            priceMax: sp.get("priceMax") ? Number(sp.get("priceMax")) : null,
-            search: sp.get("search") || "",
-        },
-        sort: (sp.get("sort") as SortValue) || "featured",
-    };
-}
 
 // ─── Skeleton Components ─────────────────────────────────────────────────────
 
@@ -216,7 +137,7 @@ function SkeletonGrid() {
 
 // ─── Product Group Card ──────────────────────────────────────────────────────
 
-function ProductGroupCard({ group, index }: { group: any; index: number }) {
+function ProductGroupCard({ group, index }: { group: CatalogGroup; index: number }) {
     return (
         <Link href={`/products/${group.slug}`}>
             <motion.div
@@ -395,7 +316,7 @@ function PriceRangeSlider({
 }) {
     const effectiveMin = valueMin ?? min;
     const effectiveMax = valueMax ?? max;
-    const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+    const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     const handleChange = (newMin: number, newMax: number) => {
         clearTimeout(debounceRef.current);
@@ -711,19 +632,25 @@ function BackToTop() {
 
 // ─── Main Catalog Content ────────────────────────────────────────────────────
 
-function CatalogContent() {
-    const searchParams = useSearchParams();
+function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const router = useRouter();
     const pathname = usePathname();
-    const searchDebounceRef = useRef<ReturnType<typeof setTimeout>>();
+    const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-    // Parse URL into state on mount
-    const initialState = useMemo(() => paramsToFilters(searchParams), []);
+    const initialState = paramsToFilters(searchParams);
 
     const [filters, setFilters] = useState<CatalogFilters>(initialState.filters);
     const [sortBy, setSortBy] = useState<SortValue>(initialState.sort);
     const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-    const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
+    const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>(() => {
+        if (typeof window === "undefined") return {};
+        try {
+            const saved = window.localStorage.getItem("catalog_expanded");
+            return saved ? (JSON.parse(saved) as Record<string, boolean>) : {};
+        } catch {
+            return {};
+        }
+    });
     const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
     const [searchInput, setSearchInput] = useState(initialState.filters.search);
 
@@ -735,22 +662,6 @@ function CatalogContent() {
         },
         [router, pathname],
     );
-
-    // Restore accordion state from localStorage on mount
-    useEffect(() => {
-        try {
-            const saved = localStorage.getItem("catalog_expanded");
-            if (saved) setExpandedCategories(JSON.parse(saved));
-        } catch { /* noop */ }
-    }, []);
-
-    // Sync incoming URL changes (e.g., Navbar search)
-    useEffect(() => {
-        const { filters: urlFilters, sort: urlSort } = paramsToFilters(searchParams);
-        setFilters(urlFilters);
-        setSortBy(urlSort);
-        setSearchInput(urlFilters.search);
-    }, [searchParams]);
 
     // Persist accordion state
     useEffect(() => {
@@ -766,7 +677,7 @@ function CatalogContent() {
     }, [mobileFilterOpen]);
 
     // ── Convex Queries ──────────────────────────────────────────────────────
-    const allGroups = useQuery(api.products.getAllCatalogGroups);
+    const allGroups = useQuery(api.products.getAllCatalogGroups) as CatalogGroup[] | undefined;
     const taxonomy = useQuery(api.products.getCatalogTaxonomy);
 
     // ── Client-Side Filter + Sort + Facet Pipeline ──────────────────────────
@@ -882,11 +793,6 @@ function CatalogContent() {
         return { filtered: result, facets: facetData, totalCount: total };
     }, [allGroups, filters, sortBy]);
 
-    // Reset visible count when filters change
-    useEffect(() => {
-        setVisibleCount(PAGE_SIZE);
-    }, [filters, sortBy]);
-
     const visibleProducts = filtered.slice(0, visibleCount);
     const hasMore = visibleCount < filtered.length;
     const isLoading = allGroups === undefined;
@@ -897,9 +803,11 @@ function CatalogContent() {
         (patch: Partial<CatalogFilters>) => {
             setFilters((prev) => {
                 const next = { ...prev, ...patch };
-                pushToUrl(next, sortBy);
+                // Using a timeout defers the URL update until after the render cycle completes
+                setTimeout(() => pushToUrl(next, sortBy), 0);
                 return next;
             });
+            setVisibleCount(PAGE_SIZE);
             setMobileFilterOpen(false);
             window.scrollTo({ top: 0, behavior: "smooth" });
         },
@@ -908,6 +816,7 @@ function CatalogContent() {
 
     const handleClearAll = useCallback(() => {
         setFilters(EMPTY_FILTERS);
+        setVisibleCount(PAGE_SIZE);
         setSearchInput("");
         pushToUrl(EMPTY_FILTERS, sortBy);
     }, [pushToUrl, sortBy]);
@@ -915,6 +824,7 @@ function CatalogContent() {
     const handleSortChange = useCallback(
         (value: SortValue) => {
             setSortBy(value);
+            setVisibleCount(PAGE_SIZE);
             pushToUrl(filters, value);
         },
         [pushToUrl, filters],
@@ -1182,7 +1092,7 @@ function CatalogContent() {
                         {/* Product Grid */}
                         {visibleProducts.length > 0 && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-                                {visibleProducts.map((group: any, pIndex: number) => (
+                                {visibleProducts.map((group: CatalogGroup, pIndex: number) => (
                                     <ProductGroupCard key={group._id} group={group} index={pIndex} />
                                 ))}
                             </div>
@@ -1220,9 +1130,15 @@ function CatalogContent() {
     );
 }
 
+function CatalogContentLoader() {
+    const searchParams = useSearchParams();
+    const query = searchParams.toString();
+    return <CatalogContent key={query} searchParams={new URLSearchParams(query)} />;
+}
+
 // ─── Export with Suspense ────────────────────────────────────────────────────
 
-export default function CatalogPage(_props: { searchParams: Promise<Record<string, string | undefined>> }) {
+export default function CatalogPage() {
     return (
         <Suspense
             fallback={
@@ -1237,7 +1153,7 @@ export default function CatalogPage(_props: { searchParams: Promise<Record<strin
                 </main>
             }
         >
-            <CatalogContent />
+            <CatalogContentLoader />
         </Suspense>
     );
 }

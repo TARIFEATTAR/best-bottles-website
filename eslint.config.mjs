@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Root-level CJS utility scripts not part of the Next.js app
+    "format_json.js",
+    "scripts/**",
+    "clear_loop.mjs",
   ]),
 ]);
 

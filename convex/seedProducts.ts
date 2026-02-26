@@ -90,7 +90,7 @@ export const seedBatch = action({
     },
     handler: async (ctx, args) => {
         await ctx.runMutation(internal.seedProducts.insertBatch, {
-            products: args.products as any,
+            products: args.products as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         });
         return {
             batchIndex: args.batchIndex,
@@ -139,6 +139,7 @@ export const seedFitmentBatch = action({
     },
     handler: async (ctx, args) => {
         await ctx.runMutation(internal.seedProducts.insertFitments, {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             fitments: args.fitments as any,
         });
         return {

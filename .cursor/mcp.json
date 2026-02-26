@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "shopify": {
+      "command": "npx",
+      "args": [
+        "shopify-mcp",
+        "--accessToken",
+        "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",
+        "--domain",
+        "bestbottles-1581.myshopify.com"
+      ]
+    }
+  }
+}

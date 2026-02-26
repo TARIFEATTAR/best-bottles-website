@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as componentUtils from "../componentUtils.js";
 import type * as fitments from "../fitments.js";
 import type * as forms from "../forms.js";
 import type * as grace from "../grace.js";
@@ -23,6 +24,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  componentUtils: typeof componentUtils;
   fitments: typeof fitments;
   forms: typeof forms;
   grace: typeof grace;

@@ -4,6 +4,12 @@ import { ChevronRight, Sparkles } from 'lucide-react';
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 
+interface FitmentOption {
+    graceSku: string;
+    itemName: string;
+    imageUrl?: string | null;
+}
+
 interface FitmentCarouselProps {
     bottleSku: string;
     onOpenDrawer: () => void;
@@ -15,7 +21,7 @@ export default function FitmentCarousel({ bottleSku, onOpenDrawer }: FitmentCaro
     const bottle = matchData?.bottle;
 
     // Flatten all component variants into a single array for the carousel preview
-    const fitments: any[] = Object.values(componentsMap).flat();
+    const fitments = (Object.values(componentsMap) as FitmentOption[][]).flat();
     const availableFamilies = Object.keys(componentsMap);
 
     // Show a skeleton if loading, or empty state if no thread size limits matching

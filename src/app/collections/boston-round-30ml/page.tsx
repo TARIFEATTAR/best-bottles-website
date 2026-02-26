@@ -305,7 +305,7 @@ export default function ProductPage() {
                             <div>
                                 <p className="text-[13px] text-slate leading-relaxed">
                                     <span className="font-medium text-obsidian flex items-center"><Zap className="w-3 h-3 mr-1 text-muted-gold" /> Grace AI Suggestion</span>
-                                    You've selected the {activeFitment.name}. If your product contains high percentages of essential oils, the phenolic cap or glass dropper are optimal. The sprayer mechanism is best for water-based or low-viscosity solutions.
+                                    You&apos;ve selected the {activeFitment.name}. If your product contains high percentages of essential oils, the phenolic cap or glass dropper are optimal. The sprayer mechanism is best for water-based or low-viscosity solutions.
                                 </p>
                             </div>
                         </div>

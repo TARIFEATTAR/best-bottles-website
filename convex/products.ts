@@ -1,5 +1,6 @@
 import { query } from "./_generated/server";
 import { v } from "convex/values";
+import { normalizeComponentsByType } from "./componentUtils";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT QUERIES — Powers the Homepage + Catalog + PDP
@@ -99,40 +100,6 @@ export const getHomepageStats = query({
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Groups a flat components array into a type-keyed map.
- * Used by FitmentDrawer and FitmentCarousel which expect grouped format.
- */
-function groupComponentsByType(comps: any[]): Record<string, any[]> {
-    const grouped: Record<string, any[]> = {};
-    for (const comp of comps) {
-        const sku = (comp.grace_sku || comp.graceSku || "").toUpperCase();
-        const name = (comp.item_name || comp.itemName || "").toLowerCase();
-        let type = "Cap";
-
-        if (sku.includes("DRP")) type = "Dropper";
-        else if (sku.includes("ROC")) type = "Roll-On Cap";
-        else if (sku.includes("AST") || sku.includes("ASP") || sku.includes("SPR") || sku.includes("ATM")) type = "Sprayer";
-        else if (sku.includes("LPM")) type = "Lotion Pump";
-        else if (sku.includes("RDC")) type = "Reducer";
-        else if (sku.includes("ROL") || sku.includes("MRL") || sku.includes("RON") || sku.includes("MRO") || sku.includes("RBL")) type = "Roller";
-        else if (name.includes("sprayer") || name.includes("bulb") || name.includes("atomizer")) type = "Sprayer";
-        else if (name.includes("lotion") && name.includes("pump")) type = "Lotion Pump";
-        else if (name.includes("dropper")) type = "Dropper";
-        else if (name.includes("reducer")) type = "Reducer";
-
-        if (!grouped[type]) grouped[type] = [];
-        grouped[type].push({
-            graceSku: comp.grace_sku || comp.graceSku || "",
-            itemName: comp.item_name || comp.itemName || "",
-            imageUrl: comp.image_url || comp.imageUrl || null,
-            price1: comp.price_1 ?? comp.price1 ?? null,
-            price12: comp.price_12 ?? comp.price12 ?? null,
-        });
-    }
-    return grouped;
-}
-
-/**
  * Given a bottle SKU, this algorithm instantly finds all mathematically compatible
  * closures, sprayers, and droppers.
  *
@@ -153,10 +120,21 @@ export const getCompatibleFitments = query({
 
         if (!bottle) return { bottle: null, components: null };
 
-        const rawComps = Array.isArray(bottle.components) ? bottle.components : [];
+        const grouped = normalizeComponentsByType(bottle.components);
         return {
             bottle,
-            components: groupComponentsByType(rawComps),
+            components: Object.fromEntries(
+                Object.entries(grouped).map(([type, items]) => [
+                    type,
+                    items.map((item) => ({
+                        graceSku: item.graceSku,
+                        itemName: item.itemName,
+                        imageUrl: item.imageUrl,
+                        price1: item.webPrice1pc,
+                        price12: item.webPrice12pc,
+                    })),
+                ]),
+            ),
         };
     },
 });
@@ -175,7 +153,7 @@ export const getFeaturedByFamily = query({
             "Diamond", "Royal", "Round", "Square",
         ];
 
-        const featured: Record<string, any> = {};
+        const featured: Record<string, unknown> = {};
         for (const family of targetFamilies) {
             const product = await ctx.db
                 .query("products")
@@ -250,7 +228,7 @@ export const getCatalogProducts = query({
 
         // If search term, use search index
         if (args.searchTerm) {
-            let q = ctx.db.query("products").withSearchIndex("search_itemName", (q) =>
+            const q = ctx.db.query("products").withSearchIndex("search_itemName", (q) =>
                 q.search("itemName", args.searchTerm!)
             );
             return await q.take(limit);
@@ -271,9 +249,12 @@ export const getCatalogProducts = query({
                 .take(limit);
         }
 
-        // Collection-based — use take with a generous limit (no index on bottleCollection)
+        // Collection-based (no dedicated index yet) — read, then filter for correctness.
         if (args.collection) {
-            return await ctx.db.query("products").take(limit);
+            const allProducts = await ctx.db.query("products").collect();
+            return allProducts
+                .filter((p) => p.bottleCollection === args.collection)
+                .slice(0, limit);
         }
 
         // Default: return first batch
@@ -293,7 +274,7 @@ export const searchProducts = query({
     },
     handler: async (ctx, args) => {
         const limit = args.limit ?? 30;
-        let q = ctx.db.query("products").withSearchIndex("search_itemName", (q) => {
+        const q = ctx.db.query("products").withSearchIndex("search_itemName", (q) => {
             let search = q.search("itemName", args.searchTerm);
             if (args.category) search = search.eq("category", args.category);
             if (args.family) search = search.eq("family", args.family);

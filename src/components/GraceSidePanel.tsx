@@ -18,8 +18,9 @@ import {
     GitCompare,
     FileText,
     ExternalLink,
-    ChevronLeft,
+    ChevronDown,
     Maximize2,
+    PanelRightClose,
 } from "lucide-react";
 import { useGrace, type GraceStatus, type GraceAction, type ProductCard, type KitItem } from "./GraceProvider";
 import { useCart } from "./CartProvider";
@@ -27,10 +28,12 @@ import { useCart } from "./CartProvider";
 // ─── Hooks ───────────────────────────────────────────────────────────────────
 
 function useIsMobile() {
-    const [mobile, setMobile] = useState(false);
+    const [mobile, setMobile] = useState(() => {
+        if (typeof window === "undefined") return false;
+        return window.matchMedia("(max-width: 768px)").matches;
+    });
     useEffect(() => {
         const mq = window.matchMedia("(max-width: 768px)");
-        setMobile(mq.matches);
         const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
         mq.addEventListener("change", handler);
         return () => mq.removeEventListener("change", handler);
@@ -497,10 +500,11 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                     {!isMobile && (
                         <button
                             onClick={minimizeToStrip}
-                            className="p-1 rounded-lg hover:bg-champagne/40 transition-colors"
+                            className="group p-1 rounded-lg hover:bg-champagne/40 transition-all"
                             aria-label="Minimize to sidebar"
+                            title="Minimize to voice strip"
                         >
-                            <ChevronLeft className="w-4 h-4 text-slate" />
+                            <PanelRightClose className="w-4 h-4 text-slate transition-all duration-200 group-hover:text-muted-gold group-hover:translate-x-0.5" />
                         </button>
                     )}
                     <div className="w-8 h-8 rounded-full bg-obsidian flex items-center justify-center shrink-0">
@@ -516,6 +520,16 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                     </div>
                 </div>
                 <div className="flex items-center space-x-0.5">
+                    {isMobile && (
+                        <button
+                            onClick={minimizeToStrip}
+                            aria-label="Minimize to voice strip"
+                            title="Minimize to voice strip"
+                            className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
+                        >
+                            <ChevronDown className="w-4 h-4 text-slate" />
+                        </button>
+                    )}
                     <button
                         onClick={toggleVoice}
                         aria-label={voiceEnabled ? "Mute" : "Unmute"}
@@ -807,7 +821,15 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                 role="complementary"
                 aria-label="Grace — Your Packaging Atelier"
             >
-                <div className="w-10 h-1 rounded-full bg-champagne/60 mx-auto mt-2 mb-1 shrink-0" />
+                <button
+                    type="button"
+                    onClick={minimizeToStrip}
+                    className="w-full py-2 shrink-0 cursor-grab active:cursor-grabbing"
+                    aria-label="Minimize to voice strip"
+                    title="Swipe down or tap to minimize"
+                >
+                    <span className="block w-10 h-1 rounded-full bg-champagne/60 mx-auto" />
+                </button>
                 {panelContent}
             </motion.div>
         );

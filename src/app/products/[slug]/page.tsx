@@ -67,6 +67,43 @@ const LIGHT_SWATCHES = new Set(["White", "Shiny Silver", "Matte Silver", "Standa
 
 const COMPONENT_TYPE_ORDER = ["Reducer", "Roller Cap", "Roller", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
 
+interface ProductComponent {
+    grace_sku: string;
+    item_name: string;
+    image_url?: string | null;
+    price_1?: number | null;
+    price_12?: number | null;
+}
+
+interface ProductVariant {
+    _id: string;
+    graceSku: string;
+    websiteSku: string;
+    itemName: string;
+    itemDescription: string | null;
+    imageUrl: string | null;
+    stockStatus: string | null;
+    webPrice1pc: number | null;
+    webPrice10pc: number | null;
+    webPrice12pc: number | null;
+    category: string;
+    family: string | null;
+    color: string | null;
+    capacity: string | null;
+    heightWithCap: string | null;
+    heightWithoutCap: string | null;
+    diameter: string | null;
+    bottleWeightG: number | null;
+    neckThreadSize: string | null;
+    bottleCollection: string | null;
+    caseQuantity: number | null;
+    applicator: string | null;
+    capStyle: string | null;
+    capColor: string | null;
+    trimColor: string | null;
+    components?: ProductComponent[] | null;
+}
+
 
 // ── Spec Row ──────────────────────────────────────────────────────────────────
 
@@ -82,7 +119,7 @@ function SpecRow({ label, value }: { label: string; value: string | number | nul
 
 // ── Component Card ────────────────────────────────────────────────────────────
 
-function ComponentCard({ comp }: { comp: any }) {
+function ComponentCard({ comp }: { comp: ProductComponent }) {
     const { addItems } = useCart();
     const [justAdded, setJustAdded] = useState(false);
 
@@ -160,7 +197,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const [addedFlash, setAddedFlash] = useState(false);
 
     const group = data?.group;
-    const variants: any[] = data?.variants ?? [];
+    const variants = (data?.variants as ProductVariant[] | undefined) ?? [];
 
     // ── Derived selector options ─────────────────────────────────────────────
 
@@ -176,49 +213,39 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             });
     }, [variants]);
 
+    const activeApplicator = selectedApplicator ?? applicatorOptions[0] ?? null;
+
     const trimColorOptions = useMemo(() => {
         const seen = new Set<string>();
         return variants
-            .filter((v) => v.applicator === selectedApplicator)
+            .filter((v) => v.applicator === activeApplicator)
             .map((v) => v.trimColor || "Standard")
             .filter((c) => {
                 if (seen.has(c)) return false;
                 seen.add(c);
                 return true;
             });
-    }, [variants, selectedApplicator]);
+    }, [variants, activeApplicator]);
 
-    // Auto-select first applicator when data arrives
-    useEffect(() => {
-        if (applicatorOptions.length > 0 && !selectedApplicator) {
-            setSelectedApplicator(applicatorOptions[0]);
-        }
-    }, [applicatorOptions, selectedApplicator]);
-
-    // Auto-select first trim color when applicator changes
-    useEffect(() => {
-        if (trimColorOptions.length > 0) {
-            setSelectedTrimColor(trimColorOptions[0]);
-        }
-    }, [trimColorOptions]);
+    const activeTrimColor = selectedTrimColor ?? trimColorOptions[0] ?? null;
 
     // Resolved variant based on current selections
     const selectedVariant = useMemo(() => {
         return (
             variants.find(
                 (v) =>
-                    v.applicator === selectedApplicator &&
-                    (v.trimColor || "Standard") === selectedTrimColor
+                    v.applicator === activeApplicator &&
+                    (v.trimColor || "Standard") === activeTrimColor
             ) ??
             variants[0] ??
             null
         );
-    }, [variants, selectedApplicator, selectedTrimColor]);
+    }, [variants, activeApplicator, activeTrimColor]);
 
     // Components grouped by type from selected variant
     const componentGroups = useMemo(() => {
-        const comps: any[] = selectedVariant?.components ?? [];
-        const groups: Record<string, any[]> = {};
+        const comps = selectedVariant?.components ?? [];
+        const groups: Record<string, ProductComponent[]> = {};
         for (const comp of comps) {
             const type = getComponentType(comp.grace_sku || "", comp.item_name);
             if (!groups[type]) groups[type] = [];
@@ -490,7 +517,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                     setSelectedApplicator(appl);
                                                     setSelectedTrimColor(null);
                                                 }}
-                                                className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${selectedApplicator === appl
+                                                className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${activeApplicator === appl
                                                     ? "border-obsidian bg-obsidian text-white"
                                                     : "border-champagne text-obsidian hover:border-muted-gold"
                                                     }`}
@@ -507,14 +534,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 <div className="mb-8">
                                     <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
                                         Finish
-                                        {selectedTrimColor && (
-                                            <span className="ml-2 normal-case font-medium text-obsidian">{selectedTrimColor}</span>
+                                        {activeTrimColor && (
+                                            <span className="ml-2 normal-case font-medium text-obsidian">{activeTrimColor}</span>
                                         )}
                                     </p>
                                     <div className="flex flex-wrap gap-2.5">
                                         {trimColorOptions.map((color) => {
                                             const hex = COLOR_SWATCH[color] ?? "#AAAAAA";
-                                            const isSelected = selectedTrimColor === color;
+                                            const isSelected = activeTrimColor === color;
                                             const useDarkCheck = LIGHT_SWATCHES.has(color);
                                             return (
                                                 <button
@@ -753,7 +780,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                             </span>
                                                         </div>
                                                         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                                                            {componentGroups[type].map((comp: any) => (
+                                                            {componentGroups[type].map((comp) => (
                                                                 <ComponentCard key={comp.grace_sku} comp={comp} />
                                                             ))}
                                                         </div>

@@ -1,6 +1,36 @@
 import { mutation, query, action, internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
+import type { Id } from "./_generated/dataModel";
+
+// Minimal types for paginated product reads
+interface RawProduct {
+    _id: Id<"products">;
+    graceSku?: string;
+    websiteSku?: string;
+    itemName?: string;
+    family?: string;
+    capacity?: string;
+    capacityMl?: number;
+    color?: string;
+    category?: string;
+    bottleCollection?: string;
+    neckThreadSize?: string;
+    webPrice1pc?: number;
+    productGroupId?: string;
+    components?: unknown[];
+}
+
+interface PageResult {
+    page: RawProduct[];
+    isDone: boolean;
+    continueCursor: string;
+}
+
+interface GroupRecord {
+    _id: Id<"productGroups">;
+    slug: string;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT GROUPING MIGRATION — Phase 1
@@ -65,7 +95,7 @@ export const getProductPage = internalQuery({
     handler: async (ctx, args) => {
         return await ctx.db.query("products").paginate({
             numItems: args.numItems,
-            cursor: args.cursor as any,
+            cursor: args.cursor as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         });
     },
 });
@@ -147,23 +177,23 @@ export const buildProductGroups = action({
         let totalProducts = 0;
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
 
             for (const p of result.page) {
-                const key = buildGroupKey(p.family, p.capacityMl, p.color, p.category);
+                const key = buildGroupKey(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown");
 
                 if (!groupMap.has(key)) {
                     groupMap.set(key, {
-                        slug: buildSlug(p.family, p.capacityMl, p.color, p.category),
-                        displayName: buildDisplayName(p.family, p.capacity, p.color, p.category),
-                        family: p.family || p.category,
+                        slug: buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown"),
+                        displayName: buildDisplayName(p.family ?? null, p.capacity ?? null, p.color ?? null, p.category ?? "unknown"),
+                        family: p.family || p.category || "unknown",
                         capacity: p.capacity ?? null,
                         capacityMl: p.capacityMl ?? null,
                         color: p.color ?? null,
-                        category: p.category,
+                        category: p.category ?? "unknown",
                         bottleCollection: p.bottleCollection ?? null,
                         neckThreadSize: p.neckThreadSize ?? null,
                         variantCount: 0,
@@ -210,8 +240,8 @@ export const linkProductsToGroups = action({
     args: {},
     handler: async (ctx) => {
         // Load all groups into a slug → _id map (groups are small, ~230 docs)
-        const groups: any[] = await ctx.runQuery(internal.migrations.getAllGroups, {});
-        const slugToId = new Map<string, any>(groups.map((g: any) => [g.slug, g._id]));
+        const groups = await ctx.runQuery(internal.migrations.getAllGroups, {}) as GroupRecord[];
+        const slugToId = new Map<string, Id<"productGroups">>(groups.map((g) => [g.slug, g._id]));
 
         if (slugToId.size === 0) {
             return { linked: 0, skipped: 0, message: "No product groups found. Run buildProductGroups first." };
@@ -224,14 +254,14 @@ export const linkProductsToGroups = action({
         let skipped = 0;
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
 
-            const links: { id: any; groupId: any }[] = [];
+            const links: { id: Id<"products">; groupId: Id<"productGroups"> }[] = [];
             for (const p of result.page) {
-                const slug = buildSlug(p.family, p.capacityMl, p.color, p.category);
+                const slug = buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown");
                 const groupId = slugToId.get(slug);
                 if (groupId) {
                     links.push({ id: p._id, groupId });
@@ -354,12 +384,12 @@ export const enrichProductFields = action({
         let totalSkipped = 0;
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
 
-            const patches: { id: any; applicator: string | null; color: string | null }[] = [];
+            const patches: { id: Id<"products">; applicator: string | null; color: string | null }[] = [];
             for (const p of result.page) {
                 const applicator = deriveApplicator(p.graceSku || "", p.itemName || "");
                 const color = deriveColor(p.graceSku || "");
@@ -407,7 +437,7 @@ export const countProductPage = internalQuery({
     handler: async (ctx, args) => {
         const result = await ctx.db.query("products").paginate({
             numItems: args.numItems,
-            cursor: args.cursor as any,
+            cursor: args.cursor as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         });
         let linked = 0;
         for (const p of result.page) {
@@ -488,23 +518,23 @@ export const fixBsrDroppers = action({
         let totalSkipped = 0;
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
 
-            const patches: { id: any; components: any }[] = [];
+            const patches: { id: Id<"products">; components: unknown[] }[] = [];
 
             for (const p of result.page) {
                 // Only process Boston Round products
                 if (p.family !== "Boston Round") continue;
 
-                const removeSet = getRemoveSet(p.capacityMl);
+                const removeSet = getRemoveSet(p.capacityMl ?? null);
                 if (!removeSet) { totalSkipped++; continue; }
 
-                const original: any[] = Array.isArray(p.components) ? p.components : [];
-                const filtered = original.filter((c: any) => {
-                    const sku = c.grace_sku || c.sku || "";
+                const original: Array<Record<string, unknown>> = Array.isArray(p.components) ? p.components as Array<Record<string, unknown>> : [];
+                const filtered = original.filter((c) => {
+                    const sku = (c.grace_sku as string | undefined) || (c.sku as string | undefined) || "";
                     return !removeSet.has(sku);
                 });
 
@@ -547,24 +577,24 @@ export const verifyBsrFix = action({
         const byCapacity: Record<string, { count: number; compCounts: Set<number>; issues: number }> = {};
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, { cursor, numItems: PAGE_SIZE });
+            const result = await ctx.runQuery(internal.migrations.getProductPage, { cursor, numItems: PAGE_SIZE }) as PageResult;
             for (const p of result.page) {
                 if (p.family !== "Boston Round") continue;
                 const cap = p.capacity || "unknown";
                 if (!byCapacity[cap]) byCapacity[cap] = { count: 0, compCounts: new Set(), issues: 0 };
                 byCapacity[cap].count++;
-                const comps: any[] = Array.isArray(p.components) ? p.components : [];
+                const comps: Array<Record<string, unknown>> = Array.isArray(p.components) ? p.components as Array<Record<string, unknown>> : [];
                 byCapacity[cap].compCounts.add(comps.length);
                 const badSet = cap.includes("15") ? BAD_FOR_15 : cap.includes("30") ? BAD_FOR_30 : BAD_FOR_60;
                 for (const c of comps) {
-                    if (badSet.has(c.grace_sku || "")) byCapacity[cap].issues++;
+                    if (badSet.has((c.grace_sku as string | undefined) || "")) byCapacity[cap].issues++;
                 }
             }
             isDone = result.isDone;
             cursor = result.continueCursor;
         }
 
-        const summary: Record<string, any> = {};
+        const summary: Record<string, { products: number; componentCounts: number[]; remainingBadComponents: number; status: string }> = {};
         for (const [cap, data] of Object.entries(byCapacity)) {
             summary[cap] = {
                 products: data.count,
@@ -609,13 +639,13 @@ export const fixVialTaxonomy = action({
         const PAGE_SIZE = 100;
         let cursor: string | null = null;
         let isDone = false;
-        const fixes: { id: any; fields: any; reason: string }[] = [];
+        const fixes: { id: Id<"products">; fields: Record<string, unknown>; reason: string }[] = [];
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
 
             for (const p of result.page) {
                 if (p.family !== "Vial" && p.family !== null) continue;
@@ -730,13 +760,13 @@ export const remove9mlBlackWhite = action({
         const PAGE_SIZE = 100;
         let cursor: string | null = null;
         let isDone = false;
-        const toDelete: { id: any; sku: string }[] = [];
+        const toDelete: { id: Id<"products">; sku: string }[] = [];
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
 
             for (const p of result.page) {
                 const sku = (p.graceSku || "").toUpperCase();
@@ -789,10 +819,10 @@ export const addMissingVials = action({
         const existingSkus = new Set<string>();
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: PAGE_SIZE,
-            });
+            }) as PageResult;
             for (const p of result.page) {
                 existingSkus.add((p.websiteSku || "").toLowerCase());
             }
@@ -910,7 +940,7 @@ export const insertSingleProduct = internalMutation({
 export const checkMigrationStatus = action({
     args: {},
     handler: async (ctx) => {
-        const groups: any[] = await ctx.runQuery(internal.migrations.getAllGroups, {});
+        const groups = (await ctx.runQuery(internal.migrations.getAllGroups, {})) as GroupRecord[];
 
         let total = 0;
         let linked = 0;
@@ -918,10 +948,10 @@ export const checkMigrationStatus = action({
         let isDone = false;
 
         while (!isDone) {
-            const result: any = await ctx.runQuery(internal.migrations.countProductPage, {
+            const result = await ctx.runQuery(internal.migrations.countProductPage, {
                 cursor,
                 numItems: 100,
-            });
+            }) as { count: number; linked: number; isDone: boolean; continueCursor: string };
             total += result.count;
             linked += result.linked;
             isDone = result.isDone;

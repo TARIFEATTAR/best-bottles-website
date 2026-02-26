@@ -11,16 +11,25 @@ interface FitmentDrawerProps {
     bottleSku: string;
 }
 
+interface FitmentOption {
+    graceSku: string;
+    itemName: string;
+    color?: string | null;
+    imageUrl?: string | null;
+    price1?: number | null;
+    price12?: number | null;
+}
+
 export default function FitmentDrawer({ isOpen, onClose, bottleSku }: FitmentDrawerProps) {
     const [step, setStep] = useState<2 | 3>(2);
     const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
 
     const matchData = useQuery(api.products.getCompatibleFitments, { bottleSku });
-    const componentsMap = matchData?.components || {};
+    const componentsMap = (matchData?.components ?? {}) as Record<string, FitmentOption[]>;
     const bottle = matchData?.bottle;
 
     const availableFamilies = Object.keys(componentsMap);
-    let filteredFitments: any[] = [];
+    let filteredFitments: FitmentOption[] = [];
     if (selectedApplicator === 'Roll-On Cap') {
         filteredFitments = [
             ...(componentsMap['Plastic Roller'] || []),
@@ -36,9 +45,6 @@ export default function FitmentDrawer({ isOpen, onClose, bottleSku }: FitmentDra
     useEffect(() => {
         if (!isOpen) {
             setTimeout(() => setStep(2), 300);
-            setAgentStatus('Drawer closed.');
-        } else {
-            setAgentStatus('Drawer opened. Placed on step 2, applicator selection.');
         }
     }, [isOpen]);
 
@@ -222,7 +228,7 @@ export default function FitmentDrawer({ isOpen, onClose, bottleSku }: FitmentDra
 
                             <div className="grid grid-cols-2 gap-4" data-agent-step="select-aesthetic">
 
-                                {filteredFitments.map((fitment: any, idx: number) => (
+                                {filteredFitments.map((fitment, idx: number) => (
                                     <div
                                         key={idx}
                                         className="group relative flex flex-col items-center p-4 bg-white/70 border border-champagne/40 rounded-xl hover:border-muted-gold/50 hover:bg-white transition-all cursor-pointer shadow-sm hover:shadow"

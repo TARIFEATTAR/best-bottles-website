@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Send, CheckCircle2, Loader2 } from "lucide-react";
@@ -27,20 +27,16 @@ interface FormPageProps {
 export default function FormPage({ formType, title, subtitle, fields }: FormPageProps) {
     const searchParams = useSearchParams();
     const submitForm = useMutation(api.forms.submit);
-    const [values, setValues] = useState<Record<string, string>>({});
-    const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-    const [errorMsg, setErrorMsg] = useState("");
-
-    useEffect(() => {
+    const [values, setValues] = useState<Record<string, string>>(() => {
         const prefilled: Record<string, string> = {};
         fields.forEach((f) => {
             const param = searchParams.get(f.name);
             if (param) prefilled[f.name] = param;
         });
-        if (Object.keys(prefilled).length > 0) {
-            setValues((prev) => ({ ...prev, ...prefilled }));
-        }
-    }, [searchParams, fields]);
+        return prefilled;
+    });
+    const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();

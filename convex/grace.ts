@@ -2,6 +2,7 @@ import { query, mutation, action } from "./_generated/server";
 import { v } from "convex/values";
 import { api } from "./_generated/api";
 import Anthropic from "@anthropic-ai/sdk";
+import { normalizeComponentsByType } from "./componentUtils";
 
 // ─── Models ───────────────────────────────────────────────────────────────────
 
@@ -409,19 +410,15 @@ export const getBottleComponents = query({
 
         if (!bottle) return null;
 
-        const comps = bottle.components;
-        if (!comps || (typeof comps !== "object")) return { bottle: { graceSku: bottle.graceSku, itemName: bottle.itemName, neckThreadSize: bottle.neckThreadSize }, components: {} };
-
-        // components is a dict keyed by type with arrays of items
+        const grouped = normalizeComponentsByType(bottle.components);
         const summary: Record<string, Array<{ graceSku: string; itemName: string; webPrice1pc: number | null; capColor: string | null; stockStatus: string | null }>> = {};
-        for (const [type, items] of Object.entries(comps)) {
-            if (!Array.isArray(items)) continue;
-            summary[type] = items.map((item: any) => ({
-                graceSku: item.graceSku || item.grace_sku || "",
-                itemName: item.itemName || item.item_name || "",
-                webPrice1pc: item.webPrice1pc ?? item.web_price_1pc ?? null,
-                capColor: item.capColor ?? item.cap_color ?? null,
-                stockStatus: item.stockStatus ?? item.stock_status ?? null,
+        for (const [type, items] of Object.entries(grouped)) {
+            summary[type] = items.map((item) => ({
+                graceSku: item.graceSku,
+                itemName: item.itemName,
+                webPrice1pc: item.webPrice1pc,
+                capColor: item.capColor,
+                stockStatus: item.stockStatus,
             }));
         }
 
@@ -633,7 +630,7 @@ export const askGrace = action({
         }
 
         // ── 2. Set up the mutable message list for the agentic loop ──────────
-        let messages: Anthropic.MessageParam[] = args.messages.map((m) => ({
+        const messages: Anthropic.MessageParam[] = args.messages.map((m) => ({
             role: m.role,
             content: m.content,
         }));
@@ -653,8 +650,9 @@ export const askGrace = action({
                     });
                     console.log(`[Grace perf] anthropic call (${model}): ${Date.now() - tApi}ms`);
                     return result;
-                } catch (e: any) {
-                    const status = e?.status ?? e?.error?.status;
+                } catch (e: unknown) {
+                    const err = e as { status?: number; error?: { status?: number } };
+                    const status = err?.status ?? err?.error?.status;
                     if ((status === 429 || status === 529) && attempt < retries) {
                         const wait = Math.min(2000 * Math.pow(2, attempt), 8000);
                         await new Promise((r) => setTimeout(r, wait));
@@ -753,13 +751,14 @@ export const askGrace = action({
 
                 break;
             }
-        } catch (e: any) {
-            const status = e?.status ?? e?.error?.status;
+        } catch (e: unknown) {
+            const err = e as { status?: number; error?: { status?: number } };
+            const status = err?.status ?? err?.error?.status;
             console.log(`[Grace perf] TOTAL (error): ${Date.now() - t0}ms`);
             if (status === 429 || status === 529) {
                 return "I'm experiencing a brief moment of high demand. Could you try again in just a few seconds? I'll be right here.";
             }
-            console.error("Grace AI error:", e);
+            console.error("Grace AI error:", err);
             return "I ran into an unexpected issue. Please try again in a moment, or reach out to our team at sales@nematinternational.com if this persists.";
         }
 
