@@ -33,9 +33,9 @@ function Hero() {
       {/* Full viewport background image */}
       <div className="absolute inset-0 z-0 bg-travertine">
         <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }} className="relative w-full h-full">
-          <Image src="/assets/uploaded_hero.jpg" alt="Luxury perfume glass atomizer bottle" fill className="object-cover object-center lg:object-right" priority />
-          {/* Subtle gradient overlay to seamlessly blend text area */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#DFD6C9] via-[#DFD6C9]/40 to-transparent"></div>
+          <Image src="/assets/Hero-BB.png" alt="Luxury perfume glass atomizer bottle" fill className="object-cover object-center lg:object-right" priority />
+          {/* Tinted overlay so white text pops */}
+          <div className="absolute inset-0 bg-gradient-to-r from-obsidian/55 via-obsidian/25 to-transparent"></div>
         </motion.div>
       </div>
 
@@ -43,25 +43,25 @@ function Hero() {
       <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10 pt-16 lg:pt-0 pb-16 lg:pb-0">
         <div className="max-w-[600px]">
           <FadeUp delay={0.2}>
-            <p className="text-xs uppercase tracking-[0.25em] text-obsidian/70 font-bold mb-6 drop-shadow-sm">A Division of Nemat International</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-white/90 font-bold mb-6 drop-shadow-sm">A Division of Nemat International</p>
           </FadeUp>
           <FadeUp delay={0.3}>
-            <h1 className="font-serif text-5xl lg:text-[72px] font-medium text-obsidian leading-[1.05] mb-8">Beautifully Contained</h1>
+            <h1 className="font-display text-[60px] lg:text-[87px] font-medium text-white leading-[1.05] mb-8 drop-shadow-sm">Beautifully Contained</h1>
           </FadeUp>
           <FadeUp delay={0.4}>
-            <p className="text-lg lg:text-xl text-obsidian/80 leading-[1.6] max-w-[480px] mb-12">
+            <p className="text-lg lg:text-xl text-white/90 leading-[1.6] max-w-[480px] mb-12">
               Premium glass bottles and packaging for brands ready to scale.
             </p>
           </FadeUp>
           <FadeUp delay={0.5} className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
-            <Link href="/catalog" className="w-full sm:w-auto px-8 py-4 bg-obsidian text-white uppercase text-sm font-semibold tracking-wider hover:bg-muted-gold transition-colors duration-300 shadow-md text-center">
+            <Link href="/catalog" className="w-full sm:w-auto px-8 py-4 bg-white text-obsidian uppercase text-sm font-semibold tracking-wider hover:bg-bone transition-colors duration-300 shadow-md text-center">
               Explore Collections
             </Link>
             <button
               onClick={openGrace}
-              className="group flex items-center space-x-2 text-obsidian text-sm font-bold hover:text-muted-gold transition-colors duration-300"
+              className="group flex items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300"
             >
-              <span className="border-b-2 border-obsidian group-hover:border-muted-gold transition-colors pb-1">Talk to Grace — Our AI Expert</span>
+              <span className="border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Talk to Grace — Our AI Expert</span>
             </button>
           </FadeUp>
         </div>
@@ -110,13 +110,14 @@ function CuratedCollections() {
 
   // Map collection names to display titles + visual settings
   const collectionConfig = [
-    { collection: "Elegant Collection", title: "perfume & fragrance.", img: "/assets/collection_perfume.png", bg: "bg-[#DFD6C9]" },
-    { collection: "Circle Collection", title: "skincare & serum.", img: "/assets/collection_skincare.png", bg: "bg-[#EADDD1]" },
+    { collection: "Elegant Collection", title: "vintage spray.", img: "/assets/vintage-spray.png", bg: "bg-[#DFD6C9]" },
+    { collection: "Cylinder Collection", title: "cylinder.", img: "/assets/Cylinder-BB.png", bg: "bg-[#D5C5B1]" },
+    { collection: "Circle Collection", title: "circle.", img: "/assets/collection_skincare.png", bg: "bg-[#EADDD1]" },
+    { collection: "Diva Collection", title: "diva.", img: "/assets/collection_perfume.png", bg: "bg-[#E8DED2]" },
     { collection: "Apothecary Collection", title: "amber apothecary.", img: "/assets/collection_amber.png", bg: "bg-[#F3E5D8]" },
-    { collection: "Cylinder Collection", title: "spray & atomizer.", img: "/assets/family_cylinder.png", bg: "bg-[#D5C5B1]" },
-    { collection: "Vial & Sample Collection", title: "sample & discovery.", img: "/assets/uploaded_hero.jpg", bg: "bg-[#EAE0D5]" },
-    { collection: "Boston Round Collection", title: "boston rounds.", img: "/assets/collection_perfume.png", bg: "bg-[#DCD0C0]" },
-    { collection: "Slim Collection", title: "slim & sleek.", img: "/assets/family_cylinder.png", bg: "bg-[#E5D7C9]" },
+    { collection: "Vial & Sample Collection", title: "sample & discovery.", img: "/assets/Hero-BB.png", bg: "bg-[#EAE0D5]" },
+    { collection: "Boston Round Collection", title: "boston rounds.", img: "/assets/bottle_screwcap.png", bg: "bg-[#DCD0C0]" },
+    { collection: "Slim Collection", title: "slim & sleek.", img: "/assets/Slim-BB.png", bg: "bg-[#E5D7C9]" },
   ];
 
   return (
@@ -210,10 +211,10 @@ function DesignFamilies() {
 
   // Primary design family cards — counts pulled live from Convex
   const familyConfig = [
-    { family: "Cylinder", title: "Cylinder Collection", img: "/assets/family_cylinder.png" },
-    { family: "Elegant", title: "Elegant Collection", img: "/assets/collection_perfume.png" },
-    { family: "Circle", title: "Circle Collection", img: "/assets/collection_skincare.png" },
-    { family: "Diva", title: "Diva Collection", img: "/assets/collection_perfume.png" },
+    { family: "Cylinder", title: "Cylinder", img: "/assets/Cylinder-BB.png" },
+    { family: "Circle", title: "Circle", img: "/assets/collection_skincare.png" },
+    { family: "Diva", title: "Diva", img: "/assets/collection_perfume.png" },
+    { family: "Elegant", title: "Elegant", img: "/assets/vintage-spray.png" },
   ];
 
   return (

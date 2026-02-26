@@ -10,8 +10,13 @@
   --color-travertine: #EEE6D4;
   --color-dark-teal: #2D4A4A;
 
-  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-bodoni), ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-eb-garamond), ui-serif, Georgia, "Times New Roman", serif;
+}
+
+/* Hero headline — explicit EB Garamond for "Beautifully Contained" */
+.font-display {
+  font-family: var(--font-eb-garamond), ui-serif, Georgia, "Times New Roman", serif;
 }
 
 body {

@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Jost } from "next/font/google";
+import { EB_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { CartProvider } from "@/components/CartProvider";
 import GraceProvider from "@/components/GraceProvider";
 import GraceSidePanel, { GraceFloatingTrigger } from "@/components/GraceSidePanel";
 
-const bodoniModa = Bodoni_Moda({
-  variable: "--font-bodoni",
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
 
-const jost = Jost({
-  variable: "--font-jost",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bodoniModa.variable} ${jost.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
+      <body className={`${ebGaramond.variable} ${inter.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
         <ConvexClientProvider>
           <CartProvider>
             <GraceProvider>
