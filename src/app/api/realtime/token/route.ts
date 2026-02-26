@@ -103,6 +103,117 @@ export async function POST(req: NextRequest) {
                         required: [],
                     },
                 },
+                {
+                    type: "function",
+                    name: "showProducts",
+                    description:
+                        "Display product cards visually in the chat. Call this when the customer wants to SEE products, not just hear about them. Shows images, specs, and prices in a card layout.",
+                    parameters: {
+                        type: "object",
+                        properties: {
+                            query: {
+                                type: "string",
+                                description: "Search query to find products to display",
+                            },
+                            family: {
+                                type: "string",
+                                description: "Optional: filter to a specific bottle family",
+                            },
+                        },
+                        required: ["query"],
+                    },
+                },
+                {
+                    type: "function",
+                    name: "compareProducts",
+                    description:
+                        "Show a side-by-side comparison of products in the chat. Call when customer is deciding between options or asks to compare bottles.",
+                    parameters: {
+                        type: "object",
+                        properties: {
+                            query: {
+                                type: "string",
+                                description: "Search query to find products to compare",
+                            },
+                            family: {
+                                type: "string",
+                                description: "Optional: filter to a specific family",
+                            },
+                        },
+                        required: ["query"],
+                    },
+                },
+                {
+                    type: "function",
+                    name: "proposeCartAdd",
+                    description:
+                        "Propose adding products to the customer's cart. This shows a confirmation card — the customer must approve before anything is added. Call when customer says they want to buy, order, add to cart, or when you're recommending a complete selection.",
+                    parameters: {
+                        type: "object",
+                        properties: {
+                            products: {
+                                type: "array",
+                                description: "Products to propose adding",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        itemName: { type: "string" },
+                                        graceSku: { type: "string" },
+                                        quantity: { type: "number", description: "Default 1" },
+                                        webPrice1pc: { type: "number" },
+                                    },
+                                    required: ["itemName", "graceSku"],
+                                },
+                            },
+                        },
+                        required: ["products"],
+                    },
+                },
+                {
+                    type: "function",
+                    name: "navigateToPage",
+                    description:
+                        "Show a navigation card that links the customer to a specific page on the website. Use when suggesting they view the full catalog, a product detail page, or any other page.",
+                    parameters: {
+                        type: "object",
+                        properties: {
+                            path: {
+                                type: "string",
+                                description: "URL path: '/catalog', '/products/frosted-cylinder-30ml', '/catalog?family=Elegant'",
+                            },
+                            title: {
+                                type: "string",
+                                description: "Card title: 'View the Elegant Collection', 'Browse All Cylinders'",
+                            },
+                            description: {
+                                type: "string",
+                                description: "Brief description of what they'll find on the page",
+                            },
+                        },
+                        required: ["path", "title"],
+                    },
+                },
+                {
+                    type: "function",
+                    name: "prefillForm",
+                    description:
+                        "Pre-fill and display a form for the customer to review and submit. Use for sample requests, quote requests, contact forms, or newsletter signups. Gather the information conversationally first, then show the form.",
+                    parameters: {
+                        type: "object",
+                        properties: {
+                            formType: {
+                                type: "string",
+                                enum: ["sample", "quote", "contact", "newsletter"],
+                                description: "Type of form to show",
+                            },
+                            fields: {
+                                type: "object",
+                                description: "Key-value pairs of form field names and values collected from conversation",
+                            },
+                        },
+                        required: ["formType", "fields"],
+                    },
+                },
             ],
             turn_detection: {
                 type: "server_vad",

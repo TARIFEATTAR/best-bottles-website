@@ -16,6 +16,7 @@ import {
     fetchGraceInstructions,
     fetchEphemeralToken,
 } from "@/lib/graceRealtime";
+import { useCart } from "./CartProvider";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -28,10 +29,39 @@ export type GraceStatus =
     | "speaking"
     | "error";
 
+// ─── Product / action payload types ──────────────────────────────────────────
+
+export interface ProductCard {
+    graceSku: string;
+    itemName: string;
+    family?: string;
+    capacity?: string;
+    color?: string;
+    applicator?: string;
+    neckThreadSize?: string;
+    webPrice1pc?: number;
+    webPrice12pc?: number;
+    slug?: string;
+}
+
+export interface KitItem {
+    role: "bottle" | "closure" | "applicator";
+    product: ProductCard;
+}
+
+export type GraceAction =
+    | { type: "showProducts"; products: ProductCard[] }
+    | { type: "compareProducts"; products: ProductCard[] }
+    | { type: "buildKit"; items: KitItem[]; totalPrice?: number }
+    | { type: "proposeCartAdd"; products: Array<ProductCard & { quantity: number }>; awaitingConfirmation: boolean }
+    | { type: "navigateToPage"; path: string; title: string; description?: string }
+    | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> };
+
 export interface GraceMessage {
     role: "user" | "grace";
     content: string;
     id: string;
+    action?: GraceAction;
 }
 
 interface GraceContextValue {
@@ -52,6 +82,8 @@ interface GraceContextValue {
     conversationActive: boolean;
     startConversation: () => void;
     endConversation: () => void;
+    confirmAction: (messageId: string) => void;
+    dismissAction: (messageId: string) => void;
 }
 
 const GraceContext = createContext<GraceContextValue | null>(null);
@@ -80,6 +112,7 @@ function stripMarkdown(text: string): string {
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 export default function GraceProvider({ children }: { children: ReactNode }) {
+    const { addItems: addToCart } = useCart();
     const [isOpen, setIsOpen] = useState(false);
     const [status, setStatus] = useState<GraceStatus>("idle");
     const [messages, setMessages] = useState<GraceMessage[]>([]);
@@ -207,17 +240,68 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                     if (e.call_id && e.name) {
                         const args = JSON.parse(e.arguments ?? "{}");
                         setStatus("thinking");
-                        executeRealtimeTool(e.name, args).then((result) => {
+
+                        // Agentic tools that produce UI actions
+                        if (e.name === "showProducts" || e.name === "compareProducts") {
+                            executeRealtimeTool("searchCatalog", { searchTerm: args.query ?? args.searchTerm ?? "", familyLimit: args.family }).then((result) => {
+                                const products = (() => { try { return JSON.parse(result); } catch { return []; } })();
+                                if (Array.isArray(products) && products.length > 0) {
+                                    const action: GraceAction = e.name === "compareProducts"
+                                        ? { type: "compareProducts", products: products.slice(0, 4) }
+                                        : { type: "showProducts", products: products.slice(0, 6) };
+                                    setMessages((prev) => [...prev, {
+                                        role: "grace", content: "", id: `a-${Date.now()}`, action,
+                                    }]);
+                                }
+                                sendRTEvent({
+                                    type: "conversation.item.create",
+                                    item: { type: "function_call_output", call_id: e.call_id, output: result },
+                                });
+                                sendRTEvent({ type: "response.create" });
+                            });
+                        } else if (e.name === "proposeCartAdd") {
+                            const products = (args.products ?? [args]).map((p: Record<string, unknown>) => ({
+                                ...p, quantity: (p.quantity as number) ?? 1,
+                            }));
+                            setMessages((prev) => [...prev, {
+                                role: "grace", content: "", id: `a-${Date.now()}`,
+                                action: { type: "proposeCartAdd", products, awaitingConfirmation: true },
+                            }]);
                             sendRTEvent({
                                 type: "conversation.item.create",
-                                item: {
-                                    type: "function_call_output",
-                                    call_id: e.call_id,
-                                    output: result,
-                                },
+                                item: { type: "function_call_output", call_id: e.call_id, output: "Confirmation card shown to customer. Waiting for their response." },
                             });
                             sendRTEvent({ type: "response.create" });
-                        });
+                        } else if (e.name === "navigateToPage") {
+                            setMessages((prev) => [...prev, {
+                                role: "grace", content: "", id: `a-${Date.now()}`,
+                                action: { type: "navigateToPage", path: args.path ?? "/", title: args.title ?? "Page", description: args.description },
+                            }]);
+                            sendRTEvent({
+                                type: "conversation.item.create",
+                                item: { type: "function_call_output", call_id: e.call_id, output: "Navigation card shown to customer." },
+                            });
+                            sendRTEvent({ type: "response.create" });
+                        } else if (e.name === "prefillForm") {
+                            setMessages((prev) => [...prev, {
+                                role: "grace", content: "", id: `a-${Date.now()}`,
+                                action: { type: "prefillForm", formType: args.formType ?? "contact", fields: args.fields ?? {} },
+                            }]);
+                            sendRTEvent({
+                                type: "conversation.item.create",
+                                item: { type: "function_call_output", call_id: e.call_id, output: "Form shown to customer for review." },
+                            });
+                            sendRTEvent({ type: "response.create" });
+                        } else {
+                            // Standard data tools (searchCatalog, getFamilyOverview, etc.)
+                            executeRealtimeTool(e.name, args).then((result) => {
+                                sendRTEvent({
+                                    type: "conversation.item.create",
+                                    item: { type: "function_call_output", call_id: e.call_id, output: result },
+                                });
+                                sendRTEvent({ type: "response.create" });
+                            });
+                        }
                     }
                     break;
                 }
@@ -475,6 +559,68 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         // No-op for Realtime sessions — VAD handles turn detection
     }, []);
 
+    // ── Action confirmation (for cart adds, form submissions, etc.) ─────────
+
+    const confirmAction = useCallback((messageId: string) => {
+        setMessages((prev) => {
+            const msg = prev.find((m) => m.id === messageId);
+            if (msg?.action?.type === "proposeCartAdd") {
+                addToCart(
+                    msg.action.products.map((p) => ({
+                        graceSku: p.graceSku,
+                        itemName: p.itemName,
+                        quantity: p.quantity,
+                        unitPrice: p.webPrice1pc ?? null,
+                        family: p.family,
+                        capacity: p.capacity,
+                        color: p.color,
+                    }))
+                );
+            }
+            return prev.map((m) => {
+                if (m.id !== messageId || !m.action) return m;
+                if (m.action.type === "proposeCartAdd") {
+                    return { ...m, action: { ...m.action, awaitingConfirmation: false } };
+                }
+                return m;
+            });
+        });
+        if (conversationActive && dcRef.current?.readyState === "open") {
+            sendRTEvent({
+                type: "conversation.item.create",
+                item: {
+                    type: "message",
+                    role: "user",
+                    content: [{ type: "input_text", text: "The customer confirmed. The items have been added to their cart." }],
+                },
+            });
+            sendRTEvent({ type: "response.create" });
+        }
+    }, [conversationActive, sendRTEvent, addToCart]);
+
+    const dismissAction = useCallback((messageId: string) => {
+        setMessages((prev) =>
+            prev.map((m) => {
+                if (m.id !== messageId || !m.action) return m;
+                if (m.action.type === "proposeCartAdd") {
+                    return { ...m, action: { ...m.action, awaitingConfirmation: false } };
+                }
+                return m;
+            })
+        );
+        if (conversationActive && dcRef.current?.readyState === "open") {
+            sendRTEvent({
+                type: "conversation.item.create",
+                item: {
+                    type: "message",
+                    role: "user",
+                    content: [{ type: "input_text", text: "The customer declined. Do not add those items." }],
+                },
+            });
+            sendRTEvent({ type: "response.create" });
+        }
+    }, [conversationActive, sendRTEvent]);
+
     // ── Cleanup on unmount ───────────────────────────────────────────────────
     useEffect(() => {
         return () => {
@@ -506,6 +652,8 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 conversationActive,
                 startConversation,
                 endConversation,
+                confirmAction,
+                dismissAction,
             }}
         >
             {children}

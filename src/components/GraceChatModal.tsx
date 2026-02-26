@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     X,
@@ -10,8 +10,17 @@ import {
     Volume2,
     VolumeX,
     StopCircle,
+    ShoppingCart,
+    ArrowRight,
+    Check,
+    XCircle,
+    Package,
+    GitCompare,
+    FileText,
+    ExternalLink,
 } from "lucide-react";
-import { useGrace, type GraceStatus } from "./GraceProvider";
+import { useGrace, type GraceStatus, type GraceAction, type ProductCard, type KitItem } from "./GraceProvider";
+import { useCart } from "./CartProvider";
 
 // ─── Status label map ─────────────────────────────────────────────────────────
 
@@ -24,6 +33,261 @@ const STATUS_LABELS: Record<GraceStatus, string> = {
     speaking: "Grace is speaking…",
     error: "Something went wrong",
 };
+
+// ─── Action Card Renderers ────────────────────────────────────────────────────
+
+function ProductCardView({ product, compact }: { product: ProductCard; compact?: boolean }) {
+    const router = useRouter();
+    return (
+        <div
+            className={`bg-white border border-champagne/60 rounded-xl overflow-hidden hover:border-muted-gold/60 transition-colors ${compact ? "p-2.5" : "p-3"}`}
+        >
+            <p className={`font-semibold text-obsidian leading-tight ${compact ? "text-[11px]" : "text-xs"}`}>
+                {product.itemName}
+            </p>
+            {product.family && (
+                <p className="text-[10px] text-muted-gold font-medium mt-0.5">{product.family}</p>
+            )}
+            <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5 text-[10px] text-slate">
+                {product.capacity && <span>{product.capacity}</span>}
+                {product.color && <span>{product.color}</span>}
+                {product.neckThreadSize && <span>Thread: {product.neckThreadSize}</span>}
+            </div>
+            {product.webPrice1pc != null && (
+                <div className="flex items-baseline gap-2 mt-2">
+                    <span className="text-sm font-bold text-obsidian">${product.webPrice1pc.toFixed(2)}</span>
+                    {product.webPrice12pc != null && (
+                        <span className="text-[10px] text-slate">12+: ${product.webPrice12pc.toFixed(2)}</span>
+                    )}
+                </div>
+            )}
+            {product.slug && (
+                <button
+                    onClick={() => router.push(`/products/${product.slug}`)}
+                    className="mt-2 flex items-center gap-1 text-[10px] text-muted-gold font-semibold hover:text-obsidian transition-colors"
+                >
+                    View details <ArrowRight className="w-3 h-3" />
+                </button>
+            )}
+        </div>
+    );
+}
+
+function ActionCardRenderer({
+    action,
+    messageId,
+    confirmAction,
+    dismissAction,
+}: {
+    action: GraceAction;
+    messageId: string;
+    confirmAction: (id: string) => void;
+    dismissAction: (id: string) => void;
+}) {
+    const router = useRouter();
+
+    switch (action.type) {
+        case "showProducts":
+            return (
+                <div className="mt-2">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <Package className="w-3.5 h-3.5 text-muted-gold" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gold">
+                            Products
+                        </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                        {action.products.map((p, i) => (
+                            <ProductCardView key={p.graceSku || i} product={p} />
+                        ))}
+                    </div>
+                </div>
+            );
+
+        case "compareProducts":
+            return (
+                <div className="mt-2">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <GitCompare className="w-3.5 h-3.5 text-muted-gold" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gold">
+                            Comparison
+                        </span>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-[11px] border-collapse">
+                            <thead>
+                                <tr className="border-b border-champagne/60">
+                                    <th className="text-left py-1.5 pr-2 text-slate font-medium">Spec</th>
+                                    {action.products.map((p, i) => (
+                                        <th key={i} className="text-left py-1.5 px-2 font-semibold text-obsidian min-w-[100px]">
+                                            {p.itemName}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="text-slate">
+                                {["family", "capacity", "color", "neckThreadSize", "webPrice1pc"].map((field) => (
+                                    <tr key={field} className="border-b border-champagne/30">
+                                        <td className="py-1.5 pr-2 font-medium capitalize">
+                                            {field === "webPrice1pc" ? "Price" : field === "neckThreadSize" ? "Thread" : field}
+                                        </td>
+                                        {action.products.map((p, i) => (
+                                            <td key={i} className="py-1.5 px-2">
+                                                    {field === "webPrice1pc" && p.webPrice1pc != null
+                                                    ? `$${p.webPrice1pc.toFixed(2)}`
+                                                    : (p as unknown as Record<string, unknown>)[field] as string ?? "—"}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+
+        case "proposeCartAdd":
+            return (
+                <div className="mt-2 bg-obsidian/[0.03] border border-muted-gold/30 rounded-xl p-3">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <ShoppingCart className="w-3.5 h-3.5 text-muted-gold" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gold">
+                            {action.awaitingConfirmation ? "Add to Cart?" : "Added to Cart"}
+                        </span>
+                    </div>
+                    <div className="space-y-2">
+                        {action.products.map((p, i) => (
+                            <div key={i} className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-xs font-semibold text-obsidian">{p.itemName}</p>
+                                    <p className="text-[10px] text-slate">Qty: {p.quantity}</p>
+                                </div>
+                                {p.webPrice1pc != null && (
+                                    <p className="text-sm font-bold text-obsidian">${(p.webPrice1pc * p.quantity).toFixed(2)}</p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    {action.awaitingConfirmation ? (
+                        <div className="flex gap-2 mt-3">
+                            <button
+                                onClick={() => confirmAction(messageId)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-obsidian text-bone text-xs font-bold hover:bg-muted-gold transition-colors"
+                            >
+                                <Check className="w-3.5 h-3.5" />
+                                Confirm
+                            </button>
+                            <button
+                                onClick={() => dismissAction(messageId)}
+                                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg border border-champagne/80 text-slate text-xs font-medium hover:bg-champagne/20 transition-colors"
+                            >
+                                <XCircle className="w-3.5 h-3.5" />
+                                Cancel
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-1.5 mt-2 text-[10px] text-muted-gold font-semibold">
+                            <Check className="w-3 h-3" />
+                            Added successfully
+                        </div>
+                    )}
+                </div>
+            );
+
+        case "navigateToPage":
+            return (
+                <button
+                    onClick={() => router.push(action.path)}
+                    className="mt-2 flex items-center gap-3 w-full bg-obsidian/[0.03] border border-champagne/60 rounded-xl p-3 hover:border-muted-gold/60 transition-colors text-left group"
+                >
+                    <div className="w-9 h-9 rounded-lg bg-muted-gold/10 flex items-center justify-center shrink-0">
+                        <ExternalLink className="w-4 h-4 text-muted-gold" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-obsidian group-hover:text-muted-gold transition-colors">
+                            {action.title}
+                        </p>
+                        {action.description && (
+                            <p className="text-[10px] text-slate mt-0.5 truncate">{action.description}</p>
+                        )}
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-slate/40 group-hover:text-muted-gold transition-colors shrink-0" />
+                </button>
+            );
+
+        case "prefillForm":
+            return (
+                <div className="mt-2 bg-obsidian/[0.03] border border-champagne/60 rounded-xl p-3">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <FileText className="w-3.5 h-3.5 text-muted-gold" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gold">
+                            {action.formType === "sample" ? "Sample Request" :
+                             action.formType === "quote" ? "Quote Request" :
+                             action.formType === "newsletter" ? "Newsletter Signup" : "Contact Form"}
+                        </span>
+                    </div>
+                    <div className="space-y-1.5">
+                        {Object.entries(action.fields).map(([key, value]) => (
+                            <div key={key} className="flex items-center gap-2">
+                                <span className="text-[10px] text-slate capitalize w-20 shrink-0">{key.replace(/_/g, " ")}:</span>
+                                <span className="text-[11px] text-obsidian font-medium">{value}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => {
+                            const params = new URLSearchParams(action.fields);
+                            const path = action.formType === "sample" ? "/request-sample"
+                                : action.formType === "quote" ? "/request-quote"
+                                : action.formType === "newsletter" ? "/newsletter"
+                                : "/contact";
+                            router.push(`${path}?${params.toString()}`);
+                        }}
+                        className="mt-2.5 flex items-center justify-center gap-1.5 w-full py-2 rounded-lg bg-obsidian text-bone text-xs font-bold hover:bg-muted-gold transition-colors"
+                    >
+                        Review & Submit
+                        <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                </div>
+            );
+
+        case "buildKit":
+            return (
+                <div className="mt-2">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <Package className="w-3.5 h-3.5 text-muted-gold" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gold">
+                            Kit Builder
+                        </span>
+                    </div>
+                    <div className="space-y-2">
+                        {action.items.map((item, i) => (
+                            <div key={i} className="flex items-center gap-2">
+                                <span className="text-[9px] font-bold uppercase tracking-wider text-slate bg-champagne/40 rounded px-1.5 py-0.5 w-16 text-center shrink-0">
+                                    {item.role}
+                                </span>
+                                <div className="flex-1">
+                                    <p className="text-xs font-semibold text-obsidian">{item.product.itemName}</p>
+                                    {item.product.webPrice1pc != null && (
+                                        <p className="text-[10px] text-slate">${item.product.webPrice1pc.toFixed(2)}</p>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {action.totalPrice != null && (
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-champagne/40">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate">Total</span>
+                            <span className="text-sm font-bold text-obsidian">${action.totalPrice.toFixed(2)}</span>
+                        </div>
+                    )}
+                </div>
+            );
+
+        default:
+            return null;
+    }
+}
 
 // ─── Floating trigger button (always visible when modal is closed) ────────────
 
@@ -67,7 +331,12 @@ export default function GraceChatModal() {
         conversationActive,
         startConversation,
         endConversation,
+        confirmAction,
+        dismissAction,
     } = useGrace();
+
+    const { items: cartItems, itemCount: cartCount, removeItem, checkout, isCheckingOut } = useCart();
+    const [showCart, setShowCart] = useState(false);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -177,6 +446,18 @@ export default function GraceChatModal() {
                                             <VolumeX className="w-4 h-4 text-slate/40" />
                                         )}
                                     </button>
+                                    {cartCount > 0 && (
+                                        <button
+                                            onClick={() => setShowCart((v) => !v)}
+                                            className="relative p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
+                                            aria-label={`Cart — ${cartCount} items`}
+                                        >
+                                            <ShoppingCart className="w-4 h-4 text-muted-gold" />
+                                            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-obsidian text-bone text-[9px] font-bold flex items-center justify-center">
+                                                {cartCount}
+                                            </span>
+                                        </button>
+                                    )}
                                     <button
                                         onClick={close}
                                         className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
@@ -186,6 +467,61 @@ export default function GraceChatModal() {
                                     </button>
                                 </div>
                             </div>
+
+                            {/* ── Mini Cart Panel ───────────────────────── */}
+                            <AnimatePresence>
+                                {showCart && cartCount > 0 && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="overflow-hidden border-b border-champagne/50 shrink-0"
+                                    >
+                                        <div className="px-6 py-3 bg-obsidian/[0.02] max-h-48 overflow-y-auto">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-gold">
+                                                    Your Cart ({cartCount})
+                                                </span>
+                                                <button
+                                                    onClick={() => setShowCart(false)}
+                                                    className="text-[10px] text-slate hover:text-obsidian transition-colors"
+                                                >
+                                                    Hide
+                                                </button>
+                                            </div>
+                                            <div className="space-y-2">
+                                                {cartItems.map((item) => (
+                                                    <div key={item.graceSku} className="flex items-center justify-between gap-2">
+                                                        <div className="flex-1 min-w-0">
+                                                            <p className="text-xs font-semibold text-obsidian truncate">{item.itemName}</p>
+                                                            <p className="text-[10px] text-slate">
+                                                                Qty: {item.quantity}
+                                                                {item.unitPrice != null && ` · $${(item.unitPrice * item.quantity).toFixed(2)}`}
+                                                            </p>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => removeItem(item.graceSku)}
+                                                            className="p-1 rounded hover:bg-red-50 transition-colors shrink-0"
+                                                            aria-label={`Remove ${item.itemName}`}
+                                                        >
+                                                            <XCircle className="w-3.5 h-3.5 text-slate/40 hover:text-red-500" />
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <button
+                                                onClick={checkout}
+                                                disabled={isCheckingOut}
+                                                className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-lg bg-obsidian text-bone text-xs font-bold hover:bg-muted-gold transition-colors disabled:opacity-50"
+                                            >
+                                                <ShoppingCart className="w-3.5 h-3.5" />
+                                                {isCheckingOut ? "Preparing…" : "Proceed to Checkout"}
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
 
                             {/* ── Status Chip ────────────────────────────── */}
                             <AnimatePresence>
@@ -275,13 +611,23 @@ export default function GraceChatModal() {
                                             </div>
                                         )}
                                         <div
-                                            className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                                            className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                                                msg.action ? "max-w-[90%]" : "max-w-[80%]"
+                                            } ${
                                                 msg.role === "user"
                                                     ? "bg-obsidian text-bone rounded-br-sm"
                                                     : "bg-white border border-champagne/60 text-obsidian rounded-bl-sm"
                                             }`}
                                         >
-                                            {msg.content}
+                                            {msg.content && <p>{msg.content}</p>}
+                                            {msg.action && (
+                                                <ActionCardRenderer
+                                                    action={msg.action}
+                                                    messageId={msg.id}
+                                                    confirmAction={confirmAction}
+                                                    dismissAction={dismissAction}
+                                                />
+                                            )}
                                         </div>
                                     </div>
                                 ))}

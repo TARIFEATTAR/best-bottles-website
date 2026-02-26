@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
+import { CartProvider } from "@/components/CartProvider";
 import GraceProvider from "@/components/GraceProvider";
 import GraceChatModal, { GraceFloatingTrigger } from "@/components/GraceChatModal";
 
@@ -32,11 +33,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${bodoniModa.variable} ${jost.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
         <ConvexClientProvider>
-          <GraceProvider>
-            {children}
-            <GraceChatModal />
-            <GraceFloatingTrigger />
-          </GraceProvider>
+          <CartProvider>
+            <GraceProvider>
+              {children}
+              <GraceChatModal />
+              <GraceFloatingTrigger />
+            </GraceProvider>
+          </CartProvider>
         </ConvexClientProvider>
       </body>
     </html>
