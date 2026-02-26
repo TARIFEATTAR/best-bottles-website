@@ -106,11 +106,20 @@ function groupComponentsByType(comps: any[]): Record<string, any[]> {
     const grouped: Record<string, any[]> = {};
     for (const comp of comps) {
         const sku = (comp.grace_sku || comp.graceSku || "").toUpperCase();
+        const name = (comp.item_name || comp.itemName || "").toLowerCase();
         let type = "Cap";
+
         if (sku.includes("DRP")) type = "Dropper";
         else if (sku.includes("ROC")) type = "Roll-On Cap";
-        else if (sku.includes("SPR")) type = "Sprayer";
+        else if (sku.includes("AST") || sku.includes("ASP") || sku.includes("SPR") || sku.includes("ATM")) type = "Sprayer";
         else if (sku.includes("LPM")) type = "Lotion Pump";
+        else if (sku.includes("RDC")) type = "Reducer";
+        else if (sku.includes("ROL") || sku.includes("MRL") || sku.includes("RON") || sku.includes("MRO") || sku.includes("RBL")) type = "Roller";
+        else if (name.includes("sprayer") || name.includes("bulb") || name.includes("atomizer")) type = "Sprayer";
+        else if (name.includes("lotion") && name.includes("pump")) type = "Lotion Pump";
+        else if (name.includes("dropper")) type = "Dropper";
+        else if (name.includes("reducer")) type = "Reducer";
+
         if (!grouped[type]) grouped[type] = [];
         grouped[type].push({
             graceSku: comp.grace_sku || comp.graceSku || "",
@@ -405,5 +414,135 @@ export const getGroupsByFamily = query({
             .query("productGroups")
             .withIndex("by_family", (q) => q.eq("family", args.family))
             .collect();
+    },
+});
+
+/**
+ * Data quality audit — scans for duplicates and misclassified component SKUs.
+ * Returns flagged issues for review.
+ */
+export const auditDataQuality = query({
+    args: {},
+    handler: async (ctx) => {
+        const allProducts = await ctx.db.query("products").collect();
+
+        const issues: Array<{
+            type: "duplicate_sku" | "duplicate_name" | "sku_mismatch" | "missing_price" | "missing_category";
+            severity: "high" | "medium" | "low";
+            graceSku: string;
+            itemName: string;
+            detail: string;
+        }> = [];
+
+        // 1. Check for duplicate graceSku values
+        const skuMap = new Map<string, typeof allProducts>();
+        for (const p of allProducts) {
+            const key = p.graceSku;
+            if (!skuMap.has(key)) skuMap.set(key, []);
+            skuMap.get(key)!.push(p);
+        }
+        for (const [sku, products] of skuMap) {
+            if (products.length > 1) {
+                issues.push({
+                    type: "duplicate_sku",
+                    severity: "high",
+                    graceSku: sku,
+                    itemName: products[0].itemName,
+                    detail: `${products.length} products share graceSku "${sku}": ${products.map(p => p.websiteSku).join(", ")}`,
+                });
+            }
+        }
+
+        // 2. Check for near-duplicate item names within same category
+        const nameMap = new Map<string, typeof allProducts>();
+        for (const p of allProducts) {
+            const normalizedName = p.itemName.toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (!nameMap.has(normalizedName)) nameMap.set(normalizedName, []);
+            nameMap.get(normalizedName)!.push(p);
+        }
+        for (const [, products] of nameMap) {
+            if (products.length > 1) {
+                const skus = products.map(p => p.graceSku);
+                if (new Set(skus).size === skus.length) {
+                    issues.push({
+                        type: "duplicate_name",
+                        severity: "medium",
+                        graceSku: products[0].graceSku,
+                        itemName: products[0].itemName,
+                        detail: `${products.length} products with identical normalized name: ${skus.join(", ")}`,
+                    });
+                }
+            }
+        }
+
+        // 3. Check for SKU prefix vs category mismatches in components
+        const skuCategoryChecks: Array<{ prefix: string; expectedKeywords: string[]; wrongLabel: string }> = [
+            { prefix: "SPR", expectedKeywords: ["sprayer"], wrongLabel: "not labeled as Sprayer" },
+            { prefix: "AST", expectedKeywords: ["sprayer", "atomizer"], wrongLabel: "not labeled as Sprayer/Atomizer" },
+            { prefix: "ASP", expectedKeywords: ["sprayer", "atomizer"], wrongLabel: "not labeled as Sprayer/Atomizer" },
+            { prefix: "ATM", expectedKeywords: ["sprayer", "atomizer"], wrongLabel: "not labeled as Sprayer/Atomizer" },
+            { prefix: "DRP", expectedKeywords: ["dropper"], wrongLabel: "not labeled as Dropper" },
+            { prefix: "LPM", expectedKeywords: ["lotion", "pump"], wrongLabel: "not labeled as Lotion Pump" },
+            { prefix: "RDC", expectedKeywords: ["reducer"], wrongLabel: "not labeled as Reducer" },
+            { prefix: "ROL", expectedKeywords: ["roller", "roll"], wrongLabel: "not labeled as Roller" },
+        ];
+
+        for (const p of allProducts) {
+            if (p.category !== "Component") continue;
+            const sku = p.graceSku.toUpperCase();
+            for (const check of skuCategoryChecks) {
+                if (sku.includes(`-${check.prefix}-`) || sku.includes(`-${check.prefix}`)) {
+                    const name = p.itemName.toLowerCase();
+                    const hasKeyword = check.expectedKeywords.some(kw => name.includes(kw));
+                    if (!hasKeyword) {
+                        issues.push({
+                            type: "sku_mismatch",
+                            severity: "medium",
+                            graceSku: p.graceSku,
+                            itemName: p.itemName,
+                            detail: `SKU contains "${check.prefix}" but item name is ${check.wrongLabel}: "${p.itemName}"`,
+                        });
+                    }
+                }
+            }
+
+            // Check for CAP-prefixed SKUs that are actually sprayers/bulbs
+            if (sku.includes("-CAP-")) {
+                const name = p.itemName.toLowerCase();
+                if (name.includes("sprayer") || name.includes("bulb") || name.includes("atomizer")) {
+                    issues.push({
+                        type: "sku_mismatch",
+                        severity: "high",
+                        graceSku: p.graceSku,
+                        itemName: p.itemName,
+                        detail: `SKU has "CAP" prefix but item is a sprayer/bulb: "${p.itemName}"`,
+                    });
+                }
+            }
+
+            // 4. Check for missing prices
+            if (p.webPrice1pc == null || p.webPrice1pc === 0) {
+                issues.push({
+                    type: "missing_price",
+                    severity: "low",
+                    graceSku: p.graceSku,
+                    itemName: p.itemName,
+                    detail: "Missing webPrice1pc",
+                });
+            }
+        }
+
+        // Sort: high severity first, then medium, then low
+        const severityOrder = { high: 0, medium: 1, low: 2 };
+        issues.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
+
+        return {
+            totalProducts: allProducts.length,
+            issueCount: issues.length,
+            highSeverity: issues.filter(i => i.severity === "high").length,
+            mediumSeverity: issues.filter(i => i.severity === "medium").length,
+            lowSeverity: issues.filter(i => i.severity === "low").length,
+            issues: issues.slice(0, 100),
+        };
     },
 });

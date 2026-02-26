@@ -54,7 +54,7 @@ export type GraceAction =
     | { type: "compareProducts"; products: ProductCard[] }
     | { type: "buildKit"; items: KitItem[]; totalPrice?: number }
     | { type: "proposeCartAdd"; products: Array<ProductCard & { quantity: number }>; awaitingConfirmation: boolean }
-    | { type: "navigateToPage"; path: string; title: string; description?: string }
+    | { type: "navigateToPage"; path: string; title: string; description?: string; autoNavigate?: boolean }
     | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> };
 
 export interface GraceMessage {
@@ -64,9 +64,21 @@ export interface GraceMessage {
     action?: GraceAction;
 }
 
+export type PanelMode = "closed" | "slim" | "full" | "strip";
+
 interface GraceContextValue {
+    panelMode: PanelMode;
+    openPanel: () => void;
+    openSlim: () => void;
+    expandToFull: () => void;
+    closePanel: () => void;
+    minimizeToStrip: () => void;
+    collapseToSlim: () => void;
+    /** @deprecated use panelMode !== "closed" */
     isOpen: boolean;
+    /** @deprecated use openPanel */
     open: () => void;
+    /** @deprecated use closePanel */
     close: () => void;
     status: GraceStatus;
     messages: GraceMessage[];
@@ -84,6 +96,9 @@ interface GraceContextValue {
     endConversation: () => void;
     confirmAction: (messageId: string) => void;
     dismissAction: (messageId: string) => void;
+    onNavigate: (path: string) => void;
+    pendingNavigation: string | null;
+    clearPendingNavigation: () => void;
 }
 
 const GraceContext = createContext<GraceContextValue | null>(null);
@@ -113,18 +128,16 @@ function stripMarkdown(text: string): string {
 
 export default function GraceProvider({ children }: { children: ReactNode }) {
     const { addItems: addToCart } = useCart();
-    const [isOpen, setIsOpen] = useState(false);
+    const [panelMode, setPanelMode] = useState<PanelMode>("closed");
     const [status, setStatus] = useState<GraceStatus>("idle");
     const [messages, setMessages] = useState<GraceMessage[]>([]);
     const [input, setInput] = useState("");
     const [voiceEnabled, setVoiceEnabled] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
     const [conversationActive, setConversationActive] = useState(false);
+    const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
 
-    // ── Refs: Legacy ElevenLabs pipeline (text-mode fallback) ────────────────
     const audioRef = useRef<HTMLAudioElement | null>(null);
-
-    // ── Refs: OpenAI Realtime WebRTC session ─────────────────────────────────
     const pcRef = useRef<RTCPeerConnection | null>(null);
     const dcRef = useRef<RTCDataChannel | null>(null);
     const localStreamRef = useRef<MediaStream | null>(null);
@@ -133,7 +146,17 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
 
     const askGrace = useAction(api.grace.askGrace);
 
-    const open = useCallback(() => setIsOpen(true), []);
+    const isOpen = panelMode !== "closed";
+    const openPanel = useCallback(() => setPanelMode("slim"), []);
+    const openSlim = useCallback(() => setPanelMode("slim"), []);
+    const expandToFull = useCallback(() => setPanelMode("full"), []);
+    const closePanel = useCallback(() => {
+        setPanelMode("closed");
+        setConversationActive(false);
+    }, []);
+    const minimizeToStrip = useCallback(() => setPanelMode("strip"), []);
+    const collapseToSlim = useCallback(() => setPanelMode("slim"), []);
+    const open = openPanel;
 
     // ── Realtime session teardown ────────────────────────────────────────────
 
@@ -157,7 +180,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const close = useCallback(() => {
-        setIsOpen(false);
+        setPanelMode("closed");
         setConversationActive(false);
         destroyRealtimeSession();
         if (audioRef.current) {
@@ -167,6 +190,18 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         }
         setStatus("idle");
     }, [destroyRealtimeSession]);
+
+    const onNavigate = useCallback((path: string) => {
+        if (conversationActive) {
+            setPanelMode("slim");
+        } else {
+            setPanelMode("closed");
+        }
+    }, [conversationActive]);
+
+    const clearPendingNavigation = useCallback(() => {
+        setPendingNavigation(null);
+    }, []);
 
     // ── Send data channel event to OpenAI Realtime ───────────────────────────
 
@@ -273,13 +308,23 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                             });
                             sendRTEvent({ type: "response.create" });
                         } else if (e.name === "navigateToPage") {
+                            const navPath = (args.path as string) ?? "/";
+                            const shouldAutoNav = args.autoNavigate === true;
                             setMessages((prev) => [...prev, {
                                 role: "grace", content: "", id: `a-${Date.now()}`,
-                                action: { type: "navigateToPage", path: args.path ?? "/", title: args.title ?? "Page", description: args.description },
+                                action: { type: "navigateToPage", path: navPath, title: (args.title as string) ?? "Page", description: args.description as string | undefined, autoNavigate: shouldAutoNav },
                             }]);
+                            if (shouldAutoNav) {
+                                setPendingNavigation(navPath);
+                                if (conversationActive) {
+                                    setPanelMode("slim");
+                                } else {
+                                    setPanelMode("closed");
+                                }
+                            }
                             sendRTEvent({
                                 type: "conversation.item.create",
-                                item: { type: "function_call_output", call_id: e.call_id, output: "Navigation card shown to customer." },
+                                item: { type: "function_call_output", call_id: e.call_id, output: shouldAutoNav ? "Navigating the customer to the page now." : "Navigation card shown to customer. They can click the link or ask me to navigate them." },
                             });
                             sendRTEvent({ type: "response.create" });
                         } else if (e.name === "prefillForm") {
@@ -635,6 +680,13 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     return (
         <GraceContext.Provider
             value={{
+                panelMode,
+                openPanel,
+                openSlim,
+                expandToFull,
+                closePanel,
+                minimizeToStrip,
+                collapseToSlim,
                 isOpen,
                 open,
                 close,
@@ -654,6 +706,9 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 endConversation,
                 confirmAction,
                 dismissAction,
+                onNavigate,
+                pendingNavigation,
+                clearPendingNavigation,
             }}
         >
             {children}

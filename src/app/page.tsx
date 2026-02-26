@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Shield, Award, TrendingUp, MapPin, Zap, ArrowUpRight, Star, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import CartDrawer from "@/components/CartDrawer";
 import Navbar from "@/components/Navbar";
 import { useGrace } from "@/components/GraceProvider";
 
@@ -138,9 +136,9 @@ function CuratedCollections() {
                 <Star className="w-5 h-5 fill-current" />
               </div>
             </div>
-            <a href="#" className="text-[13px] text-obsidian/70 font-medium underline decoration-obsidian/30 hover:decoration-obsidian transition-colors mt-2">
+            <Link href="/about" className="text-[13px] text-obsidian/70 font-medium underline decoration-obsidian/30 hover:decoration-obsidian transition-colors mt-2">
               see why our customers can&apos;t stop talking about us
-            </a>
+            </Link>
           </FadeUp>
         </div>
       </div>
@@ -452,28 +450,28 @@ function Footer() {
               <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">By Usage</Link></li>
               <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">By Product Type</Link></li>
               <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">By Collection</Link></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">New Arrivals</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Best Sellers</a></li>
+              <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">New Arrivals</Link></li>
+              <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">Best Sellers</Link></li>
             </ul>
           </div>
           <div>
             <h5 className="text-white text-sm font-semibold uppercase tracking-wider mb-6">Support</h5>
             <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Shipping & Returns</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Compatibility Guides</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Spec Sheets</a></li>
+              <li><Link href="/contact" className="hover:text-muted-gold transition-colors">Contact</Link></li>
+              <li><Link href="/resources" className="hover:text-muted-gold transition-colors">Shipping & Returns</Link></li>
+              <li><Link href="/resources" className="hover:text-muted-gold transition-colors">FAQ</Link></li>
+              <li><Link href="/resources" className="hover:text-muted-gold transition-colors">Compatibility Guides</Link></li>
+              <li><Link href="/resources" className="hover:text-muted-gold transition-colors">Spec Sheets</Link></li>
             </ul>
           </div>
           <div>
             <h5 className="text-white text-sm font-semibold uppercase tracking-wider mb-6">Company</h5>
             <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-muted-gold transition-colors">About / Heritage</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Nemat International</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Wholesale Inquiry</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">Careers</a></li>
+              <li><Link href="/about" className="hover:text-muted-gold transition-colors">About / Heritage</Link></li>
+              <li><a href="https://www.nematinternational.com" target="_blank" rel="noopener noreferrer" className="hover:text-muted-gold transition-colors">Nemat International</a></li>
+              <li><Link href="/resources" className="hover:text-muted-gold transition-colors">Blog</Link></li>
+              <li><Link href="/request-quote" className="hover:text-muted-gold transition-colors">Wholesale Inquiry</Link></li>
+              <li><Link href="/contact" className="hover:text-muted-gold transition-colors">Careers</Link></li>
             </ul>
           </div>
         </div>
@@ -484,8 +482,8 @@ function Footer() {
             <span>sales@nematinternational.com</span>
           </div>
           <div className="flex items-center space-x-6">
-            <a href="#" className="hover:text-muted-gold transition-colors">Privacy</a>
-            <a href="#" className="hover:text-muted-gold transition-colors">Terms</a>
+            <Link href="/resources" className="hover:text-muted-gold transition-colors">Privacy</Link>
+            <Link href="/resources" className="hover:text-muted-gold transition-colors">Terms</Link>
             <span>© 2026 Nemat International</span>
           </div>
         </div>
@@ -495,12 +493,9 @@ function Footer() {
 }
 
 export default function Home() {
-  const [cartOpen, setCartOpen] = useState(false);
-
   return (
     <main className="min-h-screen">
-      <Navbar onCartOpen={() => setCartOpen(true)} variant="home" />
-      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+      <Navbar variant="home" />
       <Hero />
       <CuratedCollections />
       <TrustBar />

@@ -1,18 +1,19 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
-    User, ShoppingBag, ArrowLeft, ChevronRight, Package,
-    Check, Layers,
+    ShoppingBag, ArrowLeft, ChevronRight, Package,
+    Check, Layers, Plus,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
-import CartDrawer from "@/components/CartDrawer";
+import Navbar from "@/components/Navbar";
 import FitmentCarousel from "@/components/FitmentCarousel";
 import FitmentDrawer from "@/components/FitmentDrawer";
+import { useCart } from "@/components/CartProvider";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -21,11 +22,24 @@ function formatPrice(price: number | null | undefined): string {
     return `$${price.toFixed(2)}`;
 }
 
-function getComponentType(graceSku: string): string {
+function getComponentType(graceSku: string, itemName?: string): string {
     if (graceSku.includes("DRP")) return "Dropper";
     if (graceSku.includes("ROC")) return "Roller Cap";
+    if (graceSku.includes("AST")) return "Sprayer";
+    if (graceSku.includes("ASP")) return "Sprayer";
     if (graceSku.includes("SPR")) return "Sprayer";
+    if (graceSku.includes("ATM")) return "Sprayer";
     if (graceSku.includes("LPM")) return "Lotion Pump";
+    if (graceSku.includes("RDC")) return "Reducer";
+    if (graceSku.includes("ROL") || graceSku.includes("MRL") || graceSku.includes("RON") || graceSku.includes("MRO") || graceSku.includes("RBL")) return "Roller";
+
+    const name = (itemName || "").toLowerCase();
+    if (name.includes("sprayer") || name.includes("bulb") || name.includes("atomizer")) return "Sprayer";
+    if (name.includes("lotion") && name.includes("pump")) return "Lotion Pump";
+    if (name.includes("dropper")) return "Dropper";
+    if (name.includes("reducer")) return "Reducer";
+    if (name.includes("roller") || name.includes("roll-on")) return "Roller";
+
     if (graceSku.includes("CAP")) return "Cap";
     return "Accessory";
 }
@@ -52,58 +66,8 @@ const COLOR_SWATCH: Record<string, string> = {
 // Light swatches that need a dark checkmark
 const LIGHT_SWATCHES = new Set(["White", "Shiny Silver", "Matte Silver", "Standard", "Pink", "Rose Gold"]);
 
-const COMPONENT_TYPE_ORDER = ["Roller Cap", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
+const COMPONENT_TYPE_ORDER = ["Reducer", "Roller Cap", "Roller", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
 
-// ── Navbar ────────────────────────────────────────────────────────────────────
-
-function Navbar({ onCartOpen }: { onCartOpen: () => void }) {
-    const [scrolled, setScrolled] = useState(false);
-    useEffect(() => {
-        const handle = () => setScrolled(window.scrollY > 20);
-        window.addEventListener("scroll", handle);
-        return () => window.removeEventListener("scroll", handle);
-    }, []);
-
-    return (
-        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-bone/95 shadow-sm backdrop-blur-md" : "bg-bone border-b border-champagne"}`}>
-            <div className="bg-bone border-b border-champagne py-1.5 text-center px-4">
-                <p className="text-xs uppercase tracking-[0.15em] text-slate font-medium">Free shipping on orders above $199.00</p>
-            </div>
-            <div className="max-w-[1440px] mx-auto px-6 h-[72px] flex items-center justify-between">
-                <div className="flex items-center space-x-12">
-                    <Link href="/" className="font-serif text-2xl font-medium tracking-tight text-obsidian">
-                        BEST BOTTLES
-                    </Link>
-                    <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-obsidian tracking-wide uppercase">
-                        <Link href="/" className="hover:text-muted-gold transition-colors">Home</Link>
-                        <Link href="/catalog" className="hover:text-muted-gold transition-colors">Master Catalog</Link>
-                        <a href="#" className="hover:text-muted-gold transition-colors">About</a>
-                        <a href="#" className="hover:text-muted-gold transition-colors">Resources</a>
-                    </nav>
-                </div>
-                <div className="flex items-center space-x-6">
-                    <button className="hidden sm:flex items-center space-x-2 text-sm font-medium text-obsidian bg-[#FFF] border border-champagne px-3 py-1.5 rounded-full hover:border-muted-gold transition-colors shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-muted-gold animate-pulse"></span>
-                        <span>Ask Grace</span>
-                    </button>
-                    <div className="flex items-center space-x-4">
-                        <button aria-label="Account" className="hover:text-muted-gold transition-colors">
-                            <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
-                        </button>
-                        <button
-                            aria-label="Cart"
-                            onClick={onCartOpen}
-                            className="hover:text-muted-gold transition-colors relative cursor-pointer"
-                        >
-                            <ShoppingBag className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
-                            <span className="absolute -top-1.5 -right-1.5 bg-muted-gold text-white text-[10px] w-[16px] h-[16px] flex items-center justify-center rounded-full font-semibold">2</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
-}
 
 // ── Spec Row ──────────────────────────────────────────────────────────────────
 
@@ -120,34 +84,63 @@ function SpecRow({ label, value }: { label: string; value: string | number | nul
 // ── Component Card ────────────────────────────────────────────────────────────
 
 function ComponentCard({ comp }: { comp: any }) {
+    const { addItems } = useCart();
+    const [justAdded, setJustAdded] = useState(false);
+
+    const handleAdd = useCallback(() => {
+        addItems([{
+            graceSku: comp.grace_sku,
+            itemName: comp.item_name || comp.grace_sku,
+            quantity: 1,
+            unitPrice: comp.price_1 ?? null,
+        }]);
+        setJustAdded(true);
+        setTimeout(() => setJustAdded(false), 1500);
+    }, [addItems, comp]);
+
     return (
-        <div className="flex items-center space-x-3 p-3 bg-white border border-champagne/40 rounded-sm hover:border-muted-gold transition-colors">
+        <div className="group relative flex items-center space-x-4 p-3 bg-white border border-champagne/40 rounded-sm hover:border-muted-gold transition-colors">
             {comp.image_url ? (
-                <div className="w-12 h-12 shrink-0 bg-travertine rounded-sm overflow-hidden flex items-center justify-center">
+                <div className="w-24 h-24 shrink-0 bg-travertine rounded-sm overflow-hidden flex items-center justify-center">
                     <img
                         src={comp.image_url}
                         alt={comp.item_name || comp.grace_sku}
-                        className="w-full h-full object-contain p-1"
+                        className="w-full h-full object-contain p-1.5"
                         onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
                         }}
                     />
                 </div>
             ) : (
-                <div className="w-12 h-12 shrink-0 bg-travertine rounded-sm flex items-center justify-center">
-                    <Package className="w-5 h-5 text-champagne" strokeWidth={1} />
+                <div className="w-24 h-24 shrink-0 bg-travertine rounded-sm flex items-center justify-center">
+                    <Package className="w-8 h-8 text-champagne" strokeWidth={1} />
                 </div>
             )}
             <div className="flex-1 min-w-0">
                 <p className="text-[10px] uppercase font-bold tracking-wider text-slate/70 truncate">{comp.grace_sku}</p>
                 <p className="text-xs text-obsidian leading-tight line-clamp-2 mt-0.5">{comp.item_name}</p>
+                <div className="flex items-center gap-2 mt-2">
+                    <p className="font-semibold text-obsidian text-sm">{formatPrice(comp.price_1)}</p>
+                    {comp.price_12 && (
+                        <p className="text-[10px] text-slate">{formatPrice(comp.price_12)} ×12</p>
+                    )}
+                </div>
             </div>
-            <div className="text-right shrink-0 ml-2">
-                <p className="font-semibold text-obsidian text-sm">{formatPrice(comp.price_1)}</p>
-                {comp.price_12 && (
-                    <p className="text-[10px] text-slate">{formatPrice(comp.price_12)} ×12</p>
+            <button
+                onClick={handleAdd}
+                className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
+                    justAdded
+                        ? "bg-emerald-500 text-white scale-110"
+                        : "bg-bone border border-champagne/60 text-slate hover:bg-muted-gold hover:text-white hover:border-muted-gold"
+                }`}
+                title="Add to cart"
+            >
+                {justAdded ? (
+                    <Check className="w-4 h-4" strokeWidth={2.5} />
+                ) : (
+                    <Plus className="w-4 h-4" strokeWidth={2} />
                 )}
-            </div>
+            </button>
         </div>
     );
 }
@@ -160,12 +153,13 @@ export default function ProductDetailPage() {
 
     const data = useQuery(api.products.getProductGroup, { slug });
 
-    const [cartOpen, setCartOpen] = useState(false);
+    const { addItems } = useCart();
     const [fitmentDrawerOpen, setFitmentDrawerOpen] = useState(false);
     const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
     const [selectedTrimColor, setSelectedTrimColor] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<"specs" | "components">("specs");
     const [qty, setQty] = useState(1);
+    const [addedFlash, setAddedFlash] = useState(false);
 
     const group = data?.group;
     const variants: any[] = data?.variants ?? [];
@@ -228,7 +222,7 @@ export default function ProductDetailPage() {
         const comps: any[] = selectedVariant?.components ?? [];
         const groups: Record<string, any[]> = {};
         for (const comp of comps) {
-            const type = getComponentType(comp.grace_sku || "");
+            const type = getComponentType(comp.grace_sku || "", comp.item_name);
             if (!groups[type]) groups[type] = [];
             groups[type].push(comp);
         }
@@ -240,13 +234,45 @@ export default function ProductDetailPage() {
         0
     );
 
+    // ── Dynamic SEO title ────────────────────────────────────────────────────
+    useEffect(() => {
+        if (group) {
+            document.title = `${group.displayName} | Best Bottles`;
+        }
+        return () => { document.title = "Best Bottles"; };
+    }, [group]);
+
+    // ── JSON-LD structured data ──────────────────────────────────────────────
+    const jsonLd = useMemo(() => {
+        if (!group || !selectedVariant) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: group.displayName,
+            description: selectedVariant.itemDescription
+                ?? `${group.displayName} — ${group.family} collection from Best Bottles. ${group.capacity ?? ""}`.trim(),
+            sku: selectedVariant.websiteSku,
+            brand: { "@type": "Brand", name: "Best Bottles" },
+            category: group.category,
+            ...(selectedVariant.imageUrl && { image: selectedVariant.imageUrl }),
+            offers: {
+                "@type": "AggregateOffer",
+                priceCurrency: "USD",
+                lowPrice: selectedVariant.webPrice12pc ?? selectedVariant.webPrice10pc ?? selectedVariant.webPrice1pc,
+                highPrice: selectedVariant.webPrice1pc,
+                availability: selectedVariant.stockStatus === "In Stock"
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/OutOfStock",
+            },
+        };
+    }, [group, selectedVariant]);
+
     // ── Loading state ────────────────────────────────────────────────────────
 
     if (data === undefined) {
         return (
             <main className="min-h-screen bg-bone">
-                <Navbar onCartOpen={() => setCartOpen(true)} />
-                <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+                <Navbar />
                 <div className="pt-[104px] flex items-center justify-center min-h-screen">
                     <div className="flex flex-col items-center">
                         <div className="w-10 h-10 rounded-full border-2 border-champagne border-t-muted-gold animate-spin mb-4"></div>
@@ -262,9 +288,8 @@ export default function ProductDetailPage() {
     if (!group) {
         return (
             <main className="min-h-screen bg-bone">
-                <Navbar onCartOpen={() => setCartOpen(true)} />
-                <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-                <div className="pt-[104px] max-w-[1440px] mx-auto px-6 py-32 text-center">
+                <Navbar />
+                <div className="pt-[104px] max-w-[1440px] mx-auto px-4 sm:px-6 py-32 text-center">
                     <h1 className="font-serif text-4xl text-obsidian mb-4">Product Not Found</h1>
                     <p className="text-slate mb-8 text-sm">This product may have been moved or is no longer available.</p>
                     <Link
@@ -283,8 +308,14 @@ export default function ProductDetailPage() {
 
     return (
         <main className="min-h-screen bg-bone">
-            <Navbar onCartOpen={() => setCartOpen(true)} />
-            <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+            {/* JSON-LD structured data for SEO */}
+            {jsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            )}
+            <Navbar />
             {selectedVariant?.graceSku && (
                 <FitmentDrawer
                     isOpen={fitmentDrawerOpen}
@@ -295,29 +326,29 @@ export default function ProductDetailPage() {
 
             <div className="pt-[104px]">
                 {/* ── Breadcrumb ──────────────────────────────────────────────────── */}
-                <div className="border-b border-champagne/50 bg-bone">
-                    <div className="max-w-[1440px] mx-auto px-6 py-3 flex items-center space-x-2 text-xs text-slate">
-                        <Link href="/" className="hover:text-muted-gold transition-colors">Home</Link>
+                <div className="border-b border-champagne/50 bg-bone overflow-x-auto">
+                    <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex items-center space-x-2 text-xs text-slate whitespace-nowrap">
+                        <Link href="/" className="hover:text-muted-gold transition-colors shrink-0">Home</Link>
                         <ChevronRight className="w-3 h-3 shrink-0" />
-                        <Link href="/catalog" className="hover:text-muted-gold transition-colors">Catalog</Link>
+                        <Link href="/catalog" className="hover:text-muted-gold transition-colors shrink-0">Catalog</Link>
                         <ChevronRight className="w-3 h-3 shrink-0" />
                         <Link
                             href={`/catalog?family=${encodeURIComponent(group.family)}`}
-                            className="hover:text-muted-gold transition-colors"
+                            className="hover:text-muted-gold transition-colors shrink-0"
                         >
                             {group.family}
                         </Link>
                         <ChevronRight className="w-3 h-3 shrink-0" />
-                        <span className="text-obsidian font-medium truncate max-w-[200px]">{group.displayName}</span>
+                        <span className="text-obsidian font-medium truncate max-w-[150px] sm:max-w-[200px]">{group.displayName}</span>
                     </div>
                 </div>
 
                 {/* ── Hero Section ──────────────────────────────────────────────── */}
-                <section className="max-w-[1440px] mx-auto px-6 py-12 lg:py-16">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                <section className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 lg:py-16">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start">
 
                         {/* ── Image Panel ──────────────────────────────────────────── */}
-                        <div className="sticky top-[120px]">
+                        <div className="lg:sticky lg:top-[120px]">
                             <motion.div
                                 key={selectedVariant?._id ?? "placeholder"}
                                 initial={{ opacity: 0.6 }}
@@ -397,7 +428,7 @@ export default function ProductDetailPage() {
                             </p>
 
                             {/* Title */}
-                            <h1 className="font-serif text-4xl lg:text-5xl font-medium text-obsidian leading-[1.1] mb-5">
+                            <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-medium text-obsidian leading-[1.1] mb-5">
                                 {group.displayName}
                             </h1>
 
@@ -423,10 +454,10 @@ export default function ProductDetailPage() {
                             </div>
 
                             {/* Price */}
-                            <div className="flex items-end justify-between mb-8 pb-8 border-b border-champagne/50">
+                            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 pb-8 border-b border-champagne/50">
                                 <div>
                                     <p className="text-xs text-slate uppercase tracking-wider mb-1">From</p>
-                                    <p className="font-serif text-4xl font-medium text-obsidian">
+                                    <p className="font-serif text-3xl sm:text-4xl font-medium text-obsidian">
                                         {formatPrice(selectedVariant?.webPrice1pc ?? group.priceRangeMin)}
                                         <span className="text-lg font-normal text-slate ml-1">/ea</span>
                                     </p>
@@ -533,11 +564,38 @@ export default function ProductDetailPage() {
                                     </button>
                                 </div>
                                 <button
-                                    disabled={!inStock}
-                                    className="flex-1 flex items-center justify-center space-x-2 bg-obsidian text-white text-xs font-bold uppercase tracking-widest hover:bg-muted-gold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                                    disabled={!inStock || addedFlash}
+                                    onClick={() => {
+                                        if (!selectedVariant || !inStock) return;
+                                        addItems([{
+                                            graceSku: selectedVariant.graceSku,
+                                            itemName: selectedVariant.itemName,
+                                            quantity: qty,
+                                            unitPrice: selectedVariant.webPrice1pc ?? null,
+                                            family: group?.family,
+                                            capacity: group?.capacity ?? undefined,
+                                            color: group?.color ?? undefined,
+                                        }]);
+                                        setAddedFlash(true);
+                                        setTimeout(() => setAddedFlash(false), 1800);
+                                    }}
+                                    className={`flex-1 flex items-center justify-center space-x-2 text-xs font-bold uppercase tracking-widest transition-colors disabled:cursor-not-allowed ${
+                                        addedFlash
+                                            ? "bg-emerald-600 text-white"
+                                            : "bg-obsidian text-white hover:bg-muted-gold disabled:opacity-40"
+                                    }`}
                                 >
-                                    <ShoppingBag className="w-4 h-4" strokeWidth={1.5} />
-                                    <span>{inStock ? "Add to Cart" : "Out of Stock"}</span>
+                                    {addedFlash ? (
+                                        <>
+                                            <Check className="w-4 h-4" strokeWidth={2} />
+                                            <span>Added!</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <ShoppingBag className="w-4 h-4" strokeWidth={1.5} />
+                                            <span>{inStock ? "Add to Cart" : "Out of Stock"}</span>
+                                        </>
+                                    )}
                                 </button>
                             </div>
 
@@ -604,7 +662,7 @@ export default function ProductDetailPage() {
 
                 {/* ── Engineered Compatibility Carousel ────────────────────── */}
                 {selectedVariant?.graceSku && (
-                    <div className="max-w-[1440px] mx-auto px-6">
+                    <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
                         <FitmentCarousel
                             bottleSku={selectedVariant.graceSku}
                             onOpenDrawer={() => setFitmentDrawerOpen(true)}
@@ -614,22 +672,22 @@ export default function ProductDetailPage() {
 
                 {/* ── Specs + Compatible Components ──────────────────────────── */}
                 <section className="border-t border-champagne/50 bg-linen">
-                    <div className="max-w-[1440px] mx-auto px-6">
+                    <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
 
                         {/* Tab bar */}
-                        <div className="flex border-b border-champagne/50">
+                        <div className="flex border-b border-champagne/50 overflow-x-auto">
                             {(["specs", "components"] as const).map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
-                                    className={`px-8 py-5 text-xs uppercase tracking-wider font-bold border-b-2 transition-all ${activeTab === tab
+                                    className={`px-4 sm:px-8 py-4 sm:py-5 text-[10px] sm:text-xs uppercase tracking-wider font-bold border-b-2 transition-all whitespace-nowrap ${activeTab === tab
                                         ? "border-obsidian text-obsidian"
                                         : "border-transparent text-slate hover:text-obsidian hover:border-champagne/60"
                                         }`}
                                 >
                                     {tab === "specs"
                                         ? "Specifications"
-                                        : `Compatible Components (${totalComponents})`}
+                                        : `Components (${totalComponents})`}
                                 </button>
                             ))}
                         </div>
@@ -696,7 +754,7 @@ export default function ProductDetailPage() {
                                                                 {componentGroups[type].length} option{componentGroups[type].length !== 1 ? "s" : ""}
                                                             </span>
                                                         </div>
-                                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                                                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                                                             {componentGroups[type].map((comp: any) => (
                                                                 <ComponentCard key={comp.grace_sku} comp={comp} />
                                                             ))}

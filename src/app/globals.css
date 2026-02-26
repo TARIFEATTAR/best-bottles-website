@@ -157,3 +157,49 @@ body {
 .grace-voice-bars--light span {
   background-color: #fff;
 }
+
+/* ── Grace Side Panel Transitions ─────────────────────────────────────────── */
+
+/* Push main content left when panel is open (desktop) */
+@media (min-width: 769px) {
+  body.grace-panel-open > * > main,
+  body.grace-panel-open > * > * > main {
+    transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-right: 400px;
+  }
+  body.grace-strip-open > * > main,
+  body.grace-strip-open > * > * > main {
+    transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-right: 60px;
+  }
+}
+
+/* Bottom sheet drag handle pulse */
+@keyframes sheetHandlePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.grace-sheet-handle {
+  animation: sheetHandlePulse 2s ease-in-out infinite;
+}
+
+/* Voice strip glow when Grace is speaking */
+@keyframes stripGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 101, 0); }
+  50% { box-shadow: 0 0 20px 2px rgba(197, 160, 101, 0.15); }
+}
+
+.grace-strip-speaking {
+  animation: stripGlow 2s ease-in-out infinite;
+}
+
+/* Floating trigger entrance */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.25s ease-out forwards;
+}

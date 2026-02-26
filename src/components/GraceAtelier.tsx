@@ -23,7 +23,7 @@ import { api } from "../../convex/_generated/api";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type PanelState = "closed" | "open" | "full";
+type PanelState = "closed" | "slim" | "open" | "full";
 
 interface Message {
     role: "user" | "grace";
@@ -102,7 +102,7 @@ export default function GraceAtelier() {
     // ── Listen for external open trigger (Navbar button, hero CTA, etc.) ──────
     useEffect(() => {
         const handleExternalOpen = () => {
-            setPanelState("open");
+            setPanelState("slim");
             setIsPinned(false);
         };
         document.addEventListener("grace:open", handleExternalOpen);
@@ -113,19 +113,18 @@ export default function GraceAtelier() {
     useEffect(() => {
         document.dispatchEvent(
             new CustomEvent("grace:statechange", {
-                detail: { isOpen: panelState !== "closed" },
+                detail: { isOpen: panelState !== "closed", isSlim: panelState === "slim" },
             })
         );
     }, [panelState]);
 
     // ── Scroll-minimise with hysteresis: pin at >120px, unpin at <30px ────────
+    // Slim mode stays visible at all times — no pinning needed.
     useEffect(() => {
-        if (panelState === "closed") {
+        if (panelState === "closed" || panelState === "slim") {
             setIsPinned(false);
             return;
         }
-        // FIX: use hysteresis thresholds to prevent rapid pin/unpin toggling.
-        // FIX: pass { passive: true } to BOTH add and remove to match signatures.
         const handleScroll = () => {
             const y = window.scrollY;
             setIsPinned((prev) => (prev ? y > 30 : y > 120));
@@ -141,9 +140,7 @@ export default function GraceAtelier() {
 
     // ── Focus input when panel opens — with cleanup to prevent queued calls ───
     useEffect(() => {
-        if (panelState === "open" || panelState === "full") {
-            // FIX: store timeout id and clear it on cleanup to prevent
-            // multiple queued focus calls if the panel flickers open/close rapidly.
+        if (panelState === "slim" || panelState === "open" || panelState === "full") {
             const id = setTimeout(() => inputRef.current?.focus(), 350);
             return () => clearTimeout(id);
         }
@@ -484,25 +481,58 @@ export default function GraceAtelier() {
                             <VolumeX className="w-4 h-4 text-slate/40" />
                         )}
                     </button>
-                    <button
-                        onClick={() => setPanelState(panelState === "full" ? "open" : "full")}
-                        className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
-                        aria-label={panelState === "full" ? "Collapse" : "Expand"}
-                    >
-                        {panelState === "full" ? (
-                            <Minimize2 className="w-4 h-4 text-slate" />
-                        ) : (
-                            <Maximize2 className="w-4 h-4 text-slate" />
-                        )}
-                    </button>
+                    {panelState !== "slim" && (
+                        <button
+                            onClick={() => setPanelState(panelState === "full" ? "open" : "full")}
+                            className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
+                            aria-label={panelState === "full" ? "Collapse" : "Full screen"}
+                        >
+                            {panelState === "full" ? (
+                                <Minimize2 className="w-4 h-4 text-slate" />
+                            ) : (
+                                <Maximize2 className="w-4 h-4 text-slate" />
+                            )}
+                        </button>
+                    )}
                     <button
                         onClick={handleClose}
-                        className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
+                        className="p-1.5 rounded-lg bg-champagne/30 hover:bg-red-100 hover:text-red-600 transition-colors"
                         aria-label="Close Grace"
                     >
-                        <X className="w-4 h-4 text-slate" />
+                        <X className="w-4 h-4" />
                     </button>
                 </div>
+            </div>
+
+            {/* Slim ↔ Open toggle bar + Close strip */}
+            <div className="flex items-center border-b border-champagne/30 shrink-0">
+                {panelState === "slim" && (
+                    <button
+                        onClick={() => setPanelState("open")}
+                        className="flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 text-[10px] uppercase tracking-widest font-semibold text-muted-gold hover:bg-champagne/20 transition-colors"
+                    >
+                        <Maximize2 className="w-3 h-3" />
+                        Expand
+                    </button>
+                )}
+                {panelState === "open" && (
+                    <button
+                        onClick={() => setPanelState("slim")}
+                        className="flex-1 flex items-center justify-center gap-1.5 px-4 py-1.5 text-[10px] uppercase tracking-widest font-semibold text-slate/60 hover:text-muted-gold hover:bg-champagne/20 transition-colors"
+                    >
+                        <Minimize2 className="w-3 h-3" />
+                        Slim view
+                    </button>
+                )}
+                {(panelState === "slim" || panelState === "open") && (
+                    <button
+                        onClick={handleClose}
+                        className="flex items-center justify-center gap-1 px-4 py-1.5 text-[10px] uppercase tracking-widest font-semibold text-slate/50 hover:text-red-500 hover:bg-red-50 transition-colors border-l border-champagne/30"
+                    >
+                        <X className="w-3 h-3" />
+                        Close
+                    </button>
+                )}
             </div>
 
             {/* Context chips */}
@@ -716,7 +746,7 @@ export default function GraceAtelier() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 16 }}
                         transition={{ duration: 0.22 }}
-                        onClick={() => { setPanelState("open"); setIsPinned(false); }}
+                        onClick={() => { setPanelState("slim"); setIsPinned(false); }}
                         className="fixed bottom-4 right-6 z-40 flex items-center space-x-2.5 bg-bone border border-champagne rounded-xl px-4 py-2.5 shadow-lg hover:border-muted-gold hover:shadow-xl transition-all duration-200 cursor-pointer"
                     >
                         <span className="w-2 h-2 rounded-full bg-muted-gold animate-grace-pulse shrink-0" />
@@ -764,11 +794,35 @@ export default function GraceAtelier() {
                 )}
             </AnimatePresence>
 
+            {/* ── SLIM STRIP (right-side, no backdrop, page stays interactive) ── */}
+            <AnimatePresence>
+                {panelState === "slim" && (
+                    <motion.div
+                        key="slim-strip"
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={DRAWER_SPRING}
+                        className="fixed top-0 right-0 h-full z-40 w-[320px] flex border-l border-champagne/40"
+                        style={{
+                            background: "rgba(250, 248, 245, 0.97)",
+                            backdropFilter: "blur(28px) saturate(180%)",
+                            WebkitBackdropFilter: "blur(28px) saturate(180%)",
+                            boxShadow: "-8px 0 40px rgba(29, 29, 31, 0.10), -1px 0 0 rgba(255,255,255,0.5) inset",
+                        }}
+                        role="complementary"
+                        aria-label="Grace — Slim Chat"
+                    >
+                        {conversationColumn()}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* ── OPEN DRAWER (standard + full-screen) ───────────────────────── */}
             <AnimatePresence>
                 {(panelState === "open" || panelState === "full") && !isPinned && (
                     <>
-                        {/* Backdrop */}
+                        {/* Backdrop — click collapses to slim instead of closing */}
                         <motion.div
                             key="backdrop"
                             initial={{ opacity: 0 }}
@@ -780,7 +834,7 @@ export default function GraceAtelier() {
                                 background: "rgba(29, 29, 31, 0.45)",
                                 backdropFilter: "blur(4px)",
                             }}
-                            onClick={handleClose}
+                            onClick={() => setPanelState("slim")}
                             aria-hidden="true"
                         />
 

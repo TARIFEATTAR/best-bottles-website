@@ -138,20 +138,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
             }
 
             if (data.checkoutUrl) {
+                const unmatched: string[] = data.unmatchedSkus ?? [];
+                if (unmatched.length > 0) {
+                    setCheckoutError(
+                        `${unmatched.length} item(s) couldn't be matched in the store and were skipped. Proceeding with the rest.`
+                    );
+                }
                 window.open(data.checkoutUrl, "_blank");
                 clearCart();
             } else if (data.unmatchedSkus?.length) {
                 setCheckoutError(
-                    `Some items couldn't be found in the store: ${data.unmatchedSkus.join(", ")}`
+                    `These items aren't available in the online store yet: ${data.unmatchedSkus.join(", ")}. Contact us at sales@bestbottles.com to place your order.`
                 );
             } else {
-                setCheckoutError("No matching products found in the store.");
+                setCheckoutError("No matching products found in the store. Please contact us at sales@bestbottles.com.");
             }
         } catch (err) {
             console.error("[Cart] Checkout error:", err);
-            setCheckoutError(
-                err instanceof Error ? err.message : "Checkout failed. Please try again."
-            );
+            const message = err instanceof Error ? err.message : "";
+            if (message.includes("not configured") || message.includes("503")) {
+                setCheckoutError(
+                    "Online checkout is temporarily unavailable. Please email your order to sales@bestbottles.com or call us at (800) 555-0199."
+                );
+            } else {
+                setCheckoutError(
+                    message || "Checkout failed. Please try again or contact sales@bestbottles.com."
+                );
+            }
         } finally {
             setIsCheckingOut(false);
         }

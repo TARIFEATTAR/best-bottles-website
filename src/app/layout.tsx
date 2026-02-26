@@ -4,7 +4,7 @@ import "./globals.css";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { CartProvider } from "@/components/CartProvider";
 import GraceProvider from "@/components/GraceProvider";
-import GraceChatModal, { GraceFloatingTrigger } from "@/components/GraceChatModal";
+import GraceSidePanel, { GraceFloatingTrigger } from "@/components/GraceSidePanel";
 
 const bodoniModa = Bodoni_Moda({
   variable: "--font-bodoni",
@@ -36,7 +36,7 @@ export default function RootLayout({
           <CartProvider>
             <GraceProvider>
               {children}
-              <GraceChatModal />
+              <GraceSidePanel />
               <GraceFloatingTrigger />
             </GraceProvider>
           </CartProvider>

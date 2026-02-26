@@ -9,6 +9,7 @@
  */
 
 import type * as fitments from "../fitments.js";
+import type * as forms from "../forms.js";
 import type * as grace from "../grace.js";
 import type * as knowledge from "../knowledge.js";
 import type * as migrations from "../migrations.js";
@@ -23,6 +24,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   fitments: typeof fitments;
+  forms: typeof forms;
   grace: typeof grace;
   knowledge: typeof knowledge;
   migrations: typeof migrations;

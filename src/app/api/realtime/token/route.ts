@@ -173,7 +173,7 @@ export async function POST(req: NextRequest) {
                     type: "function",
                     name: "navigateToPage",
                     description:
-                        "Show a navigation card that links the customer to a specific page on the website. Use when suggesting they view the full catalog, a product detail page, or any other page.",
+                        "Navigate the customer to a page on the website. By default (autoNavigate=false), shows a link card. When the customer explicitly asks to be taken/moved to a page, set autoNavigate=true to navigate them directly. After showing a link, always let the customer know you can also navigate them there — say something like 'I shared the link, but I can also take you there directly if you'd like.'",
                     parameters: {
                         type: "object",
                         properties: {
@@ -188,6 +188,10 @@ export async function POST(req: NextRequest) {
                             description: {
                                 type: "string",
                                 description: "Brief description of what they'll find on the page",
+                            },
+                            autoNavigate: {
+                                type: "boolean",
+                                description: "If true, navigate the customer directly to the page. Set true when they say 'take me there', 'go to', 'show me', 'navigate me'. Default false (just show the link).",
                             },
                         },
                         required: ["path", "title"],

@@ -216,4 +216,28 @@ export default defineSchema({
         createdAt: v.number(),
     })
         .index("by_conversation", ["conversationId"]),
+
+    // -------------------------------------------------------------------------
+    // FORM SUBMISSIONS (sample requests, quotes, contact)
+    // -------------------------------------------------------------------------
+
+    formSubmissions: defineTable({
+        formType: v.union(
+            v.literal("sample"),
+            v.literal("quote"),
+            v.literal("contact"),
+            v.literal("newsletter")
+        ),
+        name: v.optional(v.string()),
+        email: v.string(),
+        company: v.optional(v.string()),
+        phone: v.optional(v.string()),
+        message: v.optional(v.string()),
+        products: v.optional(v.string()),
+        quantities: v.optional(v.string()),
+        source: v.optional(v.string()),
+        submittedAt: v.number(),
+    })
+        .index("by_type", ["formType"])
+        .index("by_email", ["email"]),
 });
