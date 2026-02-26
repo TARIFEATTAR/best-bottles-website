@@ -1,35 +1,189 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback, Suspense } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { Search, ArrowRight, X, Package, ChevronDown, SlidersHorizontal } from "lucide-react";
+import {
+    Search, ArrowRight, X, Package, ChevronDown, ChevronUp,
+    SlidersHorizontal, ArrowUpDown,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
 
-// -- Helper: Format price --
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+const PAGE_SIZE = 24;
+const SEARCH_DEBOUNCE_MS = 300;
+
+const SORT_OPTIONS = [
+    { value: "featured", label: "Featured" },
+    { value: "price-asc", label: "Price: Low to High" },
+    { value: "price-desc", label: "Price: High to Low" },
+    { value: "name-asc", label: "Name: A–Z" },
+    { value: "name-desc", label: "Name: Z–A" },
+    { value: "variants-desc", label: "Most Variants" },
+] as const;
+
+type SortValue = (typeof SORT_OPTIONS)[number]["value"];
+
+const COLOR_SWATCH_MAP: Record<string, string> = {
+    Clear: "bg-white border border-champagne/60",
+    Amber: "bg-amber-600",
+    Blue: "bg-blue-600",
+    Green: "bg-emerald-600",
+    Frosted: "bg-gradient-to-br from-white to-slate-200 border border-champagne/60",
+    Black: "bg-black",
+    White: "bg-white border border-champagne/60",
+    Pink: "bg-pink-400",
+    Red: "bg-red-600",
+    Gold: "bg-yellow-500",
+    Purple: "bg-purple-600",
+    Cobalt: "bg-blue-800",
+    "Cobalt Blue": "bg-blue-800",
+    Opal: "bg-gradient-to-br from-white to-sky-100 border border-champagne/60",
+};
+
+const CATEGORY_ORDER = [
+    "Glass Bottle", "Cream Jar", "Lotion Bottle", "Aluminum Bottle",
+    "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
+    "Packaging Box", "Other",
+];
+
+const COMPONENT_CATEGORIES = new Set([
+    "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
+]);
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface CatalogFilters {
+    category: string | null;
+    collection: string | null;
+    families: string[];
+    colors: string[];
+    capacities: string[];
+    neckThreadSizes: string[];
+    componentType: string | null;
+    priceMin: number | null;
+    priceMax: number | null;
+    search: string;
+}
+
+interface Facets {
+    categories: Record<string, number>;
+    collections: Record<string, number>;
+    families: Record<string, number>;
+    colors: Record<string, number>;
+    capacities: Record<string, { label: string; ml: number | null; count: number }>;
+    neckThreadSizes: Record<string, number>;
+    componentTypes: Record<string, number>;
+    priceRange: { min: number; max: number };
+}
+
+const EMPTY_FILTERS: CatalogFilters = {
+    category: null,
+    collection: null,
+    families: [],
+    colors: [],
+    capacities: [],
+    neckThreadSizes: [],
+    componentType: null,
+    priceMin: null,
+    priceMax: null,
+    search: "",
+};
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function formatPrice(price: number | null): string {
     if (!price) return "—";
     return `$${price.toFixed(2)}`;
 }
 
-// -- Stock Badge --
-function StockBadge({ status }: { status: string | null }) {
-    const inStock = status === "In Stock";
+function countBy<T>(arr: T[], keyFn: (item: T) => string | null | undefined): Record<string, number> {
+    const counts: Record<string, number> = {};
+    for (const item of arr) {
+        const key = keyFn(item);
+        if (key) counts[key] = (counts[key] || 0) + 1;
+    }
+    return counts;
+}
+
+function classifyComponentType(displayName: string, family: string | null): string | null {
+    const name = displayName.toLowerCase();
+    const fam = (family ?? "").toLowerCase();
+    if (name.includes("sprayer") || name.includes("atomizer") || name.includes("bulb") || fam.includes("sprayer")) return "Sprayer";
+    if (name.includes("dropper") || fam.includes("dropper")) return "Dropper";
+    if (name.includes("lotion") && name.includes("pump") || fam.includes("lotion pump")) return "Lotion Pump";
+    if (name.includes("roll-on") || name.includes("roll on") || fam.includes("roll-on")) return "Roll-On";
+    if (name.includes("roller") || fam.includes("roller")) return "Roller";
+    if (name.includes("reducer") || fam.includes("reducer")) return "Reducer";
+    if (name.includes("cap") || name.includes("closure") || fam.includes("cap")) return "Cap";
+    return null;
+}
+
+function filtersAreEmpty(f: CatalogFilters): boolean {
     return (
-        <span className={`inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold rounded-full ${inStock
-            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-            : "bg-red-50 text-red-600 border border-red-200"
-            }`}>
-            <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${inStock ? "bg-emerald-500" : "bg-red-400"}`}></span>
-            {status || "Unknown"}
-        </span>
+        !f.category && !f.collection && f.families.length === 0 &&
+        f.colors.length === 0 && f.capacities.length === 0 &&
+        f.neckThreadSizes.length === 0 && !f.componentType &&
+        f.priceMin === null && f.priceMax === null && !f.search
     );
 }
 
-// -- Loading Skeleton Card --
+function activeFilterCount(f: CatalogFilters): number {
+    let n = 0;
+    if (f.category) n++;
+    if (f.collection) n++;
+    n += f.families.length;
+    n += f.colors.length;
+    n += f.capacities.length;
+    n += f.neckThreadSizes.length;
+    if (f.componentType) n++;
+    if (f.priceMin !== null || f.priceMax !== null) n++;
+    if (f.search) n++;
+    return n;
+}
+
+// ─── URL Serialization ──────────────────────────────────────────────────────
+
+function filtersToParams(f: CatalogFilters, sort: SortValue): URLSearchParams {
+    const p = new URLSearchParams();
+    if (f.category) p.set("category", f.category);
+    if (f.collection) p.set("collection", f.collection);
+    if (f.families.length) p.set("families", f.families.join(","));
+    if (f.colors.length) p.set("colors", f.colors.join(","));
+    if (f.capacities.length) p.set("capacities", f.capacities.join(","));
+    if (f.neckThreadSizes.length) p.set("threads", f.neckThreadSizes.join(","));
+    if (f.componentType) p.set("componentType", f.componentType);
+    if (f.priceMin !== null) p.set("priceMin", String(f.priceMin));
+    if (f.priceMax !== null) p.set("priceMax", String(f.priceMax));
+    if (f.search) p.set("search", f.search);
+    if (sort !== "featured") p.set("sort", sort);
+    return p;
+}
+
+function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue } {
+    return {
+        filters: {
+            category: sp.get("category") || null,
+            collection: sp.get("collection") || null,
+            families: sp.get("families")?.split(",").filter(Boolean) ?? [],
+            colors: sp.get("colors")?.split(",").filter(Boolean) ?? [],
+            capacities: sp.get("capacities")?.split(",").filter(Boolean) ?? [],
+            neckThreadSizes: sp.get("threads")?.split(",").filter(Boolean) ?? [],
+            componentType: sp.get("componentType") || null,
+            priceMin: sp.get("priceMin") ? Number(sp.get("priceMin")) : null,
+            priceMax: sp.get("priceMax") ? Number(sp.get("priceMax")) : null,
+            search: sp.get("search") || "",
+        },
+        sort: (sp.get("sort") as SortValue) || "featured",
+    };
+}
+
+// ─── Skeleton Components ─────────────────────────────────────────────────────
+
 function SkeletonCard() {
     return (
         <div className="flex flex-col h-full bg-white rounded-sm border border-champagne/40 overflow-hidden animate-pulse">
@@ -52,15 +206,16 @@ function SkeletonCard() {
 
 function SkeletonGrid() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {Array.from({ length: 9 }).map((_, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+            {Array.from({ length: 12 }).map((_, i) => (
                 <SkeletonCard key={i} />
             ))}
         </div>
     );
 }
 
-// -- Product Group Card --
+// ─── Product Group Card ──────────────────────────────────────────────────────
+
 function ProductGroupCard({ group, index }: { group: any; index: number }) {
     return (
         <Link href={`/products/${group.slug}`}>
@@ -72,23 +227,29 @@ function ProductGroupCard({ group, index }: { group: any; index: number }) {
                 className="group cursor-pointer flex flex-col h-full bg-white rounded-sm border border-champagne/40 overflow-hidden hover:border-muted-gold hover:shadow-lg transition-all duration-300"
             >
                 <div className="relative aspect-[4/5] bg-travertine w-full overflow-hidden flex items-center justify-center">
-                    {/* Placeholder — replaced by paper doll render in Phase 5 */}
-                    <div className="flex flex-col items-center justify-center text-center p-4">
-                        <Package className="w-12 h-12 text-champagne mb-3" strokeWidth={1} />
-                        <p className="text-[10px] text-slate/60 uppercase tracking-wider font-medium leading-tight max-w-[120px]">
-                            {group.family}
-                        </p>
-                    </div>
-                    <div className="absolute inset-0 bg-transparent group-hover:bg-obsidian/5 transition-colors duration-300 pointer-events-none"></div>
+                    {group.heroImageUrl ? (
+                        <img
+                            src={group.heroImageUrl}
+                            alt={group.displayName}
+                            className="w-full h-full object-contain p-4"
+                            loading="lazy"
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center text-center p-4">
+                            <Package className="w-12 h-12 text-champagne mb-3" strokeWidth={1} />
+                            <p className="text-[10px] text-slate/60 uppercase tracking-wider font-medium leading-tight max-w-[120px]">
+                                {group.family}
+                            </p>
+                        </div>
+                    )}
+                    <div className="absolute inset-0 bg-transparent group-hover:bg-obsidian/5 transition-colors duration-300 pointer-events-none" />
 
-                    {/* Variant count badge */}
                     <div className="absolute top-3 left-3">
                         <span className="inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold rounded-full bg-obsidian/80 text-white">
                             {group.variantCount} variant{group.variantCount !== 1 ? "s" : ""}
                         </span>
                     </div>
 
-                    {/* Configure CTA */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-t from-white/95 to-white/60 backdrop-blur-sm border-t border-white/50">
                         <div className="w-full py-2 bg-obsidian text-white text-[11px] uppercase font-bold tracking-wider text-center hover:bg-muted-gold transition-colors">
                             Configure <ArrowRight className="inline w-3 h-3 ml-1" />
@@ -100,7 +261,6 @@ function ProductGroupCard({ group, index }: { group: any; index: number }) {
                     <p className="text-[10px] text-slate uppercase tracking-wider font-bold mb-1">{group.category}</p>
                     <h4 className="font-serif text-lg text-obsidian font-medium mb-2 flex-1 leading-snug">{group.displayName}</h4>
 
-                    {/* Specs row */}
                     <div className="flex flex-wrap gap-1.5 mb-4">
                         {group.capacity && group.capacity !== "0 ml (0 oz)" && (
                             <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 bg-bone border border-champagne/50 text-slate rounded-sm font-medium">
@@ -136,259 +296,691 @@ function ProductGroupCard({ group, index }: { group: any; index: number }) {
     );
 }
 
-// -- Shared Filter Sidebar Content --
+// ─── Collapsible Filter Section ──────────────────────────────────────────────
+
+function FilterSection({
+    title,
+    defaultOpen = false,
+    expanded,
+    onToggle,
+    children,
+}: {
+    title: string;
+    defaultOpen?: boolean;
+    expanded?: boolean;
+    onToggle?: () => void;
+    children: React.ReactNode;
+}) {
+    const [internalOpen, setInternalOpen] = useState(defaultOpen);
+    const isOpen = expanded ?? internalOpen;
+    const toggle = onToggle ?? (() => setInternalOpen((p) => !p));
+
+    return (
+        <div className="border-b border-champagne/30 pb-4 mb-4">
+            <button
+                onClick={toggle}
+                className="flex items-center justify-between w-full text-xs uppercase tracking-wider font-bold text-slate hover:text-obsidian transition-colors py-1"
+                aria-expanded={isOpen}
+            >
+                <span>{title}</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-0" : "-rotate-90"}`} />
+            </button>
+            <AnimatePresence initial={false}>
+                {isOpen && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                    >
+                        <div className="pt-3">{children}</div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
+
+// ─── Checkbox Filter Item ────────────────────────────────────────────────────
+
+function CheckboxItem({
+    label,
+    count,
+    checked,
+    onChange,
+    swatch,
+}: {
+    label: string;
+    count?: number;
+    checked: boolean;
+    onChange: () => void;
+    swatch?: string;
+}) {
+    return (
+        <label className="flex items-center gap-2.5 py-1 cursor-pointer group/check">
+            <input
+                type="checkbox"
+                checked={checked}
+                onChange={onChange}
+                className="w-3.5 h-3.5 rounded border-champagne text-muted-gold focus:ring-muted-gold/30 cursor-pointer"
+            />
+            {swatch && (
+                <span className={`w-3.5 h-3.5 rounded-full shrink-0 ${swatch}`} />
+            )}
+            <span className={`text-[13px] flex-1 transition-colors ${checked ? "text-muted-gold font-semibold" : "text-obsidian/70 group-hover/check:text-obsidian"}`}>
+                {label}
+            </span>
+            {count !== undefined && (
+                <span className="text-[11px] text-slate/60">{count}</span>
+            )}
+        </label>
+    );
+}
+
+// ─── Price Range Slider ──────────────────────────────────────────────────────
+
+function PriceRangeSlider({
+    min,
+    max,
+    valueMin,
+    valueMax,
+    onChange,
+}: {
+    min: number;
+    max: number;
+    valueMin: number | null;
+    valueMax: number | null;
+    onChange: (min: number | null, max: number | null) => void;
+}) {
+    const effectiveMin = valueMin ?? min;
+    const effectiveMax = valueMax ?? max;
+    const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+
+    const handleChange = (newMin: number, newMax: number) => {
+        clearTimeout(debounceRef.current);
+        debounceRef.current = setTimeout(() => {
+            const isDefault = newMin <= min && newMax >= max;
+            onChange(isDefault ? null : newMin, isDefault ? null : newMax);
+        }, SEARCH_DEBOUNCE_MS);
+    };
+
+    if (min >= max) return null;
+
+    return (
+        <div className="space-y-3">
+            <div className="flex items-center justify-between text-[12px] text-obsidian font-medium">
+                <span>{formatPrice(effectiveMin)}</span>
+                <span>{formatPrice(effectiveMax)}</span>
+            </div>
+            <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate w-8">Min</span>
+                    <input
+                        type="range"
+                        min={min}
+                        max={max}
+                        step={0.01}
+                        value={effectiveMin}
+                        onChange={(e) => handleChange(Number(e.target.value), effectiveMax)}
+                        className="flex-1 h-1.5 accent-muted-gold cursor-pointer"
+                    />
+                </div>
+                <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate w-8">Max</span>
+                    <input
+                        type="range"
+                        min={min}
+                        max={max}
+                        step={0.01}
+                        value={effectiveMax}
+                        onChange={(e) => handleChange(effectiveMin, Number(e.target.value))}
+                        className="flex-1 h-1.5 accent-muted-gold cursor-pointer"
+                    />
+                </div>
+            </div>
+            {(valueMin !== null || valueMax !== null) && (
+                <button
+                    onClick={() => onChange(null, null)}
+                    className="text-[11px] text-muted-gold hover:text-obsidian transition-colors"
+                >
+                    Reset price range
+                </button>
+            )}
+        </div>
+    );
+}
+
+// ─── Filter Sidebar Content ─────────────────────────────────────────────────
+
 function FilterSidebarContent({
-    sidebarData,
-    stats,
-    activeFilter,
+    facets,
+    taxonomy,
+    filters,
+    totalCount,
     expandedCategories,
     toggleCategory,
-    handleFilterClick,
-    clearFilter,
+    onFilterChange,
+    onClearAll,
 }: {
-    sidebarData: Array<{ category: string; collections: Array<{ name: string; count: number }>; totalCount: number }>;
-    stats: any;
-    activeFilter: { type: string | null; value: string };
+    facets: Facets | null;
+    taxonomy: Record<string, Record<string, number>> | null;
+    filters: CatalogFilters;
+    totalCount: number;
     expandedCategories: Record<string, boolean>;
     toggleCategory: (cat: string) => void;
-    handleFilterClick: (type: "collection" | "family" | "category", value: string) => void;
-    clearFilter: () => void;
+    onFilterChange: (patch: Partial<CatalogFilters>) => void;
+    onClearAll: () => void;
 }) {
+    const isComponentCategory = filters.category ? COMPONENT_CATEGORIES.has(filters.category) : false;
+
+    const toggleArrayFilter = (key: keyof CatalogFilters, value: string) => {
+        const current = filters[key] as string[];
+        const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value];
+        onFilterChange({ [key]: next });
+    };
+
+    const sidebarCategories = useMemo(() => {
+        if (!taxonomy) return [];
+        return CATEGORY_ORDER
+            .filter((cat) => taxonomy[cat])
+            .map((cat) => ({
+                category: cat,
+                collections: Object.entries(taxonomy[cat])
+                    .sort(([, a], [, b]) => (b as number) - (a as number))
+                    .map(([name, count]) => ({ name, count: count as number })),
+                totalCount: Object.values(taxonomy[cat]).reduce((sum, c) => sum + (c as number), 0),
+            }));
+    }, [taxonomy]);
+
+    const sortedCapacities = useMemo(() => {
+        if (!facets) return [];
+        return Object.values(facets.capacities).sort((a, b) => (a.ml ?? 9999) - (b.ml ?? 9999));
+    }, [facets]);
+
+    const sortedColors = useMemo(() => {
+        if (!facets) return [];
+        return Object.entries(facets.colors).sort(([, a], [, b]) => b - a);
+    }, [facets]);
+
+    const sortedThreads = useMemo(() => {
+        if (!facets) return [];
+        return Object.entries(facets.neckThreadSizes).sort(([a], [b]) => {
+            const na = parseFloat(a);
+            const nb = parseFloat(b);
+            if (!isNaN(na) && !isNaN(nb)) return na - nb;
+            return a.localeCompare(b);
+        });
+    }, [facets]);
+
+    const sortedFamilies = useMemo(() => {
+        if (!facets) return [];
+        return Object.entries(facets.families).sort(([a], [b]) => a.localeCompare(b));
+    }, [facets]);
+
+    const sortedComponentTypes = useMemo(() => {
+        if (!facets) return [];
+        return Object.entries(facets.componentTypes).sort(([, a], [, b]) => b - a);
+    }, [facets]);
+
     return (
         <>
             <h3 className="font-serif text-xl text-obsidian border-b border-champagne pb-3 mb-6">Browse</h3>
 
             <button
-                onClick={clearFilter}
-                className={`block text-left text-sm transition-colors w-full mb-6 pb-4 border-b border-champagne/30 ${!activeFilter.type ? "text-muted-gold font-semibold" : "text-obsidian hover:text-muted-gold"}`}
+                onClick={onClearAll}
+                className={`block text-left text-sm transition-colors w-full mb-6 pb-4 border-b border-champagne/30 ${filtersAreEmpty(filters) ? "text-muted-gold font-semibold" : "text-obsidian hover:text-muted-gold"}`}
             >
-                All Products {stats ? `(${stats.totalProducts.toLocaleString()})` : ""}
+                All Products ({totalCount.toLocaleString()})
             </button>
 
-            {sidebarData.map((group) => (
-                <div key={group.category} className="mb-4">
-                    <button
-                        onClick={() => toggleCategory(group.category)}
-                        className="flex items-center justify-between w-full text-xs uppercase tracking-wider font-bold text-slate mb-3 hover:text-obsidian transition-colors"
-                    >
-                        <span>{group.category} ({group.totalCount})</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expandedCategories[group.category] !== false ? "rotate-0" : "-rotate-90"}`} />
-                    </button>
-                    <AnimatePresence>
-                        {expandedCategories[group.category] !== false && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="overflow-hidden"
-                            >
-                                <div className="space-y-1.5 border-l border-champagne ml-2 pl-4 mb-6">
-                                    <button
-                                        onClick={() => handleFilterClick("category", group.category)}
-                                        className={`block text-left text-[13px] transition-colors w-full py-0.5 ${activeFilter.type === "category" && activeFilter.value === group.category
-                                            ? "text-muted-gold font-semibold"
-                                            : "text-obsidian/70 hover:text-muted-gold"}`}
-                                    >
-                                        All {group.category} ({group.totalCount})
-                                    </button>
-                                    {group.collections.map(col => (
-                                        <button
-                                            key={col.name}
-                                            onClick={() => handleFilterClick("collection", col.name)}
-                                            className={`block text-left text-[13px] transition-colors w-full py-0.5 ${activeFilter.type === "collection" && activeFilter.value === col.name
-                                                ? "text-muted-gold font-semibold"
-                                                : "text-obsidian/70 hover:text-muted-gold"}`}
-                                        >
-                                            {col.name} ({col.count})
-                                        </button>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
-            ))}
-
-            <div className="mt-8 pt-8 border-t border-champagne/40">
-                <p className="text-xs uppercase tracking-wider font-bold text-slate mb-4">Design Families</p>
-                <div className="space-y-1.5">
-                    {["Elegant", "Cylinder", "Circle", "Diva", "Empire", "Slim", "Boston Round", "Sleek", "Diamond", "Royal", "Round", "Square"].map(f => (
+            {/* Category + Collection Tree */}
+            <FilterSection title="Categories" defaultOpen>
+                {sidebarCategories.map((group) => (
+                    <div key={group.category} className="mb-2">
                         <button
-                            key={f}
-                            onClick={() => handleFilterClick("family", f)}
-                            className={`block text-left text-[13px] transition-colors w-full py-0.5 ${activeFilter.type === "family" && activeFilter.value === f
-                                ? "text-muted-gold font-semibold"
-                                : "text-obsidian/70 hover:text-muted-gold"}`}
+                            onClick={() => toggleCategory(group.category)}
+                            className="flex items-center justify-between w-full text-xs uppercase tracking-wider font-bold text-slate mb-2 hover:text-obsidian transition-colors"
                         >
-                            {f} {stats?.familyCounts?.[f] ? `(${stats.familyCounts[f]})` : ""}
+                            <span>{group.category} ({group.totalCount})</span>
+                            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${expandedCategories[group.category] !== false ? "rotate-0" : "-rotate-90"}`} />
                         </button>
-                    ))}
-                </div>
-            </div>
+                        <AnimatePresence>
+                            {expandedCategories[group.category] !== false && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="space-y-1 border-l border-champagne ml-2 pl-4 mb-4">
+                                        <button
+                                            onClick={() => onFilterChange({ category: filters.category === group.category ? null : group.category, collection: null })}
+                                            className={`block text-left text-[13px] transition-colors w-full py-0.5 ${filters.category === group.category && !filters.collection ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
+                                        >
+                                            All {group.category} ({group.totalCount})
+                                        </button>
+                                        {group.collections.map((col) => (
+                                            <button
+                                                key={col.name}
+                                                onClick={() => onFilterChange({ collection: filters.collection === col.name ? null : col.name, category: null })}
+                                                className={`block text-left text-[13px] transition-colors w-full py-0.5 ${filters.collection === col.name ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
+                                            >
+                                                {col.name} ({col.count})
+                                            </button>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                ))}
+            </FilterSection>
+
+            {/* Design Families */}
+            {sortedFamilies.length > 0 && (
+                <FilterSection title="Design Families" defaultOpen>
+                    <div className="space-y-0.5 max-h-[280px] overflow-y-auto hide-scroll">
+                        {sortedFamilies.map(([fam, count]) => (
+                            <CheckboxItem
+                                key={fam}
+                                label={fam}
+                                count={count}
+                                checked={filters.families.includes(fam)}
+                                onChange={() => toggleArrayFilter("families", fam)}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Component Type (contextual) */}
+            {isComponentCategory && sortedComponentTypes.length > 0 && (
+                <FilterSection title="Component Type" defaultOpen>
+                    <div className="space-y-0.5">
+                        {sortedComponentTypes.map(([type, count]) => (
+                            <button
+                                key={type}
+                                onClick={() => onFilterChange({ componentType: filters.componentType === type ? null : type })}
+                                className={`block text-left text-[13px] transition-colors w-full py-1 ${filters.componentType === type ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
+                            >
+                                {type} ({count})
+                            </button>
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Capacity */}
+            {sortedCapacities.length > 0 && (
+                <FilterSection title="Capacity">
+                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
+                        {sortedCapacities.map((cap) => (
+                            <CheckboxItem
+                                key={cap.label}
+                                label={cap.label}
+                                count={cap.count}
+                                checked={filters.capacities.includes(cap.label)}
+                                onChange={() => toggleArrayFilter("capacities", cap.label)}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Color */}
+            {sortedColors.length > 0 && (
+                <FilterSection title="Color">
+                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
+                        {sortedColors.map(([color, count]) => (
+                            <CheckboxItem
+                                key={color}
+                                label={color}
+                                count={count}
+                                checked={filters.colors.includes(color)}
+                                onChange={() => toggleArrayFilter("colors", color)}
+                                swatch={COLOR_SWATCH_MAP[color] ?? "bg-slate-300"}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Neck Thread Size */}
+            {sortedThreads.length > 0 && (
+                <FilterSection title="Neck Thread Size">
+                    <div className="space-y-0.5 max-h-[200px] overflow-y-auto hide-scroll">
+                        {sortedThreads.map(([thread, count]) => (
+                            <CheckboxItem
+                                key={thread}
+                                label={thread}
+                                count={count}
+                                checked={filters.neckThreadSizes.includes(thread)}
+                                onChange={() => toggleArrayFilter("neckThreadSizes", thread)}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Price Range */}
+            {facets && facets.priceRange.min < facets.priceRange.max && (
+                <FilterSection title="Price Range">
+                    <PriceRangeSlider
+                        min={facets.priceRange.min}
+                        max={facets.priceRange.max}
+                        valueMin={filters.priceMin}
+                        valueMax={filters.priceMax}
+                        onChange={(min, max) => onFilterChange({ priceMin: min, priceMax: max })}
+                    />
+                </FilterSection>
+            )}
         </>
     );
 }
 
-// -- Main Catalog Content (needs useSearchParams in Suspense) --
+// ─── Back to Top Button ──────────────────────────────────────────────────────
+
+function BackToTop() {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => setVisible(window.scrollY > 800);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    return (
+        <AnimatePresence>
+            {visible && (
+                <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                    className="fixed bottom-6 left-6 z-40 w-10 h-10 rounded-full bg-obsidian text-bone flex items-center justify-center shadow-xl hover:bg-muted-gold transition-colors"
+                    aria-label="Back to top"
+                >
+                    <ChevronUp className="w-5 h-5" />
+                </motion.button>
+            )}
+        </AnimatePresence>
+    );
+}
+
+// ─── Main Catalog Content ────────────────────────────────────────────────────
+
 function CatalogContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
-    const urlCollection = searchParams.get("collection");
-    const urlFamily = searchParams.get("family");
-    const urlCategory = searchParams.get("category");
-    const urlSearch = searchParams.get("search");
+    const searchDebounceRef = useRef<ReturnType<typeof setTimeout>>();
 
-    const [searchTerm, setSearchTerm] = useState(urlSearch ?? "");
-    const [activeFilter, setActiveFilter] = useState<{
-        type: "collection" | "family" | "category" | "search" | null;
-        value: string;
-    }>({
-        type: urlSearch ? "search" : urlCollection ? "collection" : urlFamily ? "family" : urlCategory ? "category" : null,
-        value: urlSearch ?? urlCollection ?? urlFamily ?? urlCategory ?? "",
-    });
+    // Parse URL into state on mount
+    const initialState = useMemo(() => paramsToFilters(searchParams), []);
+
+    const [filters, setFilters] = useState<CatalogFilters>(initialState.filters);
+    const [sortBy, setSortBy] = useState<SortValue>(initialState.sort);
+    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
     const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+    const [searchInput, setSearchInput] = useState(initialState.filters.search);
 
-    // Sync URL when filter changes (so filters are shareable/bookmarkable)
-    const pushFilterToUrl = useCallback((type: string | null, value: string) => {
-        const params = new URLSearchParams();
-        if (type && value) {
-            params.set(type, value);
-        }
-        const qs = params.toString();
-        router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
-    }, [router, pathname]);
+    // Sync URL when filters/sort change
+    const pushToUrl = useCallback(
+        (f: CatalogFilters, s: SortValue) => {
+            const qs = filtersToParams(f, s).toString();
+            router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
+        },
+        [router, pathname],
+    );
 
-    // Sync state when URL params change (e.g. navbar search navigates to /catalog?search=...)
+    // Restore accordion state from localStorage on mount
     useEffect(() => {
-        const hasSearch = urlSearch != null && urlSearch.trim().length > 0;
-        if (hasSearch) {
-            setSearchTerm(urlSearch!);
-            setActiveFilter({ type: "search", value: urlSearch! });
-        } else if (urlCollection) {
-            setSearchTerm("");
-            setActiveFilter({ type: "collection", value: urlCollection });
-        } else if (urlFamily) {
-            setSearchTerm("");
-            setActiveFilter({ type: "family", value: urlFamily });
-        } else if (urlCategory) {
-            setSearchTerm("");
-            setActiveFilter({ type: "category", value: urlCategory });
-        } else {
-            setSearchTerm("");
-            setActiveFilter({ type: null, value: "" });
-        }
-    }, [urlSearch, urlCollection, urlFamily, urlCategory]);
+        try {
+            const saved = localStorage.getItem("catalog_expanded");
+            if (saved) setExpandedCategories(JSON.parse(saved));
+        } catch { /* noop */ }
+    }, []);
 
-    // Lock body scroll when mobile filter is open
+    // Sync incoming URL changes (e.g., Navbar search)
+    useEffect(() => {
+        const { filters: urlFilters, sort: urlSort } = paramsToFilters(searchParams);
+        setFilters(urlFilters);
+        setSortBy(urlSort);
+        setSearchInput(urlFilters.search);
+    }, [searchParams]);
+
+    // Persist accordion state
+    useEffect(() => {
+        try {
+            localStorage.setItem("catalog_expanded", JSON.stringify(expandedCategories));
+        } catch { /* noop */ }
+    }, [expandedCategories]);
+
+    // Lock body scroll for mobile filter
     useEffect(() => {
         document.body.style.overflow = mobileFilterOpen ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
     }, [mobileFilterOpen]);
 
-    // ─── Convex Queries ──────────────────────────────────────────────────────
+    // ── Convex Queries ──────────────────────────────────────────────────────
+    const allGroups = useQuery(api.products.getAllCatalogGroups);
     const taxonomy = useQuery(api.products.getCatalogTaxonomy);
-    const stats = useQuery(api.products.getHomepageStats);
 
-    // Determine which query to run based on active filter
-    const groups = useQuery(api.products.getCatalogGroups, {
-        collection: activeFilter.type === "collection" ? activeFilter.value : undefined,
-        family: activeFilter.type === "family" ? activeFilter.value : undefined,
-        category: activeFilter.type === "category" ? activeFilter.value : undefined,
-        searchTerm: activeFilter.type === "search" ? activeFilter.value : undefined,
-        limit: 100,
-    });
+    // ── Client-Side Filter + Sort + Facet Pipeline ──────────────────────────
+    const { filtered, facets, totalCount } = useMemo(() => {
+        if (!allGroups) return { filtered: [], facets: null, totalCount: 0 };
 
-    // Determine what to display
-    const displayProducts = groups;
-    const isLoading = displayProducts === undefined;
+        let result = [...allGroups];
+        const total = result.length;
 
-    // Build sidebar data from taxonomy
-    const sidebarData = useMemo(() => {
-        if (!taxonomy) return [];
-
-        // Priority order for categories
-        const categoryOrder = [
-            "Glass Bottle", "Cream Jar", "Lotion Bottle", "Aluminum Bottle",
-            "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
-            "Packaging Box", "Other"
-        ];
-
-        return categoryOrder
-            .filter(cat => taxonomy[cat])
-            .map(cat => ({
-                category: cat,
-                collections: Object.entries(taxonomy[cat])
-                    .sort(([, a], [, b]) => (b as number) - (a as number))
-                    .map(([name, count]) => ({ name, count: count as number })),
-                totalCount: Object.values(taxonomy[cat]).reduce((sum, c) => sum + (c as number), 0) as number,
-            }));
-    }, [taxonomy]);
-
-    // Handler functions
-    const handleFilterClick = (type: "collection" | "family" | "category", value: string) => {
-        setActiveFilter({ type, value });
-        setSearchTerm("");
-        setMobileFilterOpen(false);
-        pushFilterToUrl(type, value);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    const handleSearch = (term: string) => {
-        setSearchTerm(term);
-        if (term.length >= 2) {
-            setActiveFilter({ type: "search", value: term });
-            pushFilterToUrl("search", term);
-        } else if (term.length === 0) {
-            setActiveFilter({ type: null, value: "" });
-            pushFilterToUrl(null, "");
+        // Search (multi-field)
+        if (filters.search) {
+            const term = filters.search.toLowerCase();
+            result = result.filter((g) =>
+                g.displayName.toLowerCase().includes(term) ||
+                g.family?.toLowerCase().includes(term) ||
+                g.color?.toLowerCase().includes(term) ||
+                g.capacity?.toLowerCase().includes(term) ||
+                g.neckThreadSize?.toLowerCase().includes(term) ||
+                g.bottleCollection?.toLowerCase().includes(term) ||
+                g.slug.toLowerCase().includes(term),
+            );
         }
-    };
 
-    const clearFilter = () => {
-        setActiveFilter({ type: null, value: "" });
-        setSearchTerm("");
-        pushFilterToUrl(null, "");
-    };
+        // Category
+        if (filters.category) {
+            result = result.filter((g) => g.category === filters.category);
+        }
 
-    const toggleCategory = (cat: string) => {
-        setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
-    };
+        // Collection
+        if (filters.collection) {
+            result = result.filter((g) => g.bottleCollection === filters.collection);
+        }
 
-    // Active filter display name
-    const activeFilterLabel = activeFilter.value || "All Products";
+        // Families (multi-select)
+        if (filters.families.length > 0) {
+            const set = new Set(filters.families);
+            result = result.filter((g) => g.family && set.has(g.family));
+        }
+
+        // Colors (multi-select)
+        if (filters.colors.length > 0) {
+            const set = new Set(filters.colors);
+            result = result.filter((g) => g.color && set.has(g.color));
+        }
+
+        // Capacities (multi-select)
+        if (filters.capacities.length > 0) {
+            const set = new Set(filters.capacities);
+            result = result.filter((g) => g.capacity && set.has(g.capacity));
+        }
+
+        // Neck thread sizes (multi-select)
+        if (filters.neckThreadSizes.length > 0) {
+            const set = new Set(filters.neckThreadSizes);
+            result = result.filter((g) => g.neckThreadSize && set.has(g.neckThreadSize));
+        }
+
+        // Component type
+        if (filters.componentType) {
+            result = result.filter((g) => classifyComponentType(g.displayName, g.family) === filters.componentType);
+        }
+
+        // Price range
+        if (filters.priceMin !== null) {
+            result = result.filter((g) => g.priceRangeMin !== null && g.priceRangeMin >= filters.priceMin!);
+        }
+        if (filters.priceMax !== null) {
+            result = result.filter((g) => g.priceRangeMin !== null && g.priceRangeMin <= filters.priceMax!);
+        }
+
+        // Compute facets from filtered set
+        const facetData: Facets = {
+            categories: countBy(result, (g) => g.category),
+            collections: countBy(result, (g) => g.bottleCollection),
+            families: countBy(result, (g) => g.family),
+            colors: countBy(result, (g) => g.color),
+            capacities: {},
+            neckThreadSizes: countBy(result, (g) => g.neckThreadSize),
+            componentTypes: countBy(result, (g) => classifyComponentType(g.displayName, g.family)),
+            priceRange: { min: Infinity, max: -Infinity },
+        };
+
+        const capMap: Record<string, { ml: number | null; count: number }> = {};
+        for (const g of result) {
+            if (g.capacity) {
+                if (!capMap[g.capacity]) capMap[g.capacity] = { ml: g.capacityMl ?? null, count: 0 };
+                capMap[g.capacity].count++;
+            }
+            if (g.priceRangeMin !== null && g.priceRangeMin !== undefined) {
+                if (g.priceRangeMin < facetData.priceRange.min) facetData.priceRange.min = g.priceRangeMin;
+                if (g.priceRangeMin > facetData.priceRange.max) facetData.priceRange.max = g.priceRangeMin;
+            }
+        }
+        facetData.capacities = Object.fromEntries(
+            Object.entries(capMap).map(([label, data]) => [label, { label, ...data }]),
+        );
+
+        if (facetData.priceRange.min === Infinity) facetData.priceRange = { min: 0, max: 0 };
+
+        // Sort
+        if (sortBy === "price-asc") {
+            result.sort((a, b) => (a.priceRangeMin ?? Infinity) - (b.priceRangeMin ?? Infinity));
+        } else if (sortBy === "price-desc") {
+            result.sort((a, b) => (b.priceRangeMin ?? -Infinity) - (a.priceRangeMin ?? -Infinity));
+        } else if (sortBy === "name-asc") {
+            result.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        } else if (sortBy === "name-desc") {
+            result.sort((a, b) => b.displayName.localeCompare(a.displayName));
+        } else if (sortBy === "variants-desc") {
+            result.sort((a, b) => (b.variantCount ?? 0) - (a.variantCount ?? 0));
+        }
+
+        return { filtered: result, facets: facetData, totalCount: total };
+    }, [allGroups, filters, sortBy]);
+
+    // Reset visible count when filters change
+    useEffect(() => {
+        setVisibleCount(PAGE_SIZE);
+    }, [filters, sortBy]);
+
+    const visibleProducts = filtered.slice(0, visibleCount);
+    const hasMore = visibleCount < filtered.length;
+    const isLoading = allGroups === undefined;
+
+    // ── Handler Functions ────────────────────────────────────────────────────
+
+    const handleFilterChange = useCallback(
+        (patch: Partial<CatalogFilters>) => {
+            setFilters((prev) => {
+                const next = { ...prev, ...patch };
+                pushToUrl(next, sortBy);
+                return next;
+            });
+            setMobileFilterOpen(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        },
+        [pushToUrl, sortBy],
+    );
+
+    const handleClearAll = useCallback(() => {
+        setFilters(EMPTY_FILTERS);
+        setSearchInput("");
+        pushToUrl(EMPTY_FILTERS, sortBy);
+    }, [pushToUrl, sortBy]);
+
+    const handleSortChange = useCallback(
+        (value: SortValue) => {
+            setSortBy(value);
+            pushToUrl(filters, value);
+        },
+        [pushToUrl, filters],
+    );
+
+    const handleSearchInput = useCallback(
+        (term: string) => {
+            setSearchInput(term);
+            clearTimeout(searchDebounceRef.current);
+            searchDebounceRef.current = setTimeout(() => {
+                handleFilterChange({ search: term || "" });
+            }, SEARCH_DEBOUNCE_MS);
+        },
+        [handleFilterChange],
+    );
+
+    const toggleCategory = useCallback((cat: string) => {
+        setExpandedCategories((prev) => ({ ...prev, [cat]: prev[cat] === false ? true : !prev[cat] ? false : !prev[cat] }));
+    }, []);
+
+    // Build active filter chips
+    const chips: Array<{ label: string; onRemove: () => void }> = [];
+    if (filters.category) chips.push({ label: filters.category, onRemove: () => handleFilterChange({ category: null }) });
+    if (filters.collection) chips.push({ label: filters.collection, onRemove: () => handleFilterChange({ collection: null }) });
+    for (const f of filters.families) chips.push({ label: f, onRemove: () => handleFilterChange({ families: filters.families.filter((x) => x !== f) }) });
+    for (const c of filters.colors) chips.push({ label: c, onRemove: () => handleFilterChange({ colors: filters.colors.filter((x) => x !== c) }) });
+    for (const cap of filters.capacities) chips.push({ label: cap, onRemove: () => handleFilterChange({ capacities: filters.capacities.filter((x) => x !== cap) }) });
+    for (const t of filters.neckThreadSizes) chips.push({ label: `Thread ${t}`, onRemove: () => handleFilterChange({ neckThreadSizes: filters.neckThreadSizes.filter((x) => x !== t) }) });
+    if (filters.componentType) chips.push({ label: filters.componentType, onRemove: () => handleFilterChange({ componentType: null }) });
+    if (filters.priceMin !== null || filters.priceMax !== null) {
+        chips.push({
+            label: `${formatPrice(filters.priceMin ?? 0)} – ${formatPrice(filters.priceMax ?? 999)}`,
+            onRemove: () => handleFilterChange({ priceMin: null, priceMax: null }),
+        });
+    }
+    if (filters.search) chips.push({ label: `"${filters.search}"`, onRemove: () => { handleFilterChange({ search: "" }); setSearchInput(""); } });
 
     return (
         <main className="min-h-screen bg-bone pt-[104px]">
-            <Navbar variant="catalog" initialSearchValue={urlSearch ?? undefined} />
+            <Navbar variant="catalog" initialSearchValue={filters.search || undefined} />
 
             <div className="max-w-[1440px] mx-auto px-6 py-8">
 
                 {/* Catalog Header */}
-                <div className="mb-12 border-b border-champagne/50 pb-8 flex flex-col md:flex-row md:items-end justify-between">
+                <div className="mb-12 border-b border-champagne/50 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div>
                         <h1 className="font-serif text-4xl lg:text-5xl text-obsidian font-medium leading-[1.1] mb-2">Master Catalog</h1>
                         <p className="text-slate text-sm max-w-xl">
-                            {stats ? `${stats.totalProducts.toLocaleString()} products across ${Object.keys(stats.collectionCounts).length} curated collections.` : "Loading catalog..."}
+                            {totalCount > 0 ? `${totalCount.toLocaleString()} product groups.` : "Loading catalog..."}
                             {" "}Or, let Grace guide you directly to the perfect vessel.
                         </p>
                     </div>
 
                     {/* Search Bar */}
-                    <div className="mt-6 md:mt-0">
+                    <div className="shrink-0">
                         <div className="flex items-center border border-champagne rounded-full px-4 py-2.5 bg-white/80 space-x-2 w-full md:w-80 hover:border-muted-gold transition-colors focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/20">
                             <Search className="w-4 h-4 text-slate shrink-0" />
                             <input
                                 type="text"
-                                value={searchTerm}
-                                onChange={(e) => handleSearch(e.target.value)}
+                                value={searchInput}
+                                onChange={(e) => handleSearchInput(e.target.value)}
                                 placeholder="Search products, SKUs, families..."
                                 className="bg-transparent text-sm focus:outline-none w-full placeholder-slate/60 text-obsidian"
                             />
-                            {searchTerm && (
-                                <button onClick={() => handleSearch("")} className="shrink-0">
+                            {searchInput && (
+                                <button onClick={() => handleSearchInput("")} className="shrink-0">
                                     <X className="w-4 h-4 text-slate hover:text-obsidian transition-colors" />
                                 </button>
                             )}
@@ -396,43 +988,67 @@ function CatalogContent() {
                     </div>
                 </div>
 
-                {/* Active Filter Chip */}
+                {/* Active Filter Chips */}
                 <AnimatePresence>
-                    {activeFilter.type && (
+                    {chips.length > 0 && (
                         <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="mb-6 flex flex-wrap items-center gap-2 sm:gap-3"
+                            className="mb-6 flex flex-wrap items-center gap-2"
                         >
-                            <span className="text-xs uppercase tracking-wider font-semibold text-slate">Showing:</span>
-                            <span className="inline-flex items-center px-3 sm:px-4 py-1.5 bg-muted-gold/10 text-muted-gold border border-muted-gold/30 text-xs sm:text-sm font-semibold rounded-full max-w-[200px] sm:max-w-none">
-                                <span className="truncate">{activeFilterLabel}</span>
-                                <button onClick={clearFilter} className="ml-2 hover:text-obsidian transition-colors shrink-0">
-                                    <X className="w-3.5 h-3.5" />
-                                </button>
-                            </span>
-                            {displayProducts && (
-                                <span className="text-xs text-slate">
-                                    {displayProducts.length} product{displayProducts.length !== 1 ? "s" : ""}
+                            <span className="text-xs uppercase tracking-wider font-semibold text-slate">Active Filters:</span>
+                            {chips.map((chip, i) => (
+                                <span
+                                    key={`${chip.label}-${i}`}
+                                    className="inline-flex items-center px-3 py-1.5 bg-muted-gold/10 text-muted-gold border border-muted-gold/30 text-xs font-semibold rounded-full"
+                                >
+                                    <span className="truncate max-w-[160px]">{chip.label}</span>
+                                    <button onClick={chip.onRemove} className="ml-2 hover:text-obsidian transition-colors shrink-0">
+                                        <X className="w-3 h-3" />
+                                    </button>
                                 </span>
+                            ))}
+                            {chips.length >= 2 && (
+                                <button
+                                    onClick={handleClearAll}
+                                    className="text-xs text-slate hover:text-obsidian transition-colors underline underline-offset-2"
+                                >
+                                    Clear all
+                                </button>
                             )}
                         </motion.div>
                     )}
                 </AnimatePresence>
 
                 {/* Mobile Filter Toggle */}
-                <div className="lg:hidden mb-4">
+                <div className="lg:hidden mb-4 flex items-center gap-3">
                     <button
                         onClick={() => setMobileFilterOpen(true)}
                         className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-champagne rounded-lg text-sm font-medium text-obsidian hover:border-muted-gold transition-colors"
                     >
                         <SlidersHorizontal className="w-4 h-4" />
                         Filters
-                        {activeFilter.type && (
-                            <span className="w-2 h-2 rounded-full bg-muted-gold" />
+                        {activeFilterCount(filters) > 0 && (
+                            <span className="w-5 h-5 rounded-full bg-muted-gold text-white text-[10px] flex items-center justify-center font-bold">
+                                {activeFilterCount(filters)}
+                            </span>
                         )}
                     </button>
+
+                    {/* Mobile sort */}
+                    <div className="relative flex-1 max-w-[200px]">
+                        <select
+                            value={sortBy}
+                            onChange={(e) => handleSortChange(e.target.value as SortValue)}
+                            className="w-full appearance-none bg-white border border-champagne rounded-lg px-3 py-2.5 text-sm text-obsidian pr-8 focus:border-muted-gold focus:ring-2 focus:ring-muted-gold/20 outline-none"
+                        >
+                            {SORT_OPTIONS.map((opt) => (
+                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            ))}
+                        </select>
+                        <ArrowUpDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate pointer-events-none" />
+                    </div>
                 </div>
 
                 {/* Mobile Filter Drawer */}
@@ -467,13 +1083,14 @@ function CatalogContent() {
                                 </div>
                                 <div className="px-5 py-4">
                                     <FilterSidebarContent
-                                        sidebarData={sidebarData}
-                                        stats={stats}
-                                        activeFilter={activeFilter}
+                                        facets={facets}
+                                        taxonomy={taxonomy ?? null}
+                                        filters={filters}
+                                        totalCount={totalCount}
                                         expandedCategories={expandedCategories}
                                         toggleCategory={toggleCategory}
-                                        handleFilterClick={handleFilterClick}
-                                        clearFilter={clearFilter}
+                                        onFilterChange={handleFilterChange}
+                                        onClearAll={handleClearAll}
                                     />
                                 </div>
                             </motion.div>
@@ -483,20 +1100,21 @@ function CatalogContent() {
 
                 <div className="flex flex-col lg:flex-row items-start lg:space-x-12">
 
-                    {/* Sticky Sidebar Taxonomy — desktop only */}
+                    {/* Desktop Sidebar */}
                     <aside className="hidden lg:block w-72 shrink-0 sticky top-[120px] max-h-[calc(100vh-140px)] overflow-y-auto hide-scroll pb-12">
                         <FilterSidebarContent
-                            sidebarData={sidebarData}
-                            stats={stats}
-                            activeFilter={activeFilter}
+                            facets={facets}
+                            taxonomy={taxonomy ?? null}
+                            filters={filters}
+                            totalCount={totalCount}
                             expandedCategories={expandedCategories}
                             toggleCategory={toggleCategory}
-                            handleFilterClick={handleFilterClick}
-                            clearFilter={clearFilter}
+                            onFilterChange={handleFilterChange}
+                            onClearAll={handleClearAll}
                         />
                     </aside>
 
-                    {/* Product Grid Content Area */}
+                    {/* Product Grid Content */}
                     <div className="flex-1 w-full pb-32 border-l-0 lg:border-l border-champagne/30 lg:pl-12">
 
                         {/* Results Header */}
@@ -504,35 +1122,56 @@ function CatalogContent() {
                             <div className="flex items-end justify-between gap-3">
                                 <div className="min-w-0">
                                     <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-gold font-bold mb-1">
-                                        {activeFilter.type === "search" ? "Search Results" : "Catalog"}
+                                        {filters.search ? "Search Results" : "Catalog"}
                                     </p>
                                     <h2 className="font-serif text-xl sm:text-3xl font-medium text-obsidian truncate">
-                                        {activeFilter.value || "All Products"}
+                                        {filters.search
+                                            ? `"${filters.search}"`
+                                            : filters.category || filters.collection || (filters.families.length === 1 ? filters.families[0] : "All Products")}
                                     </h2>
                                 </div>
-                                {displayProducts && (
-                                    <span className="px-2 sm:px-3 py-1 bg-white border border-champagne text-[10px] sm:text-xs font-semibold text-slate uppercase rounded-full whitespace-nowrap shrink-0">
-                                        {displayProducts.length} {displayProducts.length === 1 ? "Product" : "Products"}
+                                <div className="flex items-center gap-3 shrink-0">
+                                    {/* Desktop Sort */}
+                                    <div className="relative hidden lg:block">
+                                        <select
+                                            value={sortBy}
+                                            onChange={(e) => handleSortChange(e.target.value as SortValue)}
+                                            className="appearance-none bg-white border border-champagne rounded-lg px-3 py-1.5 text-xs text-obsidian pr-7 focus:border-muted-gold focus:ring-2 focus:ring-muted-gold/20 outline-none cursor-pointer"
+                                        >
+                                            {SORT_OPTIONS.map((opt) => (
+                                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                            ))}
+                                        </select>
+                                        <ArrowUpDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate pointer-events-none" />
+                                    </div>
+
+                                    <span className="px-2 sm:px-3 py-1 bg-white border border-champagne text-[10px] sm:text-xs font-semibold text-slate uppercase rounded-full whitespace-nowrap">
+                                        {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
                                     </span>
-                                )}
+                                </div>
                             </div>
                         </div>
 
-                        {/* Loading State — skeleton cards */}
+                        {/* Loading */}
                         {isLoading && <SkeletonGrid />}
 
                         {/* Empty State */}
-                        {displayProducts && displayProducts.length === 0 && (
+                        {!isLoading && filtered.length === 0 && (
                             <div className="flex flex-col items-center justify-center py-24 text-center">
                                 <Package className="w-16 h-16 text-champagne mb-6" strokeWidth={1} />
                                 <h3 className="font-serif text-2xl text-obsidian mb-3">No products found</h3>
-                                <p className="text-slate text-sm max-w-md mb-8">
-                                    {activeFilter.type === "search"
-                                        ? `No products match "${activeFilter.value}". Try a different search term or browse by collection.`
-                                        : "This collection is currently empty."}
+                                <p className="text-slate text-sm max-w-md mb-4">
+                                    {filters.search
+                                        ? `No products match "${filters.search}".`
+                                        : "No products match your current filters."}
                                 </p>
+                                {chips.length > 0 && (
+                                    <p className="text-slate text-xs mb-8">
+                                        Try removing {chips.length === 1 ? "your filter" : "some filters"} to see more results.
+                                    </p>
+                                )}
                                 <button
-                                    onClick={clearFilter}
+                                    onClick={handleClearAll}
                                     className="px-6 py-3 bg-obsidian text-white uppercase text-xs font-bold tracking-wider hover:bg-muted-gold transition-colors"
                                 >
                                     Browse All Products
@@ -540,50 +1179,64 @@ function CatalogContent() {
                             </div>
                         )}
 
-                        {/* Product Group Grid */}
-                        {displayProducts && displayProducts.length > 0 && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                                {displayProducts.map((group: any, pIndex: number) => (
-                                    <ProductGroupCard
-                                        key={group._id}
-                                        group={group}
-                                        index={pIndex}
-                                    />
+                        {/* Product Grid */}
+                        {visibleProducts.length > 0 && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                                {visibleProducts.map((group: any, pIndex: number) => (
+                                    <ProductGroupCard key={group._id} group={group} index={pIndex} />
                                 ))}
                             </div>
                         )}
 
-                        {/* Load indicator */}
-                        {displayProducts && displayProducts.length >= 100 && (
-                            <div className="flex justify-center py-16 border-t border-champagne/40 mt-12">
-                                <div className="flex flex-col items-center opacity-60">
-                                    <p className="text-xs uppercase tracking-widest font-semibold text-slate">
-                                        Showing first 100 results. Use search or filters to narrow down.
-                                    </p>
-                                </div>
+                        {/* Load More */}
+                        {hasMore && (
+                            <div className="flex flex-col items-center py-12 mt-8 border-t border-champagne/40">
+                                <p className="text-xs text-slate mb-4">
+                                    Showing {visibleCount} of {filtered.length} products
+                                </p>
+                                <button
+                                    onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+                                    className="px-8 py-3 bg-obsidian text-white uppercase text-xs font-bold tracking-wider hover:bg-muted-gold transition-colors rounded-sm"
+                                >
+                                    Load More
+                                </button>
+                            </div>
+                        )}
+
+                        {/* All shown indicator */}
+                        {!isLoading && filtered.length > 0 && !hasMore && filtered.length > PAGE_SIZE && (
+                            <div className="flex justify-center py-12 mt-8 border-t border-champagne/40">
+                                <p className="text-xs text-slate">
+                                    Showing all {filtered.length} products
+                                </p>
                             </div>
                         )}
                     </div>
                 </div>
             </div>
+
+            <BackToTop />
         </main>
     );
 }
 
-// -- Export with Suspense boundary for useSearchParams --
+// ─── Export with Suspense ────────────────────────────────────────────────────
+
 export default function CatalogPage(_props: { searchParams: Promise<Record<string, string | undefined>> }) {
     return (
-        <Suspense fallback={
-            <main className="min-h-screen bg-bone pt-[104px]">
-                <div className="max-w-[1440px] mx-auto px-6 py-8">
-                    <div className="mb-12 border-b border-champagne/50 pb-8">
-                        <div className="h-10 w-64 bg-champagne/30 rounded animate-pulse mb-3" />
-                        <div className="h-4 w-96 max-w-full bg-champagne/20 rounded animate-pulse" />
+        <Suspense
+            fallback={
+                <main className="min-h-screen bg-bone pt-[104px]">
+                    <div className="max-w-[1440px] mx-auto px-6 py-8">
+                        <div className="mb-12 border-b border-champagne/50 pb-8">
+                            <div className="h-10 w-64 bg-champagne/30 rounded animate-pulse mb-3" />
+                            <div className="h-4 w-96 max-w-full bg-champagne/20 rounded animate-pulse" />
+                        </div>
+                        <SkeletonGrid />
                     </div>
-                    <SkeletonGrid />
-                </div>
-            </main>
-        }>
+                </main>
+            }
+        >
             <CatalogContent />
         </Suspense>
     );

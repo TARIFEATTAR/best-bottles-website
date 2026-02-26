@@ -100,6 +100,22 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
         },
     },
     {
+        name: "getBottleComponents",
+        description:
+            "Get the COMPLETE list of compatible components (closures, sprayers, droppers, lotion pumps, reducers, antique bulb sprayers, caps, roll-on applicators) for a specific bottle variant. Returns every compatible component grouped by type with SKU, name, price, and stock status. ALWAYS call this when a customer asks what components, closures, sprayers, pumps, or applicators work with a specific bottle. This is the definitive compatibility source — more complete than checkCompatibility.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                bottleSku: {
+                    type: "string",
+                    description:
+                        "The Grace SKU or website SKU of the bottle. E.g. 'GB-CYL-CLR-100ML-SPR-BLK' or 'GBCyl100SpryBlk'. If you don't know the exact SKU, call searchCatalog first to find it.",
+                },
+            },
+            required: ["bottleSku"],
+        },
+    },
+    {
         name: "getCatalogStats",
         description:
             "Get live, real-time counts of products in the catalog — total variants, breakdown by family, category, and collection. ALWAYS call this when asked how many products we carry or about catalog size. Never use a hardcoded number.",
@@ -196,18 +212,21 @@ Response: "For registered businesses, email sales@nematinternational.com with th
 ## LIVE KNOWLEDGE BASE
 ${knowledgeSections}## HOW TO USE YOUR TOOLS
 
-You have four tools. Use them proactively — never guess product details:
+You have five tools. Use them proactively — never guess product details:
 
-- getFamilyOverview: Call this FIRST whenever a customer asks broadly about a bottle family ("what sizes do Boston Rounds come in?", "tell me about Diva", "what Cylinders do you have?"). It returns every size, colour, thread, and applicator type for that family. This prevents you from missing sizes that a keyword search might not surface.
-- searchCatalog: Call this whenever a customer describes a specific product by size, colour, or use case. Returns up to 25 results. Search before recommending — never invent product details.
-- checkCompatibility: Call this for ANY fitment or compatibility question — what cap fits, does this dropper work, will that pump thread on. Never answer from memory.
+- getFamilyOverview: Call this FIRST whenever a customer asks broadly about a bottle family ("what sizes do Boston Rounds come in?", "tell me about Diva", "what Cylinders do you have?"). It returns every size, colour, thread, and applicator type for that family.
+- searchCatalog: Call this whenever a customer describes a specific product by size, colour, or use case. Returns up to 25 results. Search before recommending.
+- getBottleComponents: Call this to get the COMPLETE list of compatible components for a specific bottle. This is the definitive source — it returns every compatible sprayer, dropper, lotion pump, antique bulb sprayer, reducer, cap, and roll-on with SKU, pricing, and stock status. ALWAYS use this for compatibility questions about a specific bottle.
+- checkCompatibility: Call this when the customer asks about compatibility by thread size generically (not a specific bottle). Returns the fitment matrix for a thread size.
 - getCatalogStats: Call this if asked how many products we carry or for a catalog overview. Never use a hardcoded number.
 
 Tool rules:
+- CRITICAL: When a customer asks "what goes with" or "what fits" a specific bottle, call getBottleComponents (not checkCompatibility). First use searchCatalog to find the bottle's SKU if you don't know it, then call getBottleComponents with that SKU.
 - When a customer asks about a family broadly, call getFamilyOverview first, then searchCatalog for specifics.
 - Never mention tool names to the customer. Use them naturally in the background.
 - If a search returns no results, try a simpler term before saying we don't carry it.
 - Never invent SKUs, prices, or specifications. If data isn't in a tool result, say you'll look into it further.
+- IMPORTANT: Some component itemNames are generic (e.g. "Sprayer Thread 18-415" for antique bulb sprayers). Always trust the component TYPE grouping from getBottleComponents (e.g. "Antique Bulb Sprayer", "Lotion Pump") rather than trying to classify by item name.
 
 ---
 
@@ -371,6 +390,53 @@ export const getFamilyOverview = query({
             threadSizes: [...threads].sort(),
             applicatorTypes: [...applicators].sort(),
             priceRange: { min: minPrice === Infinity ? null : minPrice, max: maxPrice || null },
+        };
+    },
+});
+
+/**
+ * AI Tool: Get Bottle Components
+ * Returns the full grouped components for a specific bottle — the definitive
+ * compatibility data. Resolves by graceSku or websiteSku.
+ */
+export const getBottleComponents = query({
+    args: { bottleSku: v.string() },
+    handler: async (ctx, args) => {
+        const sku = args.bottleSku.trim();
+        const bottle =
+            (await ctx.db.query("products").withIndex("by_graceSku", (q) => q.eq("graceSku", sku)).first()) ??
+            (await ctx.db.query("products").withIndex("by_websiteSku", (q) => q.eq("websiteSku", sku)).first());
+
+        if (!bottle) return null;
+
+        const comps = bottle.components;
+        if (!comps || (typeof comps !== "object")) return { bottle: { graceSku: bottle.graceSku, itemName: bottle.itemName, neckThreadSize: bottle.neckThreadSize }, components: {} };
+
+        // components is a dict keyed by type with arrays of items
+        const summary: Record<string, Array<{ graceSku: string; itemName: string; webPrice1pc: number | null; capColor: string | null; stockStatus: string | null }>> = {};
+        for (const [type, items] of Object.entries(comps)) {
+            if (!Array.isArray(items)) continue;
+            summary[type] = items.map((item: any) => ({
+                graceSku: item.graceSku || item.grace_sku || "",
+                itemName: item.itemName || item.item_name || "",
+                webPrice1pc: item.webPrice1pc ?? item.web_price_1pc ?? null,
+                capColor: item.capColor ?? item.cap_color ?? null,
+                stockStatus: item.stockStatus ?? item.stock_status ?? null,
+            }));
+        }
+
+        return {
+            bottle: {
+                graceSku: bottle.graceSku,
+                itemName: bottle.itemName,
+                family: bottle.family,
+                capacity: bottle.capacity,
+                color: bottle.color,
+                neckThreadSize: bottle.neckThreadSize,
+            },
+            componentTypes: Object.keys(summary),
+            totalComponents: Object.values(summary).reduce((s, arr) => s + arr.length, 0),
+            components: summary,
         };
     },
 });
@@ -647,6 +713,14 @@ export const askGrace = action({
                                 result = data
                                     ? JSON.stringify(data, null, 2)
                                     : `No products found for the "${input.family}" family. Check the family name spelling.`;
+                            } else if (block.name === "getBottleComponents") {
+                                const input = block.input as { bottleSku: string };
+                                const data = await ctx.runQuery(api.grace.getBottleComponents, {
+                                    bottleSku: input.bottleSku,
+                                });
+                                result = data
+                                    ? JSON.stringify(data, null, 2)
+                                    : `No bottle found with SKU "${input.bottleSku}". Try searchCatalog first to find the correct SKU.`;
                             } else if (block.name === "checkCompatibility") {
                                 const input = block.input as { threadSize: string };
                                 const data = await ctx.runQuery(api.grace.checkCompatibility, {

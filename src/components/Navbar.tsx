@@ -212,6 +212,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     <form
                         onSubmit={handleSearchSubmit}
                         className="hidden lg:flex flex-1 max-w-[460px] items-center border border-champagne rounded-xl px-4 py-2 bg-white/60 focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/15 transition-all duration-200 space-x-2"
+                        suppressHydrationWarning
                     >
                         <Search className="w-4 h-4 text-slate shrink-0" />
                         <input

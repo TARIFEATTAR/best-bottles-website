@@ -317,6 +317,17 @@ export const checkCount = query({
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
+ * Returns every productGroup (~230 lightweight docs, <1KB each).
+ * The catalog page filters, sorts, and paginates client-side.
+ */
+export const getAllCatalogGroups = query({
+    args: {},
+    handler: async (ctx) => {
+        return await ctx.db.query("productGroups").collect();
+    },
+});
+
+/**
  * Paginated product group listing for the catalog page.
  * Mirrors getCatalogProducts but returns productGroups instead of flat SKUs.
  */
