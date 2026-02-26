@@ -1,5 +1,23 @@
+// Option A: UI applicator buckets → product applicator values
+export const APPLICATOR_BUCKETS = [
+    { value: "rollon", label: "Roll-on", productValues: ["Metal Roller", "Plastic Roller"] },
+    { value: "spray", label: "Spray", productValues: ["Fine Mist Sprayer", "Atomizer", "Antique Bulb Sprayer", "Antique Bulb Sprayer with Tassel"] },
+    { value: "splashon", label: "Splash-on", productValues: ["Reducer"] },
+    { value: "dropper", label: "Dropper", productValues: ["Dropper"] },
+    { value: "lotionpump", label: "Lotion Pump", productValues: ["Lotion Pump"] },
+    { value: "capclosure", label: "Cap/Closure", productValues: ["Cap/Closure"] },
+] as const;
+
+export type ApplicatorBucket = (typeof APPLICATOR_BUCKETS)[number]["value"];
+
+export function applicatorBucketMatchesProductValues(bucket: ApplicatorBucket, productApplicatorTypes: string[]): boolean {
+    const def = APPLICATOR_BUCKETS.find((b) => b.value === bucket);
+    if (!def) return false;
+    return productApplicatorTypes.some((a) => def.productValues.includes(a));
+}
+
 export const SORT_OPTIONS = [
-    { value: "featured", label: "Size: Small → Large" },
+    { value: "featured", label: "By Design Family" },
     { value: "price-asc", label: "Price: Low to High" },
     { value: "price-desc", label: "Price: High to Low" },
     { value: "name-asc", label: "Name: A–Z" },
@@ -12,6 +30,7 @@ export type SortValue = (typeof SORT_OPTIONS)[number]["value"];
 export interface CatalogFilters {
     category: string | null;
     collection: string | null;
+    applicators: ApplicatorBucket[];
     families: string[];
     colors: string[];
     capacities: string[];
@@ -25,6 +44,7 @@ export interface CatalogFilters {
 export const EMPTY_FILTERS: CatalogFilters = {
     category: null,
     collection: null,
+    applicators: [],
     families: [],
     colors: [],
     capacities: [],
@@ -50,8 +70,8 @@ export function classifyComponentType(displayName: string, family: string | null
 
 export function filtersAreEmpty(f: CatalogFilters): boolean {
     return (
-        !f.category && !f.collection && f.families.length === 0 &&
-        f.colors.length === 0 && f.capacities.length === 0 &&
+        !f.category && !f.collection && f.applicators.length === 0 &&
+        f.families.length === 0 && f.colors.length === 0 && f.capacities.length === 0 &&
         f.neckThreadSizes.length === 0 && !f.componentType &&
         f.priceMin === null && f.priceMax === null && !f.search
     );
@@ -61,6 +81,7 @@ export function activeFilterCount(f: CatalogFilters): number {
     let n = 0;
     if (f.category) n++;
     if (f.collection) n++;
+    n += f.applicators.length;
     n += f.families.length;
     n += f.colors.length;
     n += f.capacities.length;
@@ -75,6 +96,7 @@ export function filtersToParams(f: CatalogFilters, sort: SortValue): URLSearchPa
     const p = new URLSearchParams();
     if (f.category) p.set("category", f.category);
     if (f.collection) p.set("collection", f.collection);
+    if (f.applicators.length) p.set("applicators", f.applicators.join(","));
     if (f.families.length) p.set("families", f.families.join(","));
     if (f.colors.length) p.set("colors", f.colors.join(","));
     if (f.capacities.length) p.set("capacities", f.capacities.join(","));
@@ -88,10 +110,15 @@ export function filtersToParams(f: CatalogFilters, sort: SortValue): URLSearchPa
 }
 
 export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue } {
+    const applicatorValues = sp.get("applicators")?.split(",").filter(Boolean) ?? [];
+    const validApplicators = applicatorValues.filter((a) =>
+        APPLICATOR_BUCKETS.some((b) => b.value === a)
+    ) as ApplicatorBucket[];
     return {
         filters: {
             category: sp.get("category") || null,
             collection: sp.get("collection") || null,
+            applicators: validApplicators,
             families: sp.get("families")?.split(",").filter(Boolean) ?? [],
             colors: sp.get("colors")?.split(",").filter(Boolean) ?? [],
             capacities: sp.get("capacities")?.split(",").filter(Boolean) ?? [],

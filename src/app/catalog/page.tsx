@@ -13,8 +13,11 @@ import { api } from "../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
 import {
     SORT_OPTIONS,
+    APPLICATOR_BUCKETS,
+    applicatorBucketMatchesProductValues,
     type SortValue,
     type CatalogFilters,
+    type ApplicatorBucket,
     EMPTY_FILTERS,
     classifyComponentType,
     filtersAreEmpty,
@@ -51,6 +54,16 @@ const CATEGORY_ORDER = [
     "Packaging Box", "Other",
 ];
 
+// Design family order for catalog — bottles flow Cylinder → Elegant → Circle → Sleek, etc.
+// Glass bottles first by family, then by capacity (small→big). Non-bottle categories at end.
+const FAMILY_ORDER = [
+    "Cylinder", "Elegant", "Circle", "Sleek", "Diva", "Empire", "Boston Round",
+    "Slim", "Diamond", "Royal", "Round", "Square", "Rectangle", "Flair",
+    "Tulip", "Queen", "Bell", "Swirl", "Grace",
+];
+// Categories that are "bottle" types — appear first in catalog order
+const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Cream Jar", "Lotion Bottle", "Aluminum Bottle"]);
+
 const COMPONENT_CATEGORIES = new Set([
     "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
 ]);
@@ -72,11 +85,13 @@ interface CatalogGroup {
     priceRangeMin: number | null;
     priceRangeMax: number | null;
     heroImageUrl?: string | null;
+    applicatorTypes?: string[] | null;
 }
 
 interface Facets {
     categories: Record<string, number>;
     collections: Record<string, number>;
+    applicators: Record<string, number>;
     families: Record<string, number>;
     colors: Record<string, number>;
     capacities: Record<string, { label: string; ml: number | null; count: number }>;
@@ -137,9 +152,10 @@ function SkeletonGrid() {
 
 // ─── Product Group Card ──────────────────────────────────────────────────────
 
-function ProductGroupCard({ group, index }: { group: CatalogGroup; index: number }) {
+function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGroup; index: number; applicatorParam?: string | null }) {
+    const href = applicatorParam ? `/products/${group.slug}?applicator=${applicatorParam}` : `/products/${group.slug}`;
     return (
-        <Link href={`/products/${group.slug}`}>
+        <Link href={href}>
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -224,26 +240,29 @@ function FilterSection({
     defaultOpen = false,
     expanded,
     onToggle,
+    hasActiveFilters = false,
     children,
 }: {
     title: string;
     defaultOpen?: boolean;
     expanded?: boolean;
     onToggle?: () => void;
+    hasActiveFilters?: boolean;
     children: React.ReactNode;
 }) {
     const [internalOpen, setInternalOpen] = useState(defaultOpen);
     const isOpen = expanded ?? internalOpen;
     const toggle = onToggle ?? (() => setInternalOpen((p) => !p));
+    const showGlow = hasActiveFilters && !isOpen;
 
     return (
-        <div className="border-b border-champagne/30 pb-4 mb-4">
+        <div className={`border-b border-champagne/30 pb-4 mb-4 rounded-lg px-2 -mx-2 transition-all duration-200 ${showGlow ? "ring-1 ring-muted-gold/50 ring-offset-2 ring-offset-bone bg-muted-gold/5" : ""}`}>
             <button
                 onClick={toggle}
                 className="flex items-center justify-between w-full text-xs uppercase tracking-wider font-bold text-slate hover:text-obsidian transition-colors py-1"
                 aria-expanded={isOpen}
             >
-                <span>{title}</span>
+                <span className={hasActiveFilters ? "text-muted-gold font-semibold" : ""}>{title}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-0" : "-rotate-90"}`} />
             </button>
             <AnimatePresence initial={false}>
@@ -455,8 +474,25 @@ function FilterSidebarContent({
                 All Products ({totalCount.toLocaleString()})
             </button>
 
-            {/* Category + Collection Tree */}
-            <FilterSection title="Categories" defaultOpen>
+            {/* Applicator Type — Option A, top for bottles */}
+            {Object.keys(facets?.applicators ?? {}).length > 0 && (
+                <FilterSection title="Applicator Type" defaultOpen hasActiveFilters={filters.applicators.length > 0}>
+                    <div className="space-y-0.5">
+                        {APPLICATOR_BUCKETS.filter((b) => (facets?.applicators?.[b.value] ?? 0) > 0).map((bucket) => (
+                            <CheckboxItem
+                                key={bucket.value}
+                                label={bucket.label}
+                                count={facets?.applicators?.[bucket.value]}
+                                checked={filters.applicators.includes(bucket.value)}
+                                onChange={() => toggleArrayFilter("applicators", bucket.value)}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Category + Collection Tree — closed by default */}
+            <FilterSection title="Categories" defaultOpen={false} hasActiveFilters={!!(filters.category || filters.collection)}>
                 {sidebarCategories.map((group) => (
                     <div key={group.category} className="mb-2">
                         <button
@@ -499,9 +535,9 @@ function FilterSidebarContent({
                 ))}
             </FilterSection>
 
-            {/* Design Families */}
+            {/* Design Families — open by default */}
             {sortedFamilies.length > 0 && (
-                <FilterSection title="Design Families" defaultOpen>
+                <FilterSection title="Design Families" defaultOpen hasActiveFilters={filters.families.length > 0}>
                     <div className="space-y-0.5 max-h-[280px] overflow-y-auto hide-scroll">
                         {sortedFamilies.map(([fam, count]) => (
                             <CheckboxItem
@@ -518,7 +554,7 @@ function FilterSidebarContent({
 
             {/* Component Type (contextual) */}
             {isComponentCategory && sortedComponentTypes.length > 0 && (
-                <FilterSection title="Component Type" defaultOpen>
+                <FilterSection title="Component Type" defaultOpen={false} hasActiveFilters={!!filters.componentType}>
                     <div className="space-y-0.5">
                         {sortedComponentTypes.map(([type, count]) => (
                             <button
@@ -533,9 +569,9 @@ function FilterSidebarContent({
                 </FilterSection>
             )}
 
-            {/* Capacity */}
+            {/* Capacity — open by default */}
             {sortedCapacities.length > 0 && (
-                <FilterSection title="Capacity">
+                <FilterSection title="Capacity" defaultOpen hasActiveFilters={filters.capacities.length > 0}>
                     <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
                         {sortedCapacities.map((cap) => (
                             <CheckboxItem
@@ -550,9 +586,9 @@ function FilterSidebarContent({
                 </FilterSection>
             )}
 
-            {/* Color */}
+            {/* Color — closed by default */}
             {sortedColors.length > 0 && (
-                <FilterSection title="Color">
+                <FilterSection title="Color" defaultOpen={false} hasActiveFilters={filters.colors.length > 0}>
                     <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
                         {sortedColors.map(([color, count]) => (
                             <CheckboxItem
@@ -568,9 +604,9 @@ function FilterSidebarContent({
                 </FilterSection>
             )}
 
-            {/* Neck Thread Size */}
+            {/* Neck Thread Size — closed by default */}
             {sortedThreads.length > 0 && (
-                <FilterSection title="Neck Thread Size">
+                <FilterSection title="Neck Thread Size" defaultOpen={false} hasActiveFilters={filters.neckThreadSizes.length > 0}>
                     <div className="space-y-0.5 max-h-[200px] overflow-y-auto hide-scroll">
                         {sortedThreads.map(([thread, count]) => (
                             <CheckboxItem
@@ -585,9 +621,9 @@ function FilterSidebarContent({
                 </FilterSection>
             )}
 
-            {/* Price Range */}
+            {/* Price Range — closed by default */}
             {facets && facets.priceRange.min < facets.priceRange.max && (
-                <FilterSection title="Price Range">
+                <FilterSection title="Price Range" defaultOpen={false} hasActiveFilters={filters.priceMin !== null || filters.priceMax !== null}>
                     <PriceRangeSlider
                         min={facets.priceRange.min}
                         max={facets.priceRange.max}
@@ -711,6 +747,14 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             result = result.filter((g) => g.bottleCollection === filters.collection);
         }
 
+        // Applicator type (Option A — applicator-first)
+        if (filters.applicators.length > 0) {
+            result = result.filter((g) => {
+                const types = g.applicatorTypes ?? [];
+                return filters.applicators.some((bucket) => applicatorBucketMatchesProductValues(bucket, types));
+            });
+        }
+
         // Families (multi-select)
         if (filters.families.length > 0) {
             const set = new Set(filters.families);
@@ -749,9 +793,15 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         }
 
         // Compute facets from filtered set
+        const applicatorCounts: Record<string, number> = {};
+        for (const bucket of APPLICATOR_BUCKETS) {
+            const count = result.filter((g) => applicatorBucketMatchesProductValues(bucket.value, g.applicatorTypes ?? [])).length;
+            if (count > 0) applicatorCounts[bucket.value] = count;
+        }
         const facetData: Facets = {
             categories: countBy(result, (g) => g.category),
             collections: countBy(result, (g) => g.bottleCollection),
+            applicators: applicatorCounts,
             families: countBy(result, (g) => g.family),
             colors: countBy(result, (g) => g.color),
             capacities: {},
@@ -789,8 +839,24 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         } else if (sortBy === "variants-desc") {
             result.sort((a, b) => (b.variantCount ?? 0) - (a.variantCount ?? 0));
         } else {
-            // "featured" default: smallest to largest by capacity (nulls — components/caps — last)
-            result.sort((a, b) => (a.capacityMl ?? 99999) - (b.capacityMl ?? 99999));
+            // "featured" default: by design family (Cylinder→Elegant→Circle→Sleek…), then capacity small→big
+            // Bottle categories first; packaging/components at end
+            const familyIdx = (fam: string | null) => {
+                if (!fam) return FAMILY_ORDER.length;
+                const i = FAMILY_ORDER.indexOf(fam);
+                return i >= 0 ? i : FAMILY_ORDER.length;
+            };
+            const categoryOrder = (cat: string) =>
+                BOTTLE_CATEGORIES.has(cat) ? 0 : 1;
+            result.sort((a, b) => {
+                const catA = categoryOrder(a.category);
+                const catB = categoryOrder(b.category);
+                if (catA !== catB) return catA - catB;
+                const famA = familyIdx(a.family);
+                const famB = familyIdx(b.family);
+                if (famA !== famB) return famA - famB;
+                return (a.capacityMl ?? 99999) - (b.capacityMl ?? 99999);
+            });
         }
 
         return { filtered: result, facets: facetData, totalCount: total };
@@ -852,6 +918,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const chips: Array<{ label: string; onRemove: () => void }> = [];
     if (filters.category) chips.push({ label: filters.category, onRemove: () => handleFilterChange({ category: null }) });
     if (filters.collection) chips.push({ label: filters.collection, onRemove: () => handleFilterChange({ collection: null }) });
+    for (const a of filters.applicators) {
+        const label = APPLICATOR_BUCKETS.find((b) => b.value === a)?.label ?? a;
+        chips.push({ label, onRemove: () => handleFilterChange({ applicators: filters.applicators.filter((x) => x !== a) }) });
+    }
     for (const f of filters.families) chips.push({ label: f, onRemove: () => handleFilterChange({ families: filters.families.filter((x) => x !== f) }) });
     for (const c of filters.colors) chips.push({ label: c, onRemove: () => handleFilterChange({ colors: filters.colors.filter((x) => x !== c) }) });
     for (const cap of filters.capacities) chips.push({ label: cap, onRemove: () => handleFilterChange({ capacities: filters.capacities.filter((x) => x !== cap) }) });
@@ -1040,7 +1110,11 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     <h2 className="font-serif text-xl sm:text-3xl font-medium text-obsidian truncate">
                                         {filters.search
                                             ? `"${filters.search}"`
-                                            : filters.category || filters.collection || (filters.families.length === 1 ? filters.families[0] : "All Products")}
+                                            : filters.applicators.length === 1
+                                                ? `${APPLICATOR_BUCKETS.find((b) => b.value === filters.applicators[0])?.label ?? filters.applicators[0]} Bottles`
+                                                : filters.applicators.length > 1
+                                                    ? `${filters.applicators.map((a) => APPLICATOR_BUCKETS.find((b) => b.value === a)?.label ?? a).join(" & ")} Bottles`
+                                                    : filters.category || filters.collection || (filters.families.length === 1 ? filters.families[0] : "All Products")}
                                     </h2>
                                 </div>
                                 <div className="flex items-center gap-3 shrink-0">
@@ -1064,6 +1138,42 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Quick applicator chips — Option A */}
+                        {facets && Object.keys(facets.applicators).length > 0 && (
+                            <div className="flex flex-wrap gap-2 mb-6">
+                                <button
+                                    onClick={() => handleFilterChange({ applicators: [] })}
+                                    className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${
+                                        filters.applicators.length === 0
+                                            ? "bg-obsidian text-white border-obsidian"
+                                            : "bg-white border-champagne text-obsidian hover:border-muted-gold"
+                                    }`}
+                                >
+                                    All Bottles
+                                </button>
+                                {APPLICATOR_BUCKETS.filter((b) => (facets.applicators[b.value] ?? 0) > 0).map((bucket) => (
+                                    <button
+                                        key={bucket.value}
+                                        onClick={() => {
+                                            const isActive = filters.applicators.includes(bucket.value);
+                                            handleFilterChange({
+                                                applicators: isActive
+                                                    ? filters.applicators.filter((a) => a !== bucket.value)
+                                                    : [...filters.applicators, bucket.value],
+                                            });
+                                        }}
+                                        className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${
+                                            filters.applicators.includes(bucket.value)
+                                                ? "bg-obsidian text-white border-obsidian"
+                                                : "bg-white border-champagne text-obsidian hover:border-muted-gold"
+                                        }`}
+                                    >
+                                        {bucket.label} ({facets.applicators[bucket.value]})
+                                    </button>
+                                ))}
+                            </div>
+                        )}
 
                         {/* Loading */}
                         {isLoading && <SkeletonGrid />}
@@ -1096,7 +1206,12 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                         {visibleProducts.length > 0 && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                                 {visibleProducts.map((group: CatalogGroup, pIndex: number) => (
-                                    <ProductGroupCard key={group._id} group={group} index={pIndex} />
+                                    <ProductGroupCard
+                                        key={group._id}
+                                        group={group}
+                                        index={pIndex}
+                                        applicatorParam={filters.applicators.length === 1 ? filters.applicators[0] : null}
+                                    />
                                 ))}
                             </div>
                         )}

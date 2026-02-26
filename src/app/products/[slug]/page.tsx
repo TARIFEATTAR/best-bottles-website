@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback, use } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
     Check, Layers, Plus,
@@ -14,12 +14,19 @@ import Navbar from "@/components/Navbar";
 import FitmentCarousel from "@/components/FitmentCarousel";
 import FitmentDrawer from "@/components/FitmentDrawer";
 import { useCart } from "@/components/CartProvider";
+import { APPLICATOR_BUCKETS } from "@/lib/catalogFilters";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatPrice(price: number | null | undefined): string {
     if (!price) return "—";
     return `$${price.toFixed(2)}`;
+}
+
+/** Extract thread size from SKU if present (e.g. CMP-CAP-BLK-18-400 → "18-400") */
+function getThreadFromSku(sku: string): string | null {
+    const m = sku.match(/(\d{2}-\d{3})/);
+    return m ? m[1] : null;
 }
 
 function getComponentType(graceSku: string, itemName?: string): string {
@@ -201,6 +208,8 @@ function ComponentCard({ comp }: { comp: ProductComponent }) {
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const applicatorParam = searchParams.get("applicator");
 
     const data = useQuery(api.products.getProductGroup, { slug });
 
@@ -232,17 +241,21 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     // ── Derived selector options ─────────────────────────────────────────────
 
     // Applicator options — excludes "Cap/Closure" (handled separately)
+    // Glass Rod is for 18-400 bottles (e.g. Boston Round 15ml), NOT 17-415 (9ml Cylinder)
     const applicatorOptions = useMemo(() => {
         const seen = new Set<string>();
+        const bottleThread = group?.neckThreadSize ?? "";
         return variants
             .map((v) => v.applicator)
             .filter((a): a is string => !!a && a !== "Cap/Closure")
             .filter((a) => {
+                // Exclude Glass Rod from 17-415 bottles — different bottle family/thread
+                if (a === "Glass Rod" && bottleThread === "17-415") return false;
                 if (seen.has(a)) return false;
                 seen.add(a);
                 return true;
             });
-    }, [variants]);
+    }, [variants, group?.neckThreadSize]);
 
     // Whether any variant has no applicator (plain cap closure)
     const hasCapClosure = useMemo(() =>
@@ -250,7 +263,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         [variants]
     );
 
-    const activeApplicator = selectedApplicator ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
+    // Default applicator: URL param (Option A) > user selection > first option > cap closure
+    const defaultFromUrl = useMemo(() => {
+        if (!applicatorParam) return null;
+        const bucket = APPLICATOR_BUCKETS.find((b) => b.value === applicatorParam);
+        if (!bucket) return null;
+        // Cap/Closure is excluded from applicatorOptions — handle separately
+        if (bucket.value === "capclosure" && hasCapClosure) return "Cap/Closure";
+        const match = applicatorOptions.find((opt) => bucket.productValues.includes(opt));
+        return match ?? null;
+    }, [applicatorParam, applicatorOptions, hasCapClosure]);
+
+    const activeApplicator = selectedApplicator ?? defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
 
     // Cap color options — filtered by selected applicator
     const capColorOptions = useMemo(() => {
@@ -320,16 +344,21 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     }, [variants, activeApplicator, activeCapColor, activeCapStyle, activeTrimColor, capStyleOptions]);
 
     // Components grouped by type from selected variant
+    // Filter by thread — 18-400 caps don't fit 17-415 bottles (e.g. 9ml Cylinder)
     const componentGroups = useMemo(() => {
         const comps = selectedVariant?.components ?? [];
+        const bottleThread = (group?.neckThreadSize ?? "").toString().trim();
         const groups: Record<string, ProductComponent[]> = {};
         for (const comp of comps) {
-            const type = getComponentType(comp.grace_sku || "", comp.item_name);
+            const sku = comp.grace_sku || "";
+            const compThread = getThreadFromSku(sku);
+            if (compThread && bottleThread && compThread !== bottleThread) continue;
+            const type = getComponentType(sku, comp.item_name);
             if (!groups[type]) groups[type] = [];
             groups[type].push(comp);
         }
         return groups;
-    }, [selectedVariant]);
+    }, [selectedVariant, group?.neckThreadSize]);
 
     const totalComponents = Object.values(componentGroups).reduce(
         (sum, arr) => sum + arr.length,
@@ -440,9 +469,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                         <Link href="/" className="hover:text-muted-gold transition-colors shrink-0">Home</Link>
                         <ChevronRight className="w-3 h-3 shrink-0" />
                         <Link href="/catalog" className="hover:text-muted-gold transition-colors shrink-0">Catalog</Link>
+                        {applicatorParam && (
+                            <>
+                                <ChevronRight className="w-3 h-3 shrink-0" />
+                                <Link
+                                    href={`/catalog?applicators=${encodeURIComponent(applicatorParam)}`}
+                                    className="hover:text-muted-gold transition-colors shrink-0"
+                                >
+                                    {APPLICATOR_BUCKETS.find((b) => b.value === applicatorParam)?.label ?? applicatorParam} Bottles
+                                </Link>
+                            </>
+                        )}
                         <ChevronRight className="w-3 h-3 shrink-0" />
                         <Link
-                            href={`/catalog?family=${encodeURIComponent(group.family)}`}
+                            href={`/catalog?families=${encodeURIComponent(group.family)}${applicatorParam ? `&applicators=${encodeURIComponent(applicatorParam)}` : ""}`}
                             className="hover:text-muted-gold transition-colors shrink-0"
                         >
                             {group.family}

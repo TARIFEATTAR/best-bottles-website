@@ -22,6 +22,8 @@ export default defineSchema({
         shopifyProductId: v.optional(v.union(v.string(), v.null())),
         sanitySlug: v.optional(v.union(v.string(), v.null())),
         heroImageUrl: v.optional(v.union(v.string(), v.null())),
+        // Option A: applicator-first — unique applicator types in this group (e.g. ["Metal Roller", "Fine Mist Sprayer"])
+        applicatorTypes: v.optional(v.array(v.string())),
     })
         .index("by_slug", ["slug"])
         .index("by_family", ["family"])

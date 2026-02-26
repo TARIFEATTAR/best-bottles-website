@@ -425,6 +425,68 @@ export const getAllGroups = internalQuery({
     },
 });
 
+/** Get products for a group — used to aggregate applicatorTypes */
+export const getProductsByGroupId = internalQuery({
+    args: { groupId: v.id("productGroups") },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("products")
+            .withIndex("by_productGroupId", (q) => q.eq("productGroupId", args.groupId))
+            .collect();
+    },
+});
+
+/** Patch productGroups with applicatorTypes — Option A applicator-first */
+export const patchApplicatorTypesBatch = internalMutation({
+    args: {
+        patches: v.array(v.object({
+            groupId: v.id("productGroups"),
+            applicatorTypes: v.array(v.string()),
+        })),
+    },
+    handler: async (ctx, args) => {
+        for (const { groupId, applicatorTypes } of args.patches) {
+            await ctx.db.patch(groupId, { applicatorTypes });
+        }
+        return { patched: args.patches.length };
+    },
+});
+
+/**
+ * Populate applicatorTypes on each productGroup from its variant products.
+ * Run AFTER linkProductsToGroups. Used for Option A applicator-first catalog filter.
+ * Run via: npx convex run migrations:populateApplicatorTypes
+ */
+export const populateApplicatorTypes = action({
+    args: {},
+    handler: async (ctx) => {
+        const groups = (await ctx.runQuery(internal.migrations.getAllGroups, {})) as Array<{ _id: Id<"productGroups"> }>;
+        const patches: { groupId: Id<"productGroups">; applicatorTypes: string[] }[] = [];
+        const BATCH = 50;
+
+        for (const g of groups) {
+            const products = await ctx.runQuery(internal.migrations.getProductsByGroupId, { groupId: g._id });
+            const applicators = new Set<string>();
+            for (const p of products) {
+                const appl = (p as { applicator?: string | null }).applicator;
+                if (appl && appl.trim()) applicators.add(appl.trim());
+            }
+            patches.push({ groupId: g._id, applicatorTypes: [...applicators].sort() });
+        }
+
+        for (let i = 0; i < patches.length; i += BATCH) {
+            await ctx.runMutation(internal.migrations.patchApplicatorTypesBatch, {
+                patches: patches.slice(i, i + BATCH),
+            });
+        }
+
+        return {
+            groupsUpdated: patches.length,
+            message: `Populated applicatorTypes on ${patches.length} product groups.`,
+        };
+    },
+});
+
 // ─────────────────────────────────────────────────────────────────────────────
 // STATUS CHECK
 // ─────────────────────────────────────────────────────────────────────────────
@@ -732,6 +794,73 @@ export const fixVialTaxonomy = action({
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
+// TULIP RECLASSIFICATION — Fix Cylinder/Tulip mixing
+//
+// Source data incorrectly classified Tulip bottles (websiteSku GBTulip*, itemName
+// "Tulip design") as family "Cylinder". This caused them to appear on Cylinder PDPs.
+// Reclassify to family "Tulip" so they get their own groups (tulip-5ml-amber, etc.).
+//
+// Run via: npx convex run migrations:fixTulipFamily
+// Then re-run: node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const fixTulipFamily = action({
+    args: {},
+    handler: async (ctx) => {
+        const PAGE_SIZE = 100;
+        let cursor: string | null = null;
+        let isDone = false;
+        const fixes: { id: Id<"products">; fields: Record<string, unknown>; reason: string }[] = [];
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+
+            for (const p of result.page) {
+                const sku = (p.websiteSku || "").toLowerCase();
+                const name = (p.itemName || "").toLowerCase();
+
+                const isTulip = sku.includes("tulip") || name.includes("tulip design");
+                if (!isTulip) continue;
+
+                if (p.family === "Tulip") continue; // already correct
+
+                fixes.push({
+                    id: p._id,
+                    fields: {
+                        family: "Tulip",
+                        bottleCollection: "Tulip Collection",
+                    },
+                    reason: `${p.graceSku || p.websiteSku} → Tulip (was ${p.family ?? "null"})`,
+                });
+            }
+
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        const BATCH_SIZE = 50;
+        for (let i = 0; i < fixes.length; i += BATCH_SIZE) {
+            const batch = fixes.slice(i, i + BATCH_SIZE).map((f) => ({
+                id: f.id,
+                fields: f.fields,
+            }));
+            await ctx.runMutation(internal.migrations.patchProductFields, { patches: batch });
+        }
+
+        return {
+            totalFixed: fixes.length,
+            details: fixes.map((f) => f.reason),
+            message: fixes.length === 0
+                ? "No Tulip products needed reclassification."
+                : `Reclassified ${fixes.length} Tulip products. Run buildProductGroups + linkProductsToGroups to update groups.`,
+        };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 9ML BLACK/WHITE GLASS REMOVAL
 //
 // Boss decision: discontinuing black and white glass for 9ml bottles.
@@ -929,11 +1058,200 @@ export const addMissingVials = action({
     },
 });
 
-/** Insert a single product — used by addMissingVials */
+/** Insert a single product — used by addMissingVials, addMissingFineMistSprayers */
 export const insertSingleProduct = internalMutation({
     args: { product: v.any() },
     handler: async (ctx, args) => {
         await ctx.db.insert("products", args.product);
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ADD MISSING FINE MIST SPRAYER PRODUCTS
+//
+// 3 products from the Glass Bottles with Fine Mist Sprayers page are missing:
+//   1. GBCylSwrl9SpryBlk — was incorrectly removed by remove9mlBlackWhite (BLK = sprayer trim, not black glass)
+//   2. GBPillar9SpryBlkMatt — never in master seed
+//   3. GBBell10SpryBlkSh — never in master seed
+//
+// Run via: npx convex run migrations:addMissingFineMistSprayers
+// Then: node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+const GBCYL_SWRL_9_COMPONENTS = [
+    { grace_sku: "CMP-ROC-MSLV-17415", item_name: "Matte Silver cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415MattSl.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-ROC-SLV-17415-DOT", item_name: "Silver with dots cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415SlDot.gif", price_1: 0.38, price_12: 0.36 },
+    { grace_sku: "CMP-ROC-PNK-17415-DOT", item_name: "Pink with dots cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415PnkDot.gif", price_1: 0.38, price_12: 0.36 },
+    { grace_sku: "CMP-ROC-MGLD-17415", item_name: "Matte gold cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415MattGl.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-ROC-SGLD-17415", item_name: "Shiny gold cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415ShnGl.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-ROC-SSLV-17415", item_name: "Shiny silver cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415ShnSl.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-ROC-CPR-17415", item_name: "Copper cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415Cu.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-ROC-SBLK-17415", item_name: "Shiny black cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415ShnBlk.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-ROC-WHT-17415", item_name: "White cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415White.gif", price_1: 0.22, price_12: 0.21 },
+    { grace_sku: "CMP-ROC-BLK-17415-DOT", item_name: "Black with dots cap or closure for rollon bottles, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CpRoll17-415BlkDot.gif", price_1: 0.38, price_12: 0.36 },
+    { grace_sku: "CMP-LPM-MSLV-17-415", item_name: "Matte silver collar Lotion or treatment pump, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Ltn17-415MattSl.gif", price_1: 0.7, price_12: 0.67 },
+    { grace_sku: "CMP-LPM-SGLD-17-415", item_name: "Shiny gold collar Lotion or treatment pump, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Ltn17-415Gl.gif", price_1: 0.7, price_12: 0.67 },
+    { grace_sku: "CMP-LPM-BLK-17-415", item_name: "Shiny black collar Lotion or treatment pump, Threadsize 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Ltn17-415Blk.gif", price_1: 0.7, price_12: 0.67 },
+    { grace_sku: "CMP-SPR-SGLD-17-415", item_name: "Shiny gold collar sprayer, Thread size 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Spry17-415Gl.gif", price_1: 0.7, price_12: 0.67 },
+    { grace_sku: "CMP-SPR-SLV-17-415", item_name: "Matte silver collar sprayer, Thread size 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Spry17-415MattSl.gif", price_1: 0.7, price_12: 0.67 },
+    { grace_sku: "CMP-SPR-SSLV-17-415", item_name: "Shiny silver collar sprayer, Thread size 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Spry17-415ShnSl.gif", price_1: 0.7, price_12: 0.67 },
+    { grace_sku: "CMP-SPR-BLK-17-415-01", item_name: "Shiny black collar sprayer, Thread size 17-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/Spry17-415Blk.gif", price_1: 0.7, price_12: 0.67 },
+];
+
+export const addMissingFineMistSprayers = action({
+    args: {},
+    handler: async (ctx) => {
+        const PAGE_SIZE = 200;
+        let cursor: string | null = null;
+        let isDone = false;
+        const existingSkus = new Set<string>();
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+            for (const p of result.page) {
+                existingSkus.add((p.websiteSku || "").toLowerCase());
+            }
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        const newProducts = [
+            {
+                productId: "BB-GB-009-0127",
+                websiteSku: "GBCylSwrl9SpryBlk",
+                graceSku: "GB-CYL-BLK-9ML-SPR-BLK",
+                category: "Glass Bottle",
+                family: "Cylinder",
+                shape: "Cylinder",
+                color: "Swirl",
+                capacity: "9 ml (0.3 oz)",
+                capacityMl: 9,
+                capacityOz: 0.3,
+                applicator: "Fine Mist Sprayer",
+                capColor: "Black",
+                trimColor: "Black",
+                capStyle: null,
+                neckThreadSize: "17-415",
+                heightWithCap: null,
+                heightWithoutCap: null,
+                diameter: null,
+                bottleWeightG: null,
+                caseQuantity: null,
+                qbPrice: null,
+                webPrice1pc: 1.0,
+                webPrice10pc: null,
+                webPrice12pc: 0.95,
+                stockStatus: "In Stock",
+                itemName: "Cylinder swirl design 9ml,1/3 oz glass bottle with fine mist sprayer with black trim and plastic overcap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Price each",
+                itemDescription: "Cylinder swirl design 9ml,1/3 oz glass bottle with fine mist sprayer with black trim and plastic overcap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Price each",
+                imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/GBCylSwrl9SpryBlk.gif",
+                productUrl: "https://www.bestbottles.com/product/cylinder-design-9-ml-swirl-glass-bottle-sprayer-black-trim-and-cap",
+                dataGrade: "A",
+                bottleCollection: "Cylinder Collection",
+                fitmentStatus: "verified",
+                components: GBCYL_SWRL_9_COMPONENTS,
+                graceDescription: "9ml Swirl glass cylinder with fine mist sprayer. Thread 17-415.",
+                verified: true,
+                importSource: "addMissingFineMistSprayers_2026-02-26",
+            },
+            {
+                productId: null,
+                websiteSku: "GBPillar9SpryBlkMatt",
+                graceSku: "GB-PIL-CLR-9ML-SPR-MBLK",
+                category: "Glass Bottle",
+                family: "Pillar",
+                shape: "Pillar",
+                color: "Clear",
+                capacity: "9 ml (0.3 oz)",
+                capacityMl: 9,
+                capacityOz: 0.3,
+                applicator: "Fine Mist Sprayer",
+                capColor: "Matte Black",
+                trimColor: "Matte Black",
+                capStyle: null,
+                neckThreadSize: "17-415",
+                heightWithCap: null,
+                heightWithoutCap: null,
+                diameter: null,
+                bottleWeightG: null,
+                caseQuantity: null,
+                qbPrice: null,
+                webPrice1pc: 0.97,
+                webPrice10pc: null,
+                webPrice12pc: 0.92,
+                stockStatus: "In Stock",
+                itemName: "Pillar design 9ml Clear glass bottle with matte black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+                itemDescription: "Pillar design 9ml Clear glass bottle with matte black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+                imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/GBPillar9SpryBlkMatt.gif",
+                productUrl: "https://www.bestbottles.com/product/pillar-design-9-ml-clear-glass-bottle-matte-black-spray",
+                dataGrade: "B",
+                bottleCollection: "Pillar Collection",
+                fitmentStatus: "verified",
+                components: GBCYL_SWRL_9_COMPONENTS,
+                graceDescription: "9ml Clear Pillar bottle with matte black spray. Thread 17-415.",
+                verified: true,
+                importSource: "addMissingFineMistSprayers_2026-02-26",
+            },
+            {
+                productId: null,
+                websiteSku: "GBBell10SpryBlkSh",
+                graceSku: "GB-BEL-CLR-10ML-SPR-SBLK",
+                category: "Glass Bottle",
+                family: "Bell",
+                shape: "Bell",
+                color: "Clear",
+                capacity: "10 ml (0.34 oz)",
+                capacityMl: 10,
+                capacityOz: 0.34,
+                applicator: "Fine Mist Sprayer",
+                capColor: "Shiny Black",
+                trimColor: "Shiny Black",
+                capStyle: null,
+                neckThreadSize: "13-415",
+                heightWithCap: null,
+                heightWithoutCap: null,
+                diameter: null,
+                bottleWeightG: null,
+                caseQuantity: null,
+                qbPrice: null,
+                webPrice1pc: 0.9,
+                webPrice10pc: null,
+                webPrice12pc: 0.86,
+                stockStatus: "In Stock",
+                itemName: "Bell design 10ml Clear glass bottle with shiny black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+                itemDescription: "Bell design 10ml Clear glass bottle with shiny black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+                imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/GBBell10SpryBlkSh.gif",
+                productUrl: "https://www.bestbottles.com/product/bell-design-10-ml-clear-glass-bottle-shiny-black-spray",
+                dataGrade: "B",
+                bottleCollection: "Bell Collection",
+                fitmentStatus: "verified",
+                components: [],
+                graceDescription: "10ml Clear Bell bottle with shiny black spray. Thread 13-415.",
+                verified: true,
+                importSource: "addMissingFineMistSprayers_2026-02-26",
+            },
+        ];
+
+        const added: string[] = [];
+        const skipped: string[] = [];
+
+        for (const product of newProducts) {
+            if (existingSkus.has(product.websiteSku.toLowerCase())) {
+                skipped.push(product.websiteSku);
+            } else {
+                await ctx.runMutation(internal.migrations.insertSingleProduct, { product });
+                added.push(product.websiteSku);
+            }
+        }
+
+        return {
+            added,
+            skipped,
+            message: `Added ${added.length} products. ${skipped.length > 0 ? `Skipped ${skipped.length} (already exist).` : ""} Run buildProductGroups + linkProductsToGroups to update groups.`,
+        };
     },
 });
 
