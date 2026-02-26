@@ -571,7 +571,7 @@ function CatalogContent() {
 }
 
 // -- Export with Suspense boundary for useSearchParams --
-export default function CatalogPage() {
+export default function CatalogPage(_props: { searchParams: Promise<Record<string, string | undefined>> }) {
     return (
         <Suspense fallback={
             <main className="min-h-screen bg-bone pt-[104px]">

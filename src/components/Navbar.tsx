@@ -183,9 +183,9 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     scrolled ? "bg-bone/95 shadow-sm backdrop-blur-md" : "bg-bone"
                 } ${variant === "catalog" ? "border-b border-champagne" : ""}`}
             >
-                <div className="bg-bone border-b border-champagne py-1.5 text-center px-4">
-                    <p className="text-xs uppercase tracking-[0.15em] text-slate font-medium">
-                        Free shipping on orders above $199.00
+                <div className="bg-obsidian py-1.5 text-center px-4">
+                    <p className="text-xs uppercase tracking-[0.15em] text-bone font-medium">
+                        Free shipping on orders above $99
                     </p>
                 </div>
 

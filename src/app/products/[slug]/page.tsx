@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, use } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
     Check, Layers, Plus,
@@ -147,9 +146,8 @@ function ComponentCard({ comp }: { comp: any }) {
 
 // ── Main PDP ──────────────────────────────────────────────────────────────────
 
-export default function ProductDetailPage() {
-    const params = useParams();
-    const slug = params?.slug as string;
+export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = use(params);
 
     const data = useQuery(api.products.getProductGroup, { slug });
 

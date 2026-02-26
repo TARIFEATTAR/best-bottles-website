@@ -20,7 +20,6 @@ import {
     ExternalLink,
     ChevronLeft,
     Maximize2,
-    Minimize2,
 } from "lucide-react";
 import { useGrace, type GraceStatus, type GraceAction, type ProductCard, type KitItem } from "./GraceProvider";
 import { useCart } from "./CartProvider";
@@ -331,7 +330,7 @@ export function GraceFloatingTrigger() {
 // ─── Voice Strip (60px desktop / 48px mobile bottom bar) ─────────────────────
 
 function VoiceStrip({ isMobile }: { isMobile: boolean }) {
-    const { openPanel, openSlim, closePanel, endConversation, status, conversationActive, stopSpeaking, startDictation } = useGrace();
+    const { openPanel, closePanel, endConversation, status, conversationActive, stopSpeaking, startDictation } = useGrace();
 
     const isSpeaking = status === "speaking";
     const isListening = status === "listening";
@@ -421,23 +420,21 @@ function VoiceStrip({ isMobile }: { isMobile: boolean }) {
                 <button
                     onClick={(e) => { e.stopPropagation(); endConversation(); closePanel(); }}
                     className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center hover:bg-red-700 transition-colors"
-                    aria-label="End conversation"
+                    aria-label="Close Grace"
                 >
-                    <StopCircle className="w-4 h-4 text-white" />
+                    <X className="w-4 h-4 text-white" />
                 </button>
             </div>
         </motion.div>
     );
 }
 
-// ─── Full Panel ──────────────────────────────────────────────────────────────
+// ─── Chat Panel (420px — same width as cart) ────────────────────────────────
 
-function FullPanel({ isMobile, mode }: { isMobile: boolean; mode: "slim" | "full" }) {
+function ChatPanel({ isMobile }: { isMobile: boolean }) {
     const {
         closePanel,
         minimizeToStrip,
-        expandToFull,
-        collapseToSlim,
         status,
         messages,
         input,
@@ -456,9 +453,7 @@ function FullPanel({ isMobile, mode }: { isMobile: boolean; mode: "slim" | "full
         onNavigate,
     } = useGrace();
 
-    const isSlim = mode === "slim";
-
-    const { items: cartItems, itemCount: cartCount, removeItem, checkout, isCheckingOut } = useCart();
+    const { items: cartItems, itemCount: cartCount, removeItem, checkout, isCheckingOut, checkoutError } = useCart();
     const [showCart, setShowCart] = useState(false);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -501,12 +496,9 @@ function FullPanel({ isMobile, mode }: { isMobile: boolean; mode: "slim" | "full
                 <div className="flex items-center space-x-2.5">
                     {!isMobile && (
                         <button
-                            onClick={isSlim
-                                ? (conversationActive ? minimizeToStrip : closePanel)
-                                : collapseToSlim
-                            }
+                            onClick={minimizeToStrip}
                             className="p-1 rounded-lg hover:bg-champagne/40 transition-colors"
-                            aria-label={isSlim ? (conversationActive ? "Minimize to strip" : "Close panel") : "Slim view"}
+                            aria-label="Minimize to sidebar"
                         >
                             <ChevronLeft className="w-4 h-4 text-slate" />
                         </button>
@@ -541,15 +533,6 @@ function FullPanel({ isMobile, mode }: { isMobile: boolean; mode: "slim" | "full
                             <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-obsidian text-bone text-[8px] font-bold flex items-center justify-center">
                                 {cartCount}
                             </span>
-                        </button>
-                    )}
-                    {!isMobile && (
-                        <button
-                            onClick={isSlim ? expandToFull : collapseToSlim}
-                            className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
-                            aria-label={isSlim ? "Expand panel" : "Slim view"}
-                        >
-                            {isSlim ? <Maximize2 className="w-3.5 h-3.5 text-slate" /> : <Minimize2 className="w-3.5 h-3.5 text-slate" />}
                         </button>
                     )}
                     <button
@@ -592,6 +575,11 @@ function FullPanel({ isMobile, mode }: { isMobile: boolean; mode: "slim" | "full
                                     </div>
                                 ))}
                             </div>
+                            {checkoutError && (
+                                <div className="mt-2 p-2 rounded-lg bg-red-50 border border-red-200 text-[11px] text-red-700 leading-snug">
+                                    {checkoutError}
+                                </div>
+                            )}
                             <button
                                 onClick={checkout}
                                 disabled={isCheckingOut}
@@ -825,17 +813,14 @@ function FullPanel({ isMobile, mode }: { isMobile: boolean; mode: "slim" | "full
         );
     }
 
-    const panelWidth = isSlim ? 320 : 400;
-
     return (
         <motion.div
-            initial={{ x: panelWidth }}
-            animate={{ x: 0, width: panelWidth }}
-            exit={{ x: panelWidth }}
+            initial={{ x: 420 }}
+            animate={{ x: 0 }}
+            exit={{ x: 420 }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 z-[55] flex flex-col overflow-hidden shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 z-[55] w-full max-w-[420px] flex flex-col overflow-hidden shadow-2xl"
             style={{
-                width: panelWidth,
                 background: "rgba(250, 248, 245, 0.98)",
                 backdropFilter: "blur(28px) saturate(180%)",
                 WebkitBackdropFilter: "blur(28px) saturate(180%)",
@@ -865,8 +850,7 @@ export default function GraceSidePanel() {
 
     return (
         <AnimatePresence mode="wait">
-            {panelMode === "slim" && <FullPanel key="slim" isMobile={isMobile} mode="slim" />}
-            {panelMode === "full" && <FullPanel key="full" isMobile={isMobile} mode="full" />}
+            {panelMode === "open" && <ChatPanel key="panel" isMobile={isMobile} />}
             {panelMode === "strip" && <VoiceStrip key="strip" isMobile={isMobile} />}
         </AnimatePresence>
     );

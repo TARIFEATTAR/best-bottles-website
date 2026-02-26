@@ -64,21 +64,15 @@ export interface GraceMessage {
     action?: GraceAction;
 }
 
-export type PanelMode = "closed" | "slim" | "full" | "strip";
+export type PanelMode = "closed" | "strip" | "open";
 
 interface GraceContextValue {
     panelMode: PanelMode;
     openPanel: () => void;
-    openSlim: () => void;
-    expandToFull: () => void;
     closePanel: () => void;
     minimizeToStrip: () => void;
-    collapseToSlim: () => void;
-    /** @deprecated use panelMode !== "closed" */
     isOpen: boolean;
-    /** @deprecated use openPanel */
     open: () => void;
-    /** @deprecated use closePanel */
     close: () => void;
     status: GraceStatus;
     messages: GraceMessage[];
@@ -147,15 +141,12 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const askGrace = useAction(api.grace.askGrace);
 
     const isOpen = panelMode !== "closed";
-    const openPanel = useCallback(() => setPanelMode("slim"), []);
-    const openSlim = useCallback(() => setPanelMode("slim"), []);
-    const expandToFull = useCallback(() => setPanelMode("full"), []);
+    const openPanel = useCallback(() => setPanelMode("open"), []);
     const closePanel = useCallback(() => {
         setPanelMode("closed");
         setConversationActive(false);
     }, []);
     const minimizeToStrip = useCallback(() => setPanelMode("strip"), []);
-    const collapseToSlim = useCallback(() => setPanelMode("slim"), []);
     const open = openPanel;
 
     // ── Realtime session teardown ────────────────────────────────────────────
@@ -193,7 +184,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
 
     const onNavigate = useCallback((path: string) => {
         if (conversationActive) {
-            setPanelMode("slim");
+            setPanelMode("strip");
         } else {
             setPanelMode("closed");
         }
@@ -317,7 +308,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                             if (shouldAutoNav) {
                                 setPendingNavigation(navPath);
                                 if (conversationActive) {
-                                    setPanelMode("slim");
+                                    setPanelMode("strip");
                                 } else {
                                     setPanelMode("closed");
                                 }
@@ -682,11 +673,8 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             value={{
                 panelMode,
                 openPanel,
-                openSlim,
-                expandToFull,
                 closePanel,
                 minimizeToStrip,
-                collapseToSlim,
                 isOpen,
                 open,
                 close,

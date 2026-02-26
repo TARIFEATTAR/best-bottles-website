@@ -156,7 +156,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
         } catch (err) {
             console.error("[Cart] Checkout error:", err);
             const message = err instanceof Error ? err.message : "";
-            if (message.includes("not configured") || message.includes("503")) {
+            if (
+                message.includes("not configured") ||
+                message.includes("503") ||
+                message.includes("Access denied") ||
+                message.includes("502")
+            ) {
                 setCheckoutError(
                     "Online checkout is temporarily unavailable. Please email your order to sales@bestbottles.com or call us at (800) 555-0199."
                 );

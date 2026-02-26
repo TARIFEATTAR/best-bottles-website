@@ -42,14 +42,14 @@ function Hero() {
       <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10 pt-16 lg:pt-0 pb-16 lg:pb-0">
         <div className="max-w-[600px]">
           <FadeUp delay={0.2}>
-            <p className="text-xs uppercase tracking-[0.25em] text-obsidian/70 font-bold mb-6 drop-shadow-sm">EST. 1850s · NEMAT INTERNATIONAL</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-obsidian/70 font-bold mb-6 drop-shadow-sm">A Division of Nemat International</p>
           </FadeUp>
           <FadeUp delay={0.3}>
-            <h1 className="font-serif text-5xl lg:text-[72px] font-medium text-obsidian leading-[1.05] mb-8">The Art of Beautiful Packaging</h1>
+            <h1 className="font-serif text-5xl lg:text-[72px] font-medium text-obsidian leading-[1.05] mb-8">Beautifully Contained</h1>
           </FadeUp>
           <FadeUp delay={0.4}>
             <p className="text-lg lg:text-xl text-obsidian/80 leading-[1.6] max-w-[480px] mb-12">
-              Premium glass bottles and packaging for brands ready to scale. 170 years of fragrance expertise, now yours.
+              Premium glass bottles and packaging for brands ready to scale.
             </p>
           </FadeUp>
           <FadeUp delay={0.5} className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
