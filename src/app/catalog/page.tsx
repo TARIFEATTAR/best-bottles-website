@@ -788,6 +788,9 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             result.sort((a, b) => b.displayName.localeCompare(a.displayName));
         } else if (sortBy === "variants-desc") {
             result.sort((a, b) => (b.variantCount ?? 0) - (a.variantCount ?? 0));
+        } else {
+            // "featured" default: smallest to largest by capacity (nulls — components/caps — last)
+            result.sort((a, b) => (a.capacityMl ?? 99999) - (b.capacityMl ?? 99999));
         }
 
         return { filtered: result, facets: facetData, totalCount: total };
