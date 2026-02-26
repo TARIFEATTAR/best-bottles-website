@@ -1,0 +1,2109 @@
+[
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-BLK",
+    "websiteSku": "GBGrce55AnSpBlk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-black-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with black vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-GLD",
+    "websiteSku": "GBGrce55AnSpGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-gold-vintage-style-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with gold vintage style sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty of your",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-IVGD",
+    "websiteSku": "GBGrce55AnSpIvyGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with ivory vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty o",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-IVSL",
+    "websiteSku": "GBGrce55AnSpIvySl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with ivory vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-LVN",
+    "websiteSku": "GBGrce55AnSpLvn",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-lavender-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with lavender vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the bea",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-MSLV",
+    "websiteSku": "GBGrce55AnSpMtSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-silver-vintage-style-sprayer-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with matte silver vintage style sprayer with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beau",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-PNK",
+    "websiteSku": "GBGrce55AnSpPnk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-pink-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with pink vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty of",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-RED",
+    "websiteSku": "GBGrce55AnSpRed",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-red-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with red vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty o",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-BLK",
+    "websiteSku": "GBGrce55AnSpTslBlk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-black-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Black vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-GLD",
+    "websiteSku": "GBGrce55AnSpTslGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-gold-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Gold vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance t",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-IVGD",
+    "websiteSku": "GBGrce55AnSpTslIvyGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-IVSL",
+    "websiteSku": "GBGrce55AnSpTslIvySl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-LVN",
+    "websiteSku": "GBGrce55AnSpTslLvn",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-lavender-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Lavender vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enh",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-MSLV",
+    "websiteSku": "GBGrce55AnSpTslMtSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-silver-vintage-style-sprayer-with-tassel-matte-silver-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Silver vintage style bulb sprayer with tassel with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhan",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-PNK",
+    "websiteSku": "GBGrce55AnSpTslPnk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-pink-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Pink vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance t",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-RED",
+    "websiteSku": "GBGrce55AnSpTslRed",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-red-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with Red vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-AST-WHT",
+    "websiteSku": "GBGrce55AnSpTslWht",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-white-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with White vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "135 \u00b12 mm",
+        "scraped": "135 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.3",
+        "scraped": "6.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-ASP-WHT",
+    "websiteSku": "GBGrce55AnSpWht",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-white-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with white vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": null,
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "141 \u00b12 mm",
+        "scraped": "141 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.55",
+        "scraped": "5.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.27",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-BKLT",
+    "websiteSku": "GBGrce55RdcrBlkLthr",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-black-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and black faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "127 \u00b12 mm",
+        "scraped": "127 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.95",
+        "scraped": "1.95"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.85",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-BRLT",
+    "websiteSku": "GBGrce55RdcrBrwnLthr",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "127 \u00b12 mm",
+        "scraped": "127 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.95",
+        "scraped": "1.95"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.85",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-IVLT",
+    "websiteSku": "GBGrce55RdcrIvyLthr",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-ivory-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and ivory faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "127 \u00b12 mm",
+        "scraped": "127 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.95",
+        "scraped": "1.95"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.85",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-LBLT",
+    "websiteSku": "GBGrce55RdcrLBrwnLthr",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-light-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and light brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "127 \u00b12 mm",
+        "scraped": "127 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.95",
+        "scraped": "1.95"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.85",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-MSLV-01",
+    "websiteSku": "GBGrce55RdcrMtSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "117 \u00b12 mm",
+        "scraped": "117 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-MSLV-T",
+    "websiteSku": "GBGrce55RdcrMtSlTall",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-tall-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and tall silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "124 \u00b12 mm",
+        "scraped": "124 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-PKLT",
+    "websiteSku": "GBGrce55RdcrPnkLthr",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-pink-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and pink faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "127 \u00b12 mm",
+        "scraped": "127 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.95",
+        "scraped": "1.95"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.85",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-SBLK-01",
+    "websiteSku": "GBGrce55RdcrShnBlk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "117 \u00b12 mm",
+        "scraped": "117 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-SBLK-T",
+    "websiteSku": "GBGrce55RdcrShnBlkTall",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-tall-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and tall black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "124 \u00b12 mm",
+        "scraped": "124 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-SGLD",
+    "websiteSku": "GBGrce55RdcrShnGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and shiny gold cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "117 \u00b12 mm",
+        "scraped": "117 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-SSLV",
+    "websiteSku": "GBGrce55RdcrShnSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and shiny silver cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "117 \u00b12 mm",
+        "scraped": "117 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-RDC-WHT",
+    "websiteSku": "GBGrce55RdcrWht",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-reducer-white-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with reducer and white cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "124 \u00b12 mm",
+        "scraped": "124 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.67",
+        "scraped": "1.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-SPR-CPR",
+    "websiteSku": "GBGrce55SpryCu",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-copper-spray-and-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with matte copper spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-SPR-MGLD",
+    "websiteSku": "GBGrce55SpryMtGl",
+    "family": "Grace",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-SPR-MSLV",
+    "websiteSku": "GBGrce55SpryMtSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-silver-spray-pump-and-capsilver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with matte silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-SPR-SBLK",
+    "websiteSku": "GBGrce55SpryShnBlk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-shiny-black-spray-pump-and-capblack-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with shiny black spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-SPR-SGLD",
+    "websiteSku": "GBGrce55SpryShnGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-shiny-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with shiny gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-GRC-CLR-55ML-SPR-SSLV",
+    "websiteSku": "GBGrce55SpryShnSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-shiny-silver-spray-and-capshiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with shiny silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A unique design to enhance your product. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-COCP",
+    "websiteSku": "LBGrce55LtnClOvrCap",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-clear-over-the-cap-lotion-pump-matte-silver-collar-cap",
+    "status": "mismatch",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with with a matte silver collar treatment pump and clear overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique des",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "140 \u00b12 mm",
+        "scraped": "140 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "mismatch",
+        "convex": "18-415",
+        "scraped": "18-415 Product Packaging Ideas 55ml Grace Glass Bottle - Sparkling Clean 55ml Grace Glass Bottle - Sparkling Clean 55ml Grace Glass Bottle - Sparkling Clean"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-CPR",
+    "websiteSku": "LBGrce55LtnCu",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-copper-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with matte copper lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique design to enhance your product. Price",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-MGLD",
+    "websiteSku": "LBGrce55LtnMtGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with matte gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique design to enhance your product. Price ea",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-MSLV",
+    "websiteSku": "LBGrce55LtnMtSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-matte-silver-lotion-pump-and-capsilver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with matte silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique design to enhance your product. Price",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-SBLK",
+    "websiteSku": "LBGrce55LtnShnBlk",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-shiny-black-lotion-pump-and-capblack-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with shiny black lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique design to enhance your product. Price e",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-SGLD",
+    "websiteSku": "LBGrce55LtnShnGl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-shiny-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with shiny gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique design to enhance your product. Price ea",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-GRC-CLR-55ML-LPM-SSLV",
+    "websiteSku": "LBGrce55LtnShnSl",
+    "family": "Grace",
+    "url": "https://www.bestbottles.com/product/grace-design-55-ml-glass-bottle-shiny-silver-lotion-pump-and-capshiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Grace design 55 ml, 1.85oz clear glass bottle with shiny silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A unique design to enhance your product. Price",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "55 ml (1.86 oz)",
+        "scraped": "55 ml (1.86 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "55",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.7",
+        "scraped": "2.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "52 \u00b11 mm Item Depth : 30 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  }
+]

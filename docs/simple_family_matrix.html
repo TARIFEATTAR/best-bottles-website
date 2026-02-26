@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Bottles - Simple Family Fitment Matrix</title>
+    <!-- Include Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; color: #1a1a1a; text-align: center; }
+        .subtitle { font-size: 1.1rem; color: #666; margin-bottom: 50px; text-align: center; max-width: 800px; }
+        .family-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 900px;
+        }
+        .family-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .mermaid { display: flex; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <h1>Bottle Family Fitment Mapping</h1>
+    <div class="subtitle">A simplified view showing exactly which components fit onto each bottle family.</div>
+
+<div class="family-card">
+<div class="family-title">Aluminum Bottle Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Aluminum Bottle Bottles</b><br/>6 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Component</b><br/>1 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Apothecary Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Apothecary Bottles</b><br/>4 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Boston Round Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Boston Round Bottles</b><br/>122 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>6 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Circle Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Circle Bottles</b><br/>214 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Cream Jar Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Cream Jar Bottles</b><br/>18 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Cylinder Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Cylinder Bottles</b><br/>440 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>25 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Decorative Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Decorative Bottles</b><br/>10 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Standard Caps</b><br/>13 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_2["<b>Component</b><br/>20 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Diamond Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Diamond Bottles</b><br/>43 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Diva Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Diva Bottles</b><br/>173 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Elegant Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Elegant Bottles</b><br/>249 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Empire Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Empire Bottles</b><br/>91 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Eternal Flame Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Eternal Flame Bottles</b><br/>3 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Flair Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Flair Bottles</b><br/>27 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Genie Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Genie Bottles</b><br/>2 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Gift Bag Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Gift Bag Bottles</b><br/>21 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Gift Box Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Gift Box Bottles</b><br/>14 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Grace Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Grace Bottles</b><br/>43 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Green Glass Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Green Glass Bottles</b><br/>1 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Lotion Bottle Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Lotion Bottle Bottles</b><br/>4 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Lotion Pump Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Lotion Pump Bottles</b><br/>10 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>29 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>31 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Packaging Supply Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Packaging Supply Bottles</b><br/>12 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Plastic Bottle Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Plastic Bottle Bottles</b><br/>1 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Pump Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Pump Bottles</b><br/>27 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>29 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>31 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Rectangle Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Rectangle Bottles</b><br/>63 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Round Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Round Bottles</b><br/>174 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Royal Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Royal Bottles</b><br/>27 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Sleek Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Sleek Bottles</b><br/>181 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Slim Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Slim Bottles</b><br/>124 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Spray Bottle Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Spray Bottle Bottles</b><br/>5 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Sprayer</b><br/>23 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e0f7fa,stroke:#00838f,stroke-width:1px
+  COMP_2["<b>Standard Caps</b><br/>12 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>3 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+  COMP_4["<b>Component</b><br/>28 options"]
+  BOT === COMP_4
+  style COMP_4 fill:#ffebee,stroke:#c62828,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Square Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Square Bottles</b><br/>26 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Roll-On Cap</b><br/>11 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Teardrop Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Teardrop Bottles</b><br/>3 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Tool Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Tool Bottles</b><br/>2 SKUs"]
+  NO["No specific components mapped yet"]
+  BOT -.- NO
+  style BOT fill:#f8f9fa,stroke:#ccc,stroke-width:2px
+  style NO fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+</div>
+</div>
+
+<div class="family-card">
+<div class="family-title">Vial Family</div>
+<div class="mermaid">
+graph LR
+  BOT["<b>Vial Bottles</b><br/>32 SKUs"]
+  style BOT fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+  COMP_1["<b>Standard Caps</b><br/>20 options"]
+  BOT === COMP_1
+  style COMP_1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px
+  COMP_2["<b>Component</b><br/>25 options"]
+  BOT === COMP_2
+  style COMP_2 fill:#ffebee,stroke:#c62828,stroke-width:1px
+  COMP_3["<b>Dropper</b><br/>6 options"]
+  BOT === COMP_3
+  style COMP_3 fill:#fff8e1,stroke:#f57f17,stroke-width:1px
+</div>
+</div>
+</body></html>

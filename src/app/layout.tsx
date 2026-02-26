@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
+import ConvexClientProvider from "@/components/ConvexClientProvider";
+import GraceProvider from "@/components/GraceProvider";
+import GraceChatModal, { GraceFloatingTrigger } from "@/components/GraceChatModal";
 
 const bodoniModa = Bodoni_Moda({
   variable: "--font-bodoni",
@@ -28,7 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bodoniModa.variable} ${jost.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
-        {children}
+        <ConvexClientProvider>
+          <GraceProvider>
+            {children}
+            <GraceChatModal />
+            <GraceFloatingTrigger />
+          </GraceProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,1234 @@
+[
+  {
+    "graceSku": "CMP-ROC-BLK-13415-DOT",
+    "websiteSku": "CPRoll13-415BlackDot",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Black-dot-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Shiny black cap with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.37",
+        "scraped": "0.37"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SBLK-13415",
+    "websiteSku": "CPRoll13-415BlkSh",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-shiny-Black-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Shiny Black cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MCPR-13415",
+    "websiteSku": "CPRoll13-415Cu",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-copper-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Matte Copper cap or closure for rollon bottles,. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MGLD-13415",
+    "websiteSku": "CPRoll13-415GlMt",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-matte-gold-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Matte Gold cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SGLD-13415",
+    "websiteSku": "CPRoll13-415GlSh",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-shiny-gold-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Shiny Gold cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-PNK-13415-DOT",
+    "websiteSku": "CPRoll13-415PinkDot",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-pink-dot-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Pink with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.37",
+        "scraped": "0.37"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SLV-13415-DOT",
+    "websiteSku": "CPRoll13-415SlDot",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Black-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Silver with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.37",
+        "scraped": "0.37"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MSLV-13415",
+    "websiteSku": "CPRoll13-415SlMt",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-mattr-silver-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Matte silver cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SSLV-13415",
+    "websiteSku": "CPRoll13-415SlSh",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-shiny-silver-Color-13-415",
+    "status": "ok",
+    "scraped_description": "Shiny Silver cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 13-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "24 \u00b10.5 mm",
+        "scraped": "24 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "17 \u00b10.5 mm",
+        "scraped": "17 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MBLK-20400-T",
+    "websiteSku": "CPRoll20-400TallMattBlk",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-matte-black-Color-20-400",
+    "status": "ok",
+    "scraped_description": "Tall Matte Black cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 20-400",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": "35 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "20-400",
+        "scraped": "20-400"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.45",
+        "scraped": "0.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.43",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MGLD-20400-T",
+    "websiteSku": "CPRoll20-400TallMattGl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-matte-gold-Color-20-400",
+    "status": "ok",
+    "scraped_description": "Tall Matte Gold cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 20-400",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": "35 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "20-400",
+        "scraped": "20-400"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.45",
+        "scraped": "0.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.43",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MSLV-20400-T",
+    "websiteSku": "CPRoll20-400TallMattSl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-matte-silver-Color-20-400",
+    "status": "ok",
+    "scraped_description": "Tall Matte Silver cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 20-400",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": "35 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "20-400",
+        "scraped": "20-400"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.45",
+        "scraped": "0.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.43",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SBLK-20400-T",
+    "websiteSku": "CPRoll20-400TallShnBlk",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-shiny-black-Color-20-400",
+    "status": "ok",
+    "scraped_description": "Tall Shiny Black cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 20-400",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": "35 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "20-400",
+        "scraped": "20-400"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.45",
+        "scraped": "0.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.43",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SGLD-20400-T",
+    "websiteSku": "CPRoll20-400TallShnGl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-shiny-gold-Color-20-400",
+    "status": "ok",
+    "scraped_description": "Tall Shiny Gold cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 20-400",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": "35 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "20-400",
+        "scraped": "20-400"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.45",
+        "scraped": "0.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.43",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SSLV-20400-T",
+    "websiteSku": "CPRoll20-400TallShnSl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-shiny-silver-Color-20-400",
+    "status": "ok",
+    "scraped_description": "Tall Shiny SIlver cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 20-400",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": "35 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "20-400",
+        "scraped": "20-400"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.45",
+        "scraped": "0.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.43",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-BLK-17415-DOT",
+    "websiteSku": "CpRoll17-415BlkDot",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ROC-CPR-17415",
+    "websiteSku": "CpRoll17-415Cu",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Matte-Copper-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Copper or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MGLD-17415",
+    "websiteSku": "CpRoll17-415MattGl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Matte-Gold-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Matte gold cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MSLV-17415",
+    "websiteSku": "CpRoll17-415MattSl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Matte-Silver-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Matte silver cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-PNK-17415-DOT",
+    "websiteSku": "CpRoll17-415PnkDot",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Pink-Dot-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Pink with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.38",
+        "scraped": "0.38"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.36",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SBLK-17415",
+    "websiteSku": "CpRoll17-415ShnBlk",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Shiny-Black-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Shiny black or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SGLD-17415",
+    "websiteSku": "CpRoll17-415ShnGl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Shiny-Gold-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Shiny gold cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SSLV-17415",
+    "websiteSku": "CpRoll17-415ShnSl",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Shiny-Silver-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Shiny silver cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.3",
+        "scraped": "0.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.29",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-SLV-17415-DOT",
+    "websiteSku": "CpRoll17-415SlDot",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Silver-Dot-Color-17-415",
+    "status": "ok",
+    "scraped_description": "Silver with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.38",
+        "scraped": "0.38"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.36",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-WHT-17415",
+    "websiteSku": "CpRoll17-415White",
+    "family": "Roll-On Cap",
+    "url": "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-White-Color-17-415",
+    "status": "ok",
+    "scraped_description": "White cap or closure for rollon bottles, White phenolic or hard plastic cap with special feature for pressing on roll on plug. Threadsize 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "27 \u00b10.5 mm",
+        "scraped": "27 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.22",
+        "scraped": "0.22"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.21",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-ROC-MTGD-13-415",
+    "websiteSku": "CP13-415MtGlRoll",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ROC-BLK-17-415-02",
+    "websiteSku": "CP17-415BlkPP",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ROC-CPGD-17-415",
+    "websiteSku": "CPRoll10mlGl",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ROC-BKCP-13-415",
+    "websiteSku": "CPRoll5mlBlk",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ROC-SHBKCP-17-415",
+    "websiteSku": "CPRoll9mlBlkw/dots",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ROC-SHCPPK-17-415",
+    "websiteSku": "CPRoll9mlPnkdots",
+    "family": "Roll-On Cap",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  }
+]

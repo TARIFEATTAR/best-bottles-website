@@ -1,0 +1,558 @@
+{
+  "GBCyl9": {
+    "bottleName": "Cyl Clear",
+    "bottleCode": "GBCyl9",
+    "sheetName": "17-415_Roller",
+    "compatibleTypes": [
+      "Lotion Pump",
+      "Roll-On Cap",
+      "Sprayer"
+    ]
+  },
+  "GBCyl9Frst": {
+    "bottleName": "Cyl Frosted",
+    "bottleCode": "GBCyl9Frst",
+    "sheetName": "17-415_Roller",
+    "compatibleTypes": [
+      "Lotion Pump",
+      "Roll-On Cap",
+      "Sprayer"
+    ]
+  },
+  "GBCyl9Sw": {
+    "bottleName": "Swirl Clear",
+    "bottleCode": "GBCyl9Sw",
+    "sheetName": "17-415_Roller",
+    "compatibleTypes": [
+      "Lotion Pump",
+      "Roll-On Cap",
+      "Sprayer"
+    ]
+  },
+  "GBCyl9SwFrst": {
+    "bottleName": "Swirl Frst",
+    "bottleCode": "GBCyl9SwFrst",
+    "sheetName": "17-415_Roller",
+    "compatibleTypes": [
+      "Lotion Pump",
+      "Roll-On Cap",
+      "Sprayer"
+    ]
+  },
+  "GBCylBlu9": {
+    "bottleName": "Blue",
+    "bottleCode": "GBCylBlu9",
+    "sheetName": "17-415_Roller",
+    "compatibleTypes": [
+      "Lotion Pump",
+      "Roll-On Cap",
+      "Sprayer"
+    ]
+  },
+  "GBCylAmb9": {
+    "bottleName": "Amber",
+    "bottleCode": "GBCylAmb9",
+    "sheetName": "17-415_Roller",
+    "compatibleTypes": [
+      "Lotion Pump",
+      "Roll-On Cap",
+      "Sprayer"
+    ]
+  },
+  "x": {
+    "bottleName": "Cyl Clear 50",
+    "bottleCode": "x",
+    "sheetName": "Large_Cyl_Rollons",
+    "compatibleTypes": [
+      "Roll-On Cap"
+    ]
+  },
+  "Elegant 1oz": {
+    "bottleName": "Elegant 1oz",
+    "bottleCode": "",
+    "sheetName": "15-415",
+    "compatibleTypes": [
+      "Short Cap",
+      "Sprayer"
+    ]
+  },
+  "Elegant 1oz Frosted": {
+    "bottleName": "Elegant 1oz Frosted",
+    "bottleCode": "",
+    "sheetName": "15-415",
+    "compatibleTypes": [
+      "Short Cap",
+      "Sprayer"
+    ]
+  },
+  "Circle 1oz": {
+    "bottleName": "Circle 1oz",
+    "bottleCode": "",
+    "sheetName": "15-415",
+    "compatibleTypes": [
+      "Short Cap",
+      "Sprayer"
+    ]
+  },
+  "Circle 1oz Frosted": {
+    "bottleName": "Circle 1oz Frosted",
+    "bottleCode": "",
+    "sheetName": "15-415",
+    "compatibleTypes": [
+      "Short Cap",
+      "Sprayer"
+    ]
+  },
+  "Cyl Clear 5ml": {
+    "bottleName": "Cyl Clear 5ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Cyl Blue 5ml": {
+    "bottleName": "Cyl Blue 5ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Tulip clr 6ml": {
+    "bottleName": "Tulip clr 6ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Tulip Amb 5ml": {
+    "bottleName": "Tulip Amb 5ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Sleek 5ml": {
+    "bottleName": "Sleek 5ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Sleek 8ml": {
+    "bottleName": "Sleek 8ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Queen 10ml": {
+    "bottleName": "Queen 10ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Bell 12ml": {
+    "bottleName": "Bell 12ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Royal 13ml": {
+    "bottleName": "Royal 13ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Rectangle 15ml": {
+    "bottleName": "Rectangle 15ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Flair 15ml": {
+    "bottleName": "Flair 15ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Squar 15ml": {
+    "bottleName": "Squar 15ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Elegant 15ml": {
+    "bottleName": "Elegant 15ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Frosted Elegant 15ml": {
+    "bottleName": "Frosted Elegant 15ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Tall cyl 9ml": {
+    "bottleName": "Tall cyl 9ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Tall Rect 9ml": {
+    "bottleName": "Tall Rect 9ml",
+    "bottleCode": "",
+    "sheetName": "13-415",
+    "compatibleTypes": [
+      "Reducer",
+      "Roll-On Cap",
+      "Short Cap",
+      "Sprayer",
+      "Tall Cap"
+    ]
+  },
+  "Slim 30ml": {
+    "bottleName": "Slim 30ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Sleek 30ml": {
+    "bottleName": "Sleek 30ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Cylinder 30ml": {
+    "bottleName": "Cylinder 30ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Diva 30ml": {
+    "bottleName": "Diva 30ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Diva 46ml": {
+    "bottleName": "Diva 46ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Diva 46 Frosted": {
+    "bottleName": "Diva 46 Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Empire 50ml": {
+    "bottleName": "Empire 50ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Circle 50ml": {
+    "bottleName": "Circle 50ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Circle 50ml Frosted": {
+    "bottleName": "Circle 50ml Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Slim 50ml": {
+    "bottleName": "Slim 50ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Sleek 50ml": {
+    "bottleName": "Sleek 50ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Cylinder 50ml": {
+    "bottleName": "Cylinder 50ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Elegant 2oz": {
+    "bottleName": "Elegant 2oz",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Elegant 2oz Frosted": {
+    "bottleName": "Elegant 2oz Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Diamond 2oz": {
+    "bottleName": "Diamond 2oz",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Round 78ml": {
+    "bottleName": "Round 78ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Round 78ml Frosted": {
+    "bottleName": "Round 78ml Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Empire 100ml": {
+    "bottleName": "Empire 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Elegant 100ml": {
+    "bottleName": "Elegant 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Elegant 100m Frosted": {
+    "bottleName": "Elegant 100m Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Diva 100ml": {
+    "bottleName": "Diva 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Circle 100ml": {
+    "bottleName": "Circle 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Circle 100ml Frosted": {
+    "bottleName": "Circle 100ml Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Slim 100ml": {
+    "bottleName": "Slim 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Sleek 100ml": {
+    "bottleName": "Sleek 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Cylinder 100ml": {
+    "bottleName": "Cylinder 100ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Round 128ml": {
+    "bottleName": "Round 128ml",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "Round 128ml Frosted": {
+    "bottleName": "Round 128ml Frosted",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  },
+  "\u00bd oz Clear": {
+    "bottleName": "\u00bd oz Clear",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Short Cap"
+    ]
+  },
+  "1oz Clear": {
+    "bottleName": "1oz Clear",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Roll-On Cap",
+      "Short Cap"
+    ]
+  },
+  "2oz Clear": {
+    "bottleName": "2oz Clear",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Roll-On Cap",
+      "Short Cap"
+    ]
+  },
+  "\u00bd oz Blue": {
+    "bottleName": "\u00bd oz Blue",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Short Cap"
+    ]
+  },
+  "1oz Blue": {
+    "bottleName": "1oz Blue",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Roll-On Cap",
+      "Short Cap"
+    ]
+  },
+  "2oz Blue": {
+    "bottleName": "2oz Blue",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Roll-On Cap",
+      "Short Cap"
+    ]
+  },
+  "\u00bd oz Amber": {
+    "bottleName": "\u00bd oz Amber",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Short Cap"
+    ]
+  },
+  "1oz Amber": {
+    "bottleName": "1oz Amber",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Roll-On Cap",
+      "Short Cap"
+    ]
+  },
+  "2oz Amber": {
+    "bottleName": "2oz Amber",
+    "bottleCode": "",
+    "sheetName": "Boston_Rnd",
+    "compatibleTypes": [
+      "Dropper",
+      "Roll-On Cap",
+      "Short Cap"
+    ]
+  },
+  "Grace 55": {
+    "bottleName": "Grace 55",
+    "bottleCode": "",
+    "sheetName": "Vials",
+    "compatibleTypes": []
+  }
+}

@@ -1,0 +1,2145 @@
+[
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-BLK",
+    "websiteSku": "GBDmnd2ozAnSpBlk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-black-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with black vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beau",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-GLD",
+    "websiteSku": "GBDmnd2ozAnSpGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-gold-vintage-style-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with gold vintage style sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty of yo",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-IVGD",
+    "websiteSku": "GBDmnd2ozAnSpIvyGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with ivory vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-IVSL",
+    "websiteSku": "GBDmnd2ozAnSpIvySl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with ivory vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beau",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-LVN",
+    "websiteSku": "GBDmnd2ozAnSpLvn",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-lavender-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with lavender vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the b",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-MSLV",
+    "websiteSku": "GBDmnd2ozAnSpMtSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-silver-vintage-style-sprayer-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte silver vintage style sprayer with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the be",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-PNK",
+    "websiteSku": "GBDmnd2ozAnSpPnk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-pink-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with pink vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-RED",
+    "websiteSku": "GBDmnd2ozAnSpRed",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-red-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with red vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-BLK",
+    "websiteSku": "GBDmnd2ozAnSpTslBlk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-black-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Black vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enha",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-GLD",
+    "websiteSku": "GBDmnd2ozAnSpTslGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-gold-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Gold vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-IVGD",
+    "websiteSku": "GBDmnd2ozAnSpTslIvyGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-IVSL",
+    "websiteSku": "GBDmnd2ozAnSpTslIvySl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enha",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-LVN",
+    "websiteSku": "GBDmnd2ozAnSpTslLvn",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-lavender-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Lavender vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers e",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-MSLV",
+    "websiteSku": "GBDmnd2ozAnSpTslMtSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-silver-vintage-style-sprayer-with-tassel-matte-silver-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Silver vintage style bulb sprayer with tassel with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enh",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-PNK",
+    "websiteSku": "GBDmnd2ozAnSpTslPnk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-pink-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Pink vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-RED",
+    "websiteSku": "GBDmnd2ozAnSpTslRed",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-red-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with Red vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-AST-WHT",
+    "websiteSku": "GBDmnd2ozAnSpTslWht",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-white-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with White vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enha",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.5",
+        "scraped": "6.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.18",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-ASP-WHT",
+    "websiteSku": "GBDmnd2ozAnSpWht",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-white-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with white vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beau",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.75",
+        "scraped": "5.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.46",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-BKLT",
+    "websiteSku": "GBDmnd2ozRdcrBlkLthr",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-black-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and black faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.15",
+        "scraped": "2.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-BRLT",
+    "websiteSku": "GBDmnd2ozRdcrBrwnLthr",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.15",
+        "scraped": "2.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-IVLT",
+    "websiteSku": "GBDmnd2ozRdcrIvyLthr",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-ivory-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and ivory faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.15",
+        "scraped": "2.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-LBLT",
+    "websiteSku": "GBDmnd2ozRdcrLBrwnLthr",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-light-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and light brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.15",
+        "scraped": "2.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-MSLV-01",
+    "websiteSku": "GBDmnd2ozRdcrMtSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "92 \u00b11 mm",
+        "scraped": "92 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-MSLV-T",
+    "websiteSku": "GBDmnd2ozRdcrMtSlTall",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-tall-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and tall silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "100 \u00b11 mm",
+        "scraped": "100 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-PKLT",
+    "websiteSku": "GBDmnd2ozRdcrPnkLthr",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-pink-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and pink faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.15",
+        "scraped": "2.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-SBLK-01",
+    "websiteSku": "GBDmnd2ozRdcrShnBlk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "92 \u00b11 mm",
+        "scraped": "92 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-SBLK-T",
+    "websiteSku": "GBDmnd2ozRdcrShnBlkTall",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-tall-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and tall black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "100 \u00b11 mm",
+        "scraped": "100 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-SGLD",
+    "websiteSku": "GBDmnd2ozRdcrShnGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and shiny gold cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "92 \u00b11 mm",
+        "scraped": "92 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-SSLV",
+    "websiteSku": "GBDmnd2ozRdcrShnSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and shiny silver cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "92 \u00b11 mm",
+        "scraped": "92 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-RDC-WHT",
+    "websiteSku": "GBDmnd2ozRdcrWht",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-reducer-white-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with reducer and white cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "100 \u00b11 mm",
+        "scraped": "100 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.87",
+        "scraped": "1.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.78",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-SPR-CPR",
+    "websiteSku": "GBDmnd2ozSpryCu",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-copper-spray-and-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte copper spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-SPR-MGLD",
+    "websiteSku": "GBDmnd2ozSpryMtGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-SPR-MSLV",
+    "websiteSku": "GBDmnd2ozSpryMtSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-silver-spray-pump-and-capsilver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-SPR-SBLK",
+    "websiteSku": "GBDmnd2ozSpryShnBlk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-shiny-black-spray-pump-and-capblack-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with shiny black spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-SPR-SGLD",
+    "websiteSku": "GBDmnd2ozSpryShnGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-shiny-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with shiny gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-DMD-CLR-60ML-SPR-SSLV",
+    "websiteSku": "GBDmnd2ozSpryShnSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-shiny-silver-spray-and-capshiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with shiny silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "41 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-COCP",
+    "websiteSku": "LBDmnd2ozLtnClOvrCap",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-clear-over-the-cap-lotion-pump-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with with a matte silver collar treatment pump and clear overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic,",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-CPR",
+    "websiteSku": "LBDmnd2ozLtnCu",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-copper-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte copper lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-MGLD",
+    "websiteSku": "LBDmnd2ozLtnMtGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-MSLV",
+    "websiteSku": "LBDmnd2ozLtnMtSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-matte-silver-lotion-pump-and-capsilver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with matte silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-SBLK",
+    "websiteSku": "LBDmnd2ozLtnShnBlk",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-shiny-black-lotion-pump-and-capblack-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with shiny black lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-SGLD",
+    "websiteSku": "LBDmnd2ozLtnShnGl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-shiny-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with shiny gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-DMD-CLR-60ML-LPM-SSLV",
+    "websiteSku": "LBDmnd2ozLtnShnSl",
+    "family": "Diamond",
+    "url": "https://www.bestbottles.com/product/diamond-design-2-oz-glass-bottle-shiny-silver-lotion-pump-and-capshiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Diamond design 60ml, 2 ounce clear glass bottle with shiny silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. A classic, multi-faceted bottle. Price each",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "60 ml (2.03 oz)",
+        "scraped": "60 ml (2.03 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "39",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.9",
+        "scraped": "2.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Lotion Bottles"
+    }
+  }
+]

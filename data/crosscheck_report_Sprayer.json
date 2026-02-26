@@ -1,0 +1,1731 @@
+[
+  {
+    "graceSku": "CMP-SPR-BLK-18-415-01",
+    "websiteSku": "AnSp18-415Blk",
+    "family": "Sprayer",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-ASP-SGLD-18-415",
+    "websiteSku": "AnSp18-415Gl",
+    "family": "Sprayer",
+    "url": null,
+    "status": "no_url",
+    "fields": {}
+  },
+  {
+    "graceSku": "CMP-SPR-IVGD-18-415-01",
+    "websiteSku": "AnSp18-415IvyGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-ivory-gold",
+    "status": "ok",
+    "scraped_description": "Ivory Gold Antique or Vintage style bulb sprayer with Gold fittings. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "38 \u00b10.5 mm",
+        "scraped": "38 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "65 \u00b11 mm",
+        "scraped": "65 \u00b11 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "4.25",
+        "scraped": "4.25"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-IVSL-18-415-01",
+    "websiteSku": "AnSp18-415IvySl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-ivory-silver",
+    "status": "ok",
+    "scraped_description": "Ivory silver Antique or Vintage style bulb sprayer with silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "38 \u00b10.5 mm",
+        "scraped": "38 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "65 \u00b11 mm",
+        "scraped": "65 \u00b11 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "4.25",
+        "scraped": "4.25"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-LVN-18-415-01",
+    "websiteSku": "AnSp18-415Lvn",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-lavender",
+    "status": "ok",
+    "scraped_description": "Lavender Antique or Vintage style bulb sprayer with silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "38 \u00b10.5 mm",
+        "scraped": "38 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "65 \u00b11 mm",
+        "scraped": "65 \u00b11 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "4.25",
+        "scraped": "4.25"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-MSLV-18-415-01",
+    "websiteSku": "AnSp18-415MtSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-matte-silver",
+    "status": "ok",
+    "scraped_description": "Matte silver Antique or Vintage style bulb sprayer with silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "38 \u00b10.5 mm",
+        "scraped": "38 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "65 \u00b11 mm",
+        "scraped": "65 \u00b11 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "4.25",
+        "scraped": "4.25"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-RED-18-415-01",
+    "websiteSku": "AnSp18-415Red",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-red",
+    "status": "ok",
+    "scraped_description": "Red Antique or Vintage style bulb sprayer with silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "38 \u00b10.5 mm",
+        "scraped": "38 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "65 \u00b11 mm",
+        "scraped": "65 \u00b11 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "4.25",
+        "scraped": "4.25"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-WHT-18-415-01",
+    "websiteSku": "AnSp18-415Wht",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-white",
+    "status": "ok",
+    "scraped_description": "White Antique or Vintage style bulb sprayer with silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": null,
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "38 \u00b10.5 mm",
+        "scraped": "38 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "65 \u00b11 mm",
+        "scraped": "65 \u00b11 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "4.25",
+        "scraped": "4.25"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {}
+  },
+  {
+    "graceSku": "CMP-SPR-BLK-18-415-02",
+    "websiteSku": "AnSpTsl18-415Blk",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-Black-Tassel",
+    "status": "ok",
+    "scraped_description": "Black Antique or Vintage style bulb sprayer with tassel and silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-IVGD-18-415-02",
+    "websiteSku": "AnSpTsl18-415IvyGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-ivory-gold-Tassel",
+    "status": "ok",
+    "scraped_description": "Ivory Gold Antique or Vintage style bulb sprayer with Gold fittings and tassel. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-IVSL-18-415-02",
+    "websiteSku": "AnSpTsl18-415IvySl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-ivory-silver-Tassel",
+    "status": "ok",
+    "scraped_description": "Ivory Silver Antique or Vintage style bulb sprayer with tassel and silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-LVN-18-415-02",
+    "websiteSku": "AnSpTsl18-415Lvn",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-lavender-Tassel",
+    "status": "ok",
+    "scraped_description": "Lavender Antique or Vintage style bulb sprayer with tassel and silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-MSLV-18-415-02",
+    "websiteSku": "AnSpTsl18-415MtS",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-matte-silver-Tassel",
+    "status": "ok",
+    "scraped_description": "Matte Silver Antique or Vintage style bulb sprayer with tassel and silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-PNK-18-415",
+    "websiteSku": "AnSpTsl18-415Pnk",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-pink-Tassel",
+    "status": "ok",
+    "scraped_description": "Pink, Antique or Vintage style bulb sprayer with Gold fittings and tassel. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-RED-18-415-02",
+    "websiteSku": "AnSpTsl18-415Red",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-red-Tassel",
+    "status": "ok",
+    "scraped_description": "Red, Antique or Vintage style bulb sprayer with Silver fittings and tassel. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-WHT-18-415-02",
+    "websiteSku": "AnSpTsl18-415Wht",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-white-Tassel",
+    "status": "ok",
+    "scraped_description": "White Antique or Vintage style bulb sprayer with tassel and silver fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-GLD-18415-TSL",
+    "websiteSku": "CP18-415AnSpTslGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-gold-Tassel",
+    "status": "ok",
+    "scraped_description": "CP18-415AnSpTslGl Gold Antique or Vintage style bulb sprayer with tassel and Gold fittings. Ships along with a travel cap, Filled bottle with sprayer can leak during shipping, use travel cap to prevent leaks. Thread Size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "36 \u00b10.5 mm",
+        "scraped": "36 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "21 \u00b10.5 mm",
+        "scraped": "21 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "5.0",
+        "scraped": "5.0"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "4.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-CLR-10ML",
+    "websiteSku": "PB10SpryNat",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Plastic-Bottle-Clear-Natural-sprayer-10ml",
+    "status": "ok",
+    "scraped_description": "Plastic Bottle with Clear Spray Top and Clear Cap. Capacity: 10ml (1/3oz)",
+    "scraped_itemType": "Plastic Bottles With Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "not_scraped",
+        "convex": "74.8",
+        "scraped": null
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23.7",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.6",
+        "scraped": "0.6"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Plastic Bottles With Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-CLR-30ML",
+    "websiteSku": "PB1ozSpryNat",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Plastic-Bottle-container-Clear-Natural-sprayer-1oz",
+    "status": "new_data",
+    "scraped_description": "Plastic Bottle with Clear Spray Top and Clear Cap. Capacity: 1oz (28ml).",
+    "scraped_itemType": "Plastic Bottles With Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "30 ml (1.01 oz)",
+        "scraped": "30 ml (1.01 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "82 \u00b11 mm",
+        "scraped": "82 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "68",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23.7",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "missing_in_convex",
+        "convex": null,
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.65",
+        "scraped": "0.65"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.62",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Plastic Bottles With Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SLV-",
+    "websiteSku": "PB1ozSprySl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/Plastic-bottle-container-clear-Silver-sprayer-1oz",
+    "status": "new_data",
+    "scraped_description": "Plastic Bottle with Silver Spray Top and Clear Cap. Capacity: 1oz (30ml).",
+    "scraped_itemType": "Plastic Bottles With Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "30 ml (1.01 oz)",
+        "scraped": "30 ml (1.01 oz)"
+      },
+      "heightWithCap": {
+        "status": "not_scraped",
+        "convex": "83.5",
+        "scraped": null
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "68",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23.7",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "missing_in_convex",
+        "convex": null,
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.65",
+        "scraped": "0.65"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.62",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Plastic Bottles With Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-BLK-15-415",
+    "websiteSku": "Spry15-415Blk",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-black-color-15-415",
+    "status": "ok",
+    "scraped_description": "Shiny Black Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 15-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": "20 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "15-415",
+        "scraped": "15-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-GLD-15-415",
+    "websiteSku": "Spry15-415MattGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-matte-gold-color-15-415",
+    "status": "ok",
+    "scraped_description": "Matte gold Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 15-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": "20 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "15-415",
+        "scraped": "15-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SLV-15-415",
+    "websiteSku": "Spry15-415MattSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-matte-silver-color-15-415",
+    "status": "ok",
+    "scraped_description": "Matte silver Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 15-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": "20 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "15-415",
+        "scraped": "15-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SGLD-15-415",
+    "websiteSku": "Spry15-415ShnGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-gold-color-15-415",
+    "status": "ok",
+    "scraped_description": "Shiny gold Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 15-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": "20 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "15-415",
+        "scraped": "15-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SSLV-15-415",
+    "websiteSku": "Spry15-415ShnSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-silver-color-15-415",
+    "status": "ok",
+    "scraped_description": "Shiny silver Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 15-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": "20 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "15-415",
+        "scraped": "15-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-BLK-17-415-01",
+    "websiteSku": "Spry17-415Blk",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-black-trim-color-17-415",
+    "status": "ok",
+    "scraped_description": "Shiny black collar sprayer. Metal shell collar over plastic sprayer, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SGLD-17-415",
+    "websiteSku": "Spry17-415Gl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-gold-color-17-415",
+    "status": "ok",
+    "scraped_description": "Shiny gold collar sprayer. Metal shell collar over plastic sprayer, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SLV-17-415",
+    "websiteSku": "Spry17-415MattSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-matte-silver-color-17-415",
+    "status": "ok",
+    "scraped_description": "Matte silver collar sprayer. Metal shell collar over plastic sprayer, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-RED-17-415",
+    "websiteSku": "Spry17-415Red",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-red-color-17-415",
+    "status": "ok",
+    "scraped_description": "Red collar sprayer. Metal shell collar over plastic sprayer, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SSLV-17-415",
+    "websiteSku": "Spry17-415ShnSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-silver-color-17-415",
+    "status": "ok",
+    "scraped_description": "Shiny silver collar sprayer. Metal shell collar over plastic sprayer, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-CLR-17-415",
+    "websiteSku": "Spry17-415Tur",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-turquoise-color-17-415",
+    "status": "ok",
+    "scraped_description": "Turquoise collar sprayer. Metal shell collar over plastic sprayer, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-CPR-18-415",
+    "websiteSku": "Spry18-415Cu",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-copper-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Copper Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-GLD-18-415",
+    "websiteSku": "Spry18-415MtGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-matte-gold-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Gold Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SLV-18-415",
+    "websiteSku": "Spry18-415MtSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-matte-silver-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Silver Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-BLK-18-415",
+    "websiteSku": "Spry18-415ShnBlk",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-black-color-18-415",
+    "status": "ok",
+    "scraped_description": "Shiny Black Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SGLD-18-415",
+    "websiteSku": "Spry18-415ShnGl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-gold-color-18-415",
+    "status": "ok",
+    "scraped_description": "Shiny Gold Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-SPR-SSLV-18-415",
+    "websiteSku": "Spry18-415ShnSl",
+    "family": "Sprayer",
+    "url": "https://www.bestbottles.com/product/spray-top-shiny-silver-color-18-415",
+    "status": "ok",
+    "scraped_description": "Shiny Silver Fine Mist Sprayer. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": "93.8",
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  }
+]

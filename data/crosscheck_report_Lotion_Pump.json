@@ -1,0 +1,492 @@
+[
+  {
+    "graceSku": "CMP-LPM-BLK-17-415",
+    "websiteSku": "Ltn17-415Blk",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-black-color-17-415",
+    "status": "ok",
+    "scraped_description": "Black collar lotion. Metal shell collar over plastic lotion, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-SGLD-17-415",
+    "websiteSku": "Ltn17-415Gl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-gold-color-17-415",
+    "status": "ok",
+    "scraped_description": "Gold collar lotion. Metal shell collar over plastic lotion, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-MSLV-17-415",
+    "websiteSku": "Ltn17-415MattSl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-matte-silver-color-17-415",
+    "status": "ok",
+    "scraped_description": "Matte silver collar lotion. Metal shell collar over plastic lotion, Thread size 17-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "31 \u00b10.5 mm",
+        "scraped": "31 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "19 \u00b10.5 mm",
+        "scraped": "19 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "17-415",
+        "scraped": "17-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.7",
+        "scraped": "0.7"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.67",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-CPR-18-415",
+    "websiteSku": "Ltn18-415Cu",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-copper-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Copper Lotion or treatment pump. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-MGLD-18-415",
+    "websiteSku": "Ltn18-415MtGl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-matte-gold-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Gold Lotion or treatment pump. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-MSLV-18-415-01",
+    "websiteSku": "Ltn18-415MtSl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-matte-silver-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Silver Lotion or treatment pump. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-MSLV-18-415-02",
+    "websiteSku": "Ltn18-415MtSlCl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-matte-silver-clear-overcap-color-18-415",
+    "status": "ok",
+    "scraped_description": "Matte Silver Lotion or treatment pump with clear overcap. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-SBLK-18-415",
+    "websiteSku": "Ltn18-415ShnBlk",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-shiny-black-color-18-415",
+    "status": "ok",
+    "scraped_description": "Shiny Black Lotion or treatment pump. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-SGLD-18-415",
+    "websiteSku": "Ltn18-415ShnGl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-shiny-gold-color-18-415",
+    "status": "ok",
+    "scraped_description": "Shiny Gold Lotion or treatment pump. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  },
+  {
+    "graceSku": "CMP-LPM-SSLV-18-415",
+    "websiteSku": "Ltn18-415ShnSl",
+    "family": "Lotion Pump",
+    "url": "https://www.bestbottles.com/product/lotion-top-shiny-silver-color-18-415",
+    "status": "ok",
+    "scraped_description": "Shiny Silver Lotion or treatment pump. Metal Shell sprayers with plastic inserts, Thread size 18-415",
+    "scraped_itemType": "Caps, Rollon Plugs and Spray Tops",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "0 ml (0 oz)",
+        "scraped": "0 ml (0 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "41 \u00b10.5 mm",
+        "scraped": "41 \u00b10.5 mm"
+      },
+      "heightWithoutCap": {
+        "status": "not_scraped",
+        "convex": null,
+        "scraped": null
+      },
+      "diameter": {
+        "status": "match",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": "23 \u00b10.5 mm"
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.4",
+        "scraped": "1.4"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "itemType": "Caps, Rollon Plugs and Spray Tops"
+    }
+  }
+]

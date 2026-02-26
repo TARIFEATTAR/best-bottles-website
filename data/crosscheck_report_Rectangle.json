@@ -1,0 +1,3152 @@
+[
+  {
+    "graceSku": "GB-RCT-CLR-10ML-BLK-S-01",
+    "websiteSku": "GBRect10BlkSht",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-short-black-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with short black cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "55 \u00b11 mm",
+        "scraped": "55 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.44",
+        "scraped": "0.44"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-GLD-T-01",
+    "websiteSku": "GBRect10Gl",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.62",
+        "scraped": "0.62"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.59",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-BKDT-01",
+    "websiteSku": "GBRect10MtlRollBlkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-black-shiny-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.87",
+        "scraped": "0.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.83",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SBLK-01",
+    "websiteSku": "GBRect10MtlRollBlkSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and black shiny cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decan",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.8",
+        "scraped": "0.8"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-MCPR-01",
+    "websiteSku": "GBRect10MtlRollCuMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-matte-copper-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and matte copper cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and deca",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.8",
+        "scraped": "0.8"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-MGLD-01",
+    "websiteSku": "GBRect10MtlRollGlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-matte-gold-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and matte gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decant",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.8",
+        "scraped": "0.8"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SGLD-01",
+    "websiteSku": "GBRect10MtlRollGlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decant",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.8",
+        "scraped": "0.8"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-PKDT",
+    "websiteSku": "GBRect10MtlRollPinkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-pink-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and pink cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and de",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.87",
+        "scraped": "0.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.83",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SLDT-01",
+    "websiteSku": "GBRect10MtlRollSlDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-silver-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and silver cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.87",
+        "scraped": "0.87"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.83",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-MSLV-01",
+    "websiteSku": "GBRect10MtlRollSlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-matte-silver-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and matte silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and deca",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.8",
+        "scraped": "0.8"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SSLV-01",
+    "websiteSku": "GBRect10MtlRollSlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-metal-roller-ball-plug-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and deca",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.8",
+        "scraped": "0.8"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.76",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-BKDT-01",
+    "websiteSku": "GBRect10RollBlkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-black-shiny-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotio",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.81",
+        "scraped": "0.81"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.77",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SBLK-01",
+    "websiteSku": "GBRect10RollBlkSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and black shiny cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and dec",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-MCPR-01",
+    "websiteSku": "GBRect10RollCuMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-matte-copper-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and matte copper cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and de",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-MGLD-01",
+    "websiteSku": "GBRect10RollGlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-matte-gold-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and matte gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and deca",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SGLD-01",
+    "websiteSku": "GBRect10RollGlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and deca",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-PKDT-01",
+    "websiteSku": "GBRect10RollPinkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-pink-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and pink cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.81",
+        "scraped": "0.81"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.77",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SLDT-01",
+    "websiteSku": "GBRect10RollSlDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-silver-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and silver cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions an",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-MSLV-01",
+    "websiteSku": "GBRect10RollSlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-matte-silver-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and matte silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and de",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SSLV-01",
+    "websiteSku": "GBRect10RollSlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-plastic-roller-ball-plug-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and de",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.74",
+        "scraped": "0.74"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.7",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SLV-T-01",
+    "websiteSku": "GBRect10Sl",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "63 \u00b11 mm",
+        "scraped": "63 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.6",
+        "scraped": "0.6"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.57",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MBLK-01",
+    "websiteSku": "GBRect10SpryBlkMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-matte-black-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with matte black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-SBLK-01",
+    "websiteSku": "GBRect10SpryBlkSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-shiny-black-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with shiny black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MBLU-01",
+    "websiteSku": "GBRect10SpryBluMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-matte-blue-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with matte blue spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MCPR-01",
+    "websiteSku": "GBRect10SpryCuMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-matte-copper-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with matte copper spray. For use with fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MGLD-01",
+    "websiteSku": "GBRect10SpryGlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-matte-gold-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with matte gold spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-SGLD-01",
+    "websiteSku": "GBRect10SpryGlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-shiny-gold-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with shiny gold spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MSLV-01",
+    "websiteSku": "GBRect10SprySlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-matte-silver-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with matte silver spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-SSLV-01",
+    "websiteSku": "GBRect10SprySlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-shiny-silver-spray",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with shiny silver spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "71 \u00b11 mm",
+        "scraped": "71 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-WHT-10ML-WHT-S-01",
+    "websiteSku": "GBRect10WhtSht",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/footed-rectangular-design-10-ml-bottle-short-white-cap",
+    "status": "ok",
+    "scraped_description": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "53 \u00b11 mm",
+        "scraped": "53 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "50 \u00b10.5 mm",
+        "scraped": "50 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.44",
+        "scraped": "0.44"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "29 \u00b10.5 mm Item Depth : 19 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-9ML-T-01",
+    "websiteSku": "GBSQSTBlue",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/Perfume-small-Bottle-Jar-Rectangular-Blue-glass-stopper",
+    "status": "new_data",
+    "scraped_description": "Blue glass rectangular shaped bottle with glass stopper. Capacity : 9ml (1/3oz)",
+    "scraped_itemType": "Glass Stopper perfume bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "9 ml (0.3 oz)",
+        "scraped": "9 ml (0.3 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "64 \u00b11 mm",
+        "scraped": "64 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "47 \u00b10.5 mm",
+        "scraped": "47 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "missing_in_convex",
+        "convex": null,
+        "scraped": "Ground glass neck with glass stopper"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.2",
+        "scraped": "3.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "24 \u00b10.5 mm",
+      "itemType": "Glass Stopper perfume bottles"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-9ML-T-02",
+    "websiteSku": "GBSQSTClear",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/Perfume-small-Bottle-Jar-Rectangular-Clear-glass-stopper",
+    "status": "new_data",
+    "scraped_description": "Clear glass rectangular shaped bottle with glass stopper. Capacity : 9ml (1/3oz)",
+    "scraped_itemType": "Glass Stopper perfume bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "9 ml (0.3 oz)",
+        "scraped": "9 ml (0.3 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "64 \u00b11 mm",
+        "scraped": "64 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "47 \u00b10.5 mm",
+        "scraped": "47 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "missing_in_convex",
+        "convex": null,
+        "scraped": "Ground glass neck with glass stopper"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.2",
+        "scraped": "3.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "24 \u00b10.5 mm",
+      "itemType": "Glass Stopper perfume bottles"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-9ML-T-03",
+    "websiteSku": "GBSQSTGREEN",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/Perfume-small-Bottle-Jar-Rectangular-Green-glass-stopper",
+    "status": "new_data",
+    "scraped_description": "Green glass rectangular shaped bottle with glass stopper. Capacity : 9ml (1/3oz)",
+    "scraped_itemType": "Glass Stopper perfume bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "9 ml (0.3 oz)",
+        "scraped": "9 ml (0.3 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "64 \u00b11 mm",
+        "scraped": "64 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "47 \u00b10.5 mm",
+        "scraped": "47 \u00b10.5 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "20 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "missing_in_convex",
+        "convex": null,
+        "scraped": "Ground glass neck with glass stopper"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.2",
+        "scraped": "3.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.04",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "24 \u00b10.5 mm",
+      "itemType": "Glass Stopper perfume bottles"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-BLK-S-02",
+    "websiteSku": "GBTallRect10BlkSht",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-short-black-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with short black cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "106 \u00b12 mm",
+        "scraped": "106 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.67",
+        "scraped": "0.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.64",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-GLD-T-02",
+    "websiteSku": "GBTallRect10Gl",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.85",
+        "scraped": "0.85"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.81",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-BKDT-02",
+    "websiteSku": "GBTallRect10MtlRollBlkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-black-shiny-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base.",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.12",
+        "scraped": "1.12"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.06",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SBLK-02",
+    "websiteSku": "GBTallRect10MtlRollBlkSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and black shiny cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price eac",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.05",
+        "scraped": "1.05"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.0",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-MCPR-02",
+    "websiteSku": "GBTallRect10MtlRollCuMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-matte-copper-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and matte copper cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price ea",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.05",
+        "scraped": "1.05"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.0",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-MGLD-02",
+    "websiteSku": "GBTallRect10MtlRollGlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-matte-gold-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and matte gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.05",
+        "scraped": "1.05"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.0",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SGLD-02",
+    "websiteSku": "GBTallRect10MtlRollGlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.05",
+        "scraped": "1.05"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.0",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL",
+    "websiteSku": "GBTallRect10MtlRollPinkDo",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-pink-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and pink cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.12",
+        "scraped": "1.12"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.06",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SLDT-02",
+    "websiteSku": "GBTallRect10MtlRollSlDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-silver-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and silver cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Pric",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.12",
+        "scraped": "1.12"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.06",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-MSLV-02",
+    "websiteSku": "GBTallRect10MtlRollSlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-matte-silver-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and matte silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price ea",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.05",
+        "scraped": "1.05"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.0",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-MRL-SSLV-02",
+    "websiteSku": "GBTallRect10MtlRollSlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-metal-roller-ball-plug-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with metal roller ball plug and shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price ea",
+    "scraped_itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.05",
+        "scraped": "1.05"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.0",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-BKDT-02",
+    "websiteSku": "GBTallRect10RollBlkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-black-shiny-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy bas",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.04",
+        "scraped": "1.04"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SBLK-02",
+    "websiteSku": "GBTallRect10RollBlkSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and black shiny cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price e",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-MCPR-02",
+    "websiteSku": "GBTallRect10RollCuMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-matte-copper-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and matte copper cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-MGLD-02",
+    "websiteSku": "GBTallRect10RollGlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-matte-gold-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and matte gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price ea",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SGLD-02",
+    "websiteSku": "GBTallRect10RollGlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price ea",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-PKDT-02",
+    "websiteSku": "GBTallRect10RollPinkDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-pink-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and pink cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Pric",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.04",
+        "scraped": "1.04"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SLDT-02",
+    "websiteSku": "GBTallRect10RollSlDot",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-silver-cap-with-dots",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and silver cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Pr",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.04",
+        "scraped": "1.04"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.99",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-MSLV-02",
+    "websiteSku": "GBTallRect10RollSlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-matte-silver-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and matte silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-ROL-SSLV-02",
+    "websiteSku": "GBTallRect10RollSlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-plastic-roller-ball-plug-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with plastic roller ball plug and shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price",
+    "scraped_itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.97",
+        "scraped": "0.97"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.92",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SLV-T-02",
+    "websiteSku": "GBTallRect10Sl",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "113 \u00b12 mm",
+        "scraped": "113 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.85",
+        "scraped": "0.85"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.81",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MBLK-02",
+    "websiteSku": "GBTallRect10SpryBlkMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-matte-black-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with matte black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-SBLK-02",
+    "websiteSku": "GBTallRect10SpryBlkSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-shiny-black-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with shiny black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MBLU-02",
+    "websiteSku": "GBTallRect10SpryBluMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-matte-blue-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with matte blue spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MCPR-02",
+    "websiteSku": "GBTallRect10SpryCuMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-matte-copper-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with matte copper spray. For use with fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MGLD-02",
+    "websiteSku": "GBTallRect10SpryGlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-matte-gold-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with matte gold spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-SGLD-02",
+    "websiteSku": "GBTallRect10SpryGlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-shiny-gold-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with shiny gold spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-MSLV-02",
+    "websiteSku": "GBTallRect10SprySlMatt",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-matte-silver-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with matte silver spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-CLR-10ML-SPR-SSLV-02",
+    "websiteSku": "GBTallRect10SprySlSh",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-shiny-silver-spray",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with shiny silver spray. Fine mist sprayer for use with perfumes and colognes. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Refillable Glass Bottles with Fine Mist Sprayers",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "1.2",
+        "scraped": "1.2"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "1.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Refillable Glass Bottles with Fine Mist Sprayers"
+    }
+  },
+  {
+    "graceSku": "GB-RCT-WHT-10ML-WHT-S-02",
+    "websiteSku": "GBTallRect10WhtSht",
+    "family": "Rectangle",
+    "url": "https://www.bestbottles.com/product/tall-rectangular-design-10-ml-glass-bottle-short-white-cap",
+    "status": "ok",
+    "scraped_description": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "10 ml (0.34 oz)",
+        "scraped": "10 ml (0.34 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "106 \u00b12 mm",
+        "scraped": "106 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "101 \u00b12 mm",
+        "scraped": "101 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "23 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "13-415",
+        "scraped": "13-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "0.67",
+        "scraped": "0.67"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "0.64",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "17 \u00b10.5 mm Item Depth : 17 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  }
+]

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Bottles - Fitment Architecture</title>
+    <!-- Include Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default',
+            securityLevel: 'loose',
+            mindmap: {
+                padding: 20
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .diagram-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+        .title {
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Best Bottles Architecture</h1>
+    <p>Product Fitment Mapping & Ecosystem Visualization</p>
+
+    <div class="title">Relationship Graph</div>
+    <div class="diagram-container">
+        <div class="mermaid">
+        graph LR
+            subgraph Bottles ["🍾 BOTTLE FAMILIES"]
+                B1["Cylinder 25ml<br/>(18-415)"]
+                B2["Circle 100ml<br/>(18-415)"]
+                B3["Roll-On 5ml<br/>(13-415)"]
+            end
+
+            subgraph Standard18415 ["🟢 18-415 STANDARD FITMENTS"]
+                F1["Caps / Closures<br/>(36 Variants)"]
+                F2["Sprayers<br/>(34 Variants)"]
+                F3["Droppers<br/>(21 Variants)"]
+            end
+
+            subgraph Rollon13415 ["🟣 13-415 ROLL-ON FITMENTS"]
+                F4["Roll-On Caps<br/>(11 Variants)"]
+            end
+
+            B1 ---|Matches| Standard18415
+            B2 ---|Matches| Standard18415
+            B3 ---|Matches| Rollon13415
+            
+            style B1 fill:#f9f9f9,stroke:#333,stroke-width:2px
+            style B2 fill:#f9f9f9,stroke:#333,stroke-width:2px
+            style B3 fill:#e6f3ff,stroke:#0066cc,stroke-width:2px
+            style Standard18415 fill:#e8f5e9,stroke:#2e7d32
+            style Rollon13415 fill:#f3e5f5,stroke:#7b1fa2
+        </div>
+    </div>
+
+    <div class="title">Ecosystem Mindmap</div>
+    <div class="diagram-container">
+        <div class="mermaid">
+        mindmap
+          root((Best Bottles<br/>Product Ecosystem))
+            Standard Neck Bottles
+              [18-415 Thread]
+                Cylinder 25ml
+                Circle 100ml
+                (Compatible Fitments 👇)
+                  Caps & Closures
+                    36 SKU Options
+                    Colors: Black, Silver, Gold...
+                  Fine Mist Sprayers
+                    34 SKU Options
+                    Styles: Standard, Antique Bulb w/ Tassels
+                  Glass Droppers
+                    21 SKU Options
+                    Bulbs: Silicon, Rubber...
+            Roll-On Bottles
+              [13-415 Thread]
+                Roll-On 5ml
+                (Compatible Fitments 👇)
+                  Roll-On Caps & Plugs
+                    11 SKU Options
+                    Styles: Matte Silver, Shiny Gold...
+        </div>
+    </div>
+
+</body>
+</html>

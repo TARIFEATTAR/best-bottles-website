@@ -2,62 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, User, ShoppingBag, ArrowRight, Shield, Award, TrendingUp, MapPin, Zap, ArrowUpRight, Star } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Shield, Award, TrendingUp, MapPin, Zap, ArrowUpRight, Star, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import CartDrawer from "@/components/CartDrawer";
-
-// -- Navbar Component --
-function Navbar({ onCartOpen }: { onCartOpen: () => void }) {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-bone/95 shadow-sm backdrop-blur-md" : "bg-bone"}`}>
-      <div className="bg-bone border-b border-champagne py-1.5 text-center px-4">
-        <p className="text-xs uppercase tracking-[0.15em] text-slate font-medium">Free shipping on orders above $199.00</p>
-      </div>
-      <div className="max-w-[1440px] mx-auto px-6 h-[72px] flex items-center justify-between">
-        <div className="flex items-center space-x-12">
-          <a href="#" className="font-serif text-2xl font-medium tracking-tight text-obsidian">
-            BEST BOTTLES
-          </a>
-          <nav className="hidden lg:flex items-center space-x-8 text-sm font-medium text-obsidian tracking-wide uppercase">
-            <a href="#" className="hover:text-muted-gold transition-colors">Shop</a>
-            <a href="#" className="hover:text-muted-gold transition-colors">Collections</a>
-            <a href="#" className="hover:text-muted-gold transition-colors">About</a>
-            <a href="#" className="hover:text-muted-gold transition-colors">Resources</a>
-          </nav>
-        </div>
-        <div className="flex items-center space-x-6">
-          <div className="hidden lg:flex items-center border border-champagne rounded-full px-4 py-1.5 bg-white/50 space-x-2">
-            <Search className="w-4 h-4 text-slate" />
-            <input type="text" placeholder="Search..." className="bg-transparent text-sm focus:outline-none w-32 placeholder-slate/70" />
-          </div>
-          <button className="hidden sm:flex items-center space-x-2 text-sm font-medium text-obsidian bg-[#FFF] border border-champagne px-3 py-1.5 rounded-full hover:border-muted-gold transition-colors shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-muted-gold animate-pulse"></span>
-            <span>Ask Grace</span>
-          </button>
-          <div className="flex items-center space-x-4">
-            <button aria-label="Account" className="hover:text-muted-gold transition-colors">
-              <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
-            </button>
-            <button aria-label="Cart" onClick={onCartOpen} className="hover:text-muted-gold transition-colors relative cursor-pointer">
-              <ShoppingBag className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
-              <span className="absolute -top-1.5 -right-1.5 bg-muted-gold text-white text-[10px] w-[16px] h-[16px] flex items-center justify-center rounded-full font-semibold">2</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
+import Navbar from "@/components/Navbar";
+import { useGrace } from "@/components/GraceProvider";
 
 // -- Animation Wrapper --
 const FadeUp = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => {
@@ -76,6 +28,7 @@ const FadeUp = ({ children, delay = 0, className = "" }: { children: React.React
 
 // -- Hero Section --
 function Hero() {
+  const { open: openGrace } = useGrace();
   return (
     <section className="relative min-h-[80vh] lg:h-[82vh] lg:min-h-[650px] pt-[104px] flex items-center bg-bone overflow-hidden">
       {/* Full viewport background image */}
@@ -102,10 +55,13 @@ function Hero() {
             </p>
           </FadeUp>
           <FadeUp delay={0.5} className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
-            <button className="w-full sm:w-auto px-8 py-4 bg-obsidian text-white uppercase text-sm font-semibold tracking-wider hover:bg-muted-gold transition-colors duration-300 shadow-md">
+            <Link href="/catalog" className="w-full sm:w-auto px-8 py-4 bg-obsidian text-white uppercase text-sm font-semibold tracking-wider hover:bg-muted-gold transition-colors duration-300 shadow-md text-center">
               Explore Collections
-            </button>
-            <button className="group flex items-center space-x-2 text-obsidian text-sm font-bold hover:text-muted-gold transition-colors duration-300">
+            </Link>
+            <button
+              onClick={openGrace}
+              className="group flex items-center space-x-2 text-obsidian text-sm font-bold hover:text-muted-gold transition-colors duration-300"
+            >
               <span className="border-b-2 border-obsidian group-hover:border-muted-gold transition-colors pb-1">Talk to Grace — Our AI Expert</span>
             </button>
           </FadeUp>
@@ -115,15 +71,21 @@ function Hero() {
   );
 }
 
-// -- Trust Bar --
+// -- Trust Bar (LIVE DATA) --
 function TrustBar() {
+  const stats = useQuery(api.products.getHomepageStats);
+
+  const productCount = stats?.totalProducts
+    ? `${(Math.floor(stats.totalProducts / 100) * 100).toLocaleString()}+`
+    : "2,300+";
+
   return (
     <section className="bg-linen border-y border-champagne/50 py-8 relative z-20">
       <div className="max-w-[1440px] mx-auto px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x-0 lg:divide-x divide-champagne/50">
           {[
             { stat: "170+ Years", label: "of Fragrance Expertise", icon: Shield },
-            { stat: "3,100+", label: "Premium Products", icon: ShoppingBag },
+            { stat: productCount, label: "Premium Products", icon: ShoppingBag },
             { stat: "Trusted by", label: "Ulta, Sephora & Whole Foods", icon: Award },
             { stat: "Made in USA", label: "No Tariff Surprises", icon: MapPin },
           ].map((item, i) => (
@@ -145,14 +107,17 @@ function TrustBar() {
 
 // -- Curated Collections --
 function CuratedCollections() {
-  const collections = [
-    { title: "perfume & fragrance.", img: "/assets/collection_perfume.png", bg: "bg-[#DFD6C9]" },
-    { title: "skincare & serum.", img: "/assets/collection_skincare.png", bg: "bg-[#EADDD1]" },
-    { title: "amber apothecary.", img: "/assets/collection_amber.png", bg: "bg-[#F3E5D8]" },
-    { title: "spray & atomizer.", img: "/assets/family_cylinder.png", bg: "bg-[#D5C5B1]" },
-    { title: "vessels & lids.", img: "/assets/bottle_screwcap.png", bg: "bg-[#DCD0C0]" },
-    { title: "sample & discovery.", img: "/assets/uploaded_hero.jpg", bg: "bg-[#EAE0D5]" },
-    { title: "kits & sets.", img: "/assets/bottle_dropper.png", bg: "bg-[#E5D7C9]" },
+  const stats = useQuery(api.products.getHomepageStats);
+
+  // Map collection names to display titles + visual settings
+  const collectionConfig = [
+    { collection: "Elegant Collection", title: "perfume & fragrance.", img: "/assets/collection_perfume.png", bg: "bg-[#DFD6C9]" },
+    { collection: "Circle Collection", title: "skincare & serum.", img: "/assets/collection_skincare.png", bg: "bg-[#EADDD1]" },
+    { collection: "Apothecary Collection", title: "amber apothecary.", img: "/assets/collection_amber.png", bg: "bg-[#F3E5D8]" },
+    { collection: "Cylinder Collection", title: "spray & atomizer.", img: "/assets/family_cylinder.png", bg: "bg-[#D5C5B1]" },
+    { collection: "Vial & Sample Collection", title: "sample & discovery.", img: "/assets/uploaded_hero.jpg", bg: "bg-[#EAE0D5]" },
+    { collection: "Boston Round Collection", title: "boston rounds.", img: "/assets/collection_perfume.png", bg: "bg-[#DCD0C0]" },
+    { collection: "Slim Collection", title: "slim & sleek.", img: "/assets/family_cylinder.png", bg: "bg-[#E5D7C9]" },
   ];
 
   return (
@@ -174,7 +139,7 @@ function CuratedCollections() {
               </div>
             </div>
             <a href="#" className="text-[13px] text-obsidian/70 font-medium underline decoration-obsidian/30 hover:decoration-obsidian transition-colors mt-2">
-              see why our customers can't stop talking about us
+              see why our customers can&apos;t stop talking about us
             </a>
           </FadeUp>
         </div>
@@ -182,22 +147,30 @@ function CuratedCollections() {
 
       <div className="pl-6 lg:pl-[max(1.5rem,calc((100vw-1440px)/2+1.5rem))] overflow-hidden">
         <div className="flex overflow-x-auto gap-4 pb-8 snap-x snap-mandatory hide-scroll pr-[10vw]">
-          {collections.map((col, i) => (
-            <FadeUp key={i} delay={i * 0.1} className="w-[80vw] sm:w-[280px] xl:w-[240px] lg:w-[260px] shrink-0 snap-center lg:snap-start">
-              <a href="/catalog" className={`group relative flex flex-col h-[280px] rounded-[10px] overflow-hidden cursor-pointer shadow-sm ${col.bg}`}>
-                {/* Image fills the container, anchored to the bottom */}
-                <div className="absolute inset-0 z-0 bg-[#F7F4F0]">
-                  <Image src={col.img} alt={col.title} fill className="object-cover object-bottom mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out" />
-                  {/* Subtle fade effect at top to keep text perfectly legible */}
-                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F7F4F0] to-transparent mix-blend-normal"></div>
-                </div>
+          {collectionConfig.map((col, i) => {
+            const count = stats?.collectionCounts?.[col.collection] ?? 0;
+            return (
+              <FadeUp key={i} delay={i * 0.1} className="w-[80vw] sm:w-[280px] xl:w-[240px] lg:w-[260px] shrink-0 snap-center lg:snap-start">
+                <Link href={`/catalog?collection=${encodeURIComponent(col.collection)}`} className={`group relative flex flex-col h-[280px] rounded-[10px] overflow-hidden cursor-pointer shadow-sm ${col.bg}`}>
+                  {/* Image fills the container, anchored to the bottom */}
+                  <div className="absolute inset-0 z-0 bg-[#F7F4F0]">
+                    <Image src={col.img} alt={col.title} fill className="object-cover object-bottom mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    {/* Subtle fade effect at top to keep text perfectly legible */}
+                    <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F7F4F0] to-transparent mix-blend-normal"></div>
+                  </div>
 
-                <div className="relative z-10 p-5 mt-1">
-                  <h3 className="font-bold text-obsidian text-[18px] lowercase leading-snug tracking-tight drop-shadow-sm">{col.title}</h3>
-                </div>
-              </a>
-            </FadeUp>
-          ))}
+                  <div className="relative z-10 p-5 mt-1 flex flex-col h-full justify-between">
+                    <h3 className="font-bold text-obsidian text-[18px] lowercase leading-snug tracking-tight drop-shadow-sm">{col.title}</h3>
+                    {count > 0 && (
+                      <p className="text-[11px] uppercase tracking-wider font-semibold text-obsidian/60 mt-auto">
+                        {count} products
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              </FadeUp>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -232,13 +205,16 @@ function ValueProposition() {
   );
 }
 
-// -- Design Families Showcase --
+// -- Design Families Showcase (LIVE DATA) --
 function DesignFamilies() {
-  const families = [
-    { title: "Cylinder Collection", sub: "472 products", img: "/assets/family_cylinder.png" },
-    { title: "Elegant Collection", sub: "265 products", img: "/assets/collection_perfume.png" },
-    { title: "Circle Collection", sub: "223 products", img: "/assets/collection_skincare.png" },
-    { title: "Diva Collection", sub: "182 products", img: "/assets/hero_bottles.png" },
+  const stats = useQuery(api.products.getHomepageStats);
+
+  // Primary design family cards — counts pulled live from Convex
+  const familyConfig = [
+    { family: "Cylinder", title: "Cylinder Collection", img: "/assets/family_cylinder.png" },
+    { family: "Elegant", title: "Elegant Collection", img: "/assets/collection_perfume.png" },
+    { family: "Circle", title: "Circle Collection", img: "/assets/collection_skincare.png" },
+    { family: "Diva", title: "Diva Collection", img: "/assets/collection_perfume.png" },
   ];
 
   return (
@@ -250,23 +226,30 @@ function DesignFamilies() {
         </FadeUp>
 
         <div className="flex overflow-x-auto gap-8 pb-12 snap-x snap-mandatory hide-scroll pr-[10vw]">
-          {families.map((fam, i) => (
-            <FadeUp key={i} delay={i * 0.1} className="w-[85vw] lg:w-[420px] shrink-0 snap-center lg:snap-start">
-              <div className="group relative aspect-[3/4] rounded-sm overflow-hidden bg-travertine cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
-                <Image src={fam.img} alt={fam.title} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/70 via-obsidian/20 to-transparent"></div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <h3 className="font-serif text-[26px] text-white leading-tight mb-2">{fam.title}</h3>
-                  <div className="flex items-center justify-between">
-                    <p className="text-[14px] text-bone/90 font-medium">{fam.sub}</p>
-                    <span className="flex items-center text-muted-gold text-sm font-semibold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      Explore <ArrowRight className="w-4 h-4 ml-1" />
-                    </span>
+          {familyConfig.map((fam, i) => {
+            const count = stats?.familyCounts?.[fam.family] ?? 0;
+            return (
+              <FadeUp key={i} delay={i * 0.1} className="w-[85vw] lg:w-[420px] shrink-0 snap-center lg:snap-start">
+                <Link href={`/catalog?family=${encodeURIComponent(fam.family)}`}>
+                  <div className="group relative aspect-[3/4] rounded-sm overflow-hidden bg-travertine cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
+                    <Image src={fam.img} alt={fam.title} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian/70 via-obsidian/20 to-transparent"></div>
+                    <div className="absolute bottom-8 left-8 right-8">
+                      <h3 className="font-serif text-[26px] text-white leading-tight mb-2">{fam.title}</h3>
+                      <div className="flex items-center justify-between">
+                        <p className="text-[14px] text-bone/90 font-medium">
+                          {count > 0 ? `${count} products` : "Loading..."}
+                        </p>
+                        <span className="flex items-center text-muted-gold text-sm font-semibold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                          Explore <ArrowRight className="w-4 h-4 ml-1" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </FadeUp>
-          ))}
+                </Link>
+              </FadeUp>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -275,6 +258,7 @@ function DesignFamilies() {
 
 // -- Grace AI --
 function GraceAIIntro() {
+  const { open: openGrace } = useGrace();
   return (
     <section className="bg-obsidian text-bone py-24 relative overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
@@ -283,10 +267,10 @@ function GraceAIIntro() {
             <Image src="/assets/grace_avatar.png" alt="Grace AI Concierge" fill className="object-cover object-top" />
             <div className="absolute bottom-4 inset-x-4 bg-obsidian/90 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-xl">
               <p className="text-white/70 text-sm mb-2 font-medium">Customer</p>
-              <p className="text-white text-sm leading-relaxed mb-4">"I’m launching an essential oil line. Need bottles for 6 different scents, probably 500 units each."</p>
+              <p className="text-white text-sm leading-relaxed mb-4">&quot;I&apos;m launching an essential oil line. Need bottles for 6 different scents, probably 500 units each.&quot;</p>
               <div className="border-t border-white/10 pt-4">
                 <p className="text-muted-gold text-sm mb-2 font-medium flex items-center"><Zap className="w-3 h-3 mr-1.5" /> Grace</p>
-                <p className="text-bone/90 text-sm leading-relaxed">"Lovely. I’d recommend our amber Boston Rounds with glass droppers for UV protection. At 500 units per scent, you’d qualify for our Scaler tier pricing. Shall I show you?"</p>
+                <p className="text-bone/90 text-sm leading-relaxed">&quot;Lovely. I&apos;d recommend our amber Boston Rounds with glass droppers for UV protection. At 500 units per scent, you&apos;d qualify for our Scaler tier pricing. Shall I show you?&quot;</p>
               </div>
             </div>
           </div>
@@ -297,7 +281,7 @@ function GraceAIIntro() {
             <p className="text-xs uppercase tracking-[0.25em] text-muted-gold font-semibold mb-3 flex items-center"><SparklesIcon className="w-4 h-4 mr-2" /> AI-POWERED CONCIERGE</p>
             <h2 className="font-serif text-4xl lg:text-5xl text-white font-medium mb-6">Meet Grace</h2>
             <p className="text-slate text-lg leading-relaxed mb-12 max-w-lg">
-              Your dedicated packaging expert. Ask her anything—from bottle compatibility to scaling strategy. She knows our 3,100+ products inside and out.
+              Your dedicated packaging expert. Ask her anything—from bottle compatibility to scaling strategy. She knows our entire catalog inside and out.
             </p>
           </FadeUp>
 
@@ -315,7 +299,10 @@ function GraceAIIntro() {
           </div>
 
           <FadeUp delay={0.5}>
-            <button className="px-8 py-4 bg-muted-gold text-obsidian uppercase text-sm font-bold tracking-wider hover:bg-white transition-colors duration-300 inline-flex items-center">
+            <button
+              onClick={openGrace}
+              className="px-8 py-4 bg-muted-gold text-obsidian uppercase text-sm font-bold tracking-wider hover:bg-white transition-colors duration-300 inline-flex items-center cursor-pointer"
+            >
               Talk to Grace <ArrowUpRight className="ml-2 w-4 h-4" />
             </button>
           </FadeUp>
@@ -354,7 +341,7 @@ function SocialProof() {
           {testimonials.map((test, i) => (
             <FadeUp key={i} delay={i * 0.1} className="w-[85vw] sm:w-[400px] shrink-0 snap-center">
               <div className="bg-white p-8 rounded-sm shadow-sm border border-champagne/50 h-full flex flex-col justify-between hover:border-muted-gold transition-colors duration-300">
-                <p className="font-serif italic text-[20px] text-obsidian leading-relaxed mb-8">"{test.quote}"</p>
+                <p className="font-serif italic text-[20px] text-obsidian leading-relaxed mb-8">&quot;{test.quote}&quot;</p>
                 <div>
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="w-10 h-10 rounded-full bg-travertine"></div>
@@ -410,7 +397,7 @@ function EducationPreview() {
                   {article.category}
                 </span>
                 <h3 className="font-serif text-2xl text-obsidian leading-tight mb-3 group-hover:text-muted-gold transition-colors">{article.title}</h3>
-                <p className="text-sm text-slate mb-4">Expert insights and strategies to elevate your brand's packaging presence.</p>
+                <p className="text-sm text-slate mb-4">Expert insights and strategies to elevate your brand&apos;s packaging presence.</p>
                 <span className="text-sm font-medium text-obsidian flex items-center group-hover:text-muted-gold transition-colors">
                   Read More <ArrowRight className="w-4 h-4 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                 </span>
@@ -462,9 +449,9 @@ function Footer() {
           <div>
             <h5 className="text-white text-sm font-semibold uppercase tracking-wider mb-6">Shop</h5>
             <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-muted-gold transition-colors">By Usage</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">By Product Type</a></li>
-              <li><a href="#" className="hover:text-muted-gold transition-colors">By Collection</a></li>
+              <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">By Usage</Link></li>
+              <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">By Product Type</Link></li>
+              <li><Link href="/catalog" className="hover:text-muted-gold transition-colors">By Collection</Link></li>
               <li><a href="#" className="hover:text-muted-gold transition-colors">New Arrivals</a></li>
               <li><a href="#" className="hover:text-muted-gold transition-colors">Best Sellers</a></li>
             </ul>
@@ -512,14 +499,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <Navbar onCartOpen={() => setCartOpen(true)} />
+      <Navbar onCartOpen={() => setCartOpen(true)} variant="home" />
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
       <Hero />
       <CuratedCollections />
       <TrustBar />
-      <ValueProposition />
       <DesignFamilies />
-      <GraceAIIntro />
       <SocialProof />
       <EducationPreview />
       <Newsletter />

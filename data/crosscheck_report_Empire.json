@@ -1,0 +1,4550 @@
+[
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-BLK",
+    "websiteSku": "GBEmp100AnSpBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-black-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with black vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the bea",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.35",
+        "scraped": "6.35"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.03",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-GLD",
+    "websiteSku": "GBEmp100AnSpGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-gold-vintage-style-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with gold vintage style sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty of y",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.35",
+        "scraped": "6.35"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.03",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-IVGD",
+    "websiteSku": "GBEmp100AnSpIvyGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with ivory vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beaut",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.35",
+        "scraped": "6.35"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.03",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-IVSL",
+    "websiteSku": "GBEmp100AnSpIvySl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with ivory vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the bea",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.35",
+        "scraped": "6.35"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.03",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-LVN",
+    "websiteSku": "GBEmp100AnSpLvn",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-lavender-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with lavender vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-MSLV",
+    "websiteSku": "GBEmp100AnSpMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-silver-vintage-style-sprayer-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte silver vintage style sprayer with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the b",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-PNK",
+    "websiteSku": "GBEmp100AnSpPnk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-pink-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with pink vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-RED",
+    "websiteSku": "GBEmp100AnSpRed",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-red-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with red vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beaut",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.35",
+        "scraped": "6.35"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.03",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-BLK",
+    "websiteSku": "GBEmp100AnSpTslBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-black-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Black vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enh",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-GLD",
+    "websiteSku": "GBEmp100AnSpTslGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-gold-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Gold vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-IVGD",
+    "websiteSku": "GBEmp100AnSpTslIvyGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhan",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-IVSL",
+    "websiteSku": "GBEmp100AnSpTslIvySl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enh",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-LVN",
+    "websiteSku": "GBEmp100AnSpTslLvn",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-lavender-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Lavender vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-MSLV",
+    "websiteSku": "GBEmp100AnSpTslMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-silver-vintage-style-sprayer-with-tassel-matte-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Silver vintage style bulb sprayer with tassel with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers en",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-PNK",
+    "websiteSku": "GBEmp100AnSpTslPnk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-pink-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Pink vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-RED",
+    "websiteSku": "GBEmp100AnSpTslRed",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-red-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with Red vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhan",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-AST-WHT",
+    "websiteSku": "GBEmp100AnSpTslWht",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-white-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with White vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enh",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "128 \u00b12 mm",
+        "scraped": "128 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "7.1",
+        "scraped": "7.1"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.75",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-ASP-WHT",
+    "websiteSku": "GBEmp100AnSpWht",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-white-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with white vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the bea",
+    "scraped_itemType": null,
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "134 \u00b12 mm",
+        "scraped": "134 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.35",
+        "scraped": "6.35"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.03",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-BKLT",
+    "websiteSku": "GBEmp100RdcrBlkLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-black-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and black faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.75",
+        "scraped": "2.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.61",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-BRLT",
+    "websiteSku": "GBEmp100RdcrBrwnLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.75",
+        "scraped": "2.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.61",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-IVLT",
+    "websiteSku": "GBEmp100RdcrIvyLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-ivory-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and ivory faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.75",
+        "scraped": "2.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.61",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-LBLT",
+    "websiteSku": "GBEmp100RdcrLBrwnLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-light-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and light brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price ea",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.75",
+        "scraped": "2.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.61",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-MSLV-01",
+    "websiteSku": "GBEmp100RdcrMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-MSLV-T",
+    "websiteSku": "GBEmp100RdcrMtSlTall",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-tall-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and tall silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "118 \u00b12 mm",
+        "scraped": "118 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-PKLT",
+    "websiteSku": "GBEmp100RdcrPnkLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-pink-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and pink faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.75",
+        "scraped": "2.75"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.61",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-SBLK-01",
+    "websiteSku": "GBEmp100RdcrShnBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-SBLK-T",
+    "websiteSku": "GBEmp100RdcrShnBlkTall",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-tall-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and tall black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "118 \u00b12 mm",
+        "scraped": "118 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-SGLD",
+    "websiteSku": "GBEmp100RdcrShnGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and shiny gold cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-SSLV",
+    "websiteSku": "GBEmp100RdcrShnSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and shiny silver cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-RDC-WHT",
+    "websiteSku": "GBEmp100RdcrWht",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-reducer-white-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with reducer and white cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "118 \u00b12 mm",
+        "scraped": "118 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.47",
+        "scraped": "2.47"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.35",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-SPR-CPR",
+    "websiteSku": "GBEmp100SpryCu",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-copper-spray-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte copper spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-SPR-MGLD",
+    "websiteSku": "GBEmp100SpryMtGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-SPR-MSLV",
+    "websiteSku": "GBEmp100SpryMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-silver-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-SPR-SBLK",
+    "websiteSku": "GBEmp100SpryShnBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-shiny-black-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with shiny black spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-SPR-SGLD",
+    "websiteSku": "GBEmp100SpryShnGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-shiny-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with shiny gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-100ML-SPR-SSLV",
+    "websiteSku": "GBEmp100SpryShnSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-shiny-silver-spray-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with shiny silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "78 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-BLK",
+    "websiteSku": "GBEmp50AnSpBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-black-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with black vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-GLD",
+    "websiteSku": "GBEmp50AnSpGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-gold-vintage-style-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with gold vintage style sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty of your",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-IVGD",
+    "websiteSku": "GBEmp50AnSpIvyGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with ivory vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty o",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-IVSL",
+    "websiteSku": "GBEmp50AnSpIvySl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-ivory-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with ivory vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-LVN",
+    "websiteSku": "GBEmp50AnSpLvn",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-lavender-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with lavender vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the bea",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-MSLV",
+    "websiteSku": "GBEmp50AnSpMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-silver-vintage-style-sprayer-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte silver vintage style sprayer with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beau",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-PNK",
+    "websiteSku": "GBEmp50AnSpPnk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-pink-vintage-style-bulb-sprayer-shiny-gold-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with pink vintage style bulb sprayer with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty of",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-RED",
+    "websiteSku": "GBEmp50AnSpRed",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-red-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with red vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty o",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-BLK",
+    "websiteSku": "GBEmp50AnSpTslBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-black-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Black vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-GLD",
+    "websiteSku": "GBEmp50AnSpTslGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-gold-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Gold vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance t",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-IVGD",
+    "websiteSku": "GBEmp50AnSpTslIvyGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-IVSL",
+    "websiteSku": "GBEmp50AnSpTslIvySl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-ivory-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Ivory vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-LVN",
+    "websiteSku": "GBEmp50AnSpTslLvn",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-lavender-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Lavender vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enh",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-MSLV",
+    "websiteSku": "GBEmp50AnSpTslMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-silver-vintage-style-sprayer-with-tassel-matte-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Silver vintage style bulb sprayer with tassel with matte silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhan",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-PNK",
+    "websiteSku": "GBEmp50AnSpTslPnk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-pink-vintage-style-sprayer-with-tassel-shiny-gold-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Pink vintage style bulb sprayer with tassel with shiny gold collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance t",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-RED",
+    "websiteSku": "GBEmp50AnSpTslRed",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-red-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with Red vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-AST-WHT",
+    "websiteSku": "GBEmp50AnSpTslWht",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-white-vintage-style-sprayer-with-tassel-shiny-silver-collar",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with White vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhanc",
+    "scraped_itemType": "Antique Style Bulb Spray Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "110 \u00b12 mm",
+        "scraped": "110 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.9",
+        "scraped": "6.9"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "6.56",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Antique Style Bulb Spray Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-ASP-WHT",
+    "websiteSku": "GBEmp50AnSpWht",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-white-vintage-style-bulb-sprayer-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with white vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Antique or vintage bulb sprayers enhance the beauty",
+    "scraped_itemType": null,
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "116 \u00b12 mm",
+        "scraped": "116 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "6.15",
+        "scraped": "6.15"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "5.84",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-DRP-CPR",
+    "websiteSku": "GBEmp50DrpCu",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-white-dropper-shiny-copper-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with white dropper with shiny copper collar cap. For use with perfume oils, diffuser oils, serums, primers, facial oils or face oils, moisturizer, and beard oils. Empire design bottle is available in 2 sizes",
+    "scraped_itemType": "Large Selection of Dropper Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "112 \u00b12 mm",
+        "scraped": "112 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.45",
+        "scraped": "2.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Large Selection of Dropper Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-DRP-GLD",
+    "websiteSku": "GBEmp50DrpGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-white-dropper-shiny-gold-collar-cap",
+    "status": "mismatch",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with white dropper with shiny gold collar cap. For use with perfume oils, diffuser oils, serums, primers, facial oils or face oils, moisturizer, and beard oils. Empire design bottle is available in 2 sizes,",
+    "scraped_itemType": "Large Selection of Dropper Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "112 \u00b12 mm",
+        "scraped": "112 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "mismatch",
+        "convex": "18-415",
+        "scraped": "18-415 Product Packaging Ideas 50ml Empire Glass Bottle - Goddess Glow Serum 50ml Empire Glass Bottle - Goddess Glow Serum 50ml Empire Glass Bottle - Goddess Glow Serum"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.45",
+        "scraped": "2.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Large Selection of Dropper Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-DRP-SLV",
+    "websiteSku": "GBEmp50DrpSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-white-dropper-shiny-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with white dropper with shiny silver collar cap. For use with perfume oils, diffuser oils, serums, primers, facial oils or face oils, moisturizer, and beard oils. Empire design bottle is available in 2 sizes",
+    "scraped_itemType": "Large Selection of Dropper Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "112 \u00b12 mm",
+        "scraped": "112 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.45",
+        "scraped": "2.45"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Large Selection of Dropper Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-BKLT",
+    "websiteSku": "GBEmp50RdcrBlkLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-black-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and black faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.55",
+        "scraped": "2.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-BRLT",
+    "websiteSku": "GBEmp50RdcrBrwnLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.55",
+        "scraped": "2.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-IVLT",
+    "websiteSku": "GBEmp50RdcrIvyLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-ivory-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and ivory faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.55",
+        "scraped": "2.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-LBLT",
+    "websiteSku": "GBEmp50RdcrLBrwnLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-light-brown-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and light brown faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.55",
+        "scraped": "2.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-MSLV-01",
+    "websiteSku": "GBEmp50RdcrMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "93 \u00b11 mm",
+        "scraped": "93 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-MSLV-T",
+    "websiteSku": "GBEmp50RdcrMtSlTall",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-tall-silver-matte-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and tall silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "100 \u00b11 mm",
+        "scraped": "100 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-PKLT",
+    "websiteSku": "GBEmp50RdcrPnkLthr",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-pink-faux-leather-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and pink faux leather cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "103 \u00b12 mm",
+        "scraped": "103 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.55",
+        "scraped": "2.55"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.42",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-SBLK-01",
+    "websiteSku": "GBEmp50RdcrShnBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "93 \u00b11 mm",
+        "scraped": "93 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-SBLK-T",
+    "websiteSku": "GBEmp50RdcrShnBlkTall",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-tall-black-shiny-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and tall black shiny cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "100 \u00b11 mm",
+        "scraped": "100 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-SGLD",
+    "websiteSku": "GBEmp50RdcrShnGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-shiny-gold-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and shiny gold cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "93 \u00b11 mm",
+        "scraped": "93 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-SSLV",
+    "websiteSku": "GBEmp50RdcrShnSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-shiny-silver-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and shiny silver cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "93 \u00b11 mm",
+        "scraped": "93 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-RDC-WHT",
+    "websiteSku": "GBEmp50RdcrWht",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-reducer-white-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with reducer and white cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Glass Bottles With Attractive Caps",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "100 \u00b11 mm",
+        "scraped": "100 \u00b11 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "2.27",
+        "scraped": "2.27"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "2.16",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Glass Bottles With Attractive Caps"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-SPR-CPR",
+    "websiteSku": "GBEmp50SpryCu",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-copper-spray-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte copper spray pump & cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-SPR-MGLD",
+    "websiteSku": "GBEmp50SpryMtGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-SPR-MSLV",
+    "websiteSku": "GBEmp50SpryMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-silver-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-SPR-SBLK",
+    "websiteSku": "GBEmp50SpryShnBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-shiny-black-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with shiny black spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-SPR-SGLD",
+    "websiteSku": "GBEmp50SpryShnGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-shiny-gold-spray-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with shiny gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "GB-EMP-CLR-50ML-SPR-SSLV",
+    "websiteSku": "GBEmp50SpryShnSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-shiny-silver-spray-and-cap",
+    "status": "mismatch",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with shiny silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Empire design bottle is available in 2 sizes, 50ml and 100ml. Price each",
+    "scraped_itemType": "Classic Perfume Spray Glass Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "mismatch",
+        "convex": "18-415",
+        "scraped": "18-415 Product Packaging Ideas 50ml Empire Glass Bottle - Lavender 50ml Empire Glass Bottle - Lavender 50ml Empire Glass Bottle - Lavender"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Classic Perfume Spray Glass Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-COCP",
+    "websiteSku": "LBEmp100LtnClOvrCap",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-clear-over-the-cap-lotion-pump-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with with a matte silver collar treatment pump and clear overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire de",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "133 \u00b12 mm",
+        "scraped": "133 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-CPR",
+    "websiteSku": "LBEmp100LtnCu",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-copper-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte copper lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-MGLD",
+    "websiteSku": "LBEmp100LtnMtGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes,",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-MSLV",
+    "websiteSku": "LBEmp100LtnMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-matte-silver-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with matte silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-SBLK",
+    "websiteSku": "LBEmp100LtnShnBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-shiny-black-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with shiny black lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes,",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-SGLD",
+    "websiteSku": "LBEmp100LtnShnGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-shiny-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with shiny gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes,",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-SSLV",
+    "websiteSku": "LBEmp100LtnShnSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-shiny-silver-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with shiny silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "132 \u00b12 mm",
+        "scraped": "132 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-100ML-LPM-OVCP-T",
+    "websiteSku": "LBEmp100WhtClOvrCp",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-100-ml-glass-bottle-white-rectangular-clear-over-the-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 100 ml, 3 1/2oz clear glass bottle with white rectangular with clear over the cap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is ava",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "100 ml (3.38 oz)",
+        "scraped": "100 ml (3.38 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "139 \u00b12 mm",
+        "scraped": "139 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "107 \u00b12 mm",
+        "scraped": "107 \u00b12 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "35 \u00b10.5 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.5",
+        "scraped": "3.5"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.33",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "46 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-COCP",
+    "websiteSku": "LBEmp50LtnClOvrCap",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-clear-over-the-cap-lotion-pump-matte-silver-collar-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with with a matte silver collar treatment pump and clear overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire desig",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "115 \u00b12 mm",
+        "scraped": "115 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-CPR",
+    "websiteSku": "LBEmp50LtnCu",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-copper-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte copper lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes, 5",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-MGLD",
+    "websiteSku": "LBEmp50LtnMtGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes, 50m",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-MSLV",
+    "websiteSku": "LBEmp50LtnMtSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-matte-silver-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with matte silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes, 5",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-SBLK",
+    "websiteSku": "LBEmp50LtnShnBlk",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-shiny-black-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with shiny black lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes, 50",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-SGLD",
+    "websiteSku": "LBEmp50LtnShnGl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-shiny-gold-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with shiny gold lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes, 50m",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-SSLV",
+    "websiteSku": "LBEmp50LtnShnSl",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-shiny-silver-lotion-pump-and-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with shiny silver lotion pump. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is available in 2 sizes, 5",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "114 \u00b12 mm",
+        "scraped": "114 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  },
+  {
+    "graceSku": "LB-EMP-CLR-50ML-LPM-OVCP-T",
+    "websiteSku": "LBEmp50WhtClOvrCp",
+    "family": "Empire",
+    "url": "https://www.bestbottles.com/product/empire-design-50-ml-glass-bottle-white-rectangular-clear-over-the-cap",
+    "status": "ok",
+    "scraped_description": "Empire design 50 ml, 1.7oz clear glass bottle with white rectangular and clear over the cap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Empire design bottle is availab",
+    "scraped_itemType": "Lotion Bottles",
+    "fields": {
+      "capacity": {
+        "status": "match",
+        "convex": "50 ml (1.69 oz)",
+        "scraped": "50 ml (1.69 oz)"
+      },
+      "heightWithCap": {
+        "status": "match",
+        "convex": "121 \u00b12 mm",
+        "scraped": "121 \u00b12 mm"
+      },
+      "heightWithoutCap": {
+        "status": "match",
+        "convex": "88 \u00b11 mm",
+        "scraped": "88 \u00b11 mm"
+      },
+      "diameter": {
+        "status": "not_scraped",
+        "convex": "72 \u00b11 mm",
+        "scraped": null
+      },
+      "neckThreadSize": {
+        "status": "match",
+        "convex": "18-415",
+        "scraped": "18-415"
+      },
+      "webPrice1pc": {
+        "status": "match",
+        "convex": "3.3",
+        "scraped": "3.3"
+      },
+      "webPrice12pc": {
+        "status": "not_scraped",
+        "convex": "3.14",
+        "scraped": null
+      }
+    },
+    "new_fields_from_website": {
+      "width": "37 \u00b10.5 mm",
+      "itemType": "Lotion Bottles"
+    }
+  }
+]
