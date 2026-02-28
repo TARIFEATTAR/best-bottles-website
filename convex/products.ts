@@ -332,6 +332,31 @@ export const getAllCatalogGroups = query({
 });
 
 /**
+ * Returns one representative SKU per product group for line-item catalog view.
+ * Preference: websiteSku first, then graceSku fallback.
+ */
+export const getCatalogGroupPrimarySkus = query({
+    args: {},
+    handler: async (ctx) => {
+        const groups = await ctx.db.query("productGroups").collect();
+        const rows = await Promise.all(
+            groups.map(async (g) => {
+                const firstVariant = await ctx.db
+                    .query("products")
+                    .withIndex("by_productGroupId", (q) => q.eq("productGroupId", g._id))
+                    .first();
+                return {
+                    groupId: String(g._id),
+                    websiteSku: firstVariant?.websiteSku ?? null,
+                    graceSku: firstVariant?.graceSku ?? null,
+                };
+            })
+        );
+        return rows;
+    },
+});
+
+/**
  * Paginated product group listing for the catalog page.
  * Mirrors getCatalogProducts but returns productGroups instead of flat SKUs.
  */

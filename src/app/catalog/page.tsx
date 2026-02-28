@@ -47,6 +47,7 @@ const COLOR_SWATCH_MAP: Record<string, string> = {
     Cobalt: "bg-blue-800",
     "Cobalt Blue": "bg-blue-800",
     Opal: "bg-gradient-to-br from-white to-sky-100 border border-champagne/60",
+    Swirl: "bg-gradient-to-br from-sky-100 to-slate-300 border border-champagne/60",
 };
 
 const CATEGORY_ORDER = [
@@ -87,6 +88,12 @@ interface CatalogGroup {
     priceRangeMax: number | null;
     heroImageUrl?: string | null;
     applicatorTypes?: string[] | null;
+}
+
+interface CatalogGroupPrimarySku {
+    groupId: string;
+    websiteSku: string | null;
+    graceSku: string | null;
 }
 
 interface Facets {
@@ -681,10 +688,12 @@ function ViewToggle({
 
 function LineItemRow({
     group,
+    sku,
     index,
     applicatorParam,
 }: {
     group: CatalogGroup;
+    sku: string;
     index: number;
     applicatorParam?: string | null;
 }) {
@@ -730,6 +739,11 @@ function LineItemRow({
                         )}
                     </div>
                 </Link>
+            </td>
+
+            {/* Capacity */}
+            <td className="py-3 px-4 text-left">
+                <span className="text-xs text-obsidian font-mono">{sku}</span>
             </td>
 
             {/* Capacity */}
@@ -810,10 +824,12 @@ function LineItemRow({
 
 function LineItemMobileCard({
     group,
+    sku,
     index,
     applicatorParam,
 }: {
     group: CatalogGroup;
+    sku: string;
     index: number;
     applicatorParam?: string | null;
 }) {
@@ -859,6 +875,9 @@ function LineItemMobileCard({
                         </p>
                     </Link>
                     <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[10px] text-slate font-mono bg-bone px-1.5 py-0.5 rounded">
+                            {sku}
+                        </span>
                         <span className="text-xs font-semibold text-obsidian">
                             {group.priceRangeMin ? `$${group.priceRangeMin.toFixed(2)}` : "—"}
                         </span>
@@ -959,18 +978,23 @@ function LineItemMobileCard({
 
 function LineItemTable({
     groups,
+    skuMap,
     applicatorParam,
 }: {
     groups: CatalogGroup[];
+    skuMap: Map<string, string>;
     applicatorParam?: string | null;
 }) {
     return (
         <div className="w-full overflow-x-auto">
-            <table className="w-full min-w-[900px]">
+            <table className="w-full min-w-[980px]">
                 <thead>
                     <tr className="border-b-2 border-obsidian">
                         <th className="py-3 px-4 text-left text-[10px] uppercase tracking-wider font-bold text-slate">
                             Product
+                        </th>
+                        <th className="py-3 px-4 text-left text-[10px] uppercase tracking-wider font-bold text-slate">
+                            SKU
                         </th>
                         <th className="py-3 px-4 text-center text-[10px] uppercase tracking-wider font-bold text-slate">
                             Capacity
@@ -997,6 +1021,7 @@ function LineItemTable({
                         <LineItemRow
                             key={group._id}
                             group={group}
+                            sku={skuMap.get(group._id) ?? "—"}
                             index={idx}
                             applicatorParam={applicatorParam}
                         />
@@ -1011,9 +1036,11 @@ function LineItemTable({
 
 function LineItemMobileGrid({
     groups,
+    skuMap,
     applicatorParam,
 }: {
     groups: CatalogGroup[];
+    skuMap: Map<string, string>;
     applicatorParam?: string | null;
 }) {
     return (
@@ -1022,6 +1049,7 @@ function LineItemMobileGrid({
                 <LineItemMobileCard
                     key={group._id}
                     group={group}
+                    sku={skuMap.get(group._id) ?? "—"}
                     index={idx}
                     applicatorParam={applicatorParam}
                 />
@@ -1108,7 +1136,16 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
     // ── Convex Queries ──────────────────────────────────────────────────────
     const allGroups = useQuery(api.products.getAllCatalogGroups) as CatalogGroup[] | undefined;
+    const groupSkus = useQuery(api.products.getCatalogGroupPrimarySkus) as CatalogGroupPrimarySku[] | undefined;
     const taxonomy = useQuery(api.products.getCatalogTaxonomy);
+
+    const skuMap = useMemo(() => {
+        const next = new Map<string, string>();
+        for (const row of groupSkus ?? []) {
+            next.set(row.groupId, row.websiteSku ?? row.graceSku ?? "—");
+        }
+        return next;
+    }, [groupSkus]);
 
     // ── Client-Side Filter + Sort + Facet Pipeline ──────────────────────────
     const { filtered, facets, totalCount } = useMemo(() => {
@@ -1644,6 +1681,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     <div className="bg-white border border-champagne/40 rounded-lg overflow-hidden shadow-sm">
                                         <LineItemTable
                                             groups={visibleProducts}
+                                            skuMap={skuMap}
                                             applicatorParam={filters.applicators.length === 1 ? filters.applicators[0] : null}
                                         />
                                     </div>
@@ -1653,6 +1691,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                 <div className="lg:hidden">
                                     <LineItemMobileGrid
                                         groups={visibleProducts}
+                                        skuMap={skuMap}
                                         applicatorParam={filters.applicators.length === 1 ? filters.applicators[0] : null}
                                     />
                                 </div>

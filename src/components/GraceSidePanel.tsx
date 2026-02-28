@@ -316,8 +316,9 @@ export function GraceFloatingTrigger() {
     const { panelMode, openPanel } = useGrace();
     const isMobile = useIsMobile();
     const pathname = usePathname();
-    const isProductPage = pathname?.startsWith("/products/");
+    const isProductPage = Boolean(pathname && /(^|\/)products(\/|$)/.test(pathname));
     const useCompactTrigger = Boolean(isMobile && isProductPage);
+    const showTriggerText = !useCompactTrigger;
     if (panelMode !== "closed") return null;
 
     return (
@@ -333,7 +334,7 @@ export function GraceFloatingTrigger() {
             <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
                 <span /><span /><span /><span />
             </span>
-            {!useCompactTrigger && <span className="text-sm font-medium tracking-wide">Talk to Grace</span>}
+            {showTriggerText && <span className="text-sm font-medium tracking-wide">Talk to Grace</span>}
         </button>
     );
 }

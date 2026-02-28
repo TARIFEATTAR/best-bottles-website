@@ -153,8 +153,9 @@ const GLASS_COLOR_SWATCH: Record<string, string> = {
     "Purple":  "#7B5EA7",
     "Pink":    "#F4A7B9",
     "White":   "#F5F5F0",
+    "Swirl":   "#B8D4E3",
 };
-const LIGHT_GLASS = new Set(["Clear", "Frosted", "White", "Pink"]);
+const LIGHT_GLASS = new Set(["Clear", "Frosted", "White", "Pink", "Swirl"]);
 
 const COMPONENT_TYPE_ORDER = ["Reducer", "Roller Cap", "Roller", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
 const ROLLON_APPLICATORS = new Set(["Metal Roller", "Plastic Roller"]);

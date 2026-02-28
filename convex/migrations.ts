@@ -2632,3 +2632,132 @@ export const applySafeWebsiteSkuPatches = mutation({
         };
     },
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FIX SWIRL COLOR
+//
+// Swirl glass cylinders were mis-categorized: the graceSku color segment
+// (BLK / CLR) reflects trim, not glass. Detect via websiteSku containing
+// "Swrl" or itemName containing "swirl" and patch color → "Swirl".
+// ─────────────────────────────────────────────────────────────────────────────
+export const fixSwirlColor = action({
+    args: {},
+    handler: async (ctx) => {
+        let cursor: string | null = null;
+        let patched = 0;
+        const batchSize = 200;
+
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            const page: { page: Array<{ _id: string; websiteSku?: string | null; itemName?: string | null; color?: string | null }>; continueCursor: string; isDone: boolean } =
+                await ctx.runQuery(internal.migrations.getSwirlCandidatePage, {
+                    cursor: cursor ?? undefined,
+                    limit: batchSize,
+                });
+
+            const toFix = page.page.filter((p) => {
+                const sku = (p.websiteSku ?? "").toLowerCase();
+                const name = (p.itemName ?? "").toLowerCase();
+                return (sku.includes("swrl") || name.includes("swirl")) && p.color !== "Swirl";
+            });
+
+            if (toFix.length > 0) {
+                const ids = toFix.map((p) => p._id);
+                await ctx.runMutation(internal.migrations.patchSwirlBatch, { ids });
+                patched += toFix.length;
+            }
+
+            if (page.isDone) break;
+            cursor = page.continueCursor;
+        }
+
+        return { patched };
+    },
+});
+
+export const getSwirlCandidatePage = internalQuery({
+    args: { cursor: v.optional(v.string()), limit: v.number() },
+    handler: async (ctx, args) => {
+        const result = await ctx.db.query("products").paginate({
+            cursor: args.cursor ?? null,
+            numItems: args.limit,
+        });
+        return {
+            page: result.page.map((p) => ({
+                _id: p._id,
+                websiteSku: p.websiteSku,
+                itemName: p.itemName,
+                color: p.color,
+            })),
+            continueCursor: result.continueCursor,
+            isDone: result.isDone,
+        };
+    },
+});
+
+export const patchSwirlBatch = internalMutation({
+    args: { ids: v.array(v.string()) },
+    handler: async (ctx, args) => {
+        for (const id of args.ids) {
+            await ctx.db.patch(id as any, { color: "Swirl" });
+        }
+    },
+});
+
+export const addMissingSwirlLtnBlk = mutation({
+    args: {},
+    handler: async (ctx) => {
+        const existing = await ctx.db
+            .query("products")
+            .withIndex("by_graceSku", (q) => q.eq("graceSku", "LB-CYL-BLK-9ML-LPM-BLK"))
+            .first();
+        if (existing) return { status: "already_exists", id: existing._id };
+
+        const sibling = await ctx.db
+            .query("products")
+            .withIndex("by_graceSku", (q) => q.eq("graceSku", "LB-CYL-CLR-9ML-LPM-GLD"))
+            .first();
+
+        const id = await ctx.db.insert("products", {
+            productId: "BB-GB-009-0211",
+            websiteSku: "LBCylSwrl9LtnBlk",
+            graceSku: "LB-CYL-BLK-9ML-LPM-BLK",
+            category: "Glass Bottle",
+            family: "Cylinder",
+            shape: null,
+            color: "Swirl",
+            capacity: "9 ml (0.3 oz)",
+            capacityMl: 9,
+            capacityOz: 0.3,
+            applicator: "Lotion Pump",
+            capColor: "Black",
+            trimColor: "Black",
+            capStyle: null,
+            ballMaterial: null,
+            neckThreadSize: "17-415",
+            heightWithCap: null,
+            heightWithoutCap: null,
+            diameter: null,
+            bottleWeightG: null,
+            caseQuantity: null,
+            assemblyType: "2-part",
+            qbPrice: null,
+            webPrice1pc: 1,
+            webPrice10pc: null,
+            webPrice12pc: 0.95,
+            stockStatus: "In Stock",
+            itemName: "Cylinder swirl design 9ml,1/3 oz glass bottle with treatment pump with black trim and plastic overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Price each",
+            itemDescription: "Cylinder swirl design 9ml,1/3 oz glass bottle with treatment pump with black trim and plastic overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Price each",
+            imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/LBCylSwrl9LtnBlk.gif",
+            productUrl: "https://www.bestbottles.com/product/cylinder-design-9-ml-swirl-glass-bottle-lotion-pump-black-trim-and-cap",
+            dataGrade: "A",
+            bottleCollection: "Cylinder",
+            fitmentStatus: "verified",
+            components: sibling?.components ?? [],
+            graceDescription: "9ml Swirl glass cylinder with lotion pump, black trim. Thread 17-415.",
+            verified: true,
+            importSource: "addMissingSwirlLtnBlk_2026-02-28",
+        });
+        return { status: "inserted", id };
+    },
+});
