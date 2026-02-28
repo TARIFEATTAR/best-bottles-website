@@ -951,7 +951,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     if (filters.search) chips.push({ label: `"${filters.search}"`, onRemove: () => { handleFilterChange({ search: "" }); setSearchInput(""); } });
 
     return (
-        <main className="min-h-screen bg-bone pt-[104px]">
+        <main className="min-h-screen bg-bone pt-[156px] lg:pt-[104px]">
             <Navbar variant="catalog" initialSearchValue={filters.search || undefined} />
 
             <div className="max-w-[1440px] mx-auto px-6 py-8">
@@ -1116,7 +1116,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     <div className="flex-1 w-full pb-32 border-l-0 lg:border-l border-champagne/30 lg:pl-12">
 
                         {/* Results Header */}
-                        <div className="sticky top-[104px] z-30 bg-bone/95 backdrop-blur-md pt-4 pb-2 mb-6 sm:mb-8 border-b-2 border-obsidian">
+                        <div className="sticky top-[156px] lg:top-[104px] z-30 bg-bone/95 backdrop-blur-md pt-4 pb-2 mb-6 sm:mb-8 border-b-2 border-obsidian">
                             <div className="flex items-end justify-between gap-3">
                                 <div className="min-w-0">
                                     <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-gold font-bold mb-1">
@@ -1275,7 +1275,7 @@ export default function CatalogPage() {
     return (
         <Suspense
             fallback={
-                <main className="min-h-screen bg-bone pt-[104px]">
+                <main className="min-h-screen bg-bone pt-[156px] lg:pt-[104px]">
                     <div className="max-w-[1440px] mx-auto px-6 py-8">
                         <div className="mb-12 border-b border-champagne/50 pb-8">
                             <div className="h-10 w-64 bg-champagne/30 rounded animate-pulse mb-3" />

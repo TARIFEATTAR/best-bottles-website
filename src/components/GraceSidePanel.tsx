@@ -314,18 +314,25 @@ function ActionCardRenderer({
 
 export function GraceFloatingTrigger() {
     const { panelMode, openPanel } = useGrace();
+    const isMobile = useIsMobile();
+    const pathname = usePathname();
+    const isProductPage = pathname?.startsWith("/products/");
     if (panelMode !== "closed") return null;
 
     return (
         <button
             onClick={openPanel}
-            className="fixed bottom-6 right-6 z-40 flex items-center space-x-2.5 bg-obsidian text-bone rounded-full px-5 py-3 shadow-xl hover:bg-muted-gold transition-all duration-200 cursor-pointer group"
+            className={`fixed z-40 bg-obsidian text-bone rounded-full shadow-xl hover:bg-muted-gold transition-all duration-200 cursor-pointer group ${
+                isMobile
+                    ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 flex items-center justify-center`
+                    : "bottom-6 right-6 flex items-center space-x-2.5 px-5 py-3"
+            }`}
             aria-label="Talk to Grace"
         >
             <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
                 <span /><span /><span /><span />
             </span>
-            <span className="text-sm font-medium tracking-wide">Talk to Grace</span>
+            {!isMobile && <span className="text-sm font-medium tracking-wide">Talk to Grace</span>}
         </button>
     );
 }

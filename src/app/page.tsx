@@ -29,7 +29,7 @@ const FadeUp = ({ children, delay = 0, className = "" }: { children: React.React
 function Hero() {
   const { open: openGrace } = useGrace();
   return (
-    <section className="relative min-h-[80vh] lg:h-[82vh] lg:min-h-[650px] pt-[104px] flex items-center bg-bone overflow-hidden">
+    <section className="relative min-h-[80vh] lg:h-[82vh] lg:min-h-[650px] pt-[156px] lg:pt-[104px] flex items-center bg-bone overflow-hidden">
       {/* Full viewport background image */}
       <div className="absolute inset-0 z-0 bg-travertine">
         <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }} className="relative w-full h-full">

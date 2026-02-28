@@ -106,7 +106,7 @@ export default function ProductPage() {
     const totalEstimation = finalUnitPrice * quantity;
 
     return (
-        <main className="min-h-screen bg-bone pt-[104px]">
+        <main className="min-h-screen bg-bone pt-[156px] lg:pt-[104px]">
             <Navbar />
 
             <div className="max-w-[1440px] mx-auto px-6 py-8">
