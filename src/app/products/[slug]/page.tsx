@@ -693,6 +693,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     }
 
     const inStock = selectedVariant?.stockStatus === "In Stock";
+    const handleAddToCart = () => {
+        if (!selectedVariant || !inStock) return;
+        addItems([{
+            graceSku: selectedVariant.graceSku,
+            itemName: selectedVariant.itemName,
+            quantity: qty,
+            unitPrice: selectedVariant.webPrice1pc ?? null,
+            family: group?.family,
+            capacity: group?.capacity ?? undefined,
+            color: group?.color ?? undefined,
+        }]);
+        setAddedFlash(true);
+        setTimeout(() => setAddedFlash(false), 1800);
+    };
 
     return (
         <main className="min-h-screen bg-bone">
@@ -1132,20 +1146,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </div>
                                 <button
                                     disabled={!inStock || addedFlash}
-                                    onClick={() => {
-                                        if (!selectedVariant || !inStock) return;
-                                        addItems([{
-                                            graceSku: selectedVariant.graceSku,
-                                            itemName: selectedVariant.itemName,
-                                            quantity: qty,
-                                            unitPrice: selectedVariant.webPrice1pc ?? null,
-                                            family: group?.family,
-                                            capacity: group?.capacity ?? undefined,
-                                            color: group?.color ?? undefined,
-                                        }]);
-                                        setAddedFlash(true);
-                                        setTimeout(() => setAddedFlash(false), 1800);
-                                    }}
+                                    onClick={handleAddToCart}
                                     className={`flex-1 flex items-center justify-center space-x-2 text-xs font-bold uppercase tracking-widest transition-colors disabled:cursor-not-allowed ${
                                         addedFlash
                                             ? "bg-emerald-600 text-white"
@@ -1383,7 +1384,48 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 </section>
 
                 {/* Footer spacer */}
-                <div className="h-24 bg-linen border-t border-champagne/30"></div>
+                <div className="h-32 bg-linen border-t border-champagne/30"></div>
+            </div>
+
+            {/* Mobile sticky purchase bar */}
+            <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-champagne bg-bone/95 backdrop-blur-md pb-[max(env(safe-area-inset-bottom),8px)]">
+                <div className="px-4 py-3 flex items-center gap-3">
+                    <div className="min-w-0">
+                        <p className="text-[10px] uppercase tracking-wider text-slate font-semibold">From</p>
+                        <p className="font-semibold text-obsidian truncate">
+                            {formatPrice(selectedVariant?.webPrice1pc ?? group.priceRangeMin)}
+                            <span className="text-xs text-slate ml-1">/ea</span>
+                        </p>
+                    </div>
+                    <div className="flex items-center border border-champagne rounded-sm bg-white shrink-0">
+                        <button
+                            onClick={() => setQty((q) => Math.max(1, q - 1))}
+                            className="px-3 py-2 text-obsidian border-r border-champagne"
+                            aria-label="Decrease quantity"
+                        >
+                            −
+                        </button>
+                        <span className="px-3 text-sm font-semibold text-obsidian min-w-[36px] text-center">{qty}</span>
+                        <button
+                            onClick={() => setQty((q) => q + 1)}
+                            className="px-3 py-2 text-obsidian border-l border-champagne"
+                            aria-label="Increase quantity"
+                        >
+                            +
+                        </button>
+                    </div>
+                    <button
+                        disabled={!inStock || addedFlash}
+                        onClick={handleAddToCart}
+                        className={`flex-1 min-w-0 py-3 text-[11px] font-bold uppercase tracking-wider transition-colors ${
+                            addedFlash
+                                ? "bg-emerald-600 text-white"
+                                : "bg-obsidian text-white disabled:opacity-40"
+                        }`}
+                    >
+                        {addedFlash ? "Added!" : inStock ? "Add to Cart" : "Out of Stock"}
+                    </button>
+                </div>
             </div>
         </main>
     );

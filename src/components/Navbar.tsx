@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-    Search, User, ShoppingBag, Mic, ChevronDown,
+    Search, User, ShoppingBag, Mic, ChevronDown, Menu, X,
     Sparkles, FlaskConical, Gem, ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -343,6 +343,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
 
     const links = NAV_LINKS[variant];
     const [activeMega, setActiveMega] = useState<MegaMenuId | null>(null);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mobileOpenSection, setMobileOpenSection] = useState<MegaMenuId | null>(null);
     const megaRef = useRef<HTMLDivElement>(null);
     const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -383,6 +385,11 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
         return () => document.removeEventListener("keydown", handler);
     }, []);
 
+    useEffect(() => {
+        document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+        return () => { document.body.style.overflow = ""; };
+    }, [mobileMenuOpen]);
+
     return (
         <>
             <header
@@ -396,8 +403,15 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     </p>
                 </div>
 
-                <div className="max-w-[1440px] mx-auto px-6 h-[72px] flex items-center justify-between gap-6">
+                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-4 sm:gap-6">
                     <div className="flex items-center space-x-10 shrink-0">
+                        <button
+                            aria-label="Open menu"
+                            className="lg:hidden p-2 -ml-2 text-obsidian hover:text-muted-gold transition-colors"
+                            onClick={() => setMobileMenuOpen(true)}
+                        >
+                            <Menu className="w-5 h-5" strokeWidth={1.75} />
+                        </button>
                         <Link href="/" className="font-display text-2xl font-medium tracking-tight text-obsidian">
                             BEST BOTTLES
                         </Link>
@@ -534,6 +548,40 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         </button>
                     </div>
                 </div>
+
+                <form
+                    onSubmit={handleSearchSubmit}
+                    className="lg:hidden px-4 sm:px-6 pb-3"
+                    suppressHydrationWarning
+                >
+                    <div className="flex items-center border border-champagne rounded-xl px-3 py-2 bg-white/80 focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/15 transition-all duration-200 space-x-2">
+                        <Search className="w-4 h-4 text-slate shrink-0" />
+                        <input
+                            type="text"
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
+                            placeholder="Search bottles, closures, families..."
+                            className="bg-transparent text-sm focus:outline-none flex-1 placeholder-slate/60 text-obsidian"
+                            aria-label="Search products"
+                            suppressHydrationWarning
+                        />
+                        <button
+                            type="button"
+                            onClick={handleMicClick}
+                            disabled={isTranscribing}
+                            aria-label={isDictating ? "Stop recording" : "Search by voice"}
+                            className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${
+                                isDictating
+                                    ? "text-muted-gold animate-grace-pulse"
+                                    : isTranscribing
+                                    ? "text-muted-gold/60 animate-bounce"
+                                    : "text-slate/40 hover:text-slate"
+                            }`}
+                        >
+                            <Mic className="w-4 h-4" />
+                        </button>
+                    </div>
+                </form>
             </header>
 
             <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
@@ -544,6 +592,101 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     className="fixed inset-0 bg-obsidian/10 z-40 transition-opacity duration-300"
                     onClick={() => setActiveMega(null)}
                 />
+            )}
+
+            {mobileMenuOpen && (
+                <>
+                    <div
+                        className="fixed inset-0 bg-obsidian/40 z-[60] lg:hidden"
+                        onClick={() => setMobileMenuOpen(false)}
+                    />
+                    <div className="fixed top-0 left-0 bottom-0 z-[61] w-[360px] max-w-[88vw] bg-bone border-r border-champagne shadow-2xl lg:hidden flex flex-col">
+                        <div className="h-[44px] bg-obsidian" />
+                        <div className="h-[72px] px-4 flex items-center justify-between border-b border-champagne">
+                            <span className="font-display text-2xl tracking-tight text-obsidian">BEST BOTTLES</span>
+                            <button
+                                aria-label="Close menu"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="p-2 text-obsidian hover:text-muted-gold transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto px-4 py-4">
+                            <nav className="space-y-2">
+                                {links.map((link) => {
+                                    if (!("megaId" in link)) {
+                                        return (
+                                            <Link
+                                                key={link.label}
+                                                href={link.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="flex items-center justify-between py-3 text-sm font-semibold uppercase tracking-wide text-obsidian border-b border-champagne/40"
+                                            >
+                                                {link.label}
+                                                <ArrowRight className="w-4 h-4 text-slate" />
+                                            </Link>
+                                        );
+                                    }
+
+                                    const isExpanded = mobileOpenSection === link.megaId;
+                                    const panel = MEGA_PANELS[link.megaId];
+
+                                    return (
+                                        <div key={link.label} className="border-b border-champagne/40 pb-2">
+                                            <button
+                                                onClick={() => setMobileOpenSection(isExpanded ? null : link.megaId)}
+                                                className="w-full flex items-center justify-between py-3 text-sm font-semibold uppercase tracking-wide text-obsidian"
+                                                aria-expanded={isExpanded}
+                                            >
+                                                {link.label}
+                                                <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                                            </button>
+                                            {isExpanded && (
+                                                <div className="pb-2 space-y-4">
+                                                    {panel.columns.map((col) => (
+                                                        <div key={col.heading}>
+                                                            <p className="text-[10px] uppercase tracking-[0.2em] text-slate font-bold mb-2">
+                                                                {col.heading}
+                                                            </p>
+                                                            <div className="space-y-1">
+                                                                {col.links.slice(0, 6).map((item) => (
+                                                                    <Link
+                                                                        key={item.label}
+                                                                        href={item.href}
+                                                                        onClick={() => setMobileMenuOpen(false)}
+                                                                        className="flex items-center justify-between py-2 text-[13px] text-obsidian"
+                                                                    >
+                                                                        <span>{item.label}</span>
+                                                                        {item.badge && (
+                                                                            <span className="text-[10px] text-slate/60">{item.badge}</span>
+                                                                        )}
+                                                                    </Link>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </nav>
+                        </div>
+
+                        <div className="p-4 border-t border-champagne bg-white/60">
+                            <Link
+                                href="/catalog"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="w-full inline-flex items-center justify-center gap-2 py-3 bg-obsidian text-white text-xs uppercase tracking-wider font-bold"
+                            >
+                                Browse Full Catalog
+                                <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
+                        </div>
+                    </div>
+                </>
             )}
         </>
     );
