@@ -690,6 +690,169 @@ Call getCatalogStats(). Report totalVariants and totalGroups. Do not invent or r
     },
 });
 
+/**
+ * Recalibrate Grace's knowledge after major catalog/nav restructures.
+ *
+ * What this does:
+ * 1) Removes duplicate graceKnowledge entries by (category + title), keeping newest
+ * 2) Regenerates catalog overview copy from LIVE productGroups stats
+ *
+ * Run:
+ *   npx convex run grace:recalibrateKnowledge
+ */
+export const recalibrateKnowledge = mutation({
+    args: {
+        pruneDuplicates: v.optional(v.boolean()),
+    },
+    handler: async (ctx, args) => {
+        const pruneDuplicates = args.pruneDuplicates ?? true;
+
+        const categories = [
+            "identity",
+            "voice",
+            "emotional_intelligence",
+            "sales_methodology",
+            "navigation",
+            "response_templates",
+            "autonomous_behaviours",
+            "escalation",
+            "brand_differentiators",
+            "product_knowledge",
+        ];
+
+        const dedupeDeleted: Array<{ category: string; title: string; deleted: number }> = [];
+
+        if (pruneDuplicates) {
+            for (const category of categories) {
+                const items = await ctx.db
+                    .query("graceKnowledge")
+                    .withIndex("by_category", (q) => q.eq("category", category))
+                    .collect();
+
+                // Keep newest per title, remove older duplicates
+                const byTitle = new Map<string, typeof items>();
+                for (const item of items) {
+                    const key = item.title.trim().toLowerCase();
+                    const arr = byTitle.get(key) ?? [];
+                    arr.push(item);
+                    byTitle.set(key, arr);
+                }
+
+                for (const [titleKey, arr] of byTitle.entries()) {
+                    if (arr.length <= 1) continue;
+                    const sorted = [...arr].sort((a, b) => b._creationTime - a._creationTime);
+                    const toDelete = sorted.slice(1);
+                    for (const d of toDelete) {
+                        await ctx.db.delete(d._id);
+                    }
+                    dedupeDeleted.push({
+                        category,
+                        title: titleKey,
+                        deleted: toDelete.length,
+                    });
+                }
+            }
+        }
+
+        // Build live catalog snapshot from product groups (cheap and stable)
+        const groups = await ctx.db.query("productGroups").collect();
+        const totalGroups = groups.length;
+        const totalVariants = groups.reduce((sum, g) => sum + (g.variantCount ?? 0), 0);
+
+        const familySet = new Set<string>();
+        const categoryCounts: Record<string, number> = {};
+        const componentTypeSet = new Set<string>();
+
+        for (const g of groups) {
+            categoryCounts[g.category] = (categoryCounts[g.category] ?? 0) + (g.variantCount ?? 0);
+            if (g.family) familySet.add(g.family);
+            if (g.category === "Component") {
+                // Display names are now like: "Fine Mist Sprayer — Thread 13-415"
+                const baseType = g.displayName.split(" — ")[0]?.trim();
+                if (baseType) componentTypeSet.add(baseType);
+            }
+        }
+
+        const families = [...familySet].sort();
+        const componentTypes = [...componentTypeSet].sort();
+
+        const productKnowledgeItems = await ctx.db
+            .query("graceKnowledge")
+            .withIndex("by_category", (q) => q.eq("category", "product_knowledge"))
+            .collect();
+
+        const overviewEntries = productKnowledgeItems.filter((k) =>
+            /catalog overview/i.test(k.title)
+        );
+
+        const liveOverview = `Best Bottles catalog snapshot (live):
+- Product groups: ${totalGroups}
+- Total variants: ${totalVariants}
+
+Current organization:
+- Primary browse axes: Applicator Type, Design Family, Capacity
+- Categories present: ${Object.keys(categoryCounts).sort().join(", ")}
+- Design families in catalog: ${families.join(", ")}
+- Component groups are split by type + thread size for precise fitment discovery.
+- Component type examples: ${componentTypes.join(", ")}
+
+Operational guidance for Grace:
+- ALWAYS call getCatalogStats() for counts (never quote a memorized number).
+- For specific product discovery, call searchCatalog with applicatorFilter when applicable.
+- For fitment questions on a specific bottle, call getBottleComponents first.
+- For thread-only compatibility questions, call checkCompatibility.
+- Never promise SKU availability or fitment from memory.`;
+
+        let patchedOverviewId: string | null = null;
+        if (overviewEntries.length > 0) {
+            const newest = [...overviewEntries].sort((a, b) => b._creationTime - a._creationTime)[0];
+            await ctx.db.patch(newest._id, {
+                title: "Best Bottles Catalog Overview — Live Structure",
+                content: liveOverview,
+                tags: [
+                    "catalog",
+                    "live-count",
+                    "applicator-first",
+                    "design-family",
+                    "capacity",
+                    "components",
+                    "fitment",
+                ],
+                source: "grace_recalibration_live",
+            });
+            patchedOverviewId = String(newest._id);
+        } else {
+            const id = await ctx.db.insert("graceKnowledge", {
+                category: "product_knowledge",
+                title: "Best Bottles Catalog Overview — Live Structure",
+                content: liveOverview,
+                tags: [
+                    "catalog",
+                    "live-count",
+                    "applicator-first",
+                    "design-family",
+                    "capacity",
+                    "components",
+                    "fitment",
+                ],
+                priority: 1,
+                source: "grace_recalibration_live",
+            });
+            patchedOverviewId = String(id);
+        }
+
+        return {
+            success: true,
+            totalGroups,
+            totalVariants,
+            dedupeDeletedCount: dedupeDeleted.reduce((s, x) => s + x.deleted, 0),
+            dedupeDeleted,
+            patchedOverviewId,
+            message: "Grace knowledge recalibration complete.",
+        };
+    },
+});
+
 // ─────────────────────────────────────────────────────────────────────────────
 // GRACE AI CORE ACTION — Claude Sonnet 4.6 with agentic tool use
 // ─────────────────────────────────────────────────────────────────────────────
