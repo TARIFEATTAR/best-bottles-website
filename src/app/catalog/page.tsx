@@ -49,7 +49,7 @@ const COLOR_SWATCH_MAP: Record<string, string> = {
 };
 
 const CATEGORY_ORDER = [
-    "Glass Bottle", "Cream Jar", "Lotion Bottle", "Aluminum Bottle",
+    "Glass Bottle", "Cream Jar", "Lotion Bottle",
     "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
     "Packaging Box", "Other",
 ];
@@ -62,7 +62,7 @@ const FAMILY_ORDER = [
     "Tulip", "Queen", "Bell", "Swirl", "Grace",
 ];
 // Categories that are "bottle" types — appear first in catalog order
-const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Cream Jar", "Lotion Bottle", "Aluminum Bottle"]);
+const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Cream Jar", "Lotion Bottle"]);
 
 const COMPONENT_CATEGORIES = new Set([
     "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
@@ -491,6 +491,58 @@ function FilterSidebarContent({
                 </FilterSection>
             )}
 
+            {/* Design Families — open by default */}
+            {sortedFamilies.length > 0 && (
+                <FilterSection title="Design Families" defaultOpen hasActiveFilters={filters.families.length > 0}>
+                    <div className="space-y-0.5 max-h-[280px] overflow-y-auto hide-scroll">
+                        {sortedFamilies.map(([fam, count]) => (
+                            <CheckboxItem
+                                key={fam}
+                                label={fam}
+                                count={count}
+                                checked={filters.families.includes(fam)}
+                                onChange={() => toggleArrayFilter("families", fam)}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Capacity — open by default */}
+            {sortedCapacities.length > 0 && (
+                <FilterSection title="Capacity" defaultOpen hasActiveFilters={filters.capacities.length > 0}>
+                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
+                        {sortedCapacities.map((cap) => (
+                            <CheckboxItem
+                                key={cap.label}
+                                label={cap.label}
+                                count={cap.count}
+                                checked={filters.capacities.includes(cap.label)}
+                                onChange={() => toggleArrayFilter("capacities", cap.label)}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
+            {/* Color — closed by default */}
+            {sortedColors.length > 0 && (
+                <FilterSection title="Color" defaultOpen={false} hasActiveFilters={filters.colors.length > 0}>
+                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
+                        {sortedColors.map(([color, count]) => (
+                            <CheckboxItem
+                                key={color}
+                                label={color}
+                                count={count}
+                                checked={filters.colors.includes(color)}
+                                onChange={() => toggleArrayFilter("colors", color)}
+                                swatch={COLOR_SWATCH_MAP[color] ?? "bg-slate-300"}
+                            />
+                        ))}
+                    </div>
+                </FilterSection>
+            )}
+
             {/* Category + Collection Tree — closed by default */}
             <FilterSection title="Categories" defaultOpen={false} hasActiveFilters={!!(filters.category || filters.collection)}>
                 {sidebarCategories.map((group) => (
@@ -535,23 +587,6 @@ function FilterSidebarContent({
                 ))}
             </FilterSection>
 
-            {/* Design Families — open by default */}
-            {sortedFamilies.length > 0 && (
-                <FilterSection title="Design Families" defaultOpen hasActiveFilters={filters.families.length > 0}>
-                    <div className="space-y-0.5 max-h-[280px] overflow-y-auto hide-scroll">
-                        {sortedFamilies.map(([fam, count]) => (
-                            <CheckboxItem
-                                key={fam}
-                                label={fam}
-                                count={count}
-                                checked={filters.families.includes(fam)}
-                                onChange={() => toggleArrayFilter("families", fam)}
-                            />
-                        ))}
-                    </div>
-                </FilterSection>
-            )}
-
             {/* Component Type (contextual) */}
             {isComponentCategory && sortedComponentTypes.length > 0 && (
                 <FilterSection title="Component Type" defaultOpen={false} hasActiveFilters={!!filters.componentType}>
@@ -564,41 +599,6 @@ function FilterSidebarContent({
                             >
                                 {type} ({count})
                             </button>
-                        ))}
-                    </div>
-                </FilterSection>
-            )}
-
-            {/* Capacity — open by default */}
-            {sortedCapacities.length > 0 && (
-                <FilterSection title="Capacity" defaultOpen hasActiveFilters={filters.capacities.length > 0}>
-                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
-                        {sortedCapacities.map((cap) => (
-                            <CheckboxItem
-                                key={cap.label}
-                                label={cap.label}
-                                count={cap.count}
-                                checked={filters.capacities.includes(cap.label)}
-                                onChange={() => toggleArrayFilter("capacities", cap.label)}
-                            />
-                        ))}
-                    </div>
-                </FilterSection>
-            )}
-
-            {/* Color — closed by default */}
-            {sortedColors.length > 0 && (
-                <FilterSection title="Color" defaultOpen={false} hasActiveFilters={filters.colors.length > 0}>
-                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
-                        {sortedColors.map(([color, count]) => (
-                            <CheckboxItem
-                                key={color}
-                                label={color}
-                                count={count}
-                                checked={filters.colors.includes(color)}
-                                onChange={() => toggleArrayFilter("colors", color)}
-                                swatch={COLOR_SWATCH_MAP[color] ?? "bg-slate-300"}
-                            />
                         ))}
                     </div>
                 </FilterSection>
@@ -748,10 +748,25 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         }
 
         // Applicator type (Option A — applicator-first)
+        // Belt-and-suspenders: also filter by slug suffix so spray never appears in roll-on, etc.
+        const SLUG_BUCKET_SUFFIXES: Record<string, string[]> = {
+            rollon: ["-rollon"],
+            spray: ["-spray"],
+            dropper: ["-dropper"],
+            lotionpump: ["-lotionpump"],
+            reducer: ["-reducer"],
+        };
         if (filters.applicators.length > 0) {
             result = result.filter((g) => {
                 const types = g.applicatorTypes ?? [];
-                return filters.applicators.some((bucket) => applicatorBucketMatchesProductValues(bucket, types));
+                const slug = g.slug ?? "";
+                const matchesBucket = filters.applicators.some((bucket) => {
+                    if (!applicatorBucketMatchesProductValues(bucket, types)) return false;
+                    const allowedSuffixes = SLUG_BUCKET_SUFFIXES[bucket];
+                    if (allowedSuffixes && !allowedSuffixes.some((s) => slug.endsWith(s))) return false;
+                    return true;
+                });
+                return matchesBucket;
             });
         }
 

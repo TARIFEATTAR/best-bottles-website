@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
-    Check, Layers, Plus,
+    Check, Layers, Plus, ExternalLink,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
@@ -51,6 +51,84 @@ function getComponentType(graceSku: string, itemName?: string): string {
     return "Accessory";
 }
 
+function isPlasticBottleComponent(itemName?: string): boolean {
+    return /plastic bottle with/i.test(itemName ?? "");
+}
+
+function getVariantLabel(variant: ProductVariant): string {
+    const parts: string[] = [];
+    if (variant.capColor) parts.push(variant.capColor);
+    if (variant.capStyle) parts.push(variant.capStyle);
+    if (variant.trimColor && variant.trimColor !== "Standard") parts.push(variant.trimColor);
+    if (variant.ballMaterial) parts.push(variant.ballMaterial);
+    if (parts.length > 0) return parts.join(" · ");
+    return variant.websiteSku;
+}
+
+function getFinishFromGraceSku(graceSku: string | null | undefined): { label: string; swatchName: string } | null {
+    if (!graceSku) return null;
+    const token = graceSku.split("-").pop()?.toUpperCase() ?? "";
+    const map: Record<string, { label: string; swatchName: string }> = {
+        SBLK: { label: "Shiny Black", swatchName: "Shiny Black" },
+        MBLK: { label: "Matte Black", swatchName: "Matte Black" },
+        BLK: { label: "Black", swatchName: "Black" },
+        SSLV: { label: "Shiny Silver", swatchName: "Shiny Silver" },
+        MSLV: { label: "Matte Silver", swatchName: "Matte Silver" },
+        SLV: { label: "Silver", swatchName: "Shiny Silver" },
+        SGLD: { label: "Shiny Gold", swatchName: "Shiny Gold" },
+        MGLD: { label: "Matte Gold", swatchName: "Matte Gold" },
+        GLD: { label: "Gold", swatchName: "Shiny Gold" },
+        MCPR: { label: "Matte Copper", swatchName: "Matte Copper" },
+        SCPR: { label: "Shiny Copper", swatchName: "Copper" },
+        MBLU: { label: "Matte Blue", swatchName: "Blue" },
+        SBLU: { label: "Shiny Blue", swatchName: "Blue" },
+        BLU: { label: "Blue", swatchName: "Blue" },
+        WHT: { label: "White", swatchName: "White" },
+        PNK: { label: "Pink", swatchName: "Pink" },
+        GRN: { label: "Green", swatchName: "Green" },
+        BKDT: { label: "Black with Dots", swatchName: "Black" },
+    };
+    return map[token] ?? null;
+}
+
+function getCapFinishFromItemName(itemName: string | null | undefined): { label: string; swatchName: string } | null {
+    const name = (itemName ?? "").toLowerCase();
+    if (!name) return null;
+    if (name.includes("short black cap")) return { label: "Short Black", swatchName: "Black" };
+    if (name.includes("short white cap")) return { label: "Short White", swatchName: "White" };
+    if (name.includes("shiny silver cap")) return { label: "Shiny Silver", swatchName: "Shiny Silver" };
+    if (name.includes("matte silver cap")) return { label: "Matte Silver", swatchName: "Matte Silver" };
+    if (name.includes("shiny gold cap")) return { label: "Shiny Gold", swatchName: "Shiny Gold" };
+    if (name.includes("matte gold cap")) return { label: "Matte Gold", swatchName: "Matte Gold" };
+    if (name.includes("white cap")) return { label: "White", swatchName: "White" };
+    if (name.includes("black cap")) return { label: "Black", swatchName: "Black" };
+    if (name.includes("silver cap")) return { label: "Silver", swatchName: "Shiny Silver" };
+    if (name.includes("gold cap")) return { label: "Gold", swatchName: "Shiny Gold" };
+    return null;
+}
+
+function getCapFinishFromComponent(comp: ProductComponent): { label: string; swatchName: string } {
+    const sku = (comp.grace_sku || "").toUpperCase();
+    // Prioritize SKU tokens so dotted/matte variants don't collapse into generic labels.
+    if (sku.includes("BKDT")) return { label: "Black with Dots", swatchName: "Black" };
+    if (sku.includes("SLDT")) return { label: "Silver with Dots", swatchName: "Shiny Silver" };
+    if (sku.includes("PKDT")) return { label: "Pink with Dots", swatchName: "Pink" };
+    if (sku.includes("SBLK")) return { label: "Shiny Black", swatchName: "Shiny Black" };
+    if (sku.includes("MBLK")) return { label: "Matte Black", swatchName: "Matte Black" };
+    if (sku.includes("SSLV")) return { label: "Shiny Silver", swatchName: "Shiny Silver" };
+    if (sku.includes("MSLV")) return { label: "Matte Silver", swatchName: "Matte Silver" };
+    if (sku.includes("SGLD")) return { label: "Shiny Gold", swatchName: "Shiny Gold" };
+    if (sku.includes("MGLD")) return { label: "Matte Gold", swatchName: "Matte Gold" };
+    if (sku.includes("MCPR")) return { label: "Matte Copper", swatchName: "Matte Copper" };
+    if (sku.includes("WHT")) return { label: "White", swatchName: "White" };
+    if (sku.includes("BLK")) return { label: "Black", swatchName: "Black" };
+    if (sku.includes("SLV")) return { label: "Silver", swatchName: "Shiny Silver" };
+    if (sku.includes("GLD")) return { label: "Gold", swatchName: "Shiny Gold" };
+    const fromName = getCapFinishFromItemName(comp.item_name);
+    if (fromName) return fromName;
+    return { label: "Cap Option", swatchName: "Standard" };
+}
+
 // Swatch hex values for trim/cap finish names
 const COLOR_SWATCH: Record<string, string> = {
     "Matte Gold": "#C5A065",
@@ -88,6 +166,7 @@ const GLASS_COLOR_SWATCH: Record<string, string> = {
 const LIGHT_GLASS = new Set(["Clear", "Frosted", "White", "Pink"]);
 
 const COMPONENT_TYPE_ORDER = ["Reducer", "Roller Cap", "Roller", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
+const ROLLON_APPLICATORS = new Set(["Metal Roller", "Plastic Roller"]);
 
 interface ProductComponent {
     grace_sku: string;
@@ -110,6 +189,7 @@ interface ProductVariant {
     webPrice12pc: number | null;
     category: string;
     family: string | null;
+    shape: string | null;
     color: string | null;
     capacity: string | null;
     heightWithCap: string | null;
@@ -123,6 +203,12 @@ interface ProductVariant {
     capStyle: string | null;
     capColor: string | null;
     trimColor: string | null;
+    capHeight?: string | null;
+    ballMaterial?: string | null;
+    assemblyType?: string | null;
+    componentGroup?: string | null;
+    graceDescription?: string | null;
+    productUrl?: string | null;
     components?: ProductComponent[] | null;
 }
 
@@ -216,9 +302,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const { addItems } = useCart();
     const [fitmentDrawerOpen, setFitmentDrawerOpen] = useState(false);
     const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
+    const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [selectedCapColor, setSelectedCapColor] = useState<string | null>(null);
     const [selectedCapStyle, setSelectedCapStyle] = useState<string | null>(null);
     const [selectedTrimColor, setSelectedTrimColor] = useState<string | null>(null);
+    const [selectedCapComponentSku, setSelectedCapComponentSku] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<"specs" | "components">("specs");
     const [qty, setQty] = useState(1);
     const [addedFlash, setAddedFlash] = useState(false);
@@ -239,6 +327,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             : "skip"
     );
 
+    // Sibling groups: Cylinder 5ml roll-on shows Clear and Blue only (no Amber — 5ml Amber is Tulip-shaped)
+    const displaySiblingGroups = siblingGroups;
+
     // Atomizer family flag — simplified UI (glass color only, no sub-selectors)
     const isAtomizer = useMemo(() =>
         (group?.family ?? "").toLowerCase().includes("atomizer"),
@@ -252,17 +343,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const applicatorOptions = useMemo(() => {
         const seen = new Set<string>();
         const bottleThread = group?.neckThreadSize ?? "";
+        const isRollonGroup = slug.includes("rollon");
         return variants
             .map((v) => v.applicator)
             .filter((a): a is string => !!a && a !== "Cap/Closure")
             .filter((a) => {
-                // Exclude Glass Rod from 17-415 bottles — different bottle family/thread
+                if (isRollonGroup && !ROLLON_APPLICATORS.has(a)) return false;
                 if (a === "Glass Rod" && bottleThread === "17-415") return false;
                 if (seen.has(a)) return false;
                 seen.add(a);
                 return true;
             });
-    }, [variants, group?.neckThreadSize]);
+    }, [variants, group?.neckThreadSize, slug]);
 
     // Whether any variant has no applicator (plain cap closure)
     const hasCapClosure = useMemo(() =>
@@ -273,15 +365,26 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     // Default applicator: URL param (Option A) > user selection > first option > cap closure
     const defaultFromUrl = useMemo(() => {
         if (!applicatorParam) return null;
+        if (applicatorParam === "capclosure" && hasCapClosure) return "Cap/Closure";
         const bucket = APPLICATOR_BUCKETS.find((b) => b.value === applicatorParam);
         if (!bucket) return null;
-        // Cap/Closure is excluded from applicatorOptions — handle separately
-        if (bucket.value === "capclosure" && hasCapClosure) return "Cap/Closure";
         const match = applicatorOptions.find((opt) => (bucket.productValues as readonly string[]).includes(opt));
         return match ?? null;
     }, [applicatorParam, applicatorOptions, hasCapClosure]);
+    const validApplicatorParam = defaultFromUrl ? applicatorParam : null;
+
+    // Guard stale deep links like ?applicator=spray on non-spray groups (e.g. decorative cap bottles).
+    useEffect(() => {
+        if (!applicatorParam) return;
+        if (validApplicatorParam) return;
+        router.replace(`/products/${slug}`);
+    }, [applicatorParam, validApplicatorParam, router, slug]);
 
     const activeApplicator = selectedApplicator ?? defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
+    const variantsForApplicator = useMemo(
+        () => variants.filter((v) => v.applicator === activeApplicator),
+        [variants, activeApplicator]
+    );
 
     // Cap color options — filtered by selected applicator
     const capColorOptions = useMemo(() => {
@@ -336,6 +439,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
     // Resolved variant — 4-way match with graceful fallback
     const selectedVariant = useMemo(() => {
+        const explicit = selectedVariantId
+            ? variantsForApplicator.find((v) => v._id === selectedVariantId)
+            : null;
+        if (explicit) return explicit;
         return (
             variants.find(
                 (v) =>
@@ -348,7 +455,86 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             variants[0] ??
             null
         );
-    }, [variants, activeApplicator, activeCapColor, activeCapStyle, activeTrimColor, capStyleOptions]);
+    }, [variants, variantsForApplicator, selectedVariantId, activeApplicator, activeCapColor, activeCapStyle, activeTrimColor, capStyleOptions]);
+
+    const variantSwatchPreview = useMemo(() => {
+        return variantsForApplicator.map((v) => {
+            const fromCapFields = (() => {
+                if (!v.capColor && !v.capStyle) return null;
+                if (v.capColor && v.capStyle) {
+                    return {
+                        label: `${v.capStyle} ${v.capColor}`.replace(/\s+/g, " ").trim(),
+                        swatchName: `${v.capStyle} ${v.capColor}`.replace(/\s+/g, " ").trim(),
+                    };
+                }
+                if (v.capColor) return { label: v.capColor, swatchName: v.capColor };
+                if (v.capStyle) return { label: v.capStyle, swatchName: v.capStyle };
+                return null;
+            })();
+
+            const fromGraceSku = getFinishFromGraceSku(v.graceSku);
+            const fromItemName = getCapFinishFromItemName(v.itemName);
+            const resolved = fromCapFields ?? fromGraceSku ?? fromItemName ?? { label: "Variant Option", swatchName: "Standard" };
+            const swatchHex = COLOR_SWATCH[resolved.swatchName] ?? GLASS_COLOR_SWATCH[resolved.swatchName] ?? "#AAAAAA";
+            const useDarkCheck = LIGHT_SWATCHES.has(resolved.swatchName) || LIGHT_GLASS.has(resolved.swatchName);
+            return {
+                id: v._id,
+                websiteSku: v.websiteSku,
+                displayLabel: resolved.label,
+                swatchHex,
+                useDarkCheck,
+                variantId: v._id as string | undefined,
+                isComponentOnly: false,
+            };
+        });
+    }, [variantsForApplicator]);
+
+    const capSwatchPreview = useMemo(() => {
+        if (activeApplicator) return variantSwatchPreview;
+
+        const bottleThread = (group?.neckThreadSize ?? "").toString().trim();
+        const merged = [...variantSwatchPreview];
+        // Build from all variants in this cap-only group so all compatible finishes appear.
+        const comps = variantsForApplicator.flatMap((v) => (Array.isArray(v.components) ? v.components : []));
+
+        for (const comp of comps) {
+            const sku = comp.grace_sku || "";
+            const compThread = getThreadFromSku(sku);
+            if (compThread && bottleThread && compThread !== bottleThread) continue;
+            if ((group?.category ?? "") !== "Plastic Bottle" && isPlasticBottleComponent(comp.item_name)) continue;
+            const type = getComponentType(sku, comp.item_name);
+            if (type !== "Cap" && type !== "Roller Cap") continue;
+
+            const finish = getCapFinishFromComponent(comp);
+            const swatchHex = COLOR_SWATCH[finish.swatchName] ?? GLASS_COLOR_SWATCH[finish.swatchName] ?? "#AAAAAA";
+            const useDarkCheck = LIGHT_SWATCHES.has(finish.swatchName) || LIGHT_GLASS.has(finish.swatchName);
+
+            merged.push({
+                id: `comp:${sku}`,
+                websiteSku: sku,
+                displayLabel: finish.label,
+                swatchHex,
+                useDarkCheck,
+                variantId: undefined,
+                isComponentOnly: true,
+            });
+        }
+
+        // Dedupe by label, prefer real product variant-backed options first.
+        const seen = new Set<string>();
+        return merged.filter((item) => {
+            const key = item.displayLabel.trim().toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+    }, [activeApplicator, variantSwatchPreview, variantsForApplicator, group?.neckThreadSize, group?.category]);
+
+    const showTrimSelector = useMemo(() => {
+        if (trimColorOptions.length === 0) return false;
+        if (trimColorOptions.length === 1 && trimColorOptions[0] === "Standard") return false;
+        return true;
+    }, [trimColorOptions]);
 
     // Components grouped by type from selected variant
     // Filter by thread — 18-400 caps don't fit 17-415 bottles (e.g. 9ml Cylinder)
@@ -356,28 +542,85 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         const comps = selectedVariant?.components ?? [];
         const bottleThread = (group?.neckThreadSize ?? "").toString().trim();
         const groups: Record<string, ProductComponent[]> = {};
+
+        // Determine which component types are relevant for the active applicator.
+        // A flat screw cap does NOT belong on a roll-on bottle even if the thread matches.
+        const applicator = (activeApplicator ?? "").toLowerCase();
+        const isRoller = applicator.includes("roller") || applicator.includes("roll-on");
+        const isSprayer = applicator.includes("atomizer") || applicator.includes("sprayer") || applicator.includes("spray") || applicator.includes("mist");
+        const isDropper = applicator.includes("dropper");
+        const isLotionPump = applicator.includes("lotion") || applicator.includes("pump");
+        const isCapOnly = !activeApplicator;
+
+        // Types that are always irrelevant for this applicator (suppress entirely)
+        const suppressedTypes = new Set<string>();
+        if (isRoller) {
+            // Roll-on bottles don't use flat caps or sprayer nozzles
+            suppressedTypes.add("Cap");
+            suppressedTypes.add("Sprayer");
+            suppressedTypes.add("Dropper");
+            suppressedTypes.add("Lotion Pump");
+        } else if (isSprayer) {
+            suppressedTypes.add("Roller Cap");
+            suppressedTypes.add("Roller");
+            suppressedTypes.add("Dropper");
+            suppressedTypes.add("Lotion Pump");
+        } else if (isDropper) {
+            suppressedTypes.add("Roller Cap");
+            suppressedTypes.add("Roller");
+            suppressedTypes.add("Sprayer");
+            suppressedTypes.add("Lotion Pump");
+        } else if (isLotionPump) {
+            suppressedTypes.add("Roller Cap");
+            suppressedTypes.add("Roller");
+            suppressedTypes.add("Sprayer");
+            suppressedTypes.add("Dropper");
+        } else if (isCapOnly) {
+            // Cap-only PDP: show only classic cap closures as compatible options.
+            suppressedTypes.add("Roller Cap");
+            suppressedTypes.add("Roller");
+            suppressedTypes.add("Sprayer");
+            suppressedTypes.add("Dropper");
+            suppressedTypes.add("Lotion Pump");
+            suppressedTypes.add("Reducer");
+        }
+
         for (const comp of comps) {
             const sku = comp.grace_sku || "";
             const compThread = getThreadFromSku(sku);
             if (compThread && bottleThread && compThread !== bottleThread) continue;
+            // Guard: hide standalone plastic bottle products from glass-bottle component lists.
+            if ((group?.category ?? "") !== "Plastic Bottle" && isPlasticBottleComponent(comp.item_name)) continue;
             const type = getComponentType(sku, comp.item_name);
+            if (suppressedTypes.has(type)) continue;
             if (!groups[type]) groups[type] = [];
             groups[type].push(comp);
         }
         return groups;
-    }, [selectedVariant, group?.neckThreadSize]);
+    }, [selectedVariant, group?.neckThreadSize, group?.category, activeApplicator]);
 
     const totalComponents = Object.values(componentGroups).reduce(
         (sum, arr) => sum + arr.length,
         0
     );
 
-    // Inline caps — surfaced directly on the PDP for easy access
-    // "Roller Cap" = ROC-prefix SKUs (roll-on caps), "Cap" = plain cap closures
-    const inlineCaps = useMemo(() => [
-        ...(componentGroups["Cap"] ?? []),
-        ...(componentGroups["Roller Cap"] ?? []),
-    ], [componentGroups]);
+    // Inline caps — surfaced directly on the PDP for easy access.
+    // For roll-on applicators only show Roller Caps (ROC-prefix), never flat screw caps.
+    const inlineCaps = useMemo(() => {
+        const applicator = (activeApplicator ?? "").toLowerCase();
+        const isRoller = applicator.includes("roller") || applicator.includes("roll-on");
+        const isCapOnly = !activeApplicator;
+        if (isRoller) {
+            return [...(componentGroups["Roller Cap"] ?? [])];
+        }
+        if (isCapOnly) {
+            return [...(componentGroups["Cap"] ?? [])];
+        }
+        return [
+            ...(componentGroups["Cap"] ?? []),
+            ...(componentGroups["Roller Cap"] ?? []),
+        ];
+    }, [componentGroups, activeApplicator]);
 
     // ── Dynamic SEO title ────────────────────────────────────────────────────
     useEffect(() => {
@@ -476,20 +719,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                         <Link href="/" className="hover:text-muted-gold transition-colors shrink-0">Home</Link>
                         <ChevronRight className="w-3 h-3 shrink-0" />
                         <Link href="/catalog" className="hover:text-muted-gold transition-colors shrink-0">Catalog</Link>
-                        {applicatorParam && (
+                        {validApplicatorParam && (
                             <>
                                 <ChevronRight className="w-3 h-3 shrink-0" />
                                 <Link
-                                    href={`/catalog?applicators=${encodeURIComponent(applicatorParam)}`}
+                                    href={`/catalog?applicators=${encodeURIComponent(validApplicatorParam)}`}
                                     className="hover:text-muted-gold transition-colors shrink-0"
                                 >
-                                    {APPLICATOR_BUCKETS.find((b) => b.value === applicatorParam)?.label ?? applicatorParam} Bottles
+                                    {APPLICATOR_BUCKETS.find((b) => b.value === validApplicatorParam)?.label ?? validApplicatorParam} Bottles
                                 </Link>
                             </>
                         )}
                         <ChevronRight className="w-3 h-3 shrink-0" />
                         <Link
-                            href={`/catalog?families=${encodeURIComponent(group.family)}${applicatorParam ? `&applicators=${encodeURIComponent(applicatorParam)}` : ""}`}
+                            href={`/catalog?families=${encodeURIComponent(group.family)}${validApplicatorParam ? `&applicators=${encodeURIComponent(validApplicatorParam)}` : ""}`}
                             className="hover:text-muted-gold transition-colors shrink-0"
                         >
                             {group.family}
@@ -545,7 +788,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             </motion.div>
 
                             {/* Glass color siblings */}
-                            {siblingGroups && siblingGroups.length > 0 && group?.color && (
+                            {displaySiblingGroups && displaySiblingGroups.length > 0 && group?.color && (
                                 <div className="mt-4">
                                     <p className="text-[10px] uppercase tracking-wider font-bold text-slate mb-2.5">Glass Color</p>
                                     <div className="flex flex-wrap gap-3">
@@ -560,10 +803,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                     strokeWidth={2.5}
                                                 />
                                             </span>
-                                            <span className="text-[9px] text-obsidian font-semibold">{group.color}</span>
+                                            <span className="text-[9px] text-obsidian font-semibold">
+                                                {group?.family === "Cylinder" && (group?.capacityMl ?? 0) === 5 && slug.includes("rollon") && group.color === "Cobalt Blue"
+                                                    ? "Blue"
+                                                    : (group.color ?? "")}
+                                            </span>
                                         </div>
                                         {/* Sibling colors */}
-                                        {siblingGroups.map((s) => (
+                                        {displaySiblingGroups.map((s: { _id: string; slug: string; color?: string | null; displayName?: string }) => (
                                             <button
                                                 key={s._id}
                                                 onClick={() => router.push(`/products/${s.slug}`)}
@@ -574,7 +821,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                     className="w-9 h-9 rounded-full border-2 border-champagne/60 group-hover/sib:border-muted-gold transition-all"
                                                     style={{ backgroundColor: GLASS_COLOR_SWATCH[s.color ?? ""] ?? "#CCCCCC" }}
                                                 />
-                                                <span className="text-[9px] text-slate group-hover/sib:text-muted-gold transition-colors">{s.color}</span>
+                                                <span className="text-[9px] text-slate group-hover/sib:text-muted-gold transition-colors">
+                                                    {group?.family === "Cylinder" && (group?.capacityMl ?? 0) === 5 && slug.includes("rollon") && s.color === "Cobalt Blue"
+                                                        ? "Blue"
+                                                        : (s.color ?? "")}
+                                                </span>
                                             </button>
                                         ))}
                                     </div>
@@ -654,6 +905,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                         key={appl}
                                                         onClick={() => {
                                                             setSelectedApplicator(appl);
+                                                            setSelectedVariantId(null);
                                                             setSelectedCapColor(null);
                                                             setSelectedCapStyle(null);
                                                             setSelectedTrimColor(null);
@@ -671,6 +923,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                     <button
                                                         onClick={() => {
                                                             setSelectedApplicator("Cap/Closure");
+                                                            setSelectedVariantId(null);
                                                             setSelectedCapColor(null);
                                                             setSelectedCapStyle(null);
                                                             setSelectedTrimColor(null);
@@ -705,6 +958,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                         <button
                                                             key={color}
                                                             onClick={() => {
+                                                                setSelectedVariantId(null);
                                                                 setSelectedCapColor(color);
                                                                 setSelectedCapStyle(null);
                                                                 setSelectedTrimColor(null);
@@ -740,6 +994,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                     <button
                                                         key={style}
                                                         onClick={() => {
+                                                            setSelectedVariantId(null);
                                                             setSelectedCapStyle(style);
                                                             setSelectedTrimColor(null);
                                                         }}
@@ -756,7 +1011,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     )}
 
                                     {/* Trim selector — the decorative accent ring */}
-                                    {trimColorOptions.length > 0 && (
+                                    {showTrimSelector && (
                                         <div className="mb-8">
                                             <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
                                                 Trim
@@ -772,7 +1027,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                     return (
                                                         <button
                                                             key={color}
-                                                            onClick={() => setSelectedTrimColor(color)}
+                                                            onClick={() => {
+                                                                setSelectedVariantId(null);
+                                                                setSelectedTrimColor(color);
+                                                            }}
                                                             title={color}
                                                             className={`w-9 h-9 rounded-full border-2 transition-all relative ${isSelected
                                                                 ? "border-obsidian scale-110 shadow-md"
@@ -788,6 +1046,62 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                                                     />
                                                                 </span>
                                                             )}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Explicit SKU-level selector fallback when metadata is sparse */}
+                                    {variantsForApplicator.length > 1 && (
+                                        <div className="mb-6">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
+                                                {activeApplicator ? "Cap Color / Variant (Preview)" : "Cap Finish"}
+                                            </p>
+                                            <div className="flex flex-wrap gap-3">
+                                                {capSwatchPreview.map((item) => {
+                                                    const isSelected = item.variantId
+                                                        ? selectedVariant?._id === item.variantId
+                                                        : selectedCapComponentSku === item.websiteSku;
+                                                    return (
+                                                        <button
+                                                            key={item.id}
+                                                            onClick={() => {
+                                                                if (item.variantId) {
+                                                                    setSelectedVariantId(item.variantId);
+                                                                    setSelectedCapComponentSku(null);
+                                                                } else {
+                                                                    setSelectedCapComponentSku(item.websiteSku);
+                                                                }
+                                                            }}
+                                                            title={item.websiteSku}
+                                                            className="flex flex-col items-center gap-1.5 group/variant"
+                                                        >
+                                                            <span
+                                                                className={`w-10 h-10 rounded-full border-2 transition-all relative ${isSelected
+                                                                    ? "border-obsidian scale-110 shadow-md"
+                                                                    : "border-champagne group-hover/variant:border-muted-gold"
+                                                                    }`}
+                                                                style={{ backgroundColor: item.swatchHex }}
+                                                            >
+                                                                {isSelected && (
+                                                                    <span className="absolute inset-0 flex items-center justify-center">
+                                                                        <Check
+                                                                            className={`w-3.5 h-3.5 ${item.useDarkCheck ? "text-obsidian" : "text-white"}`}
+                                                                            strokeWidth={2.5}
+                                                                        />
+                                                                    </span>
+                                                                )}
+                                                            </span>
+                                                            <span
+                                                                className={`text-[10px] leading-tight text-center max-w-[88px] ${isSelected
+                                                                    ? "text-obsidian font-semibold"
+                                                                    : "text-slate group-hover/variant:text-muted-gold"
+                                                                    }`}
+                                                            >
+                                                                {item.displayLabel}
+                                                            </span>
                                                         </button>
                                                     );
                                                 })}
@@ -951,7 +1265,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                         {/* Tab bar */}
                         <div className="flex border-b border-champagne/50 overflow-x-auto">
-                            {(["specs", "components"] as const).map((tab) => (
+                            {(["specs", "components"] as const)
+                                // Metal atomizers are standalone sealed units — no fitments, caps, or components
+                                .filter((tab) => !(tab === "components" && group?.category === "Metal Atomizer"))
+                                .map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
@@ -990,16 +1307,36 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                             <SpecRow label="Capacity" value={selectedVariant.capacity} />
                                             <SpecRow label="Glass Color" value={selectedVariant.color} />
                                             <SpecRow label="Applicator" value={selectedVariant.applicator} />
+                                            <SpecRow label="Ball Material" value={selectedVariant.ballMaterial} />
                                             <SpecRow label="Cap Style" value={selectedVariant.capStyle} />
+                                            <SpecRow label="Cap Height" value={selectedVariant.capHeight} />
                                             <SpecRow label="Trim Finish" value={selectedVariant.trimColor} />
                                             <SpecRow label="Cap Color" value={selectedVariant.capColor} />
+                                            <SpecRow label="Shape" value={selectedVariant.shape} />
+                                            <SpecRow label="Assembly Type" value={selectedVariant.assemblyType} />
+                                            <SpecRow label="Component Group" value={selectedVariant.componentGroup} />
                                             <SpecRow label="Category" value={selectedVariant.category} />
                                             <SpecRow label="Collection" value={selectedVariant.bottleCollection} />
                                         </dl>
-                                        {selectedVariant.itemDescription && (
+                                        {(selectedVariant.graceDescription || selectedVariant.itemDescription) && (
                                             <div className="mt-8 pt-8 border-t border-champagne/50">
                                                 <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Description</p>
-                                                <p className="text-sm text-obsidian/80 leading-relaxed">{selectedVariant.itemDescription}</p>
+                                                <p className="text-sm text-obsidian/80 leading-relaxed">
+                                                    {selectedVariant.graceDescription ?? selectedVariant.itemDescription}
+                                                </p>
+                                            </div>
+                                        )}
+                                        {selectedVariant.productUrl && (
+                                            <div className="mt-6 pt-6 border-t border-champagne/50">
+                                                <a
+                                                    href={selectedVariant.productUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 text-sm font-semibold text-muted-gold hover:text-obsidian transition-colors"
+                                                >
+                                                    View on BestBottles.com
+                                                    <ExternalLink className="w-3.5 h-3.5" />
+                                                </a>
                                             </div>
                                         )}
                                     </motion.div>

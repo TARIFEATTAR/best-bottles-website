@@ -1,0 +1,58 @@
+Column,ConvexTable,Type,InCatalogFilter,InCatalogDisplay,InPDPDisplay,MissingInUI,Notes
+productId,products,string,No,No,No,No,Internal anchor. BB-{PREFIX}-000-{NNNN}
+websiteSku,products,string,No,No,Yes,No,PDP watermark
+graceSku,products,string,No,No,Yes,No,Component cards; FitmentDrawer
+category,products,string,Yes,Yes,Yes,No,Filter + card + specs
+family,products,string,Yes,Yes,Yes,No,Filter + card + breadcrumb
+shape,products,string,No,No,Yes,No,PDP specs (added)
+color,products,string,Yes,Yes,Yes,No,Filter + card + swatches
+capacity,products,string,Yes,Yes,Yes,No,Human-readable e.g. 9 ml
+capacityMl,products,number,Yes,No,No,No,Filter/sort via group only
+capacityOz,products,number,No,No,No,Yes,Optional; rarely needed
+applicator,products,union,Yes,Yes,Yes,No,Via applicatorTypes on group
+capColor,products,string,No,No,Yes,No,PDP + variant selector
+trimColor,products,string,No,No,Yes,No,PDP + variant selector
+capStyle,products,string,No,No,Yes,No,PDP specs
+capHeight,products,literal,No,No,Yes,No,PDP specs (Short/Tall/Leather)
+ballMaterial,products,string,No,No,Yes,No,PDP specs (Metal/Plastic for rollers)
+neckThreadSize,products,string,Yes,Yes,Yes,No,Filter + specs
+heightWithCap,products,string,No,No,Yes,No,PDP specs
+heightWithoutCap,products,string,No,No,Yes,No,PDP specs
+diameter,products,string,No,No,Yes,No,PDP specs
+bottleWeightG,products,number,No,No,Yes,No,PDP specs
+caseQuantity,products,number,No,No,Yes,No,PDP specs
+qbPrice,products,number,No,No,No,No,Internal only
+webPrice1pc,products,number,Yes,Yes,Yes,No,Via priceRangeMin; PDP price
+webPrice10pc,products,number,No,No,Yes,No,PDP
+webPrice12pc,products,number,No,No,Yes,No,PDP bulk price
+stockStatus,products,string,No,No,Yes,No,PDP In Stock badge
+itemName,products,string,Yes,No,Yes,No,Search; PDP title
+itemDescription,products,string,No,No,Yes,No,JSON-LD; PDP fallback
+imageUrl,products,string,No,Yes,Yes,No,Card hero; PDP main image
+productUrl,products,string,No,No,Yes,No,PDP View on BestBottles link
+dataGrade,products,string,No,No,No,No,Internal quality flag
+bottleCollection,products,string,Yes,No,Yes,No,Filter (collection); PDP
+fitmentStatus,products,string,No,No,No,No,Internal
+components,products,array,No,No,Yes,No,PDP fitment carousel
+graceDescription,products,string,No,No,Yes,No,PDP description (preferred)
+assemblyType,products,literal,No,No,Yes,No,PDP specs (2-part/3-part etc)
+componentGroup,products,literal,No,No,Yes,No,PDP specs
+verified,products,boolean,No,No,No,No,Internal
+importSource,products,string,No,No,No,No,Internal
+productGroupId,products,id,No,No,No,No,Internal FK
+slug,productGroups,string,Yes,No,Yes,No,URL key; search
+displayName,productGroups,string,Yes,Yes,Yes,No,Search; card title; PDP title
+family,productGroups,string,Yes,Yes,Yes,No,Filter + card + PDP
+capacity,productGroups,string,Yes,Yes,Yes,No,Filter + card + PDP
+capacityMl,productGroups,number,Yes,No,No,No,Sort/filter only
+color,productGroups,string,Yes,Yes,Yes,No,Filter + card + PDP
+category,productGroups,string,Yes,Yes,Yes,No,Filter + card + PDP
+bottleCollection,productGroups,string,Yes,No,Yes,No,Filter; PDP
+neckThreadSize,productGroups,string,Yes,Yes,Yes,No,Filter + card + PDP
+variantCount,productGroups,number,No,Yes,Yes,No,Card badge; PDP badge
+priceRangeMin,productGroups,number,Yes,Yes,Yes,No,Filter + card + PDP
+priceRangeMax,productGroups,number,Yes,Yes,Yes,No,Card; PDP
+shopifyProductId,productGroups,string,No,No,No,No,Future Shopify sync
+sanitySlug,productGroups,string,No,No,No,No,Future Sanity sync
+heroImageUrl,productGroups,string,No,Yes,No,No,Card image fallback
+applicatorTypes,productGroups,array,Yes,No,Yes,No,Filter; PDP applicator selector

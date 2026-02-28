@@ -667,6 +667,25 @@
     },
     {
       "threadSize": "13-415",
+      "bottleName": "Bell 10ml",
+      "bottleCode": null,
+      "familyHint": "bell",
+      "capacityMl": 10,
+      "components": {
+        "Reducer": "\u2713",
+        "Short Cap with Liner": "\u2713",
+        "Tall Cap with Liner": "\u2713",
+        "Roller Plug (Plastic)": "\u2713",
+        "Roller Plug (Metal)": "\u2713",
+        "Roll-On Cap": "\u2713",
+        "Sprayer": "\u2713",
+        "Dropper": "\u2014",
+        "Bulb Sprayer": "\u2014",
+        "Lotion Pump": "\u2014"
+      }
+    },
+    {
+      "threadSize": "13-415",
       "bottleName": "Bell 12ml",
       "bottleCode": null,
       "familyHint": "bell",

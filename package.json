@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "test:smoke": "vitest run tests/catalog.smoke.test.ts",
-    "scrape:apothecary": "node scripts/scrape_apothecary_full.mjs"
+    "scrape:apothecary": "node scripts/scrape_apothecary_full.mjs",
+    "audit:catalog": "node scripts/export_convex_snapshot.mjs && python3 scripts/scrape_live_catalog.py && python3 scripts/normalize_scrape.py && python3 scripts/diff_scrape_vs_convex.py && python3 scripts/reconcile_patch_plan.py",
+    "audit:catalog:apply": "node scripts/apply_safe_patches.mjs --apply --regroup",
+    "audit:catalog:dry": "node scripts/apply_safe_patches.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

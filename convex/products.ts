@@ -1,4 +1,5 @@
-import { query } from "./_generated/server";
+import { query, action } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import { normalizeComponentsByType } from "./componentUtils";
 
@@ -122,6 +123,7 @@ export const getCompatibleFitments = query({
 
         const bottleThread = (bottle.neckThreadSize ?? "").toString().trim();
         const grouped = normalizeComponentsByType(bottle.components);
+        const isPlasticBottlePdp = (bottle.category ?? "") === "Plastic Bottle";
 
         // 2. Filter components by thread — 18-400 caps don't fit 17-415 bottles, etc.
         // Extract thread from SKU (e.g. CMP-CAP-BLK-18-400 → "18-400") and exclude mismatches
@@ -129,8 +131,13 @@ export const getCompatibleFitments = query({
             const m = sku.match(/(\d{2}-\d{3})/);
             return m ? m[1] : null;
         };
+        const isPlasticBottleComponent = (itemName: string): boolean =>
+            /plastic bottle with/i.test(itemName);
         const filteredEntries = Object.entries(grouped).map(([type, items]) => {
             const matching = items.filter((item) => {
+                // Guard: suppress cross-category plastic bottle products from glass-bottle fitment UI
+                // (e.g. "Plastic Bottle with Silver Spray Top ...") unless we're on a plastic bottle PDP.
+                if (!isPlasticBottlePdp && isPlasticBottleComponent(item.itemName)) return false;
                 const compThread = threadFromSku(item.graceSku);
                 return !compThread || compThread === bottleThread;
             });
@@ -425,9 +432,18 @@ export const getGroupsByFamily = query({
     },
 });
 
+// Applicator bucket suffixes in slugs (e.g. cylinder-5ml-clear-13-415-spray ends with -spray)
+const APPLICATOR_BUCKET_SUFFIXES = ["-spray", "-rollon", "-dropper", "-lotionpump", "-reducer", "-glasswand", "-glassapplicator", "-capclosure"] as const;
+
+// Cylinder 5ml roll-on: only Clear and Blue (no Amber — 5ml Amber is Tulip-shaped only)
+const CYLINDER_5ML_ROLLON_ALLOWED = new Set(["Clear", "Blue", "Cobalt Blue"]);
+const BLUE_ALIASES = new Set(["Blue", "Cobalt Blue"]);
+
 /**
- * Returns sibling product groups — same family + capacityMl + neckThreadSize, different glass color.
+ * Returns sibling product groups — same family + capacityMl + neckThreadSize + applicator bucket, different glass color.
  * Used by the PDP to show glass color swatches and navigate between color variants.
+ * Filters by applicator bucket so spray/roll-on pages don't show each other's color options.
+ * For Cylinder 5ml roll-on: only Clear and Blue (no Amber — 5ml Amber is Tulip-shaped only).
  * neckThreadSize is optional for backward compatibility; when provided only same-thread siblings are returned.
  */
 export const getSiblingGroups = query({
@@ -442,12 +458,50 @@ export const getSiblingGroups = query({
             .query("productGroups")
             .withIndex("by_family", (q) => q.eq("family", args.family))
             .collect();
-        return all.filter(
+        const bucketSuffix = APPLICATOR_BUCKET_SUFFIXES.find((s) => args.excludeSlug.endsWith(s));
+        const hasKnownSuffix = (slug: string) => APPLICATOR_BUCKET_SUFFIXES.some((s) => slug.endsWith(s));
+        let filtered = all.filter(
             (g) =>
                 g.capacityMl === args.capacityMl &&
                 g.slug !== args.excludeSlug &&
-                (args.neckThreadSize == null || g.neckThreadSize === args.neckThreadSize)
+                (args.neckThreadSize == null || g.neckThreadSize === args.neckThreadSize) &&
+                (
+                    bucketSuffix
+                        ? g.slug.endsWith(bucketSuffix)
+                        : !hasKnownSuffix(g.slug)
+                )
         );
+
+        // Cylinder 5ml roll-on: only Clear and Blue; deduplicate (one per canonical color)
+        const isCylinder5mlRollon =
+            args.family === "Cylinder" &&
+            args.capacityMl === 5 &&
+            bucketSuffix === "-rollon";
+        if (isCylinder5mlRollon) {
+            filtered = filtered.filter((g) => CYLINDER_5ML_ROLLON_ALLOWED.has(g.color ?? ""));
+            // Deduplicate: one per canonical color (Blue + Cobalt Blue → single "Blue")
+            const seen = new Set<string>();
+            filtered = filtered.filter((g) => {
+                const c = g.color ?? "";
+                const canonical = BLUE_ALIASES.has(c) ? "Blue" : c;
+                if (seen.has(canonical)) return false;
+                seen.add(canonical);
+                return true;
+            });
+        }
+
+        // Global color dedupe for sibling swatches:
+        // if multiple groups have same color (e.g. data artifacts), show only one swatch per color.
+        const seenColor = new Set<string>();
+        filtered = filtered.filter((g) => {
+            const c = g.color ?? "";
+            const canonical = BLUE_ALIASES.has(c) ? "Blue" : c;
+            if (seenColor.has(canonical)) return false;
+            seenColor.add(canonical);
+            return true;
+        });
+
+        return filtered;
     },
 });
 
@@ -578,5 +632,60 @@ export const auditDataQuality = query({
             lowSeverity: issues.filter(i => i.severity === "low").length,
             issues: issues.slice(0, 100),
         };
+    },
+});
+
+/**
+ * Audit applicator values for schema v1.2 — find values not in the constrained union.
+ * Run BEFORE deploying the constrained applicator field.
+ * Uses pagination to avoid 16MB read limit.
+ * Usage: npx convex run products:auditApplicatorValues
+ */
+export const auditApplicatorValues = action({
+    args: {},
+    handler: async (ctx) => {
+        const allowed = new Set([
+            "Metal Roller", "Plastic Roller",
+            "Fine Mist Sprayer", "Perfume Spray Pump",
+            "Atomizer", "Antique Bulb Sprayer", "Antique Bulb Sprayer with Tassel",
+            "Lotion Pump", "Dropper", "Reducer",
+            "Glass Stopper", "Glass Rod",
+            "Cap/Closure", "Applicator Cap", "Metal Atomizer", "N/A",
+        ]);
+        const values = new Set<string>();
+        let cursor: string | null = null;
+        let total = 0;
+
+        while (true) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: 200,
+            });
+            for (const p of result.page) {
+                total++;
+                if (p.applicator) values.add(p.applicator);
+            }
+            if (result.isDone) break;
+            cursor = result.continueCursor;
+        }
+
+        const violations = [...values].filter((val) => !allowed.has(val));
+        return { allValues: [...values].sort(), violations, total };
+    },
+});
+
+/**
+ * Export a page of products for CSV/JSON dump. Used by scripts/export_products_csv.mjs
+ */
+export const getProductExportPage = action({
+    args: {
+        cursor: v.union(v.string(), v.null()),
+        numItems: v.number(),
+    },
+    handler: async (ctx, args) => {
+        return await ctx.runQuery(internal.migrations.getProductPage, {
+            cursor: args.cursor,
+            numItems: args.numItems,
+        });
     },
 });

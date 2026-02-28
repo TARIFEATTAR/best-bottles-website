@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Shield, Award, TrendingUp, MapPin, Zap, ArrowUpRight, Star, ShoppingBag } from "lucide-react";
+import { ArrowRight, Shield, TrendingUp, MapPin, Zap, ArrowUpRight, Star, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -83,9 +83,9 @@ function TrustBar() {
       <div className="max-w-[1440px] mx-auto px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x-0 lg:divide-x divide-champagne/50">
           {[
-            { stat: "170+ Years", label: "of Fragrance Expertise", icon: Shield },
+            { stat: "No Order Minimum", label: "Scale from 1 unit to 10,000+", icon: Zap },
             { stat: productCount, label: "Premium Products", icon: ShoppingBag },
-            { stat: "Trusted by", label: "Ulta, Sephora & Whole Foods", icon: Award },
+            { stat: "Free Sample Kits", label: "Touch & feel before you commit", icon: Star },
             { stat: "Made in USA", label: "No Tariff Surprises", icon: MapPin },
           ].map((item, i) => (
             <FadeUp key={i} delay={0.2 + (i * 0.1)} className="flex items-center space-x-4 lg:pl-8 first:lg:pl-0">
@@ -96,6 +96,119 @@ function TrustBar() {
                 <h4 className="font-serif text-lg text-obsidian font-medium leading-tight">{item.stat}</h4>
                 <p className="text-xs text-slate mt-0.5">{item.label}</p>
               </div>
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// -- Shop By Application --
+function ShopByApplication() {
+  const entries = [
+    {
+      value: "rollon",
+      label: "Roll-ons",
+      subtitle: "Essential oils, perfume oils, topicals",
+      description: "Metal & plastic roller fitments. 9ml–30ml.",
+      icon: (
+        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+          <ellipse cx="20" cy="10" rx="7" ry="4" />
+          <rect x="13" y="10" width="14" height="22" rx="2" />
+          <ellipse cx="20" cy="32" rx="7" ry="4" />
+          <circle cx="20" cy="10" r="3" fill="currentColor" stroke="none" opacity="0.4" />
+        </svg>
+      ),
+    },
+    {
+      value: "spray",
+      label: "Sprays",
+      subtitle: "Fine mist, atomizers, antique bulb",
+      description: "Eau de toilette, perfume, room sprays.",
+      icon: (
+        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+          <rect x="11" y="14" width="13" height="20" rx="2" />
+          <path d="M24 20h4M28 20l-3-3M28 20l-3 3" />
+          <rect x="14" y="8" width="7" height="6" rx="1" />
+          <path d="M24 12h3a1 1 0 011 1v7" />
+        </svg>
+      ),
+    },
+    {
+      value: "reducer",
+      label: "Splash & Reducer",
+      subtitle: "Aftershave, cologne, beard oil",
+      description: "Orifice reducer caps for controlled pour.",
+      icon: (
+        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+          <rect x="11" y="12" width="18" height="22" rx="2" />
+          <rect x="14" y="7" width="12" height="5" rx="1" />
+          <path d="M18 9h4" strokeWidth="2" />
+          <path d="M20 34v3M17 37h6" />
+        </svg>
+      ),
+    },
+    {
+      value: "lotionpump",
+      label: "Lotion Pumps",
+      subtitle: "Skincare, body care, serums",
+      description: "Treatment pumps for precise dispensing.",
+      icon: (
+        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+          <rect x="13" y="16" width="14" height="18" rx="2" />
+          <path d="M20 16V8M16 8h8" />
+          <path d="M20 8c0 0-4-3-4-5" />
+          <rect x="16" y="12" width="8" height="4" rx="1" />
+        </svg>
+      ),
+    },
+    {
+      value: "dropper",
+      label: "Droppers",
+      subtitle: "Serums, tinctures, CBD, essential oils",
+      description: "Boston rounds with glass pipette assemblies.",
+      icon: (
+        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8" stroke="currentColor" strokeWidth="1.5">
+          <rect x="14" y="10" width="12" height="20" rx="3" />
+          <rect x="16" y="6" width="8" height="4" rx="1" />
+          <path d="M20 30v6" />
+          <path d="M18 36c0 0 2 2 4 0" />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <section className="bg-bone py-16 border-b border-champagne/40">
+      <div className="max-w-[1440px] mx-auto px-6">
+        <FadeUp className="mb-10">
+          <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-2">Shop by Application</p>
+          <h2 className="font-serif text-[38px] text-obsidian font-light tracking-tight lowercase leading-tight">
+            what are you filling?
+          </h2>
+        </FadeUp>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {entries.map((entry, i) => (
+            <FadeUp key={entry.value} delay={i * 0.07}>
+              <Link
+                href={`/catalog?applicators=${entry.value}`}
+                className="group flex flex-col h-full bg-white border border-champagne/50 rounded-sm p-6 hover:border-muted-gold hover:shadow-md transition-all duration-300 cursor-pointer"
+              >
+                <div className="text-obsidian/40 group-hover:text-muted-gold transition-colors duration-300 mb-5">
+                  {entry.icon}
+                </div>
+                <h3 className="font-serif text-xl text-obsidian font-medium mb-1 leading-snug">
+                  {entry.label}
+                </h3>
+                <p className="text-xs text-slate leading-relaxed mb-4 flex-1">
+                  {entry.subtitle}
+                </p>
+                <span className="text-xs font-semibold text-muted-gold uppercase tracking-wider flex items-center group-hover:gap-2 transition-all duration-300">
+                  Browse <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </span>
+              </Link>
             </FadeUp>
           ))}
         </div>
@@ -153,10 +266,8 @@ function CuratedCollections() {
               <FadeUp key={i} delay={i * 0.1} className="w-[80vw] sm:w-[280px] xl:w-[240px] lg:w-[260px] shrink-0 snap-center lg:snap-start">
                 <Link href={`/catalog?collection=${encodeURIComponent(col.collection)}`} className={`group relative flex flex-col h-[280px] rounded-[10px] overflow-hidden cursor-pointer shadow-sm ${col.bg}`}>
                   {/* Image fills the container, anchored to the bottom */}
-                  <div className="absolute inset-0 z-0 bg-[#F7F4F0]">
-                    <Image src={col.img} alt={col.title} fill className="object-cover object-bottom mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out" />
-                    {/* Subtle fade effect at top to keep text perfectly legible */}
-                    <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F7F4F0] to-transparent mix-blend-normal"></div>
+                  <div className="absolute inset-0 z-0">
+                    <Image src={col.img} alt={col.title} fill className="object-cover object-bottom group-hover:scale-105 transition-transform duration-700 ease-out" />
                   </div>
 
                   <div className="relative z-10 p-5 mt-1 flex flex-col h-full justify-between">
@@ -180,8 +291,8 @@ function CuratedCollections() {
 // -- Value Proposition --
 function ValueProposition() {
   const pillars = [
-    { title: "170 Years in Fragrance", desc: "The same glass quality we supply to Ulta and Sephora, now available for your brand.", icon: Award },
-    { title: "Curated, Not Cataloged", desc: "Every product passes the same quality checks as our own retail lines. No catalog dumping.", icon: Shield },
+    { title: "No Order Minimum", desc: "Start with a sample kit and scale to production runs of 10,000+ units. We meet you where you are.", icon: Zap },
+    { title: "Curated, Not Cataloged", desc: "Every product is personally vetted for quality. No low-grade catalog dumping — only bottles worth putting your brand on.", icon: Shield },
     { title: "Grow With You", desc: "From 12-unit sample orders to 12,000-unit production runs. Volume pricing as you scale.", icon: TrendingUp },
     { title: "No Tariff Surprises", desc: "Domestic supply chain. Reliable lead times. Consistent quality. We control our own moulds.", icon: MapPin },
   ];
@@ -499,8 +610,9 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar variant="home" />
       <Hero />
-      <CuratedCollections />
       <TrustBar />
+      <ShopByApplication />
+      <CuratedCollections />
       <DesignFamilies />
       <SocialProof />
       <EducationPreview />

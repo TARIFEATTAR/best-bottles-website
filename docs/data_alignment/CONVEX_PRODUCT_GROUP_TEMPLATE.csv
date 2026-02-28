@@ -1,0 +1,4 @@
+slug,displayName,family,capacity,capacityMl,color,category,bottleCollection,neckThreadSize,variantCount,priceRangeMin,priceRangeMax,heroImageUrl,applicatorTypes
+Filter+URL,Filter+Catalog+PDP,Filter+Catalog+PDP,Filter+Catalog+PDP,Filter,Filter+Catalog+PDP,Filter+Catalog+PDP,Filter+PDP,Filter+Catalog+PDP,Catalog+PDP,Catalog+PDP,Catalog+PDP,Catalog fallback,Filter+PDP
+e.g. cylinder-9ml-clear,string,string,"e.g. 9 ml",number,string,string,string,string,number,number,number,url,"Metal Roller|Fine Mist Sprayer|..."
+URL key. Stable. Used in /products/[slug].,Card title. Search index.,Design family.,Human-readable capacity.,Used for sort/filter.,Glass color.,Bottles|Components|Accessories.,Collection name.,Thread size e.g. 18-415.,Count of variants in group.,Lowest webPrice1pc.,Highest webPrice1pc.,Card image when no variant image.,Array of applicator types in group.

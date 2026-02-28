@@ -13,12 +13,16 @@ interface RawProduct {
     capacity?: string;
     capacityMl?: number;
     color?: string;
+    shape?: string | null;
     category?: string;
     bottleCollection?: string;
     neckThreadSize?: string;
     webPrice1pc?: number;
+    webPrice12pc?: number;
+    imageUrl?: string;
     productGroupId?: string;
     components?: unknown[];
+    applicator?: string | null;
 }
 
 interface PageResult {
@@ -52,44 +56,191 @@ interface GroupRecord {
 // Components/caps/sprayers intentionally serve multiple thread sizes and should NOT split.
 const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Lotion Bottle", "Aluminum Bottle"]);
 
+// Maps exact applicator strings to a bucket label used in grouping and slugs.
+// Bottles with the same bucket stay in the same product group (e.g. Metal Roller +
+// Plastic Roller are both "rollon" and share a PDP). Bottles with different buckets
+// (e.g. Fine Mist Sprayer vs Metal Roller) become separate groups with separate catalog cards.
+// "Metal Atomizer" is intentionally excluded — those products get their own category
+// entirely and never enter the glass bottle applicator bucket system.
+// Components (caps, sprayers sold standalone) have no applicator and get no bucket.
+const APPLICATOR_BUCKET_MAP: Record<string, string> = {
+    "Metal Roller": "rollon",
+    "Plastic Roller": "rollon",
+    "Fine Mist Sprayer": "spray",
+    "Atomizer": "spray",
+    "Antique Bulb Sprayer": "spray",
+    "Antique Bulb Sprayer with Tassel": "spray",
+    "Dropper": "dropper",
+    "Lotion Pump": "lotionpump",
+    "Reducer": "reducer",
+    "Glass Rod": "glasswand",
+    "Applicator Cap": "glasswand",
+    "Glass Stopper": "glassapplicator",
+    "Cap/Closure": "capclosure",
+    // Metal Atomizer deliberately omitted — handled as its own category
+};
+
+const APPLICATOR_BUCKET_LABELS: Record<string, string> = {
+    rollon: "Roll-On",
+    spray: "Spray",
+    dropper: "Dropper",
+    lotionpump: "Lotion Pump",
+    reducer: "Reducer",
+    glasswand: "Glass Wand",
+    glassapplicator: "Glass Applicator",
+    capclosure: "Cap/Closure",
+};
+
+// Customer-facing format nouns for clean product titles.
+const APPLICATOR_BUCKET_TITLE: Record<string, string> = {
+    rollon: "Roll-On Bottle",
+    spray: "Spray Bottle",
+    dropper: "Dropper Bottle",
+    lotionpump: "Lotion Pump Bottle",
+    reducer: "Reducer Bottle",
+    glasswand: "Applicator Bottle",
+    glassapplicator: "Applicator Bottle",
+    capclosure: "Bottle",
+};
+
+// For naming, include Plastic Bottle families in the bottle-style title formula.
+const BOTTLE_NAMING_CATEGORIES = new Set([...BOTTLE_CATEGORIES, "Plastic Bottle"]);
+
+// Decorative products have distinct shapes that should appear in the display name
+// instead of the generic "Decorative" label. Shape is derived from websiteSku patterns.
+const DECORATIVE_SHAPE_RULES: Array<{ test: (sku: string) => boolean; shape: string }> = [
+    { test: (s) => /heart/i.test(s), shape: "Heart" },
+    { test: (s) => /TPlGl/i.test(s), shape: "Tola" },
+    { test: (s) => /MtlMrbl/i.test(s), shape: "Marble" },
+    { test: (s) => /pear/i.test(s), shape: "Pear" },
+    { test: (s) => /genie/i.test(s), shape: "Genie" },
+    { test: (s) => /eternalflame/i.test(s), shape: "Eternal Flame" },
+];
+
+function detectDecorativeShape(websiteSku: string): string | null {
+    for (const rule of DECORATIVE_SHAPE_RULES) {
+        if (rule.test(websiteSku)) return rule.shape;
+    }
+    return null;
+}
+
+const DECORATIVE_ACCESSORY_RULES: Array<{ test: (sku: string) => boolean; accessory: string; label: string }> = [
+    { test: (s) => /Key/i.test(s), accessory: "keychain", label: "with Keychain" },
+    { test: (s) => /Tsl/i.test(s), accessory: "tassel", label: "with Tassel" },
+    { test: (s) => /Stpr/i.test(s), accessory: "stopper", label: "with Stopper" },
+];
+
+function detectDecorativeAccessory(websiteSku: string): { slug: string; label: string } | null {
+    for (const rule of DECORATIVE_ACCESSORY_RULES) {
+        if (rule.test(websiteSku)) return { slug: rule.accessory, label: rule.label };
+    }
+    return null;
+}
+
+function getDecorativeSuffix(
+    shape: string,
+    applicatorBucket: string | null,
+    accessoryLabel: string | null,
+): string {
+    if (accessoryLabel) return `Bottle ${accessoryLabel}`;
+    if (shape === "Pear") return "Bottle with Stopper";
+    return "Bottle";
+}
+
+function isMetalAtomizerCategory(category: string): boolean {
+    return category === "Metal Atomizer";
+}
+
+function getApplicatorBucket(applicator: string | null | undefined): string | null {
+    if (!applicator || !applicator.trim()) return null;
+    return APPLICATOR_BUCKET_MAP[applicator.trim()] ?? null;
+}
+
 function buildSlug(
     family: string | null,
     capacityMl: number | null,
     color: string | null,
     category: string,
-    neckThreadSize: string | null
+    neckThreadSize: string | null,
+    applicatorBucket: string | null,
+    shape: string | null = null,
+    accessorySlug: string | null = null,
 ): string {
-    const f = (family || category || "unknown")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-    const c = capacityMl != null ? `${capacityMl}ml` : "0ml";
-    const col = (color || "mixed")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-    if (BOTTLE_CATEGORIES.has(category) && neckThreadSize) {
-        const thread = neckThreadSize
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "");
-        return `${f}-${c}-${col}-${thread}`;
+    if (isMetalAtomizerCategory(category)) {
+        const c = capacityMl != null ? `${capacityMl}ml` : "0ml";
+        return `atomizer-${c}`;
     }
-    return `${f}-${c}-${col}`;
+    const slugify = (s: string) =>
+        s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+    const hasDecShape = (family === "Decorative" || family === "Apothecary") && shape;
+    const familyLabel = hasDecShape ? shape : (family || category || "unknown");
+    const f = slugify(familyLabel);
+    const c = capacityMl != null ? `${capacityMl}ml` : "0ml";
+    const col = slugify(color || "mixed");
+    if (BOTTLE_CATEGORIES.has(category) && neckThreadSize) {
+        const thread = slugify(neckThreadSize);
+        let base = `${f}-${c}-${col}-${thread}`;
+        if (accessorySlug) base = `${base}-${accessorySlug}`;
+        return applicatorBucket ? `${base}-${applicatorBucket}` : base;
+    }
+    return accessorySlug ? `${f}-${c}-${col}-${accessorySlug}` : `${f}-${c}-${col}`;
 }
 
 function buildDisplayName(
     family: string | null,
     capacity: string | null,
     color: string | null,
-    category: string
+    category: string,
+    applicatorBucket: string | null,
+    shape: string | null = null,
+    accessoryLabel: string | null = null,
 ): string {
-    const parts = [
-        family || category,
-        capacity && capacity !== "0 ml (0 oz)" ? capacity : null,
-        color,
-    ].filter(Boolean);
-    return parts.join(" ");
+    if (isMetalAtomizerCategory(category)) {
+        const cap = capacity && capacity !== "0 ml (0 oz)"
+            ? (capacity.match(/^\s*([0-9]+(?:\.[0-9]+)?)\s*ml/i)?.[1]
+                ? `${capacity.match(/^\s*([0-9]+(?:\.[0-9]+)?)\s*ml/i)![1]} ml`
+                : capacity)
+            : null;
+        return [cap, "Atomizer Bottle"].filter(Boolean).join(" ");
+    }
+
+    const formatCapacity = (raw: string | null): string | null => {
+        if (!raw || raw === "0 ml (0 oz)") return null;
+        const m = raw.match(/^\s*([0-9]+(?:\.[0-9]+)?)\s*ml/i);
+        if (m) return `${m[1]} ml`;
+        return raw;
+    };
+
+    // Decorative / Apothecary: "4 ml Frosted Heart Bottle with Keychain"
+    if ((family === "Decorative" || family === "Apothecary") && shape) {
+        const cap = formatCapacity(capacity);
+        const col = (color || "").trim();
+        const suffix = getDecorativeSuffix(shape, applicatorBucket, accessoryLabel);
+        return [cap, col, shape, suffix].filter(Boolean).join(" ");
+    }
+
+    // Clean customer-facing bottle name:
+    // [Capacity] [Color] [Family] [Format]
+    // e.g. "5 ml Cobalt Blue Cylinder Spray Bottle"
+    if (BOTTLE_NAMING_CATEGORIES.has(category)) {
+        const cap = formatCapacity(capacity);
+        const fam = (family || category || "").trim();
+        const col = (color || "").trim();
+        const format = applicatorBucket
+            ? (APPLICATOR_BUCKET_TITLE[applicatorBucket] ?? "Bottle")
+            : "Bottle with Cap";
+        const formatSafe = fam.toLowerCase().includes("bottle") && format === "Bottle" ? "" : format;
+        const parts = [cap, col, fam, formatSafe].filter(Boolean);
+        if (parts.length > 0) return parts.join(" ");
+    }
+
+    // Non-bottle fallback (components/accessories)
+    const applLabel = applicatorBucket && APPLICATOR_BUCKET_LABELS[applicatorBucket];
+    const cap = formatCapacity(capacity);
+    const base = [family || category, cap, color].filter(Boolean).join(" ");
+    if (applLabel) return `${base} (${applLabel})`;
+    return base || family || category || "Product";
 }
 
 function buildGroupKey(
@@ -97,11 +248,21 @@ function buildGroupKey(
     capacityMl: number | null,
     color: string | null,
     category: string,
-    neckThreadSize: string | null
+    neckThreadSize: string | null,
+    applicatorBucket: string | null,
+    shape: string | null = null,
+    accessorySlug: string | null = null,
 ): string {
-    const parts: (string | number)[] = [family || category, capacityMl ?? "null", color || "null"];
+    if (isMetalAtomizerCategory(category)) {
+        return ["Atomizer", capacityMl ?? "null", "metal-shell"].join("|");
+    }
+    const hasDecShape = (family === "Decorative" || family === "Apothecary") && shape;
+    let familyKey = hasDecShape ? `Decorative:${shape}` : (family || category);
+    if (hasDecShape && accessorySlug) familyKey = `${familyKey}:${accessorySlug}`;
+    const parts: (string | number)[] = [familyKey, capacityMl ?? "null", color || "null"];
     if (BOTTLE_CATEGORIES.has(category)) {
         parts.push(neckThreadSize || "null");
+        parts.push(applicatorBucket || "none");
     }
     return parts.join("|");
 }
@@ -207,17 +368,40 @@ export const buildProductGroups = action({
             }) as PageResult;
 
             for (const p of result.page) {
-                const key = buildGroupKey(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown", p.neckThreadSize ?? null);
+                // GBAtom* products are metal-shell travel atomizers, not glass bottles.
+                // Override their category so they never enter glass bottle grouping logic.
+                // Check websiteSku (e.g. GBAtom5SlStars) since source data may have applicator "Atomizer" not "Metal Atomizer".
+                const isMetalAtomizer = p.applicator === "Metal Atomizer" || (p.websiteSku || "").startsWith("GBAtom");
+                const effectiveCategory = isMetalAtomizer
+                    ? "Metal Atomizer"
+                    : (p.category ?? "unknown");
+                const effectiveFamily = isMetalAtomizer
+                    ? "Atomizer"
+                    : (p.family ?? null);
+
+                const applicatorBucket = BOTTLE_CATEGORIES.has(effectiveCategory)
+                    ? getApplicatorBucket(p.applicator)
+                    : null;
+                const isDecorativeFamily = effectiveFamily === "Decorative" || effectiveFamily === "Apothecary";
+                const decorativeShape = isDecorativeFamily
+                    ? detectDecorativeShape(p.websiteSku || "")
+                    : null;
+                const decAccessory = isDecorativeFamily
+                    ? detectDecorativeAccessory(p.websiteSku || "")
+                    : null;
+                const accessorySlug = decAccessory?.slug ?? null;
+                const accessoryLabel = decAccessory?.label ?? null;
+                const key = buildGroupKey(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug);
 
                 if (!groupMap.has(key)) {
                     groupMap.set(key, {
-                        slug: buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown", p.neckThreadSize ?? null),
-                        displayName: buildDisplayName(p.family ?? null, p.capacity ?? null, p.color ?? null, p.category ?? "unknown"),
-                        family: p.family || p.category || "unknown",
+                        slug: buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug),
+                        displayName: buildDisplayName(effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory, applicatorBucket, decorativeShape, accessoryLabel),
+                        family: effectiveFamily || effectiveCategory || "unknown",
                         capacity: p.capacity ?? null,
                         capacityMl: p.capacityMl ?? null,
-                        color: p.color ?? null,
-                        category: p.category ?? "unknown",
+                        color: isMetalAtomizer ? null : (p.color ?? null),
+                        category: effectiveCategory,
                         bottleCollection: p.bottleCollection ?? null,
                         neckThreadSize: p.neckThreadSize ?? null,
                         variantCount: 0,
@@ -285,7 +469,24 @@ export const linkProductsToGroups = action({
 
             const links: { id: Id<"products">; groupId: Id<"productGroups"> }[] = [];
             for (const p of result.page) {
-                const slug = buildSlug(p.family ?? null, p.capacityMl ?? null, p.color ?? null, p.category ?? "unknown", p.neckThreadSize ?? null);
+                const isMetalAtomizer = p.applicator === "Metal Atomizer" || (p.websiteSku || "").startsWith("GBAtom");
+                const effectiveCategory = isMetalAtomizer
+                    ? "Metal Atomizer"
+                    : (p.category ?? "unknown");
+                const effectiveFamily = isMetalAtomizer
+                    ? "Atomizer"
+                    : (p.family ?? null);
+                const applicatorBucket = BOTTLE_CATEGORIES.has(effectiveCategory)
+                    ? getApplicatorBucket(p.applicator)
+                    : null;
+                const isDecorativeFamily = effectiveFamily === "Decorative" || effectiveFamily === "Apothecary";
+                const decorativeShape = isDecorativeFamily
+                    ? detectDecorativeShape(p.websiteSku || "")
+                    : null;
+                const decAccessory = isDecorativeFamily
+                    ? detectDecorativeAccessory(p.websiteSku || "")
+                    : null;
+                const slug = buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null);
                 const groupId = slugToId.get(slug);
                 if (groupId) {
                     links.push({ id: p._id, groupId });
@@ -349,6 +550,11 @@ function deriveApplicator(graceSku: string, itemName: string): string | null {
     const parts = graceSku.split("-");
     const prefix = parts[0];
     if (prefix !== "GB" && prefix !== "LB") return null;
+
+    // GBAtom* SKUs are refillable metal-shell travel atomizers — a separate product
+    // category entirely (not glass bottles). Flag them so the grouping pipeline
+    // can assign them category "Metal Atomizer" and keep them out of glass bottle filters.
+    if (graceSku.startsWith("GBAtom")) return "Metal Atomizer";
 
     // Pass 1: SKU segment
     const fromSku = APPLICATOR_MAP[parts[4]];
@@ -577,6 +783,17 @@ function getRemoveSet(capacityMl: number | null): Set<string> | null {
     return null;
 }
 
+/** Get products by neck thread size — used to find 13-415 compatible components */
+export const getProductsByThread = internalQuery({
+    args: { neckThreadSize: v.string() },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("products")
+            .withIndex("by_neckThreadSize", (q) => q.eq("neckThreadSize", args.neckThreadSize))
+            .collect();
+    },
+});
+
 /** Patch components array for a batch of products */
 export const patchProductComponents = internalMutation({
     args: {
@@ -645,6 +862,350 @@ export const fixBsrDroppers = action({
             skipped: totalSkipped,
             message: `Fixed ${totalFixed} Boston Round products. ${totalSkipped} skipped (non-BSR or no matching issue).`,
         };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// POPULATE BELL 10ML COMPONENTS
+// Bell 10ml Clear spray (GBBell10SpryBlkSh) uses 13-415 thread, same as Bell 12ml.
+// It was added with empty components. This migration populates from all 13-415
+// compatible components in Convex (sprayers, fine mist, caps, roll-on, rollers).
+// Includes static fallback for short caps (CMP-CAP-BLK-S-13-415, CMP-CAP-WHT-S-13-415)
+// in case they're missing from Convex.
+// Run: npx convex run migrations:populateBell10mlComponents
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BOTTLE_CATEGORIES_FOR_EXCLUDE = new Set(["Glass Bottle", "Lotion Bottle", "Aluminum Bottle", "Glass Jar"]);
+
+/** Static fallback: 13-415 short caps and key components from grace_products_final / fitment.
+ * Merged in case they're not in Convex (e.g. different seed source). */
+const BELL_10ML_13_415_FALLBACK: Array<{ grace_sku: string; item_name: string; image_url: string; price_1: number | null; price_12: number | null }> = [
+    { grace_sku: "CMP-CAP-BLK-S-13-415", item_name: "Black lid or closure for glass bottle, Thread size 13-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CP13-415BlkSht.gif", price_1: 0.24, price_12: 0.23 },
+    { grace_sku: "CMP-CAP-WHT-S-13-415", item_name: "White lid or closure for glass bottle, Thread size 13-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CP13-415WhtSht.gif", price_1: 0.24, price_12: 0.23 },
+    { grace_sku: "CMP-CAP-SGLD-13-415-01", item_name: "Shiny gold lid or closure for glass bottle, Thread size 13-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CP13-415Gl.gif", price_1: 0.3, price_12: 0.29 },
+    { grace_sku: "CMP-CAP-SLV-13-415-01", item_name: "Shiny silver lid or closure for glass bottle, Thread size 13-415", image_url: "https://www.bestbottles.com/images/store/enlarged_pics/CP13-415Sl.gif", price_1: 0.3, price_12: 0.29 },
+];
+
+/** Internal: get single product by websiteSku */
+export const getProductBySku = internalQuery({
+    args: { websiteSku: v.string() },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("products")
+            .withIndex("by_websiteSku", (q) => q.eq("websiteSku", args.websiteSku))
+            .first();
+    },
+});
+
+export const populateBell10mlComponents = action({
+    args: {},
+    handler: async (ctx): Promise<{ success: boolean; message: string; componentCount: number }> => {
+        const threadProducts = (await ctx.runQuery(internal.migrations.getProductsByThread, {
+            neckThreadSize: "13-415",
+        })) as RawProduct[];
+
+        // Filter to components only — exclude bottles (glass, lotion, aluminum, cream jars)
+        // Standalone components have capacityMl 0 or null (caps, sprayers, roll-on caps)
+        const components: Array<{ grace_sku: string; item_name: string; image_url: string; price_1: number | null; price_12: number | null }> = threadProducts
+            .filter((p: RawProduct) => {
+                const cat = (p.category ?? "").trim();
+                if (BOTTLE_CATEGORIES_FOR_EXCLUDE.has(cat)) return false;
+                const capMl = p.capacityMl ?? null;
+                // Exclude full bottles (e.g. plastic 30ml with sprayer)
+                if (capMl != null && capMl > 0) return false;
+                return cat === "Component" || cat === "Cap/Closure" || capMl === 0 || capMl === null;
+            })
+            .map((p: RawProduct) => ({
+                grace_sku: p.graceSku ?? "",
+                item_name: p.itemName ?? "",
+                image_url: p.imageUrl ?? "",
+                price_1: p.webPrice1pc ?? null,
+                price_12: p.webPrice12pc ?? null,
+            }))
+            .filter((c) => c.grace_sku);
+
+        // Merge static fallback (short caps, tall caps) — dedupe by grace_sku
+        const seen = new Set(components.map((c) => c.grace_sku));
+        for (const fb of BELL_10ML_13_415_FALLBACK) {
+            if (!seen.has(fb.grace_sku)) {
+                components.push(fb);
+                seen.add(fb.grace_sku);
+            }
+        }
+
+        // Find Bell 10ml spray product
+        const bell10 = await ctx.runQuery(internal.migrations.getProductBySku, {
+            websiteSku: "GBBell10SpryBlkSh",
+        });
+
+        if (!bell10) {
+            return {
+                success: false,
+                message: "Bell 10ml product (GBBell10SpryBlkSh) not found.",
+                componentCount: components.length,
+            };
+        }
+
+        await ctx.runMutation(internal.migrations.patchProductComponents, {
+            patches: [{ id: bell10._id, components }],
+        });
+
+        return {
+            success: true,
+            message: `Populated Bell 10ml with ${components.length} compatible 13-415 components.`,
+            componentCount: components.length,
+        };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ADD MISSING BELL 10ML BOTTLE VARIANTS
+// Live site has 4 Bell 10ml variants; we only had the spray. Adds:
+//   - GBBell10BlkShSht (short cap)
+//   - GBBell10RollBlkDot (plastic roller)
+//   - GBBell10MtlRollBlkDot (metal roller)
+// GBBell10SpryBlkSh already exists from addMissingFineMistSprayers.
+// Run: npx convex run migrations:addMissingBell10Variants
+// Then: npx convex run migrations:populateBell10mlComponents (patches all Bell 10ml)
+// Then: node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BELL_10ML_MISSING_VARIANTS = [
+    {
+        productId: null,
+        websiteSku: "GBBell10BlkShSht",
+        graceSku: "GB-BEL-CLR-10ML-SHT-SBLK",
+        category: "Glass Bottle",
+        family: "Bell",
+        shape: "Bell",
+        color: "Clear",
+        capacity: "10 ml (0.34 oz)",
+        capacityMl: 10,
+        capacityOz: 0.34,
+        applicator: "Cap/Closure",
+        capColor: "Shiny Black",
+        trimColor: "Shiny Black",
+        capStyle: "Short",
+        neckThreadSize: "13-415",
+        heightWithCap: "59 ±1 mm",
+        heightWithoutCap: "55 ±1 mm",
+        diameter: "27 ±0.5 mm",
+        bottleWeightG: null,
+        caseQuantity: null,
+        qbPrice: null,
+        webPrice1pc: 0.6,
+        webPrice10pc: null,
+        webPrice12pc: 0.57,
+        stockStatus: "In Stock",
+        itemName: "Bell design 10ml Clear glass bottle with short shiny black cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+        itemDescription: "Bell design 10ml Clear glass bottle with short shiny black cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+        imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/GBBell10BlkShSht.gif",
+        productUrl: "https://www.bestbottles.com/product/bell-design-10-ml-glass-bottle-short-shiny-black-cap",
+        dataGrade: "B",
+        bottleCollection: "Bell Collection",
+        fitmentStatus: "verified",
+        components: [],
+        graceDescription: "10ml Clear Bell bottle with short shiny black cap. Thread 13-415.",
+        verified: true,
+        importSource: "addMissingBell10Variants_2026-02-28",
+    },
+    {
+        productId: null,
+        websiteSku: "GBBell10RollBlkDot",
+        graceSku: "GB-BEL-CLR-10ML-ROL-BLDOT",
+        category: "Glass Bottle",
+        family: "Bell",
+        shape: "Bell",
+        color: "Clear",
+        capacity: "10 ml (0.34 oz)",
+        capacityMl: 10,
+        capacityOz: 0.34,
+        applicator: "Plastic Roller",
+        capColor: "Shiny Black",
+        trimColor: "Shiny Black",
+        capStyle: null,
+        ballMaterial: "Plastic",
+        neckThreadSize: "13-415",
+        heightWithCap: "66 ±1 mm",
+        heightWithoutCap: "55 ±1 mm",
+        diameter: "27 ±0.5 mm",
+        bottleWeightG: null,
+        caseQuantity: null,
+        qbPrice: null,
+        webPrice1pc: 0.74,
+        webPrice10pc: null,
+        webPrice12pc: 0.7,
+        stockStatus: "In Stock",
+        itemName: "Bell design 10ml Clear glass bottle with plastic roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+        itemDescription: "Bell design 10ml Clear glass bottle with plastic roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+        imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/GBBell10RollBlkDot.gif",
+        productUrl: "https://www.bestbottles.com/product/bell-design-10-ml-glass-bottle-plastic-roller-ball-plug-black-shiny-cap-with-dots",
+        dataGrade: "B",
+        bottleCollection: "Bell Collection",
+        fitmentStatus: "verified",
+        components: [],
+        graceDescription: "10ml Clear Bell bottle with plastic roller and black cap with dots. Thread 13-415.",
+        verified: true,
+        importSource: "addMissingBell10Variants_2026-02-28",
+    },
+    {
+        productId: null,
+        websiteSku: "GBBell10MtlRollBlkDot",
+        graceSku: "GB-BEL-CLR-10ML-MRL-BLDOT",
+        category: "Glass Bottle",
+        family: "Bell",
+        shape: "Bell",
+        color: "Clear",
+        capacity: "10 ml (0.34 oz)",
+        capacityMl: 10,
+        capacityOz: 0.34,
+        applicator: "Metal Roller",
+        capColor: "Shiny Black",
+        trimColor: "Shiny Black",
+        capStyle: null,
+        ballMaterial: "Metal",
+        neckThreadSize: "13-415",
+        heightWithCap: "66 ±1 mm",
+        heightWithoutCap: "55 ±1 mm",
+        diameter: "27 ±0.5 mm",
+        bottleWeightG: null,
+        caseQuantity: null,
+        qbPrice: null,
+        webPrice1pc: 0.82,
+        webPrice10pc: null,
+        webPrice12pc: 0.78,
+        stockStatus: "In Stock",
+        itemName: "Bell design 10ml Clear glass bottle with metal roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+        itemDescription: "Bell design 10ml Clear glass bottle with metal roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+        imageUrl: "https://www.bestbottles.com/images/store/enlarged_pics/GBBell10MtlRollBlkDot.gif",
+        productUrl: "https://www.bestbottles.com/product/bell-design-10-ml-glass-bottle-metal-roller-ball-plug-black-shiny-cap-with-dots",
+        dataGrade: "B",
+        bottleCollection: "Bell Collection",
+        fitmentStatus: "verified",
+        components: [],
+        graceDescription: "10ml Clear Bell bottle with metal roller and black cap with dots. Thread 13-415.",
+        verified: true,
+        importSource: "addMissingBell10Variants_2026-02-28",
+    },
+];
+
+export const addMissingBell10Variants = action({
+    args: {},
+    handler: async (ctx): Promise<{ added: string[]; skipped: string[]; message: string }> => {
+        const existingSkus = new Set<string>();
+        let cursor: string | null = null;
+        let isDone = false;
+        while (!isDone) {
+            const result = (await ctx.runQuery(internal.migrations.getProductPage, { cursor, numItems: 100 })) as PageResult;
+            for (const p of result.page) {
+                existingSkus.add((p.websiteSku ?? "").toLowerCase());
+            }
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        const added: string[] = [];
+        const skipped: string[] = [];
+
+        for (const product of BELL_10ML_MISSING_VARIANTS) {
+            if (existingSkus.has(product.websiteSku.toLowerCase())) {
+                skipped.push(product.websiteSku);
+            } else {
+                await ctx.runMutation(internal.migrations.insertSingleProduct, { product });
+                added.push(product.websiteSku);
+            }
+        }
+
+        return {
+            added,
+            skipped,
+            message: `Added ${added.length} Bell 10ml variants. ${skipped.length > 0 ? `Skipped ${skipped.length} (already exist).` : ""} Run populateBell10mlComponents then buildProductGroups + linkProductsToGroups.`,
+        };
+    },
+});
+
+/** Patches ALL Bell 10ml products (family=Bell, capacityMl=10) with 13-415 components.
+ * Run after addMissingBell10Variants so new variants get components too. */
+export const populateAllBell10mlComponents = action({
+    args: {},
+    handler: async (ctx): Promise<{ success: boolean; message: string; patchedCount: number; componentCount: number }> => {
+        const threadProducts = (await ctx.runQuery(internal.migrations.getProductsByThread, {
+            neckThreadSize: "13-415",
+        })) as RawProduct[];
+
+        const components: Array<{ grace_sku: string; item_name: string; image_url: string; price_1: number | null; price_12: number | null }> = threadProducts
+            .filter((p: RawProduct) => {
+                const cat = (p.category ?? "").trim();
+                if (BOTTLE_CATEGORIES_FOR_EXCLUDE.has(cat)) return false;
+                const capMl = p.capacityMl ?? null;
+                if (capMl != null && capMl > 0) return false;
+                return cat === "Component" || cat === "Cap/Closure" || capMl === 0 || capMl === null;
+            })
+            .map((p: RawProduct) => ({
+                grace_sku: p.graceSku ?? "",
+                item_name: p.itemName ?? "",
+                image_url: p.imageUrl ?? "",
+                price_1: p.webPrice1pc ?? null,
+                price_12: p.webPrice12pc ?? null,
+            }))
+            .filter((c) => c.grace_sku);
+
+        const seen = new Set(components.map((c) => c.grace_sku));
+        for (const fb of BELL_10ML_13_415_FALLBACK) {
+            if (!seen.has(fb.grace_sku)) {
+                components.push(fb);
+                seen.add(fb.grace_sku);
+            }
+        }
+
+        const bell10Products = await ctx.runQuery(internal.migrations.getBell10mlProducts, {});
+
+        if (bell10Products.length === 0) {
+            return {
+                success: false,
+                message: "No Bell 10ml products found.",
+                patchedCount: 0,
+                componentCount: components.length,
+            };
+        }
+
+        const patches = bell10Products.map((p) => ({ id: p._id, components }));
+        await ctx.runMutation(internal.migrations.patchProductComponentsBatch, { patches });
+
+        return {
+            success: true,
+            message: `Populated ${bell10Products.length} Bell 10ml products with ${components.length} compatible components.`,
+            patchedCount: bell10Products.length,
+            componentCount: components.length,
+        };
+    },
+});
+
+/** Internal: get all Bell 10ml products */
+export const getBell10mlProducts = internalQuery({
+    args: {},
+    handler: async (ctx) => {
+        return await ctx.db
+            .query("products")
+            .withIndex("by_family", (q) => q.eq("family", "Bell"))
+            .collect()
+            .then((rows) => rows.filter((p) => (p.capacityMl ?? 0) === 10));
+    },
+});
+
+/** Patch multiple products' components in one mutation */
+export const patchProductComponentsBatch = internalMutation({
+    args: {
+        patches: v.array(v.object({
+            id: v.id("products"),
+            components: v.any(),
+        })),
+    },
+    handler: async (ctx, args) => {
+        for (const { id, components } of args.patches) {
+            await ctx.db.patch(id, { components });
+        }
+        return { patched: args.patches.length };
     },
 });
 
@@ -880,6 +1441,201 @@ export const fixTulipFamily = action({
             message: fixes.length === 0
                 ? "No Tulip products needed reclassification."
                 : `Reclassified ${fixes.length} Tulip products. Run buildProductGroups + linkProductsToGroups to update groups.`,
+        };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 5ML AMBER → TULIP (revert: Tulip-shaped bottles must stay in Tulip family)
+//
+// 5ml Amber bottles (GBTulipAmb5*) are Tulip-shaped (bulbous top), NOT Cylinder-shaped.
+// Reclassify back to Tulip so they appear on Tulip PDPs, not Cylinder PDPs.
+// Cylinder 5ml roll-on PDP shows only Clear and Blue (no Amber — Best Bottles doesn't
+// sell Cylinder 5ml in Amber).
+//
+// Run via: npx convex run migrations:reclassify5mlAmberToTulip
+// Then:    node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const reclassify5mlAmberToTulip = action({
+    args: {},
+    handler: async (ctx) => {
+        const PAGE_SIZE = 100;
+        let cursor: string | null = null;
+        let isDone = false;
+        const fixes: { id: Id<"products">; fields: Record<string, unknown>; reason: string }[] = [];
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+
+            for (const p of result.page) {
+                if (p.family !== "Cylinder") continue;
+                if ((p.capacityMl ?? 0) !== 5) continue;
+                const color = (p.color ?? "").trim();
+                if (color !== "Amber") continue;
+                const sku = (p.websiteSku || "").toLowerCase();
+                if (!sku.includes("tulip")) continue; // only Tulip-shaped bottles (GBTulipAmb5*)
+
+                fixes.push({
+                    id: p._id,
+                    fields: {
+                        family: "Tulip",
+                        bottleCollection: "Tulip Collection",
+                    },
+                    reason: `${p.graceSku || p.websiteSku} → Tulip (5ml Amber Tulip-shaped bottle)`,
+                });
+            }
+
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        const BATCH_SIZE = 50;
+        for (let i = 0; i < fixes.length; i += BATCH_SIZE) {
+            const batch = fixes.slice(i, i + BATCH_SIZE).map((f) => ({
+                id: f.id,
+                fields: f.fields,
+            }));
+            await ctx.runMutation(internal.migrations.patchProductFields, { patches: batch });
+        }
+
+        return {
+            totalFixed: fixes.length,
+            details: fixes.map((f) => f.reason),
+            message: fixes.length === 0
+                ? "No 5ml Amber Cylinder products to reclassify."
+                : `Reclassified ${fixes.length} 5ml Amber products to Tulip. Run buildProductGroups + linkProductsToGroups to update groups.`,
+        };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// APOTHECARY RECLASSIFICATION
+//
+// Reclassify Decorative products that appear on BestBottles Apothecary Style page:
+//   GBPearClear4ozStpr (4oz pear) only. GBCB12ozPear is on Large Decorative page → Decorative.
+//
+// Run via: npx convex run migrations:fixApothecaryTaxonomy
+// Then:    node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+const APOTHECARY_RECLASSIFY_SKUS = new Set(["gbpearclear4ozstpr"]);
+
+export const fixApothecaryTaxonomy = action({
+    args: {},
+    handler: async (ctx) => {
+        const PAGE_SIZE = 200;
+        let cursor: string | null = null;
+        let isDone = false;
+        const fixes: { id: Id<"products">; fields: Record<string, unknown>; reason: string }[] = [];
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+
+            for (const p of result.page) {
+                const sku = (p.websiteSku || "").toLowerCase();
+                if (!APOTHECARY_RECLASSIFY_SKUS.has(sku)) continue;
+                if (p.family === "Apothecary") continue;
+
+                fixes.push({
+                    id: p._id,
+                    fields: {
+                        family: "Apothecary",
+                        bottleCollection: "Apothecary",
+                    },
+                    reason: `${p.graceSku || p.websiteSku} → Apothecary (was ${p.family ?? "null"})`,
+                });
+            }
+
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        if (fixes.length > 0) {
+            await ctx.runMutation(internal.migrations.patchProductFields, {
+                patches: fixes.map((f) => ({ id: f.id, fields: f.fields })),
+            });
+        }
+
+        return {
+            totalFixed: fixes.length,
+            details: fixes.map((f) => f.reason),
+            message: fixes.length === 0
+                ? "No Apothecary products needed reclassification."
+                : `Reclassified ${fixes.length} products to Apothecary. Run buildProductGroups + linkProductsToGroups to update groups.`,
+        };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LARGE DECORATIVE RECLASSIFICATION
+//
+// Products on BestBottles Large Decorative page must appear in our Decorative section:
+//   https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/large-perfume-bottles-decorative.php
+//
+// Reclassify: Genie (2), Eternal Flame (3), GBCB12ozPear (12oz pear) → Decorative
+//
+// Run via: npx convex run migrations:fixDecorativeTaxonomy
+// Then:    node scripts/run_grouping_migration.mjs
+// ─────────────────────────────────────────────────────────────────────────────
+
+const LARGE_DECORATIVE_SKUS = new Set([
+    "gb1ozgeniebl", "gb1ozgeniecl",           // Genie
+    "gbeternalflameblue", "gbeternalflameclear", "gbeternalflamegreen",  // Eternal Flame
+    "gbcb12ozpear",                            // 12oz pear (also on Apothecary page; lives in Decorative)
+]);
+
+export const fixDecorativeTaxonomy = action({
+    args: {},
+    handler: async (ctx) => {
+        const PAGE_SIZE = 200;
+        let cursor: string | null = null;
+        let isDone = false;
+        const fixes: { id: Id<"products">; fields: Record<string, unknown>; reason: string }[] = [];
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+
+            for (const p of result.page) {
+                const sku = (p.websiteSku || "").toLowerCase();
+                if (!LARGE_DECORATIVE_SKUS.has(sku)) continue;
+                if (p.family === "Decorative") continue;
+
+                fixes.push({
+                    id: p._id,
+                    fields: {
+                        family: "Decorative",
+                        bottleCollection: "Decorative",
+                    },
+                    reason: `${p.graceSku || p.websiteSku} → Decorative (was ${p.family ?? "null"})`,
+                });
+            }
+
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        if (fixes.length > 0) {
+            await ctx.runMutation(internal.migrations.patchProductFields, {
+                patches: fixes.map((f) => ({ id: f.id, fields: f.fields })),
+            });
+        }
+
+        return {
+            totalFixed: fixes.length,
+            details: fixes.map((f) => f.reason),
+            message: fixes.length === 0
+                ? "No Large Decorative products needed reclassification."
+                : `Reclassified ${fixes.length} products to Decorative. Run buildProductGroups + linkProductsToGroups to update groups.`,
         };
     },
 });
@@ -1525,6 +2281,334 @@ CRITICAL RULE: Thread size must match exactly. A 18-415 closure will not fit a 2
             message: patched.length === 0
                 ? "No stale entries found."
                 : `Patched ${patched.length} entries: ${patched.join("; ")}`,
+        };
+    },
+});
+
+/**
+ * normalizeBlueColorVariants
+ * 
+ * Standardizes all "Blue" color values to "Cobalt Blue" for consistency.
+ * Grace SKUs remain unchanged (BLU and CBL segments both valid).
+ * 
+ * Rationale:
+ * - 60 products currently use "Blue", 54 use "Cobalt Blue" — same physical glass
+ * - Grace SKU codes mix BLU and CBL for the same cobalt blue glass
+ * - Standardizing display color eliminates duplicate sibling swatches
+ * - "Cobalt Blue" is more descriptive and matches industry terminology
+ * 
+ * After running: rebuild product groups to consolidate siblings.
+ */
+export const normalizeBlueColorVariants = mutation({
+    args: { 
+        cursor: v.optional(v.string()),
+        batchSize: v.optional(v.number()) 
+    },
+    handler: async (ctx, args) => {
+        const batchSize = args.batchSize ?? 200;
+
+        // Deterministic full-table pagination (no sampling/skipping).
+        const page = await ctx.db.query("products").paginate({
+            cursor: args.cursor ?? null,
+            numItems: batchSize,
+        });
+        const blueProducts = page.page.filter((p) => p.color === "Blue");
+        
+        let updated = 0;
+        for (const product of blueProducts) {
+            await ctx.db.patch(product._id, { color: "Cobalt Blue" });
+            updated++;
+        }
+
+        const hasMore = !page.isDone;
+        const nextCursor = page.continueCursor;
+
+        return {
+            success: true,
+            updated,
+            scanned: page.page.length,
+            nextCursor,
+            hasMore,
+            message: updated > 0
+                ? `Normalized ${updated} products in this batch from "Blue" → "Cobalt Blue". ${hasMore ? "More pages remain." : "Complete! Run buildProductGroups to consolidate sibling groups."}`
+                : hasMore ? "No Blue products in this page, continuing scan." : "Migration complete.",
+        };
+    },
+});
+
+/**
+ * Reclassify plastic bottle products that were imported as component sprayers.
+ *
+ * Problem:
+ * - Some standalone plastic bottles (e.g. CMP-SPR-CLR-30ML, CMP-SPR-SLV-) were
+ *   categorized as Component/Sprayer instead of Plastic Bottle.
+ *
+ * Effect:
+ * - They pollute glass-bottle fitment/component lists.
+ * - They don't appear under Plastic Bottle family/category in catalog.
+ *
+ * This migration moves those records to:
+ *   category: "Plastic Bottle"
+ *   family: "Plastic Bottle"
+ *   bottleCollection: "Plastic Bottle Collection"
+ */
+export const reclassifyPlasticBottleProducts = mutation({
+    args: {
+        cursor: v.optional(v.string()),
+        batchSize: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const page = await ctx.db.query("products").paginate({
+            cursor: args.cursor ?? null,
+            numItems: args.batchSize ?? 250,
+        });
+
+        const toReclassify = page.page.filter((p) => {
+            const name = (p.itemName ?? "").toLowerCase();
+            const sku = (p.graceSku ?? "").toUpperCase();
+            const looksLikePlasticBottle = name.startsWith("plastic bottle with");
+            const isKnownSprayerPlasticBottle =
+                sku === "CMP-SPR-CLR-10ML" ||
+                sku === "CMP-SPR-CLR-30ML" ||
+                sku === "CMP-SPR-SLV-";
+            const alreadyPlastic = p.category === "Plastic Bottle" && p.family === "Plastic Bottle";
+            return !alreadyPlastic && (looksLikePlasticBottle || isKnownSprayerPlasticBottle);
+        });
+
+        let updated = 0;
+        const updatedSkus: string[] = [];
+
+        for (const p of toReclassify) {
+            await ctx.db.patch(p._id, {
+                category: "Plastic Bottle",
+                family: "Plastic Bottle",
+                bottleCollection: "Plastic Bottle Collection",
+            });
+            updated++;
+            if (p.graceSku) updatedSkus.push(p.graceSku);
+        }
+
+        return {
+            success: true,
+            updated,
+            updatedSkus,
+            scanned: page.page.length,
+            nextCursor: page.continueCursor,
+            hasMore: !page.isDone,
+            message: updated > 0
+                ? `Reclassified ${updated} products to Plastic Bottle in this batch.`
+                : "No plastic bottle reclassifications in this batch.",
+        };
+    },
+});
+
+/**
+ * Reclassify all atomizer products into the Atomizer family/category model.
+ *
+ * Goal:
+ * - Keep atomizers out of Cylinder/Slim family browsing.
+ * - Group atomizers by capacity (5 ml and 10 ml) with color variants inside.
+ */
+export const reclassifyAtomizerProducts = mutation({
+    args: {
+        cursor: v.optional(v.string()),
+        batchSize: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const page = await ctx.db.query("products").paginate({
+            cursor: args.cursor ?? null,
+            numItems: args.batchSize ?? 250,
+        });
+
+        const target = page.page.filter((p) => {
+            const isAtomizer = p.applicator === "Atomizer" || (p.websiteSku ?? "").startsWith("GBAtom");
+            if (!isAtomizer) return false;
+            const already = p.category === "Metal Atomizer" && p.family === "Atomizer";
+            return !already;
+        });
+
+        let updated = 0;
+        const updatedSkus: string[] = [];
+
+        for (const p of target) {
+            await ctx.db.patch(p._id, {
+                category: "Metal Atomizer",
+                family: "Atomizer",
+                bottleCollection: "Atomizer Collection",
+            });
+            updated++;
+            if (p.websiteSku) updatedSkus.push(p.websiteSku);
+        }
+
+        return {
+            success: true,
+            updated,
+            updatedSkus,
+            scanned: page.page.length,
+            nextCursor: page.continueCursor,
+            hasMore: !page.isDone,
+            message: updated > 0
+                ? `Reclassified ${updated} atomizer products in this batch.`
+                : "No atomizer reclassifications in this batch.",
+        };
+    },
+});
+
+/**
+ * Fix spray products where glass color was misparsed from cap/sprayer finish.
+ *
+ * Example bad parse:
+ *   GB-CIR-BLK-30ML-SPR-BLK -> color set to "Black"
+ * But itemName states "clear glass bottle ... black cap".
+ *
+ * This migration corrects those records to color = "Clear".
+ */
+export const fixMisparsedSprayGlassColors = mutation({
+    args: {
+        cursor: v.optional(v.string()),
+        batchSize: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const page = await ctx.db.query("products").paginate({
+            cursor: args.cursor ?? null,
+            numItems: args.batchSize ?? 250,
+        });
+
+        const toFix = page.page.filter((p) => {
+            const itemName = (p.itemName ?? "").toLowerCase();
+            if (p.category !== "Glass Bottle") return false;
+            if (p.applicator !== "Fine Mist Sprayer") return false;
+            if (p.color !== "Black") return false;
+            if (!itemName.includes("clear glass bottle")) return false;
+            return true;
+        });
+
+        let updated = 0;
+        const updatedSkus: string[] = [];
+        for (const p of toFix) {
+            await ctx.db.patch(p._id, { color: "Clear" });
+            updated++;
+            if (p.websiteSku) updatedSkus.push(p.websiteSku);
+        }
+
+        return {
+            success: true,
+            updated,
+            updatedSkus,
+            scanned: page.page.length,
+            hasMore: !page.isDone,
+            nextCursor: page.continueCursor,
+            message: updated > 0
+                ? `Fixed ${updated} misparsed spray glass colors in this batch.`
+                : "No misparsed spray glass colors in this batch.",
+        };
+    },
+});
+
+/**
+ * Populate the `shape` field for Decorative family products based on SKU patterns.
+ * Heart, Tola, Marble, Pear — used by buildDisplayName for clean product titles.
+ */
+export const enrichDecorativeShapes = mutation({
+    args: {
+        cursor: v.optional(v.string()),
+        batchSize: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const page = await ctx.db.query("products").paginate({
+            cursor: args.cursor ?? null,
+            numItems: args.batchSize ?? 250,
+        });
+
+        let updated = 0;
+        const updatedSkus: string[] = [];
+
+        const targetFamilies = new Set(["Decorative", "Apothecary"]);
+        for (const p of page.page) {
+            if (!targetFamilies.has(p.family ?? "")) continue;
+            const sku = p.websiteSku ?? "";
+            const shape = detectDecorativeShape(sku);
+            if (!shape) continue;
+            if (p.shape === shape) continue;
+            await ctx.db.patch(p._id, { shape });
+            updated++;
+            updatedSkus.push(sku);
+        }
+
+        return {
+            success: true,
+            updated,
+            updatedSkus,
+            scanned: page.page.length,
+            hasMore: !page.isDone,
+            nextCursor: page.continueCursor,
+        };
+    },
+});
+
+/**
+ * Apply narrow, script-generated patches by websiteSku.
+ * Intentionally constrained to a small set of low-risk fields.
+ */
+export const applySafeWebsiteSkuPatches = mutation({
+    args: {
+        patches: v.array(
+            v.object({
+                websiteSku: v.string(),
+                set: v.object({
+                    color: v.optional(v.union(v.string(), v.null())),
+                    family: v.optional(v.union(v.string(), v.null())),
+                    category: v.optional(v.string()),
+                    bottleCollection: v.optional(v.union(v.string(), v.null())),
+                }),
+                reason: v.optional(v.string()),
+            })
+        ),
+    },
+    handler: async (ctx, args) => {
+        let updatedCount = 0;
+        let skippedCount = 0;
+        const missingSkus: string[] = [];
+
+        for (const patch of args.patches) {
+            const products = await ctx.db
+                .query("products")
+                .withIndex("by_websiteSku", (q) => q.eq("websiteSku", patch.websiteSku))
+                .collect();
+
+            if (products.length === 0) {
+                missingSkus.push(patch.websiteSku);
+                continue;
+            }
+
+            const update: {
+                color?: string | null;
+                family?: string | null;
+                category?: string;
+                bottleCollection?: string | null;
+            } = {};
+
+            if (patch.set.color !== undefined) update.color = patch.set.color;
+            if (patch.set.family !== undefined) update.family = patch.set.family;
+            if (patch.set.category !== undefined) update.category = patch.set.category;
+            if (patch.set.bottleCollection !== undefined) update.bottleCollection = patch.set.bottleCollection;
+
+            if (Object.keys(update).length === 0) {
+                skippedCount += products.length;
+                continue;
+            }
+
+            for (const product of products) {
+                await ctx.db.patch(product._id, update);
+                updatedCount += 1;
+            }
+        }
+
+        return {
+            success: true,
+            updatedCount,
+            skippedCount,
+            missingSkus,
         };
     },
 });

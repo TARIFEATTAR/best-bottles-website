@@ -54,10 +54,34 @@ export default defineSchema({
         capacityOz: v.union(v.number(), v.null()),
 
         // ── Applicator & Cap ────────────────────────────────────────
-        applicator: v.union(v.string(), v.null()),
+        applicator: v.union(
+            v.literal("Metal Roller"),
+            v.literal("Plastic Roller"),
+            v.literal("Fine Mist Sprayer"),
+            v.literal("Perfume Spray Pump"),
+            v.literal("Atomizer"),
+            v.literal("Antique Bulb Sprayer"),
+            v.literal("Antique Bulb Sprayer with Tassel"),
+            v.literal("Lotion Pump"),
+            v.literal("Dropper"),
+            v.literal("Reducer"),
+            v.literal("Glass Stopper"),
+            v.literal("Glass Rod"),
+            v.literal("Cap/Closure"),
+            v.literal("Applicator Cap"),
+            v.literal("Metal Atomizer"),   // GBAtom* — refillable metal-shell travel atomizers
+            v.literal("N/A"),
+            v.null()
+        ),
         capColor: v.union(v.string(), v.null()),
         trimColor: v.union(v.string(), v.null()),
         capStyle: v.union(v.string(), v.null()),
+        capHeight: v.optional(v.union(
+            v.literal("Short"),
+            v.literal("Tall"),
+            v.literal("Leather"),
+            v.null()
+        )),
         ballMaterial: v.optional(v.union(v.string(), v.null())),
 
         // ── Physical dimensions ─────────────────────────────────────
@@ -87,6 +111,31 @@ export default defineSchema({
         fitmentStatus: v.union(v.string(), v.null()),
         components: v.any(), // Array of compatible component SKUs by type
         graceDescription: v.union(v.string(), v.null()),
+        assemblyType: v.optional(v.union(
+            v.literal("2-part"),
+            v.literal("3-part"),
+            v.literal("complete-set"),
+            v.literal("component"),
+            v.literal("accessory"),
+            v.null()
+        )),
+        componentGroup: v.optional(v.union(
+            v.literal("Fine Mist Sprayer"),
+            v.literal("Perfume Spray Pump"),
+            v.literal("Antique Sprayer"),
+            v.literal("Screw Cap"),
+            v.literal("Short Cap"),
+            v.literal("Tall Cap"),
+            v.literal("Leather Cap"),
+            v.literal("Applicator Cap"),
+            v.literal("Roll-On Cap"),
+            v.literal("Roll-On Fitment"),
+            v.literal("Lotion Pump"),
+            v.literal("Reducer"),
+            v.literal("Dropper Assembly"),
+            v.literal("Glass Stopper"),
+            v.null()
+        )),
 
         // ── Meta ────────────────────────────────────────────────────
         verified: v.boolean(),

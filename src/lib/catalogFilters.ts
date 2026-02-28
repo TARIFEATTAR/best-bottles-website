@@ -5,9 +5,6 @@ export const APPLICATOR_BUCKETS = [
     { value: "reducer", label: "Reducer", productValues: ["Reducer"] },
     { value: "dropper", label: "Dropper", productValues: ["Dropper"] },
     { value: "lotionpump", label: "Lotion Pump", productValues: ["Lotion Pump"] },
-    { value: "glasswand", label: "Glass Wand", productValues: ["Glass Rod", "Applicator Cap"] },
-    { value: "glassapplicator", label: "Glass Applicator", productValues: ["Glass Stopper"] },
-    { value: "capclosure", label: "Cap/Closure", productValues: ["Cap/Closure"] },
 ] as const;
 
 export type ApplicatorBucket = (typeof APPLICATOR_BUCKETS)[number]["value"];

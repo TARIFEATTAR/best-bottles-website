@@ -6,7 +6,8 @@
  * Steps:
  *   1. buildProductGroups  — creates ~230 productGroup documents
  *   2. linkProductsToGroups — sets productGroupId on all 2,354 products
- *   3. checkMigrationStatus — verifies everything linked correctly
+ *   3. populateApplicatorTypes — fills applicatorTypes for catalog filter
+ *   4. checkMigrationStatus — verifies everything linked correctly
  *
  * Usage:
  *   node scripts/run_grouping_migration.mjs
@@ -47,7 +48,7 @@ async function main() {
     console.log("╚══════════════════════════════════════════════════════╝\n");
 
     // ─── Step 1: Build product groups ────────────────────────────────────────
-    console.log("Step 1/3 — Building product group documents...");
+    console.log("Step 1/4 — Building product group documents...");
     try {
         const result = await client.action(api.migrations.buildProductGroups, {});
         console.log(`  ✅ ${result.message}\n`);
@@ -57,7 +58,7 @@ async function main() {
     }
 
     // ─── Step 2: Link products to their groups ────────────────────────────────
-    console.log("Step 2/3 — Linking all products to their groups...");
+    console.log("Step 2/4 — Linking all products to their groups...");
     try {
         const result = await client.action(api.migrations.linkProductsToGroups, {});
         console.log(`  ✅ ${result.message}\n`);
@@ -66,8 +67,18 @@ async function main() {
         process.exit(1);
     }
 
-    // ─── Step 3: Verify ───────────────────────────────────────────────────────
-    console.log("Step 3/3 — Verifying migration status...");
+    // ─── Step 3: Populate applicator types (for catalog filter) ────────────────
+    console.log("Step 3/4 — Populating applicator types on product groups...");
+    try {
+        const applResult = await client.action(api.migrations.populateApplicatorTypes, {});
+        console.log(`  ✅ ${applResult.message}\n`);
+    } catch (err) {
+        console.error("  ❌ populateApplicatorTypes failed:", err.message || err);
+        process.exit(1);
+    }
+
+    // ─── Step 4: Verify ───────────────────────────────────────────────────────
+    console.log("Step 4/4 — Verifying migration status...");
     try {
         const status = await client.action(api.migrations.checkMigrationStatus, {});
         console.log("  Product groups created:", status.productGroups);
