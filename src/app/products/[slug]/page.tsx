@@ -85,6 +85,29 @@ function getFinishFromGraceSku(graceSku: string | null | undefined): { label: st
 function getCapFinishFromItemName(itemName: string | null | undefined): { label: string; swatchName: string } | null {
     const name = (itemName ?? "").toLowerCase();
     if (!name) return null;
+    // Antique/vintage sprayer colors (often at start of itemName)
+    if (name.startsWith("lavender")) return { label: "Lavender", swatchName: "Lavender" };
+    if (name.startsWith("ivory gold")) return { label: "Ivory Gold", swatchName: "Shiny Gold" };
+    if (name.startsWith("ivory silver")) return { label: "Ivory Silver", swatchName: "Shiny Silver" };
+    if (name.startsWith("white")) return { label: "White", swatchName: "White" };
+    if (name.startsWith("pink")) return { label: "Pink", swatchName: "Pink" };
+    if (name.startsWith("red")) return { label: "Red", swatchName: "Red" };
+    if (name.startsWith("black")) return { label: "Black", swatchName: "Black" };
+    // Fine Mist Sprayer & Lotion Pump — "[Finish] Fine Mist Sprayer" or "[Finish] Lotion or treatment pump"
+    if (name.startsWith("matte copper")) return { label: "Matte Copper", swatchName: "Matte Copper" };
+    if (name.startsWith("shiny black")) return { label: "Shiny Black", swatchName: "Shiny Black" };
+    if (name.startsWith("matte blue")) return { label: "Matte Blue", swatchName: "Blue" };
+    if (name.startsWith("shiny gold")) return { label: "Shiny Gold", swatchName: "Shiny Gold" };
+    if (name.startsWith("matte gold")) return { label: "Matte Gold", swatchName: "Matte Gold" };
+    if (name.startsWith("matte silver")) return { label: "Matte Silver", swatchName: "Matte Silver" };
+    if (name.startsWith("shiny silver")) return { label: "Shiny Silver", swatchName: "Shiny Silver" };
+    if (name.startsWith("matte black")) return { label: "Matte Black", swatchName: "Matte Black" };
+    if (name.startsWith("gold")) return { label: "Gold", swatchName: "Shiny Gold" };
+    // Lotion pump with clear overcap (e.g. "Matte Silver Lotion or treatment pump with clear overcap")
+    if (name.includes("with clear overcap")) {
+        if (name.startsWith("matte silver")) return { label: "Matte Silver (Clear Overcap)", swatchName: "Matte Silver" };
+        if (name.startsWith("matte gold")) return { label: "Matte Gold (Clear Overcap)", swatchName: "Matte Gold" };
+    }
     if (name.includes("short black cap")) return { label: "Short Black", swatchName: "Black" };
     if (name.includes("short white cap")) return { label: "Short White", swatchName: "White" };
     if (name.includes("shiny silver cap")) return { label: "Shiny Silver", swatchName: "Shiny Silver" };
@@ -136,11 +159,15 @@ const COLOR_SWATCH: Record<string, string> = {
     "Pink": "#F4A7B9",
     "Blue": "#5B87B5",
     "Green": "#6B9A6B",
+    "Lavender": "#E6E6FA",
+    "Red": "#C41E3A",
+    "Ivory Gold": "#D4AF37",
+    "Ivory Silver": "#C8C8C8",
     "Standard": "#AAAAAA",
 };
 
 // Light swatches that need a dark checkmark
-const LIGHT_SWATCHES = new Set(["White", "Shiny Silver", "Matte Silver", "Standard", "Pink", "Rose Gold"]);
+const LIGHT_SWATCHES = new Set(["White", "Shiny Silver", "Matte Silver", "Standard", "Pink", "Rose Gold", "Lavender", "Ivory Gold", "Ivory Silver"]);
 
 // Glass bottle body color hex map — used for sibling color navigation swatches
 const GLASS_COLOR_SWATCH: Record<string, string> = {

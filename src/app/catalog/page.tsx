@@ -150,7 +150,7 @@ function SkeletonCard() {
 
 function SkeletonGrid() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
             {Array.from({ length: 12 }).map((_, i) => (
                 <SkeletonCard key={i} />
             ))}
@@ -204,25 +204,7 @@ function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGro
 
                 <div className="p-5 flex flex-col flex-1">
                     <p className="text-[10px] text-slate uppercase tracking-wider font-bold mb-1">{group.category}</p>
-                    <h4 className="font-serif text-lg text-obsidian font-medium mb-2 flex-1 leading-snug">{group.displayName}</h4>
-
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                        {group.capacity && group.capacity !== "0 ml (0 oz)" && (
-                            <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 bg-bone border border-champagne/50 text-slate rounded-sm font-medium">
-                                {group.capacity}
-                            </span>
-                        )}
-                        {group.color && (
-                            <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 bg-bone border border-champagne/50 text-slate rounded-sm font-medium">
-                                {group.color}
-                            </span>
-                        )}
-                        {group.neckThreadSize && (
-                            <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 bg-bone border border-champagne/50 text-slate rounded-sm font-medium">
-                                Thread {group.neckThreadSize}
-                            </span>
-                        )}
-                    </div>
+                    <h4 className="font-serif text-lg text-obsidian font-medium mb-4 flex-1 leading-snug">{group.displayName}</h4>
 
                     <div className="flex items-end justify-between mt-auto">
                         <div className="flex flex-col">
@@ -1661,7 +1643,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
                         {/* Product Display — Visual Grid or Line Items */}
                         {visibleProducts.length > 0 && viewMode === "visual" && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                                 {visibleProducts.map((group: CatalogGroup, pIndex: number) => (
                                     <ProductGroupCard
                                         key={group._id}
