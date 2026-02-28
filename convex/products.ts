@@ -657,7 +657,11 @@ export const auditApplicatorValues = action({
         let total = 0;
 
         while (true) {
-            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+            const result: {
+                page: Array<{ applicator?: string | null }>;
+                isDone: boolean;
+                continueCursor: string;
+            } = await ctx.runQuery(internal.migrations.getProductPage, {
                 cursor,
                 numItems: 200,
             });
@@ -682,10 +686,18 @@ export const getProductExportPage = action({
         cursor: v.union(v.string(), v.null()),
         numItems: v.number(),
     },
-    handler: async (ctx, args) => {
+    handler: async (ctx, args): Promise<{
+        page: Array<Record<string, unknown>>;
+        isDone: boolean;
+        continueCursor: string;
+    }> => {
         return await ctx.runQuery(internal.migrations.getProductPage, {
             cursor: args.cursor,
             numItems: args.numItems,
-        });
+        }) as {
+            page: Array<Record<string, unknown>>;
+            isDone: boolean;
+            continueCursor: string;
+        };
     },
 });

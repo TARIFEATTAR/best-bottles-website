@@ -1,7 +1,7 @@
 import { mutation, query, action, internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
-import type { Id } from "./_generated/dataModel";
+import type { Doc, Id } from "./_generated/dataModel";
 
 // Minimal types for paginated product reads
 interface RawProduct {
@@ -35,6 +35,8 @@ interface GroupRecord {
     _id: Id<"productGroups">;
     slug: string;
 }
+
+type ProductApplicator = Exclude<Doc<"products">["applicator"], null>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT GROUPING MIGRATION — Phase 1
@@ -519,7 +521,7 @@ export const linkProductsToGroups = action({
 // Run BEFORE re-running buildProductGroups so groups split by glass color.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const APPLICATOR_MAP: Record<string, string> = {
+const APPLICATOR_MAP: Record<string, ProductApplicator> = {
     ROL: "Plastic Roller",
     MRL: "Metal Roller",
     RON: "Plastic Roller",   // Boston Round family variant
@@ -546,7 +548,7 @@ const COLOR_MAP: Record<string, string> = {
     PNK: "Pink",
 };
 
-function deriveApplicator(graceSku: string, itemName: string): string | null {
+function deriveApplicator(graceSku: string, itemName: string): Doc<"products">["applicator"] {
     const parts = graceSku.split("-");
     const prefix = parts[0];
     if (prefix !== "GB" && prefix !== "LB") return null;
@@ -588,7 +590,25 @@ export const patchProductsBatch = internalMutation({
     args: {
         patches: v.array(v.object({
             id: v.id("products"),
-            applicator: v.union(v.string(), v.null()),
+            applicator: v.union(
+                v.literal("Metal Roller"),
+                v.literal("Plastic Roller"),
+                v.literal("Fine Mist Sprayer"),
+                v.literal("Perfume Spray Pump"),
+                v.literal("Atomizer"),
+                v.literal("Antique Bulb Sprayer"),
+                v.literal("Antique Bulb Sprayer with Tassel"),
+                v.literal("Lotion Pump"),
+                v.literal("Dropper"),
+                v.literal("Reducer"),
+                v.literal("Glass Stopper"),
+                v.literal("Glass Rod"),
+                v.literal("Cap/Closure"),
+                v.literal("Applicator Cap"),
+                v.literal("Metal Atomizer"),
+                v.literal("N/A"),
+                v.null()
+            ),
             color: v.union(v.string(), v.null()),
         })),
     },
@@ -619,7 +639,7 @@ export const enrichProductFields = action({
                 numItems: PAGE_SIZE,
             }) as PageResult;
 
-            const patches: { id: Id<"products">; applicator: string | null; color: string | null }[] = [];
+            const patches: { id: Id<"products">; applicator: Doc<"products">["applicator"]; color: string | null }[] = [];
             for (const p of result.page) {
                 const applicator = deriveApplicator(p.graceSku || "", p.itemName || "");
                 const color = deriveColor(p.graceSku || "");
