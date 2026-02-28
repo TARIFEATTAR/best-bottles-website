@@ -26,6 +26,9 @@ export const SORT_OPTIONS = [
 
 export type SortValue = (typeof SORT_OPTIONS)[number]["value"];
 
+export const VIEW_MODES = ["visual", "line"] as const;
+export type ViewMode = (typeof VIEW_MODES)[number];
+
 export interface CatalogFilters {
     category: string | null;
     collection: string | null;
@@ -91,7 +94,7 @@ export function activeFilterCount(f: CatalogFilters): number {
     return n;
 }
 
-export function filtersToParams(f: CatalogFilters, sort: SortValue): URLSearchParams {
+export function filtersToParams(f: CatalogFilters, sort: SortValue, view: ViewMode = "visual"): URLSearchParams {
     const p = new URLSearchParams();
     if (f.category) p.set("category", f.category);
     if (f.collection) p.set("collection", f.collection);
@@ -105,14 +108,17 @@ export function filtersToParams(f: CatalogFilters, sort: SortValue): URLSearchPa
     if (f.priceMax !== null) p.set("priceMax", String(f.priceMax));
     if (f.search) p.set("search", f.search);
     if (sort !== "featured") p.set("sort", sort);
+    if (view !== "visual") p.set("view", view);
     return p;
 }
 
-export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue } {
+export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue; view: ViewMode } {
     const applicatorValues = sp.get("applicators")?.split(",").filter(Boolean) ?? [];
     const validApplicators = applicatorValues.filter((a) =>
         APPLICATOR_BUCKETS.some((b) => b.value === a)
     ) as ApplicatorBucket[];
+    const viewParam = sp.get("view");
+    const view: ViewMode = viewParam === "line" ? "line" : "visual";
     return {
         filters: {
             category: sp.get("category") || null,
@@ -128,5 +134,6 @@ export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters;
             search: sp.get("search") || "",
         },
         sort: (sp.get("sort") as SortValue) || "featured",
+        view,
     };
 }

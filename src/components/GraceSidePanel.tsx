@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -22,7 +22,7 @@ import {
     Maximize2,
     PanelRightClose,
 } from "lucide-react";
-import { useGrace, type GraceStatus, type GraceAction, type ProductCard, type KitItem } from "./GraceProvider";
+import { useGrace, type GraceStatus, type GraceAction, type ProductCard } from "./GraceProvider";
 import { useCart } from "./CartProvider";
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
@@ -317,13 +317,14 @@ export function GraceFloatingTrigger() {
     const isMobile = useIsMobile();
     const pathname = usePathname();
     const isProductPage = pathname?.startsWith("/products/");
+    const useCompactTrigger = Boolean(isMobile && isProductPage);
     if (panelMode !== "closed") return null;
 
     return (
         <button
             onClick={openPanel}
             className={`fixed z-40 bg-obsidian text-bone rounded-full shadow-xl hover:bg-muted-gold transition-all duration-200 cursor-pointer group ${
-                isMobile
+                useCompactTrigger
                     ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 flex items-center justify-center`
                     : "bottom-6 right-6 flex items-center space-x-2.5 px-5 py-3"
             }`}
@@ -332,7 +333,7 @@ export function GraceFloatingTrigger() {
             <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
                 <span /><span /><span /><span />
             </span>
-            {!isMobile && <span className="text-sm font-medium tracking-wide">Talk to Grace</span>}
+            {!useCompactTrigger && <span className="text-sm font-medium tracking-wide">Talk to Grace</span>}
         </button>
     );
 }
@@ -340,7 +341,7 @@ export function GraceFloatingTrigger() {
 // ─── Voice Strip (60px desktop / 48px mobile bottom bar) ─────────────────────
 
 function VoiceStrip({ isMobile }: { isMobile: boolean }) {
-    const { openPanel, closePanel, endConversation, status, conversationActive, stopSpeaking, startDictation } = useGrace();
+    const { openPanel, closePanel, endConversation, status, stopSpeaking, startDictation } = useGrace();
 
     const isSpeaking = status === "speaking";
     const isListening = status === "listening";
@@ -469,7 +470,6 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const pathname = usePathname();
-    const [dragY, setDragY] = useState(0);
 
     const isProductPage = pathname?.startsWith("/products/");
     const chips = isProductPage

@@ -8,6 +8,7 @@ import {
     Check, Layers, Plus, ExternalLink,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+/* eslint-disable @next/next/no-img-element */
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
@@ -53,16 +54,6 @@ function getComponentType(graceSku: string, itemName?: string): string {
 
 function isPlasticBottleComponent(itemName?: string): boolean {
     return /plastic bottle with/i.test(itemName ?? "");
-}
-
-function getVariantLabel(variant: ProductVariant): string {
-    const parts: string[] = [];
-    if (variant.capColor) parts.push(variant.capColor);
-    if (variant.capStyle) parts.push(variant.capStyle);
-    if (variant.trimColor && variant.trimColor !== "Standard") parts.push(variant.trimColor);
-    if (variant.ballMaterial) parts.push(variant.ballMaterial);
-    if (parts.length > 0) return parts.join(" · ");
-    return variant.websiteSku;
 }
 
 function getFinishFromGraceSku(graceSku: string | null | undefined): { label: string; swatchName: string } | null {
@@ -312,7 +303,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const [addedFlash, setAddedFlash] = useState(false);
 
     const group = data?.group;
-    const variants = (data?.variants as ProductVariant[] | undefined) ?? [];
+    const variants = useMemo(() => (data?.variants as ProductVariant[] | undefined) ?? [], [data?.variants]);
 
     // Sibling groups — same family + capacityMl + neckThreadSize, different glass color
     const siblingGroups = useQuery(

@@ -1,4 +1,4 @@
-import { mutation, internalMutation } from "./_generated/server";
+import { mutation } from "./_generated/server";
 
 /**
  * Run this once to populate Grace AI's knowledge base tables.

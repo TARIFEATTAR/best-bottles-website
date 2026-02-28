@@ -1,7 +1,5 @@
-import FitmentCarousel from '@/components/FitmentCarousel';
-import FitmentDrawer from '@/components/FitmentDrawer';
 import FitmentIntegrationDemo from '@/components/FitmentIntegrationDemo';
-import { ArrowLeft, Star, Truck, ShieldCheck, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Star, Truck, ShieldCheck } from 'lucide-react';
 
 export default function ExampleProductPage() {
     return (

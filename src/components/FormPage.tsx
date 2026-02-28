@@ -46,6 +46,7 @@ export default function FormPage({ formType, title, subtitle, fields }: FormPage
             if (param) prefilled[f.name] = param;
         });
         if (Object.keys(prefilled).length > 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setValues((v) => ({ ...v, ...prefilled }));
         }
     }, [searchParams, fields]);

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, User, ShoppingBag, ArrowRight, ArrowLeft, Shield, Zap, ChevronDown, Check } from "lucide-react";
+import { Search, User, ShoppingBag, Shield, Zap, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 

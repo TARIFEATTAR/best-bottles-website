@@ -183,7 +183,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         setMessages([]);
     }, [destroyRealtimeSession]);
 
-    const onNavigate = useCallback((path: string) => {
+    const onNavigate = useCallback(() => {
         if (conversationActive) {
             setPanelMode("strip");
         } else {
@@ -438,7 +438,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                     break;
             }
         },
-        [sendRTEvent, voiceEnabled]
+        [sendRTEvent, voiceEnabled, conversationActive]
     );
 
     // ── Start Realtime voice conversation ────────────────────────────────────

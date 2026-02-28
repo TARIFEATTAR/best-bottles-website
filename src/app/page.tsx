@@ -289,6 +289,7 @@ function CuratedCollections() {
 }
 
 // -- Value Proposition --
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ValueProposition() {
   const pillars = [
     { title: "No Order Minimum", desc: "Start with a sample kit and scale to production runs of 10,000+ units. We meet you where you are.", icon: Zap },
@@ -368,6 +369,7 @@ function DesignFamilies() {
 }
 
 // -- Grace AI --
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function GraceAIIntro() {
   const { open: openGrace } = useGrace();
   return (

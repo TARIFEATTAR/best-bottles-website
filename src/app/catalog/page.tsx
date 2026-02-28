@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from "react";
@@ -5,7 +6,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
     Search, ArrowRight, X, Package, ChevronDown, ChevronUp,
-    SlidersHorizontal, ArrowUpDown,
+    SlidersHorizontal, ArrowUpDown, LayoutGrid, List, Plus, Minus, ShoppingCart,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
@@ -17,7 +18,7 @@ import {
     applicatorBucketMatchesProductValues,
     type SortValue,
     type CatalogFilters,
-    type ApplicatorBucket,
+    type ViewMode,
     EMPTY_FILTERS,
     classifyComponentType,
     filtersAreEmpty,
@@ -637,6 +638,398 @@ function FilterSidebarContent({
     );
 }
 
+// ─── View Toggle ─────────────────────────────────────────────────────────────
+
+function ViewToggle({
+    value,
+    onChange,
+}: {
+    value: ViewMode;
+    onChange: (v: ViewMode) => void;
+}) {
+    return (
+        <div className="inline-flex items-center bg-white border border-champagne rounded-lg p-0.5">
+            <button
+                onClick={() => onChange("visual")}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${
+                    value === "visual"
+                        ? "bg-obsidian text-white"
+                        : "text-slate hover:text-obsidian"
+                }`}
+                aria-label="Visual grid view"
+            >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Visual</span>
+            </button>
+            <button
+                onClick={() => onChange("line")}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${
+                    value === "line"
+                        ? "bg-obsidian text-white"
+                        : "text-slate hover:text-obsidian"
+                }`}
+                aria-label="Line item view"
+            >
+                <List className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Line Items</span>
+            </button>
+        </div>
+    );
+}
+
+// ─── Line Item Row (Desktop) ─────────────────────────────────────────────────
+
+function LineItemRow({
+    group,
+    index,
+    applicatorParam,
+}: {
+    group: CatalogGroup;
+    index: number;
+    applicatorParam?: string | null;
+}) {
+    const [quantity, setQuantity] = useState(1);
+    const href = applicatorParam
+        ? `/products/${group.slug}?applicator=${applicatorParam}`
+        : `/products/${group.slug}`;
+
+    const incrementQty = () => setQuantity((q) => Math.min(q + 1, 9999));
+    const decrementQty = () => setQuantity((q) => Math.max(q - 1, 1));
+
+    return (
+        <motion.tr
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: Math.min(index * 0.02, 0.3) }}
+            className="border-b border-champagne/30 hover:bg-travertine/50 transition-colors group"
+        >
+            {/* Image + Name */}
+            <td className="py-3 px-4">
+                <Link href={href} className="flex items-center gap-4">
+                    <div className="w-14 h-14 shrink-0 bg-travertine rounded border border-champagne/40 flex items-center justify-center overflow-hidden">
+                        {group.heroImageUrl ? (
+                            <img
+                                src={group.heroImageUrl}
+                                alt={group.displayName}
+                                className="w-full h-full object-contain p-1"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
+                        )}
+                    </div>
+                    <div className="min-w-0">
+                        <p className="text-[10px] text-muted-gold uppercase tracking-wider font-bold mb-0.5">
+                            {group.category}
+                        </p>
+                        <p className="font-serif text-sm text-obsidian font-medium leading-snug group-hover:text-muted-gold transition-colors truncate max-w-[280px]">
+                            {group.displayName}
+                        </p>
+                        {group.family && (
+                            <p className="text-[10px] text-slate">{group.family}</p>
+                        )}
+                    </div>
+                </Link>
+            </td>
+
+            {/* Capacity */}
+            <td className="py-3 px-4 text-center">
+                <span className="text-xs text-obsidian">
+                    {group.capacity && group.capacity !== "0 ml (0 oz)" ? group.capacity : "—"}
+                </span>
+            </td>
+
+            {/* Color */}
+            <td className="py-3 px-4 text-center">
+                <span className="text-xs text-obsidian">{group.color || "—"}</span>
+            </td>
+
+            {/* Thread */}
+            <td className="py-3 px-4 text-center">
+                <span className="text-xs text-obsidian">{group.neckThreadSize || "—"}</span>
+            </td>
+
+            {/* Variants */}
+            <td className="py-3 px-4 text-center">
+                <span className="inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold rounded-full bg-obsidian/10 text-obsidian">
+                    {group.variantCount}
+                </span>
+            </td>
+
+            {/* Price */}
+            <td className="py-3 px-4 text-right">
+                <div className="flex flex-col items-end">
+                    <span className="text-xs text-slate">from</span>
+                    <span className="font-semibold text-obsidian">
+                        {group.priceRangeMin ? `$${group.priceRangeMin.toFixed(2)}` : "—"}
+                    </span>
+                </div>
+            </td>
+
+            {/* Actions */}
+            <td className="py-3 px-4">
+                <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center border border-champagne rounded-lg bg-white">
+                        <button
+                            onClick={decrementQty}
+                            className="p-1.5 hover:bg-travertine transition-colors rounded-l-lg"
+                            aria-label="Decrease quantity"
+                        >
+                            <Minus className="w-3 h-3 text-slate" />
+                        </button>
+                        <input
+                            type="number"
+                            value={quantity}
+                            onChange={(e) => setQuantity(Math.max(1, Math.min(9999, parseInt(e.target.value) || 1)))}
+                            className="w-10 text-center text-xs font-medium text-obsidian bg-transparent border-0 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                            min={1}
+                            max={9999}
+                        />
+                        <button
+                            onClick={incrementQty}
+                            className="p-1.5 hover:bg-travertine transition-colors rounded-r-lg"
+                            aria-label="Increase quantity"
+                        >
+                            <Plus className="w-3 h-3 text-slate" />
+                        </button>
+                    </div>
+                    <Link
+                        href={href}
+                        className="px-3 py-1.5 bg-obsidian text-white text-[10px] uppercase font-bold tracking-wider rounded hover:bg-muted-gold transition-colors flex items-center gap-1"
+                    >
+                        <ShoppingCart className="w-3 h-3" />
+                        View
+                    </Link>
+                </div>
+            </td>
+        </motion.tr>
+    );
+}
+
+// ─── Line Item Mobile Card ───────────────────────────────────────────────────
+
+function LineItemMobileCard({
+    group,
+    index,
+    applicatorParam,
+}: {
+    group: CatalogGroup;
+    index: number;
+    applicatorParam?: string | null;
+}) {
+    const [expanded, setExpanded] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+    const href = applicatorParam
+        ? `/products/${group.slug}?applicator=${applicatorParam}`
+        : `/products/${group.slug}`;
+
+    const incrementQty = () => setQuantity((q) => Math.min(q + 1, 9999));
+    const decrementQty = () => setQuantity((q) => Math.max(q - 1, 1));
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: Math.min(index * 0.02, 0.3) }}
+            className="bg-white border border-champagne/40 rounded-lg overflow-hidden"
+        >
+            <div className="flex items-center p-3 gap-3">
+                {/* Thumbnail */}
+                <div className="w-14 h-14 shrink-0 bg-travertine rounded border border-champagne/40 flex items-center justify-center overflow-hidden">
+                    {group.heroImageUrl ? (
+                        <img
+                            src={group.heroImageUrl}
+                            alt={group.displayName}
+                            className="w-full h-full object-contain p-1"
+                            loading="lazy"
+                        />
+                    ) : (
+                        <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
+                    )}
+                </div>
+
+                {/* Core Info */}
+                <div className="flex-1 min-w-0">
+                    <p className="text-[9px] text-muted-gold uppercase tracking-wider font-bold">
+                        {group.category}
+                    </p>
+                    <Link href={href}>
+                        <p className="font-serif text-sm text-obsidian font-medium leading-tight truncate hover:text-muted-gold transition-colors">
+                            {group.displayName}
+                        </p>
+                    </Link>
+                    <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs font-semibold text-obsidian">
+                            {group.priceRangeMin ? `$${group.priceRangeMin.toFixed(2)}` : "—"}
+                        </span>
+                        <span className="text-[10px] text-slate bg-bone px-1.5 py-0.5 rounded">
+                            {group.variantCount} variant{group.variantCount !== 1 ? "s" : ""}
+                        </span>
+                    </div>
+                </div>
+
+                {/* Expand Toggle */}
+                <button
+                    onClick={() => setExpanded(!expanded)}
+                    className="p-2 rounded-lg hover:bg-travertine transition-colors"
+                    aria-expanded={expanded}
+                    aria-label={expanded ? "Collapse details" : "Expand details"}
+                >
+                    <ChevronDown
+                        className={`w-4 h-4 text-slate transition-transform ${expanded ? "rotate-180" : ""}`}
+                    />
+                </button>
+            </div>
+
+            {/* Expanded Details */}
+            <AnimatePresence>
+                {expanded && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                    >
+                        <div className="px-3 pb-3 pt-1 border-t border-champagne/30">
+                            {/* Specs Grid */}
+                            <div className="grid grid-cols-3 gap-2 mb-3 text-center">
+                                <div className="bg-bone rounded px-2 py-1.5">
+                                    <p className="text-[9px] text-slate uppercase tracking-wider mb-0.5">Capacity</p>
+                                    <p className="text-xs text-obsidian font-medium">
+                                        {group.capacity && group.capacity !== "0 ml (0 oz)" ? group.capacity : "—"}
+                                    </p>
+                                </div>
+                                <div className="bg-bone rounded px-2 py-1.5">
+                                    <p className="text-[9px] text-slate uppercase tracking-wider mb-0.5">Color</p>
+                                    <p className="text-xs text-obsidian font-medium">{group.color || "—"}</p>
+                                </div>
+                                <div className="bg-bone rounded px-2 py-1.5">
+                                    <p className="text-[9px] text-slate uppercase tracking-wider mb-0.5">Thread</p>
+                                    <p className="text-xs text-obsidian font-medium">{group.neckThreadSize || "—"}</p>
+                                </div>
+                            </div>
+
+                            {/* Actions Row */}
+                            <div className="flex items-center gap-2">
+                                {/* Quantity */}
+                                <div className="flex items-center border border-champagne rounded-lg bg-bone">
+                                    <button
+                                        onClick={decrementQty}
+                                        className="p-2 hover:bg-champagne/30 transition-colors rounded-l-lg"
+                                        aria-label="Decrease quantity"
+                                    >
+                                        <Minus className="w-3 h-3 text-slate" />
+                                    </button>
+                                    <input
+                                        type="number"
+                                        value={quantity}
+                                        onChange={(e) => setQuantity(Math.max(1, Math.min(9999, parseInt(e.target.value) || 1)))}
+                                        className="w-10 text-center text-xs font-medium text-obsidian bg-transparent border-0 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                        min={1}
+                                        max={9999}
+                                    />
+                                    <button
+                                        onClick={incrementQty}
+                                        className="p-2 hover:bg-champagne/30 transition-colors rounded-r-lg"
+                                        aria-label="Increase quantity"
+                                    >
+                                        <Plus className="w-3 h-3 text-slate" />
+                                    </button>
+                                </div>
+
+                                {/* View/Add Button */}
+                                <Link
+                                    href={href}
+                                    className="flex-1 py-2.5 bg-obsidian text-white text-xs uppercase font-bold tracking-wider text-center rounded-lg hover:bg-muted-gold transition-colors flex items-center justify-center gap-1.5"
+                                >
+                                    <ShoppingCart className="w-3.5 h-3.5" />
+                                    View & Configure
+                                </Link>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
+}
+
+// ─── Line Item Table (Desktop) ───────────────────────────────────────────────
+
+function LineItemTable({
+    groups,
+    applicatorParam,
+}: {
+    groups: CatalogGroup[];
+    applicatorParam?: string | null;
+}) {
+    return (
+        <div className="w-full overflow-x-auto">
+            <table className="w-full min-w-[900px]">
+                <thead>
+                    <tr className="border-b-2 border-obsidian">
+                        <th className="py-3 px-4 text-left text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Product
+                        </th>
+                        <th className="py-3 px-4 text-center text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Capacity
+                        </th>
+                        <th className="py-3 px-4 text-center text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Color
+                        </th>
+                        <th className="py-3 px-4 text-center text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Thread
+                        </th>
+                        <th className="py-3 px-4 text-center text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Variants
+                        </th>
+                        <th className="py-3 px-4 text-right text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Price
+                        </th>
+                        <th className="py-3 px-4 text-right text-[10px] uppercase tracking-wider font-bold text-slate">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {groups.map((group, idx) => (
+                        <LineItemRow
+                            key={group._id}
+                            group={group}
+                            index={idx}
+                            applicatorParam={applicatorParam}
+                        />
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+// ─── Line Item Grid (Mobile) ─────────────────────────────────────────────────
+
+function LineItemMobileGrid({
+    groups,
+    applicatorParam,
+}: {
+    groups: CatalogGroup[];
+    applicatorParam?: string | null;
+}) {
+    return (
+        <div className="space-y-3">
+            {groups.map((group, idx) => (
+                <LineItemMobileCard
+                    key={group._id}
+                    group={group}
+                    index={idx}
+                    applicatorParam={applicatorParam}
+                />
+            ))}
+        </div>
+    );
+}
+
 // ─── Back to Top Button ──────────────────────────────────────────────────────
 
 function BackToTop() {
@@ -677,6 +1070,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
     const [filters, setFilters] = useState<CatalogFilters>(initialState.filters);
     const [sortBy, setSortBy] = useState<SortValue>(initialState.sort);
+    const [viewMode, setViewMode] = useState<ViewMode>(initialState.view);
     const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>(() => {
         if (typeof window === "undefined") return {};
@@ -690,10 +1084,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
     const [searchInput, setSearchInput] = useState(initialState.filters.search);
 
-    // Sync URL when filters/sort change
+    // Sync URL when filters/sort/view change
     const pushToUrl = useCallback(
-        (f: CatalogFilters, s: SortValue) => {
-            const qs = filtersToParams(f, s).toString();
+        (f: CatalogFilters, s: SortValue, v: ViewMode) => {
+            const qs = filtersToParams(f, s, v).toString();
             router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
         },
         [router, pathname],
@@ -888,30 +1282,38 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             setFilters((prev) => {
                 const next = { ...prev, ...patch };
                 // Using a timeout defers the URL update until after the render cycle completes
-                setTimeout(() => pushToUrl(next, sortBy), 0);
+                setTimeout(() => pushToUrl(next, sortBy, viewMode), 0);
                 return next;
             });
             setVisibleCount(PAGE_SIZE);
             setMobileFilterOpen(false);
             window.scrollTo({ top: 0, behavior: "smooth" });
         },
-        [pushToUrl, sortBy],
+        [pushToUrl, sortBy, viewMode],
     );
 
     const handleClearAll = useCallback(() => {
         setFilters(EMPTY_FILTERS);
         setVisibleCount(PAGE_SIZE);
         setSearchInput("");
-        pushToUrl(EMPTY_FILTERS, sortBy);
-    }, [pushToUrl, sortBy]);
+        pushToUrl(EMPTY_FILTERS, sortBy, viewMode);
+    }, [pushToUrl, sortBy, viewMode]);
 
     const handleSortChange = useCallback(
         (value: SortValue) => {
             setSortBy(value);
             setVisibleCount(PAGE_SIZE);
-            pushToUrl(filters, value);
+            pushToUrl(filters, value, viewMode);
         },
-        [pushToUrl, filters],
+        [pushToUrl, filters, viewMode],
+    );
+
+    const handleViewChange = useCallback(
+        (value: ViewMode) => {
+            setViewMode(value);
+            pushToUrl(filters, sortBy, value);
+        },
+        [pushToUrl, filters, sortBy],
     );
 
     const handleSearchInput = useCallback(
@@ -1115,8 +1517,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     {/* Product Grid Content */}
                     <div className="flex-1 w-full pb-32 border-l-0 lg:border-l border-champagne/30 lg:pl-12">
 
-                        {/* Results Header */}
-                        <div className="sticky top-[156px] lg:top-[104px] z-30 bg-bone/95 backdrop-blur-md pt-4 pb-2 mb-6 sm:mb-8 border-b-2 border-obsidian">
+                        {/* Results Header — sticks directly below fixed navbar */}
+                        <div className="sticky top-[136px] lg:top-[100px] z-30 bg-bone pt-5 pb-2 mb-6 sm:mb-8 border-b-2 border-obsidian">
                             <div className="flex items-end justify-between gap-3">
                                 <div className="min-w-0">
                                     <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-gold font-bold mb-1">
@@ -1132,7 +1534,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                                     : filters.category || filters.collection || (filters.families.length === 1 ? filters.families[0] : "All Products")}
                                     </h2>
                                 </div>
-                                <div className="flex items-center gap-3 shrink-0">
+                                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                                    {/* View Toggle */}
+                                    <ViewToggle value={viewMode} onChange={handleViewChange} />
+
                                     {/* Desktop Sort */}
                                     <div className="relative hidden lg:block">
                                         <select
@@ -1147,7 +1552,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                         <ArrowUpDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate pointer-events-none" />
                                     </div>
 
-                                    <span className="px-2 sm:px-3 py-1 bg-white border border-champagne text-[10px] sm:text-xs font-semibold text-slate uppercase rounded-full whitespace-nowrap">
+                                    <span className="hidden sm:inline-flex px-2 sm:px-3 py-1 bg-white border border-champagne text-[10px] sm:text-xs font-semibold text-slate uppercase rounded-full whitespace-nowrap">
                                         {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
                                     </span>
                                 </div>
@@ -1217,8 +1622,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                             </div>
                         )}
 
-                        {/* Product Grid */}
-                        {visibleProducts.length > 0 && (
+                        {/* Product Display — Visual Grid or Line Items */}
+                        {visibleProducts.length > 0 && viewMode === "visual" && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                                 {visibleProducts.map((group: CatalogGroup, pIndex: number) => (
                                     <ProductGroupCard
@@ -1229,6 +1634,29 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     />
                                 ))}
                             </div>
+                        )}
+
+                        {/* Line Item View — Desktop Table */}
+                        {visibleProducts.length > 0 && viewMode === "line" && (
+                            <>
+                                {/* Desktop: Table aligned with header */}
+                                <div className="hidden lg:block">
+                                    <div className="bg-white border border-champagne/40 rounded-lg overflow-hidden shadow-sm">
+                                        <LineItemTable
+                                            groups={visibleProducts}
+                                            applicatorParam={filters.applicators.length === 1 ? filters.applicators[0] : null}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Mobile: Compact cards */}
+                                <div className="lg:hidden">
+                                    <LineItemMobileGrid
+                                        groups={visibleProducts}
+                                        applicatorParam={filters.applicators.length === 1 ? filters.applicators[0] : null}
+                                    />
+                                </div>
+                            </>
                         )}
 
                         {/* Load More */}
