@@ -153,6 +153,39 @@ function isMetalAtomizerCategory(category: string): boolean {
     return category === "Metal Atomizer";
 }
 
+const COMPONENT_CATEGORIES = new Set(["Component"]);
+
+function getComponentSubType(
+    itemName: string | null | undefined,
+    websiteSku: string | null | undefined,
+    applicator: string | null | undefined,
+): string | null {
+    const name = (itemName || "").toLowerCase();
+    const sku = (websiteSku || "").toLowerCase();
+
+    if (name.includes("antique") || name.includes("vintage") || name.includes("bulb sprayer")) {
+        return name.includes("tassel") ? "Antique Bulb Sprayer with Tassel" : "Antique Bulb Sprayer";
+    }
+    if (name.includes("fine mist") || name.includes("sprayer") || sku.startsWith("cp") && sku.includes("spry") || sku.startsWith("spry")) {
+        return "Fine Mist Sprayer";
+    }
+    if (name.includes("lotion") || name.includes("treatment pump")) return "Lotion Pump";
+    if (name.includes("dropper")) return "Dropper";
+    if (name.includes("roll-on") || name.includes("rollon") || name.includes("roller")) return "Roll-On Fitment";
+    if (name.includes("stopper")) return "Glass Stopper";
+    if (name.includes("reducer")) return "Reducer";
+
+    if (applicator === "Fine Mist Sprayer" || applicator === "Perfume Spray Pump") return "Fine Mist Sprayer";
+    if (applicator === "Antique Bulb Sprayer") return "Antique Bulb Sprayer";
+    if (applicator === "Antique Bulb Sprayer with Tassel") return "Antique Bulb Sprayer with Tassel";
+    if (applicator === "Lotion Pump") return "Lotion Pump";
+    if (applicator === "Dropper") return "Dropper";
+
+    if (name.includes("cap") || name.includes("closure")) return "Cap & Closure";
+
+    return null;
+}
+
 function getApplicatorBucket(applicator: string | null | undefined): string | null {
     if (!applicator || !applicator.trim()) return null;
     return APPLICATOR_BUCKET_MAP[applicator.trim()] ?? null;
@@ -167,13 +200,19 @@ function buildSlug(
     applicatorBucket: string | null,
     shape: string | null = null,
     accessorySlug: string | null = null,
+    componentSubType: string | null = null,
 ): string {
+    const slugify = (s: string) =>
+        s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
     if (isMetalAtomizerCategory(category)) {
         const c = capacityMl != null ? `${capacityMl}ml` : "0ml";
         return `atomizer-${c}`;
     }
-    const slugify = (s: string) =>
-        s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    if (COMPONENT_CATEGORIES.has(category) && componentSubType) {
+        const base = slugify(componentSubType);
+        return neckThreadSize ? `${base}-${slugify(neckThreadSize)}` : base;
+    }
 
     const hasDecShape = (family === "Decorative" || family === "Apothecary") && shape;
     const familyLabel = hasDecShape ? shape : (family || category || "unknown");
@@ -197,6 +236,8 @@ function buildDisplayName(
     applicatorBucket: string | null,
     shape: string | null = null,
     accessoryLabel: string | null = null,
+    componentSubType: string | null = null,
+    neckThreadSize: string | null = null,
 ): string {
     if (isMetalAtomizerCategory(category)) {
         const cap = capacity && capacity !== "0 ml (0 oz)"
@@ -205,6 +246,12 @@ function buildDisplayName(
                 : capacity)
             : null;
         return [cap, "Atomizer Bottle"].filter(Boolean).join(" ");
+    }
+
+    if (COMPONENT_CATEGORIES.has(category) && componentSubType) {
+        return neckThreadSize
+            ? `${componentSubType} — Thread ${neckThreadSize}`
+            : componentSubType;
     }
 
     const formatCapacity = (raw: string | null): string | null => {
@@ -254,9 +301,13 @@ function buildGroupKey(
     applicatorBucket: string | null,
     shape: string | null = null,
     accessorySlug: string | null = null,
+    componentSubType: string | null = null,
 ): string {
     if (isMetalAtomizerCategory(category)) {
         return ["Atomizer", capacityMl ?? "null", "metal-shell"].join("|");
+    }
+    if (COMPONENT_CATEGORIES.has(category) && componentSubType) {
+        return `CMP|${componentSubType}|${neckThreadSize || "null"}`;
     }
     const hasDecShape = (family === "Decorative" || family === "Apothecary") && shape;
     let familyKey = hasDecShape ? `Decorative:${shape}` : (family || category);
@@ -393,12 +444,15 @@ export const buildProductGroups = action({
                     : null;
                 const accessorySlug = decAccessory?.slug ?? null;
                 const accessoryLabel = decAccessory?.label ?? null;
-                const key = buildGroupKey(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug);
+                const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
+                    ? getComponentSubType(p.itemName, p.websiteSku, p.applicator)
+                    : null;
+                const key = buildGroupKey(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug, componentSubType);
 
                 if (!groupMap.has(key)) {
                     groupMap.set(key, {
-                        slug: buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug),
-                        displayName: buildDisplayName(effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory, applicatorBucket, decorativeShape, accessoryLabel),
+                        slug: buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug, componentSubType),
+                        displayName: buildDisplayName(effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory, applicatorBucket, decorativeShape, accessoryLabel, componentSubType, p.neckThreadSize ?? null),
                         family: effectiveFamily || effectiveCategory || "unknown",
                         capacity: p.capacity ?? null,
                         capacityMl: p.capacityMl ?? null,
@@ -488,7 +542,10 @@ export const linkProductsToGroups = action({
                 const decAccessory = isDecorativeFamily
                     ? detectDecorativeAccessory(p.websiteSku || "")
                     : null;
-                const slug = buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null);
+                const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
+                    ? getComponentSubType(p.itemName, p.websiteSku, p.applicator)
+                    : null;
+                const slug = buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null, componentSubType);
                 const groupId = slugToId.get(slug);
                 if (groupId) {
                     links.push({ id: p._id, groupId });

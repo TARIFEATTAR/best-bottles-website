@@ -88,7 +88,7 @@ const MEGA_PANELS: Record<MegaMenuId, MegaPanel> = {
             accentColor: "bg-gradient-to-br from-muted-gold/20 to-champagne/40",
         },
         footerLinks: [
-            { label: "Browse All 261 Products", href: "/catalog" },
+            { label: "Browse All 276 Products", href: "/catalog" },
             { label: "Shop by Glass Color", href: "/catalog" },
         ],
     },
@@ -97,18 +97,18 @@ const MEGA_PANELS: Record<MegaMenuId, MegaPanel> = {
             {
                 heading: "Spray & Pump Mechanisms",
                 links: [
-                    { label: "Fine Mist Sprayers", href: "/catalog?category=Component&search=sprayer", badge: "42" },
-                    { label: "Antique Bulb Atomizers", href: "/catalog?search=antique+sprayer" },
-                    { label: "Treatment & Lotion Pumps", href: "/catalog?category=Component&search=lotion", badge: "3" },
+                    { label: "Fine Mist Sprayers", href: "/catalog?category=Component&search=fine+mist", badge: "26" },
+                    { label: "Antique Bulb Atomizers", href: "/catalog?category=Component&search=antique+bulb", badge: "18" },
+                    { label: "Treatment & Lotion Pumps", href: "/catalog?category=Component&search=lotion+pump", badge: "11" },
                 ],
             },
             {
                 heading: "Caps, Rollers & Droppers",
                 links: [
-                    { label: "Screw Caps", href: "/catalog?category=Component&search=cap", badge: "20" },
+                    { label: "Screw Caps", href: "/catalog?category=Component&search=closure", badge: "26" },
                     { label: "Dropper Assemblies", href: "/catalog?category=Component&search=dropper", badge: "21" },
                     { label: "Glass Stoppers & Rods", href: "/catalog?search=stopper" },
-                    { label: "Roll-On Fitments & Caps", href: "/catalog?category=Component&search=roll-on", badge: "39" },
+                    { label: "Roll-On Fitments & Caps", href: "/catalog?category=Component&search=roll-on+fitment", badge: "25" },
                 ],
             },
             {
