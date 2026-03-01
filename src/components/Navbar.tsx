@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -11,6 +12,8 @@ import type { LucideIcon } from "lucide-react";
 import { useGrace } from "./GraceProvider";
 import { useCart } from "./CartProvider";
 import CartDrawer from "./CartDrawer";
+import { useMegaMenuPanels } from "./SanityMegaMenuProvider";
+import { urlFor } from "@/sanity/lib/image";
 
 interface NavbarProps {
     variant?: "home" | "catalog";
@@ -201,6 +204,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
     const router = useRouter();
     const { openPanel, isOpen: graceActive } = useGrace();
     const { itemCount } = useCart();
+    const megaMenuPanels = useMegaMenuPanels();
     const [cartOpen, setCartOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isDictating, setIsDictating] = useState(false);
@@ -399,7 +403,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
             >
                 <div className="bg-obsidian py-1.5 text-center px-4">
                     <p className="text-xs uppercase tracking-[0.15em] text-bone font-medium">
-                        Free shipping on orders above $99
+                        <span>Free shipping on orders above $99</span>
+                        <span className="hidden md:inline"> · Need fitment help? Ask Grace, AI Bottling Specialist</span>
                     </p>
                 </div>
 
@@ -453,6 +458,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                             >
                                                 <MegaMenuPanel
                                                     panel={MEGA_PANELS[megaId]}
+                                                    sanityFeatured={megaMenuPanels?.[megaId]}
                                                     onClose={() => setActiveMega(null)}
                                                 />
                                             </div>
@@ -513,7 +519,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     <div className="flex items-center space-x-2 shrink-0">
                         <button
                             onClick={openPanel}
-                            aria-label="Talk to Grace"
+                            aria-label="Ask Grace"
+                            title="AI Bottling Specialist"
                             className={`hidden sm:flex items-center space-x-2 text-sm font-medium px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${
                                 graceActive
                                     ? "bg-obsidian text-bone border-obsidian shadow-md"
@@ -527,7 +534,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             ) : (
                                 <span className="w-2 h-2 rounded-full bg-muted-gold animate-grace-pulse shrink-0" />
                             )}
-                            <span>Grace</span>
+                            <span>Ask Grace</span>
                         </button>
 
                         <button aria-label="Account" className="p-2 hover:text-muted-gold transition-colors">
@@ -694,8 +701,27 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
 
 // ─── Mega Menu Panel Component ───────────────────────────────────────────────
 
-function MegaMenuPanel({ panel, onClose }: { panel: MegaPanel; onClose: () => void }) {
+type SanityFeatured = {
+    featuredImage?: { asset?: { _ref: string } };
+    title?: string;
+    subtitle?: string;
+    href?: string;
+};
+
+function MegaMenuPanel({
+    panel,
+    sanityFeatured,
+    onClose,
+}: {
+    panel: MegaPanel;
+    sanityFeatured?: SanityFeatured | null;
+    onClose: () => void;
+}) {
     const FeaturedIcon = panel.featured.placeholderIcon;
+    const title = sanityFeatured?.title ?? panel.featured.title;
+    const subtitle = sanityFeatured?.subtitle ?? panel.featured.subtitle;
+    const href = sanityFeatured?.href ?? panel.featured.href;
+    const featuredImageUrl = sanityFeatured?.featuredImage ? urlFor(sanityFeatured.featuredImage) : "";
 
     return (
         <div className="bg-white border-t border-b border-champagne shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
@@ -734,19 +760,31 @@ function MegaMenuPanel({ panel, onClose }: { panel: MegaPanel; onClose: () => vo
 
                     {/* Featured Card */}
                     <Link
-                        href={panel.featured.href}
+                        href={href}
                         onClick={onClose}
-                        className={`group w-[280px] shrink-0 rounded-lg p-6 ${panel.featured.accentColor} border border-champagne/30 hover:border-muted-gold/40 transition-all duration-200 flex flex-col justify-between`}
+                        className={`group w-[280px] shrink-0 rounded-lg p-6 ${panel.featured.accentColor} border border-champagne/30 hover:border-muted-gold/40 transition-all duration-200 flex flex-col justify-between overflow-hidden`}
                     >
                         <div>
-                            <div className="w-12 h-12 rounded-full bg-white/70 flex items-center justify-center mb-4 shadow-sm">
-                                <FeaturedIcon className="w-5 h-5 text-muted-gold" strokeWidth={1.5} />
-                            </div>
+                            {featuredImageUrl ? (
+                                <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 -mx-2 -mt-2">
+                                    <Image
+                                        src={featuredImageUrl}
+                                        alt={title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                        unoptimized
+                                    />
+                                </div>
+                            ) : (
+                                <div className="w-12 h-12 rounded-full bg-white/70 flex items-center justify-center mb-4 shadow-sm">
+                                    <FeaturedIcon className="w-5 h-5 text-muted-gold" strokeWidth={1.5} />
+                                </div>
+                            )}
                             <h4 className="font-serif text-lg text-obsidian font-medium normal-case mb-2 group-hover:text-muted-gold transition-colors">
-                                {panel.featured.title}
+                                {title}
                             </h4>
                             <p className="text-[12px] text-slate normal-case leading-relaxed">
-                                {panel.featured.subtitle}
+                                {subtitle}
                             </p>
                         </div>
                         <div className="flex items-center gap-1.5 mt-4 text-[11px] font-semibold uppercase tracking-wider text-muted-gold">

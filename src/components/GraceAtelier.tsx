@@ -449,7 +449,7 @@ export default function GraceAtelier() {
                     <div>
                         <p className="text-sm font-semibold text-obsidian leading-tight">Grace</p>
                         <p className="text-[10px] uppercase tracking-widest text-muted-gold font-semibold">
-                            Your Packaging Atelier
+                            AI Bottling Specialist
                         </p>
                     </div>
                 </div>
@@ -553,10 +553,10 @@ export default function GraceAtelier() {
                 {messages.length === 0 && (
                     <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
                         <p className="font-serif text-obsidian text-base font-medium mb-2">
-                            Start a conversation with Grace
+                            Grace by Best Bottles Intelligence
                         </p>
                         <p className="text-slate text-sm leading-relaxed max-w-[280px] mb-6">
-                            Ask me anything about bottles, closures, compatibility, or your order. Type below or tap the microphone to speak.
+                            Your AI Bottling Specialist for fitment, pairing, and compatibility.
                         </p>
                         <div className="flex flex-wrap justify-center gap-2">
                             {chips.map((chip) => (
@@ -609,7 +609,7 @@ export default function GraceAtelier() {
             {/* Input bar */}
             <div className="px-5 py-4 border-t border-champagne/50 shrink-0">
                 <p className="text-[10px] uppercase tracking-wider text-slate/60 mb-2 font-medium">
-                    Chat with Grace — type or use the mic
+                    Ask Grace — type or use the mic
                 </p>
                 <div className="flex items-center gap-2 bg-white border border-champagne/80 rounded-xl px-4 py-2.5 focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/15 transition-all">
                     <input
@@ -670,7 +670,7 @@ export default function GraceAtelier() {
                     <ShoppingBag className="w-4 h-4 text-muted-gold" strokeWidth={1.5} />
                     <p className="text-[10px] uppercase tracking-widest font-semibold text-obsidian">Cart</p>
                 </div>
-                <p className="text-xs text-slate/70 italic">Your cart is empty. Ask Grace to help find the perfect bottle.</p>
+                <p className="text-xs text-slate/70 italic">Your cart is empty. Ask Grace to find the right bottle and fitment.</p>
             </div>
 
             {/* Recently Viewed */}
@@ -857,7 +857,7 @@ export default function GraceAtelier() {
                                 boxShadow: "-24px 0 80px rgba(29, 29, 31, 0.18), -2px 0 0 rgba(255,255,255,0.6) inset",
                             }}
                             role="dialog"
-                            aria-label="Grace — Your Packaging Atelier"
+                            aria-label="Grace — AI Bottling Specialist"
                         >
                             {conversationColumn()}
                             {workspaceSidebar()}

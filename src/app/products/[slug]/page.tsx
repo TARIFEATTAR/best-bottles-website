@@ -1260,6 +1260,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     View all components →
                                 </button>
                             </div>
+                            <p className="text-xs text-slate mb-4">
+                                Need help with fitment pairing? Ask Grace and include the thread size for fastest matching.
+                            </p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                                 {inlineCaps.slice(0, 6).map((comp) => (
                                     <ComponentCard key={comp.grace_sku} comp={comp} />
@@ -1374,7 +1377,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                         {totalComponents === 0 ? (
                                             <div className="text-center py-16">
                                                 <Layers className="w-12 h-12 text-champagne mx-auto mb-4" strokeWidth={1} />
-                                                <p className="text-sm text-slate">No compatible components on file for this variant.</p>
+                                                <p className="text-sm text-slate">No compatible components on file for this variant. Ask Grace for a manual compatibility check.</p>
                                             </div>
                                         ) : (
                                             <div className="space-y-10">

@@ -1,0 +1,246 @@
+{
+  "generatedAt": "2026-02-28T17:35:15.417Z",
+  "totals": {
+    "products": 2284,
+    "groups": 258
+  },
+  "findings": {
+    "high": [
+      {
+        "id": "color_mismatch_vs_name",
+        "count": 85,
+        "examples": [
+          {
+            "websiteSku": "GBElgFrst15RollSlDot",
+            "graceSku": "GB-ELG-CLR-15ML-RBL-SLV-01",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and silver cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15RollPinkDot",
+            "graceSku": "GB-ELG-CLR-15ML-RBL",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and pink cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants.",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15RollSlMatt",
+            "graceSku": "GB-ELG-CLR-15ML-RBL-MSLV",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and matte silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Pr",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15RollGlSh",
+            "graceSku": "GB-ELG-CLR-15ML-RBL-SGLD",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Pric",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15RollSlSh",
+            "graceSku": "GB-ELG-CLR-15ML-RBL-SLV-02",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Pr",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15RollCuMatt",
+            "graceSku": "GB-ELG-CLR-15ML-RBL-MCPR",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and matte copper cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Pr",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15RollBlkSh",
+            "graceSku": "GB-ELG-CLR-15ML-RBL-BLK-02",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with plastic roller ball plug and black shiny cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Pri",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBDivaFrst46SpryMtGl",
+            "graceSku": "GB-DVA-CLR-46ML-02",
+            "color": "Clear",
+            "itemName": "Diva design 46 ml, 1.64oz frosted glass bottle with matte gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Our Classic Diva bottle family is available in 30ml, 46ml and 100ml. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBDivaFrst46SpryShnGl",
+            "graceSku": "GB-DVA-CLR-46ML-05",
+            "color": "Clear",
+            "itemName": "Diva design 46 ml, 1.64oz frosted glass bottle with shiny gold spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Our Classic Diva bottle family is available in 30ml, 46ml and 100ml. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBDivaFrst46SpryShnBlk",
+            "graceSku": "GB-DVA-CLR-46ML-04",
+            "color": "Clear",
+            "itemName": "Diva design 46 ml, 1.64oz frosted glass bottle with shiny black spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Our Classic Diva bottle family is available in 30ml, 46ml and 100ml. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBDivaFrst46SpryMtSl",
+            "graceSku": "GB-DVA-CLR-46ML-03",
+            "color": "Clear",
+            "itemName": "Diva design 46 ml, 1.64oz frosted glass bottle with matte silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Our Classic Diva bottle family is available in 30ml, 46ml and 100ml. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBDivaFrst46SpryShnSl",
+            "graceSku": "GB-DVA-CLR-46ML-06",
+            "color": "Clear",
+            "itemName": "Diva design 46 ml, 1.64oz frosted glass bottle with shiny silver spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Our Classic Diva bottle family is available in 30ml, 46ml and 100ml. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBSleek5WhtSht",
+            "graceSku": "GB-SLK-WHT-5ML-WHT-S",
+            "color": "White",
+            "itemName": "Sleek design 5ml, 1/6oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, Small sized bottle for decants, promotion, samples and travel accessory. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBElgFrst15SpryBlkMatt",
+            "graceSku": "GB-ELG-CLR-15ML-SPR-BLK-01",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with matte black spray. Fine mist sprayer for use with perfumes and colognes. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBTulip6WhtSht",
+            "graceSku": "GB-CYL-WHT-6ML-WHT-S",
+            "color": "White",
+            "itemName": "Tulip design 6ml, 1/5oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, Small sized bottle for decants, promotion, samples and travel accessory. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBSleek8WhtSht",
+            "graceSku": "GB-SLK-WHT-8ML-WHT-S",
+            "color": "White",
+            "itemName": "Sleek design 8ml, 1/3oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, Small sized bottle for decants, promotion, samples and travel accessory. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBRect10WhtSht",
+            "graceSku": "GB-RCT-WHT-10ML-WHT-S-01",
+            "color": "White",
+            "itemName": "Footed rectangular design 10ml, 1/3oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBTallRect10WhtSht",
+            "graceSku": "GB-RCT-WHT-10ML-WHT-S-02",
+            "color": "White",
+            "itemName": "Tall rectangular design 10ml, 1/3oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, slender bottle with attractive heavy base. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBDivaFrst46SpryCu",
+            "graceSku": "GB-DVA-CLR-46ML-01",
+            "color": "Clear",
+            "itemName": "Diva design 46 ml, 1.64oz frosted glass bottle with matte copper spray pump. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray. Our Classic Diva bottle family is available in 30ml, 46ml and 100ml. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBDiva46DrpGl",
+            "graceSku": "GB-DVA-FRS-46ML-DRP-GLD",
+            "color": "Frosted",
+            "itemName": "Diva design 46 ml, 1.64oz  clear glass bottle  with white dropper with shiny gold collar cap. For use with perfume oils, diffuser oils, serums, primers, facial oils or face oils, moisturizer, and beard oils.Our Classic Diva bottle family is available in 3",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBRoyal13WhtSht",
+            "graceSku": "GB-VIA-WHT-13ML-WHT-S",
+            "color": "White",
+            "itemName": "Royal design 13ml, 1/2oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBCrcl15WhtSht",
+            "graceSku": "GB-CIR-WHT-15ML-WHT-S",
+            "color": "White",
+            "itemName": "Circle design 15ml, 1/2oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBElg15WhtSht",
+            "graceSku": "GB-ELG-WHT-15ML-WHT-S",
+            "color": "White",
+            "itemName": "Elegant design 15ml, 1/2oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBElgFrst15WhtSht",
+            "graceSku": "GB-ELG-CLR-15ML-WHT-S",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz Frosted glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15BlkSht",
+            "graceSku": "GB-ELG-CLR-15ML-BLK-S-02",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz Frosted glass bottle with short black cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15Gl",
+            "graceSku": "GB-ELG-CLR-15ML-SGLD-T",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with shiny gold cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBElgFrst15Sl",
+            "graceSku": "GB-ELG-CLR-15ML-SLV-T-02",
+            "color": "Clear",
+            "itemName": "Elegant design 15ml, 1/2oz frosted glass bottle with shiny silver cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "frosted"
+          },
+          {
+            "websiteSku": "GBFlair15WhtSht",
+            "graceSku": "GB-VIA-WHT-15ML-WHT-S-01",
+            "color": "White",
+            "itemName": "Flair design 15ml, 1/2oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBSqr15WhtSht",
+            "graceSku": "GB-VIA-WHT-15ML-WHT-S-02",
+            "color": "White",
+            "itemName": "Square design 15ml, 1/2oz Clear glass bottle with short white cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Price each",
+            "expected": "clear"
+          },
+          {
+            "websiteSku": "GBElgFrst60AnSpWht",
+            "graceSku": "GB-ELG-CLR-60ML-ASP-WHT-02",
+            "color": "Clear",
+            "itemName": "Elegant design 60 ml, 2oz frosted glass bottle with white vintage style bulb sprayer with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray.  Antique or vintage bulb sprayers enhance the beauty",
+            "expected": "frosted"
+          }
+        ]
+      }
+    ],
+    "medium": [
+      {
+        "id": "group_duplicate_color_same_bucket",
+        "count": 0,
+        "examples": []
+      }
+    ],
+    "low": [
+      {
+        "id": "atomizer_family_category_leaks",
+        "count": 0,
+        "examples": []
+      },
+      {
+        "id": "cap_only_naming_missing_with_cap",
+        "count": 0,
+        "examples": []
+      }
+    ]
+  }
+}

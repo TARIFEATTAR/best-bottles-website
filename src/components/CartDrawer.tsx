@@ -128,7 +128,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 <div className="flex flex-col items-center justify-center h-full text-center py-16">
                                     <ShoppingBag className="w-12 h-12 text-champagne mb-4" strokeWidth={1} />
                                     <p className="font-serif text-lg text-obsidian/60 mb-2">Your cart is empty</p>
-                                    <p className="text-sm text-slate">Browse our catalog or ask Grace to help you find the perfect bottles.</p>
+                                    <p className="text-sm text-slate">Browse our catalog or ask Grace, your AI Bottling Specialist, to find the right bottle and fitment.</p>
                                 </div>
                             ) : (
                                 items.map((item, i) => (

@@ -329,12 +329,12 @@ export function GraceFloatingTrigger() {
                     ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 flex items-center justify-center`
                     : "bottom-6 right-6 flex items-center space-x-2.5 px-5 py-3"
             }`}
-            aria-label="Talk to Grace"
+            aria-label="Ask Grace"
         >
             <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
                 <span /><span /><span /><span />
             </span>
-            {showTriggerText && <span className="text-sm font-medium tracking-wide">Talk to Grace</span>}
+            {showTriggerText && <span className="text-sm font-medium tracking-wide">Ask Grace</span>}
         </button>
     );
 }
@@ -523,7 +523,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                     <div>
                         <p className="text-sm font-semibold text-obsidian leading-tight">Grace</p>
                         <p className="text-[9px] uppercase tracking-widest text-muted-gold font-semibold">
-                            Your Packaging Atelier
+                            AI Bottling Specialist
                         </p>
                     </div>
                 </div>
@@ -658,9 +658,9 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                                 <span /><span /><span /><span />
                             </span>
                         </div>
-                        <p className="font-serif text-obsidian text-lg font-medium mb-1.5">Talk to Grace</p>
+                        <p className="font-serif text-obsidian text-lg font-medium mb-1.5">Grace by Best Bottles Intelligence</p>
                         <p className="text-slate text-xs leading-relaxed max-w-[260px] mb-6">
-                            Ask about bottles, closures, compatibility, or pricing. Type below or tap the mic.
+                            Your AI Bottling Specialist for fitment, pairing, and compatibility.
                         </p>
                         <div className="flex flex-wrap justify-center gap-1.5">
                             {chips.map((chip) => (
@@ -827,7 +827,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                     backdropFilter: "blur(28px) saturate(180%)",
                 }}
                 role="complementary"
-                aria-label="Grace — Your Packaging Atelier"
+                aria-label="Grace — AI Bottling Specialist"
             >
                 <button
                     type="button"
@@ -857,7 +857,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                 borderLeft: "1px solid rgba(212, 197, 169, 0.4)",
             }}
             role="complementary"
-            aria-label="Grace — Your Packaging Atelier"
+            aria-label="Grace — AI Bottling Specialist"
         >
             {panelContent}
         </motion.div>

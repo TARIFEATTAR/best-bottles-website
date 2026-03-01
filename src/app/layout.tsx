@@ -5,6 +5,8 @@ import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { CartProvider } from "@/components/CartProvider";
 import GraceProvider from "@/components/GraceProvider";
 import GraceSidePanel, { GraceFloatingTrigger } from "@/components/GraceSidePanel";
+import { SanityMegaMenuProvider } from "@/components/SanityMegaMenuProvider";
+import { getMegaMenuPanels } from "@/sanity/lib/queries";
 
 const ebGaramond = EB_Garamond({
   variable: "--font-eb-garamond",
@@ -24,20 +26,24 @@ export const metadata: Metadata = {
   description: "3,100+ premium glass bottles, sprayers, and packaging components. 170 years of expertise. Low MOQs, volume pricing, and dedicated support for scaling brands.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const megaMenuPanels = await getMegaMenuPanels();
+
   return (
     <html lang="en">
       <body className={`${ebGaramond.variable} ${inter.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
         <ConvexClientProvider>
           <CartProvider>
             <GraceProvider>
-              {children}
-              <GraceSidePanel />
-              <GraceFloatingTrigger />
+              <SanityMegaMenuProvider initialData={megaMenuPanels}>
+                {children}
+                <GraceSidePanel />
+                <GraceFloatingTrigger />
+              </SanityMegaMenuProvider>
             </GraceProvider>
           </CartProvider>
         </ConvexClientProvider>

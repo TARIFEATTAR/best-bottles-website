@@ -1383,7 +1383,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                         <h1 className="font-serif text-4xl lg:text-5xl text-obsidian font-medium leading-[1.1] mb-2">Master Catalog</h1>
                         <p className="text-slate text-sm max-w-xl">
                             {totalCount > 0 ? `${totalCount.toLocaleString()} product groups.` : "Loading catalog..."}
-                            {" "}Or, let Grace guide you directly to the perfect vessel.
+                            {" "}Need help narrowing options? Ask Grace, your AI Bottling Specialist.
                         </p>
                     </div>
 
@@ -1636,7 +1636,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     onClick={handleClearAll}
                                     className="px-6 py-3 bg-obsidian text-white uppercase text-xs font-bold tracking-wider hover:bg-muted-gold transition-colors"
                                 >
-                                    Browse All Products
+                                    Reset Filters
                                 </button>
                             </div>
                         )}
