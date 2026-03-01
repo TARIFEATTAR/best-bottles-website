@@ -303,7 +303,7 @@ function DesignFamilies({ designFamilyCards }: { designFamilyCards?: HomepageDat
                         const count = stats?.familyCounts?.[fam.family] ?? 0;
                         const imgSrc = fam.img || (DEFAULT_FAMILIES.find((d) => d.family === fam.family)?.img ?? "/assets/Cylinder-BB.png");
                         return (
-                            <FadeUp key={fam.family} delay={i * 0.08} className="w-[80vw] sm:w-[360px] lg:w-[340px] xl:w-[360px] shrink-0 snap-center lg:snap-start">
+                            <FadeUp key={fam.family} delay={i * 0.08} className="w-[85vw] sm:w-[400px] lg:w-[400px] xl:w-[420px] shrink-0 snap-center lg:snap-start">
                                 <Link href={`/catalog?families=${encodeURIComponent(fam.family)}`}>
                                     <div className="group relative aspect-[3/4] rounded-[10px] overflow-hidden bg-travertine cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
                                         <Image
