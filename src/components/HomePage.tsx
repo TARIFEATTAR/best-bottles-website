@@ -51,62 +51,106 @@ const DEFAULT_ARTICLES = [
     { title: "From Etsy to Sephora: Scaling Your Packaging Strategy", category: "Growth", img: "/assets/collection_amber.png", slug: "#" },
 ];
 
-function Hero({ hero }: { hero?: HomepageData["hero"] }) {
+type HeroSlide = NonNullable<HomepageData["heroSlides"]>[number];
+
+const DEFAULT_HERO_SLIDE: Partial<HeroSlide> & { eyebrow: string; headline: string; subheadline: string; ctaText: string; ctaHref: string } = {
+    eyebrow: "A Division of Nemat International",
+    headline: "Beautifully Contained",
+    subheadline: "Premium glass bottles and packaging for brands ready to scale.",
+    ctaText: "Explore Collections",
+    ctaHref: "/catalog",
+};
+
+function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
     const { open: openGrace } = useGrace();
-    const mediaType = hero?.mediaType ?? "image";
-    const videoUrl = hero?.video?.asset?.url;
-    const imageUrl = hero?.image ? urlFor(hero.image) : "";
-    const posterUrl = hero?.videoPoster ? urlFor(hero.videoPoster) : imageUrl || "/assets/Hero-BB.png";
+    const slides: HeroSlide[] = heroSlides?.length ? heroSlides : [{ ...DEFAULT_HERO_SLIDE } as HeroSlide];
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const slide = slides[currentIndex];
+    const isMultiSlide = slides.length > 1;
+
+    React.useEffect(() => {
+        if (!isMultiSlide) return;
+        const t = setInterval(() => setCurrentIndex((i) => (i + 1) % slides.length), 6000);
+        return () => clearInterval(t);
+    }, [isMultiSlide, slides.length]);
+
+    const mediaType = slide?.mediaType ?? "image";
+    const videoUrl = slide?.video?.asset?.url;
+    const imageUrl = slide?.image ? urlFor(slide.image) : "";
+    const posterUrl = slide?.videoPoster ? urlFor(slide.videoPoster) : imageUrl || "/assets/Hero-BB.png";
     const showVideo = mediaType === "video" && videoUrl;
 
     return (
         <section className="relative min-h-[80vh] lg:h-[82vh] lg:min-h-[650px] pt-[156px] lg:pt-[104px] flex items-center bg-bone overflow-hidden">
             <div className="absolute inset-0 z-0 bg-travertine">
-                <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }} className="relative w-full h-full">
-                    {showVideo ? (
-                        <video
-                            src={videoUrl}
-                            poster={posterUrl || undefined}
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            className="w-full h-full object-cover object-center lg:object-right"
-                        />
-                    ) : (
-                        <Image
-                            src={imageUrl || "/assets/Hero-BB.png"}
-                            alt="Luxury perfume glass atomizer bottle"
-                            fill
-                            className="object-cover object-center lg:object-right"
-                            priority
-                            unoptimized={!!imageUrl}
-                        />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-r from-obsidian/55 via-obsidian/25 to-transparent" />
-                </motion.div>
+                {isMultiSlide ? (
+                    slides.map((s, i) => {
+                        const img = s?.image ? urlFor(s.image) : "";
+                        const isVideo = s?.mediaType === "video" && s?.video?.asset?.url;
+                        const vidUrl = s?.video?.asset?.url;
+                        return (
+                            <div
+                                key={i}
+                                className={`absolute inset-0 transition-opacity duration-700 ${i === currentIndex ? "opacity-100 z-0" : "opacity-0 z-0 pointer-events-none"}`}
+                            >
+                                {isVideo && vidUrl ? (
+                                    <video src={vidUrl} poster={img || "/assets/Hero-BB.png"} autoPlay muted loop playsInline className="w-full h-full object-cover object-center lg:object-right" />
+                                ) : (
+                                    <Image src={img || "/assets/Hero-BB.png"} alt="" fill className="object-cover object-center lg:object-right" unoptimized={!!img} />
+                                )}
+                            </div>
+                        );
+                    })
+                ) : (
+                    <motion.div initial={{ scale: 1.05 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }} className="relative w-full h-full">
+                        {showVideo ? (
+                            <video src={videoUrl} poster={posterUrl || undefined} autoPlay muted loop playsInline className="w-full h-full object-cover object-center lg:object-right" />
+                        ) : (
+                            <Image src={imageUrl || "/assets/Hero-BB.png"} alt="Luxury perfume glass atomizer bottle" fill className="object-cover object-center lg:object-right" priority unoptimized={!!imageUrl} />
+                        )}
+                    </motion.div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-r from-obsidian/55 via-obsidian/25 to-transparent z-[1]" />
             </div>
+
+            {isMultiSlide && (
+                <>
+                    <button
+                        onClick={() => setCurrentIndex((i) => (i - 1 + slides.length) % slides.length)}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors"
+                        aria-label="Previous slide"
+                    >
+                        <ArrowRight className="w-5 h-5 rotate-180" />
+                    </button>
+                    <button
+                        onClick={() => setCurrentIndex((i) => (i + 1) % slides.length)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors"
+                        aria-label="Next slide"
+                    >
+                        <ArrowRight className="w-5 h-5" />
+                    </button>
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                        {slides.map((_, i) => (
+                            <button key={i} onClick={() => setCurrentIndex(i)} className={`w-2 h-2 rounded-full transition-colors ${i === currentIndex ? "bg-white" : "bg-white/50"}`} aria-label={`Go to slide ${i + 1}`} />
+                        ))}
+                    </div>
+                </>
+            )}
 
             <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10 pt-16 lg:pt-0 pb-16 lg:pb-0">
                 <div className="max-w-[600px]">
                     <FadeUp delay={0.2}>
-                        <p className="text-xs uppercase tracking-[0.25em] text-white/90 font-bold mb-6 drop-shadow-sm">
-                            {hero?.eyebrow ?? "A Division of Nemat International"}
-                        </p>
+                        <p className="text-xs uppercase tracking-[0.25em] text-white/90 font-bold mb-6 drop-shadow-sm">{slide?.eyebrow ?? DEFAULT_HERO_SLIDE.eyebrow}</p>
                     </FadeUp>
                     <FadeUp delay={0.3}>
-                        <h1 className="font-display text-[60px] lg:text-[87px] font-medium text-white leading-[1.05] mb-8 drop-shadow-sm">
-                            {hero?.headline ?? "Beautifully Contained"}
-                        </h1>
+                        <h1 className="font-display text-[60px] lg:text-[87px] font-medium text-white leading-[1.05] mb-8 drop-shadow-sm">{slide?.headline ?? DEFAULT_HERO_SLIDE.headline}</h1>
                     </FadeUp>
                     <FadeUp delay={0.4}>
-                        <p className="text-lg lg:text-xl text-white/90 leading-[1.6] max-w-[480px] mb-12">
-                            {hero?.subheadline ?? "Premium glass bottles and packaging for brands ready to scale."}
-                        </p>
+                        <p className="text-lg lg:text-xl text-white/90 leading-[1.6] max-w-[480px] mb-12">{slide?.subheadline ?? DEFAULT_HERO_SLIDE.subheadline}</p>
                     </FadeUp>
                     <FadeUp delay={0.5} className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
-                        <Link href="/catalog" className="w-full sm:w-auto px-8 py-4 bg-white text-obsidian uppercase text-sm font-semibold tracking-wider hover:bg-bone transition-colors duration-300 shadow-md text-center">
-                            Explore Collections
+                        <Link href={slide?.ctaHref || DEFAULT_HERO_SLIDE.ctaHref} className="w-full sm:w-auto px-8 py-4 bg-white text-obsidian uppercase text-sm font-semibold tracking-wider hover:bg-bone transition-colors duration-300 shadow-md text-center">
+                            {slide?.ctaText || DEFAULT_HERO_SLIDE.ctaText}
                         </Link>
                         <button onClick={openGrace} className="group flex items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300">
                             <span className="text-shimmer border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Ask Grace — AI Bottling Specialist</span>
@@ -231,7 +275,17 @@ function ShopByApplication() {
     );
 }
 
-function CuratedCollections({ startHereCards }: { startHereCards?: HomepageData["startHereCards"] }) {
+function CuratedCollections({
+    startHereEyebrow,
+    startHereTitle,
+    startHereSubheading,
+    startHereCards,
+}: {
+    startHereEyebrow?: string;
+    startHereTitle?: string;
+    startHereSubheading?: string;
+    startHereCards?: HomepageData["startHereCards"];
+}) {
     const cards = startHereCards?.length
         ? startHereCards.map((c) => {
               const bg = c.backgroundColor?.startsWith("#") ? c.backgroundColor : c.backgroundColor ? `#${c.backgroundColor}` : "#DFD6C9";
@@ -249,9 +303,9 @@ function CuratedCollections({ startHereCards }: { startHereCards?: HomepageData[
         <section className="pt-16 pb-20 bg-white border-y border-champagne/40">
             <div className="max-w-[1440px] mx-auto px-6">
                 <FadeUp className="mb-8">
-                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-2">Guided Browsing</p>
-                    <h2 className="font-serif text-4xl text-obsidian font-medium tracking-tight">Start Here</h2>
-                    <p className="text-[14px] text-slate mt-2">Choose your use case to narrow the catalog faster.</p>
+                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-2">{startHereEyebrow?.trim() || "Guided Browsing"}</p>
+                    <h2 className="font-serif text-4xl text-obsidian font-medium tracking-tight">{startHereTitle?.trim() || "Start Here"}</h2>
+                    <p className="text-[14px] text-slate mt-2">{startHereSubheading?.trim() || "Choose your use case to narrow the catalog faster."}</p>
                 </FadeUp>
             </div>
             <div className="pl-6 lg:pl-[max(1.5rem,calc((100vw-1440px)/2+1.5rem))] overflow-hidden">
@@ -265,7 +319,7 @@ function CuratedCollections({ startHereCards }: { startHereCards?: HomepageData[
                             >
                                 <div className="absolute inset-0 z-0">
                                     <Image
-                                        src={card.img || "/assets/Hero-BB.png"}
+                                        src={card.img || DEFAULT_START_HERE.find((d) => d.title === card.title)?.img || "/assets/Hero-BB.png"}
                                         alt={card.title}
                                         fill
                                         className="object-cover object-bottom group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -513,10 +567,15 @@ export default function HomePage({ homepageData }: { homepageData: HomepageData 
     return (
         <main className="min-h-screen">
             <Navbar variant="home" />
-            <Hero hero={homepageData?.hero} />
+            <Hero heroSlides={homepageData?.heroSlides} />
             <TrustBar />
             <ShopByApplication />
-            <CuratedCollections startHereCards={homepageData?.startHereCards} />
+            <CuratedCollections
+                startHereEyebrow={homepageData?.startHereEyebrow}
+                startHereTitle={homepageData?.startHereTitle}
+                startHereSubheading={homepageData?.startHereSubheading}
+                startHereCards={homepageData?.startHereCards}
+            />
             <DesignFamilies designFamilyCards={homepageData?.designFamilyCards} />
             <SocialProof />
             <EducationPreview educationPreview={homepageData?.educationPreview} />

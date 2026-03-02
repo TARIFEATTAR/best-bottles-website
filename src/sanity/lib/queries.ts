@@ -1,7 +1,7 @@
 // Homepage query (singleton: uses "homepage" if present, else first homepagePage)
 export const HOMEPAGE_QUERY = `
   *[_type == "homepagePage"][0] {
-    hero {
+    heroSlides[] {
       mediaType,
       image,
       video {
@@ -12,8 +12,13 @@ export const HOMEPAGE_QUERY = `
       videoPoster,
       headline,
       subheadline,
-      eyebrow
+      eyebrow,
+      ctaText,
+      ctaHref
     },
+    startHereEyebrow,
+    startHereTitle,
+    startHereSubheading,
     startHereCards[] {
       title,
       subtitle,
@@ -140,7 +145,7 @@ export async function getMegaMenuPanels(): Promise<HomepageData["megaMenuPanels"
 }
 
 export type HomepageData = {
-    hero?: {
+    heroSlides?: Array<{
         mediaType?: "image" | "video";
         image?: { asset?: { _ref: string }; _type: string };
         video?: { asset?: { url?: string } };
@@ -148,7 +153,12 @@ export type HomepageData = {
         headline?: string;
         subheadline?: string;
         eyebrow?: string;
-    };
+        ctaText?: string;
+        ctaHref?: string;
+    }>;
+    startHereEyebrow?: string;
+    startHereTitle?: string;
+    startHereSubheading?: string;
     startHereCards?: Array<{
         title: string;
         subtitle?: string;
