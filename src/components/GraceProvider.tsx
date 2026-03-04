@@ -22,6 +22,8 @@ import {
     type ProductCard,
     type KitItem,
     type PanelMode,
+    type ActiveForm,
+    type FormType,
 } from "./GraceContext";
 
 // ─── Strip markdown artifacts from Grace's text responses ────────────────────
@@ -58,6 +60,12 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const localStreamRef = useRef<MediaStream | null>(null);
     const remoteAudioRef = useRef<HTMLAudioElement | null>(null);
     const graceTranscriptRef = useRef("");
+
+    // ── Live form stubs (ElevenLabs-only feature; no-ops in OpenAI provider) ──
+    const [activeForm] = useState<ActiveForm | null>(null);
+    const updateFormField = useCallback((_formType: FormType, _fieldName: string, _value: string) => { /* no-op */ }, []);
+    const submitActiveForm = useCallback(async () => { /* no-op */ }, []);
+    const dismissActiveForm = useCallback(() => { /* no-op */ }, []);
 
     const askGrace = useAction(api.grace.askGrace);
 
@@ -210,7 +218,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                                     const url = URL.createObjectURL(blob);
                                     const audio = new Audio(url);
                                     audioRef.current = audio;
-                                    audio.play().catch(() => {});
+                                    audio.play().catch(() => { });
                                     audio.onended = () => {
                                         URL.revokeObjectURL(url);
                                         audioRef.current = null;
@@ -681,6 +689,11 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 onNavigate,
                 pendingNavigation,
                 clearPendingNavigation,
+                // Live form stubs — feature lives in GraceElevenLabsProvider
+                activeForm,
+                updateFormField,
+                submitActiveForm,
+                dismissActiveForm,
             }}
         >
             {children}
