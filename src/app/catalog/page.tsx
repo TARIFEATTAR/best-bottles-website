@@ -640,11 +640,10 @@ function ViewToggle({
         <div className="inline-flex items-center bg-white border border-champagne rounded-lg p-0.5">
             <button
                 onClick={() => onChange("visual")}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${
-                    value === "visual"
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${value === "visual"
                         ? "bg-obsidian text-white"
                         : "text-slate hover:text-obsidian"
-                }`}
+                    }`}
                 aria-label="Visual grid view"
             >
                 <LayoutGrid className="w-3.5 h-3.5" />
@@ -652,11 +651,10 @@ function ViewToggle({
             </button>
             <button
                 onClick={() => onChange("line")}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${
-                    value === "line"
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${value === "line"
                         ? "bg-obsidian text-white"
                         : "text-slate hover:text-obsidian"
-                }`}
+                    }`}
                 aria-label="Line item view"
             >
                 <List className="w-3.5 h-3.5" />
@@ -1138,17 +1136,38 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
         // Search (multi-field, including SKU)
         if (filters.search) {
-            const term = filters.search.toLowerCase();
-            result = result.filter((g) =>
-                g.displayName.toLowerCase().includes(term) ||
-                g.family?.toLowerCase().includes(term) ||
-                g.color?.toLowerCase().includes(term) ||
-                g.capacity?.toLowerCase().includes(term) ||
-                g.neckThreadSize?.toLowerCase().includes(term) ||
-                g.bottleCollection?.toLowerCase().includes(term) ||
-                g.slug.toLowerCase().includes(term) ||
-                skuMap.get(g._id)?.toLowerCase().includes(term),
-            );
+            let term = filters.search.toLowerCase()
+                // Replace spelled out numbers commonly spoken to Grace
+                .replace(/\bnine\b/g, "9")
+                .replace(/\bfive\b/g, "5")
+                .replace(/\bten\b/g, "10")
+                .replace(/\bthirty\b/g, "30")
+                .replace(/\bfifty\b/g, "50")
+                .replace(/\bone hundred\b/g, "100")
+                // Remove punctuation
+                .replace(/[^\w\s-]/g, "");
+
+            const tokens = term.split(/\s+/).filter(Boolean);
+
+            if (tokens.length > 0) {
+                result = result.filter((g) => {
+                    const fields = [
+                        g.displayName,
+                        g.family,
+                        g.color,
+                        g.capacity,
+                        g.neckThreadSize,
+                        g.bottleCollection,
+                        g.slug,
+                        skuMap.get(g._id)
+                    ].map(f => (f || "").toLowerCase());
+
+                    const searchTarget = fields.join(" ");
+
+                    // All tokens must be present somewhere in the searchTarget
+                    return tokens.every(token => searchTarget.includes(token));
+                });
+            }
         }
 
         // Category
@@ -1584,11 +1603,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                             <div className="flex flex-wrap gap-2 mb-6">
                                 <button
                                     onClick={() => handleFilterChange({ applicators: [] })}
-                                    className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${
-                                        filters.applicators.length === 0
+                                    className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.length === 0
                                             ? "bg-obsidian text-white border-obsidian"
                                             : "bg-white border-champagne text-obsidian hover:border-muted-gold"
-                                    }`}
+                                        }`}
                                 >
                                     All Bottles
                                 </button>
@@ -1603,11 +1621,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                                     : [...filters.applicators, bucket.value],
                                             });
                                         }}
-                                        className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${
-                                            filters.applicators.includes(bucket.value)
+                                        className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.includes(bucket.value)
                                                 ? "bg-obsidian text-white border-obsidian"
                                                 : "bg-white border-champagne text-obsidian hover:border-muted-gold"
-                                        }`}
+                                            }`}
                                     >
                                         {bucket.label} ({facets.applicators[bucket.value]})
                                     </button>

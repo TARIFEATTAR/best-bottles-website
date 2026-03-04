@@ -328,8 +328,15 @@ function normalizeSearchTerm(term: string): string {
         .replace(/\bsplash[- ]?on\b/gi, "reducer")
         .replace(/\blotion\s*pump\s*bottle\b/gi, "lotion pump")
         .replace(/\bdropper\s*bottle\b/gi, "dropper")
-        .replace(/\b5\s*ml\b/gi, "5ml")
-        .replace(/\b9\s*ml\b/gi, "9ml")
+        // Handle common transcribed numbers used for sizes
+        .replace(/\bfive\b/gi, "5")
+        .replace(/\bnine\b/gi, "9")
+        .replace(/\bten\b/gi, "10")
+        .replace(/\bthirty\b/gi, "30")
+        .replace(/\bfifty\b/gi, "50")
+        .replace(/\bone\s*hundred\b/gi, "100")
+        // Remove spaces inside <number>ml declarations so that "9 ml" becomes "9ml"
+        .replace(/\b(\d+)\s*(ml|oz)\b/gi, "$1$2")
         .trim();
 }
 
