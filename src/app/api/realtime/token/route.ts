@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     // Realtime response burns through the 40k TPM rate limit in 4–5 turns.
     // The Realtime model uses its tools to fetch product data live — it does
     // not need product knowledge pre-loaded in the system prompt.
-    await req.json().catch(() => {});
+    await req.json().catch(() => { });
 
     const REALTIME_INSTRUCTIONS = `You are Grace, the luxury packaging concierge at Best Bottles — a premium glass packaging supplier for beauty, fragrance, and wellness brands. You are warm, knowledgeable, and efficient.
 
@@ -156,11 +156,11 @@ BEHAVIOUR: For family questions call getFamilyOverview first. Use showProducts/c
                 {
                     type: "function",
                     name: "navigateToPage",
-                    description: "Show a link card or navigate customer to a page. Set autoNavigate=true only when customer explicitly asks to go there.",
+                    description: "Show a link card or navigate customer to a page. Set autoNavigate=true only when customer explicitly asks to go there. NEVER guess a product slug for /products/[slug]. Always call searchCatalog first to get the real slug, or navigate to /catalog?search=...",
                     parameters: {
                         type: "object",
                         properties: {
-                            path: { type: "string", description: "URL path, e.g. '/catalog', '/contact', '/catalog?family=Elegant'" },
+                            path: { type: "string", description: "URL path, e.g. '/catalog', '/contact', '/products/[exact-slug-from-search-results]'" },
                             title: { type: "string", description: "Card title" },
                             description: { type: "string", description: "What they'll find on the page" },
                             autoNavigate: { type: "boolean", description: "True to navigate directly" },

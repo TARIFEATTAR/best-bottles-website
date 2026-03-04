@@ -173,16 +173,21 @@ export default function GraceElevenLabsProvider({
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
 
                 if (products.length > 0) {
-                    // Build catalog URL with Grace's search pre-applied
-                    const qs = new URLSearchParams();
-                    if (parameters.query) qs.set("search", parameters.query);
-                    if (parameters.family) qs.set("family", parameters.family);
+                    // If exactly 1 product matches and we have its slug, navigate straight to the PDP
+                    let redirectUrl = "";
+                    if (products.length === 1 && products[0].slug) {
+                        redirectUrl = `/products/${products[0].slug}`;
+                    } else {
+                        // Otherwise open the catalog filtered to the search
+                        const qs = new URLSearchParams();
+                        if (parameters.query) qs.set("search", parameters.query);
+                        if (parameters.family) qs.set("family", parameters.family);
+                        redirectUrl = `/catalog${qs.toString() ? `?${qs.toString()}` : ""}`;
+                    }
 
-                    const catalogUrl = `/catalog${qs.toString() ? `?${qs.toString()}` : ""}`;
-
-                    // Navigate main screen to catalog + minimize Grace to voice strip
+                    // Navigate main screen to the destination + minimize Grace to voice strip
                     setGraceQuery(parameters.query || parameters.family || "");
-                    setPendingNavigation(catalogUrl);
+                    setPendingNavigation(redirectUrl);
                     setPanelMode("strip");
 
                     const summary = products.slice(0, 3)

@@ -402,23 +402,33 @@ export const searchCatalog = query({
 
         // Return a trimmed version — components arrays are large and waste tokens.
         // Normalize capacity strings: remove internal spaces ("9 ml" → "9ml")
-        // so Grace always speaks sizes consistently.
-        return results.map((p) => ({
-            graceSku: p.graceSku,
-            itemName: p.itemName,
-            category: p.category,
-            family: p.family,
-            capacity: p.capacity ? p.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u) => u.toLowerCase()) : p.capacity,
-            capacityMl: p.capacityMl,
-            color: p.color,
-            applicator: p.applicator,
-            capColor: p.capColor,
-            neckThreadSize: p.neckThreadSize,
-            webPrice1pc: p.webPrice1pc,
-            webPrice12pc: p.webPrice12pc,
-            caseQuantity: p.caseQuantity,
-            stockStatus: p.stockStatus,
-        }));
+        const enrichedResults = await Promise.all(
+            results.map(async (p) => {
+                let slug: string | undefined = undefined;
+                if (p.productGroupId) {
+                    const group = await ctx.db.get(p.productGroupId);
+                    if (group) slug = group.slug;
+                }
+                return {
+                    graceSku: p.graceSku,
+                    itemName: p.itemName,
+                    category: p.category,
+                    family: p.family,
+                    capacity: p.capacity ? p.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u) => u.toLowerCase()) : p.capacity,
+                    capacityMl: p.capacityMl,
+                    color: p.color,
+                    applicator: p.applicator,
+                    capColor: p.capColor,
+                    neckThreadSize: p.neckThreadSize,
+                    webPrice1pc: p.webPrice1pc,
+                    webPrice12pc: p.webPrice12pc,
+                    caseQuantity: p.caseQuantity,
+                    stockStatus: p.stockStatus,
+                    slug,
+                };
+            })
+        );
+        return enrichedResults;
     },
 });
 
