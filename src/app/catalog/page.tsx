@@ -641,8 +641,8 @@ function ViewToggle({
             <button
                 onClick={() => onChange("visual")}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${value === "visual"
-                        ? "bg-obsidian text-white"
-                        : "text-slate hover:text-obsidian"
+                    ? "bg-obsidian text-white"
+                    : "text-slate hover:text-obsidian"
                     }`}
                 aria-label="Visual grid view"
             >
@@ -652,8 +652,8 @@ function ViewToggle({
             <button
                 onClick={() => onChange("line")}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-all ${value === "line"
-                        ? "bg-obsidian text-white"
-                        : "text-slate hover:text-obsidian"
+                    ? "bg-obsidian text-white"
+                    : "text-slate hover:text-obsidian"
                     }`}
                 aria-label="Line item view"
             >
@@ -1151,6 +1151,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
             if (tokens.length > 0) {
                 result = result.filter((g) => {
+                    // Include all major display fields + applicator types + SKU
                     const fields = [
                         g.displayName,
                         g.family,
@@ -1159,12 +1160,20 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                         g.neckThreadSize,
                         g.bottleCollection,
                         g.slug,
+                        (g.applicatorTypes ?? []).join(" "),
                         skuMap.get(g._id)
-                    ].map(f => (f || "").toLowerCase());
+                    ].map(f => {
+                        // Expand the searchable terms within each field
+                        return (f || "").toLowerCase()
+                            .replace(/\broll[ -]?on\b/g, "rollon roller roll-on")
+                            .replace(/\broller\b/g, "rollon roller roll-on")
+                            .replace(/\bball\b/g, "roller ball");
+                    });
 
-                    const searchTarget = fields.join(" ");
+                    const searchTarget = fields.join(" ").toLowerCase();
 
-                    // All tokens must be present somewhere in the searchTarget
+                    // All tokens from the input (e.g. '9', 'ml', 'roller', 'ball')
+                    // must be present somewhere in our expanded searchTarget.
                     return tokens.every(token => searchTarget.includes(token));
                 });
             }
@@ -1604,8 +1613,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                 <button
                                     onClick={() => handleFilterChange({ applicators: [] })}
                                     className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.length === 0
-                                            ? "bg-obsidian text-white border-obsidian"
-                                            : "bg-white border-champagne text-obsidian hover:border-muted-gold"
+                                        ? "bg-obsidian text-white border-obsidian"
+                                        : "bg-white border-champagne text-obsidian hover:border-muted-gold"
                                         }`}
                                 >
                                     All Bottles
@@ -1622,8 +1631,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                             });
                                         }}
                                         className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.includes(bucket.value)
-                                                ? "bg-obsidian text-white border-obsidian"
-                                                : "bg-white border-champagne text-obsidian hover:border-muted-gold"
+                                            ? "bg-obsidian text-white border-obsidian"
+                                            : "bg-white border-champagne text-obsidian hover:border-muted-gold"
                                             }`}
                                     >
                                         {bucket.label} ({facets.applicators[bucket.value]})
