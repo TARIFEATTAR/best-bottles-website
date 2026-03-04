@@ -3,9 +3,9 @@
 /**
  * Shared Grace context — the single source of truth for the Grace hook and types.
  *
- * Both GraceProvider (OpenAI) and GraceElevenLabsProvider (ElevenLabs) import
- * this context and wrap their children with it. Components call useGrace()
- * from here (via the useGrace barrel) and get whichever provider is active.
+ * This context is shared across the ElevenLabs provider and any 
+ * text-only fallbacks. Components call useGrace() from here and 
+ * get the active provider state.
  */
 
 import { createContext, useContext } from "react";

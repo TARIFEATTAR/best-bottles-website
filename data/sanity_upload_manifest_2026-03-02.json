@@ -1,0 +1,250 @@
+[
+  {
+    "sku": "GBDiva100AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva100AnSpBlk/GBDiva100AnSpBlk_grid_20260301_211017.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/f4c55e7f5b73b8d56d946361412b6e57186631aa-928x1152.png",
+    "assetId": "image-f4c55e7f5b73b8d56d946361412b6e57186631aa-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100AnSpTslBlk",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva100AnSpTslBlk/GBDiva100AnSpTslBlk_grid_20260301_211034.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/00823f02fee9a4d7b291c77e8169b3ca7ec94c79-928x1152.png",
+    "assetId": "image-00823f02fee9a4d7b291c77e8169b3ca7ec94c79-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva100SpryCu/GBDiva100SpryCu_grid_20260301_211058.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/669738908e55b47ff54cfe6e316f5905697f5a63-928x1152.png",
+    "assetId": "image-669738908e55b47ff54cfe6e316f5905697f5a63-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva30AnSpBlk/GBDiva30AnSpBlk_grid_20260301_211113.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/8797dbd64daa3d5d9274ec9c9ba8a06c9489289b-928x1152.png",
+    "assetId": "image-8797dbd64daa3d5d9274ec9c9ba8a06c9489289b-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva30SpryCu/GBDiva30SpryCu_grid_20260301_211129.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/08a97ecbbf57fb36b9f3295fd5b5cda34ff52512-928x1152.png",
+    "assetId": "image-08a97ecbbf57fb36b9f3295fd5b5cda34ff52512-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpBlk/GBDiva46AnSpBlk_grid_20260301_211146.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/affd0e2c05cfd736b82364ff05279177224cd0c0-928x1152.png",
+    "assetId": "image-affd0e2c05cfd736b82364ff05279177224cd0c0-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpBlkRng",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpBlkRng/GBDiva46AnSpBlkRng_grid_20260301_211203.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/9c47bb58fb711dc871a9dbcca7ee9f7241e3be5a-928x1152.png",
+    "assetId": "image-9c47bb58fb711dc871a9dbcca7ee9f7241e3be5a-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslBlk",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpTslBlk/GBDiva46AnSpTslBlk_grid_20260301_211218.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/f41f08bac467d24090e1ff61382ecb2141b9759e-928x1152.png",
+    "assetId": "image-f41f08bac467d24090e1ff61382ecb2141b9759e-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslBlkRng",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpTslBlkRng/GBDiva46AnSpTslBlkRng_grid_20260301_211233.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/e93864c3771d453028ee39e40c9e6f061077a2c4-928x1152.png",
+    "assetId": "image-e93864c3771d453028ee39e40c9e6f061077a2c4-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46SpryCu/GBDiva46SpryCu_grid_20260301_211250.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/2e7cb0a169fb705b3b777978efd8991dfbfed3f5-928x1152.png",
+    "assetId": "image-2e7cb0a169fb705b3b777978efd8991dfbfed3f5-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva100AnSpBlk/GBDiva100AnSpBlk_grid_20260301_221351.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/e8cc3843d5f4adcb4af155f0f3530b72a0575b80-928x1152.png",
+    "assetId": "image-e8cc3843d5f4adcb4af155f0f3530b72a0575b80-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100AnSpTslBlk",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva100AnSpTslBlk/GBDiva100AnSpTslBlk_grid_20260301_221426.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/3a4d9f7c15196546cbac301a317adb8db1b68b58-928x1152.png",
+    "assetId": "image-3a4d9f7c15196546cbac301a317adb8db1b68b58-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100LpBlk",
+    "family": "Diva",
+    "bucket": "lotionpump",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva100LpBlk/GBDiva100LpBlk_grid_20260301_221452.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/d20795ba8cfff9471e0b56afec02ee94db6dd7fe-928x1152.png",
+    "assetId": "image-d20795ba8cfff9471e0b56afec02ee94db6dd7fe-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100RdcBlk",
+    "family": "Diva",
+    "bucket": "reducer",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva100RdcBlk/GBDiva100RdcBlk_grid_20260301_221513.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/3cd2d836f5c759ff10129a52bfdb858e186a4bb7-928x1152.png",
+    "assetId": "image-3cd2d836f5c759ff10129a52bfdb858e186a4bb7-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva100SpryCu/GBDiva100SpryCu_grid_20260301_221529.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/408ff2f4eed007c254c00383034d13d902c42fb3-928x1152.png",
+    "assetId": "image-408ff2f4eed007c254c00383034d13d902c42fb3-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva30AnSpBlk/GBDiva30AnSpBlk_grid_20260301_221545.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/38f668a2261f3cb1f69ab32468917234d20a991b-928x1152.png",
+    "assetId": "image-38f668a2261f3cb1f69ab32468917234d20a991b-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30LpBlk",
+    "family": "Diva",
+    "bucket": "lotionpump",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva30LpBlk/GBDiva30LpBlk_grid_20260301_221600.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/b3b455cbbb55ddaa3960f9a03fa4e2f8520c0fcb-928x1152.png",
+    "assetId": "image-b3b455cbbb55ddaa3960f9a03fa4e2f8520c0fcb-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30RdcBlk",
+    "family": "Diva",
+    "bucket": "reducer",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva30RdcBlk/GBDiva30RdcBlk_grid_20260301_221621.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/b2f5095c378c5aee119f0155cbbe895da7ac31a6-928x1152.png",
+    "assetId": "image-b2f5095c378c5aee119f0155cbbe895da7ac31a6-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva30SpryCu/GBDiva30SpryCu_grid_20260301_221637.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/1b0f0316a986e18aabff7f7b1e49bb5415ab12f0-928x1152.png",
+    "assetId": "image-1b0f0316a986e18aabff7f7b1e49bb5415ab12f0-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46AnSpBlk/GBDiva46AnSpBlk_grid_20260301_221653.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/49d50094be20fdce1be34e20376529d08caa6ba1-928x1152.png",
+    "assetId": "image-49d50094be20fdce1be34e20376529d08caa6ba1-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpBlkRng",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46AnSpBlkRng/GBDiva46AnSpBlkRng_grid_20260301_221712.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/cc09fae51a754e47a00f1907b2efe26fadb8c99a-928x1152.png",
+    "assetId": "image-cc09fae51a754e47a00f1907b2efe26fadb8c99a-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslBlk",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46AnSpTslBlk/GBDiva46AnSpTslBlk_grid_20260301_221733.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/054630a5198341b36c838dcef3fa7a8dc80fd857-928x1152.png",
+    "assetId": "image-054630a5198341b36c838dcef3fa7a8dc80fd857-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslBlkRng",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46AnSpTslBlkRng/GBDiva46AnSpTslBlkRng_grid_20260301_221749.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/9d86001afbdb98cd70ac0eeb8f906c5b0290c19e-928x1152.png",
+    "assetId": "image-9d86001afbdb98cd70ac0eeb8f906c5b0290c19e-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslIvySlRng",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46AnSpTslIvySlRng/GBDiva46AnSpTslIvySlRng_grid_20260301_221805.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/5a7fcc86e209902410ad22665fc93239610e6a17-928x1152.png",
+    "assetId": "image-5a7fcc86e209902410ad22665fc93239610e6a17-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46LpBlk",
+    "family": "Diva",
+    "bucket": "lotionpump",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46LpBlk/GBDiva46LpBlk_grid_20260301_221820.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/c5483117691acf55c97de12a169c90f59c96ec8c-928x1152.png",
+    "assetId": "image-c5483117691acf55c97de12a169c90f59c96ec8c-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46RdcBlk",
+    "family": "Diva",
+    "bucket": "reducer",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46RdcBlk/GBDiva46RdcBlk_grid_20260301_221841.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/7f1aebae49ea8dcedf5cbf0f2e2ca90ad5a94e53-928x1152.png",
+    "assetId": "image-7f1aebae49ea8dcedf5cbf0f2e2ca90ad5a94e53-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDiva46SpryCu/GBDiva46SpryCu_grid_20260301_221856.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/dcbeef719cbd312bbb8f094caadfb705fd290f30-928x1152.png",
+    "assetId": "image-dcbeef719cbd312bbb8f094caadfb705fd290f30-928x1152-png"
+  },
+  {
+    "sku": "GBDivaFrst46AnSpBlk",
+    "family": "Diva",
+    "bucket": "antiquespray",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDivaFrst46AnSpBlk/GBDivaFrst46AnSpBlk_grid_20260301_221912.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/1f0c189dac6bfd47f0155b9b89b1ce5895acd7ef-928x1152.png",
+    "assetId": "image-1f0c189dac6bfd47f0155b9b89b1ce5895acd7ef-928x1152-png"
+  },
+  {
+    "sku": "GBDivaFrst46AnSpTslBlk",
+    "family": "Diva",
+    "bucket": "antiquespray-tassel",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDivaFrst46AnSpTslBlk/GBDivaFrst46AnSpTslBlk_grid_20260301_221936.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/45a528e7cd79609698d59ab95aab4cb3733cbd2f-928x1152.png",
+    "assetId": "image-45a528e7cd79609698d59ab95aab4cb3733cbd2f-928x1152-png"
+  },
+  {
+    "sku": "GBDivaFrst46DrpBlk",
+    "family": "Diva",
+    "bucket": "dropper",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDivaFrst46DrpBlk/GBDivaFrst46DrpBlk_grid_20260301_222002.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/ca37498c5a688ead3a9df3161efb6ed7017ef008-928x1152.png",
+    "assetId": "image-ca37498c5a688ead3a9df3161efb6ed7017ef008-928x1152-png"
+  },
+  {
+    "sku": "GBDivaFrst46SpryCu",
+    "family": "Diva",
+    "bucket": "finemist",
+    "imgPath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/GBDivaFrst46SpryCu/GBDivaFrst46SpryCu_grid_20260301_222023.png",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/ab83eba3bf62a735886a6c38640c31e39bbdddf4-928x1152.png",
+    "assetId": "image-ab83eba3bf62a735886a6c38640c31e39bbdddf4-928x1152-png"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "sku": "GBDiva100AnSpBlk",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva100AnSpBlk/GBDiva100AnSpBlk_grid_20260301_211017.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/f4c55e7f5b73b8d56d946361412b6e57186631aa-928x1152.png",
+    "assetId": "image-f4c55e7f5b73b8d56d946361412b6e57186631aa-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100AnSpTslBlk",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva100AnSpTslBlk/GBDiva100AnSpTslBlk_grid_20260301_211034.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/00823f02fee9a4d7b291c77e8169b3ca7ec94c79-928x1152.png",
+    "assetId": "image-00823f02fee9a4d7b291c77e8169b3ca7ec94c79-928x1152-png"
+  },
+  {
+    "sku": "GBDiva100SpryCu",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva100SpryCu/GBDiva100SpryCu_grid_20260301_211058.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/669738908e55b47ff54cfe6e316f5905697f5a63-928x1152.png",
+    "assetId": "image-669738908e55b47ff54cfe6e316f5905697f5a63-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30AnSpBlk",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva30AnSpBlk/GBDiva30AnSpBlk_grid_20260301_211113.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/8797dbd64daa3d5d9274ec9c9ba8a06c9489289b-928x1152.png",
+    "assetId": "image-8797dbd64daa3d5d9274ec9c9ba8a06c9489289b-928x1152-png"
+  },
+  {
+    "sku": "GBDiva30SpryCu",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva30SpryCu/GBDiva30SpryCu_grid_20260301_211129.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/08a97ecbbf57fb36b9f3295fd5b5cda34ff52512-928x1152.png",
+    "assetId": "image-08a97ecbbf57fb36b9f3295fd5b5cda34ff52512-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpBlk",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpBlk/GBDiva46AnSpBlk_grid_20260301_211146.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/affd0e2c05cfd736b82364ff05279177224cd0c0-928x1152.png",
+    "assetId": "image-affd0e2c05cfd736b82364ff05279177224cd0c0-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpBlkRng",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpBlkRng/GBDiva46AnSpBlkRng_grid_20260301_211203.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/9c47bb58fb711dc871a9dbcca7ee9f7241e3be5a-928x1152.png",
+    "assetId": "image-9c47bb58fb711dc871a9dbcca7ee9f7241e3be5a-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslBlk",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpTslBlk/GBDiva46AnSpTslBlk_grid_20260301_211218.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/f41f08bac467d24090e1ff61382ecb2141b9759e-928x1152.png",
+    "assetId": "image-f41f08bac467d24090e1ff61382ecb2141b9759e-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46AnSpTslBlkRng",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46AnSpTslBlkRng/GBDiva46AnSpTslBlkRng_grid_20260301_211233.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/e93864c3771d453028ee39e40c9e6f061077a2c4-928x1152.png",
+    "assetId": "image-e93864c3771d453028ee39e40c9e6f061077a2c4-928x1152-png"
+  },
+  {
+    "sku": "GBDiva46SpryCu",
+    "imagePath": "/Users/jordanrichter/Projects/Clients/Best Bottles/bottle-image-pipeline/output_collections/grid/Diva/GBDiva46SpryCu/GBDiva46SpryCu_grid_20260301_211250.png",
+    "applicatorSlug": "-spray",
+    "sanityUrl": "https://cdn.sanity.io/images/gh97irjh/production/2e7cb0a169fb705b3b777978efd8991dfbfed3f5-928x1152.png",
+    "assetId": "image-2e7cb0a169fb705b3b777978efd8991dfbfed3f5-928x1152-png"
+  }
+]

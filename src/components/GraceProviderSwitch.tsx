@@ -2,10 +2,10 @@
 
 /**
  * GraceProviderSwitch — always uses ElevenLabs Conversational AI.
- *
- * The OpenAI voice path has been removed. If ElevenLabs is unavailable,
- * Grace falls back gracefully to text-only mode (Convex / Claude).
- * To disable voice entirely, set NEXT_PUBLIC_GRACE_VOICE_PROVIDER=text.
+ * 
+ * If ElevenLabs is unavailable, Grace falls back gracefully to 
+ * text-only mode (Convex / Claude).
+ * To force text-only mode, set NEXT_PUBLIC_GRACE_VOICE_PROVIDER=text.
  */
 
 import type { ReactNode } from "react";

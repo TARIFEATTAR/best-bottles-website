@@ -1,5 +1,12 @@
 {
   "mcpServers": {
+    "ElevenLabs": {
+      "command": "/Users/jordanrichter/Projects/Clients/Nemat-International/Best-Bottles-Website-02-20-2026/.venv-elevenlabs/bin/python",
+      "args": ["-m", "elevenlabs_mcp"],
+      "env": {
+        "ELEVENLABS_API_KEY": "sk_f720548efed2e5647be8bb4c7e65c6e1cdb8c1b0341c509e"
+      }
+    },
     "shopify": {
       "command": "npx",
       "args": ["shopify-mcp", "--accessToken", "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", "--domain", "bestbottles-1581.myshopify.com"]

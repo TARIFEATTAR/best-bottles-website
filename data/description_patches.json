@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "generated_at": "2026-03-02T09:36:36.176156",
+    "model": "gemini-2.0-flash",
+    "source": "/Users/jordanrichter/Projects/Clients/Nemat-International/Best-Bottles-Website-02-20-2026/data/grace_products_final.json",
+    "total_products": 2285,
+    "enhanced_count": 5,
+    "filter": {
+      "family": null,
+      "sku": null,
+      "category": null,
+      "limit": 5,
+      "skip_components": true
+    }
+  },
+  "patches": {
+    "GBAtom5SlimBlk": {
+      "websiteSku": "GBAtom5SlimBlk",
+      "graceSku": "GB-SLM-BLK-5ML-ATM-BLK-T",
+      "family": "Slim",
+      "original_itemDescription": "Black slim atomizer design 5 ml bottle. For use with perfumes, Colognes, eau de Parfum. Refillable, travel size atomizer. Can be laser engraved and customized. Great for gifts and promotion. Price each",
+      "enhanced_itemDescription": "Keep your signature fragrance within arm's reach, wherever life takes you. This slender 5ml black glass atomizer slips effortlessly into a pocket or purse, offering a discreet and stylish way to refresh your scent on the go. Its 10mm neck thread ensures a secure, refillable experience, while the space-efficient design allows curated collections to stand elegantly side-by-side. Ideal for travel sets, sample offerings, or the discerning individual who appreciates luxury in miniature."
+    },
+    "GBRoyal13RollSlDot": {
+      "websiteSku": "GBRoyal13RollSlDot",
+      "graceSku": "GB-RYL-CLR-13ML-ROL-SLDT",
+      "family": "Royal",
+      "original_itemDescription": "Royal design 13ml, 1/2oz Clear glass bottle with plastic roller ball plug and silver cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants. Pr",
+      "enhanced_itemDescription": "Carry your signature scent discreetly and elegantly. The clear, travel-sized Royal bottle holds 13ml of your finest fragrance, delivering a heritage aesthetic in a pocket-ready form. Its ornate profile and classic lines are complemented by a smooth-glide roll-on applicator, engineered to a precise 0.06mm tolerance for leak-free performance and measured release. Ideal for traditional perfumers seeking to decant their precious oils into vessels of equal distinction."
+    },
+    "LBCrcl100LtnClOvrCap": {
+      "websiteSku": "LBCrcl100LtnClOvrCap",
+      "graceSku": "LB-CIR-CLR-100ML-LPM-COCP",
+      "family": "Circle",
+      "original_itemDescription": "Circle design 100 ml, 3 1/2oz clear glass bottle with with a matte silver collar treatment pump and clear overcap. For use with serums, light creams, moisturizers, facial oils or face oils, beard oils, body lotions, body wash, and hair products. Circle de",
+      "enhanced_itemDescription": "Let your formulations radiate within a vessel of pure clarity. The Circle bottle's soft, organic form is rendered in clear glass, allowing the beauty of your serum or lotion to shine, while the matte silver treatment pump delivers a precise dose every time. Engineered with an 18-415 neck finish, this 100ml bottle ensures a secure and professional presentation. Ideal for brands seeking to balance minimalist aesthetics with reliable functionality."
+    },
+    "GBRndFrst78RdcrMtSlTall": {
+      "websiteSku": "GBRndFrst78RdcrMtSlTall",
+      "graceSku": "GB-RND-FRS-78ML-RDC-MSLV-T",
+      "family": "Round",
+      "original_itemDescription": "Round design 78 ml, 2.65oz frosted glass bottle with reducer and tall silver matte cap. For use with cologne, aftershave, splash on, and perfume or fragrance oil, beard oils. Round design bottle is available in 2 sizes - 78ml and 128 ml. Price each",
+      "enhanced_itemDescription": "Envelop your aftershave or beard oil in a vessel as generous as its spirit. The frosted finish of this 78ml round glass bottle softens the light, hinting at the warmth within. Paired with a silver matte cap and reducer, it delivers a controlled pour with considered elegance. Ideal for makers seeking a tactile, full-bodied form to honor their craft."
+    },
+    "GBEmp50AnSpTslRed": {
+      "websiteSku": "GBEmp50AnSpTslRed",
+      "graceSku": "GB-EMP-CLR-50ML-AST-RED",
+      "family": "Empire",
+      "original_itemDescription": "Empire design 50 ml, 1.7oz  clear glass bottle  with Red vintage style bulb sprayer with tassel with shiny silver collar cap. For use with cologne, Eau de Parfum, air freshner, face and body spray, or room spray.  Antique or vintage bulb sprayers enhance",
+      "enhanced_itemDescription": "Envelop your signature fragrance in a vessel of timeless elegance. The clear, architectural lines of this 50ml Empire bottle are amplified by a vibrant red bulb sprayer with a delicate tassel, evoking a sense of vintage luxury. Designed with an 18-415 neck finish and our system guarantee, this bottle ensures seamless compatibility and reliable performance. Ideal for luxury fragrance brands seeking a distinctive, gift-worthy presentation."
+    }
+  }
+}

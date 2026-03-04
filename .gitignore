@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+.venv-elevenlabs
 *.pem
 
 # debug
@@ -39,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# clerk configuration (can include secrets)
+/.clerk/
+
+# MCP config (contains API keys)
+.mcp.json
