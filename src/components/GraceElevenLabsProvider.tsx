@@ -47,7 +47,13 @@ function stripMarkdown(text: string): string {
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
-export default function GraceElevenLabsProvider({ children }: { children: ReactNode }) {
+export default function GraceElevenLabsProvider({
+    children,
+    forceTextOnly = false,
+}: {
+    children: ReactNode;
+    forceTextOnly?: boolean;
+}) {
     const { addItems: addToCart } = useCart();
     const [panelMode, setPanelMode] = useState<PanelMode>("closed");
     const [status, setStatus] = useState<GraceStatus>("idle");
@@ -423,6 +429,20 @@ export default function GraceElevenLabsProvider({ children }: { children: ReactN
     // ── Start ElevenLabs voice conversation ──────────────────────────────────
 
     const startConversation = useCallback(async () => {
+        // Text-only mode: skip voice entirely
+        if (forceTextOnly) {
+            setMessages((prev) => [
+                ...prev,
+                {
+                    role: "grace" as const,
+                    content: "Voice is currently disabled. I'm here in text mode — just type your question below.",
+                    id: `g-${Date.now()}`,
+                },
+            ]);
+            setPanelMode("open");
+            return;
+        }
+
         if (connectingRef.current || conversationRef.current?.status === "connected") {
             console.log("[Grace EL] startConversation skipped — already connecting/connected");
             return;
@@ -434,9 +454,6 @@ export default function GraceElevenLabsProvider({ children }: { children: ReactN
             setStatus("connecting");
             setErrorMessage("");
 
-            // Preflight mic check — navigator.mediaDevices is undefined in non-secure
-            // contexts (HTTP on a network IP). Guard against that rather than crashing.
-            // ElevenLabs SDK will also request mic access internally when needed.
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                 const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
                 if (!isLocalhost) {
@@ -449,8 +466,6 @@ export default function GraceElevenLabsProvider({ children }: { children: ReactN
                 try {
                     await navigator.mediaDevices.getUserMedia({ audio: true });
                 } catch (micErr) {
-                    // Permission denied or no mic — log but continue; ElevenLabs will
-                    // surface a cleaner error if mic is truly unavailable.
                     console.warn("[Grace EL] Mic preflight failed, proceeding anyway:", micErr);
                 }
             }
@@ -461,7 +476,7 @@ export default function GraceElevenLabsProvider({ children }: { children: ReactN
                 const err = await res.json().catch(() => ({}));
                 throw new Error(
                     (err as { error?: string }).error ??
-                    "Failed to get ElevenLabs connection. Check ELEVENLABS_API_KEY and ELEVENLABS_AGENT_ID in .env.local."
+                    "Failed to get ElevenLabs connection. Check ELEVENLABS_API_KEY and ELEVENLABS_AGENT_ID."
                 );
             }
             const { conversationToken } = (await res.json()) as { conversationToken?: string };
@@ -469,27 +484,34 @@ export default function GraceElevenLabsProvider({ children }: { children: ReactN
 
             console.log(`[Grace EL] Starting WebRTC session (token fetch took ${Math.round(performance.now() - t0)}ms)`);
 
-            // WebRTC is ElevenLabs' recommended connection type: lower latency,
-            // more resilient, and no handshake payload size limits (which was
-            // causing the WebSocket CLOSING/CLOSED errors).
             await conversationRef.current!.startSession({
                 conversationToken,
                 connectionType: "webrtc",
             });
 
-            // Session fully established via WebRTC — now safe to set volume.
             conversationRef.current?.setVolume({ volume: voiceEnabledRef.current ? 1 : 0 });
             console.log("[Grace EL] WebRTC session established");
         } catch (err) {
             console.error("[Grace EL] Connection failed:", err);
             connectingRef.current = false;
             setConversationActive(false);
-            const msg = err instanceof Error ? err.message : "Failed to start voice conversation";
-            setErrorMessage(msg);
-            setStatus("error");
-            setTimeout(() => { setErrorMessage(""); setStatus("idle"); }, 8000);
+            setStatus("idle"); // don't show error — fall through to text mode
+
+            // Show a friendly in-chat message instead of a broken error state.
+            // Grace continues working in text mode via Convex.
+            setMessages((prev) => [
+                ...prev,
+                {
+                    role: "grace" as const,
+                    content:
+                        "I wasn't able to connect my voice right now — no worries! " +
+                        "Just type your question below and I'll help you in text mode.",
+                    id: `g-${Date.now()}`,
+                },
+            ]);
+            setPanelMode("open");
         }
-    }, []); // stable — no captured state; all accessed via refs
+    }, [forceTextOnly]); // stable for voice path; forceTextOnly is a build-time constant
 
     const endConversation = useCallback(() => {
         setConversationActive(false);
