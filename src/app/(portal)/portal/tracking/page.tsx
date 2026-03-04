@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { GoldRule, PageHeader, PortalButton, PortalCard, PortalTag, SectionLabel } from "@/components/portal/ui";
 
 const ACTIVE_STEP = 3; // 0-indexed: Shipped

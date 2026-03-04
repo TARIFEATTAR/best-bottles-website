@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { GoldRule, PageHeader, PortalButton, PortalCard, SectionLabel } from "@/components/portal/ui";
 
 // ─── Static data ────────────────────────────────────────────────────────────
