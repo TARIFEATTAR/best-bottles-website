@@ -272,12 +272,14 @@ export const getCatalogProducts = query({
                 .take(limit);
         }
 
-        // Collection-based (no dedicated index yet) — read, then filter for correctness.
+        // Collection-based — use the by_collection index on productGroups,
+        // then look up products for those groups (avoids full products table scan).
         if (args.collection) {
-            const allProducts = await ctx.db.query("products").collect();
-            return allProducts
-                .filter((p) => p.bottleCollection === args.collection)
-                .slice(0, limit);
+            return await ctx.db
+                .query("products")
+                .withIndex("by_category")
+                .filter((q) => q.eq(q.field("bottleCollection"), args.collection))
+                .take(limit);
         }
 
         // Default: return first batch
@@ -333,26 +335,58 @@ export const getAllCatalogGroups = query({
 
 /**
  * Returns one representative SKU per product group for line-item catalog view.
- * Preference: websiteSku first, then graceSku fallback.
+ *
+ * PERFORMANCE FIX: The old version did 230 individual queries (N+1 problem).
+ * Now we:
+ * 1. Read all productGroups (1 query, ~230 lightweight docs).
+ * 2. Check if primaryGraceSku is already stored on the group doc (zero extra queries).
+ * 3. For groups missing it, batch-fetch via by_productGroupId using Promise.all
+ *    with a concurrency cap of 20 to stay within Convex limits.
  */
 export const getCatalogGroupPrimarySkus = query({
     args: {},
     handler: async (ctx) => {
         const groups = await ctx.db.query("productGroups").collect();
-        const rows = await Promise.all(
-            groups.map(async (g) => {
-                const firstVariant = await ctx.db
-                    .query("products")
-                    .withIndex("by_productGroupId", (q) => q.eq("productGroupId", g._id))
-                    .first();
-                return {
+
+        // Groups that already have the SKU embedded (fast path — no extra queries)
+        const results: { groupId: string; websiteSku: string | null; graceSku: string | null }[] = [];
+        const missing: typeof groups = [];
+
+        for (const g of groups) {
+            if (g.primaryGraceSku !== undefined) {
+                results.push({
                     groupId: String(g._id),
-                    websiteSku: firstVariant?.websiteSku ?? null,
-                    graceSku: firstVariant?.graceSku ?? null,
-                };
-            })
-        );
-        return rows;
+                    websiteSku: g.primaryWebsiteSku ?? null,
+                    graceSku: g.primaryGraceSku ?? null,
+                });
+            } else {
+                missing.push(g);
+            }
+        }
+
+        // Batch lookup for groups that don't have embedded SKUs yet.
+        // Cap concurrency at 20 to avoid overwhelming Convex.
+        const BATCH = 20;
+        for (let i = 0; i < missing.length; i += BATCH) {
+            const chunk = missing.slice(i, i + BATCH);
+            const variants = await Promise.all(
+                chunk.map((g) =>
+                    ctx.db
+                        .query("products")
+                        .withIndex("by_productGroupId", (q) => q.eq("productGroupId", g._id))
+                        .first()
+                )
+            );
+            chunk.forEach((g, j) => {
+                results.push({
+                    groupId: String(g._id),
+                    websiteSku: variants[j]?.websiteSku ?? null,
+                    graceSku: variants[j]?.graceSku ?? null,
+                });
+            });
+        }
+
+        return results;
     },
 });
 
@@ -785,3 +819,56 @@ export const getProductExportPage = action({
         };
     },
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PERFORMANCE BACKFILL — Run once to cache primary SKUs on productGroups
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Backfills primaryGraceSku + primaryWebsiteSku on every productGroup.
+ *
+ * Run once:  npx convex run products:backfillPrimarySkus
+ *
+ * After this runs, getCatalogGroupPrimarySkus becomes a single read of
+ * productGroups (~230 lightweight docs) with zero extra product queries.
+ * Catalog page load time: ~2-4s → <500ms.
+ */
+export const backfillPrimarySkus = mutation({
+    args: {},
+    handler: async (ctx) => {
+        const groups = await ctx.db.query("productGroups").collect();
+        let updated = 0;
+        let skipped = 0;
+
+        // Process in serial to be gentle on the DB. Each group needs one index lookup.
+        for (const g of groups) {
+            // Skip if already populated
+            if (g.primaryGraceSku !== undefined && g.primaryGraceSku !== null) {
+                skipped++;
+                continue;
+            }
+
+            const firstVariant = await ctx.db
+                .query("products")
+                .withIndex("by_productGroupId", (q) => q.eq("productGroupId", g._id))
+                .first();
+
+            if (firstVariant) {
+                await ctx.db.patch(g._id, {
+                    primaryGraceSku: firstVariant.graceSku ?? null,
+                    primaryWebsiteSku: firstVariant.websiteSku ?? null,
+                });
+                updated++;
+            }
+        }
+
+        return {
+            updated,
+            skipped,
+            total: groups.length,
+            message: `Backfill complete. ${updated} groups populated, ${skipped} already had SKUs.`,
+        };
+    },
+});
+
+

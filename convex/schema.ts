@@ -24,6 +24,10 @@ export default defineSchema({
         heroImageUrl: v.optional(v.union(v.string(), v.null())),
         // Option A: applicator-first — unique applicator types in this group (e.g. ["Metal Roller", "Fine Mist Sprayer"])
         applicatorTypes: v.optional(v.array(v.string())),
+        // Cached primary SKU — populated by backfill migration to eliminate N+1 on catalog page.
+        // Until populated, getCatalogGroupPrimarySkus falls back to batched DB lookups.
+        primaryGraceSku: v.optional(v.union(v.string(), v.null())),
+        primaryWebsiteSku: v.optional(v.union(v.string(), v.null())),
     })
         .index("by_slug", ["slug"])
         .index("by_family", ["family"])
