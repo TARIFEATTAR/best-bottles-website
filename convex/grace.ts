@@ -322,21 +322,39 @@ GENERAL RULES:
 
 // Normalize search terms for better matching — item names use "roller ball", not "roll-on"
 function normalizeSearchTerm(term: string): string {
-    return term
+    let t = term.toLowerCase();
+
+    // ─── Phase 1: Use Case / Intent Mapping ─────────────────────────────────
+    // If they ask for "thick oil", we want to point them to Roll-ons (rollers)
+    if (/\b(thick oil|perfume oil|body oil|attar|oud)\b/i.test(t)) {
+        t = t.replace(/\b(thick oil|perfume oil|body oil|attar|oud)\b/gi, "roll-on");
+    }
+    // If they ask for "fine mist", "cologne", or "spray", we want Sprayers
+    if (/\b(fine mist|cologne|body spray|fragrance spray)\b/i.test(t)) {
+        t = t.replace(/\b(fine mist|cologne|body spray|fragrance spray)\b/gi, "sprayer");
+    }
+    // "wedding favor" or "sample" -> small vials
+    if (/\b(wedding favor|sample|prototype)\b/i.test(t)) {
+        t = t.replace(/\b(wedding favor|sample|prototype)\b/gi, "vial");
+    }
+
+    return t
         .replace(/\broll[- ]?on\b/gi, "roller")
         .replace(/\broll[- ]?on\s*bottle\b/gi, "roller bottle")
         .replace(/\bsplash[- ]?on\b/gi, "reducer")
         .replace(/\blotion\s*pump\s*bottle\b/gi, "lotion pump")
         .replace(/\bdropper\s*bottle\b/gi, "dropper")
-        // Handle common transcribed numbers used for sizes
+        // Strip non-technical descriptors that cause zero matches (AI often prepends these)
+        .replace(/\b(thick|thin|best|good|nice|premium|very|high quality)\b/gi, "")
+        // Handle common transcribed numbers
         .replace(/\bfive\b/gi, "5")
         .replace(/\bnine\b/gi, "9")
         .replace(/\bten\b/gi, "10")
         .replace(/\bthirty\b/gi, "30")
         .replace(/\bfifty\b/gi, "50")
         .replace(/\bone\s*hundred\b/gi, "100")
-        // Remove spaces inside <number>ml declarations so that "9 ml" becomes "9ml"
         .replace(/\b(\d+)\s*(ml|oz)\b/gi, "$1$2")
+        .replace(/\s+/g, " ")
         .trim();
 }
 
