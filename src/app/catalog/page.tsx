@@ -1163,11 +1163,13 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                         (g.applicatorTypes ?? []).join(" "),
                         skuMap.get(g._id)
                     ].map(f => {
-                        // Expand the searchable terms within each field
+                        // Fully cross-match all terms for roll-on bottles
+                        // so that 'roller ball' matches 'rollon', etc.
                         return (f || "").toLowerCase()
-                            .replace(/\broll[ -]?on\b/g, "rollon roller roll-on")
-                            .replace(/\broller\b/g, "rollon roller roll-on")
-                            .replace(/\bball\b/g, "roller ball");
+                            .replace(/\broll[ -]?on\b/g, "rollon roller roll-on ball")
+                            .replace(/\brollon\b/g, "rollon roller roll-on ball")
+                            .replace(/\broller\b/g, "rollon roller roll-on ball")
+                            .replace(/\bball\b/g, "rollon roller roll-on ball");
                     });
 
                     const searchTarget = fields.join(" ").toLowerCase();
