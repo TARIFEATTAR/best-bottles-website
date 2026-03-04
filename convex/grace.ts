@@ -560,9 +560,14 @@ export const getBottleComponents = query({
                 graceSku: bottle.graceSku,
                 itemName: bottle.itemName,
                 family: bottle.family,
-                capacity: bottle.capacity,
+                capacity: bottle.capacity
+                    ? bottle.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u: string) => u.toLowerCase())
+                    : bottle.capacity,
                 color: bottle.color,
                 neckThreadSize: bottle.neckThreadSize,
+                caseQuantity: bottle.caseQuantity,
+                webPrice1pc: bottle.webPrice1pc,
+                webPrice12pc: bottle.webPrice12pc,
             },
             componentTypes: Object.keys(summary),
             totalComponents: Object.values(summary).reduce((s, arr) => s + arr.length, 0),
@@ -651,9 +656,14 @@ export const getGraceInstructions = query({
         const categories = args.voiceMode
             ? ["identity", "voice", "product_knowledge"]
             : [
-                "identity", "voice", "emotional_intelligence", "sales_methodology",
-                "navigation", "response_templates", "autonomous_behaviours",
-                "escalation", "brand_differentiators", "product_knowledge",
+                // Core identity & communication
+                "identity", "voice", "emotional_intelligence",
+                // Sales intelligence
+                "sales_methodology", "customer_segments", "pricing",
+                // Brand knowledge
+                "brand_differentiators", "competitive_positioning", "product_knowledge",
+                // Conversation mechanics
+                "navigation", "response_templates", "autonomous_behaviours", "escalation",
             ];
         const entries: Array<{ title: string; content: string; category: string }> = [];
         for (const category of categories) {

@@ -9,7 +9,7 @@ import {
     Sparkles, FlaskConical, Gem, ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { useGrace } from "./GraceProvider";
+import { useGrace } from "./useGrace";
 import { useCart } from "./CartProvider";
 import CartDrawer from "./CartDrawer";
 import { useMegaMenuPanels } from "./SanityMegaMenuProvider";
@@ -250,8 +250,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
             const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
                 ? "audio/webm;codecs=opus"
                 : MediaRecorder.isTypeSupported("audio/mp4")
-                ? "audio/mp4"
-                : "";
+                    ? "audio/mp4"
+                    : "";
             const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
             audioChunksRef.current = [];
 
@@ -397,9 +397,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                    scrolled ? "bg-bone/95 shadow-sm backdrop-blur-md" : "bg-bone"
-                } ${variant === "catalog" ? "border-b border-champagne" : ""}`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-bone/95 shadow-sm backdrop-blur-md" : "bg-bone"
+                    } ${variant === "catalog" ? "border-b border-champagne" : ""}`}
             >
                 <div className="bg-obsidian py-1.5 text-center px-4">
                     <p className="text-xs uppercase tracking-[0.15em] text-bone font-medium">
@@ -438,15 +437,13 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                     >
                                         <button
                                             onClick={() => setActiveMega(isOpen ? null : megaId)}
-                                            className={`flex items-center gap-1 transition-colors ${
-                                                isOpen ? "text-muted-gold" : "hover:text-muted-gold"
-                                            }`}
+                                            className={`flex items-center gap-1 transition-colors ${isOpen ? "text-muted-gold" : "hover:text-muted-gold"
+                                                }`}
                                         >
                                             {link.label}
                                             <ChevronDown
-                                                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                                                    isOpen ? "rotate-180" : ""
-                                                }`}
+                                                className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                                                    }`}
                                             />
                                         </button>
 
@@ -490,9 +487,9 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             onChange={(e) => setSearchValue(e.target.value)}
                             placeholder={
                                 micErrorMsg ? micErrorMsg :
-                                isDictating ? "Listening…" :
-                                isTranscribing ? "Transcribing…" :
-                                "Search bottles, closures, families..."
+                                    isDictating ? "Listening…" :
+                                        isTranscribing ? "Transcribing…" :
+                                            "Search bottles, closures, families..."
                             }
                             className="bg-transparent text-sm focus:outline-none flex-1 placeholder-slate/60 text-obsidian"
                             aria-label="Search products"
@@ -503,13 +500,12 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             onClick={handleMicClick}
                             disabled={isTranscribing}
                             aria-label={isDictating ? "Stop recording" : "Search by voice"}
-                            className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${
-                                isDictating
+                            className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${isDictating
                                     ? "text-muted-gold animate-grace-pulse"
                                     : isTranscribing
-                                    ? "text-muted-gold/60 animate-bounce"
-                                    : "text-slate/40 hover:text-slate"
-                            }`}
+                                        ? "text-muted-gold/60 animate-bounce"
+                                        : "text-slate/40 hover:text-slate"
+                                }`}
                         >
                             <Mic className="w-4 h-4" />
                         </button>
@@ -521,11 +517,10 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             onClick={openPanel}
                             aria-label="Ask Grace"
                             title="AI Bottling Specialist"
-                            className={`hidden sm:flex items-center space-x-2 text-sm font-medium px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${
-                                graceActive
+                            className={`hidden sm:flex items-center space-x-2 text-sm font-medium px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${graceActive
                                     ? "bg-obsidian text-bone border-obsidian shadow-md"
                                     : "bg-white text-obsidian border-champagne hover:border-muted-gold shadow-sm"
-                            }`}
+                                }`}
                         >
                             {graceActive ? (
                                 <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
@@ -577,13 +572,12 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             onClick={handleMicClick}
                             disabled={isTranscribing}
                             aria-label={isDictating ? "Stop recording" : "Search by voice"}
-                            className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${
-                                isDictating
+                            className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${isDictating
                                     ? "text-muted-gold animate-grace-pulse"
                                     : isTranscribing
-                                    ? "text-muted-gold/60 animate-bounce"
-                                    : "text-slate/40 hover:text-slate"
-                            }`}
+                                        ? "text-muted-gold/60 animate-bounce"
+                                        : "text-slate/40 hover:text-slate"
+                                }`}
                         >
                             <Mic className="w-4 h-4" />
                         </button>

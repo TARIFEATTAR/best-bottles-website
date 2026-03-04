@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
-import { useGrace } from "@/components/GraceProvider";
+import { useGrace } from "@/components/useGrace";
 import { urlFor } from "@/sanity/lib/image";
 import type { HomepageData } from "@/sanity/lib/queries";
 
@@ -288,15 +288,15 @@ function CuratedCollections({
 }) {
     const cards = startHereCards?.length
         ? startHereCards.map((c) => {
-              const bg = c.backgroundColor?.startsWith("#") ? c.backgroundColor : c.backgroundColor ? `#${c.backgroundColor}` : "#DFD6C9";
-              return {
-                  title: c.title,
-                  subtitle: c.subtitle ?? "",
-                  href: c.href,
-                  img: c.image ? urlFor(c.image) : "",
-                  bg,
-              };
-          })
+            const bg = c.backgroundColor?.startsWith("#") ? c.backgroundColor : c.backgroundColor ? `#${c.backgroundColor}` : "#DFD6C9";
+            return {
+                title: c.title,
+                subtitle: c.subtitle ?? "",
+                href: c.href,
+                img: c.image ? urlFor(c.image) : "",
+                bg,
+            };
+        })
         : DEFAULT_START_HERE.map((c) => ({ ...c, bg: c.bg }));
 
     return (
@@ -430,11 +430,11 @@ function SocialProof() {
 function EducationPreview({ educationPreview: edu }: { educationPreview?: HomepageData["educationPreview"] }) {
     const articles = edu?.featuredArticles?.length
         ? edu.featuredArticles.map((a) => ({
-              title: a.title,
-              category: a.category ?? "Insights",
-              img: a.image ? urlFor(a.image) : "/assets/collection_perfume.png",
-              slug: a.slug ? `/blog/${a.slug}` : "#",
-          }))
+            title: a.title,
+            category: a.category ?? "Insights",
+            img: a.image ? urlFor(a.image) : "/assets/collection_perfume.png",
+            slug: a.slug ? `/blog/${a.slug}` : "#",
+        }))
         : DEFAULT_ARTICLES;
 
     const sectionTitle = edu?.sectionTitle ?? "Packaging Insights";
