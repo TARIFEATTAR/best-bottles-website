@@ -174,8 +174,8 @@ function InlineGraceForm({ formType, prefilled }: { formType: string; prefilled:
                     {formType === "sample"
                         ? "We'll review your sample request and be in touch within 1–2 business days."
                         : formType === "quote"
-                        ? "Our team will prepare your custom quote and reach out shortly."
-                        : "Thanks! We'll get back to you soon."}
+                            ? "Our team will prepare your custom quote and reach out shortly."
+                            : "Thanks! We'll get back to you soon."}
                 </p>
             </div>
         );
@@ -224,6 +224,156 @@ function InlineGraceForm({ formType, prefilled }: { formType: string; prefilled:
                 )}
             </button>
         </form>
+    );
+}
+
+// ─── Live Conversational Form Panel ────────────────────────────────────────────────────────────────────────
+//
+// Sticky panel that animates field-by-field as Grace collects customer info
+// conversationally. When all required fields are filled, Grace (or the customer)
+// can submit with one click.
+
+function LiveFormPanel() {
+    const { activeForm, submitActiveForm, dismissActiveForm, updateFormField } = useGrace();
+
+    if (!activeForm) return null;
+
+    const { formType, fields, filledOrder, submitting, submitted, error } = activeForm;
+    const allFields = GRACE_FORM_FIELDS[formType] ?? GRACE_FORM_FIELDS.contact;
+    const title = FORM_TITLES[formType] ?? "Form";
+
+    const handleFieldChange = (fieldName: string, value: string) => {
+        updateFormField(formType, fieldName, value);
+    };
+
+    return (
+        <motion.div
+            key="live-form-panel"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="mx-4 mt-3 mb-1 rounded-2xl border border-muted-gold/30 bg-white shadow-sm overflow-hidden shrink-0"
+        >
+            {/* Panel header */}
+            <div className="flex items-center justify-between px-4 py-2.5 bg-obsidian/[0.03] border-b border-champagne/50">
+                <div className="flex items-center gap-2">
+                    <FileText className="w-3.5 h-3.5 text-muted-gold" />
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-obsidian">{title}</span>
+                    <span className="text-[9px] text-muted-gold font-medium bg-muted-gold/10 px-1.5 py-0.5 rounded-full">
+                        Grace is filling this in
+                    </span>
+                </div>
+                <button
+                    onClick={dismissActiveForm}
+                    className="p-1 rounded-lg hover:bg-champagne/50 transition-colors"
+                    aria-label="Dismiss form"
+                >
+                    <X className="w-3.5 h-3.5 text-slate/50" />
+                </button>
+            </div>
+
+            {/* Success state */}
+            {submitted ? (
+                <div className="flex flex-col items-center gap-2 px-4 py-5 text-center">
+                    <CheckCircle2 className="w-9 h-9 text-emerald-500" />
+                    <p className="text-xs font-semibold text-obsidian">Submitted — you're all set.</p>
+                    <p className="text-[10px] text-slate leading-relaxed">
+                        {formType === "sample"
+                            ? "We'll be in touch within 1–2 business days."
+                            : formType === "quote"
+                                ? "Our team will prepare your quote and reach out shortly."
+                                : "Thanks for reaching out — we'll be in touch."}
+                    </p>
+                    <button
+                        onClick={dismissActiveForm}
+                        className="mt-1 text-[10px] text-muted-gold hover:text-obsidian font-semibold transition-colors"
+                    >
+                        Dismiss
+                    </button>
+                </div>
+            ) : (
+                <div className="px-4 py-3 space-y-2.5">
+                    <AnimatePresence initial={false}>
+                        {allFields.map((field) => {
+                            const isFilled = filledOrder.includes(field.name);
+                            const isJustFilled = filledOrder[filledOrder.length - 1] === field.name;
+                            if (!isFilled) return null;
+                            return (
+                                <motion.div
+                                    key={field.name}
+                                    initial={{ opacity: 0, height: 0, y: -4 }}
+                                    animate={{ opacity: 1, height: "auto", y: 0 }}
+                                    transition={{ duration: 0.25, ease: "easeOut" }}
+                                >
+                                    <label className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-obsidian/50 mb-1">
+                                        {field.label}
+                                        {field.required && <span className="text-red-400">*</span>}
+                                        {isJustFilled && (
+                                            <motion.span
+                                                initial={{ opacity: 0, x: -4 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                className="text-[8px] text-muted-gold font-semibold ml-1 normal-case tracking-normal"
+                                            >
+                                                Just added
+                                            </motion.span>
+                                        )}
+                                    </label>
+                                    {field.type === "textarea" ? (
+                                        <textarea
+                                            rows={2}
+                                            value={fields[field.name] ?? ""}
+                                            onChange={(e) => handleFieldChange(field.name, e.target.value)}
+                                            className="w-full bg-bone border border-champagne/70 rounded-lg px-2.5 py-1.5 text-[11px] text-obsidian focus:outline-none focus:border-muted-gold focus:ring-1 focus:ring-muted-gold/20 transition-all resize-none"
+                                        />
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            value={fields[field.name] ?? ""}
+                                            onChange={(e) => handleFieldChange(field.name, e.target.value)}
+                                            className="w-full bg-bone border border-champagne/70 rounded-lg px-2.5 py-1.5 text-[11px] text-obsidian focus:outline-none focus:border-muted-gold focus:ring-1 focus:ring-muted-gold/20 transition-all"
+                                        />
+                                    )}
+                                </motion.div>
+                            );
+                        })}
+                    </AnimatePresence>
+
+                    {/* Waiting indicator — fields Grace hasn't collected yet */}
+                    {filledOrder.length < allFields.length && (
+                        <p className="text-[10px] text-slate/60 italic">
+                            {allFields.length - filledOrder.length} more field{allFields.length - filledOrder.length !== 1 ? "s" : ""} to go…
+                        </p>
+                    )}
+
+                    {error && (
+                        <p className="text-[10px] text-red-600 bg-red-50 border border-red-200 rounded-lg px-2.5 py-2">{error}</p>
+                    )}
+
+                    {/* Submit row */}
+                    <div className="flex gap-2 pt-1">
+                        <button
+                            onClick={submitActiveForm}
+                            disabled={submitting || !fields.email}
+                            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-obsidian text-bone text-xs font-bold hover:bg-muted-gold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        >
+                            {submitting ? (
+                                <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Submitting…</>
+                            ) : (
+                                <><Send className="w-3.5 h-3.5" /> Submit</>
+                            )}
+                        </button>
+                        <button
+                            onClick={dismissActiveForm}
+                            className="px-3 py-2 rounded-lg border border-champagne/70 text-xs text-slate hover:border-red-300 hover:text-red-500 transition-colors"
+                            title="Dismiss form"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
+        </motion.div>
     );
 }
 
@@ -443,8 +593,8 @@ export function GraceFloatingTrigger() {
         <button
             onClick={openPanel}
             className={`fixed z-40 bg-obsidian text-bone rounded-full shadow-xl hover:bg-muted-gold transition-all duration-200 cursor-pointer group ${useCompactTrigger
-                    ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 flex items-center justify-center`
-                    : "bottom-6 right-6 flex items-center space-x-2.5 px-5 py-3"
+                ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 flex items-center justify-center`
+                : "bottom-6 right-6 flex items-center space-x-2.5 px-5 py-3"
                 }`}
             aria-label="Ask Grace"
         >
@@ -580,6 +730,9 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
         confirmAction,
         dismissAction,
         onNavigate,
+        activeForm,
+        submitActiveForm,
+        dismissActiveForm,
     } = useGrace();
 
     const { items: cartItems, itemCount: cartCount, removeItem, checkout, isCheckingOut, checkoutError } = useCart();
@@ -743,9 +896,9 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                         className="overflow-hidden shrink-0"
                     >
                         <div className={`flex items-center justify-center gap-2 py-2 text-xs font-medium ${status === "error" ? "bg-red-50 text-red-600"
-                                : status === "listening" ? "bg-muted-gold/10 text-muted-gold"
-                                    : status === "connecting" ? "bg-muted-gold/5 text-muted-gold/80"
-                                        : "bg-champagne/20 text-slate"
+                            : status === "listening" ? "bg-muted-gold/10 text-muted-gold"
+                                : status === "connecting" ? "bg-muted-gold/5 text-muted-gold/80"
+                                    : "bg-champagne/20 text-slate"
                             }`}>
                             {isListening && <span className="w-2 h-2 rounded-full bg-muted-gold animate-grace-pulse" />}
                             {isProcessing && (
@@ -766,76 +919,85 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
             </AnimatePresence>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-                {messages.length === 0 && (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-2">
-                        <div className="w-12 h-12 rounded-full bg-obsidian flex items-center justify-center mb-4">
-                            <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true" style={{ transform: "scale(1.2)" }}>
-                                <span /><span /><span /><span />
-                            </span>
+            <div className="flex-1 overflow-y-auto">
+                {/* Live form panel — sticky at top of scroll area */}
+                <AnimatePresence>
+                    {activeForm && <LiveFormPanel />}
+                </AnimatePresence>
+
+                <div className="px-4 py-4 space-y-3">
+                    {messages.length === 0 && !activeForm && (
+                        <div className="flex flex-col items-center justify-center min-h-[280px] text-center px-2">
+                            <div className="w-12 h-12 rounded-full bg-obsidian flex items-center justify-center mb-4">
+                                <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true" style={{ transform: "scale(1.2)" }}>
+                                    <span /><span /><span /><span />
+                                </span>
+                            </div>
+                            <p className="font-serif text-obsidian text-base font-medium mb-2 leading-snug max-w-[240px]">
+                                Good to have you here.
+                            </p>
+                            <p className="text-slate text-xs leading-relaxed max-w-[240px] mb-6">
+                                I'm Grace — here to help you find the right bottle, pair the right closure, and get your order moving. What can I help you with?
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-1.5">
+                                {chips.map((chip) => (
+                                    <button
+                                        key={chip}
+                                        onClick={() => send(chip)}
+                                        className="text-[11px] font-medium text-obsidian/80 border border-champagne rounded-full px-3 py-1.5 hover:border-muted-gold hover:bg-muted-gold/5 transition-all cursor-pointer"
+                                    >
+                                        {chip}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                        <p className="font-serif text-obsidian text-lg font-medium mb-1.5">Grace by Best Bottles Intelligence</p>
-                        <p className="text-slate text-xs leading-relaxed max-w-[260px] mb-6">
-                            Your AI Bottling Specialist for fitment, pairing, and compatibility.
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-1.5">
-                            {chips.map((chip) => (
-                                <button
-                                    key={chip}
-                                    onClick={() => send(chip)}
-                                    className="text-[11px] font-medium text-obsidian/80 border border-champagne rounded-full px-3 py-1.5 hover:border-muted-gold hover:bg-muted-gold/5 transition-all cursor-pointer"
-                                >
-                                    {chip}
-                                </button>
-                            ))}
+                    )}
+                    {messages.map((msg) => (
+                        <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                            {msg.role === "grace" && (
+                                <div className="w-6 h-6 rounded-full bg-obsidian flex items-center justify-center shrink-0 mr-2 mt-0.5">
+                                    <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true" style={{ transform: "scale(0.6)" }}>
+                                        <span /><span /><span /><span />
+                                    </span>
+                                </div>
+                            )}
+                            <div className={`rounded-2xl px-3.5 py-2 text-[13px] leading-relaxed ${msg.action ? "max-w-[95%]" : "max-w-[85%]"
+                                } ${msg.role === "user"
+                                    ? "bg-obsidian text-bone rounded-br-sm"
+                                    : "bg-white border border-champagne/60 text-obsidian rounded-bl-sm"
+                                }`}>
+                                {msg.content && <p>{msg.content}</p>}
+                                {msg.action && (
+                                    <ActionCardRenderer
+                                        action={msg.action}
+                                        messageId={msg.id}
+                                        confirmAction={confirmAction}
+                                        dismissAction={dismissAction}
+                                        onNavigate={onNavigate}
+                                    />
+                                )}
+                            </div>
                         </div>
-                    </div>
-                )}
-                {messages.map((msg) => (
-                    <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                        {msg.role === "grace" && (
+                    ))}
+                    {status === "thinking" && (
+                        <div className="flex justify-start">
                             <div className="w-6 h-6 rounded-full bg-obsidian flex items-center justify-center shrink-0 mr-2 mt-0.5">
                                 <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true" style={{ transform: "scale(0.6)" }}>
                                     <span /><span /><span /><span />
                                 </span>
                             </div>
-                        )}
-                        <div className={`rounded-2xl px-3.5 py-2 text-[13px] leading-relaxed ${msg.action ? "max-w-[95%]" : "max-w-[85%]"
-                            } ${msg.role === "user"
-                                ? "bg-obsidian text-bone rounded-br-sm"
-                                : "bg-white border border-champagne/60 text-obsidian rounded-bl-sm"
-                            }`}>
-                            {msg.content && <p>{msg.content}</p>}
-                            {msg.action && (
-                                <ActionCardRenderer
-                                    action={msg.action}
-                                    messageId={msg.id}
-                                    confirmAction={confirmAction}
-                                    dismissAction={dismissAction}
-                                    onNavigate={onNavigate}
-                                />
-                            )}
-                        </div>
-                    </div>
-                ))}
-                {status === "thinking" && (
-                    <div className="flex justify-start">
-                        <div className="w-6 h-6 rounded-full bg-obsidian flex items-center justify-center shrink-0 mr-2 mt-0.5">
-                            <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true" style={{ transform: "scale(0.6)" }}>
-                                <span /><span /><span /><span />
-                            </span>
-                        </div>
-                        <div className="bg-white border border-champagne/60 rounded-2xl rounded-bl-sm px-3.5 py-2.5 flex items-center gap-2">
-                            <div className="flex items-center space-x-1">
-                                {[0, 150, 300].map((d) => (
-                                    <span key={d} className="w-1.5 h-1.5 rounded-full bg-muted-gold/60 animate-bounce" style={{ animationDelay: `${d}ms` }} />
-                                ))}
+                            <div className="bg-white border border-champagne/60 rounded-2xl rounded-bl-sm px-3.5 py-2.5 flex items-center gap-2">
+                                <div className="flex items-center space-x-1">
+                                    {[0, 150, 300].map((d) => (
+                                        <span key={d} className="w-1.5 h-1.5 rounded-full bg-muted-gold/60 animate-bounce" style={{ animationDelay: `${d}ms` }} />
+                                    ))}
+                                </div>
+                                <span className="text-xs text-slate/70">Grace is thinking…</span>
                             </div>
-                            <span className="text-xs text-slate/70">Grace is thinking…</span>
                         </div>
-                    </div>
-                )}
-                <div ref={messagesEndRef} />
+                    )}
+                    <div ref={messagesEndRef} />
+                </div>
             </div>
 
             {/* Composer */}

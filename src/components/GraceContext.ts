@@ -56,6 +56,26 @@ export interface GraceMessage {
 
 export type PanelMode = "closed" | "strip" | "open";
 
+// ─── Live form state ──────────────────────────────────────────────────────────
+
+export type FormType = "sample" | "quote" | "contact" | "newsletter";
+
+export interface ActiveForm {
+    formType: FormType;
+    /** Fields collected so far — grows one at a time as Grace fills them */
+    fields: Record<string, string>;
+    /** Filled field names in the order Grace collected them — drives animation */
+    filledOrder: string[];
+    /** Whether Grace has triggered a submit programmatically */
+    submitting: boolean;
+    /** True once the Convex mutation has resolved successfully */
+    submitted: boolean;
+    /** Convex mutation error, if any */
+    error: string;
+}
+
+// ─── Full context shape ───────────────────────────────────────────────────────
+
 export interface GraceContextValue {
     panelMode: PanelMode;
     openPanel: () => void;
@@ -83,6 +103,15 @@ export interface GraceContextValue {
     onNavigate: (path: string) => void;
     pendingNavigation: string | null;
     clearPendingNavigation: () => void;
+    // ── Live conversational form ──────────────────────────────────────────────
+    /** The active form being filled by Grace, or null when no form is open */
+    activeForm: ActiveForm | null;
+    /** Update (or create) a single field — called by Grace's updateFormField tool */
+    updateFormField: (formType: FormType, fieldName: string, value: string) => void;
+    /** Grace-initiated submit — fires the Convex mutation programmatically */
+    submitActiveForm: () => Promise<void>;
+    /** Customer (or Grace) dismisses / resets the active form */
+    dismissActiveForm: () => void;
 }
 
 // ─── Shared context & hook ───────────────────────────────────────────────────

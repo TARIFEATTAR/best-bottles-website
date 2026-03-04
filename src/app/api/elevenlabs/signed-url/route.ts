@@ -3,8 +3,11 @@ import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../../convex/_generated/api";
 
 /**
- * Generates a signed URL for ElevenLabs Conversational AI plus the Grace
- * system prompt so the client can inject it as a session override.
+ * Generates a WebRTC conversation token for ElevenLabs Conversational AI.
+ *
+ * WebRTC (the recommended connection type) uses a short-lived conversation
+ * token rather than a signed WebSocket URL. This token is passed directly
+ * to startSession({ conversationToken, connectionType: "webrtc" }).
  */
 
 let _convex: ConvexHttpClient | null = null;
@@ -30,24 +33,18 @@ export async function GET() {
     }
 
     try {
-        // Fetch signed URL and Grace system prompt in parallel
-        const [elResponse, systemPrompt] = await Promise.all([
+        // Fetch conversation token from the WebRTC token endpoint
+        const [elResponse] = await Promise.all([
             fetch(
-                `https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id=${agentId}`,
+                `https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=${agentId}`,
                 { headers: { "xi-api-key": apiKey } }
             ),
-            getConvex()
-                .query(api.grace.getGraceInstructions, { voiceMode: true })
-                .catch((err) => {
-                    console.error("[elevenlabs/signed-url] Failed to fetch Grace instructions:", err);
-                    return null;
-                }),
         ]);
 
         if (!elResponse.ok) {
             const errText = await elResponse.text();
             console.error("[elevenlabs/signed-url] ElevenLabs error:", elResponse.status, errText);
-            let detail = "Failed to get signed URL from ElevenLabs";
+            let detail = "Failed to get conversation token from ElevenLabs";
             try {
                 const errJson = JSON.parse(errText) as {
                     detail?: string | { status?: string; message?: string };
@@ -66,17 +63,16 @@ export async function GET() {
             return NextResponse.json({ error: detail }, { status: 502 });
         }
 
-        const data = (await elResponse.json()) as { signed_url?: string };
-        if (!data.signed_url) {
+        const data = (await elResponse.json()) as { token?: string };
+        if (!data.token) {
             return NextResponse.json(
-                { error: "ElevenLabs did not return a signed URL" },
+                { error: "ElevenLabs did not return a conversation token" },
                 { status: 502 }
             );
         }
 
         return NextResponse.json({
-            signedUrl: data.signed_url,
-            systemPrompt: systemPrompt ?? null,
+            conversationToken: data.token,
         });
     } catch (err) {
         console.error("[elevenlabs/signed-url] Error:", err);

@@ -400,13 +400,15 @@ export const searchCatalog = query({
                 .slice(0, 25);
         }
 
-        // Return a trimmed version — components arrays are large and waste tokens
+        // Return a trimmed version — components arrays are large and waste tokens.
+        // Normalize capacity strings: remove internal spaces ("9 ml" → "9ml")
+        // so Grace always speaks sizes consistently.
         return results.map((p) => ({
             graceSku: p.graceSku,
             itemName: p.itemName,
             category: p.category,
             family: p.family,
-            capacity: p.capacity,
+            capacity: p.capacity ? p.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u) => u.toLowerCase()) : p.capacity,
             capacityMl: p.capacityMl,
             color: p.color,
             applicator: p.applicator,
@@ -414,6 +416,7 @@ export const searchCatalog = query({
             neckThreadSize: p.neckThreadSize,
             webPrice1pc: p.webPrice1pc,
             webPrice12pc: p.webPrice12pc,
+            caseQuantity: p.caseQuantity,
             stockStatus: p.stockStatus,
         }));
     },
@@ -445,49 +448,75 @@ export const getCatalogStats = query({
 
 /**
  * AI Tool: Family Overview
- * Returns aggregated sizes, colours, threads, applicators, and price ranges for an entire family.
+ *
+ * Returns aggregated sizes, colours, threads, applicators, and price ranges
+ * for an entire bottle family.
+ *
+ * Uses the `productGroups` table (~20–30 lightweight docs per family, no
+ * components arrays) instead of the raw `products` table to avoid hitting
+ * Convex's 16MB per-execution read limit when a family has 300–500 variants.
+ * This is the primary fix for incomplete/truncated size and price data.
  */
 export const getFamilyOverview = query({
     args: { family: v.string() },
     handler: async (ctx, args) => {
-        const products = await ctx.db
-            .query("products")
+        // Use productGroups — fast, lightweight, no 16MB risk.
+        // productGroups has priceRangeMin/Max, applicatorTypes, neckThreadSize,
+        // capacity, capacityMl, color — everything we need for the overview.
+        const groups = await ctx.db
+            .query("productGroups")
             .withIndex("by_family", (q) => q.eq("family", args.family))
             .collect();
 
-        if (products.length === 0) return null;
+        if (groups.length === 0) return null;
+
+        // Normalize capacity string: "9 ml" → "9ml", "30 ml" → "30ml"
+        const normCap = (cap: string | null | undefined): string | null => {
+            if (!cap) return null;
+            return cap.replace(/\s*(ml|oz)\s*/gi, (_, u: string) => u.toLowerCase());
+        };
 
         const sizes = new Map<string, { ml: number | null; count: number }>();
         const colors = new Set<string>();
         const threads = new Set<string>();
         const applicators = new Set<string>();
-        const categories = new Set<string>();
         let minPrice = Infinity;
         let maxPrice = 0;
+        let totalVariants = 0;
 
-        for (const p of products) {
-            if (p.capacity) {
-                const existing = sizes.get(p.capacity);
+        for (const g of groups) {
+            // Only aggregate Glass Bottle groups to avoid mixing in Component price ranges
+            if (g.category !== "Glass Bottle" && groups.some(x => x.category === "Glass Bottle")) continue;
+
+            totalVariants += g.variantCount ?? 1;
+
+            const cap = normCap(g.capacity);
+            if (cap) {
+                const existing = sizes.get(cap);
                 if (existing) {
-                    existing.count++;
+                    existing.count += g.variantCount ?? 1;
                 } else {
-                    sizes.set(p.capacity, { ml: p.capacityMl, count: 1 });
+                    sizes.set(cap, { ml: g.capacityMl, count: g.variantCount ?? 1 });
                 }
             }
-            if (p.color) colors.add(p.color);
-            if (p.neckThreadSize) threads.add(p.neckThreadSize);
-            if (p.applicator) applicators.add(p.applicator);
-            categories.add(p.category);
-            if (p.webPrice1pc && p.webPrice1pc > 0) {
-                minPrice = Math.min(minPrice, p.webPrice1pc);
-                maxPrice = Math.max(maxPrice, p.webPrice1pc);
+
+            if (g.color) colors.add(g.color);
+            if (g.neckThreadSize) threads.add(g.neckThreadSize);
+
+            // applicatorTypes is an array stored on the group
+            if (Array.isArray(g.applicatorTypes)) {
+                for (const a of g.applicatorTypes) {
+                    if (a) applicators.add(a);
+                }
             }
+
+            if (g.priceRangeMin && g.priceRangeMin > 0) minPrice = Math.min(minPrice, g.priceRangeMin);
+            if (g.priceRangeMax && g.priceRangeMax > 0) maxPrice = Math.max(maxPrice, g.priceRangeMax);
         }
 
         return {
             family: args.family,
-            totalVariants: products.length,
-            categories: [...categories],
+            totalVariants,
             sizes: [...sizes.entries()]
                 .map(([label, info]) => ({ label, ml: info.ml, variantCount: info.count }))
                 .sort((a, b) => (a.ml ?? 0) - (b.ml ?? 0)),
