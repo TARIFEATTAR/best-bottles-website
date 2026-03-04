@@ -178,10 +178,18 @@ export default function GraceElevenLabsProvider({
                     if (products.length === 1 && products[0].slug) {
                         redirectUrl = `/products/${products[0].slug}`;
                     } else {
-                        // Otherwise open the catalog filtered to the search
+                        // Build catalog URL: prefer family-based filter (reliable exact match)
+                        // over raw search query (which can fail against catalog page's tokenizer).
                         const qs = new URLSearchParams();
+                        // Use the family of the first result if all results share one family
+                        const families = [...new Set(products.map((p) => (p as unknown as Record<string, string>).family).filter(Boolean))];
+                        if (families.length === 1 && families[0]) {
+                            qs.set("family", families[0]);
+                        } else if (parameters.family) {
+                            qs.set("family", parameters.family);
+                        }
+                        // Also pass the query for secondary filtering
                         if (parameters.query) qs.set("search", parameters.query);
-                        if (parameters.family) qs.set("family", parameters.family);
                         redirectUrl = `/catalog${qs.toString() ? `?${qs.toString()}` : ""}`;
                     }
 

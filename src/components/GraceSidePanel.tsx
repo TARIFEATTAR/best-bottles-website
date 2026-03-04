@@ -142,6 +142,13 @@ function InlineGraceForm({ formType, prefilled }: { formType: string; prefilled:
     const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
 
+    // React when Grace fills in more fields via updateFormField calls
+    useEffect(() => {
+        if (Object.keys(prefilled).length > 0) {
+            setValues((v) => ({ ...v, ...prefilled }));
+        }
+    }, [prefilled]);
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setSubmitStatus("submitting");
@@ -1165,11 +1172,11 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
 
     return (
         <motion.div
-            initial={{ x: 420 }}
+            initial={{ x: 490 }}
             animate={{ x: 0 }}
-            exit={{ x: 420 }}
+            exit={{ x: 490 }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 z-[55] w-full max-w-[420px] flex flex-col overflow-hidden shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 z-[55] w-full max-w-[490px] flex flex-col overflow-hidden shadow-2xl"
             style={{
                 background: "rgba(250, 248, 245, 0.98)",
                 backdropFilter: "blur(28px) saturate(180%)",
