@@ -1,0 +1,37 @@
+{
+  "family": "Cream Jar",
+  "descriptions": [
+    {
+      "capacityMl": 3,
+      "description": "The 3ml cream jar with a 20mm neck suits sample sizes for face cream, eye cream, and concentrated serums. Skincare and cosmetic brands use this for trial sizes and discovery sets. The wide mouth allows easy scooping and application."
+    },
+    {
+      "capacityMl": 5,
+      "description": "A 5ml cream jar with a 27mm neck for sample and travel sizes. Face cream, body butter, and balm brands choose this for compact formats. The jar shape suits thick emulsions and solid formulations."
+    },
+    {
+      "capacityMl": 15,
+      "description": "The 15ml cream jar with a 37mm neck bridges sample and full-size formats. Skincare brands use this for travel sizes and trial offerings. Compatible with standard jar pumps and screw caps."
+    },
+    {
+      "capacityMl": 20,
+      "description": "A 20ml cream jar with a 40mm neck for mid-size formats. Face cream, body butter, and balm brands choose this for a substantial sample or small retail size. The wide opening suits thick, luxurious formulations."
+    },
+    {
+      "capacityMl": 30,
+      "description": "The 30ml cream jar with a 45mm neck suits full-size face cream and body butter. Skincare and cosmetic brands use this for core stockkeeping units. A standard capacity for jar packaging."
+    },
+    {
+      "capacityMl": 40,
+      "description": "A 40ml cream jar with a 48/400 neck for larger formats. Body cream, hand cream, and face cream brands choose this for a generous retail size. The jar shape appeals to premium and natural skincare positioning."
+    },
+    {
+      "capacityMl": 60,
+      "description": "The 60ml cream jar with a 58mm neck suits full-size body butter and face cream. Skincare brands use this for core retail offerings. A popular capacity for luxurious, thick formulations."
+    },
+    {
+      "capacityMl": 63,
+      "description": "A 63ml cream jar with a 58mm neck for body cream and hand cream. The slightly larger capacity suits brands that want a bit more product per unit. Compatible with standard jar closures and pumps."
+    }
+  ]
+}

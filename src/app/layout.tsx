@@ -23,7 +23,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Best Bottles — Premium Glass Packaging for Beauty, Fragrance & Wellness Brands",
-  description: "3,100+ premium glass bottles, sprayers, and packaging components. 170 years of expertise. Low MOQs, volume pricing, and dedicated support for scaling brands.",
+  description: "2,300+ premium glass bottles, sprayers, and packaging components. 170 years of expertise. Low MOQs, volume pricing, and dedicated support for scaling brands.",
 };
 
 export default function RootLayout({

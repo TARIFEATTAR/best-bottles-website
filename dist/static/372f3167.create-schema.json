@@ -1,0 +1,2011 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Packaging 101",
+              "value": "packaging-101"
+            },
+            {
+              "title": "Fragrance Guides",
+              "value": "fragrance-guides"
+            },
+            {
+              "title": "Brand Stories",
+              "value": "brand-stories"
+            },
+            {
+              "title": "Ingredient Science",
+              "value": "ingredient-science"
+            },
+            {
+              "title": "How-To",
+              "value": "how-to"
+            },
+            {
+              "title": "Industry News",
+              "value": "industry-news"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "packaging-101",
+                  "fragrance-guides",
+                  "brand-stories",
+                  "ingredient-science",
+                  "how-to",
+                  "industry-news"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "publishedAt",
+        "type": "datetime"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "estimatedReadTime",
+        "type": "number",
+        "title": "Estimated Read Time (minutes)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 300
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "Hero Image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              },
+              {
+                "name": "caption",
+                "type": "string"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "content",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "product"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to product"
+          }
+        ],
+        "name": "relatedProducts",
+        "type": "array"
+      },
+      {
+        "description": "UUID from Madison Studio — set automatically on sync",
+        "readOnly": true,
+        "name": "madisonId",
+        "type": "string",
+        "title": "Madison ID"
+      },
+      {
+        "initialValue": false,
+        "description": "Set by Madison Studio when content is ready for editorial review",
+        "name": "readyForReview",
+        "type": "boolean",
+        "title": "Ready for Review"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Madison Studio (AI)",
+              "value": "madison-studio"
+            },
+            {
+              "title": "Manual",
+              "value": "manual"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "manual",
+        "name": "generationSource",
+        "type": "string"
+      }
+    ],
+    "name": "journal",
+    "type": "document",
+    "title": "Journal Article"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "description": "The websiteSku from Convex — links this Sanity record to a specific product variant. Used to look up editorial content on the product page.",
+        "name": "websiteSku",
+        "type": "string",
+        "title": "Website SKU"
+      },
+      {
+        "rows": 5,
+        "description": "Editorial description shown below the Add to Cart button on the product detail page. Overrides the catalog description when present.",
+        "name": "description",
+        "type": "text",
+        "title": "Product Description"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "shopifyHandle",
+        "type": "slug"
+      }
+    ],
+    "name": "product",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 6
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Add 1 slide for a static hero, or 2+ for a rotating carousel (e.g. Black Friday, seasonal promos). Each slide has its own image, text, and button link.",
+        "of": [
+          {
+            "description": "The large banner at the top of the homepage. Choose image or video, then add text overlays.",
+            "type": "heroBlock"
+          }
+        ],
+        "name": "heroSlides",
+        "type": "array",
+        "title": "Hero Slider"
+      },
+      {
+        "initialValue": "Guided Browsing",
+        "description": "Small uppercase label above the section title. Example: Guided Browsing",
+        "name": "startHereEyebrow",
+        "type": "string",
+        "title": "Start Here — Eyebrow"
+      },
+      {
+        "initialValue": "Start Here",
+        "description": "Main heading for the section. Example: Start Here",
+        "name": "startHereTitle",
+        "type": "string",
+        "title": "Start Here — Section Title"
+      },
+      {
+        "initialValue": "Choose your use case to narrow the catalog faster.",
+        "description": "Supporting sentence below the title. Explains what the cards do.",
+        "name": "startHereSubheading",
+        "type": "text",
+        "title": "Start Here — Subheading"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 6
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Up to 6 cards. Each links to a filtered catalog view. Drag to reorder.",
+        "of": [
+          {
+            "description": "One card in the Guided Browsing section. Links to a filtered catalog view.",
+            "type": "startHereCard"
+          }
+        ],
+        "name": "startHereCards",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 12
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Bottle families shown in the carousel. Family Slug must match catalog exactly (e.g. Boston Round, Cylinder). Use Order to sort.",
+        "of": [
+          {
+            "description": "One bottle family in the Design Families carousel. Family Slug must match catalog exactly.",
+            "type": "designFamilyCard"
+          }
+        ],
+        "name": "designFamilyCards",
+        "type": "array"
+      },
+      {
+        "description": "Featured blog articles and section heading. Links to Journal posts.",
+        "name": "educationPreview",
+        "type": "educationPreview"
+      },
+      {
+        "description": "Optional featured images for mega menu. Link structure stays in code.",
+        "name": "megaMenuPanels",
+        "type": "megaMenuPanels"
+      }
+    ],
+    "name": "homepagePage",
+    "type": "document",
+    "title": "Homepage"
+  },
+  {
+    "description": "Editorial content that applies to ALL products in a design family. Individual product overrides take priority over this.",
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Aluminum Bottle",
+              "value": "Aluminum Bottle"
+            },
+            {
+              "title": "Apothecary",
+              "value": "Apothecary"
+            },
+            {
+              "title": "Atomizer",
+              "value": "Atomizer"
+            },
+            {
+              "title": "Bell",
+              "value": "Bell"
+            },
+            {
+              "title": "Boston Round",
+              "value": "Boston Round"
+            },
+            {
+              "title": "Circle",
+              "value": "Circle"
+            },
+            {
+              "title": "Cream Jar",
+              "value": "Cream Jar"
+            },
+            {
+              "title": "Cylinder",
+              "value": "Cylinder"
+            },
+            {
+              "title": "Decorative",
+              "value": "Decorative"
+            },
+            {
+              "title": "Diamond",
+              "value": "Diamond"
+            },
+            {
+              "title": "Diva",
+              "value": "Diva"
+            },
+            {
+              "title": "Elegant",
+              "value": "Elegant"
+            },
+            {
+              "title": "Empire",
+              "value": "Empire"
+            },
+            {
+              "title": "Flair",
+              "value": "Flair"
+            },
+            {
+              "title": "Grace",
+              "value": "Grace"
+            },
+            {
+              "title": "Lotion Bottle",
+              "value": "Lotion Bottle"
+            },
+            {
+              "title": "Pillar",
+              "value": "Pillar"
+            },
+            {
+              "title": "Plastic Bottle",
+              "value": "Plastic Bottle"
+            },
+            {
+              "title": "Rectangle",
+              "value": "Rectangle"
+            },
+            {
+              "title": "Roll-On Cap",
+              "value": "Roll-On Cap"
+            },
+            {
+              "title": "Round",
+              "value": "Round"
+            },
+            {
+              "title": "Royal",
+              "value": "Royal"
+            },
+            {
+              "title": "Sleek",
+              "value": "Sleek"
+            },
+            {
+              "title": "Slim",
+              "value": "Slim"
+            },
+            {
+              "title": "Square",
+              "value": "Square"
+            },
+            {
+              "title": "Teardrop",
+              "value": "Teardrop"
+            },
+            {
+              "title": "Tulip",
+              "value": "Tulip"
+            },
+            {
+              "title": "Vial",
+              "value": "Vial"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "Aluminum Bottle",
+                  "Apothecary",
+                  "Atomizer",
+                  "Bell",
+                  "Boston Round",
+                  "Circle",
+                  "Cream Jar",
+                  "Cylinder",
+                  "Decorative",
+                  "Diamond",
+                  "Diva",
+                  "Elegant",
+                  "Empire",
+                  "Flair",
+                  "Grace",
+                  "Lotion Bottle",
+                  "Pillar",
+                  "Plastic Bottle",
+                  "Rectangle",
+                  "Roll-On Cap",
+                  "Round",
+                  "Royal",
+                  "Sleek",
+                  "Slim",
+                  "Square",
+                  "Teardrop",
+                  "Tulip",
+                  "Vial"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Must match the family name exactly as it appears in the catalog (e.g. Diva, Cylinder, Boston Round).",
+        "name": "family",
+        "type": "string",
+        "title": "Design Family"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Standard — Description · Features · Badges",
+              "value": "standard"
+            },
+            {
+              "title": "Premium — Gallery · Description · Feature Strip · FAQ",
+              "value": "premium"
+            },
+            {
+              "title": "Collection — Promo Banner · Features · Gallery · Description",
+              "value": "collection"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "standard",
+        "description": "Sets the default block order for all products in this family. Individual product overrides can change the order.",
+        "name": "templateType",
+        "type": "string",
+        "title": "Default Template"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Lifestyle or editorial image representing the whole family. Shown as the banner on the catalog page when this family is filtered. Recommended: 1400×600px wide.",
+        "name": "familyHeroImage",
+        "type": "image"
+      },
+      {
+        "rows": 3,
+        "description": "2–3 sentence brand narrative about this bottle family. Shown below the family name on catalog and product pages.",
+        "name": "familyStory",
+        "type": "text"
+      },
+      {
+        "description": "Drag blocks into the order you want them to appear on every product page in this family. Individual products can add their own blocks or override the order.",
+        "of": [
+          {
+            "description": "A horizontal row of icon + label cards. Great for callouts like 'UV Protected', 'Type III Glass', 'Ships in 3 Days'.",
+            "type": "pdpFeatureStrip",
+            "title": "Feature Strip"
+          },
+          {
+            "description": "Full editorial copy for this product. Supports bold, italics, links, and callout quotes. Overrides the plain-text description from the catalog.",
+            "type": "pdpRichDescription",
+            "title": "Rich Description"
+          },
+          {
+            "description": "A scrollable row of additional product images — lifestyle shots, in-use photos, detail close-ups. These appear alongside or below the main product image.",
+            "type": "pdpGalleryRow",
+            "title": "Gallery Row"
+          },
+          {
+            "description": "A high-visibility promotional strip. Add a headline, supporting copy, optional countdown timer, and a CTA button. Great for limited-time deals, new arrivals, or featured collections.",
+            "type": "pdpPromoBanner",
+            "title": "Promo Banner"
+          },
+          {
+            "description": "Collapsible Q&A section. Use for product-specific questions about compatibility, care, materials, or ordering.",
+            "type": "pdpFaqAccordion",
+            "title": "FAQ Accordion"
+          },
+          {
+            "description": "Small pill badges that appear as a row below the product name or Add to Cart. Use presets or add custom text.",
+            "type": "pdpTrustBadges",
+            "title": "Trust Badges"
+          }
+        ],
+        "name": "pageBlocks",
+        "type": "array"
+      }
+    ],
+    "name": "productFamilyContent",
+    "type": "document"
+  },
+  {
+    "description": "Editorial content for a specific product page. Identified by its catalog slug (e.g. diva-10ml-clear-rollon-bottle). Blocks here are merged with the family template — product-level blocks appear first.",
+    "fields": [
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Must match the product's URL slug exactly (e.g. diva-10ml-clear-rollon-bottle). Copy it from the browser bar when viewing the product page.",
+        "name": "slug",
+        "type": "slug",
+        "title": "Product Slug"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "For your reference only — not shown on the site. Use the product display name.",
+        "name": "title",
+        "type": "string",
+        "title": "Internal Label"
+      },
+      {
+        "initialValue": false,
+        "description": "OFF = this product's blocks are prepended to the family template blocks. ON = only this product's blocks are shown (family template is ignored entirely).",
+        "name": "overrideTemplate",
+        "type": "boolean",
+        "title": "Override Family Template?"
+      },
+      {
+        "description": "Add and reorder blocks for this product specifically. If Override Family Template is OFF, these appear before the family blocks.",
+        "of": [
+          {
+            "description": "A horizontal row of icon + label cards. Great for callouts like 'UV Protected', 'Type III Glass', 'Ships in 3 Days'.",
+            "type": "pdpFeatureStrip",
+            "title": "Feature Strip"
+          },
+          {
+            "description": "Full editorial copy for this product. Supports bold, italics, links, and callout quotes. Overrides the plain-text description from the catalog.",
+            "type": "pdpRichDescription",
+            "title": "Rich Description"
+          },
+          {
+            "description": "A scrollable row of additional product images — lifestyle shots, in-use photos, detail close-ups. These appear alongside or below the main product image.",
+            "type": "pdpGalleryRow",
+            "title": "Gallery Row"
+          },
+          {
+            "description": "A high-visibility promotional strip. Add a headline, supporting copy, optional countdown timer, and a CTA button. Great for limited-time deals, new arrivals, or featured collections.",
+            "type": "pdpPromoBanner",
+            "title": "Promo Banner"
+          },
+          {
+            "description": "Collapsible Q&A section. Use for product-specific questions about compatibility, care, materials, or ordering.",
+            "type": "pdpFaqAccordion",
+            "title": "FAQ Accordion"
+          },
+          {
+            "description": "Small pill badges that appear as a row below the product name or Add to Cart. Use presets or add custom text.",
+            "type": "pdpTrustBadges",
+            "title": "Trust Badges"
+          }
+        ],
+        "name": "pageBlocks",
+        "type": "array"
+      }
+    ],
+    "name": "productGroupContent",
+    "type": "document",
+    "title": "Product Page Override"
+  },
+  {
+    "description": "The large banner at the top of the homepage. Choose image or video, then add text overlays.",
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Image",
+              "value": "image"
+            },
+            {
+              "title": "Video",
+              "value": "video"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "image",
+        "description": "Image = static photo. Video = auto-playing MP4/WebM (add a poster image for loading).",
+        "name": "mediaType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Main hero image. Use hotspot to crop the focal point. Recommended: 1920×1080 or larger.",
+        "name": "image",
+        "type": "image",
+        "title": "Hero Image"
+      },
+      {
+        "options": {
+          "accept": "video/mp4,video/webm"
+        },
+        "description": "MP4 or WebM. Keep under 10MB for fast loading.",
+        "hidden": "conditional",
+        "name": "video",
+        "type": "file",
+        "title": "Hero Video"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Frame shown while video loads. Use a key frame from the video.",
+        "hidden": "conditional",
+        "name": "videoPoster",
+        "type": "image"
+      },
+      {
+        "description": "Main heading (e.g. Beautifully Contained). Leave empty for default.",
+        "name": "headline",
+        "type": "string"
+      },
+      {
+        "description": "Supporting tagline below the headline. Leave empty for default.",
+        "name": "subheadline",
+        "type": "text"
+      },
+      {
+        "description": "Small label above the headline (e.g. A Division of Nemat International).",
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "initialValue": "Explore Collections",
+        "description": "Primary CTA button label (e.g. Explore Collections, Shop Black Friday). Leave empty for default.",
+        "name": "ctaText",
+        "type": "string",
+        "title": "Button Text"
+      },
+      {
+        "initialValue": "/catalog",
+        "description": "Where the button goes. Examples: /catalog, /catalog?search=sale, /catalog?families=Boston+Round",
+        "name": "ctaHref",
+        "type": "string",
+        "title": "Button Link"
+      }
+    ],
+    "name": "heroBlock",
+    "type": "object"
+  },
+  {
+    "description": "One card in the Guided Browsing section. Links to a filtered catalog view.",
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Card title (e.g. essential oils & roll-ons). Use lowercase for consistency.",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "description": "Short description shown on the card. Uppercase for emphasis.",
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Where the card links. Examples: /catalog?applicators=rollon, /catalog?families=Vial, /catalog?category=Packaging",
+        "name": "href",
+        "type": "string",
+        "title": "Link URL"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Product or lifestyle image. Recommended: 600×400px. Leave empty to use default.",
+        "name": "image",
+        "type": "image",
+        "title": "Card Image"
+      },
+      {
+        "description": "Hex color (e.g. #DFD6C9) for the card background. Use a color picker or leave empty.",
+        "name": "backgroundColor",
+        "type": "string"
+      }
+    ],
+    "name": "startHereCard",
+    "type": "object"
+  },
+  {
+    "description": "One bottle family in the Design Families carousel. Family Slug must match catalog exactly.",
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Must match catalog exactly. Examples: Cylinder, Boston Round, Diva, Elegant, Sleek, Atomizer, Flair. Do not change unless adding a new family.",
+        "name": "family",
+        "type": "string",
+        "title": "Family Slug"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Label shown on the card. Can differ from Family Slug (e.g. Atomizers for Atomizer).",
+        "name": "title",
+        "type": "string",
+        "title": "Display Title"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Bottle or product image. Recommended: 600×800px portrait. Leave empty to use default.",
+        "name": "image",
+        "type": "image",
+        "title": "Card Image"
+      },
+      {
+        "initialValue": 0,
+        "description": "Lower numbers appear first. 0, 1, 2, 3...",
+        "name": "order",
+        "type": "number",
+        "title": "Sort Order"
+      }
+    ],
+    "name": "designFamilyCard",
+    "type": "object"
+  },
+  {
+    "description": "Featured blog articles section. Links to Journal posts.",
+    "fields": [
+      {
+        "initialValue": "Packaging Insights",
+        "description": "Main heading (e.g. Packaging Insights)",
+        "name": "sectionTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "From the Lab",
+        "description": "Small label above the title (e.g. From the Lab)",
+        "name": "sectionEyebrow",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 5
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Select up to 5 Journal articles to feature. Create articles in the Journal section first.",
+        "of": [
+          {
+            "to": [
+              {
+                "type": "journal"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to journal article"
+          }
+        ],
+        "name": "featuredArticles",
+        "type": "array"
+      },
+      {
+        "initialValue": "/blog",
+        "description": "URL for the View All button. Usually /blog or /resources.",
+        "name": "viewAllHref",
+        "type": "string",
+        "title": "View All Link"
+      }
+    ],
+    "name": "educationPreview",
+    "type": "object"
+  },
+  {
+    "description": "Optional featured image and link for a mega menu dropdown.",
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Image shown in the dropdown. Recommended: 400×300px.",
+        "name": "featuredImage",
+        "type": "image"
+      },
+      {
+        "description": "Link text (e.g. Shop Boston Rounds)",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "description": "Optional supporting text",
+        "name": "subtitle",
+        "type": "text"
+      },
+      {
+        "description": "Where the card links (e.g. /catalog?families=Boston+Round)",
+        "name": "href",
+        "type": "string",
+        "title": "Link URL"
+      }
+    ],
+    "name": "megaMenuFeaturedCard",
+    "type": "object"
+  },
+  {
+    "description": "Optional featured images for the dropdown menus (Bottles, Closures, Specialty). Links appear when hovering nav items.",
+    "fields": [
+      {
+        "description": "Featured image for the Bottles dropdown. Leave empty for icon-only.",
+        "name": "bottles",
+        "type": "megaMenuFeaturedCard",
+        "title": "Bottles Panel"
+      },
+      {
+        "description": "Featured image for the Closures dropdown.",
+        "name": "closures",
+        "type": "megaMenuFeaturedCard",
+        "title": "Closures Panel"
+      },
+      {
+        "description": "Featured image for the Specialty dropdown.",
+        "name": "specialty",
+        "type": "megaMenuFeaturedCard",
+        "title": "Specialty Panel"
+      }
+    ],
+    "name": "megaMenuPanels",
+    "type": "object"
+  },
+  {
+    "description": "A horizontal row of icon + label cards. Great for callouts like 'UV Protected', 'Type III Glass', 'Ships in 3 Days'.",
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 8
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Add 1–8 features. Drag to reorder.",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Shield — Quality / Durability",
+                      "value": "Shield"
+                    },
+                    {
+                      "title": "Droplets — Liquid-Safe / Leak-Proof",
+                      "value": "Droplets"
+                    },
+                    {
+                      "title": "Sun — UV Protection",
+                      "value": "Sun"
+                    },
+                    {
+                      "title": "Leaf — Eco / Natural / Sustainable",
+                      "value": "Leaf"
+                    },
+                    {
+                      "title": "Zap — Fast Shipping",
+                      "value": "Zap"
+                    },
+                    {
+                      "title": "Award — Certified / Premium Grade",
+                      "value": "Award"
+                    },
+                    {
+                      "title": "FlaskConical — Lab-Tested / Type III Glass",
+                      "value": "FlaskConical"
+                    },
+                    {
+                      "title": "Package — Ready to Ship",
+                      "value": "Package"
+                    },
+                    {
+                      "title": "Recycle — Recyclable / Refillable",
+                      "value": "Recycle"
+                    },
+                    {
+                      "title": "Layers — Multiple Variants Available",
+                      "value": "Layers"
+                    },
+                    {
+                      "title": "Check — In Stock / Verified",
+                      "value": "Check"
+                    },
+                    {
+                      "title": "Star — Best Seller",
+                      "value": "Star"
+                    },
+                    {
+                      "title": "Clock — Limited Time",
+                      "value": "Clock"
+                    },
+                    {
+                      "title": "Sparkles — New Arrival",
+                      "value": "Sparkles"
+                    },
+                    {
+                      "title": "Tag — On Sale",
+                      "value": "Tag"
+                    },
+                    {
+                      "title": "Globe — Made in USA",
+                      "value": "Globe"
+                    }
+                  ]
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "Shield",
+                          "Droplets",
+                          "Sun",
+                          "Leaf",
+                          "Zap",
+                          "Award",
+                          "FlaskConical",
+                          "Package",
+                          "Recycle",
+                          "Layers",
+                          "Check",
+                          "Star",
+                          "Clock",
+                          "Sparkles",
+                          "Tag",
+                          "Globe"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Icon shown above the label.",
+                "name": "icon",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 40
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Short callout text, e.g. 'UV Protected' or 'Type III Glass'.",
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "description": "Optional one-liner shown on hover or below the label.",
+                "name": "body",
+                "type": "string",
+                "title": "Tooltip / Sub-text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Feature Items"
+      }
+    ],
+    "name": "pdpFeatureStrip",
+    "type": "object",
+    "title": "Feature Strip"
+  },
+  {
+    "description": "Full editorial copy for this product. Supports bold, italics, links, and callout quotes. Overrides the plain-text description from the catalog.",
+    "fields": [
+      {
+        "initialValue": "About This Product",
+        "description": "Small uppercase label above the heading. Example: About This Product",
+        "name": "eyebrow",
+        "type": "string",
+        "title": "Eyebrow Label"
+      },
+      {
+        "description": "Optional heading above the body text.",
+        "name": "heading",
+        "type": "string",
+        "title": "Section Heading"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Use bold for key terms, blockquotes for standout statements.",
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^mailto$/",
+                                    "/^tel$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "name": "href",
+                      "type": "url",
+                      "title": "URL"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Bold"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bullet"
+              },
+              {
+                "value": "number",
+                "title": "Numbered"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h3",
+                "title": "Heading"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "body",
+        "type": "array"
+      }
+    ],
+    "name": "pdpRichDescription",
+    "type": "object",
+    "title": "Rich Description"
+  },
+  {
+    "description": "A scrollable row of additional product images — lifestyle shots, in-use photos, detail close-ups. These appear alongside or below the main product image.",
+    "fields": [
+      {
+        "initialValue": "Gallery",
+        "description": "Optional label above the gallery.",
+        "name": "eyebrow",
+        "type": "string",
+        "title": "Section Label"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 12
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Upload 1–12 images. Recommended: 800×800px square or 4:3 landscape.",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "image",
+                "type": "image"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 120
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Describe the image for screen readers and SEO.",
+                "name": "alt",
+                "type": "string",
+                "title": "Alt Text"
+              },
+              {
+                "description": "Optional caption shown below the image.",
+                "name": "caption",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "images",
+        "type": "array"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Scroll row (horizontal)",
+              "value": "scroll"
+            },
+            {
+              "title": "Grid (2 or 3 columns)",
+              "value": "grid"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "scroll",
+        "name": "layout",
+        "type": "string"
+      }
+    ],
+    "name": "pdpGalleryRow",
+    "type": "object",
+    "title": "Gallery Row"
+  },
+  {
+    "description": "A high-visibility promotional strip. Add a headline, supporting copy, optional countdown timer, and a CTA button. Great for limited-time deals, new arrivals, or featured collections.",
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Subtle (light background, gold accent)",
+              "value": "subtle"
+            },
+            {
+              "title": "Bold (dark background, white text)",
+              "value": "bold"
+            },
+            {
+              "title": "Urgent (gold background, dark text)",
+              "value": "urgent"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "subtle",
+        "name": "style",
+        "type": "string",
+        "title": "Banner Style"
+      },
+      {
+        "description": "Small uppercase text above the headline. Example: Limited Time · New Arrival · Sale",
+        "name": "eyebrow",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 80
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Main banner message. Example: Order by Friday — Ships Before the Weekend.",
+        "name": "headline",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "description": "Optional one or two sentences below the headline.",
+        "name": "body",
+        "type": "text",
+        "title": "Supporting Copy"
+      },
+      {
+        "description": "CTA button text. Leave empty to hide the button.",
+        "name": "ctaText",
+        "type": "string",
+        "title": "Button Label"
+      },
+      {
+        "description": "Where the button goes. Can be an internal path or external URL.",
+        "name": "ctaHref",
+        "type": "string",
+        "title": "Button Link"
+      },
+      {
+        "options": {
+          "dateFormat": "MMMM D, YYYY",
+          "timeFormat": "h:mm A"
+        },
+        "description": "If set, a live countdown timer appears in the banner. Leave empty for no countdown. Use your local time — the site converts automatically.",
+        "name": "countdownEndDate",
+        "type": "datetime",
+        "title": "Countdown End Date & Time"
+      },
+      {
+        "initialValue": "remaining",
+        "description": "Text after the timer. Example: until sale ends · left to order at this price",
+        "hidden": "conditional",
+        "name": "countdownLabel",
+        "type": "string"
+      }
+    ],
+    "name": "pdpPromoBanner",
+    "type": "object",
+    "title": "Promo Banner"
+  },
+  {
+    "description": "Collapsible Q&A section. Use for product-specific questions about compatibility, care, materials, or ordering.",
+    "fields": [
+      {
+        "initialValue": "Frequently Asked",
+        "description": "Small label above the accordion.",
+        "name": "eyebrow",
+        "type": "string",
+        "title": "Section Label"
+      },
+      {
+        "initialValue": "Questions & Answers",
+        "name": "heading",
+        "type": "string",
+        "title": "Section Heading"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 20
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Add questions. Drag to reorder.",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Supports bold, italics, and links.",
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "i18nTitleKey": "inputs.portable-text.annotation.link",
+                          "options": {
+                            "modal": {
+                              "type": "popover"
+                            }
+                          },
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/",
+                                            "/^tel$/",
+                                            "/^mailto$/"
+                                          ],
+                                          "allowRelative": true,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "description": "A valid web, email, phone, or relative link.",
+                              "name": "href",
+                              "type": "url",
+                              "title": "Link"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Italic"
+                        },
+                        {
+                          "value": "code",
+                          "title": "Code"
+                        },
+                        {
+                          "value": "underline",
+                          "title": "Underline"
+                        },
+                        {
+                          "value": "strike-through",
+                          "title": "Strike"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h1",
+                        "title": "Heading 1"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "Heading 2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "Heading 3"
+                      },
+                      {
+                        "value": "h4",
+                        "title": "Heading 4"
+                      },
+                      {
+                        "value": "h5",
+                        "title": "Heading 5"
+                      },
+                      {
+                        "value": "h6",
+                        "title": "Heading 6"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "answer",
+                "type": "array"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Questions"
+      }
+    ],
+    "name": "pdpFaqAccordion",
+    "type": "object",
+    "title": "FAQ Accordion"
+  },
+  {
+    "description": "Small pill badges that appear as a row below the product name or Add to Cart. Use presets or add custom text.",
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 10
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Add up to 10 badges. Drag to reorder.",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "UV Protected",
+                      "value": "UV Protected"
+                    },
+                    {
+                      "title": "Type III Glass",
+                      "value": "Type III Glass"
+                    },
+                    {
+                      "title": "Sample Ready",
+                      "value": "Sample Ready"
+                    },
+                    {
+                      "title": "Low MOQ",
+                      "value": "Low MOQ"
+                    },
+                    {
+                      "title": "Ships in 3–5 Days",
+                      "value": "Ships in 3–5 Days"
+                    },
+                    {
+                      "title": "Made in USA",
+                      "value": "Made in USA"
+                    },
+                    {
+                      "title": "Leak-Proof",
+                      "value": "Leak-Proof"
+                    },
+                    {
+                      "title": "Recyclable",
+                      "value": "Recyclable"
+                    },
+                    {
+                      "title": "Refillable",
+                      "value": "Refillable"
+                    },
+                    {
+                      "title": "Fragrance Safe",
+                      "value": "Fragrance Safe"
+                    },
+                    {
+                      "title": "Essential Oil Safe",
+                      "value": "Essential Oil Safe"
+                    },
+                    {
+                      "title": "Cosmetic Grade",
+                      "value": "Cosmetic Grade"
+                    },
+                    {
+                      "title": "In Stock",
+                      "value": "In Stock"
+                    },
+                    {
+                      "title": "New Arrival",
+                      "value": "New Arrival"
+                    },
+                    {
+                      "title": "Best Seller",
+                      "value": "Best Seller"
+                    },
+                    {
+                      "title": "Volume Pricing Available",
+                      "value": "Volume Pricing Available"
+                    }
+                  ]
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "UV Protected",
+                          "Type III Glass",
+                          "Sample Ready",
+                          "Low MOQ",
+                          "Ships in 3–5 Days",
+                          "Made in USA",
+                          "Leak-Proof",
+                          "Recyclable",
+                          "Refillable",
+                          "Fragrance Safe",
+                          "Essential Oil Safe",
+                          "Cosmetic Grade",
+                          "In Stock",
+                          "New Arrival",
+                          "Best Seller",
+                          "Volume Pricing Available"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 30
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Choose a preset or type your own (max 30 characters).",
+                "name": "label",
+                "type": "string",
+                "title": "Badge Text"
+              },
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Default (light outline)",
+                      "value": "default"
+                    },
+                    {
+                      "title": "Gold (highlight)",
+                      "value": "gold"
+                    },
+                    {
+                      "title": "Dark (emphasis)",
+                      "value": "dark"
+                    },
+                    {
+                      "title": "Green (in stock / eco)",
+                      "value": "green"
+                    }
+                  ],
+                  "layout": "radio"
+                },
+                "initialValue": "default",
+                "name": "style",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "badges",
+        "type": "array",
+        "title": "Badge Labels"
+      }
+    ],
+    "name": "pdpTrustBadges",
+    "type": "object",
+    "title": "Trust Badges"
+  }
+]

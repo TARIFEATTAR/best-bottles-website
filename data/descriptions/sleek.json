@@ -1,0 +1,120 @@
+{
+  "family": "Sleek",
+  "descriptions": [
+    {
+      "capacityMl": 5,
+      "applicatorBucket": "finemist",
+      "description": "The 5ml Sleek bottle offers a slim, modern profile for sample sprays. Its 13-415 neck fits fine mist sprayers for perfume and toner. Discovery sets and travel sizes get a contemporary look with this shape."
+    },
+    {
+      "capacityMl": 5,
+      "applicatorBucket": "rollon",
+      "description": "The 5ml Sleek roll-on bottle with a 13-415 neck. Perfume oil and essential oil blends apply smoothly with metal or plastic roller balls. The slim profile fits easily into pouches and gift sets."
+    },
+    {
+      "capacityMl": 5,
+      "description": "The 5ml Sleek bottle offers a slim, modern profile. Its 13-415 neck fits fine mist sprayers or roll-on applicators. Discovery sets and travel sizes get a contemporary look."
+    },
+    {
+      "capacityMl": 8,
+      "applicatorBucket": "finemist",
+      "description": "An 8ml Sleek bottle with a 13-415 neck for fine mist spray samples. Perfume oil and essential oil mist brands use this for compact travel formats. The narrow silhouette fits easily into pouches and gift sets."
+    },
+    {
+      "capacityMl": 8,
+      "applicatorBucket": "rollon",
+      "description": "An 8ml Sleek roll-on bottle with a 13-415 neck. Perfume oil and essential oil blends apply smoothly. The narrow silhouette fits easily into pouches and gift sets."
+    },
+    {
+      "capacityMl": 8,
+      "description": "An 8ml Sleek bottle with a 13-415 neck for spray or roll-on formats. The narrow silhouette fits easily into pouches and gift sets."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "finemist",
+      "description": "The 30ml Sleek bottle with an 18-415 neck suits perfume and body spray. Fine mist sprayers thread on for a clean, minimal finish. A popular choice for modern fragrance and skincare brands."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "dropper",
+      "description": "The 30ml Sleek dropper bottle with an 18-415 neck. Essential oils, perfume oils, beard oil, and therapeutic blends dispense precisely. The slim profile suits aromatherapy and fragrance brands."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "reducer",
+      "description": "The 30ml Sleek reducer bottle with an 18-415 neck. Splash-on cologne and open-mouth formats for fragrance and aftershave. A classic pour-over application."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "antiquespray",
+      "description": "The 30ml Sleek bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands choose this for a classic spray format. The slim profile fits well in gift boxes."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "lotionpump",
+      "description": "The 30ml Sleek bottle with an 18-415 neck for lotion pumps. Serums and light creams dispense cleanly. Skincare brands use this for travel and trial sizes."
+    },
+    {
+      "capacityMl": 30,
+      "description": "The 30ml Sleek bottle with an 18-415 neck suits perfume and body spray. A popular choice for modern fragrance and skincare brands."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray",
+      "description": "A 50ml Sleek bottle with an 18-415 neck built for vintage bulb sprayers. Perfume and cologne brands choose this for a classic spray format. The slim profile fits well in gift boxes and retail displays."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "A 50ml Sleek bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "finemist",
+      "description": "A 50ml Sleek bottle with an 18-415 neck for fine mist sprayers. Eau de toilette and fragrance mist brands use this for travel sizes. The slim profile fits well in gift boxes."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "reducer",
+      "description": "A 50ml Sleek reducer bottle with an 18-415 neck. Splash-on cologne and open-mouth formats for fragrance and aftershave. A classic pour-over application."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "lotionpump",
+      "description": "A 50ml Sleek bottle with an 18-415 neck for lotion pumps. Serums and light creams dispense cleanly. Skincare brands use this for travel and trial sizes."
+    },
+    {
+      "capacityMl": 50,
+      "description": "A 50ml Sleek bottle with an 18-415 neck. Available in spray, dropper, reducer, and vintage bulb formats. The slim profile fits well in gift boxes."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "The 100ml Sleek bottle with an 18-415 neck accepts lotion pumps. Body lotion, hand cream, and serum brands use this capacity for full-size retail. The streamlined shape appeals to minimalist and contemporary brands."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "reducer",
+      "description": "The 100ml Sleek reducer bottle with an 18-415 neck. Splash-on cologne and concentrated fragrance formats. The streamlined shape suits luxury positioning."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "finemist",
+      "description": "The 100ml Sleek bottle with an 18-415 neck for fine mist sprayers. Full-size perfume and body mist formats. The streamlined shape appeals to minimalist brands."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray",
+      "description": "The 100ml Sleek bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands use this for a decorative, full-size format."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "The 100ml Sleek bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 100,
+      "description": "The 100ml Sleek bottle with an 18-415 neck. Available in lotion pump, spray, reducer, and vintage bulb formats. The streamlined shape appeals to minimalist brands."
+    }
+  ]
+}

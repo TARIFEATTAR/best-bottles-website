@@ -59,7 +59,7 @@ export const journal = defineType({
             title: "Hero Image",
             type: "image",
             options: { hotspot: true },
-            validation: (Rule) => Rule.required(),
+            description: "Optional for seed content; add in Studio before publishing.",
         }),
         defineField({
             name: "content",

@@ -1,0 +1,158 @@
+{
+  "family": "Cylinder",
+  "descriptions": [
+    {
+      "capacityMl": 3,
+      "applicatorBucket": "finemist",
+      "description": "The 3ml cylinder spray bottle is the smallest format for perfume samples and trial sizes. Its 12mm neck fits fine mist sprayers for fragrance oil and essential oil mists. Wedding favors, trade show giveaways, and discovery sets start here."
+    },
+    {
+      "capacityMl": 4,
+      "applicatorBucket": "finemist",
+      "description": "A compact 4ml cylinder for sample sprays and mini fragrance formats. The 12mm neck accepts fine mist sprayers. Perfect for perfume oil samples, aromatherapy trials, and promotional packaging."
+    },
+    {
+      "capacityMl": 5,
+      "applicatorBucket": "finemist",
+      "description": "The 5ml cylinder with a 13-415 neck is a workhorse for fine mist spray samples. Perfume, toner, and essential oil brands use it for discovery sets and travel sizes. One of the most versatile small-format spray bottles in the catalog."
+    },
+    {
+      "capacityMl": 5,
+      "applicatorBucket": "rollon",
+      "description": "The 5ml cylinder roll-on bottle with a 13-415 neck. Perfume oil and essential oil blends apply smoothly with metal or plastic roller balls. Discovery sets and travel sizes get a compact, versatile format."
+    },
+    {
+      "capacityMl": 9,
+      "applicatorBucket": "finemist",
+      "description": "A 9ml cylinder bottle with a 17-415 neck built for fine mist sprayers. Eau de toilette and fragrance mist brands choose this capacity for sample discovery. The compact profile fits easily into gift sets and sample packs, whether in classic or decorative swirled glass."
+    },
+    {
+      "capacityMl": 9,
+      "applicatorBucket": "rollon",
+      "description": "A 9ml cylinder roll-on bottle with a 17-415 neck. Perfume oil and essential oil blends apply smoothly with metal or plastic roller balls. The compact format suits sample discovery and travel sizes, in classic or decorative swirled glass."
+    },
+    {
+      "capacityMl": 9,
+      "applicatorBucket": "lotionpump",
+      "description": "A 9ml cylinder bottle with a 17-415 neck for lotion pumps. Serums, light creams, and facial oils dispense cleanly in a compact travel format. Skincare brands use this for trial and discovery sizes."
+    },
+    {
+      "capacityMl": 9,
+      "applicatorBucket": "glasswand",
+      "description": "A 9ml cylinder bottle with an 18-400 neck for glass wand applicators. Perfume oil and concentrated fragrance brands use this for precise, dab-on application. The compact profile fits easily into gift sets."
+    },
+    {
+      "capacityMl": 3,
+      "description": "The 3ml cylinder spray bottle is the smallest format for perfume samples and trial sizes. Its 12mm neck fits fine mist sprayers. Wedding favors, trade show giveaways, and discovery sets start here."
+    },
+    {
+      "capacityMl": 4,
+      "description": "A compact 4ml cylinder for sample sprays and mini fragrance formats. The 12mm neck accepts fine mist sprayers. Perfect for perfume oil samples and aromatherapy trials."
+    },
+    {
+      "capacityMl": 5,
+      "description": "The 5ml cylinder with a 13-415 neck is a workhorse for fine mist spray samples. Perfume, toner, and essential oil brands use it for discovery sets and travel sizes."
+    },
+    {
+      "capacityMl": 9,
+      "description": "A 9ml cylinder bottle with a 17-415 neck. Available in spray, roll-on, and lotion pump formats. The compact profile fits easily into gift sets and sample packs."
+    },
+    {
+      "capacityMl": 25,
+      "applicatorBucket": "lotionpump",
+      "description": "The 25ml cylinder with an 18-415 neck pairs with lotion pumps for hand cream and body lotion. Thick emulsions and face serums dispense cleanly. A go-to for skincare brands launching travel or trial sizes."
+    },
+    {
+      "capacityMl": 28,
+      "applicatorBucket": "rollon",
+      "description": "A 28ml cylinder roll-on bottle with a 16mm neck. Perfume oil and essential oil blends apply smoothly with metal or plastic roller balls. One of the most requested capacities for roll-on formats."
+    },
+    {
+      "capacityMl": 25,
+      "description": "The 25ml cylinder with an 18-415 neck pairs with lotion pumps for hand cream and body lotion. A go-to for skincare brands launching travel or trial sizes."
+    },
+    {
+      "capacityMl": 28,
+      "description": "A 28ml cylinder roll-on bottle with a 16mm neck. Perfume oil and essential oil blends apply smoothly. One of the most requested capacities for roll-on formats."
+    },
+    {
+      "capacityMl": 30,
+      "description": "The 30ml cylinder spray bottle with an 18-415 neck suits perfume, cologne, and body spray. Fine mist and perfume spray pumps both thread on. A standard capacity for fragrance brands and private label lines."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "rollon",
+      "description": "A 50ml cylinder roll-on bottle with a 16mm neck. Perfume oil and body oil brands use this capacity for full-size retail. The cylinder shape stacks neatly on shelves and in displays."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "finemist",
+      "description": "A 50ml cylinder bottle with an 18-415 neck for fine mist sprayers. Eau de toilette and fragrance mist brands use this for travel and gift sizes. The cylinder shape stacks neatly on shelves."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "reducer",
+      "description": "A 50ml cylinder reducer bottle with an 18-415 neck. Splash-on cologne and open-mouth formats for fragrance and aftershave. A classic pour-over application."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray",
+      "description": "A 50ml cylinder bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands choose this for a classic spray format. The cylinder shape stacks neatly on displays."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "A 50ml cylinder bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "lotionpump",
+      "description": "A 50ml cylinder bottle with an 18-415 neck for lotion pumps. Serums and light creams dispense cleanly. Skincare brands use this for travel and trial sizes."
+    },
+    {
+      "capacityMl": 50,
+      "description": "A 50ml cylinder bottle with an 18-415 neck. Available in spray, roll-on, reducer, and vintage bulb formats."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "The 100ml cylinder with an 18-415 neck accepts lotion pumps for body lotion and hand cream. Skincare and personal care brands choose this capacity for core stockkeeping units. A proven format for thick emulsions."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "reducer",
+      "description": "The 100ml cylinder reducer bottle with an 18-415 neck. Splash-on cologne and concentrated fragrance formats. The cylinder shape suits luxury positioning."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "finemist",
+      "description": "The 100ml cylinder bottle with an 18-415 neck for fine mist sprayers. Full-size perfume and body mist formats. A proven format for fragrance brands."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray",
+      "description": "The 100ml cylinder bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands use this for a decorative, full-size format."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "The 100ml cylinder bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 100,
+      "description": "The 100ml cylinder with an 18-415 neck. Available in lotion pump, spray, reducer, and vintage bulb formats."
+    },
+    {
+      "capacityMl": 118,
+      "description": "A four-ounce cylinder bottle for bulk decanting and fill-your-own formats. Perfume oil, essential oil, and aromatic blend brands use this for refillable and DIY kits. Clear glass shows product color and level."
+    },
+    {
+      "capacityMl": 227,
+      "description": "An eight-ounce cylinder bottle for larger volume packaging. Body oil, massage oil, and aromatherapy blend brands use this for professional and home use. The straight sides make labeling and branding straightforward."
+    },
+    {
+      "capacityMl": 454,
+      "description": "A 16-ounce cylinder bottle for bulk and refill formats. Essential oil blenders, massage therapists, and private label brands use this for high-volume applications. The wide mouth allows easy filling and dispensing."
+    }
+  ]
+}

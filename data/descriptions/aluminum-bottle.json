@@ -1,0 +1,21 @@
+{
+  "family": "Aluminum Bottle",
+  "descriptions": [
+    {
+      "capacityMl": 65,
+      "description": "The 65ml aluminum bottle with a 20-410 neck offers a lightweight, eco-friendly alternative to glass. Travel-size perfume, body spray, and essential oil mist brands use this for durability and portability. Aluminum protects formulations from light and is fully recyclable."
+    },
+    {
+      "capacityMl": 100,
+      "description": "A 100ml aluminum bottle with a 20-410 neck for full-size travel formats. Perfume, body spray, and personal care brands choose this for a durable, sustainable option. Ideal for gym bags, travel, and outdoor use."
+    },
+    {
+      "capacityMl": 120,
+      "description": "The 120ml aluminum bottle with a 20-410 neck suits larger travel and refill formats. Body spray, hair mist, and personal care brands use this for a generous, portable size. Aluminum construction resists breakage and protects from light."
+    },
+    {
+      "capacityMl": 500,
+      "description": "A 500ml aluminum bottle with a 20-410 neck for bulk and refill formats. Body oil, massage oil, and aromatherapy blend brands use this for professional and home use. The large capacity suits high-volume applications."
+    }
+  ]
+}

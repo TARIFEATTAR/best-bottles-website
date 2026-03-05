@@ -15,7 +15,7 @@ export const seedAll = mutation({
             {
                 category: "heritage",
                 title: "Nemat International History",
-                content: "Best Bottles is a division of Nemat International, a Bay Area-based (Union City, CA) fragrance and packaging company founded in the United States. Nemat has supplied premium glass packaging to major retailers including Ulta, Sephora, and Whole Foods. Their domestic supply chain ensures consistent quality, reliable lead times, and no tariff surprises for customers.",
+                content: "Best Bottles is a division of Nemat International, a Bay Area-based (Union City, CA) fragrance and packaging company founded in the United States. Nemat has supplied premium glass packaging to major retailers including Ulta and Whole Foods. Their domestic supply chain ensures consistent quality, reliable lead times, and no tariff surprises for customers.",
                 tags: ["nemat", "heritage", "history", "ulta", "sephora", "whole foods"],
                 priority: 1,
                 source: "internal",
@@ -139,7 +139,7 @@ export const seedAll = mutation({
             {
                 segment: "enterprise_retail",
                 displayName: "The Enterprise Retail Buyer",
-                description: "A procurement professional at a mid-to-large brand (think Ulta supplier or Sephora vendor). They have specifications sheets, have done research, and know exactly what they need. They value reliability, compliance documentation, and account management.",
+                description: "A procurement professional at a mid-to-large brand (think Ulta supplier or Whole Foods vendor). They have specifications sheets, have done research, and know exactly what they need. They value reliability, compliance documentation, and account management.",
                 typicalOrderSize: "5,000+ units per SKU",
                 pricePoint: "Professional tier",
                 preferredFamilies: ["Boston Round", "Cylinder", "Elegant"],
@@ -150,7 +150,7 @@ export const seedAll = mutation({
                     "Can we get custom moulds?",
                     "What is your annual capacity?"
                 ],
-                toneGuidance: "Precise and respect-focused. They know their industry. Do not over-explain basics. Offer to escalate to a human account manager quickly if complex. Cite Ulta and Sephora supply relationships as social proof.",
+                toneGuidance: "Precise and respect-focused. They know their industry. Do not over-explain basics. Offer to escalate to a human account manager quickly if complex. Cite Ulta and Whole Foods supply relationships as social proof.",
             },
             {
                 segment: "wellness_formulator",
@@ -181,7 +181,7 @@ export const seedAll = mutation({
             {
                 category: "pricing",
                 objection: "Your prices are higher than other suppliers I've found online.",
-                response: "That's a fair observation, and I appreciate you being direct. A few things make Best Bottles different: our entire supply chain is domestic, which means no tariff exposure, no customs delays, and no quality variance from batch to batch. We also guarantee the same glass specifications you'd find going into Ulta and Sephora's supply chain. When you factor in the cost of a bad batch — reformulation, reprinting, repackaging — the delta in cost per unit becomes very small.",
+                response: "That's a fair observation, and I appreciate you being direct. A few things make Best Bottles different: our entire supply chain is domestic, which means no tariff exposure, no customs delays, and no quality variance from batch to batch. We also guarantee the same glass specifications you'd find going into Ulta and Whole Foods' supply chain. When you factor in the cost of a bad batch — reformulation, reprinting, repackaging — the delta in cost per unit becomes very small.",
                 followUpQuestion: "Can I ask what quantity you're planning to order? I can pull up our exact tier pricing to give you a real apples-to-apples comparison.",
                 relatedPersonas: ["b2b_scaler", "indie_perfumer"],
             },
@@ -267,21 +267,21 @@ export const seedAll = mutation({
                 category: "heritage",
                 stat: "Decades of Industry Expertise",
                 context: "Nemat International is a Bay Area-based fragrance and packaging company with deep industry roots and retail supply chain relationships.",
-                description: "Nemat International has built lasting supplier relationships and quality standards serving major retail chains including Ulta Beauty, Sephora, and Whole Foods. This institutional knowledge means domain expertise that newer entrants cannot replicate quickly.",
+                description: "Nemat International has built lasting supplier relationships and quality standards serving major retail chains including Ulta Beauty and Whole Foods. This institutional knowledge means domain expertise that newer entrants cannot replicate quickly.",
                 verified: true,
                 citationNote: "Nemat International company information",
             },
             {
                 category: "scale",
-                stat: "3,100+ Premium Products",
-                context: "Best Bottles carries over 3,100 curated packaging products across glass, aluminum, and component categories.",
+                stat: "2,300+ Premium Products",
+                context: "Best Bottles carries over 2,300 curated packaging products across glass, aluminum, and component categories.",
                 description: "The catalog spans glass bottles, aluminum bottles, caps, closures, droppers, sprayers, pumps, reducers, and roll-on components. The breadth means that for virtually any fragrance or cosmetic application, Best Bottles has a compatible solution at multiple price tiers.",
                 verified: true,
             },
             {
                 category: "partnerships",
-                stat: "Trusted by Ulta, Sephora & Whole Foods",
-                context: "Nemat International's glass packaging has been used in supply chains serving Ulta Beauty, Sephora, and Whole Foods Market.",
+                stat: "Trusted by Ulta & Whole Foods",
+                context: "Nemat International's glass packaging has been used in supply chains serving Ulta Beauty and Whole Foods Market.",
                 description: "These retail partnerships represent some of the most demanding quality standards in the consumer goods industry. The fact that Best Bottles glass meets these standards means independent brands benefit from enterprise-grade quality at accessible pricing.",
                 verified: true,
             },
@@ -559,7 +559,7 @@ GRACE'S APPROACH:
 - Match their professional register. They are experts.
 - Skip the discovery basics — they know what they need.
 - Focus on: supply capacity, quality certifications, account management, custom mould feasibility.
-- Reference Ulta and Sephora supply chain credibility immediately.
+- Reference Ulta and Whole Foods supply chain credibility immediately.
 - Escalate to a human account manager as soon as the complexity warrants it.
 - Do not over-promise on custom capabilities — always verify with the team first.
 
@@ -728,7 +728,7 @@ Grace should always surface the next pricing tier up when a customer is close to
 
 1. ESTABLISHED EXPERTISE — Best Bottles is a division of Nemat International, a Bay Area-based fragrance and packaging company with deep industry roots and direct retail supply chain relationships. This institutional knowledge means supplier relationships, quality standards, and domain expertise that newer entrants cannot replicate. Use this when trust or quality is questioned.
 
-2. RETAIL SUPPLY CHAIN CREDIBILITY — Best Bottles glass goes into supply chains serving Ulta Beauty, Sephora, and Whole Foods. Independent brands benefit from enterprise-grade quality at accessible pricing. Use this when a customer asks about glass quality or questions whether the products are "professional grade."
+2. RETAIL SUPPLY CHAIN CREDIBILITY — Best Bottles glass goes into supply chains serving Ulta Beauty and Whole Foods. Independent brands benefit from enterprise-grade quality at accessible pricing. Use this when a customer asks about glass quality or questions whether the products are "professional grade."
 
 3. DOMESTIC WAREHOUSING — All products are stocked and shipped from US warehouses. No import delays, no tariff surprises, no customs clearance uncertainty. Use this with any B2B or Scaler tier customer who mentions supply chain risk.
 
@@ -1063,7 +1063,7 @@ STATUS: These are roadmap capabilities. Implementation timelines depend on integ
                     "Can we discuss custom mould development?",
                     "Who will be our dedicated account manager?"
                 ],
-                toneGuidance: "Match their professional register immediately. Skip basics they already know. Focus on supply capacity, quality certifications, account management, and custom mould feasibility. Reference Ulta/Sephora credibility early. Escalate to human account manager as soon as complexity warrants it.",
+                toneGuidance: "Match their professional register immediately. Skip basics they already know. Focus on supply capacity, quality certifications, account management, and custom mould feasibility. Reference Ulta/Whole Foods credibility early. Escalate to human account manager as soon as complexity warrants it.",
             },
         ];
 

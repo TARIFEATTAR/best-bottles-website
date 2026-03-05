@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, Wrench, MessageCircle, FileText } from "lucide-react";
+import { BookOpen, Wrench, MessageCircle, FileText, BookMarked } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
     title: "Resources — Guides, FAQs & Compatibility Tools | Best Bottles",
@@ -8,6 +9,13 @@ export const metadata: Metadata = {
 };
 
 const RESOURCES = [
+    {
+        icon: BookMarked,
+        title: "Journal",
+        description: "Expert guides on glass packaging, fragrance, and brand strategy. From bottle selection to scaling your label — insights from the Best Bottles team.",
+        cta: "Read Articles",
+        href: "/blog",
+    },
     {
         icon: Wrench,
         title: "Compatibility Guides",
@@ -50,6 +58,7 @@ const FAQ_ITEMS = [
 export default function ResourcesPage() {
     return (
         <div className="min-h-screen bg-bone">
+            <Navbar />
             {/* Hero */}
             <section className="pt-32 pb-16 px-6">
                 <div className="max-w-[800px] mx-auto text-center">

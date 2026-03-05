@@ -1,0 +1,91 @@
+{
+  "family": "Elegant",
+  "descriptions": [
+    {
+      "capacityMl": 15,
+      "applicatorBucket": "rollon",
+      "description": "The 15ml Elegant roll-on bottle brings a tapered shoulder and refined neck to sample sizes. Its 13-415 thread accepts metal or plastic roller balls for perfume oil and essential oil. A favorite for luxury fragrance and aromatherapy sampling."
+    },
+    {
+      "capacityMl": 15,
+      "applicatorBucket": "finemist",
+      "description": "The 15ml Elegant bottle with a 13-415 neck built for fine mist sprayers. Perfume and fragrance mist brands choose this shape for its elegant profile. A compact spray format for discovery sets."
+    },
+    {
+      "capacityMl": 15,
+      "description": "The 15ml Elegant bottle with a 13-415 neck. Versatile for roll-on, spray, or cap closures. The tapered shoulder gives a premium feel at sample sizes."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "finemist",
+      "description": "A one-ounce Elegant bottle with a 15-415 neck built for fine mist sprayers. Perfume and fragrance mist brands choose this shape for its elegant profile. The tapered shoulder gives a premium feel at sample and travel sizes."
+    },
+    {
+      "capacityMl": 30,
+      "description": "A one-ounce Elegant bottle with a 15-415 neck. Versatile for spray or cap closures. The tapered silhouette stands out on displays."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "antiquespray",
+      "description": "The 60ml Elegant bottle with an 18-415 neck pairs with vintage bulb sprayers. Perfume and cologne brands use this capacity for a classic, decorative look. The tapered silhouette stands out on vanity and retail displays."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "The 60ml Elegant bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "finemist",
+      "description": "The 60ml Elegant bottle with an 18-415 neck built for fine mist sprayers. Eau de toilette and fragrance mist brands choose this for travel and gift sizes. The tapered shoulder gives a premium feel."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "dropper",
+      "description": "The 60ml Elegant dropper bottle with an 18-415 neck. Essential oils, perfume oils, beard oil, and therapeutic blends dispense precisely. The tapered silhouette suits aromatherapy and fragrance brands."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "reducer",
+      "description": "The 60ml Elegant reducer bottle with an 18-415 neck. Splash-on cologne and open-mouth formats for fragrance and aftershave. A classic pour-over application."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "lotionpump",
+      "description": "The 60ml Elegant bottle with an 18-415 neck for lotion pumps. Serums and light creams dispense cleanly. Skincare brands use this for travel and trial sizes."
+    },
+    {
+      "capacityMl": 60,
+      "description": "The 60ml Elegant bottle with an 18-415 neck. Pairs with spray, dropper, reducer, or vintage bulb sprayers."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "A three-ounce Elegant bottle with an 18-415 neck ready for lotion pumps. Body lotion, hand cream, and face cream brands choose this shape for a premium feel. Frosted glass options add a soft, luxury aesthetic."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "reducer",
+      "description": "A three-ounce Elegant reducer bottle with an 18-415 neck. Splash-on cologne and concentrated fragrance formats. The tapered silhouette suits luxury positioning."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "finemist",
+      "description": "A three-ounce Elegant bottle with an 18-415 neck for fine mist sprayers. Full-size perfume and body mist formats. The tapered shoulder stands out on retail displays."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray",
+      "description": "A three-ounce Elegant bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands use this for a decorative, full-size format."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "A three-ounce Elegant bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 100,
+      "description": "A three-ounce Elegant bottle with an 18-415 neck. Ready for lotion pumps, spray, or vintage bulb sprayers."
+    }
+  ]
+}

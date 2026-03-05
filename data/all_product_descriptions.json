@@ -1,0 +1,141 @@
+{
+  "_NOTE": "SEO-rich, generative-AI-optimized, Grace-searchable product descriptions. 3-4 sentences, no em dashes. Schwartz/Ogilvy methodology. Color-agnostic and applicator-agnostic (paper-doll ready).",
+  "Boston Round": [
+    { "capacityMl": 15, "description": "The half-ounce Boston Round is the format perfumers reach for when they need a sample that feels like a finished product. Its rounded shoulder and 18-400 neck accept roll-on fitments, droppers, and screw caps interchangeably. One bottle, every application your customer might ask for." },
+    { "capacityMl": 30, "description": "A one-ounce apothecary silhouette trusted across fragrance, wellness, and beard-care lines for decades. The 30ml Boston Round's 20-400 neck pairs with roll-ons, droppers, and standard closures, making it the most versatile mid-format bottle in the catalog for brands that ship multiple product types from a single SKU." },
+    { "capacityMl": 60, "description": "The two-ounce Boston Round carries enough volume for a full retail offering: essential oil sets, therapeutic blends, or signature fragrance oils. The 20-400 neck keeps it compatible with the same closures as its 30ml counterpart. A proven choice when your customer is ready to commit beyond the sample size." }
+  ],
+  "Circle": [
+    { "capacityMl": 15, "description": "The 15ml Circle bottle brings a soft, rounded silhouette to sample sizes. Its 13-415 neck accepts roll-on applicators for perfume oils and essential oil blends. Ideal for aromatherapy brands and fragrance sampling at trade shows." },
+    { "capacityMl": 30, "description": "A one-ounce Circle bottle with a 15-415 neck built for fine mist sprayers. Perfume, toner, and body mist brands choose this shape for its clean lines and easy-to-hold form. Compatible with standard spray collars for a polished retail look." },
+    { "capacityMl": 50, "description": "The 50ml Circle bottle bridges sample and full-size formats. The 18-415 neck pairs with fine mist sprayers for eau de toilette and fragrance mists. Skincare and fragrance brands use this capacity for travel sizes and gift sets." },
+    { "capacityMl": 100, "description": "A three-ounce Circle bottle with an 18-415 neck ready for lotion pumps. Body lotion, hand cream, and thick serum brands reach for this capacity. The rounded shape fits comfortably in hand for at-home and professional use." }
+  ],
+  "Cylinder": [
+    { "capacityMl": 3, "description": "The 3ml cylinder spray bottle is the smallest format for perfume samples and trial sizes. Its 12mm neck fits fine mist sprayers for fragrance oil and essential oil mists. Wedding favors, trade show giveaways, and discovery sets start here." },
+    { "capacityMl": 4, "description": "A compact 4ml cylinder for sample sprays and mini fragrance formats. The 12mm neck accepts fine mist sprayers. Perfect for perfume oil samples, aromatherapy trials, and promotional packaging." },
+    { "capacityMl": 5, "description": "The 5ml cylinder with a 13-415 neck is a workhorse for fine mist spray samples. Perfume, toner, and essential oil brands use it for discovery sets and travel sizes. One of the most versatile small-format bottles in the catalog." },
+    { "capacityMl": 9, "description": "A 9ml cylinder bottle with a 17-415 neck built for fine mist sprayers. Eau de toilette and fragrance mist brands choose this capacity for sample discovery. The straight sides and narrow profile fit easily into gift sets and sample packs." },
+    { "capacityMl": 25, "description": "The 25ml cylinder with an 18-415 neck pairs with lotion pumps for hand cream and body lotion. Thick emulsions and face serums dispense cleanly. A go-to for skincare brands launching travel or trial sizes." },
+    { "capacityMl": 28, "description": "A 28ml cylinder roll-on bottle with a 16mm neck. Perfume oil, beard oil, and essential oil blends apply smoothly with metal or plastic roller balls. One of the most requested capacities for roll-on formats." },
+    { "capacityMl": 30, "description": "The 30ml cylinder spray bottle with an 18-415 neck suits perfume, cologne, and body spray. Fine mist and perfume spray pumps both thread on. A standard capacity for fragrance brands and private label lines." },
+    { "capacityMl": 50, "description": "A 50ml cylinder roll-on bottle with a 16mm neck. Beard oil, perfume oil, and body oil brands use this capacity for full-size retail. The cylinder shape stacks neatly on shelves and in displays." },
+    { "capacityMl": 100, "description": "The 100ml cylinder with an 18-415 neck accepts lotion pumps for body lotion and hand cream. Skincare and personal care brands choose this capacity for core stockkeeping units. A proven format for thick emulsions." },
+    { "capacityMl": 118, "description": "A four-ounce cylinder bottle for bulk decanting and fill-your-own formats. Perfume oil, essential oil, and aromatic blend brands use this for refillable and DIY kits. Clear glass shows product color and level." },
+    { "capacityMl": 227, "description": "An eight-ounce cylinder bottle for larger volume packaging. Body oil, massage oil, and aromatherapy blend brands use this for professional and home use. The straight sides make labeling and branding straightforward." },
+    { "capacityMl": 454, "description": "A 16-ounce cylinder bottle for bulk and refill formats. Essential oil blenders, massage therapists, and private label brands use this for high-volume applications. The wide mouth allows easy filling and dispensing." }
+  ],
+  "Elegant": [
+    { "capacityMl": 15, "description": "The 15ml Elegant bottle brings a tapered shoulder and refined neck to sample sizes. Its 13-415 thread accepts roll-on applicators for perfume oil and essential oil. A favorite for luxury fragrance and aromatherapy sampling." },
+    { "capacityMl": 30, "description": "A one-ounce Elegant bottle with a 15-415 neck built for fine mist sprayers. Perfume and fragrance mist brands choose this shape for its elegant profile. The tapered shoulder gives a premium feel at sample and travel sizes." },
+    { "capacityMl": 60, "description": "The 60ml Elegant bottle with an 18-415 neck pairs with vintage bulb sprayers. Perfume and cologne brands use this capacity for a classic, decorative look. The tapered silhouette stands out on vanity and retail displays." },
+    { "capacityMl": 100, "description": "A three-ounce Elegant bottle with an 18-415 neck ready for lotion pumps. Body lotion, hand cream, and face cream brands choose this shape for a premium feel. Frosted glass options add a soft, luxury aesthetic." }
+  ],
+  "Sleek": [
+    { "capacityMl": 5, "description": "The 5ml Sleek bottle offers a slim, modern profile for sample sprays. Its 13-415 neck fits fine mist sprayers for perfume and toner. Discovery sets and travel sizes get a contemporary look with this shape." },
+    { "capacityMl": 8, "description": "An 8ml Sleek bottle with a 13-415 neck for fine mist spray samples. Perfume oil and essential oil mist brands use this for compact travel formats. The narrow silhouette fits easily into pouches and gift sets." },
+    { "capacityMl": 30, "description": "The 30ml Sleek bottle with an 18-415 neck suits perfume and body spray. Fine mist sprayers thread on for a clean, minimal finish. A popular choice for modern fragrance and skincare brands." },
+    { "capacityMl": 50, "description": "A 50ml Sleek bottle with an 18-415 neck built for vintage bulb sprayers. Perfume and cologne brands choose this for a classic spray format. The slim profile fits well in gift boxes and retail displays." },
+    { "capacityMl": 100, "description": "The 100ml Sleek bottle with an 18-415 neck accepts lotion pumps. Body lotion, hand cream, and serum brands use this capacity for full-size retail. The streamlined shape appeals to minimalist and contemporary brands." }
+  ],
+  "Slim": [
+    { "capacityMl": 30, "description": "The 30ml Slim bottle brings a narrow, tall profile to one-ounce formats. Its 18-415 neck fits fine mist sprayers for perfume and fragrance mist. A distinctive shape for brands that want to stand out on shelf." },
+    { "capacityMl": 50, "description": "A 50ml Slim bottle with an 18-415 neck built for vintage bulb sprayers. Perfume and cologne brands choose this for a classic, decorative spray. The tall, slender silhouette works well for gift packaging." },
+    { "capacityMl": 100, "description": "The 100ml Slim bottle with an 18-415 neck pairs with lotion pumps. Body lotion and hand cream brands use this capacity for a sleek, modern look. The narrow form factor fits easily in bags and on counters." }
+  ],
+  "Diva": [
+    { "capacityMl": 30, "description": "The 30ml Diva bottle features a flared base and feminine silhouette. Its 18-415 neck accepts fine mist sprayers for perfume and fragrance mist. A signature shape for luxury fragrance and beauty brands." },
+    { "capacityMl": 46, "description": "A 46ml Diva bottle with an 18-415 neck for fine mist spray. This mid-size capacity bridges sample and full-size for perfume and eau de toilette. The flared base gives a stable, elegant stance on vanity and retail displays." },
+    { "capacityMl": 100, "description": "The 100ml Diva bottle with an 18-415 neck pairs with lotion pumps. Body lotion, hand cream, and face cream brands choose this shape for a premium, feminine aesthetic. A bestseller for skincare and fragrance lines." }
+  ],
+  "Empire": [
+    { "capacityMl": 50, "description": "The 50ml Empire bottle with an 18-415 neck pairs with vintage bulb sprayers, including tassel options. Perfume and cologne brands choose this for a classic, decorative format. The ornate silhouette suits gift sets and luxury positioning." },
+    { "capacityMl": 100, "description": "A three-ounce Empire bottle with an 18-415 neck ready for lotion pumps. Body lotion and hand cream brands use this capacity for a premium, decorative look. The Empire shape adds a touch of vintage elegance to modern formulations." }
+  ],
+  "Apothecary": [
+    { "capacityMl": 15, "description": "The 15ml apothecary bottle with a ground glass stopper brings old-world charm to sample sizes. Cobalt blue glass protects light-sensitive essential oils and fragrance oils. Perfume oil, attar, and aromatherapy brands choose this for a classic apothecary look." },
+    { "capacityMl": 30, "description": "A one-ounce apothecary bottle with a ground glass applicator stopper. Clear glass shows product color while the traditional silhouette appeals to heritage and artisan brands. Ideal for perfume oil, essential oil, and concentrated fragrance formats." },
+    { "capacityMl": 118, "description": "The four-ounce pear-shaped apothecary bottle with a glass stopper suits larger volume decants. Perfume oil, essential oil, and aromatic blend brands use this for refillable and collector formats. A statement piece for vanity and retail displays." }
+  ],
+  "Bell": [
+    { "capacityMl": 10, "description": "The 10ml Bell bottle features a flared, bell-like base and a 13-415 neck for fine mist sprayers. Perfume and fragrance mist brands choose this shape for its distinctive silhouette. A compact format for discovery sets and sample discovery." }
+  ],
+  "Diamond": [
+    { "capacityMl": 60, "description": "The 60ml Diamond bottle with an 18-415 neck pairs with vintage bulb sprayers. Its faceted, diamond-like shape catches light and stands out on display. Perfume and cologne brands use this for a decorative, luxury positioning." }
+  ],
+  "Flair": [
+    { "capacityMl": 15, "description": "The 15ml Flair bottle with a 13-415 neck accepts roll-on applicators. Perfume oil, beard oil, and essential oil brands choose this shape for its distinctive profile. A compact format for sample and travel sizes." }
+  ],
+  "Grace": [
+    { "capacityMl": 55, "description": "The 55ml Grace bottle with an 18-415 neck pairs with vintage bulb sprayers. Perfume and cologne brands choose this for a classic spray format with a refined silhouette. The Grace shape offers a balance of elegance and functionality." }
+  ],
+  "Pillar": [
+    { "capacityMl": 9, "description": "The 9ml Pillar bottle with a 17-415 neck fits fine mist sprayers. Its tall, narrow profile suits perfume and fragrance mist samples. A compact format for discovery sets and promotional packaging." }
+  ],
+  "Rectangle": [
+    { "capacityMl": 9, "description": "The 9ml Rectangle bottle with a ground glass applicator brings an apothecary feel to small formats. Perfume oil, essential oil, and concentrated fragrance brands use this for dab-on application. The rectangular shape fits neatly in gift boxes and sample packs." },
+    { "capacityMl": 10, "description": "A 10ml Rectangle bottle with a 13-415 neck for fine mist spray. Perfume and fragrance mist brands choose this for a clean, geometric look. The straight sides make labeling and branding straightforward." }
+  ],
+  "Round": [
+    { "capacityMl": 78, "description": "The 78ml Round bottle with an 18-415 neck pairs with reducers for splash-on cologne and concentrated perfume oil. Frosted glass adds a soft, premium aesthetic. A classic format for fragrance brands that prefer pour-over application." },
+    { "capacityMl": 128, "description": "A 128ml Round bottle with an 18-415 neck built for vintage bulb sprayers. Perfume and cologne brands use this capacity for a decorative, full-size format. The rounded silhouette and frosted glass suit luxury and gift positioning." }
+  ],
+  "Royal": [
+    { "capacityMl": 13, "description": "The 13ml Royal bottle with a 13-415 neck accepts roll-on applicators. Perfume oil and essential oil brands choose this for a compact, elegant format. A bridge size between sample and mid-format roll-ons." },
+    { "capacityMl": 14, "description": "A 14ml Royal bottle with an 11mm neck for cap-and-closure formats. Perfume oil and concentrated fragrance brands use this for simple, decant-style packaging. The Royal shape adds a touch of refinement to small formats." }
+  ],
+  "Square": [
+    { "capacityMl": 15, "description": "The 15ml Square bottle with a 13-415 neck accepts roll-on applicators. Its geometric shape stands out among rounded silhouettes. Perfume oil, beard oil, and essential oil brands choose this for a modern, architectural look." }
+  ],
+  "Teardrop": [
+    { "capacityMl": 9, "description": "The 9ml Teardrop bottle with a ground glass applicator brings a sculptural shape to small formats. Cobalt blue glass protects light-sensitive oils. Perfume oil, attar, and aromatherapy brands use this for a distinctive, artisan aesthetic." }
+  ],
+  "Tulip": [
+    { "capacityMl": 5, "description": "The 5ml Tulip bottle with a 13-415 neck fits fine mist sprayers. Amber glass protects fragrance and essential oils from UV. A compact format for perfume and aromatherapy samples with a classic tulip silhouette." },
+    { "capacityMl": 6, "description": "A 6ml Tulip bottle with a 13-415 neck for cap-and-closure formats. Perfume oil and essential oil brands use this for simple decant samples. The tulip shape adds elegance to the smallest formats." }
+  ],
+  "Vial": [
+    { "capacityMl": 1, "description": "The 1ml amber vial with a plug closure protects single-use samples from light. Essential oil, perfume oil, and aromatherapy brands use this for trial sizes and sample discovery. Amber glass extends shelf life for light-sensitive formulations." },
+    { "capacityMl": 2, "description": "A 2ml clear vial with an 8-425 neck and cap. Perfume oil and essential oil brands use this for mini samples and wedding favors. The compact format fits in gift sets and promotional packs." },
+    { "capacityMl": 3, "description": "The 3ml vial with a 13-425 neck suits perfume and essential oil samples. Clear glass shows product color. A standard size for discovery sets, trade show giveaways, and sample discovery programs." },
+    { "capacityMl": 4, "description": "A 4ml vial with a 13-425 neck for perfume oil and essential oil samples. The slightly larger capacity suits brands that want a bit more product in each sample. Ideal for wedding favors and promotional packaging." }
+  ],
+  "Cream Jar": [
+    { "capacityMl": 3, "description": "The 3ml cream jar with a 20mm neck suits sample sizes for face cream, eye cream, and concentrated serums. Skincare and cosmetic brands use this for trial sizes and discovery sets. The wide mouth allows easy scooping and application." },
+    { "capacityMl": 5, "description": "A 5ml cream jar with a 27mm neck for sample and travel sizes. Face cream, body butter, and balm brands choose this for compact formats. The jar shape suits thick emulsions and solid formulations." },
+    { "capacityMl": 15, "description": "The 15ml cream jar with a 37mm neck bridges sample and full-size formats. Skincare brands use this for travel sizes and trial offerings. Compatible with standard jar pumps and screw caps." },
+    { "capacityMl": 20, "description": "A 20ml cream jar with a 40mm neck for mid-size formats. Face cream, body butter, and balm brands choose this for a substantial sample or small retail size. The wide opening suits thick, luxurious formulations." },
+    { "capacityMl": 30, "description": "The 30ml cream jar with a 45mm neck suits full-size face cream and body butter. Skincare and cosmetic brands use this for core stockkeeping units. A standard capacity for jar packaging." },
+    { "capacityMl": 40, "description": "A 40ml cream jar with a 48/400 neck for larger formats. Body cream, hand cream, and face cream brands choose this for a generous retail size. The jar shape appeals to premium and natural skincare positioning." },
+    { "capacityMl": 60, "description": "The 60ml cream jar with a 58mm neck suits full-size body butter and face cream. Skincare brands use this for core retail offerings. A popular capacity for luxurious, thick formulations." },
+    { "capacityMl": 63, "description": "A 63ml cream jar with a 58mm neck for body cream and hand cream. The slightly larger capacity suits brands that want a bit more product per unit. Compatible with standard jar closures and pumps." }
+  ],
+  "Decorative": [
+    { "capacityMl": 3, "description": "The 3ml Tola bottle with a 14.3mm neck brings a decorative shape to sample sizes. Perfume oil and essential oil brands use this for gift sets and collector formats. A distinctive silhouette for artisan and heritage positioning." },
+    { "capacityMl": 4, "description": "The 4ml frosted heart bottle with an 8mm keychain cap suits mini perfume and fragrance oil formats. Wedding favors, gift sets, and promotional packaging use this for a playful, decorative option. The keychain adds portability." },
+    { "capacityMl": 5, "description": "The 5ml marble bottle with a 17.52mm neck offers a sculptural shape for perfume oil and essential oil. Decorative and gift brands choose this for a unique, collectible format. The marble-like silhouette stands out on display." },
+    { "capacityMl": 6, "description": "A 6ml Tola bottle with a 14.3mm neck for perfume oil and essential oil samples. The decorative shape suits gift sets and artisan positioning. A compact format with a distinctive profile." },
+    { "capacityMl": 10, "description": "The 10ml marble bottle with a 17.52mm neck suits perfume oil and fragrance oil formats. Decorative and gift brands use this for a mid-size collectible option. The sculptural shape appeals to luxury and artisan positioning." },
+    { "capacityMl": 32, "description": "The 32ml cobalt blue genie bottle with a ground glass stopper brings a decorative, vintage aesthetic. Perfume oil and fragrance brands use this for a statement piece. Cobalt glass protects light-sensitive formulations." },
+    { "capacityMl": 35, "description": "A 35ml cobalt blue Eternal Flame bottle with a ground glass stopper. Perfume and fragrance oil brands choose this for a decorative, collectible format. The ornate silhouette suits gift and luxury positioning." },
+    { "capacityMl": 355, "description": "The 355ml pear bottle with a ground glass stopper suits large-volume decants and refillable formats. Perfume oil, essential oil, and aromatic blend brands use this for a decorative, statement piece. A distinctive shape for vanity and retail displays." }
+  ],
+  "Lotion Bottle": [
+    { "capacityMl": 3, "description": "The 3ml clear plastic lotion bottle with a snap cap suits sample sizes for hand cream and body lotion. Skincare and personal care brands use this for trial sizes and promotional packaging. Lightweight and cost-effective for samples." },
+    { "capacityMl": 30, "description": "A 30ml clear lotion bottle for hand cream and body lotion formats. Skincare and personal care brands choose this for travel and trial sizes. The bottle shape suits pump and flip-top closures." }
+  ],
+  "Aluminum Bottle": [
+    { "capacityMl": 65, "description": "The 65ml aluminum bottle with a 20-410 neck offers a lightweight, eco-friendly alternative to glass. Travel-size perfume, body spray, and essential oil mist brands use this for durability and portability. Aluminum protects formulations from light and is fully recyclable." },
+    { "capacityMl": 100, "description": "A 100ml aluminum bottle with a 20-410 neck for full-size travel formats. Perfume, body spray, and personal care brands choose this for a durable, sustainable option. Ideal for gym bags, travel, and outdoor use." },
+    { "capacityMl": 120, "description": "The 120ml aluminum bottle with a 20-410 neck suits larger travel and refill formats. Body spray, hair mist, and personal care brands use this for a generous, portable size. Aluminum construction resists breakage and protects from light." },
+    { "capacityMl": 500, "description": "A 500ml aluminum bottle with a 20-410 neck for bulk and refill formats. Body oil, massage oil, and aromatherapy blend brands use this for professional and home use. The large capacity suits high-volume applications." }
+  ],
+  "Plastic Bottle": [
+    { "capacityMl": 10, "description": "The 10ml plastic bottle suits sample and travel sizes for lotion, serum, and personal care. Lightweight and cost-effective, it works for promotional packaging and trial formats. Clear plastic shows product color and level." },
+    { "capacityMl": 30, "description": "A 30ml plastic bottle with a 13-415 neck for lotion, serum, and personal care formats. Skincare and personal care brands choose this for travel and trial sizes. A practical option when weight and cost are priorities." }
+  ],
+  "Atomizer": [
+    { "capacityMl": 5, "description": "The 5ml metal atomizer with a 10mm thread offers a compact, portable format for perfume and fragrance. Travel and sample brands use this for a fine mist spray in a durable metal shell. A classic format for perfume discovery." },
+    { "capacityMl": 10, "description": "A 10ml metal atomizer with a 17mm thread for perfume and fragrance formats. Travel and full-size brands choose this for a premium, reusable spray. The metal construction protects formulations and adds a luxury feel." }
+  ]
+}

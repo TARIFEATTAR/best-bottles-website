@@ -1,0 +1,83 @@
+{
+  "family": "Circle",
+  "descriptions": [
+    {
+      "capacityMl": 15,
+      "applicatorBucket": "rollon",
+      "description": "The 15ml Circle roll-on bottle brings a soft, rounded silhouette to sample sizes. Its 13-415 neck accepts metal or plastic roller balls for perfume oils and essential oil blends. Ideal for aromatherapy brands and fragrance sampling at trade shows."
+    },
+    {
+      "capacityMl": 15,
+      "applicatorBucket": "finemist",
+      "description": "The 15ml Circle bottle with a 13-415 neck built for fine mist sprayers. Perfume and fragrance mist brands choose this shape for its clean lines. A compact spray format for discovery sets and travel sizes."
+    },
+    {
+      "capacityMl": 15,
+      "description": "The 15ml Circle bottle with a 13-415 neck. Versatile for roll-on, spray, or cap closures. A soft, rounded silhouette ideal for aromatherapy and fragrance sampling."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "finemist",
+      "description": "A one-ounce Circle bottle with a 15-415 neck built for fine mist sprayers. Perfume, toner, and body mist brands choose this shape for its clean lines and easy-to-hold form. Compatible with standard spray collars for a polished retail look."
+    },
+    {
+      "capacityMl": 30,
+      "description": "A one-ounce Circle bottle with a 15-415 neck. Versatile for spray or cap closures. The rounded shape fits comfortably in hand."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "finemist",
+      "description": "The 50ml Circle bottle with an 18-415 neck built for fine mist sprayers. Eau de toilette and fragrance mist brands use this for travel sizes and gift sets. The rounded shape stacks neatly on shelves."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "dropper",
+      "description": "The 50ml Circle dropper bottle with an 18-415 neck. Essential oils, perfume oils, beard oil, and concentrated blends dispense precisely. A clean format for aromatherapy and fragrance brands."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "reducer",
+      "description": "The 50ml Circle reducer bottle with an 18-415 neck. Splash-on cologne and open-mouth formats for fragrance and aftershave. A classic pour-over application."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray",
+      "description": "The 50ml Circle bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands choose this for a classic, decorative look. The rounded silhouette stands out on displays."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "The 50ml Circle bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "lotionpump",
+      "description": "The 50ml Circle bottle with an 18-415 neck for lotion pumps. Serums and light creams dispense cleanly. Skincare brands use this for travel and trial sizes."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "A three-ounce Circle bottle with an 18-415 neck ready for lotion pumps. Body lotion, hand cream, and thick serum brands reach for this capacity. The rounded shape fits comfortably in hand."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "reducer",
+      "description": "A three-ounce Circle reducer bottle with an 18-415 neck. Splash-on cologne and concentrated fragrance formats. The rounded silhouette suits luxury positioning."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "finemist",
+      "description": "A three-ounce Circle bottle with an 18-415 neck for fine mist sprayers. Full-size perfume and body mist formats. The clean lines suit retail and gift sets."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray",
+      "description": "A three-ounce Circle bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands use this for a decorative, full-size format."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "A three-ounce Circle bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    }
+  ]
+}

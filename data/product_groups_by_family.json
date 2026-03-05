@@ -1,0 +1,2330 @@
+{
+  "Atomizer": [
+    {
+      "slug": "atomizer-5ml",
+      "displayName": "5 ml Atomizer Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": null,
+      "neckThreadSize": "10mm",
+      "category": "Metal Atomizer",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "atomizer-10ml",
+      "displayName": "10 ml Atomizer Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": null,
+      "neckThreadSize": "17mm",
+      "category": "Metal Atomizer",
+      "applicatorBucket": null
+    }
+  ],
+  "Royal": [
+    {
+      "slug": "royal-13ml-clear-13-415-rollon",
+      "displayName": "13 ml Clear Royal Roll-On Bottle",
+      "capacityMl": 13,
+      "capacity": "13 ml (0.44 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "royal-13ml-clear-13-415",
+      "displayName": "13 ml Clear Royal Bottle with Cap",
+      "capacityMl": 13,
+      "capacity": "13 ml (0.44 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "royal-13ml-clear-13-415-finemist",
+      "displayName": "13 ml Clear Royal Fine Mist Spray Bottle",
+      "capacityMl": 13,
+      "capacity": "13 ml (0.44 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "royal-14ml-clear-11mm",
+      "displayName": "14 ml Clear Royal Bottle with Cap",
+      "capacityMl": 14,
+      "capacity": "14 ml (0.47 oz)",
+      "color": "Clear",
+      "neckThreadSize": "11mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Circle": [
+    {
+      "slug": "circle-15ml-clear-13-415-rollon",
+      "displayName": "15 ml Clear Circle Roll-On Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "circle-15ml-clear-13-415-finemist",
+      "displayName": "15 ml Clear Circle Fine Mist Spray Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "circle-15ml-clear-13-415",
+      "displayName": "15 ml Clear Circle Bottle with Cap",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "circle-30ml-clear-15-415-finemist",
+      "displayName": "30 ml Clear Circle Fine Mist Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "15-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "circle-30ml-clear-15-415",
+      "displayName": "30 ml Clear Circle Bottle with Cap",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "15-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "circle-50ml-clear-18-415-finemist",
+      "displayName": "50 ml Clear Circle Fine Mist Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "circle-50ml-clear-18-415-dropper",
+      "displayName": "50 ml Clear Circle Dropper Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "circle-50ml-clear-18-415-reducer",
+      "displayName": "50 ml Clear Circle Reducer Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "circle-50ml-clear-18-415-antiquespray",
+      "displayName": "50 ml Clear Circle Vintage Bulb Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "circle-50ml-clear-18-415-antiquespray-tassel",
+      "displayName": "50 ml Clear Circle Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "circle-50ml-clear-18-415-lotionpump",
+      "displayName": "50 ml Clear Circle Lotion Pump Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "circle-100ml-clear-18-415-lotionpump",
+      "displayName": "100 ml Clear Circle Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "circle-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Circle Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "circle-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Circle Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "circle-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Circle Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "circle-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Circle Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Round": [
+    {
+      "slug": "round-78ml-frosted-18-415-reducer",
+      "displayName": "78 ml Frosted Round Reducer Bottle",
+      "capacityMl": 78,
+      "capacity": "78 ml (2.64 oz)",
+      "color": "Frosted",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "round-78ml-clear-18-415-finemist",
+      "displayName": "78 ml Clear Round Fine Mist Spray Bottle",
+      "capacityMl": 78,
+      "capacity": "78 ml (2.64 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "round-78ml-clear-18-415-antiquespray",
+      "displayName": "78 ml Clear Round Vintage Bulb Spray Bottle",
+      "capacityMl": 78,
+      "capacity": "78 ml (2.64 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "round-78ml-clear-18-415-antiquespray-tassel",
+      "displayName": "78 ml Clear Round Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 78,
+      "capacity": "78 ml (2.64 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "round-78ml-clear-18-415-lotionpump",
+      "displayName": "78 ml Clear Round Lotion Pump Bottle",
+      "capacityMl": 78,
+      "capacity": "78 ml (2.64 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "round-128ml-frosted-18-415-antiquespray",
+      "displayName": "128 ml Frosted Round Vintage Bulb Spray Bottle",
+      "capacityMl": 128,
+      "capacity": "128 ml (4.33 oz)",
+      "color": "Frosted",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "round-128ml-clear-18-415-lotionpump",
+      "displayName": "128 ml Clear Round Lotion Pump Bottle",
+      "capacityMl": 128,
+      "capacity": "128 ml (4.33 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "round-128ml-clear-18-415-finemist",
+      "displayName": "128 ml Clear Round Fine Mist Spray Bottle",
+      "capacityMl": 128,
+      "capacity": "128 ml (4.33 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "round-128ml-clear-18-415-dropper",
+      "displayName": "128 ml Clear Round Dropper Bottle",
+      "capacityMl": 128,
+      "capacity": "128 ml (4.33 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "round-128ml-clear-18-415-reducer",
+      "displayName": "128 ml Clear Round Reducer Bottle",
+      "capacityMl": 128,
+      "capacity": "128 ml (4.33 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "round-128ml-clear-18-415-antiquespray-tassel",
+      "displayName": "128 ml Clear Round Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 128,
+      "capacity": "128 ml (4.33 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Empire": [
+    {
+      "slug": "empire-50ml-clear-18-415-antiquespray-tassel",
+      "displayName": "50 ml Clear Empire Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "empire-50ml-clear-18-415-finemist",
+      "displayName": "50 ml Clear Empire Fine Mist Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "empire-50ml-clear-18-415-dropper",
+      "displayName": "50 ml Clear Empire Dropper Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "empire-50ml-clear-18-415-reducer",
+      "displayName": "50 ml Clear Empire Reducer Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "empire-50ml-clear-18-415-antiquespray",
+      "displayName": "50 ml Clear Empire Vintage Bulb Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "empire-50ml-clear-18-415-lotionpump",
+      "displayName": "50 ml Clear Empire Lotion Pump Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "empire-100ml-clear-18-415-lotionpump",
+      "displayName": "100 ml Clear Empire Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "empire-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Empire Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "empire-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Empire Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "empire-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Empire Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "empire-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Empire Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Elegant": [
+    {
+      "slug": "elegant-15ml-clear-13-415-rollon",
+      "displayName": "15 ml Clear Elegant Roll-On Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "elegant-15ml-clear-13-415-finemist",
+      "displayName": "15 ml Clear Elegant Fine Mist Spray Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "elegant-15ml-clear-13-415",
+      "displayName": "15 ml Clear Elegant Bottle with Cap",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "elegant-15ml-clear-13-415-capclosure",
+      "displayName": "15 ml Clear Elegant Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "capclosure"
+    },
+    {
+      "slug": "elegant-30ml-clear-15-415-finemist",
+      "displayName": "30 ml Clear Elegant Fine Mist Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "15-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "elegant-30ml-clear-15-415",
+      "displayName": "30 ml Clear Elegant Bottle with Cap",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "15-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "elegant-60ml-clear-18-415-antiquespray",
+      "displayName": "60 ml Clear Elegant Vintage Bulb Spray Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "elegant-60ml-clear-18-415-finemist",
+      "displayName": "60 ml Clear Elegant Fine Mist Spray Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "elegant-60ml-clear-18-415-antiquespray-tassel",
+      "displayName": "60 ml Clear Elegant Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "elegant-60ml-clear-18-415-dropper",
+      "displayName": "60 ml Clear Elegant Dropper Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "elegant-60ml-clear-18-415-reducer",
+      "displayName": "60 ml Clear Elegant Reducer Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "elegant-60ml-clear-18-415-lotionpump",
+      "displayName": "60 ml Clear Elegant Lotion Pump Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "elegant-100ml-frosted-18-415-lotionpump",
+      "displayName": "100 ml Frosted Elegant Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Frosted",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "elegant-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Elegant Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "elegant-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Elegant Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "elegant-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Elegant Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "elegant-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Elegant Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Square": [
+    {
+      "slug": "square-15ml-clear-13-415-rollon",
+      "displayName": "15 ml Clear Square Roll-On Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "square-15ml-clear-13-415",
+      "displayName": "15 ml Clear Square Bottle with Cap",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "square-15ml-clear-13-415-finemist",
+      "displayName": "15 ml Clear Square Fine Mist Spray Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    }
+  ],
+  "Cylinder": [
+    {
+      "slug": "spray-bottle-3ml-clear-12mm-finemist",
+      "displayName": "3 ml Clear Cylinder Spray Bottle",
+      "capacityMl": 3,
+      "capacity": "3 ml (0.1 oz)",
+      "color": "Clear",
+      "neckThreadSize": "12mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "spray-bottle-4ml-clear-12mm-finemist",
+      "displayName": "4 ml Clear Cylinder Spray Bottle",
+      "capacityMl": 4,
+      "capacity": "4 ml (0.14 oz)",
+      "color": "Clear",
+      "neckThreadSize": "12mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "cylinder-5ml-clear-13-415-finemist",
+      "displayName": "5 ml Clear Cylinder Fine Mist Spray Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "cylinder-5ml-clear-13-415",
+      "displayName": "5 ml Clear Cylinder Bottle with Cap",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cylinder-5ml-clear-13-415-rollon",
+      "displayName": "5 ml Clear Cylinder Roll-On Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "cylinder-9ml-clear-17-415-finemist",
+      "displayName": "9 ml Clear Cylinder Fine Mist Spray Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Clear",
+      "neckThreadSize": "17-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "cylinder-9ml-clear-13-415",
+      "displayName": "9 ml Clear Cylinder Bottle with Cap",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cylinder-9ml-amber-17-415-lotionpump",
+      "displayName": "9 ml Amber Cylinder Lotion Pump Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Amber",
+      "neckThreadSize": "17-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "cylinder-9ml-amber-17-415-rollon",
+      "displayName": "9 ml Amber Cylinder Roll-On Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Amber",
+      "neckThreadSize": "17-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "cylinder-9ml-clear-18-400-glasswand",
+      "displayName": "9 ml Clear Cylinder Applicator Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": "glasswand"
+    },
+    {
+      "slug": "cylinder-25ml-clear-18-415-lotionpump",
+      "displayName": "25 ml Clear Cylinder Lotion Pump Bottle",
+      "capacityMl": 25,
+      "capacity": "25 ml (0.85 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "cylinder-28ml-clear-16mm-rollon",
+      "displayName": "28 ml Clear Cylinder Roll-On Bottle",
+      "capacityMl": 28,
+      "capacity": "28 ml (0.95 oz)",
+      "color": "Clear",
+      "neckThreadSize": "16mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "spray-bottle-30ml-clear-18-415",
+      "displayName": "30 ml Clear Cylinder Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cylinder-50ml-white-16mm-rollon",
+      "displayName": "50 ml White Cylinder Roll-On Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "16mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "cylinder-50ml-clear-18-415-finemist",
+      "displayName": "50 ml Clear Cylinder Fine Mist Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "cylinder-50ml-clear-18-415-reducer",
+      "displayName": "50 ml Clear Cylinder Reducer Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "cylinder-50ml-clear-18-415-antiquespray",
+      "displayName": "50 ml Clear Cylinder Vintage Bulb Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "cylinder-50ml-clear-18-415-antiquespray-tassel",
+      "displayName": "50 ml Clear Cylinder Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "cylinder-50ml-clear-18-415-lotionpump",
+      "displayName": "50 ml Clear Cylinder Lotion Pump Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "cylinder-100ml-clear-18-415-lotionpump",
+      "displayName": "100 ml Clear Cylinder Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "cylinder-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Cylinder Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "cylinder-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Cylinder Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "cylinder-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Cylinder Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "cylinder-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Cylinder Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "cylinder-118ml-clear",
+      "displayName": "118 ml Clear Cylinder Bottle with Cap",
+      "capacityMl": 118,
+      "capacity": "118 ml (4 oz)",
+      "color": "Clear",
+      "neckThreadSize": null,
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cylinder-227ml-clear",
+      "displayName": "227 ml Clear Cylinder Bottle with Cap",
+      "capacityMl": 227,
+      "capacity": "227 ml (8 oz)",
+      "color": "Clear",
+      "neckThreadSize": null,
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cylinder-454ml-clear",
+      "displayName": "454 ml Clear Cylinder Bottle with Cap",
+      "capacityMl": 454,
+      "capacity": "454 ml (16 oz)",
+      "color": "Clear",
+      "neckThreadSize": null,
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Diva": [
+    {
+      "slug": "diva-30ml-clear-18-415-finemist",
+      "displayName": "30 ml Clear Diva Fine Mist Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "diva-30ml-clear-18-415-reducer",
+      "displayName": "30 ml Clear Diva Reducer Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "diva-30ml-clear-18-415-antiquespray",
+      "displayName": "30 ml Clear Diva Vintage Bulb Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "diva-30ml-clear-18-415-lotionpump",
+      "displayName": "30 ml Clear Diva Lotion Pump Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "diva-46ml-clear-18-415-finemist",
+      "displayName": "46 ml Clear Diva Fine Mist Spray Bottle",
+      "capacityMl": 46,
+      "capacity": "46 ml (1.56 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "diva-46ml-frosted-18-415-dropper",
+      "displayName": "46 ml Frosted Diva Dropper Bottle",
+      "capacityMl": 46,
+      "capacity": "46 ml (1.56 oz)",
+      "color": "Frosted",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "diva-46ml-clear-18-415-reducer",
+      "displayName": "46 ml Clear Diva Reducer Bottle",
+      "capacityMl": 46,
+      "capacity": "46 ml (1.56 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "diva-46ml-clear-18-415-antiquespray",
+      "displayName": "46 ml Clear Diva Vintage Bulb Spray Bottle",
+      "capacityMl": 46,
+      "capacity": "46 ml (1.56 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "diva-46ml-clear-18-415-antiquespray-tassel",
+      "displayName": "46 ml Clear Diva Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 46,
+      "capacity": "46 ml (1.56 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "diva-46ml-clear-18-415-lotionpump",
+      "displayName": "46 ml Clear Diva Lotion Pump Bottle",
+      "capacityMl": 46,
+      "capacity": "46 ml (1.56 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "diva-100ml-clear-18-415-lotionpump",
+      "displayName": "100 ml Clear Diva Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "diva-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Diva Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "diva-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Diva Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "diva-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Diva Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "diva-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Diva Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Sleek": [
+    {
+      "slug": "sleek-5ml-clear-13-415-finemist",
+      "displayName": "5 ml Clear Sleek Fine Mist Spray Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "sleek-5ml-clear-13-415",
+      "displayName": "5 ml Clear Sleek Bottle with Cap",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "sleek-5ml-clear-13-415-rollon",
+      "displayName": "5 ml Clear Sleek Roll-On Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "sleek-8ml-clear-13-415-finemist",
+      "displayName": "8 ml Clear Sleek Fine Mist Spray Bottle",
+      "capacityMl": 8,
+      "capacity": "8 ml (0.27 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "sleek-8ml-clear-13-415",
+      "displayName": "8 ml Clear Sleek Bottle with Cap",
+      "capacityMl": 8,
+      "capacity": "8 ml (0.27 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "sleek-8ml-clear-13-415-rollon",
+      "displayName": "8 ml Clear Sleek Roll-On Bottle",
+      "capacityMl": 8,
+      "capacity": "8 ml (0.27 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "sleek-30ml-clear-18-415-finemist",
+      "displayName": "30 ml Clear Sleek Fine Mist Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "sleek-30ml-clear-18-415-dropper",
+      "displayName": "30 ml Clear Sleek Dropper Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "sleek-30ml-clear-18-415-reducer",
+      "displayName": "30 ml Clear Sleek Reducer Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "sleek-30ml-clear-18-415-antiquespray",
+      "displayName": "30 ml Clear Sleek Vintage Bulb Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "sleek-30ml-clear-18-415-lotionpump",
+      "displayName": "30 ml Clear Sleek Lotion Pump Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "sleek-50ml-clear-18-415-antiquespray",
+      "displayName": "50 ml Clear Sleek Vintage Bulb Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "sleek-50ml-clear-18-415-antiquespray-tassel",
+      "displayName": "50 ml Clear Sleek Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "sleek-50ml-clear-18-415-finemist",
+      "displayName": "50 ml Clear Sleek Fine Mist Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "sleek-50ml-clear-18-415-reducer",
+      "displayName": "50 ml Clear Sleek Reducer Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "sleek-50ml-clear-18-415-lotionpump",
+      "displayName": "50 ml Clear Sleek Lotion Pump Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "sleek-100ml-clear-18-415-lotionpump",
+      "displayName": "100 ml Clear Sleek Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "sleek-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Sleek Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "sleek-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Sleek Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "sleek-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Sleek Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "sleek-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Sleek Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Slim": [
+    {
+      "slug": "slim-30ml-clear-18-415-finemist",
+      "displayName": "30 ml Clear Slim Fine Mist Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "slim-30ml-clear-18-415-dropper",
+      "displayName": "30 ml Clear Slim Dropper Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "slim-30ml-clear-18-415-reducer",
+      "displayName": "30 ml Clear Slim Reducer Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "slim-30ml-clear-18-415-antiquespray",
+      "displayName": "30 ml Clear Slim Vintage Bulb Spray Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "slim-30ml-clear-18-415-lotionpump",
+      "displayName": "30 ml Clear Slim Lotion Pump Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "slim-50ml-clear-18-415-antiquespray",
+      "displayName": "50 ml Clear Slim Vintage Bulb Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "slim-50ml-clear-18-415-antiquespray-tassel",
+      "displayName": "50 ml Clear Slim Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "slim-50ml-clear-18-415-finemist",
+      "displayName": "50 ml Clear Slim Fine Mist Spray Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "slim-50ml-clear-18-415-reducer",
+      "displayName": "50 ml Clear Slim Reducer Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "slim-50ml-clear-18-415-lotionpump",
+      "displayName": "50 ml Clear Slim Lotion Pump Bottle",
+      "capacityMl": 50,
+      "capacity": "50 ml (1.69 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "slim-100ml-clear-18-415-lotionpump",
+      "displayName": "100 ml Clear Slim Lotion Pump Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    },
+    {
+      "slug": "slim-100ml-clear-18-415-finemist",
+      "displayName": "100 ml Clear Slim Fine Mist Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "slim-100ml-clear-18-415-reducer",
+      "displayName": "100 ml Clear Slim Reducer Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "slim-100ml-clear-18-415-antiquespray",
+      "displayName": "100 ml Clear Slim Vintage Bulb Spray Bottle",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "slim-100ml-clear-18-415-antiquespray-tassel",
+      "displayName": "100 ml Clear Slim Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    }
+  ],
+  "Aluminum Bottle": [
+    {
+      "slug": "aluminum-bottle-65ml-mixed-20-410",
+      "displayName": "65 ml Aluminum Bottle Bottle with Cap",
+      "capacityMl": 65,
+      "capacity": "65 ml (2.2 oz)",
+      "color": null,
+      "neckThreadSize": "20-410",
+      "category": "Aluminum Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "aluminum-bottle-100ml-mixed-20-410",
+      "displayName": "100 ml Aluminum Bottle Bottle with Cap",
+      "capacityMl": 100,
+      "capacity": "100 ml (3.38 oz)",
+      "color": null,
+      "neckThreadSize": "20-410",
+      "category": "Aluminum Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "aluminum-bottle-120ml-mixed-20-410",
+      "displayName": "120 ml Aluminum Bottle Bottle with Cap",
+      "capacityMl": 120,
+      "capacity": "120 ml (4.06 oz)",
+      "color": null,
+      "neckThreadSize": "20-410",
+      "category": "Aluminum Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "aluminum-bottle-500ml-mixed-20-410",
+      "displayName": "500 ml Aluminum Bottle Bottle with Cap",
+      "capacityMl": 500,
+      "capacity": "500 ml (16.91 oz)",
+      "color": null,
+      "neckThreadSize": "20-410",
+      "category": "Aluminum Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Boston Round": [
+    {
+      "slug": "boston-round-15ml-amber-18-400-dropper",
+      "displayName": "15 ml Amber Boston Round Dropper Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Amber",
+      "neckThreadSize": "18-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "boston-round-15ml-clear-18-400",
+      "displayName": "15 ml Clear Boston Round Bottle with Cap",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "boston-round-30ml-clear-20-400-rollon",
+      "displayName": "30 ml Clear Boston Round Roll-On Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "20-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "boston-round-30ml-clear-20-400-dropper",
+      "displayName": "30 ml Clear Boston Round Dropper Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "20-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "boston-round-30ml-clear-20-400",
+      "displayName": "30 ml Clear Boston Round Bottle with Cap",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "20-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "boston-round-60ml-clear-20-400-rollon",
+      "displayName": "60 ml Clear Boston Round Roll-On Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "20-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "boston-round-60ml-clear-20-400-dropper",
+      "displayName": "60 ml Clear Boston Round Dropper Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "20-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    },
+    {
+      "slug": "boston-round-60ml-clear-20-400",
+      "displayName": "60 ml Clear Boston Round Bottle with Cap",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "20-400",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Dropper": [
+    {
+      "slug": "dropper-18-400",
+      "displayName": "Dropper — Thread 18-400",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": "18-400",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ],
+  "Vial": [
+    {
+      "slug": "vial-1ml-amber-plug",
+      "displayName": "1 ml Amber Vial Bottle with Cap",
+      "capacityMl": 1,
+      "capacity": "1 ml (0.03 oz)",
+      "color": "Amber",
+      "neckThreadSize": "Plug",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "vial-2ml-clear-8-425",
+      "displayName": "2 ml Clear Vial Bottle with Cap",
+      "capacityMl": 2,
+      "capacity": "2 ml (0.07 oz)",
+      "color": "Clear",
+      "neckThreadSize": "8-425",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "vial-3ml-clear-13-425",
+      "displayName": "3 ml Clear Vial Bottle with Cap",
+      "capacityMl": 3,
+      "capacity": "3 ml (0.1 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-425",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "vial-4ml-clear-13-425",
+      "displayName": "4 ml Clear Vial Bottle with Cap",
+      "capacityMl": 4,
+      "capacity": "4 ml (0.14 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-425",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "vial-4ml-clear-13-425-dropper",
+      "displayName": "4 ml Clear Vial Dropper Bottle",
+      "capacityMl": 4,
+      "capacity": "4 ml (0.14 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-425",
+      "category": "Glass Bottle",
+      "applicatorBucket": "dropper"
+    }
+  ],
+  "Tulip": [
+    {
+      "slug": "tulip-5ml-amber-13-415-finemist",
+      "displayName": "5 ml Amber Tulip Fine Mist Spray Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Amber",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "tulip-5ml-amber-13-415",
+      "displayName": "5 ml Amber Tulip Bottle with Cap",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Amber",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "tulip-5ml-amber-13-415-rollon",
+      "displayName": "5 ml Amber Tulip Roll-On Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Amber",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "tulip-6ml-clear-13-415",
+      "displayName": "6 ml Clear Tulip Bottle with Cap",
+      "capacityMl": 6,
+      "capacity": "6 ml (0.2 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "tulip-6ml-clear-13-415-rollon",
+      "displayName": "6 ml Clear Tulip Roll-On Bottle",
+      "capacityMl": 6,
+      "capacity": "6 ml (0.2 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "tulip-6ml-clear-13-415-finemist",
+      "displayName": "6 ml Clear Tulip Fine Mist Spray Bottle",
+      "capacityMl": 6,
+      "capacity": "6 ml (0.2 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    }
+  ],
+  "Flair": [
+    {
+      "slug": "flair-15ml-clear-13-415-rollon",
+      "displayName": "15 ml Clear Flair Roll-On Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "flair-15ml-clear-13-415-finemist",
+      "displayName": "15 ml Clear Flair Fine Mist Spray Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "flair-15ml-clear-13-415",
+      "displayName": "15 ml Clear Flair Bottle with Cap",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Cap/Closure": [
+    {
+      "slug": "cap-closure-8-425",
+      "displayName": "Cap & Closure — Thread 8-425",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": "8-425",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ],
+  "Roll-On Cap": [
+    {
+      "slug": "cap-closure-13-415",
+      "displayName": "Cap & Closure — Thread 13-415",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": "13-415",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ],
+  "Grace": [
+    {
+      "slug": "grace-55ml-clear-18-415-antiquespray",
+      "displayName": "55 ml Clear Grace Vintage Bulb Spray Bottle",
+      "capacityMl": 55,
+      "capacity": "55 ml (1.86 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "grace-55ml-clear-18-415-antiquespray-tassel",
+      "displayName": "55 ml Clear Grace Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 55,
+      "capacity": "55 ml (1.86 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "grace-55ml-clear-18-415-finemist",
+      "displayName": "55 ml Clear Grace Fine Mist Spray Bottle",
+      "capacityMl": 55,
+      "capacity": "55 ml (1.86 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "grace-55ml-clear-18-415-reducer",
+      "displayName": "55 ml Clear Grace Reducer Bottle",
+      "capacityMl": 55,
+      "capacity": "55 ml (1.86 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "grace-55ml-clear-18-415-lotionpump",
+      "displayName": "55 ml Clear Grace Lotion Pump Bottle",
+      "capacityMl": 55,
+      "capacity": "55 ml (1.86 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    }
+  ],
+  "Rectangle": [
+    {
+      "slug": "rectangle-9ml-clear-ground-glassapplicator",
+      "displayName": "9 ml Clear Rectangle Applicator Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Clear",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": "glassapplicator"
+    },
+    {
+      "slug": "rectangle-10ml-clear-13-415-finemist",
+      "displayName": "10 ml Clear Rectangle Fine Mist Spray Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "rectangle-10ml-clear-13-415",
+      "displayName": "10 ml Clear Rectangle Bottle with Cap",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "rectangle-10ml-clear-13-415-rollon",
+      "displayName": "10 ml Clear Rectangle Roll-On Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    }
+  ],
+  "Sprayer": [
+    {
+      "slug": "fine-mist-sprayer-13-415",
+      "displayName": "Fine Mist Sprayer — Thread 13-415",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": "13-415",
+      "category": "Component",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "fine-mist-sprayer-20-410",
+      "displayName": "Fine Mist Sprayer — Thread 20-410",
+      "capacityMl": 250,
+      "capacity": "250 ml (8.45 oz)",
+      "color": null,
+      "neckThreadSize": "20-410",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ],
+  "Diamond": [
+    {
+      "slug": "diamond-60ml-clear-18-415-antiquespray",
+      "displayName": "60 ml Clear Diamond Vintage Bulb Spray Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray"
+    },
+    {
+      "slug": "diamond-60ml-clear-18-415-antiquespray-tassel",
+      "displayName": "60 ml Clear Diamond Vintage Bulb Spray Bottle with Tassel",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "antiquespray-tassel"
+    },
+    {
+      "slug": "diamond-60ml-clear-18-415-finemist",
+      "displayName": "60 ml Clear Diamond Fine Mist Spray Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "diamond-60ml-clear-18-415-reducer",
+      "displayName": "60 ml Clear Diamond Reducer Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "reducer"
+    },
+    {
+      "slug": "diamond-60ml-clear-18-415-lotionpump",
+      "displayName": "60 ml Clear Diamond Lotion Pump Bottle",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": "Clear",
+      "neckThreadSize": "18-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "lotionpump"
+    }
+  ],
+  "Plastic Bottle": [
+    {
+      "slug": "plastic-bottle-10ml-mixed",
+      "displayName": "10 ml Plastic Bottle Bottle with Cap",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": null,
+      "neckThreadSize": null,
+      "category": "Plastic Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "plastic-bottle-30ml-mixed",
+      "displayName": "30 ml Plastic Bottle Bottle with Cap",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": null,
+      "neckThreadSize": "13-415",
+      "category": "Plastic Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Lotion Pump": [
+    {
+      "slug": "lotion-pump-17-415",
+      "displayName": "Lotion Pump — Thread 17-415",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": "17-415",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ],
+  "Tool": [
+    {
+      "slug": "tool-0ml-mixed",
+      "displayName": "Tool",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": null,
+      "category": "Accessory",
+      "applicatorBucket": null
+    }
+  ],
+  "Gift Bag": [
+    {
+      "slug": "gift-bag-0ml-mixed",
+      "displayName": "Gift Bag",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": null,
+      "category": "Packaging",
+      "applicatorBucket": null
+    }
+  ],
+  "Gift Box": [
+    {
+      "slug": "gift-box-0ml-mixed",
+      "displayName": "Gift Box",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": null,
+      "category": "Packaging",
+      "applicatorBucket": null
+    }
+  ],
+  "Decorative": [
+    {
+      "slug": "tola-3ml-clear-14-3mm",
+      "displayName": "3 ml Clear Tola Bottle",
+      "capacityMl": 3,
+      "capacity": "3 ml (0.1 oz)",
+      "color": "Clear",
+      "neckThreadSize": "14.3mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "heart-4ml-frosted-8mm-keychain",
+      "displayName": "4 ml Frosted Heart Bottle with Keychain",
+      "capacityMl": 4,
+      "capacity": "4 ml (0.14 oz)",
+      "color": "Frosted",
+      "neckThreadSize": "8mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "marble-5ml-clear-17-52mm",
+      "displayName": "5 ml Clear Marble Bottle",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": "Clear",
+      "neckThreadSize": "17.52mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "tola-6ml-clear-14-3mm",
+      "displayName": "6 ml Clear Tola Bottle",
+      "capacityMl": 6,
+      "capacity": "6 ml (0.2 oz)",
+      "color": "Clear",
+      "neckThreadSize": "14.3mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "marble-10ml-clear-17-52mm",
+      "displayName": "10 ml Clear Marble Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "17.52mm",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "genie-32ml-cobalt-blue-ground",
+      "displayName": "32 ml Cobalt Blue Genie Bottle",
+      "capacityMl": 32,
+      "capacity": "32 ml (1.08 oz)",
+      "color": "Cobalt",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "eternal-flame-35ml-cobalt-blue-ground",
+      "displayName": "35 ml Cobalt Blue Eternal Flame Bottle",
+      "capacityMl": 35,
+      "capacity": "35 ml (1.18 oz)",
+      "color": "Cobalt",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "pear-355ml-clear-ground-glassapplicator",
+      "displayName": "355 ml Clear Pear Bottle with Stopper",
+      "capacityMl": 355,
+      "capacity": "355 ml (12 oz)",
+      "color": "Clear",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": "glassapplicator"
+    }
+  ],
+  "Packaging Supply": [
+    {
+      "slug": "packaging-supply-0ml-mixed",
+      "displayName": "Packaging Supply",
+      "capacityMl": 0,
+      "capacity": "0 ml (0 oz)",
+      "color": null,
+      "neckThreadSize": null,
+      "category": "Packaging",
+      "applicatorBucket": null
+    }
+  ],
+  "Teardrop": [
+    {
+      "slug": "teardrop-9ml-cobalt-blue-ground-glassapplicator",
+      "displayName": "9 ml Cobalt Blue Teardrop Applicator Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Cobalt",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": "glassapplicator"
+    }
+  ],
+  "Cream Jar": [
+    {
+      "slug": "cream-jar-3ml-mixed",
+      "displayName": "Cream Jar 3 ml",
+      "capacityMl": 3,
+      "capacity": "3 ml (0.1 oz)",
+      "color": null,
+      "neckThreadSize": "20mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-5ml-mixed",
+      "displayName": "Cream Jar 5 ml",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": null,
+      "neckThreadSize": "27mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-15ml-mixed",
+      "displayName": "Cream Jar 15 ml",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": null,
+      "neckThreadSize": "37mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-20ml-mixed",
+      "displayName": "Cream Jar 20 ml",
+      "capacityMl": 20,
+      "capacity": "20 ml (0.68 oz)",
+      "color": null,
+      "neckThreadSize": "40mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-30ml-mixed",
+      "displayName": "Cream Jar 30 ml",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": null,
+      "neckThreadSize": "45mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-40ml-mixed",
+      "displayName": "Cream Jar 40 ml",
+      "capacityMl": 40,
+      "capacity": "40 ml (1.35 oz)",
+      "color": null,
+      "neckThreadSize": "48/400",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-60ml-mixed",
+      "displayName": "Cream Jar 60 ml",
+      "capacityMl": 60,
+      "capacity": "60 ml (2.03 oz)",
+      "color": null,
+      "neckThreadSize": "58mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "cream-jar-63ml-mixed",
+      "displayName": "Cream Jar 63 ml",
+      "capacityMl": 63,
+      "capacity": "63 ml (2.13 oz)",
+      "color": null,
+      "neckThreadSize": "58mm",
+      "category": "Glass Jar",
+      "applicatorBucket": null
+    }
+  ],
+  "Component": [
+    {
+      "slug": "lotion-pump-37mm",
+      "displayName": "Lotion Pump — Thread 37mm",
+      "capacityMl": 5,
+      "capacity": "5 ml (0.17 oz)",
+      "color": null,
+      "neckThreadSize": "37mm",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ],
+  "Lotion Bottle": [
+    {
+      "slug": "lotion-bottle-3ml-clear-snap",
+      "displayName": "3 ml Clear Lotion Bottle Bottle with Cap",
+      "capacityMl": 3,
+      "capacity": "3 ml (0.1 oz)",
+      "color": "Clear",
+      "neckThreadSize": "snap",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    },
+    {
+      "slug": "lotion-bottle-30ml-clear",
+      "displayName": "30 ml Clear Lotion Bottle Bottle with Cap",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": null,
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Apothecary": [
+    {
+      "slug": "apothecary-15ml-cobalt-blue-ground-glassapplicator",
+      "displayName": "15 ml Cobalt Blue Apothecary Applicator Bottle",
+      "capacityMl": 15,
+      "capacity": "15 ml (0.51 oz)",
+      "color": "Cobalt",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": "glassapplicator"
+    },
+    {
+      "slug": "apothecary-30ml-clear-ground-glassapplicator",
+      "displayName": "30 ml Clear Apothecary Applicator Bottle",
+      "capacityMl": 30,
+      "capacity": "30 ml (1.01 oz)",
+      "color": "Clear",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": "glassapplicator"
+    },
+    {
+      "slug": "pear-118ml-clear-ground-stopper",
+      "displayName": "118 ml Clear Pear Bottle with Stopper",
+      "capacityMl": 118,
+      "capacity": "118 ml (3.99 oz)",
+      "color": "Clear",
+      "neckThreadSize": "Ground",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Pillar": [
+    {
+      "slug": "pillar-9ml-clear-17-415-finemist",
+      "displayName": "9 ml Clear Pillar Fine Mist Spray Bottle",
+      "capacityMl": 9,
+      "capacity": "9 ml (0.3 oz)",
+      "color": "Clear",
+      "neckThreadSize": "17-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "pillar-9ml-clear-size-13-415-nemat-internation",
+      "displayName": "9 ml Clear Pillar Bottle with Cap",
+      "capacityMl": 9,
+      "capacity": "9 ml",
+      "color": "Clear",
+      "neckThreadSize": "Size: 13-415 Nemat Internation",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Bell": [
+    {
+      "slug": "bell-10ml-clear-13-415-finemist",
+      "displayName": "10 ml Clear Bell Fine Mist Spray Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "finemist"
+    },
+    {
+      "slug": "bell-10ml-clear-13-415-capclosure",
+      "displayName": "10 ml Clear Bell Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "capclosure"
+    },
+    {
+      "slug": "bell-10ml-clear-13-415-rollon",
+      "displayName": "10 ml Clear Bell Roll-On Bottle",
+      "capacityMl": 10,
+      "capacity": "10 ml (0.34 oz)",
+      "color": "Clear",
+      "neckThreadSize": "13-415",
+      "category": "Glass Bottle",
+      "applicatorBucket": "rollon"
+    },
+    {
+      "slug": "bell-10ml-clear-size-13-415-nemat-internation",
+      "displayName": "10.0 ml Clear Bell Bottle with Cap",
+      "capacityMl": 10,
+      "capacity": "10.0 ml",
+      "color": "Clear",
+      "neckThreadSize": "Size: 13-415 Nemat Internation",
+      "category": "Glass Bottle",
+      "applicatorBucket": null
+    }
+  ],
+  "Unknown": [
+    {
+      "slug": "unknown-0ml-clear",
+      "displayName": "Unknown 0.0 ml Clear",
+      "capacityMl": 0,
+      "capacity": "0.0 ml",
+      "color": "Clear",
+      "neckThreadSize": null,
+      "category": "Packaging",
+      "applicatorBucket": null
+    }
+  ],
+  "Cap/Component": [
+    {
+      "slug": "cap-component-0ml-clear",
+      "displayName": "Cap/Component 0.0 ml Clear",
+      "capacityMl": 0,
+      "capacity": "0.0 ml",
+      "color": "Clear",
+      "neckThreadSize": "Size: 17-415 Nemat Internation",
+      "category": "Component",
+      "applicatorBucket": null
+    }
+  ]
+}

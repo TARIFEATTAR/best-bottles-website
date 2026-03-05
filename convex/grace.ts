@@ -438,6 +438,75 @@ export const searchCatalog = query({
             }
         }
 
+        // ── Structured fallback via productGroups ──────────────────────────
+        // Text search on itemName is weak for structured queries like "100ml circle".
+        // Parse family name and capacity from the search term and cross-check
+        // productGroups so we never miss an obvious match.
+        const KNOWN_FAMILIES = [
+            "Apothecary", "Atomizer", "Bell", "Boston Round", "Circle", "Cylinder",
+            "Diamond", "Diva", "Elegant", "Empire", "Grace", "Rectangle", "Round",
+            "Sleek", "Slim", "Tulip", "Vial",
+        ];
+        const termLower = args.searchTerm.toLowerCase();
+        const detectedFamily = args.familyLimit
+            ?? KNOWN_FAMILIES.find((f) => termLower.includes(f.toLowerCase()))
+            ?? null;
+        const capMatch = args.searchTerm.match(/\b(\d+)\s*ml\b/i);
+        const detectedCapMl = capMatch ? parseInt(capMatch[1]) : null;
+
+        if (detectedFamily || detectedCapMl) {
+            let groupHits = detectedFamily
+                ? await ctx.db.query("productGroups").withIndex("by_family", (q) => q.eq("family", detectedFamily)).collect()
+                : await ctx.db.query("productGroups").collect();
+            if (detectedCapMl) {
+                groupHits = groupHits.filter((g) => g.capacityMl === detectedCapMl);
+            }
+            if (groupHits.length > 0) {
+                const existingSkus = new Set(results.map((r) => r.graceSku));
+                for (const group of groupHits) {
+                    const variants = await ctx.db.query("products")
+                        .withIndex("by_productGroupId", (q) => q.eq("productGroupId", group._id))
+                        .take(5);
+                    for (const v of variants) {
+                        if (!existingSkus.has(v.graceSku) && results.length < takeCount) {
+                            results.push(v);
+                            existingSkus.add(v.graceSku);
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── Description-based search via productGroups.groupDescription ────
+        // Catches natural-language queries ("beard oil bottle", "sample vial
+        // for trade shows") that don't match itemName but appear in the
+        // SEO-rich group descriptions.
+        if (results.length < takeCount) {
+            const descHits = await ctx.db
+                .query("productGroups")
+                .withSearchIndex("search_groupDescription", (q) => {
+                    let sq = q.search("groupDescription", searchTermToUse);
+                    if (args.categoryLimit) sq = sq.eq("category", args.categoryLimit);
+                    if (args.familyLimit) sq = sq.eq("family", args.familyLimit);
+                    return sq;
+                })
+                .take(10);
+            if (descHits.length > 0) {
+                const existingSkus = new Set(results.map((r) => r.graceSku));
+                for (const group of descHits) {
+                    const variants = await ctx.db.query("products")
+                        .withIndex("by_productGroupId", (q) => q.eq("productGroupId", group._id))
+                        .take(3);
+                    for (const v of variants) {
+                        if (!existingSkus.has(v.graceSku) && results.length < takeCount) {
+                            results.push(v);
+                            existingSkus.add(v.graceSku);
+                        }
+                    }
+                }
+            }
+        }
+
         // Apply applicator filter in JS after fetching (Convex search index doesn't support OR filters)
         if (args.applicatorFilter) {
             const allowed = new Set(

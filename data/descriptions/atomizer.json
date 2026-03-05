@@ -1,0 +1,13 @@
+{
+  "family": "Atomizer",
+  "descriptions": [
+    {
+      "capacityMl": 5,
+      "description": "The 5ml metal atomizer with a 10mm thread offers a compact, portable format for perfume and fragrance. Travel and sample brands use this for a fine mist spray in a durable metal shell. A classic format for perfume discovery."
+    },
+    {
+      "capacityMl": 10,
+      "description": "A 10ml metal atomizer with a 17mm thread for perfume and fragrance formats. Travel and full-size brands choose this for a premium, reusable spray. The metal construction protects formulations and adds a luxury feel."
+    }
+  ]
+}

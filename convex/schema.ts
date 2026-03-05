@@ -37,6 +37,10 @@ export default defineSchema({
         .searchIndex("search_displayName", {
             searchField: "displayName",
             filterFields: ["category", "family"],
+        })
+        .searchIndex("search_groupDescription", {
+            searchField: "groupDescription",
+            filterFields: ["category", "family"],
         }),
 
     products: defineTable({

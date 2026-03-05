@@ -1,0 +1,13 @@
+{
+  "family": "Plastic Bottle",
+  "descriptions": [
+    {
+      "capacityMl": 10,
+      "description": "The 10ml plastic bottle suits sample and travel sizes for lotion, serum, and personal care. Lightweight and cost-effective, it works for promotional packaging and trial formats. Clear plastic shows product color and level."
+    },
+    {
+      "capacityMl": 30,
+      "description": "A 30ml plastic bottle with a 13-415 neck for lotion, serum, and personal care formats. Skincare and personal care brands choose this for travel and trial sizes. A practical option when weight and cost are priorities."
+    }
+  ]
+}

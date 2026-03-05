@@ -1,0 +1,60 @@
+{
+  "family": "Empire",
+  "descriptions": [
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray",
+      "description": "The 50ml Empire bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands choose this for a classic, decorative look. The distinctive silhouette stands out on vanity and retail displays."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "The 50ml Empire bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "finemist",
+      "description": "The 50ml Empire bottle with an 18-415 neck built for fine mist sprayers. Perfume and fragrance mist brands use this for travel sizes and gift sets. The distinctive silhouette suits premium positioning."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "dropper",
+      "description": "The 50ml Empire dropper bottle with an 18-415 neck. Essential oils, perfume oils, beard oil, and concentrated blends dispense precisely. A clean format for aromatherapy and fragrance brands."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "reducer",
+      "description": "The 50ml Empire reducer bottle with an 18-415 neck. Splash-on cologne and open-mouth formats for fragrance and aftershave. A classic pour-over application."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "lotionpump",
+      "description": "The 50ml Empire bottle with an 18-415 neck for lotion pumps. Serums and light creams dispense cleanly. Skincare brands use this for travel and trial sizes."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "A three-ounce Empire bottle with an 18-415 neck ready for lotion pumps. Body lotion, hand cream, and face cream brands choose this for a premium feel. The distinctive silhouette stands out on displays."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "reducer",
+      "description": "A three-ounce Empire reducer bottle with an 18-415 neck. Splash-on cologne and concentrated fragrance formats. The distinctive silhouette suits luxury positioning."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "finemist",
+      "description": "A three-ounce Empire bottle with an 18-415 neck for fine mist sprayers. Full-size perfume and body mist formats. The distinctive silhouette suits premium positioning."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray",
+      "description": "A three-ounce Empire bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands use this for a decorative, full-size format."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "A three-ounce Empire bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "family": "Apothecary",
+  "descriptions": [
+    {
+      "capacityMl": 15,
+      "description": "The 15ml apothecary bottle with a ground glass stopper brings old-world charm to sample sizes. Cobalt blue glass protects light-sensitive essential oils and fragrance oils. Perfume oil, attar, and aromatherapy brands choose this for a classic apothecary look."
+    },
+    {
+      "capacityMl": 30,
+      "description": "A one-ounce apothecary bottle with a ground glass applicator stopper. Clear glass shows product color while the traditional silhouette appeals to heritage and artisan brands. Ideal for perfume oil, essential oil, and concentrated fragrance formats."
+    },
+    {
+      "capacityMl": 118,
+      "description": "The four-ounce pear-shaped apothecary bottle with a glass stopper suits larger volume decants. Perfume oil, essential oil, and aromatic blend brands use this for refillable and collector formats. A statement piece for vanity and retail displays."
+    }
+  ]
+}

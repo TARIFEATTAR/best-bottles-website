@@ -4277,6 +4277,73 @@ export const patchBostonRoundDescriptions = mutation({
     },
 });
 
+/**
+ * Generic mutation: patch groupDescription for any family.
+ * Accepts a family name and an array of description entries.
+ *
+ * Each entry can be:
+ * - { capacityMl, description } — applies to ALL applicator types for that capacity
+ * - { capacityMl, applicatorBucket, description } — applies only to groups whose slug ends with applicatorBucket
+ *
+ * Applicator-specific entries take precedence over capacity-only entries.
+ * Applicator buckets: rollon, finemist, perfumespray, antiquespray, antiquespray-tassel, dropper, lotionpump, reducer, glasswand, glassapplicator, capclosure
+ */
+export const patchFamilyDescriptions = mutation({
+    args: {
+        family: v.string(),
+        descriptions: v.array(
+            v.union(
+                v.object({ capacityMl: v.number(), description: v.string() }),
+                v.object({
+                    capacityMl: v.number(),
+                    applicatorBucket: v.string(),
+                    description: v.string(),
+                })
+            )
+        ),
+    },
+    handler: async (ctx, { family, descriptions }) => {
+        const genericMap = new Map<number, string>();
+        const applicatorMap = new Map<string, string>(); // key: "capacityMl|applicatorBucket"
+        for (const d of descriptions) {
+            if ("applicatorBucket" in d && d.applicatorBucket) {
+                applicatorMap.set(`${d.capacityMl}|${d.applicatorBucket}`, d.description);
+            } else {
+                genericMap.set(d.capacityMl, d.description);
+            }
+        }
+        const groups = await ctx.db
+            .query("productGroups")
+            .withIndex("by_family", (q) => q.eq("family", family))
+            .collect();
+        const KNOWN_BUCKETS = new Set(["rollon", "finemist", "perfumespray", "antiquespray", "antiquespray-tassel", "dropper", "lotionpump", "reducer", "glasswand", "glassapplicator", "capclosure"]);
+        const getApplicatorFromSlug = (s: string): string | null => {
+            if (s.endsWith("-antiquespray-tassel")) return "antiquespray-tassel";
+            const parts = s.split("-");
+            const last = parts.length > 1 ? (parts.pop() ?? null) : null;
+            return last && KNOWN_BUCKETS.has(last) ? last : null;
+        };
+        let patched = 0;
+        for (const g of groups) {
+            const cap = g.capacityMl ?? 0;
+            const slug = g.slug ?? "";
+            const applicatorBucket = getApplicatorFromSlug(slug);
+            let desc: string | undefined;
+            if (applicatorBucket) {
+                desc = applicatorMap.get(`${cap}|${applicatorBucket}`);
+            }
+            if (!desc) {
+                desc = genericMap.get(cap);
+            }
+            if (desc) {
+                await ctx.db.patch(g._id, { groupDescription: desc });
+                patched++;
+            }
+        }
+        return { patched, total: groups.length, family };
+    },
+});
+
 /** Patch arbitrary fields on a product by its _id. */
 export const patchProductById = mutation({
     args: { id: v.id("products"), fields: v.any() },

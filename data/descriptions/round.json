@@ -1,0 +1,60 @@
+{
+  "family": "Round",
+  "descriptions": [
+    {
+      "capacityMl": 78,
+      "applicatorBucket": "reducer",
+      "description": "The 78ml Round reducer bottle with an 18-415 neck. Splash-on cologne and concentrated perfume oil pour smoothly. Frosted glass adds a soft, premium aesthetic. A classic format for fragrance brands that prefer pour-over application."
+    },
+    {
+      "capacityMl": 78,
+      "applicatorBucket": "finemist",
+      "description": "The 78ml Round bottle with an 18-415 neck built for fine mist sprayers. Perfume and body mist brands use this for a full-size spray format. The rounded silhouette suits retail and gift positioning."
+    },
+    {
+      "capacityMl": 78,
+      "applicatorBucket": "antiquespray",
+      "description": "The 78ml Round bottle with an 18-415 neck for vintage bulb sprayers. Perfume and cologne brands choose this for a decorative, mid-size format. The rounded silhouette stands out on displays."
+    },
+    {
+      "capacityMl": 78,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "The 78ml Round bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    },
+    {
+      "capacityMl": 78,
+      "applicatorBucket": "lotionpump",
+      "description": "The 78ml Round bottle with an 18-415 neck for lotion pumps. Body lotion and hand cream dispense cleanly. The rounded shape fits comfortably in hand."
+    },
+    {
+      "capacityMl": 128,
+      "applicatorBucket": "antiquespray",
+      "description": "A 128ml Round bottle with an 18-415 neck built for vintage bulb sprayers. Perfume and cologne brands use this capacity for a decorative, full-size format. The rounded silhouette and frosted glass suit luxury and gift positioning."
+    },
+    {
+      "capacityMl": 128,
+      "applicatorBucket": "lotionpump",
+      "description": "A 128ml Round bottle with an 18-415 neck for lotion pumps. Body lotion and hand cream brands use this for full-size retail. The rounded shape fits comfortably in hand."
+    },
+    {
+      "capacityMl": 128,
+      "applicatorBucket": "finemist",
+      "description": "A 128ml Round bottle with an 18-415 neck for fine mist sprayers. Full-size perfume and body mist formats. The rounded silhouette suits luxury positioning."
+    },
+    {
+      "capacityMl": 128,
+      "applicatorBucket": "dropper",
+      "description": "A 128ml Round dropper bottle with an 18-415 neck. Essential oils, beard oil, and aromatic blends dispense precisely. A large format for refillable and DIY kits."
+    },
+    {
+      "capacityMl": 128,
+      "applicatorBucket": "reducer",
+      "description": "A 128ml Round reducer bottle with an 18-415 neck. Splash-on cologne and concentrated fragrance formats. The rounded silhouette suits luxury positioning."
+    },
+    {
+      "capacityMl": 128,
+      "applicatorBucket": "antiquespray-tassel",
+      "description": "A 128ml Round bottle with an 18-415 neck for vintage bulb sprayers with tassel. A distinctive format for gift and luxury fragrance packaging."
+    }
+  ]
+}

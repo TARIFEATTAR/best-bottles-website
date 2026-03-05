@@ -48,7 +48,7 @@ const DEFAULT_FAMILIES = [
 const DEFAULT_ARTICLES = [
     { title: "Glass vs. Plastic: Why Material Matters for Your Brand", category: "Materials", img: "/assets/collection_perfume.png", slug: "#" },
     { title: "Finding Your Thread: A Complete Neck Size Compatibility Guide", category: "Technical", img: "/assets/family_cylinder.png", slug: "#" },
-    { title: "From Etsy to Sephora: Scaling Your Packaging Strategy", category: "Growth", img: "/assets/collection_amber.png", slug: "#" },
+    { title: "From Etsy to Retail: Scaling Your Packaging Strategy", category: "Growth", img: "/assets/collection_amber.png", slug: "#" },
 ];
 
 type HeroSlide = NonNullable<HomepageData["heroSlides"]>[number];
@@ -164,7 +164,11 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
 
 function TrustBar() {
     const stats = useQuery(api.products.getHomepageStats);
-    const productCount = stats?.totalProducts ? `${(Math.floor(stats.totalProducts / 100) * 100).toLocaleString()}+` : "2,300+";
+    // Use live count when reasonable; cap at 2,300+ to reflect true catalog (2,310 variants)
+    const raw = stats?.totalProducts ?? 0;
+    const productCount = raw > 0 && raw <= 2500
+        ? `${(Math.floor(raw / 100) * 100).toLocaleString()}+`
+        : "2,300+";
 
     return (
         <section className="bg-linen border-y border-champagne/50 py-8 relative z-20">
@@ -439,7 +443,7 @@ function EducationPreview({ educationPreview: edu }: { educationPreview?: Homepa
 
     const sectionTitle = edu?.sectionTitle ?? "Packaging Insights";
     const sectionEyebrow = edu?.sectionEyebrow ?? "From the Lab";
-    const viewAllHref = edu?.viewAllHref ?? "/resources";
+    const viewAllHref = edu?.viewAllHref ?? "/blog";
 
     return (
         <section className="bg-linen py-24">
@@ -541,7 +545,7 @@ function Footer() {
                         <ul className="space-y-4 text-sm">
                             <li><Link href="/about" className="hover:text-muted-gold transition-colors">About / Heritage</Link></li>
                             <li><a href="https://www.nematinternational.com" target="_blank" rel="noopener noreferrer" className="hover:text-muted-gold transition-colors">Nemat International</a></li>
-                            <li><Link href="/resources" className="hover:text-muted-gold transition-colors">Blog</Link></li>
+                            <li><Link href="/blog" className="hover:text-muted-gold transition-colors">Journal</Link></li>
                             <li><Link href="/request-quote" className="hover:text-muted-gold transition-colors">Wholesale Inquiry</Link></li>
                             <li><Link href="/contact" className="hover:text-muted-gold transition-colors">Careers</Link></li>
                         </ul>

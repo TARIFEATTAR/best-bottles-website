@@ -4,7 +4,7 @@ import { ArrowRight, Award, Globe, Shield, Users } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "About Best Bottles — 170+ Years of Packaging Excellence",
-    description: "Discover the story behind Best Bottles and Nemat International. 170 years of fragrance and packaging expertise, serving brands from startups to Sephora.",
+    description: "Discover the story behind Best Bottles and Nemat International. 170 years of fragrance and packaging expertise, serving brands from startups to retail.",
 };
 
 const VALUES = [
@@ -58,7 +58,7 @@ export default function AboutPage() {
                     </p>
                     <p className="text-slate leading-relaxed">
                         Today, Best Bottles serves over 500 brands — from indie Etsy perfumers to major retailers like
-                        Ulta, Sephora, and Whole Foods. Our catalog of 2,200+ products spans 12 distinct glass bottle
+                        Ulta and Whole Foods. Our catalog of 2,300+ products spans 27 bottle
                         families, aluminum options, and hundreds of closure and applicator combinations.
                     </p>
                     <p className="text-slate leading-relaxed">

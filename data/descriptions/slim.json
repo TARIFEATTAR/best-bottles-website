@@ -1,0 +1,32 @@
+{
+  "family": "Slim",
+  "descriptions": [
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "finemist",
+      "description": "The 30ml Slim bottle brings a narrow, tall profile to one-ounce formats. Its 18-415 neck fits fine mist sprayers for perfume and fragrance mist. A distinctive shape for brands that want to stand out on shelf."
+    },
+    {
+      "capacityMl": 30,
+      "description": "The 30ml Slim bottle brings a narrow, tall profile to one-ounce formats. Its 18-415 neck fits fine mist sprayers. A distinctive shape for brands that want to stand out on shelf."
+    },
+    {
+      "capacityMl": 50,
+      "applicatorBucket": "antiquespray",
+      "description": "A 50ml Slim bottle with an 18-415 neck built for vintage bulb sprayers. Perfume and cologne brands choose this for a classic, decorative spray. The tall, slender silhouette works well for gift packaging."
+    },
+    {
+      "capacityMl": 50,
+      "description": "A 50ml Slim bottle with an 18-415 neck built for vintage bulb sprayers. The tall, slender silhouette works well for gift packaging."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "The 100ml Slim bottle with an 18-415 neck pairs with lotion pumps. Body lotion and hand cream brands use this capacity for a sleek, modern look. The narrow form factor fits easily in bags and on counters."
+    },
+    {
+      "capacityMl": 100,
+      "description": "The 100ml Slim bottle with an 18-415 neck pairs with lotion pumps. The narrow form factor fits easily in bags and on counters."
+    }
+  ]
+}

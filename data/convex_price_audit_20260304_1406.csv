@@ -1,0 +1,11 @@
+status,graceSku,family,itemName,stored_1pc,live_1pc,diff_1pc,stored_10pc,live_10pc,diff_10pc,stored_12pc,live_12pc,diff_12pc,live_stock,url
+MISMATCH_1PC,CMP-APP-BLK-18-400,Cap,Cap 18-400 Black Applicator,0.42,0.33,0.09,,,0.0,0.4,,0.0,In Stock,https://www.bestbottles.com/product/Caps-lid-with-applicator-top-black-Color-8-425
+MISMATCH_1PC,CMP-CAP-BLK-18-400,Cap,Cap 18-400 Black Short,0.32,0.25,0.07,,,0.0,0.3,,0.0,In Stock,https://www.bestbottles.com/product/Caps-lid-short-top-black-Color-18-400
+MISMATCH_1PC,CMP-CAP-BLK-20-400-2OZ,Cap,Cap 20-400 Black Short,0.2,0.16,0.04,,,0.0,0.19,,0.0,In Stock,https://www.bestbottles.com/product/Caps-lids-top-bottle-black-Color-2oz-20-400
+MISMATCH_1PC,CMP-CAP-BLK-20-400-1OZ,Cap,Cap 20-400 Black Short,0.2,0.16,0.04,,,0.0,0.19,,0.0,In Stock,https://www.bestbottles.com/product/Caps-lids-top-bottle-black-Color-1oz-20-400
+MISMATCH_1PC,AB-ALU-CLR-100ML-SPR-BLK,Aluminum Bottle,Aluminum Bottle 100 ml (3.38 oz) Clear Aluminum Bottle with Sprayer Black Cap,1.25,0.98,0.27,,,0.0,1.19,,0.0,In Stock,https://www.bestbottles.com/product/Cylinder-shaped-matte-aluminum-100ml-bottle-black-sprayer
+MISMATCH_1PC,AB-ALU-CLR-120ML-LPM-BLK,Aluminum Bottle,Aluminum Bottle 120 ml (4.06 oz) Clear Aluminum Bottle with Lotion Pump Black Cap,1.3,1.01,0.29,,,0.0,1.24,,0.0,Out of Stock,https://www.bestbottles.com/product/Cylinder-shaped-brushed-aluminum-120ml-bottle-black-lotion-pump
+MISMATCH_1PC,AB-ALU-CLR-120ML-LPM-WHT,Aluminum Bottle,Aluminum Bottle 120 ml (4.06 oz) Clear Aluminum Bottle with Lotion Pump White Cap,1.3,0.27,1.03,,,0.0,1.24,,0.0,Out of Stock,https://www.bestbottles.com/all-bottles/lotion-pump-cream-jars/lotion-pumps-bottles.php
+MISMATCH_1PC,AB-ALU-CLR-250ML-SPR-BLK,Aluminum Bottle,Aluminum Bottle 250 ml (8.45 oz) Clear Aluminum Bottle with Sprayer Black Cap,1.95,1.17,0.78,,,0.0,1.85,,0.0,In Stock,https://www.bestbottles.com/product/Cylinder-shaped-matte-aluminum-250ml-bottle-black-sprayer
+MATCH,CMP-CAP-BLK-8-425,Cap,Cap 8-425 Short,0.15,0.12,0.03,,,0.0,0.14,,0.0,In Stock,https://www.bestbottles.com/product/Caps-short-lid-top-black-Color-8-425
+MATCH,CMP-CAP-WHT-8-425,Cap,Cap 8-425 Short,0.15,0.12,0.03,,,0.0,0.14,,0.0,In Stock,https://www.bestbottles.com/product/Caps-short-lid-top-White-Color-8-425

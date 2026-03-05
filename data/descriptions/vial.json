@@ -1,0 +1,21 @@
+{
+  "family": "Vial",
+  "descriptions": [
+    {
+      "capacityMl": 1,
+      "description": "The 1ml amber vial with a plug closure protects single-use samples from light. Essential oil, perfume oil, and aromatherapy brands use this for trial sizes and sample discovery. Amber glass extends shelf life for light-sensitive formulations."
+    },
+    {
+      "capacityMl": 2,
+      "description": "A 2ml clear vial with an 8-425 neck and cap. Perfume oil and essential oil brands use this for mini samples and wedding favors. The compact format fits in gift sets and promotional packs."
+    },
+    {
+      "capacityMl": 3,
+      "description": "The 3ml vial with a 13-425 neck suits perfume and essential oil samples. Clear glass shows product color. A standard size for discovery sets, trade show giveaways, and sample discovery programs."
+    },
+    {
+      "capacityMl": 4,
+      "description": "A 4ml vial with a 13-425 neck for perfume oil and essential oil samples. The slightly larger capacity suits brands that want a bit more product in each sample. Ideal for wedding favors and promotional packaging."
+    }
+  ]
+}

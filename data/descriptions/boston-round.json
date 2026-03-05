@@ -1,0 +1,42 @@
+{
+  "family": "Boston Round",
+  "descriptions": [
+    {
+      "capacityMl": 15,
+      "applicatorBucket": "dropper",
+      "description": "The half-ounce Boston Round dropper bottle with an 18-400 neck. Essential oils, perfume oils, beard oil, and concentrated blends dispense precisely. A format perfumers reach for when they need a sample that feels like a finished product."
+    },
+    {
+      "capacityMl": 15,
+      "description": "The half-ounce Boston Round with an 18-400 neck accepts droppers and screw caps interchangeably. One bottle, every application your customer might ask for."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "rollon",
+      "description": "A one-ounce Boston Round roll-on bottle with a 20-400 neck. Perfume oil and essential oil blends apply smoothly with metal or plastic roller balls. Trusted across fragrance and wellness lines for decades."
+    },
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "dropper",
+      "description": "A one-ounce Boston Round dropper bottle with a 20-400 neck. Essential oils, perfume oils, beard oil, and therapeutic blends dispense precisely. The most versatile mid-format dropper in the catalog."
+    },
+    {
+      "capacityMl": 30,
+      "description": "A one-ounce Boston Round with a 20-400 neck pairs with roll-ons, droppers, and standard closures. The apothecary silhouette works for brands that ship multiple product types from a single SKU."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "rollon",
+      "description": "The two-ounce Boston Round roll-on bottle with a 20-400 neck. Beard oil, perfume oil, and body oil brands use this for full-size retail. A proven choice when your customer is ready to commit beyond the sample size."
+    },
+    {
+      "capacityMl": 60,
+      "applicatorBucket": "dropper",
+      "description": "The two-ounce Boston Round dropper bottle with a 20-400 neck. Essential oil sets, beard oil, therapeutic blends, and signature fragrance oils dispense cleanly. Compatible with the same closures as its 30ml counterpart."
+    },
+    {
+      "capacityMl": 60,
+      "description": "The two-ounce Boston Round with a 20-400 neck carries enough volume for a full retail offering. Pairs with roll-ons, droppers, and standard closures."
+    }
+  ]
+}

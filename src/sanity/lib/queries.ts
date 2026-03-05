@@ -71,7 +71,7 @@ export const HOMEPAGE_QUERY = `
 // Journal article queries
 
 export const JOURNAL_POSTS_QUERY = `
-  *[_type == "journal" && defined(slug.current)] | order(publishedAt desc) {
+  *[_type == "journal" && defined(slug.current) && defined(publishedAt)] | order(publishedAt desc) {
     _id,
     title,
     "slug": slug.current,
@@ -105,7 +105,7 @@ export const JOURNAL_POST_QUERY = `
 `;
 
 export const JOURNAL_SLUGS_QUERY = `
-  *[_type == "journal" && defined(slug.current)] {
+  *[_type == "journal" && defined(slug.current) && defined(publishedAt)] {
     "slug": slug.current
   }
 `;

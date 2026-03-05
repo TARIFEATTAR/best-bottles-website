@@ -1,0 +1,32 @@
+{
+  "family": "Diva",
+  "descriptions": [
+    {
+      "capacityMl": 30,
+      "applicatorBucket": "finemist",
+      "description": "The 30ml Diva bottle features a flared base and feminine silhouette. Its 18-415 neck accepts fine mist sprayers for perfume and fragrance mist. A signature shape for luxury fragrance and beauty brands."
+    },
+    {
+      "capacityMl": 30,
+      "description": "The 30ml Diva bottle features a flared base and feminine silhouette. Its 18-415 neck accepts fine mist sprayers. A signature shape for luxury fragrance and beauty brands."
+    },
+    {
+      "capacityMl": 46,
+      "applicatorBucket": "finemist",
+      "description": "A 46ml Diva bottle with an 18-415 neck for fine mist spray. This mid-size capacity bridges sample and full-size for perfume and eau de toilette. The flared base gives a stable, elegant stance on vanity and retail displays."
+    },
+    {
+      "capacityMl": 46,
+      "description": "A 46ml Diva bottle with an 18-415 neck for fine mist spray. This mid-size capacity bridges sample and full-size for perfume and eau de toilette."
+    },
+    {
+      "capacityMl": 100,
+      "applicatorBucket": "lotionpump",
+      "description": "The 100ml Diva bottle with an 18-415 neck pairs with lotion pumps. Body lotion, hand cream, and face cream brands choose this shape for a premium, feminine aesthetic. A bestseller for skincare and fragrance lines."
+    },
+    {
+      "capacityMl": 100,
+      "description": "The 100ml Diva bottle with an 18-415 neck pairs with lotion pumps. A bestseller for skincare and fragrance lines."
+    }
+  ]
+}

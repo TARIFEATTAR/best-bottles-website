@@ -1,0 +1,23 @@
+{
+  "family": "Royal",
+  "descriptions": [
+    {
+      "capacityMl": 13,
+      "applicatorBucket": "rollon",
+      "description": "The 13ml Royal roll-on bottle with a 13-415 neck. Perfume oil and essential oil brands choose this for a compact, elegant format. A bridge size between sample and mid-format roll-ons."
+    },
+    {
+      "capacityMl": 13,
+      "applicatorBucket": "finemist",
+      "description": "The 13ml Royal bottle with a 13-415 neck built for fine mist sprayers. Perfume and fragrance mist brands use this for a compact spray format. The Royal shape adds refinement to sample sizes."
+    },
+    {
+      "capacityMl": 13,
+      "description": "The 13ml Royal bottle with a 13-415 neck. Versatile for roll-on, spray, or cap closures. A compact, elegant format."
+    },
+    {
+      "capacityMl": 14,
+      "description": "A 14ml Royal bottle with an 11mm neck for cap-and-closure formats. Perfume oil and concentrated fragrance brands use this for simple, decant-style packaging. The Royal shape adds a touch of refinement to small formats."
+    }
+  ]
+}

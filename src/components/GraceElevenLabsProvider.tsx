@@ -722,10 +722,16 @@ export default function GraceElevenLabsProvider({
 
                 console.log(`[Grace EL] Starting WebSocket session (fetch took ${Math.round(performance.now() - t0)}ms)`);
 
+                const contextBlock = formatPageContextForGrace(pageContextRef.current);
                 await Promise.race([
                     conversationRef.current!.startSession({
                         signedUrl,
                         connectionType: "websocket",
+                        ...(contextBlock ? {
+                            overrides: {
+                                agent: { prompt: { prompt: contextBlock } },
+                            },
+                        } : {}),
                     }),
                     new Promise<never>((_, reject) =>
                         setTimeout(() => reject(new Error("Voice connection timed out after 15 seconds.")), 15000)
