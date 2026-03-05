@@ -465,46 +465,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         });
     }, [variantsForApplicator]);
 
-    const capSwatchPreview = useMemo(() => {
-        if (activeApplicator) return variantSwatchPreview;
-
-        const bottleThread = (group?.neckThreadSize ?? "").toString().trim();
-        const merged = [...variantSwatchPreview];
-        // Build from all variants in this cap-only group so all compatible finishes appear.
-        const comps = variantsForApplicator.flatMap((v) => (Array.isArray(v.components) ? v.components : []));
-
-        for (const comp of comps) {
-            const sku = comp.grace_sku || "";
-            const compThread = getThreadFromSku(sku);
-            if (compThread && bottleThread && compThread !== bottleThread) continue;
-            if ((group?.category ?? "") !== "Plastic Bottle" && isPlasticBottleComponent(comp.item_name)) continue;
-            const type = getComponentType(sku, comp.item_name);
-            if (type !== "Cap" && type !== "Roller Cap") continue;
-
-            const finish = getCapFinishFromComponent(comp);
-            const swatchHex = COLOR_SWATCH[finish.swatchName] ?? GLASS_COLOR_SWATCH[finish.swatchName] ?? "#AAAAAA";
-            const useDarkCheck = LIGHT_SWATCHES.has(finish.swatchName) || LIGHT_GLASS.has(finish.swatchName);
-
-            merged.push({
-                id: `comp:${sku}`,
-                websiteSku: sku,
-                displayLabel: finish.label,
-                swatchHex,
-                useDarkCheck,
-                variantId: undefined,
-                isComponentOnly: true,
-            });
-        }
-
-        // Dedupe by label, prefer real product variant-backed options first.
-        const seen = new Set<string>();
-        return merged.filter((item) => {
-            const key = item.displayLabel.trim().toLowerCase();
-            if (seen.has(key)) return false;
-            seen.add(key);
-            return true;
-        });
-    }, [activeApplicator, variantSwatchPreview, variantsForApplicator, group?.neckThreadSize, group?.category]);
+    // Cap swatches: only show actual buyable variants. Component-only options (compatible caps
+    // from fitment data) are surfaced in the "Also Fits This Bottle" section and Fitment Drawer,
+    // not here — they would show as selectable but wouldn't change add-to-cart behavior.
+    const capSwatchPreview = useMemo(() => variantSwatchPreview, [variantSwatchPreview]);
 
     const showTrimSelector = useMemo(() => {
         if (trimColorOptions.length === 0) return false;
