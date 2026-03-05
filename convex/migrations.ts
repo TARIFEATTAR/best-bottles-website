@@ -664,6 +664,8 @@ export const patchProductsBatch = internalMutation({
                 v.literal("Fine Mist Sprayer"),
                 v.literal("Perfume Spray Pump"),
                 v.literal("Atomizer"),
+                v.literal("Vintage Bulb Sprayer"),
+                v.literal("Vintage Bulb Sprayer with Tassel"),
                 v.literal("Antique Bulb Sprayer"),
                 v.literal("Antique Bulb Sprayer with Tassel"),
                 v.literal("Lotion Pump"),
@@ -4303,7 +4305,8 @@ export const patchVariantApplicatorBatch = mutation({
                 .collect();
             for (const p of variants) {
                 if (p.applicator === fromApplicator) {
-                    await ctx.db.patch(p._id, { applicator: toApplicator });
+                    // Cast is safe: caller is always a migration script that passes valid enum values
+                    await ctx.db.patch(p._id, { applicator: toApplicator as Doc<"products">["applicator"] });
                     patched++;
                 }
             }
