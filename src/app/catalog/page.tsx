@@ -1284,7 +1284,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             const includesAtomizer = filters.families.includes("Atomizer");
             result = result.filter((g) => {
                 if (g.family && familySet.has(g.family)) return true;
-                if (includesAtomizer && (g.applicatorTypes ?? []).some((t) => FINE_MIST_SPRAY_TYPES.has(t))) return true;
+                if (includesAtomizer && (g.applicatorTypes ?? []).some((t) => FINE_MIST_SPRAY_TYPES.has(t as never))) return true;
                 return false;
             });
         }
@@ -1338,7 +1338,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         // so the sidebar chip shows the true total (e.g. 25) instead of just the 2
         // metal-shell Atomizer-family groups.
         const extraSprayCount = result.filter(
-            (g) => g.family !== "Atomizer" && (g.applicatorTypes ?? []).some((t) => FINE_MIST_SPRAY_TYPES.has(t))
+            (g) => g.family !== "Atomizer" && (g.applicatorTypes ?? []).some((t) => FINE_MIST_SPRAY_TYPES.has(t as never))
         ).length;
         if (extraSprayCount > 0 || (familyFacets["Atomizer"] ?? 0) > 0) {
             familyFacets["Atomizer"] = (familyFacets["Atomizer"] ?? 0) + extraSprayCount;

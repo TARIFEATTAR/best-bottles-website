@@ -4305,7 +4305,8 @@ export const patchVariantApplicatorBatch = mutation({
                 .collect();
             for (const p of variants) {
                 if (p.applicator === fromApplicator) {
-                    await ctx.db.patch(p._id, { applicator: toApplicator });
+                    // Cast is safe: caller is always a migration script that passes valid enum values
+                    await ctx.db.patch(p._id, { applicator: toApplicator as Doc<"products">["applicator"] });
                     patched++;
                 }
             }
