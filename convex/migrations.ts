@@ -664,6 +664,8 @@ export const patchProductsBatch = internalMutation({
                 v.literal("Fine Mist Sprayer"),
                 v.literal("Perfume Spray Pump"),
                 v.literal("Atomizer"),
+                v.literal("Vintage Bulb Sprayer"),
+                v.literal("Vintage Bulb Sprayer with Tassel"),
                 v.literal("Antique Bulb Sprayer"),
                 v.literal("Antique Bulb Sprayer with Tassel"),
                 v.literal("Lotion Pump"),
