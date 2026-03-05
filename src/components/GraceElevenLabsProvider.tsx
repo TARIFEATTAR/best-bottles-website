@@ -172,6 +172,12 @@ export default function GraceElevenLabsProvider({
     // Prevents a second startSession while one is already in-flight
     const connectingRef = useRef(false);
 
+    // Prevents double endSession (SDK throws "WebSocket already CLOSING/CLOSED" if we call again)
+    const closingRef = useRef(false);
+
+    // Timestamp of last endSession — used to delay reconnection so old socket fully closes
+    const lastEndSessionRef = useRef<number>(0);
+
     // Stable ref to the conversation object — filled after useConversation runs
     const conversationRef = useRef<ReturnType<typeof useConversation> | null>(null);
 
@@ -196,20 +202,21 @@ export default function GraceElevenLabsProvider({
 
     const handleConnect = useCallback(() => {
         console.log("[Grace EL] Connected — WS live");
-        // NOTE: do NOT call setVolume here — onConnect fires at the WebSocket `open`
-        // event, which is BEFORE the ElevenLabs handshake (overrides + conversation_
-        // initiation_metadata exchange) is complete. Sending setVolume mid-handshake
-        // causes the server to receive out-of-order messages and close the socket.
-        // Volume is applied after startSession() resolves instead.
         connectingRef.current = false;
         setStatus("listening");
     }, []);
 
     const handleDisconnect = useCallback(() => {
-        console.log("[Grace EL] Disconnected");
+        console.log("[Grace EL] Disconnected — cleaning up state");
         connectingRef.current = false;
+        closingRef.current = false;
         setConversationActive(false);
-        setStatus("idle");
+        setStatus((prev) => {
+            if (prev === "connecting" || prev === "listening" || prev === "speaking") {
+                return "idle";
+            }
+            return prev;
+        });
     }, []);
 
     const handleMessage = useCallback((message: { source: string; message: string }) => {
@@ -234,7 +241,12 @@ export default function GraceElevenLabsProvider({
     const handleError = useCallback((error: unknown) => {
         console.error("[Grace EL] Error:", error);
         connectingRef.current = false;
-        setErrorMessage(typeof error === "string" ? error : "Connection error");
+        closingRef.current = false;
+        const raw = typeof error === "string" ? error : String(error ?? "Connection error");
+        const msg = /microphone|mic|permission|NotAllowedError|denied/i.test(raw)
+            ? "Microphone permission is blocked. Please allow mic access and try again."
+            : raw;
+        setErrorMessage(msg);
         setStatus("error");
         setTimeout(() => {
             setErrorMessage("");
@@ -265,27 +277,33 @@ export default function GraceElevenLabsProvider({
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
 
                 if (products.length > 0) {
-                    // If exactly 1 product matches and we have its slug, navigate straight to the PDP
                     let redirectUrl = "";
+
                     if (products.length === 1 && products[0].slug) {
+                        // Single exact match — go straight to the product detail page
                         redirectUrl = `/products/${products[0].slug}`;
                     } else {
-                        // Build catalog URL: prefer family-based filter (reliable exact match)
-                        // over raw search query (which can fail against catalog page's tokenizer).
+                        // Multiple results — go to catalog filtered by family or search
                         const qs = new URLSearchParams();
-                        // Use the family of the first result if all results share one family
-                        const families = [...new Set(products.map((p) => (p as unknown as Record<string, string>).family).filter(Boolean))];
-                        if (families.length === 1 && families[0]) {
-                            qs.set("family", families[0]);
-                        } else if (parameters.family) {
+                        // Prefer explicit family param over search term (more reliable)
+                        const families = [...new Set(
+                            products
+                                .map((p) => (p as unknown as Record<string, string>).family)
+                                .filter(Boolean)
+                        )];
+                        if (parameters.family) {
+                            // Grace explicitly named a family — use it directly
                             qs.set("family", parameters.family);
+                        } else if (families.length === 1 && families[0]) {
+                            qs.set("family", families[0]);
                         }
-                        // Also pass the query for secondary filtering
-                        if (parameters.query) qs.set("search", parameters.query);
+                        if (parameters.query && !qs.has("family")) {
+                            qs.set("search", parameters.query);
+                        }
                         redirectUrl = `/catalog${qs.toString() ? `?${qs.toString()}` : ""}`;
                     }
 
-                    // Navigate main screen to the destination + minimize Grace to voice strip
+                    // Auto-navigate: take the user straight there, minimize Grace to voice strip
                     setGraceQuery(parameters.query || parameters.family || "");
                     setPendingNavigation(redirectUrl);
                     setPanelMode("strip");
@@ -293,7 +311,7 @@ export default function GraceElevenLabsProvider({
                     const summary = products.slice(0, 3)
                         .map((p) => [p.itemName, p.capacity, p.color].filter(Boolean).join(" "))
                         .join(", ");
-                    return `Found ${products.length} matching products. I've opened the catalog filtered to your search — you can browse the full results on screen. Top matches: ${summary}.`;
+                    return `Taking you there now. Found ${products.length} options — top matches: ${summary}.`;
                 }
                 return "No products found matching that description. Try a broader search term.";
             } catch (e) {
@@ -363,7 +381,7 @@ export default function GraceElevenLabsProvider({
             return "Confirmation card shown to customer. Waiting for their response.";
         },
 
-        navigateToPage: (parameters: {
+        navigateToPage: async (parameters: {
             path: string;
             title: string;
             description?: string;
@@ -380,7 +398,56 @@ export default function GraceElevenLabsProvider({
                 navPath = `${navPath}?${qs}`;
             }
 
-            const shouldAutoNav = parameters.autoNavigate === true;
+            // Validate product paths — Grace sometimes fabricates slugs from product names.
+            // If the slug doesn't exist in the database, search the catalog and redirect
+            // to the real slug (or catalog filtered results) instead.
+            if (navPath.startsWith("/products/")) {
+                const rawSlug = navPath.replace(/^\/products\//, "").split("?")[0];
+                try {
+                    const checkRes = await fetch("/api/elevenlabs/server-tools", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ tool_name: "getProductGroup", parameters: { slug: rawSlug } }),
+                    });
+                    const checkData = await checkRes.json() as { result?: { group?: unknown } | null };
+                    const groupExists = checkData.result && (checkData.result as { group?: unknown }).group;
+
+                    if (!groupExists) {
+                        // Slug doesn't exist — search catalog to find the real slug
+                        console.warn(`[Grace nav] Slug "${rawSlug}" not found — searching catalog instead`);
+                        const searchTerm = rawSlug.replace(/-/g, " ").replace(/\b(bottle|ml|rollon|finemist|lotionpump|spray|clear|amber|frosted)\b/gi, "").trim();
+                        const searchRes = await fetch("/api/elevenlabs/server-tools", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                tool_name: "searchCatalog",
+                                parameters: { searchTerm: searchTerm || rawSlug.replace(/-/g, " ") },
+                            }),
+                        });
+                        const searchData = await searchRes.json() as { result?: ProductCard[] };
+                        const hits: ProductCard[] = Array.isArray(searchData.result) ? searchData.result : [];
+
+                        if (hits.length === 1 && hits[0].slug) {
+                            navPath = `/products/${hits[0].slug}`;
+                        } else if (hits.length > 1) {
+                            const families = [...new Set(hits.map((p) => (p as unknown as Record<string, string>).family).filter(Boolean))];
+                            const qs = new URLSearchParams();
+                            if (families.length === 1 && families[0]) qs.set("family", families[0]);
+                            else qs.set("search", searchTerm || rawSlug.replace(/-/g, " "));
+                            navPath = `/catalog${qs.toString() ? `?${qs.toString()}` : ""}`;
+                        } else {
+                            // No matches — fall back to catalog search
+                            navPath = `/catalog?search=${encodeURIComponent(rawSlug.replace(/-/g, " "))}`;
+                        }
+                    }
+                } catch (e) {
+                    console.error("[Grace nav] Slug validation failed:", e);
+                    // Continue with original path on error
+                }
+            }
+
+            // Default to auto-navigate — Grace should take users directly to pages
+            const shouldAutoNav = parameters.autoNavigate !== false;
             setMessages((prev) => [
                 ...prev,
                 {
@@ -514,11 +581,50 @@ export default function GraceElevenLabsProvider({
     // Keep conversationRef in sync so callbacks above can always access latest
     useEffect(() => { conversationRef.current = conversation; });
 
-    // ── Safe endSession helper ───────────────────────────────────────────────
+    // ── Safe SDK helpers (guard against "WebSocket already CLOSING/CLOSED") ───
 
     const safeEndSession = useCallback(() => {
-        if (conversationRef.current?.status === "connected") {
-            conversationRef.current.endSession();
+        if (closingRef.current) return;
+        const conv = conversationRef.current;
+        if (conv?.status === "connected") {
+            closingRef.current = true;
+            lastEndSessionRef.current = Date.now();
+            try {
+                conv.endSession();
+            } catch (e) {
+                // SDK throws when socket is already closing/closed — ignore
+                if (!String(e).includes("CLOSING") && !String(e).includes("CLOSED")) {
+                    console.warn("[Grace EL] endSession error:", e);
+                }
+            } finally {
+                closingRef.current = false;
+            }
+        }
+    }, []);
+
+    const safeSendUserMessage = useCallback((text: string): boolean => {
+        const conv = conversationRef.current;
+        if (conv?.status !== "connected") return false;
+        try {
+            conv.sendUserMessage(text);
+            return true;
+        } catch (e) {
+            if (!String(e).includes("CLOSING") && !String(e).includes("CLOSED")) {
+                console.warn("[Grace EL] sendUserMessage error:", e);
+            }
+            return false;
+        }
+    }, []);
+
+    const safeSetVolume = useCallback((volume: number) => {
+        const conv = conversationRef.current;
+        if (conv?.status !== "connected") return;
+        try {
+            conv.setVolume({ volume });
+        } catch (e) {
+            if (!String(e).includes("CLOSING") && !String(e).includes("CLOSED")) {
+                console.warn("[Grace EL] setVolume error:", e);
+            }
         }
     }, []);
 
@@ -568,9 +674,20 @@ export default function GraceElevenLabsProvider({
             return;
         }
 
-        if (connectingRef.current || conversationRef.current?.status === "connected") {
-            console.log("[Grace EL] startConversation skipped — already connecting/connected");
+        if (conversationRef.current?.status === "connected") {
+            console.log("[Grace EL] startConversation skipped — already connected");
             return;
+        }
+        // If connectingRef has been stuck for >20s, force-reset it (previous attempt hung)
+        if (connectingRef.current) {
+            console.warn("[Grace EL] connectingRef was stuck — force-resetting");
+            connectingRef.current = false;
+            safeEndSession();
+        }
+        // Allow old socket to fully close before reconnecting
+        const sinceLastEnd = Date.now() - lastEndSessionRef.current;
+        if (sinceLastEnd < 600) {
+            await new Promise((r) => setTimeout(r, 600 - sinceLastEnd));
         }
         connectingRef.current = true;
 
@@ -588,41 +705,54 @@ export default function GraceElevenLabsProvider({
                         "Please use https:// or access via localhost instead of a network IP."
                     );
                 }
-            } else {
+            }
+
+            const connectOnce = async () => {
+                const t0 = performance.now();
+                const res = await fetch("/api/elevenlabs/signed-url");
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(
+                        (err as { error?: string }).error ??
+                        "Failed to get ElevenLabs connection. Check ELEVENLABS_API_KEY and ELEVENLABS_AGENT_ID."
+                    );
+                }
+                const { signedUrl } = (await res.json()) as { signedUrl?: string };
+                if (!signedUrl) throw new Error("ElevenLabs did not return a valid signed URL.");
+
+                console.log(`[Grace EL] Starting WebSocket session (fetch took ${Math.round(performance.now() - t0)}ms)`);
+
+                await Promise.race([
+                    conversationRef.current!.startSession({
+                        signedUrl,
+                        connectionType: "websocket",
+                    }),
+                    new Promise<never>((_, reject) =>
+                        setTimeout(() => reject(new Error("Voice connection timed out after 15 seconds.")), 15000)
+                    ),
+                ]);
+            };
+
+            // One automatic retry with a fresh signed URL handles stale/half-closed sockets.
+            let lastError: unknown;
+            for (let attempt = 1; attempt <= 2; attempt += 1) {
                 try {
-                    await navigator.mediaDevices.getUserMedia({ audio: true });
-                } catch (micErr) {
-                    console.warn("[Grace EL] Mic preflight failed, proceeding anyway:", micErr);
+                    await connectOnce();
+                    connectingRef.current = false;
+                    safeSetVolume(voiceEnabledRef.current ? 1 : 0);
+                    console.log(`[Grace EL] WebSocket session established (attempt ${attempt})`);
+                    return;
+                } catch (e) {
+                    lastError = e;
+                    console.warn(`[Grace EL] startSession attempt ${attempt} failed:`, e);
+                    safeEndSession();
+                    if (attempt < 2) {
+                        await new Promise((r) => setTimeout(r, 500));
+                    }
                 }
             }
 
-            const t0 = performance.now();
-            const res = await fetch("/api/elevenlabs/signed-url");
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(
-                    (err as { error?: string }).error ??
-                    "Failed to get ElevenLabs connection. Check ELEVENLABS_API_KEY and ELEVENLABS_AGENT_ID."
-                );
-            }
-            const { conversationToken } = (await res.json()) as { conversationToken?: string };
-            if (!conversationToken) throw new Error("ElevenLabs did not return a valid conversation token.");
-
-            console.log(`[Grace EL] Starting WebRTC session (token fetch took ${Math.round(performance.now() - t0)}ms)`);
-
-            const contextBlock = formatPageContextForGrace(pageContextRef.current);
-            await conversationRef.current!.startSession({
-                conversationToken,
-                connectionType: "webrtc",
-                ...(contextBlock ? {
-                    overrides: {
-                        agent: { prompt: { prompt: contextBlock } },
-                    },
-                } : {}),
-            });
-
-            conversationRef.current?.setVolume({ volume: voiceEnabledRef.current ? 1 : 0 });
-            console.log("[Grace EL] WebRTC session established");
+            throw lastError instanceof Error ? lastError : new Error("Failed to establish voice session.");
         } catch (err) {
             console.error("[Grace EL] Connection failed:", err);
             connectingRef.current = false;
@@ -644,7 +774,7 @@ export default function GraceElevenLabsProvider({
             ]);
             setPanelMode("open");
         }
-    }, [forceTextOnly]); // stable for voice path; forceTextOnly is a build-time constant
+    }, [forceTextOnly, safeSetVolume]); // stable for voice path; forceTextOnly is a build-time constant
 
     const endConversation = useCallback(() => {
         setConversationActive(false);
@@ -661,12 +791,10 @@ export default function GraceElevenLabsProvider({
     const toggleVoice = useCallback(() => {
         setVoiceEnabled((v) => {
             const next = !v;
-            if (conversationRef.current?.status === "connected") {
-                conversationRef.current.setVolume({ volume: next ? 1 : 0 });
-            }
+            safeSetVolume(next ? 1 : 0);
             return next;
         });
-    }, []);
+    }, [safeSetVolume]);
 
     // ── Send text message (text-only falls back to Convex LLM) ──────────────
 
@@ -679,14 +807,20 @@ export default function GraceElevenLabsProvider({
             if (!msg) return;
             setInput("");
 
-            if (conversationActiveRef.current && conversationRef.current?.status === "connected") {
+            if (conversationActiveRef.current && safeSendUserMessage(msg)) {
                 setMessages((prev) => [
                     ...prev,
                     { role: "user", content: msg, id: `u-${Date.now()}` },
                 ]);
-                conversationRef.current.sendUserMessage(msg);
                 setStatus("thinking");
                 return;
+            }
+
+            // WebSocket is dead or not active — fall through to Convex/Claude text mode
+            if (conversationActiveRef.current) {
+                console.warn("[Grace EL] Voice WebSocket dead, falling back to text mode");
+                setConversationActive(false);
+                safeEndSession();
             }
 
             const userMsg: GraceMessage = { role: "user", content: msg, id: `${Date.now()}` };
@@ -736,7 +870,7 @@ export default function GraceElevenLabsProvider({
                 setTimeout(() => { setStatus("idle"); setErrorMessage(""); }, 4000);
             }
         },
-        [input, askGrace]
+        [input, askGrace, safeSendUserMessage, safeEndSession]
     );
 
     // ── Legacy dictation stubs ───────────────────────────────────────────────
@@ -775,13 +909,13 @@ export default function GraceElevenLabsProvider({
                 });
             });
 
-            if (conversationActiveRef.current && conversationRef.current?.status === "connected") {
-                conversationRef.current.sendUserMessage(
+            if (conversationActiveRef.current) {
+                safeSendUserMessage(
                     "The customer confirmed. The items have been added to their cart."
                 );
             }
         },
-        [addToCart]
+        [addToCart, safeSendUserMessage]
     );
 
     const dismissAction = useCallback((messageId: string) => {
@@ -794,10 +928,10 @@ export default function GraceElevenLabsProvider({
                 return m;
             })
         );
-        if (conversationActiveRef.current && conversationRef.current?.status === "connected") {
-            conversationRef.current.sendUserMessage("The customer declined. Do not add those items.");
+        if (conversationActiveRef.current) {
+            safeSendUserMessage("The customer declined. Do not add those items.");
         }
-    }, []);
+    }, [safeSendUserMessage]);
 
     // ── Active form helpers ──────────────────────────────────────────────────
 
@@ -863,11 +997,9 @@ export default function GraceElevenLabsProvider({
 
     useEffect(() => {
         return () => {
-            if (conversationRef.current?.status === "connected") {
-                conversationRef.current.endSession();
-            }
+            safeEndSession();
         };
-    }, []);
+    }, [safeEndSession]);
 
     return (
         <GraceContext.Provider

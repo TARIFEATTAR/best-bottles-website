@@ -1,22 +1,27 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback, use } from "react";
+import { useState, useEffect, useMemo, use } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
-    Check, Layers, Plus, ExternalLink,
+    Check, ExternalLink,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 /* eslint-disable @next/next/no-img-element */
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
-import FitmentCarousel from "@/components/FitmentCarousel";
 import FitmentDrawer from "@/components/FitmentDrawer";
 import { useCart } from "@/components/CartProvider";
 import { APPLICATOR_BUCKETS } from "@/lib/catalogFilters";
 import { client, isSanityConfigured } from "@/sanity/lib/client";
+import {
+    PdpInlineBadges,
+    PdpInlinePromo,
+    PdpEditorialZone,
+    type PdpBlock,
+} from "@/components/PdpBlocks";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -185,7 +190,6 @@ const GLASS_COLOR_SWATCH: Record<string, string> = {
 };
 const LIGHT_GLASS = new Set(["Clear", "Frosted", "White", "Pink", "Swirl"]);
 
-const COMPONENT_TYPE_ORDER = ["Reducer", "Roller Cap", "Roller", "Dropper", "Sprayer", "Lotion Pump", "Cap", "Accessory"];
 const ROLLON_APPLICATORS = new Set(["Metal Roller", "Plastic Roller"]);
 
 interface ProductComponent {
@@ -245,70 +249,6 @@ function SpecRow({ label, value }: { label: string; value: string | number | nul
     );
 }
 
-// ── Component Card ────────────────────────────────────────────────────────────
-
-function ComponentCard({ comp }: { comp: ProductComponent }) {
-    const { addItems } = useCart();
-    const [justAdded, setJustAdded] = useState(false);
-
-    const handleAdd = useCallback(() => {
-        addItems([{
-            graceSku: comp.grace_sku,
-            itemName: comp.item_name || comp.grace_sku,
-            quantity: 1,
-            unitPrice: comp.price_1 ?? null,
-        }]);
-        setJustAdded(true);
-        setTimeout(() => setJustAdded(false), 1500);
-    }, [addItems, comp]);
-
-    return (
-        <div className="group relative flex items-center space-x-4 p-3 bg-white border border-champagne/40 rounded-sm hover:border-muted-gold transition-colors">
-            {comp.image_url ? (
-                <div className="w-24 h-24 shrink-0 bg-travertine rounded-sm overflow-hidden flex items-center justify-center">
-                    <img
-                        src={comp.image_url}
-                        alt={comp.item_name || comp.grace_sku}
-                        className="w-full h-full object-contain p-1.5"
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = "none";
-                        }}
-                    />
-                </div>
-            ) : (
-                <div className="w-24 h-24 shrink-0 bg-travertine rounded-sm flex items-center justify-center">
-                    <Package className="w-8 h-8 text-champagne" strokeWidth={1} />
-                </div>
-            )}
-            <div className="flex-1 min-w-0">
-                <p className="text-[10px] uppercase font-bold tracking-wider text-slate/70 truncate">{comp.grace_sku}</p>
-                <p className="text-xs text-obsidian leading-tight line-clamp-2 mt-0.5">{comp.item_name}</p>
-                <div className="flex items-center gap-2 mt-2">
-                    <p className="font-semibold text-obsidian text-sm">{formatPrice(comp.price_1)}</p>
-                    {comp.price_12 && (
-                        <p className="text-[10px] text-slate">{formatPrice(comp.price_12)} ×12</p>
-                    )}
-                </div>
-            </div>
-            <button
-                onClick={handleAdd}
-                className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
-                    justAdded
-                        ? "bg-emerald-500 text-white scale-110"
-                        : "bg-bone border border-champagne/60 text-slate hover:bg-muted-gold hover:text-white hover:border-muted-gold"
-                }`}
-                title="Add to cart"
-            >
-                {justAdded ? (
-                    <Check className="w-4 h-4" strokeWidth={2.5} />
-                ) : (
-                    <Plus className="w-4 h-4" strokeWidth={2} />
-                )}
-            </button>
-        </div>
-    );
-}
-
 // ── Main PDP ──────────────────────────────────────────────────────────────────
 
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -316,21 +256,22 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const router = useRouter();
     const searchParams = useSearchParams();
     const applicatorParam = searchParams.get("applicator");
+    const qtyParam = Math.max(1, Math.min(9999, parseInt(searchParams.get("qty") ?? "1") || 1));
 
     const data = useQuery(api.products.getProductGroup, { slug });
 
     const { addItems } = useCart();
     const [fitmentDrawerOpen, setFitmentDrawerOpen] = useState(false);
-    const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
+    
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
     const [selectedCapColor, setSelectedCapColor] = useState<string | null>(null);
     const [selectedCapStyle, setSelectedCapStyle] = useState<string | null>(null);
     const [selectedTrimColor, setSelectedTrimColor] = useState<string | null>(null);
     const [selectedCapComponentSku, setSelectedCapComponentSku] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<"specs" | "components">("specs");
-    const [qty, setQty] = useState(1);
+
+    const [qty, setQty] = useState(qtyParam);
     const [addedFlash, setAddedFlash] = useState(false);
-    const [sanityDescription, setSanityDescription] = useState<string | null>(null);
+    const [pdpBlocks, setPdpBlocks] = useState<PdpBlock[]>([]);
 
     const group = data?.group;
     const variants = useMemo(() => (data?.variants as ProductVariant[] | undefined) ?? [], [data?.variants]);
@@ -342,6 +283,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             ? {
                   family: group.family,
                   capacityMl: group.capacityMl ?? 0,
+                  excludeSlug: slug,
+                  neckThreadSize: group.neckThreadSize ?? undefined,
+              }
+            : "skip"
+    );
+
+    // Applicator siblings — same bottle shape + size + color, different applicator
+    const applicatorSiblings = useQuery(
+        api.products.getApplicatorSiblings,
+        group
+            ? {
+                  family: group.family,
+                  capacityMl: group.capacityMl ?? 0,
+                  color: group.color ?? "",
                   excludeSlug: slug,
                   neckThreadSize: group.neckThreadSize ?? undefined,
               }
@@ -401,7 +356,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         router.replace(`/products/${slug}`);
     }, [applicatorParam, validApplicatorParam, router, slug]);
 
-    const activeApplicator = selectedApplicator ?? defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
+    const activeApplicator = defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
     const variantsForApplicator = useMemo(
         () => variants.filter((v) => v.applicator === activeApplicator),
         [variants, activeApplicator]
@@ -557,92 +512,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         return true;
     }, [trimColorOptions]);
 
-    // Components grouped by type from selected variant
-    // Filter by thread — 18-400 caps don't fit 17-415 bottles (e.g. 9ml Cylinder)
-    const componentGroups = useMemo(() => {
-        const comps = selectedVariant?.components ?? [];
-        const bottleThread = (group?.neckThreadSize ?? "").toString().trim();
-        const groups: Record<string, ProductComponent[]> = {};
-
-        // Determine which component types are relevant for the active applicator.
-        // A flat screw cap does NOT belong on a roll-on bottle even if the thread matches.
-        const applicator = (activeApplicator ?? "").toLowerCase();
-        const isRoller = applicator.includes("roller") || applicator.includes("roll-on");
-        const isSprayer = applicator.includes("atomizer") || applicator.includes("sprayer") || applicator.includes("spray") || applicator.includes("mist");
-        const isDropper = applicator.includes("dropper");
-        const isLotionPump = applicator.includes("lotion") || applicator.includes("pump");
-        const isCapOnly = !activeApplicator;
-
-        // Types that are always irrelevant for this applicator (suppress entirely)
-        const suppressedTypes = new Set<string>();
-        if (isRoller) {
-            // Roll-on bottles don't use flat caps or sprayer nozzles
-            suppressedTypes.add("Cap");
-            suppressedTypes.add("Sprayer");
-            suppressedTypes.add("Dropper");
-            suppressedTypes.add("Lotion Pump");
-        } else if (isSprayer) {
-            suppressedTypes.add("Roller Cap");
-            suppressedTypes.add("Roller");
-            suppressedTypes.add("Dropper");
-            suppressedTypes.add("Lotion Pump");
-        } else if (isDropper) {
-            suppressedTypes.add("Roller Cap");
-            suppressedTypes.add("Roller");
-            suppressedTypes.add("Sprayer");
-            suppressedTypes.add("Lotion Pump");
-        } else if (isLotionPump) {
-            suppressedTypes.add("Roller Cap");
-            suppressedTypes.add("Roller");
-            suppressedTypes.add("Sprayer");
-            suppressedTypes.add("Dropper");
-        } else if (isCapOnly) {
-            // Cap-only PDP: show only classic cap closures as compatible options.
-            suppressedTypes.add("Roller Cap");
-            suppressedTypes.add("Roller");
-            suppressedTypes.add("Sprayer");
-            suppressedTypes.add("Dropper");
-            suppressedTypes.add("Lotion Pump");
-            suppressedTypes.add("Reducer");
-        }
-
-        for (const comp of comps) {
-            const sku = comp.grace_sku || "";
-            const compThread = getThreadFromSku(sku);
-            if (compThread && bottleThread && compThread !== bottleThread) continue;
-            // Guard: hide standalone plastic bottle products from glass-bottle component lists.
-            if ((group?.category ?? "") !== "Plastic Bottle" && isPlasticBottleComponent(comp.item_name)) continue;
-            const type = getComponentType(sku, comp.item_name);
-            if (suppressedTypes.has(type)) continue;
-            if (!groups[type]) groups[type] = [];
-            groups[type].push(comp);
-        }
-        return groups;
-    }, [selectedVariant, group?.neckThreadSize, group?.category, activeApplicator]);
-
-    const totalComponents = Object.values(componentGroups).reduce(
-        (sum, arr) => sum + arr.length,
-        0
-    );
-
-    // Inline caps — surfaced directly on the PDP for easy access.
-    // For roll-on applicators only show Roller Caps (ROC-prefix), never flat screw caps.
-    const inlineCaps = useMemo(() => {
-        const applicator = (activeApplicator ?? "").toLowerCase();
-        const isRoller = applicator.includes("roller") || applicator.includes("roll-on");
-        const isCapOnly = !activeApplicator;
-        if (isRoller) {
-            return [...(componentGroups["Roller Cap"] ?? [])];
-        }
-        if (isCapOnly) {
-            return [...(componentGroups["Cap"] ?? [])];
-        }
-        return [
-            ...(componentGroups["Cap"] ?? []),
-            ...(componentGroups["Roller Cap"] ?? []),
-        ];
-    }, [componentGroups, activeApplicator]);
-
     // ── Dynamic SEO title ────────────────────────────────────────────────────
     useEffect(() => {
         if (group) {
@@ -651,27 +520,32 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         return () => { document.title = "Best Bottles"; };
     }, [group]);
 
-    // ── Sanity editorial description ─────────────────────────────────────────
+    // ── Sanity two-tier content (family template + product override) ──────────
     useEffect(() => {
-        const sku = selectedVariant?.websiteSku;
-        if (!isSanityConfigured || !sku) {
-            setSanityDescription(null);
-            return;
-        }
+        if (!isSanityConfigured || !slug || !group?.family) return;
         let cancelled = false;
-        client
-            .fetch<string | null>(
-                `*[_type == "product" && websiteSku == $sku][0].description`,
-                { sku }
-            )
-            .then((desc) => {
-                if (!cancelled) setSanityDescription(desc ?? null);
+        Promise.all([
+            client.fetch<{ pageBlocks?: PdpBlock[]; overrideTemplate?: boolean } | null>(
+                `*[_type == "productGroupContent" && slug.current == $slug][0] { pageBlocks, overrideTemplate }`,
+                { slug }
+            ),
+            client.fetch<{ pageBlocks?: PdpBlock[] } | null>(
+                `*[_type == "productFamilyContent" && family == $family][0] { pageBlocks }`,
+                { family: group.family }
+            ),
+        ])
+            .then(([groupContent, familyContent]) => {
+                if (cancelled) return;
+                const groupBlocks: PdpBlock[] = groupContent?.pageBlocks ?? [];
+                const familyBlocks: PdpBlock[] = familyContent?.pageBlocks ?? [];
+                const merged = groupContent?.overrideTemplate
+                    ? groupBlocks
+                    : [...groupBlocks, ...familyBlocks];
+                setPdpBlocks(merged);
             })
-            .catch(() => {
-                if (!cancelled) setSanityDescription(null);
-            });
+            .catch(() => { if (!cancelled) setPdpBlocks([]); });
         return () => { cancelled = true; };
-    }, [selectedVariant?.websiteSku]);
+    }, [slug, group?.family]);
 
     // ── JSON-LD structured data ──────────────────────────────────────────────
     const jsonLd = useMemo(() => {
@@ -680,7 +554,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             "@context": "https://schema.org",
             "@type": "Product",
             name: group.displayName,
-            description: selectedVariant.itemDescription
+            description: group.groupDescription
+                ?? selectedVariant.itemDescription
                 ?? `${group.displayName} — ${group.family} collection from Best Bottles. ${group.capacity ?? ""}`.trim(),
             sku: selectedVariant.websiteSku,
             brand: { "@type": "Brand", name: "Best Bottles" },
@@ -898,11 +773,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             </p>
 
                             {/* Title */}
-                            <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-medium text-obsidian leading-[1.1] mb-5">
+                            <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-medium text-obsidian leading-[1.1] mb-3">
                                 {group.displayName}
                             </h1>
 
-                            {/* Stock + thread badges */}
+                            {/* Sanity trust badges */}
+                            <PdpInlineBadges blocks={pdpBlocks} />
+
+                            {/* Stock badge */}
                             <div className="flex items-center flex-wrap gap-2 mb-6">
                                 <span className={`inline-flex items-center px-3 py-1 text-[11px] uppercase tracking-wider font-bold rounded-full ${inStock
                                     ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
@@ -911,16 +789,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${inStock ? "bg-emerald-500" : "bg-red-400"}`}></span>
                                     {selectedVariant?.stockStatus ?? "Unknown"}
                                 </span>
-                                {group.neckThreadSize && (
-                                    <span className="text-[11px] text-slate font-medium uppercase tracking-wider px-3 py-1 bg-bone border border-champagne/60 rounded-full">
-                                        Thread {group.neckThreadSize}
-                                    </span>
-                                )}
-                                {group.capacity && group.capacity !== "0 ml (0 oz)" && (
-                                    <span className="text-[11px] text-slate font-medium uppercase tracking-wider px-3 py-1 bg-bone border border-champagne/60 rounded-full">
-                                        {group.capacity}
-                                    </span>
-                                )}
                             </div>
 
                             {/* Price */}
@@ -952,51 +820,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                             {!isAtomizer && (
                                 <>
-                                    {/* Applicator selector */}
-                                    {(applicatorOptions.length > 0 || hasCapClosure) && (
-                                        <div className="mb-6">
-                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Applicator</p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {applicatorOptions.map((appl) => (
-                                                    <button
-                                                        key={appl}
-                                                        onClick={() => {
-                                                            setSelectedApplicator(appl);
-                                                            setSelectedVariantId(null);
-                                                            setSelectedCapColor(null);
-                                                            setSelectedCapStyle(null);
-                                                            setSelectedTrimColor(null);
-                                                        }}
-                                                        className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${activeApplicator === appl
-                                                            ? "border-obsidian bg-obsidian text-white"
-                                                            : "border-champagne text-obsidian hover:border-muted-gold"
-                                                            }`}
-                                                    >
-                                                        {appl}
-                                                    </button>
-                                                ))}
-                                                {/* Cap closure — not an applicator, shown separately */}
-                                                {hasCapClosure && (
-                                                    <button
-                                                        onClick={() => {
-                                                            setSelectedApplicator("Cap/Closure");
-                                                            setSelectedVariantId(null);
-                                                            setSelectedCapColor(null);
-                                                            setSelectedCapStyle(null);
-                                                            setSelectedTrimColor(null);
-                                                        }}
-                                                        className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all italic ${activeApplicator === "Cap/Closure"
-                                                            ? "border-obsidian bg-obsidian text-white"
-                                                            : "border-champagne/50 text-slate hover:border-muted-gold"
-                                                            }`}
-                                                    >
-                                                        Cap Closure
-                                                    </button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-
                                     {/* Cap color selector */}
                                     {capColorOptions.length > 0 && (
                                         <div className="mb-6">
@@ -1168,6 +991,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </>
                             )}
 
+                            {/* Sanity promo banner (above Add to Cart) */}
+                            <PdpInlinePromo blocks={pdpBlocks} />
+
                             {/* Quantity + Add to Cart */}
                             <div className="flex items-stretch space-x-3 mb-6">
                                 <div className="flex items-center border border-champagne rounded-sm bg-white">
@@ -1210,38 +1036,15 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </button>
                             </div>
 
-                            {/* Product Description */}
-                            {(sanityDescription ?? selectedVariant?.itemDescription) && (
+                            {/* Product Description — group-level copy preferred, then variant, skipped when Sanity rich desc exists */}
+                            {pdpBlocks.every((b) => b._type !== "pdpRichDescription") && (group?.groupDescription || selectedVariant?.itemDescription) && (
                                 <div className="mb-6 pt-5 border-t border-champagne/60">
                                     <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-3">
                                         About This Product
                                     </p>
                                     <p className="font-serif text-[14.5px] text-obsidian leading-[1.75]">
-                                        {sanityDescription ?? selectedVariant?.itemDescription}
+                                        {group?.groupDescription ?? selectedVariant?.itemDescription}
                                     </p>
-                                </div>
-                            )}
-
-                            {/* View All Compatible Components CTA */}
-                            <button
-                                onClick={() => setFitmentDrawerOpen(true)}
-                                className="w-full mb-6 py-2.5 flex items-center justify-center space-x-2 border border-champagne text-obsidian text-xs font-semibold uppercase tracking-widest hover:border-muted-gold hover:text-muted-gold transition-colors bg-white"
-                            >
-                                <span className="w-1.5 h-1.5 rounded-full bg-muted-gold"></span>
-                                <span>View All Compatible Components</span>
-                                <ChevronRight className="w-3.5 h-3.5" />
-                            </button>
-
-                            {/* SKU info */}
-                            {selectedVariant && (
-                                <div className="text-xs text-slate/60 space-y-0.5 mb-8">
-                                    <p><span className="font-semibold text-slate">SKU:</span> {selectedVariant.websiteSku}</p>
-                                    {selectedVariant.graceSku && (
-                                        <p><span className="font-semibold text-slate">Grace SKU:</span> {selectedVariant.graceSku}</p>
-                                    )}
-                                    {selectedVariant.caseQuantity && (
-                                        <p><span className="font-semibold text-slate">Case Qty:</span> {selectedVariant.caseQuantity} units/case</p>
-                                    )}
                                 </div>
                             )}
 
@@ -1283,155 +1086,109 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     </div>
                 </section>
 
-                {/* ── Inline Compatible Caps ───────────────────────────────── */}
-                {inlineCaps.length > 0 && (
+                {/* ── Sanity Editorial Zone (feature strip, gallery, FAQ, rich desc) ── */}
+                <PdpEditorialZone blocks={pdpBlocks} />
+
+                {/* ── "This Bottle Also Takes" — cross-compatible applicator siblings ── */}
+                {applicatorSiblings && applicatorSiblings.length > 0 && (
                     <section className="border-t border-champagne/30">
-                        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
-                            <div className="flex items-center justify-between mb-4">
-                                <p className="text-xs uppercase tracking-wider font-bold text-slate">Compatible Caps</p>
+                        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-10">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-1">Compatible Options</p>
+                                    <h3 className="font-serif text-lg text-obsidian">This Bottle Also Takes</h3>
+                                </div>
                                 <button
                                     onClick={() => setFitmentDrawerOpen(true)}
-                                    className="text-xs text-muted-gold hover:underline transition-colors"
+                                    className="text-xs text-muted-gold hover:underline transition-colors hidden sm:block"
                                 >
                                     View all components →
                                 </button>
                             </div>
-                            <p className="text-xs text-slate mb-4">
-                                Need help with fitment pairing? Ask Grace and include the thread size for fastest matching.
-                            </p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                                {inlineCaps.slice(0, 6).map((comp) => (
-                                    <ComponentCard key={comp.grace_sku} comp={comp} />
-                                ))}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {applicatorSiblings.map((sib: { _id: string; slug: string; displayName: string; applicatorTypes?: string[]; heroImageUrl?: string | null; priceRangeMin?: number | null }) => {
+                                    const applicatorLabel = (sib.applicatorTypes ?? []).join(", ") || "Cap & Closure";
+                                    return (
+                                        <Link
+                                            key={sib._id}
+                                            href={`/products/${sib.slug}`}
+                                            className="group flex items-center gap-4 p-4 border border-champagne/50 rounded-sm bg-white hover:border-muted-gold transition-colors"
+                                        >
+                                            <div className="w-16 h-16 shrink-0 bg-travertine rounded-sm border border-champagne/30 flex items-center justify-center overflow-hidden">
+                                                {sib.heroImageUrl ? (
+                                                    <img src={sib.heroImageUrl} alt={sib.displayName} className="w-full h-full object-contain p-1" />
+                                                ) : (
+                                                    <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
+                                                )}
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <p className="text-[10px] uppercase tracking-wider text-muted-gold font-semibold mb-0.5">{applicatorLabel}</p>
+                                                <p className="text-sm text-obsidian font-medium truncate group-hover:text-muted-gold transition-colors">{sib.displayName}</p>
+                                                {sib.priceRangeMin != null && (
+                                                    <p className="text-xs text-slate mt-0.5">From {formatPrice(sib.priceRangeMin)}</p>
+                                                )}
+                                            </div>
+                                            <ChevronRight className="w-4 h-4 text-champagne group-hover:text-muted-gold transition-colors shrink-0" />
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         </div>
                     </section>
                 )}
 
-                {/* ── Engineered Compatibility Carousel ────────────────────── */}
-                {selectedVariant?.graceSku && (
-                    <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
-                        <FitmentCarousel
-                            bottleSku={selectedVariant.graceSku}
-                            onOpenDrawer={() => setFitmentDrawerOpen(true)}
-                        />
-                    </div>
+                {/* ── Specifications ──────────────────────────────────────────── */}
+                {selectedVariant && (
+                    <section className="border-t border-champagne/50 bg-linen">
+                        <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
+                            <div className="flex border-b border-champagne/50">
+                                <div className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] sm:text-xs uppercase tracking-wider font-bold border-b-2 border-obsidian text-obsidian">
+                                    Specifications
+                                </div>
+                            </div>
+                            <div className="py-10 max-w-2xl">
+                                <dl>
+                                    <SpecRow label="SKU" value={selectedVariant.websiteSku} />
+                                    {selectedVariant.graceSku && (
+                                        <SpecRow label="Grace SKU" value={selectedVariant.graceSku} />
+                                    )}
+                                    <SpecRow label="Height (with cap)" value={selectedVariant.heightWithCap} />
+                                    <SpecRow label="Height (without cap)" value={selectedVariant.heightWithoutCap} />
+                                    <SpecRow label="Diameter" value={selectedVariant.diameter} />
+                                    <SpecRow label="Neck Thread Size" value={selectedVariant.neckThreadSize} />
+                                    <SpecRow label="Bottle Weight" value={selectedVariant.bottleWeightG ? `${selectedVariant.bottleWeightG}g` : null} />
+                                    <SpecRow label="Case Quantity" value={selectedVariant.caseQuantity ? `${selectedVariant.caseQuantity} units/case` : null} />
+                                    <SpecRow label="Capacity" value={selectedVariant.capacity} />
+                                    <SpecRow label="Glass Color" value={selectedVariant.color} />
+                                    <SpecRow label="Applicator" value={selectedVariant.applicator} />
+                                    <SpecRow label="Ball Material" value={selectedVariant.ballMaterial} />
+                                    <SpecRow label="Cap Style" value={selectedVariant.capStyle} />
+                                    <SpecRow label="Cap Height" value={selectedVariant.capHeight} />
+                                    <SpecRow label="Trim Finish" value={selectedVariant.trimColor} />
+                                    <SpecRow label="Cap Color" value={selectedVariant.capColor} />
+                                    <SpecRow label="Shape" value={selectedVariant.shape} />
+                                    <SpecRow label="Assembly Type" value={selectedVariant.assemblyType} />
+                                    <SpecRow label="Component Group" value={selectedVariant.componentGroup} />
+                                    <SpecRow label="Category" value={selectedVariant.category} />
+                                    <SpecRow label="Collection" value={selectedVariant.bottleCollection} />
+                                </dl>
+                                {selectedVariant.productUrl && (
+                                    <div className="mt-6 pt-6 border-t border-champagne/50">
+                                        <a
+                                            href={selectedVariant.productUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 text-sm font-semibold text-muted-gold hover:text-obsidian transition-colors"
+                                        >
+                                            View on BestBottles.com
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                        </a>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </section>
                 )}
-
-                {/* ── Specs + Compatible Components ──────────────────────────── */}
-                <section className="border-t border-champagne/50 bg-linen">
-                    <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
-
-                        {/* Tab bar */}
-                        <div className="flex border-b border-champagne/50 overflow-x-auto">
-                            {(["specs", "components"] as const)
-                                // Metal atomizers are standalone sealed units — no fitments, caps, or components
-                                .filter((tab) => !(tab === "components" && group?.category === "Metal Atomizer"))
-                                .map((tab) => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`px-4 sm:px-8 py-4 sm:py-5 text-[10px] sm:text-xs uppercase tracking-wider font-bold border-b-2 transition-all whitespace-nowrap ${activeTab === tab
-                                        ? "border-obsidian text-obsidian"
-                                        : "border-transparent text-slate hover:text-obsidian hover:border-champagne/60"
-                                        }`}
-                                >
-                                    {tab === "specs"
-                                        ? "Specifications"
-                                        : `Components (${totalComponents})`}
-                                </button>
-                            ))}
-                        </div>
-
-                        <div className="py-10">
-                            <AnimatePresence mode="wait">
-
-                                {/* Specs Tab */}
-                                {activeTab === "specs" && selectedVariant && (
-                                    <motion.div
-                                        key="specs"
-                                        initial={{ opacity: 0, y: 8 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -8 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="max-w-2xl"
-                                    >
-                                        <dl>
-                                            <SpecRow label="Height (with cap)" value={selectedVariant.heightWithCap} />
-                                            <SpecRow label="Height (without cap)" value={selectedVariant.heightWithoutCap} />
-                                            <SpecRow label="Diameter" value={selectedVariant.diameter} />
-                                            <SpecRow label="Neck Thread Size" value={selectedVariant.neckThreadSize} />
-                                            <SpecRow label="Bottle Weight" value={selectedVariant.bottleWeightG ? `${selectedVariant.bottleWeightG}g` : null} />
-                                            <SpecRow label="Case Quantity" value={selectedVariant.caseQuantity ? `${selectedVariant.caseQuantity} units/case` : null} />
-                                            <SpecRow label="Capacity" value={selectedVariant.capacity} />
-                                            <SpecRow label="Glass Color" value={selectedVariant.color} />
-                                            <SpecRow label="Applicator" value={selectedVariant.applicator} />
-                                            <SpecRow label="Ball Material" value={selectedVariant.ballMaterial} />
-                                            <SpecRow label="Cap Style" value={selectedVariant.capStyle} />
-                                            <SpecRow label="Cap Height" value={selectedVariant.capHeight} />
-                                            <SpecRow label="Trim Finish" value={selectedVariant.trimColor} />
-                                            <SpecRow label="Cap Color" value={selectedVariant.capColor} />
-                                            <SpecRow label="Shape" value={selectedVariant.shape} />
-                                            <SpecRow label="Assembly Type" value={selectedVariant.assemblyType} />
-                                            <SpecRow label="Component Group" value={selectedVariant.componentGroup} />
-                                            <SpecRow label="Category" value={selectedVariant.category} />
-                                            <SpecRow label="Collection" value={selectedVariant.bottleCollection} />
-                                        </dl>
-                                        {selectedVariant.productUrl && (
-                                            <div className="mt-6 pt-6 border-t border-champagne/50">
-                                                <a
-                                                    href={selectedVariant.productUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-2 text-sm font-semibold text-muted-gold hover:text-obsidian transition-colors"
-                                                >
-                                                    View on BestBottles.com
-                                                    <ExternalLink className="w-3.5 h-3.5" />
-                                                </a>
-                                            </div>
-                                        )}
-                                    </motion.div>
-                                )}
-
-                                {/* Components Tab */}
-                                {activeTab === "components" && (
-                                    <motion.div
-                                        key="components"
-                                        initial={{ opacity: 0, y: 8 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -8 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        {totalComponents === 0 ? (
-                                            <div className="text-center py-16">
-                                                <Layers className="w-12 h-12 text-champagne mx-auto mb-4" strokeWidth={1} />
-                                                <p className="text-sm text-slate">No compatible components on file for this variant. Ask Grace for a manual compatibility check.</p>
-                                            </div>
-                                        ) : (
-                                            <div className="space-y-10">
-                                                {COMPONENT_TYPE_ORDER.filter((t) => componentGroups[t]).map((type) => (
-                                                    <div key={type}>
-                                                        <div className="flex items-center space-x-3 mb-4">
-                                                            <h3 className="text-xs uppercase tracking-wider font-bold text-slate">{type}</h3>
-                                                            <span className="text-[10px] bg-bone border border-champagne/50 text-slate px-2 py-0.5 rounded-full font-medium">
-                                                                {componentGroups[type].length} option{componentGroups[type].length !== 1 ? "s" : ""}
-                                                            </span>
-                                                        </div>
-                                                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                                                            {componentGroups[type].map((comp) => (
-                                                                <ComponentCard key={comp.grace_sku} comp={comp} />
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </section>
 
                 {/* Footer spacer */}
                 <div className="h-32 bg-linen border-t border-champagne/30"></div>

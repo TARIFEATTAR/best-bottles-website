@@ -70,7 +70,7 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
                 familyLimit: {
                     type: "string",
                     description:
-                        "Optional: restrict to a bottle family — 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square'",
+                        "Optional: restrict to a bottle family. Valid values: 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square', 'Rectangle', 'Bell', 'Flair', 'Pillar', 'Teardrop', 'Tulip', 'Vial', 'Apothecary', 'Decorative', 'Atomizer', 'Aluminum Bottle', 'Cream Jar', 'Lotion Bottle', 'Plastic Bottle'. Use 'Apothecary' for apothecary-style glass stopper bottles. Use 'Decorative' for marble-crystal-cap, genie, heart, octagonal, and ornate collectible bottles.",
                 },
                 applicatorFilter: {
                     type: "string",

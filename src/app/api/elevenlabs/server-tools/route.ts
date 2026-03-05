@@ -77,6 +77,13 @@ export async function POST(req: NextRequest) {
                 break;
             }
 
+            case "getProductGroup": {
+                result = await convex.query(api.products.getProductGroup, {
+                    slug: (parameters.slug as string) ?? "",
+                });
+                break;
+            }
+
             default:
                 return NextResponse.json(
                     { error: `Unknown tool: ${tool_name}` },

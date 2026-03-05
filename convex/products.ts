@@ -15,6 +15,39 @@ export const listAll = query({
     },
 });
 
+// ── Price Audit Query ────────────────────────────────────────────────────────
+// Paginated pricing export for convex_price_audit.py.
+// Script pages through all products in batches (default 500 per page).
+export const getAllForAudit = query({
+    args: {
+        limit: v.optional(v.number()),
+        skip: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        const limit = args.limit ?? 500;
+        const skip = args.skip ?? 0;
+        const all = await ctx.db.query("products").collect();
+        const page = all.slice(skip, skip + limit);
+        return {
+            total: all.length,
+            page: page.map((p) => ({
+                graceSku: p.graceSku,
+                websiteSku: p.websiteSku,
+                family: p.family,
+                category: p.category,
+                itemName: p.itemName,
+                productUrl: p.productUrl ?? null,
+                webPrice1pc: p.webPrice1pc ?? null,
+                webPrice10pc: p.webPrice10pc ?? null,
+                webPrice12pc: p.webPrice12pc ?? null,
+                stockStatus: p.stockStatus ?? null,
+            })),
+        };
+    },
+});
+
+
+
 // Get a specific product by its exact Grace Sku
 export const getBySku = query({
     args: { graceSku: v.string() },
@@ -620,6 +653,43 @@ export const getSiblingGroups = query({
         });
 
         return filtered;
+    },
+});
+
+/**
+ * Returns sibling groups with DIFFERENT applicator types — same family + capacityMl + color, different applicator suffix.
+ * Used by the PDP "This Bottle Also Takes" strip to surface cross-compatible fitments.
+ * Returns groups grouped by applicator bucket label for display.
+ */
+export const getApplicatorSiblings = query({
+    args: {
+        family: v.string(),
+        capacityMl: v.number(),
+        color: v.string(),
+        excludeSlug: v.string(),
+        neckThreadSize: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const all = await ctx.db
+            .query("productGroups")
+            .withIndex("by_family", (q) => q.eq("family", args.family))
+            .collect();
+
+        const currentSuffix = APPLICATOR_BUCKET_SUFFIXES.find((s) => args.excludeSlug.endsWith(s));
+        const hasKnownSuffix = (slug: string) => APPLICATOR_BUCKET_SUFFIXES.some((s) => slug.endsWith(s));
+
+        return all.filter(
+            (g) =>
+                g.capacityMl === args.capacityMl &&
+                g.color === args.color &&
+                g.slug !== args.excludeSlug &&
+                (args.neckThreadSize == null || g.neckThreadSize === args.neckThreadSize) &&
+                // Must be a DIFFERENT applicator bucket than current page
+                (currentSuffix
+                    ? !g.slug.endsWith(currentSuffix) // exclude groups with same suffix
+                    : hasKnownSuffix(g.slug)           // current has no suffix (cap only) → show all suffixed groups
+                )
+        );
     },
 });
 

@@ -2,12 +2,15 @@
 // Each spray sub-type is its own bucket so it gets its own grid card and filter option
 export const APPLICATOR_BUCKETS = [
     { value: "rollon", label: "Roll-On", productValues: ["Metal Roller", "Plastic Roller"] },
-    { value: "finemist", label: "Fine Mist Spray", productValues: ["Fine Mist Sprayer", "Perfume Spray Pump", "Atomizer"] },
-    { value: "antiquespray", label: "Antique Bulb Spray", productValues: ["Antique Bulb Sprayer"] },
-    { value: "antiquespray-tassel", label: "Antique Bulb Spray with Tassel", productValues: ["Antique Bulb Sprayer with Tassel"] },
+    // Fine Mist Spray: atomizer-style, typically < 30 ml
+    { value: "finemist", label: "Fine Mist Spray", productValues: ["Fine Mist Sprayer", "Atomizer"] },
+    // Perfume Spray Pump: classic spray collar, typically ≥ 30 ml
+    { value: "perfumespray", label: "Perfume Spray", productValues: ["Perfume Spray Pump"] },
     { value: "reducer", label: "Reducer", productValues: ["Reducer"] },
     { value: "dropper", label: "Dropper", productValues: ["Dropper"] },
     { value: "lotionpump", label: "Lotion Pump", productValues: ["Lotion Pump"] },
+    { value: "antiquespray", label: "Vintage Bulb Spray", productValues: ["Vintage Bulb Sprayer", "Antique Bulb Sprayer"] },
+    { value: "antiquespray-tassel", label: "Vintage Bulb Spray with Tassel", productValues: ["Vintage Bulb Sprayer with Tassel", "Antique Bulb Sprayer with Tassel"] },
 ] as const;
 
 export type ApplicatorBucket = (typeof APPLICATOR_BUCKETS)[number]["value"];
@@ -127,7 +130,8 @@ export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters;
             category: sp.get("category") || null,
             collection: sp.get("collection") || null,
             applicators: validApplicators,
-            families: sp.get("families")?.split(",").filter(Boolean) ?? [],
+            // Accept both ?families=Cylinder,Elegant (multi) and ?family=Cylinder (singular, used by Grace)
+            families: (sp.get("families") ?? sp.get("family"))?.split(",").filter(Boolean) ?? [],
             colors: sp.get("colors")?.split(",").filter(Boolean) ?? [],
             capacities: sp.get("capacities")?.split(",").filter(Boolean) ?? [],
             neckThreadSizes: sp.get("threads")?.split(",").filter(Boolean) ?? [],

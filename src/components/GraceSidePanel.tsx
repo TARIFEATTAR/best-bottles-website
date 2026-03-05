@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -724,6 +724,124 @@ function VoiceStrip({ isMobile }: { isMobile: boolean }) {
     );
 }
 
+// ─── Voice Wave Widget ────────────────────────────────────────────────────────
+
+const BAR_COUNT = 48;
+
+function VoiceWaveWidget({
+    isActive,
+    isListening,
+    isSpeaking,
+    isConnecting,
+    onClick,
+    disabled,
+    elapsedSeconds,
+}: {
+    isActive: boolean;
+    isListening: boolean;
+    isSpeaking: boolean;
+    isConnecting: boolean;
+    onClick: () => void;
+    disabled?: boolean;
+    elapsedSeconds: number;
+}) {
+    const [mounted, setMounted] = useState(false);
+    // Stable random heights per bar — recalculated only when active state flips
+    const barHeights = useMemo(
+        () => Array.from({ length: BAR_COUNT }, () => 20 + Math.random() * 80),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [isActive]
+    );
+
+    useEffect(() => { setMounted(true); }, []);
+
+    const formatTime = (s: number) => {
+        const m = Math.floor(s / 60);
+        return `${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+    };
+
+    const label = isConnecting
+        ? "Connecting…"
+        : isListening
+        ? "Listening…"
+        : isSpeaking
+        ? "Grace is speaking…"
+        : isActive
+        ? "Connected"
+        : "Tap to speak with Grace";
+
+    return (
+        <div className="w-full flex flex-col items-center gap-2 py-1">
+            {/* Mic / active button */}
+            <button
+                type="button"
+                disabled={disabled}
+                onClick={onClick}
+                aria-label={isActive ? "Voice session active" : "Start voice session"}
+                className={`
+                    group w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300
+                    ${isActive
+                        ? "bg-obsidian shadow-lg shadow-obsidian/20"
+                        : "bg-bone border border-champagne hover:border-muted-gold hover:shadow-md hover:shadow-muted-gold/10"}
+                    disabled:opacity-40 disabled:cursor-not-allowed
+                `}
+            >
+                {isConnecting ? (
+                    <div
+                        className="w-5 h-5 rounded-sm bg-muted-gold"
+                        style={{ animation: "spin 2s linear infinite" }}
+                    />
+                ) : isActive ? (
+                    <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
+                        <span /><span /><span /><span />
+                    </span>
+                ) : (
+                    <Mic className="w-5 h-5 text-obsidian/70 group-hover:text-muted-gold transition-colors duration-200" />
+                )}
+            </button>
+
+            {/* Timer — only shown when a session is live */}
+            <span
+                className={`font-mono text-xs tracking-widest transition-all duration-300 ${
+                    isActive ? "text-muted-gold" : "text-obsidian/20"
+                }`}
+            >
+                {formatTime(elapsedSeconds)}
+            </span>
+
+            {/* Waveform bars */}
+            <div className="h-8 w-56 flex items-center justify-center gap-[2px]">
+                {Array.from({ length: BAR_COUNT }).map((_, i) => (
+                    <div
+                        key={i}
+                        className={`w-[2px] rounded-full transition-all duration-300 ${
+                            isActive
+                                ? "bg-muted-gold/60 animate-pulse"
+                                : "bg-obsidian/10 h-[3px]"
+                        }`}
+                        style={
+                            isActive && mounted
+                                ? {
+                                      height: `${barHeights[i]}%`,
+                                      animationDelay: `${i * 0.04}s`,
+                                      animationDuration: `${0.8 + (i % 5) * 0.15}s`,
+                                  }
+                                : undefined
+                        }
+                    />
+                ))}
+            </div>
+
+            {/* Status label */}
+            <p className={`text-[11px] tracking-wide transition-all duration-300 ${
+                isActive ? "text-obsidian/70" : "text-obsidian/35"
+            }`}>
+                {label}
+            </p>
+        </div>
+    );
+}
+
 // ─── Chat Panel (420px — same width as cart) ────────────────────────────────
 
 function ChatPanel({ isMobile }: { isMobile: boolean }) {
@@ -760,6 +878,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const composerRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
     const isProductPage = pathname?.startsWith("/products/");
@@ -789,6 +908,14 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
     const isSpeaking = status === "speaking";
     const isConnecting = status === "connecting";
     const statusLabel = conversationActive ? "" : STATUS_LABELS[status];
+
+    // Elapsed timer for the voice widget — counts up while a conversation is active
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
+    useEffect(() => {
+        if (!conversationActive) { setElapsedSeconds(0); return; }
+        const id = setInterval(() => setElapsedSeconds((s) => s + 1), 1000);
+        return () => clearInterval(id);
+    }, [conversationActive]);
 
     const panelContent = (
         <>
@@ -948,29 +1075,31 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                 <div className="px-4 py-4 space-y-3">
                     {messages.length === 0 && !activeForm && (
                         <div className="flex flex-col items-center justify-center min-h-[280px] text-center px-2 pt-2">
-                            <p className="font-serif text-obsidian text-base font-medium mb-1.5 leading-snug">
+                            <p className="font-serif text-obsidian text-base font-medium mb-1 leading-snug">
                                 Good to have you here.
                             </p>
-                            <p className="text-slate text-xs leading-relaxed max-w-[240px] mb-5">
+                            <p className="text-slate text-xs leading-relaxed max-w-[240px] mb-3">
                                 How would you like to connect?
                             </p>
 
-                            {/* Primary CTA — voice */}
-                            <button
+                            {/* Voice wave widget */}
+                            <VoiceWaveWidget
+                                isActive={conversationActive || isListening || isSpeaking || isConnecting}
+                                isListening={isListening}
+                                isSpeaking={isSpeaking}
+                                isConnecting={isConnecting}
                                 onClick={startConversation}
-                                disabled={isProcessing}
-                                className="w-full flex items-center justify-center gap-2.5 bg-obsidian text-bone rounded-xl px-4 py-3 mb-2.5 hover:bg-muted-gold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                <span className="grace-voice-bars grace-voice-bars--light shrink-0" aria-hidden="true">
-                                    <span /><span /><span /><span />
-                                </span>
-                                <span className="font-sans text-[12px] font-semibold tracking-[0.08em] uppercase">Talk to Grace</span>
-                            </button>
+                                disabled={isProcessing && !conversationActive}
+                                elapsedSeconds={elapsedSeconds}
+                            />
 
                             {/* Secondary CTA — text */}
                             <button
-                                onClick={() => setTimeout(() => inputRef.current?.focus(), 50)}
-                                className="w-full flex items-center justify-center gap-2.5 border border-champagne text-obsidian/80 rounded-xl px-4 py-3 hover:border-muted-gold hover:bg-muted-gold/5 transition-colors duration-200"
+                                onClick={() => {
+                                    composerRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                                    setTimeout(() => inputRef.current?.focus(), 150);
+                                }}
+                                className="w-full flex items-center justify-center gap-2.5 border border-champagne text-obsidian/80 rounded-xl px-4 py-3 mt-1 hover:border-muted-gold hover:bg-muted-gold/5 transition-colors duration-200"
                             >
                                 <span className="font-sans text-[12px] font-semibold tracking-[0.08em] uppercase">Send a message</span>
                             </button>
@@ -1078,7 +1207,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
             </AnimatePresence>
 
             {/* Composer */}
-            <div className="px-4 py-3 border-t border-champagne/50 shrink-0 bg-bone/60">
+            <div ref={composerRef} className="px-4 py-3 border-t border-champagne/50 shrink-0 bg-bone/60">
                 {conversationActive && (
                     <div className="flex items-center gap-2 mb-2.5">
                         <div className="flex-1 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-obsidian/5 border border-champagne/60">

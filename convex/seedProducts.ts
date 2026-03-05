@@ -73,8 +73,15 @@ export const insertBatch = internalMutation({
         })),
     },
     handler: async (ctx, args) => {
+        const APPLICATOR_MAP: Record<string, string> = {
+            "Metal Roller": "Metal Roller Ball",
+            "Plastic Roller": "Plastic Roller Ball",
+        };
         for (const product of args.products) {
-            await ctx.db.insert("products", product);
+            const applicator = product.applicator != null && product.applicator in APPLICATOR_MAP
+                ? APPLICATOR_MAP[product.applicator]
+                : product.applicator;
+            await ctx.db.insert("products", { ...product, applicator } as any);
         }
         return { inserted: args.products.length };
     },

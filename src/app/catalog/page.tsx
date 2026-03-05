@@ -12,6 +12,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
+import { client, isSanityConfigured } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import {
     SORT_OPTIONS,
     APPLICATOR_BUCKETS,
@@ -32,22 +34,61 @@ import {
 const PAGE_SIZE = 24;
 const SEARCH_DEBOUNCE_MS = 300;
 
+// ─── Sanity Family Banner ─────────────────────────────────────────────────────
+
+// Module-level cache so the Sanity query only runs once per session
+const familyImageCache = new Map<string, string>();
+
+function useFamilyBannerImage(family: string | null): string | null {
+    const [imgUrl, setImgUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!family || !isSanityConfigured) return;
+        const cached = familyImageCache.get(family);
+        if (cached !== undefined) { setImgUrl(cached || null); return; }
+        client
+            .fetch<{ image?: { asset?: { _ref: string }; _type?: string } } | null>(
+                `*[_type == "homepagePage"][0].designFamilyCards[family == $fam][0] { image }`,
+                { fam: family }
+            )
+            .then((card) => {
+                const url = card?.image ? urlFor(card.image) : "";
+                familyImageCache.set(family, url);
+                setImgUrl(url || null);
+            })
+            .catch(() => { familyImageCache.set(family, ""); });
+    }, [family]);
+
+    return imgUrl;
+}
+
+function FamilyBanner({ family }: { family: string }) {
+    const imgUrl = useFamilyBannerImage(family);
+    if (!imgUrl) return null;
+    return (
+        <div className="relative w-full h-40 sm:h-52 lg:h-60 rounded-sm overflow-hidden mb-6 sm:mb-8 -ml-0">
+            <img
+                src={imgUrl}
+                alt={family}
+                className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 via-obsidian/20 to-transparent" />
+            <div className="absolute bottom-5 left-6">
+                <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-white/70 mb-1">Design Family</p>
+                <p className="font-serif text-2xl sm:text-3xl text-white font-medium">{family}</p>
+            </div>
+        </div>
+    );
+}
+
+// Valid glass colors — only these appear in the Glass Color filter.
 const COLOR_SWATCH_MAP: Record<string, string> = {
-    Clear: "bg-white border border-champagne/60",
-    Amber: "bg-amber-600",
-    Blue: "bg-blue-600",
-    Green: "bg-emerald-600",
+    Clear:   "bg-white border border-champagne/60",
     Frosted: "bg-gradient-to-br from-white to-slate-200 border border-champagne/60",
-    Black: "bg-black",
-    White: "bg-white border border-champagne/60",
-    Pink: "bg-pink-400",
-    Red: "bg-red-600",
-    Gold: "bg-yellow-500",
-    Purple: "bg-purple-600",
-    Cobalt: "bg-blue-800",
-    "Cobalt Blue": "bg-blue-800",
-    Opal: "bg-gradient-to-br from-white to-sky-100 border border-champagne/60",
-    Swirl: "bg-gradient-to-br from-sky-100 to-slate-300 border border-champagne/60",
+    Cobalt:  "bg-blue-800",
+    Amber:   "bg-amber-600",
+    Green:   "bg-emerald-600",
+    Swirl:   "bg-gradient-to-br from-sky-100 to-slate-300 border border-champagne/60",
 };
 
 const CATEGORY_ORDER = [
@@ -68,6 +109,17 @@ const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Cream Jar", "Lotion Bottle"]
 
 const COMPONENT_CATEGORIES = new Set([
     "Component", "Cap/Closure", "Roll-On Cap", "Accessory",
+    // Non-bottle, non-component categories that should not appear in Design Families
+    "Packaging", "Packaging Supply", "Tool", "Gift Box", "Gift Bag",
+]);
+
+// Applicator values that qualify a glass bottle as an "atomizer/spray" product.
+// When "Atomizer" is selected in the Design Families filter we union-match ALL
+// spray applicator types so fine-mist (< 30 ml) AND perfume-spray (≥ 30 ml)
+// glass bottles surface alongside the metal-shell Atomizer-family groups.
+const FINE_MIST_SPRAY_TYPES = new Set([
+    ...(APPLICATOR_BUCKETS.find((b) => b.value === "finemist")?.productValues ?? []),
+    ...(APPLICATOR_BUCKETS.find((b) => b.value === "perfumespray")?.productValues ?? []),
 ]);
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -517,7 +569,7 @@ function FilterSidebarContent({
 
             {/* Color — closed by default */}
             {sortedColors.length > 0 && (
-                <FilterSection title="Color" defaultOpen={false} hasActiveFilters={filters.colors.length > 0}>
+                <FilterSection title="Glass Color" defaultOpen={false} hasActiveFilters={filters.colors.length > 0}>
                     <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
                         {sortedColors.map(([color, count]) => (
                             <CheckboxItem
@@ -678,9 +730,13 @@ function LineItemRow({
     applicatorParam?: string | null;
 }) {
     const [quantity, setQuantity] = useState(1);
-    const href = applicatorParam
-        ? `/products/${group.slug}?applicator=${applicatorParam}`
-        : `/products/${group.slug}`;
+    const href = (() => {
+        const params = new URLSearchParams();
+        if (applicatorParam) params.set("applicator", applicatorParam);
+        if (quantity > 1) params.set("qty", String(quantity));
+        const qs = params.toString();
+        return `/products/${group.slug}${qs ? `?${qs}` : ""}`;
+    })();
 
     const incrementQty = () => setQuantity((q) => Math.min(q + 1, 9999));
     const decrementQty = () => setQuantity((q) => Math.max(q - 1, 1));
@@ -815,9 +871,13 @@ function LineItemMobileCard({
 }) {
     const [expanded, setExpanded] = useState(false);
     const [quantity, setQuantity] = useState(1);
-    const href = applicatorParam
-        ? `/products/${group.slug}?applicator=${applicatorParam}`
-        : `/products/${group.slug}`;
+    const href = (() => {
+        const params = new URLSearchParams();
+        if (applicatorParam) params.set("applicator", applicatorParam);
+        if (quantity > 1) params.set("qty", String(quantity));
+        const qs = params.toString();
+        return `/products/${group.slug}${qs ? `?${qs}` : ""}`;
+    })();
 
     const incrementQty = () => setQuantity((q) => Math.min(q + 1, 9999));
     const decrementQty = () => setQuantity((q) => Math.max(q - 1, 1));
@@ -1215,9 +1275,18 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         }
 
         // Families (multi-select)
+        // "Atomizer" is a cross-family filter: it also catches any glass bottle whose
+        // applicatorTypes includes a fine-mist spray value (Fine Mist Sprayer, Perfume
+        // Spray Pump, Atomizer) so Cylinder/Sleek/etc. spray bottles appear alongside
+        // the two metal-shell Atomizer-family groups.
         if (filters.families.length > 0) {
-            const set = new Set(filters.families);
-            result = result.filter((g) => g.family && set.has(g.family));
+            const familySet = new Set(filters.families);
+            const includesAtomizer = filters.families.includes("Atomizer");
+            result = result.filter((g) => {
+                if (g.family && familySet.has(g.family)) return true;
+                if (includesAtomizer && (g.applicatorTypes ?? []).some((t) => FINE_MIST_SPRAY_TYPES.has(t))) return true;
+                return false;
+            });
         }
 
         // Colors (multi-select)
@@ -1257,11 +1326,29 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             const count = result.filter((g) => applicatorBucketMatchesProductValues(bucket.value, g.applicatorTypes ?? [])).length;
             if (count > 0) applicatorCounts[bucket.value] = count;
         }
+        // Build families facet — only count bottle/jar categories, not components.
+        // This prevents families like "Lotion Pump", "Sprayer", "Roll-On Cap", "Dropper"
+        // (which are component applicator types) from appearing alongside bottle design
+        // families in the sidebar. Components already have their own "Component Type" filter.
+        const familyFacets = countBy(
+            result.filter((g) => !COMPONENT_CATEGORIES.has(g.category)),
+            (g) => g.family,
+        );
+        // Augment "Atomizer" to include all fine-mist glass bottles
+        // so the sidebar chip shows the true total (e.g. 25) instead of just the 2
+        // metal-shell Atomizer-family groups.
+        const extraSprayCount = result.filter(
+            (g) => g.family !== "Atomizer" && (g.applicatorTypes ?? []).some((t) => FINE_MIST_SPRAY_TYPES.has(t))
+        ).length;
+        if (extraSprayCount > 0 || (familyFacets["Atomizer"] ?? 0) > 0) {
+            familyFacets["Atomizer"] = (familyFacets["Atomizer"] ?? 0) + extraSprayCount;
+        }
+
         const facetData: Facets = {
             categories: countBy(result, (g) => g.category),
             collections: countBy(result, (g) => g.bottleCollection),
             applicators: applicatorCounts,
-            families: countBy(result, (g) => g.family),
+            families: familyFacets,
             colors: countBy(result, (g) => g.color),
             capacities: {},
             neckThreadSizes: countBy(result, (g) => g.neckThreadSize),
@@ -1567,12 +1654,21 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     {/* Product Grid Content */}
                     <div className="flex-1 w-full pb-32 border-l-0 lg:border-l border-champagne/30 lg:pl-12">
 
+                        {/* Family banner — shown when a single design family is filtered */}
+                        {filters.families.length === 1 && !filters.search && (
+                            <FamilyBanner family={filters.families[0]} />
+                        )}
+
                         {/* Results Header — sticks directly below fixed navbar */}
                         <div className="sticky top-[136px] lg:top-[100px] z-30 bg-bone pt-5 pb-2 mb-6 sm:mb-8 border-b-2 border-obsidian">
                             <div className="flex items-end justify-between gap-3">
                                 <div className="min-w-0">
                                     <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-muted-gold font-bold mb-1">
-                                        {filters.search ? "Search Results" : "Catalog"}
+                                        {filters.search
+                                            ? "Search Results"
+                                            : filters.applicators.length > 0 && filters.families.length === 1
+                                                ? filters.families[0]
+                                                : "Catalog"}
                                     </p>
                                     <h2 className="font-serif text-xl sm:text-3xl font-medium text-obsidian truncate">
                                         {filters.search
@@ -1581,7 +1677,9 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                                 ? `${APPLICATOR_BUCKETS.find((b) => b.value === filters.applicators[0])?.label ?? filters.applicators[0]} Bottles`
                                                 : filters.applicators.length > 1
                                                     ? `${filters.applicators.map((a) => APPLICATOR_BUCKETS.find((b) => b.value === a)?.label ?? a).join(" & ")} Bottles`
-                                                    : filters.category || filters.collection || (filters.families.length === 1 ? filters.families[0] : "All Products")}
+                                                    : filters.families.length === 1
+                                                        ? filters.families[0]
+                                                        : filters.collection || filters.category || "All Products"}
                                     </h2>
                                 </div>
                                 <div className="flex items-center gap-2 sm:gap-3 shrink-0">

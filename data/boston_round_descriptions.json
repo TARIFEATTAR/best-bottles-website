@@ -1,0 +1,21 @@
+{
+  "_NOTE": "TRIAL RUN - Boston Round group descriptions. Review before patching to DB. Color-agnostic and applicator-agnostic (paper-doll ready). Schwartz/Ogilvy framing: lead with the transformation, not the spec.",
+
+  "boston-round-15ml": {
+    "capacityMl": 15,
+    "neckThreadSize": "18-400",
+    "description": "The half-ounce Boston Round is the format perfumers reach for when they need a sample that feels like a finished product. Its rounded shoulder and 18-400 neck accept roll-on fitments, droppers, and screw caps interchangeably. One bottle, every application your customer might ask for."
+  },
+
+  "boston-round-30ml": {
+    "capacityMl": 30,
+    "neckThreadSize": "20-400",
+    "description": "A one-ounce apothecary silhouette trusted across fragrance, wellness, and beard-care lines for decades. The 30ml Boston Round's 20-400 neck pairs with roll-ons, droppers, and standard closures, making it the most versatile mid-format bottle in the catalog for brands that ship multiple product types from a single SKU."
+  },
+
+  "boston-round-60ml": {
+    "capacityMl": 60,
+    "neckThreadSize": "20-400",
+    "description": "The two-ounce Boston Round carries enough volume for a full retail offering: essential oil sets, therapeutic blends, or signature fragrance oils. The 20-400 neck keeps it compatible with the same closures as its 30ml counterpart. A proven choice when your customer is ready to commit beyond the sample size."
+  }
+}

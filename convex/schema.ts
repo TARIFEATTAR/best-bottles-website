@@ -28,6 +28,7 @@ export default defineSchema({
         // Until populated, getCatalogGroupPrimarySkus falls back to batched DB lookups.
         primaryGraceSku: v.optional(v.union(v.string(), v.null())),
         primaryWebsiteSku: v.optional(v.union(v.string(), v.null())),
+        groupDescription: v.optional(v.union(v.string(), v.null())),
     })
         .index("by_slug", ["slug"])
         .index("by_family", ["family"])
@@ -59,11 +60,14 @@ export default defineSchema({
 
         // ── Applicator & Cap ────────────────────────────────────────
         applicator: v.union(
-            v.literal("Metal Roller"),
-            v.literal("Plastic Roller"),
+            v.literal("Metal Roller Ball"),          // metal rollerball plug
+            v.literal("Plastic Roller Ball"),        // plastic rollerball plug
             v.literal("Fine Mist Sprayer"),
             v.literal("Perfume Spray Pump"),
             v.literal("Atomizer"),
+            v.literal("Vintage Bulb Sprayer"),
+            v.literal("Vintage Bulb Sprayer with Tassel"),
+            // Legacy values kept during migration window — remove after all records patched
             v.literal("Antique Bulb Sprayer"),
             v.literal("Antique Bulb Sprayer with Tassel"),
             v.literal("Lotion Pump"),
@@ -73,7 +77,7 @@ export default defineSchema({
             v.literal("Glass Rod"),
             v.literal("Cap/Closure"),
             v.literal("Applicator Cap"),
-            v.literal("Metal Atomizer"),   // GBAtom* — refillable metal-shell travel atomizers
+            v.literal("Metal Atomizer"),
             v.literal("N/A"),
             v.null()
         ),

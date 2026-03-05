@@ -68,10 +68,14 @@ const BOTTLE_CATEGORIES = new Set(["Glass Bottle", "Lotion Bottle", "Aluminum Bo
 const APPLICATOR_BUCKET_MAP: Record<string, string> = {
     "Metal Roller": "rollon",
     "Plastic Roller": "rollon",
-    // Fine mist, antique bulb, antique bulb+tassel are separate product groups
+    // Fine mist (< 30 ml atomizer-style) and perfume spray (≥ 30 ml collar-style)
+    // are now separate UI buckets so they get distinct filter chips.
     "Fine Mist Sprayer": "finemist",
-    "Perfume Spray Pump": "finemist",
     "Atomizer": "finemist",
+    "Perfume Spray Pump": "perfumespray",
+    "Vintage Bulb Sprayer": "antiquespray",
+    "Vintage Bulb Sprayer with Tassel": "antiquespray-tassel",
+    // Legacy keys kept for backward-compat during migration window
     "Antique Bulb Sprayer": "antiquespray",
     "Antique Bulb Sprayer with Tassel": "antiquespray-tassel",
     "Dropper": "dropper",
@@ -87,8 +91,9 @@ const APPLICATOR_BUCKET_MAP: Record<string, string> = {
 const APPLICATOR_BUCKET_LABELS: Record<string, string> = {
     rollon: "Roll-On",
     finemist: "Fine Mist Spray",
-    antiquespray: "Antique Bulb Spray",
-    "antiquespray-tassel": "Antique Bulb Spray with Tassel",
+    perfumespray: "Perfume Spray",
+    antiquespray: "Vintage Bulb Spray",
+    "antiquespray-tassel": "Vintage Bulb Spray with Tassel",
     dropper: "Dropper",
     lotionpump: "Lotion Pump",
     reducer: "Reducer",
@@ -101,8 +106,8 @@ const APPLICATOR_BUCKET_LABELS: Record<string, string> = {
 const APPLICATOR_BUCKET_TITLE: Record<string, string> = {
     rollon: "Roll-On Bottle",
     finemist: "Fine Mist Spray Bottle",
-    antiquespray: "Antique Bulb Spray Bottle",
-    "antiquespray-tassel": "Antique Bulb Spray Bottle with Tassel",
+    antiquespray: "Vintage Bulb Spray Bottle",
+    "antiquespray-tassel": "Vintage Bulb Spray Bottle with Tassel",
     dropper: "Dropper Bottle",
     lotionpump: "Lotion Pump Bottle",
     reducer: "Reducer Bottle",
@@ -170,7 +175,7 @@ function getComponentSubType(
     const sku = (websiteSku || "").toLowerCase();
 
     if (name.includes("antique") || name.includes("vintage") || name.includes("bulb sprayer")) {
-        return name.includes("tassel") ? "Antique Bulb Sprayer with Tassel" : "Antique Bulb Sprayer";
+        return name.includes("tassel") ? "Vintage Bulb Sprayer with Tassel" : "Vintage Bulb Sprayer";
     }
     if (name.includes("fine mist") || name.includes("sprayer") || sku.startsWith("cp") && sku.includes("spry") || sku.startsWith("spry")) {
         return "Fine Mist Sprayer";
@@ -182,8 +187,8 @@ function getComponentSubType(
     if (name.includes("reducer")) return "Reducer";
 
     if (applicator === "Fine Mist Sprayer" || applicator === "Perfume Spray Pump") return "Fine Mist Sprayer";
-    if (applicator === "Antique Bulb Sprayer") return "Antique Bulb Sprayer";
-    if (applicator === "Antique Bulb Sprayer with Tassel") return "Antique Bulb Sprayer with Tassel";
+    if (applicator === "Vintage Bulb Sprayer" || applicator === "Antique Bulb Sprayer") return "Vintage Bulb Sprayer";
+    if (applicator === "Vintage Bulb Sprayer with Tassel" || applicator === "Antique Bulb Sprayer with Tassel") return "Vintage Bulb Sprayer with Tassel";
     if (applicator === "Lotion Pump") return "Lotion Pump";
     if (applicator === "Dropper") return "Dropper";
 
@@ -585,14 +590,14 @@ export const linkProductsToGroups = action({
 // ─────────────────────────────────────────────────────────────────────────────
 
 const APPLICATOR_MAP: Record<string, ProductApplicator> = {
-    ROL: "Plastic Roller",
-    MRL: "Metal Roller",
-    RON: "Plastic Roller",   // Boston Round family variant
-    MRO: "Metal Roller",     // Boston Round family variant
-    RBL: "Plastic Roller",   // Elegant family variant
+    ROL: "Plastic Roller Ball",
+    MRL: "Metal Roller Ball",
+    RON: "Plastic Roller Ball",   // Boston Round family variant
+    MRO: "Metal Roller Ball",     // Boston Round family variant
+    RBL: "Plastic Roller Ball",   // Elegant family variant
     SPR: "Fine Mist Sprayer",
-    ASP: "Antique Bulb Sprayer",
-    AST: "Antique Bulb Sprayer with Tassel",
+    ASP: "Vintage Bulb Sprayer",
+    AST: "Vintage Bulb Sprayer with Tassel",
     LPM: "Lotion Pump",
     DRP: "Dropper",
     RDC: "Reducer",
@@ -627,10 +632,10 @@ function deriveApplicator(graceSku: string, itemName: string): Doc<"products">["
 
     // Pass 2: item name keywords
     const n = itemName.toLowerCase();
-    if (n.includes("metal roller")) return "Metal Roller";
-    if (n.includes("roller ball") || n.includes("plastic roller")) return "Plastic Roller";
-    if (n.includes("tassel")) return "Antique Bulb Sprayer with Tassel";
-    if (n.includes("vintage") || n.includes("antique") || n.includes("bulb spray")) return "Antique Bulb Sprayer";
+    if (n.includes("metal roller")) return "Metal Roller Ball";
+    if (n.includes("roller ball") || n.includes("plastic roller")) return "Plastic Roller Ball";
+    if (n.includes("tassel")) return "Vintage Bulb Sprayer with Tassel";
+    if (n.includes("vintage") || n.includes("antique") || n.includes("bulb spray")) return "Vintage Bulb Sprayer";
     if (n.includes("atomizer")) return "Atomizer";
     if (n.includes("fine mist") || n.includes("mist sprayer") || n.includes("spray pump")) return "Fine Mist Sprayer";
     if (n.includes("treatment pump") || n.includes("lotion pump")) return "Lotion Pump";
@@ -654,8 +659,8 @@ export const patchProductsBatch = internalMutation({
         patches: v.array(v.object({
             id: v.id("products"),
             applicator: v.union(
-                v.literal("Metal Roller"),
-                v.literal("Plastic Roller"),
+                v.literal("Metal Roller Ball"),
+                v.literal("Plastic Roller Ball"),
                 v.literal("Fine Mist Sprayer"),
                 v.literal("Perfume Spray Pump"),
                 v.literal("Atomizer"),
@@ -1103,7 +1108,7 @@ const BELL_10ML_MISSING_VARIANTS = [
         capacity: "10 ml (0.34 oz)",
         capacityMl: 10,
         capacityOz: 0.34,
-        applicator: "Plastic Roller",
+        applicator: "Plastic Roller Ball",
         capColor: "Shiny Black",
         trimColor: "Shiny Black",
         capStyle: null,
@@ -1142,7 +1147,7 @@ const BELL_10ML_MISSING_VARIANTS = [
         capacity: "10 ml (0.34 oz)",
         capacityMl: 10,
         capacityOz: 0.34,
-        applicator: "Metal Roller",
+        applicator: "Metal Roller Ball",
         capColor: "Shiny Black",
         trimColor: "Shiny Black",
         capStyle: null,
@@ -2840,18 +2845,18 @@ export const addMissingSwirlLtnBlk = mutation({
 
 const COLLECTION_RENAMES: Record<string, string> = {
     // Product-level duplicates (applied to both products + productGroups)
-    "Royal Collection":          "Royal",
-    "Flair Collection":          "Flair",
-    "Square Collection":         "Square",
+    "Royal Collection": "Royal",
+    "Flair Collection": "Flair",
+    "Square Collection": "Square",
     "Plastic Bottle Collection": "Plastic Bottle",
-    "Cylinder Collection":       "Cylinder",
+    "Cylinder Collection": "Cylinder",
     // Group-level only: productGroup records used "X Collection" suffix
     // while the individual product records already used the plain name.
-    "Tulip Collection":          "Tulip",
-    "Bell Collection":           "Bell",
-    "Vial & Sample Collection":  "Vial",
-    "Pillar Collection":         "Pillar",
-    "Atomizer Collection":       "Atomizer",
+    "Tulip Collection": "Tulip",
+    "Bell Collection": "Bell",
+    "Vial & Sample Collection": "Vial",
+    "Pillar Collection": "Pillar",
+    "Atomizer Collection": "Atomizer",
 };
 
 /**
@@ -2860,12 +2865,12 @@ const COLLECTION_RENAMES: Record<string, string> = {
  */
 export const normalizeCollectionNames = mutation({
     args: {
-        cursor:    v.union(v.string(), v.null()),
+        cursor: v.union(v.string(), v.null()),
         batchSize: v.optional(v.number()),
-        apply:     v.optional(v.boolean()),
+        apply: v.optional(v.boolean()),
     },
     handler: async (ctx, args) => {
-        const size  = args.batchSize ?? 200;
+        const size = args.batchSize ?? 200;
         const apply = args.apply ?? false;
 
         const result = await ctx.db.query("products").paginate({ cursor: args.cursor as any, numItems: size });
@@ -2913,12 +2918,12 @@ export const normalizeGroupCollectionNames = mutation({
 // Component SKUs that the enrichment pipeline mislabeled as "Roll-On Cap".
 const COMPONENT_FIXES: Array<{ graceSku: string; family: string; bottleCollection: string }> = [
     // Pink antique bulb sprayer — CMP-CAP-* prefix but item IS a sprayer
-    { graceSku: "CMP-CAP-PNK-18-415",     family: "Sprayer",     bottleCollection: "Sprayer" },
+    { graceSku: "CMP-CAP-PNK-18-415", family: "Sprayer", bottleCollection: "Sprayer" },
     // Four lotion pumps assigned Roll-On Cap family/collection during enrichment
-    { graceSku: "CMP-LPM-SGLD-18-415",    family: "Lotion Pump", bottleCollection: "Lotion Pump" },
-    { graceSku: "CMP-LPM-SBLK-18-415",    family: "Lotion Pump", bottleCollection: "Lotion Pump" },
+    { graceSku: "CMP-LPM-SGLD-18-415", family: "Lotion Pump", bottleCollection: "Lotion Pump" },
+    { graceSku: "CMP-LPM-SBLK-18-415", family: "Lotion Pump", bottleCollection: "Lotion Pump" },
     { graceSku: "CMP-LPM-MSLV-18-415-02", family: "Lotion Pump", bottleCollection: "Lotion Pump" },
-    { graceSku: "CMP-LPM-SSLV-18-415",    family: "Lotion Pump", bottleCollection: "Lotion Pump" },
+    { graceSku: "CMP-LPM-SSLV-18-415", family: "Lotion Pump", bottleCollection: "Lotion Pump" },
 ];
 
 /**
@@ -2970,7 +2975,7 @@ export const fixWrongGroupLinks = mutation({
         const apply = args.apply ?? false;
 
         const fixes: Array<{ websiteSku: string; category: string }> = [
-            { websiteSku: "BB-ALU250SPRYBL",        category: "Aluminum Bottle" },
+            { websiteSku: "BB-ALU250SPRYBL", category: "Aluminum Bottle" },
             { websiteSku: "BB-CREAMJARAMB5MLSLCAP", category: "Cream Jar" },
         ];
 
@@ -2992,7 +2997,7 @@ export const fixWrongGroupLinks = mutation({
             }
             if (apply) {
                 await ctx.db.patch(product._id, {
-                    category:       fix.category,
+                    category: fix.category,
                     productGroupId: undefined,
                 });
             }
@@ -3000,5 +3005,1642 @@ export const fixWrongGroupLinks = mutation({
         }
 
         return { results, applied: apply };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VERIFIED PRICE PATCHES — March 4 2026
+// Source: pricing_audit_report.json (Feb 24 scrape, 2,066 table-verified matches)
+// 29 SKUs with genuine mismatches. Run via:
+//   npx convex run migrations:applyVerifiedPricePatches
+// ─────────────────────────────────────────────────────────────────────────────
+
+const VERIFIED_PRICE_PATCHES: Array<{ graceSku: string; webPrice1pc?: number; webPrice12pc?: number }> = [
+    { graceSku: "AB-ALU-CLR-120ML-LPM-WHT", webPrice1pc: 0.35, webPrice12pc: 0.33 }, // was $1.30
+    { graceSku: "AB-ALU-CLR-250ML-SPR-BLK", webPrice1pc: 1.50, webPrice12pc: 1.43 }, // was $1.95
+    { graceSku: "PKG-BOX-WHT-4X4X4", webPrice1pc: 0.35 }, // was $0.30
+    { graceSku: "CJ-JAR-60ML-WHT", webPrice1pc: 0.20, webPrice12pc: 0.19 }, // was $0.10
+    { graceSku: "GB-BSR-AMB-15ML-BLK-T-02", webPrice1pc: 0.82, webPrice12pc: 0.78 }, // was $0.67
+    { graceSku: "GB-BSR-AMB-15ML-BLK-T-03", webPrice1pc: 0.82, webPrice12pc: 0.78 }, // was $0.67
+    { graceSku: "GB-BSR-AMB-15ML-WHT-T-02", webPrice1pc: 0.82, webPrice12pc: 0.78 }, // was $0.67
+    { graceSku: "GB-BSR-AMB-15ML-WHT-T-03", webPrice1pc: 0.82, webPrice12pc: 0.78 }, // was $0.67
+    { graceSku: "GB-BSR-AMB-30ML-MRL-SSLV", webPrice1pc: 1.07, webPrice12pc: 1.02 }, // was $0.72
+    { graceSku: "GB-BSR-AMB-30ML-WHT-T-01", webPrice1pc: 0.72, webPrice12pc: 0.68 }, // was $0.75
+    { graceSku: "GB-BSR-AMB-30ML-WHT-T-02", webPrice1pc: 0.87, webPrice12pc: 0.83 }, // was $0.72
+    { graceSku: "GB-BSR-AMB-60ML-MRL-MGLD", webPrice1pc: 1.10, webPrice12pc: 1.05 }, // was $0.75
+    { graceSku: "GB-BSR-AMB-60ML-MRL-MSLV", webPrice1pc: 1.10, webPrice12pc: 1.05 }, // was $0.75
+    { graceSku: "GB-BSR-AMB-60ML-MRL-SSLV", webPrice1pc: 1.10, webPrice12pc: 1.05 }, // was $0.75
+    { graceSku: "GB-BSR-AMB-60ML-WHT-T-01", webPrice1pc: 0.75, webPrice12pc: 0.71 }, // was $0.85
+    { graceSku: "GB-BSR-CBL-15ML-BLK-T-03", webPrice1pc: 0.82, webPrice12pc: 0.78 }, // was $0.67
+    { graceSku: "GB-BSR-CBL-30ML-BLK-T-02", webPrice1pc: 0.87, webPrice12pc: 0.83 }, // was $0.72
+    { graceSku: "GB-BSR-CBL-30ML-WHT-T-02", webPrice1pc: 0.87, webPrice12pc: 0.83 }, // was $0.72
+    { graceSku: "GB-BSR-CBL-30ML-WHT-T-03", webPrice1pc: 0.87, webPrice12pc: 0.83 }, // was $0.72
+    { graceSku: "GB-BSR-CBL-60ML-BLK-T-02", webPrice1pc: 0.90, webPrice12pc: 0.86 }, // was $0.75
+    { graceSku: "GB-BSR-CBL-60ML-MRL-SGLD", webPrice1pc: 0.95, webPrice12pc: 0.90 }, // was $1.05
+    { graceSku: "GB-BSR-CBL-60ML-WHT-T-02", webPrice1pc: 0.90, webPrice12pc: 0.86 }, // was $0.75
+    { graceSku: "GB-BSR-CBL-60ML-WHT-T-03", webPrice1pc: 0.90, webPrice12pc: 0.86 }, // was $0.75
+    { graceSku: "GB-CIR-CLR-50ML-ASP-01", webPrice1pc: 6.15, webPrice12pc: 5.84 }, // was $2.50
+    { graceSku: "GB-CIR-CLR-50ML-RDC-WHT", webPrice1pc: 1.57, webPrice12pc: 1.49 }, // was $1.95
+    { graceSku: "GB-CIR-FRS-100ML-RDC-WHT", webPrice1pc: 2.52, webPrice12pc: 2.39 }, // was $2.95
+    { graceSku: "GB-CIR-FRS-50ML-RDC-WHT", webPrice1pc: 2.07, webPrice12pc: 1.97 }, // was $2.65
+    { graceSku: "GB-VIA-CLR-3ML-04", webPrice1pc: 1.95, webPrice12pc: 1.85 }, // was $0.35
+    { graceSku: "GB-GRN-GRN-20ML", webPrice1pc: 0.81, webPrice12pc: 0.77 }, // was $0.65
+];
+
+export const applyVerifiedPricePatches = mutation({
+    args: {},
+    handler: async (ctx) => {
+        let updated = 0;
+        let missing = 0;
+        for (const patch of VERIFIED_PRICE_PATCHES) {
+            const doc = await ctx.db
+                .query("products")
+                .withIndex("by_graceSku", (q) => q.eq("graceSku", patch.graceSku))
+                .first();
+            if (!doc) {
+                console.warn("Price patch: SKU not found —", patch.graceSku);
+                missing++;
+                continue;
+            }
+            const upd: Record<string, number> = {};
+            if (patch.webPrice1pc != null) upd.webPrice1pc = patch.webPrice1pc;
+            if (patch.webPrice12pc != null) upd.webPrice12pc = patch.webPrice12pc;
+            await ctx.db.patch(doc._id, upd);
+            updated++;
+        }
+        return `Price patches applied: ${updated} updated, ${missing} SKUs not found.`;
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NEW PRODUCT — Elegant 15ml Clear Matte Copper Minaret Cap
+// Scraped from bestbottles.com/product/elegant-design-15-ml-glass-bottle-matte-copper-minaret-cap
+// Source of truth updated: grace_products_clean.json (position 1099)
+// Run via: npx convex run migrations:addMissingElegant15mlMinaret
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const addMissingElegant15mlMinaret = mutation({
+    args: {},
+    handler: async (ctx) => {
+        const graceSku = "GB-ELG-CLR-15ML-MNR-MCPR";
+
+        // Idempotency check — skip if already exists
+        const existing = await ctx.db
+            .query("products")
+            .withIndex("by_graceSku", (q) => q.eq("graceSku", graceSku))
+            .first();
+        if (existing) {
+            return `Already exists: ${graceSku} (_id: ${existing._id})`;
+        }
+
+        await ctx.db.insert("products", {
+            websiteSku: "GBElg15MinarCu",
+            graceSku,
+            category: "Glass Bottle",
+            family: "Elegant",
+            shape: "Standard",
+            color: "Clear",
+            capacity: "15 ml (0.51 oz)",
+            capacityMl: 15.0,
+            capacityOz: 0.5,
+            applicator: "Cap/Closure",
+            capColor: "Matte Copper",
+            capStyle: "Minaret",
+            trimColor: null,
+            neckThreadSize: "13-415",
+            heightWithCap: "73 \u00b11 mm",
+            heightWithoutCap: "61 \u00b11 mm",
+            diameter: "30 \u00b10.5 mm",
+            bottleWeightG: 44.0,
+            caseQuantity: 288,
+            qbPrice: 0.88,
+            webPrice1pc: 0.88,
+            webPrice10pc: null,
+            webPrice12pc: 0.84,
+            capHeight: null,
+            ballMaterial: null,
+            imageUrl: null,
+            productId: null,
+            stockStatus: "In Stock",
+            itemName: "Elegant 15 ml (0.51 oz) Clear Glass Bottle with Matte Copper Minaret Cap",
+            itemDescription: "Elegant design 15ml, 1/2oz clear glass bottle with matte copper minaret dab-on cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy.",
+            productUrl: "https://www.bestbottles.com/product/elegant-design-15-ml-glass-bottle-matte-copper-minaret-cap",
+            dataGrade: "A",
+            bottleCollection: "Elegant Collection",
+            fitmentStatus: "unmapped",
+            graceDescription: "Elegant 15ml clear glass bottle with a matte copper minaret (dab-on) cap. Accepts 13-415 thread. Part of the Elegant Collection, available in 5ml, 15ml, 30ml, 60ml, and 100ml.",
+            verified: true,
+            components: [],
+        });
+
+        return `✅ Inserted: ${graceSku} — Elegant 15ml Clear Matte Copper Minaret Cap`;
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COLOR CORRECTION MIGRATION — March 4 2026
+// Fixes 72 frosted glass products incorrectly stored with color=Clear / graceSku=CLR
+// Families: Diva (43) + Elegant (29). Clear glass variants are NOT touched.
+// Run via: npx convex run migrations:fixFrostedColorMismatches
+// ─────────────────────────────────────────────────────────────────────────────
+
+const FROSTED_COLOR_CORRECTIONS = [
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-12", newGraceSku: "GB-DVA-FRS-46ML-T-12", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-13", newGraceSku: "GB-DVA-FRS-46ML-T-13", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-14", newGraceSku: "GB-DVA-FRS-46ML-T-14", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-15", newGraceSku: "GB-DVA-FRS-46ML-T-15", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-16", newGraceSku: "GB-DVA-FRS-46ML-T-16", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-17", newGraceSku: "GB-DVA-FRS-46ML-T-17", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-18", newGraceSku: "GB-DVA-FRS-46ML-T-18", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-19", newGraceSku: "GB-DVA-FRS-46ML-T-19", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-20", newGraceSku: "GB-DVA-FRS-46ML-T-20", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-21", newGraceSku: "GB-DVA-FRS-46ML-T-21", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-22", newGraceSku: "GB-DVA-FRS-46ML-T-22", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-23", newGraceSku: "GB-DVA-FRS-46ML-T-23", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-24", newGraceSku: "GB-DVA-FRS-46ML-T-24", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-25", newGraceSku: "GB-DVA-FRS-46ML-T-25", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-26", newGraceSku: "GB-DVA-FRS-46ML-T-26", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-27", newGraceSku: "GB-DVA-FRS-46ML-T-27", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-28", newGraceSku: "GB-DVA-FRS-46ML-T-28", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-29", newGraceSku: "GB-DVA-FRS-46ML-T-29", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-30", newGraceSku: "GB-DVA-FRS-46ML-T-30", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-31", newGraceSku: "GB-DVA-FRS-46ML-T-31", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-32", newGraceSku: "GB-DVA-FRS-46ML-T-32", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-33", newGraceSku: "GB-DVA-FRS-46ML-T-33", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-34", newGraceSku: "GB-DVA-FRS-46ML-T-34", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-35", newGraceSku: "GB-DVA-FRS-46ML-T-35", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-36", newGraceSku: "GB-DVA-FRS-46ML-T-36", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-37", newGraceSku: "GB-DVA-FRS-46ML-T-37", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-38", newGraceSku: "GB-DVA-FRS-46ML-T-38", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-39", newGraceSku: "GB-DVA-FRS-46ML-T-39", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-40", newGraceSku: "GB-DVA-FRS-46ML-T-40", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-T-41", newGraceSku: "GB-DVA-FRS-46ML-T-41", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle Tall Cap" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-01", newGraceSku: "GB-DVA-FRS-46ML-01", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-02", newGraceSku: "GB-DVA-FRS-46ML-02", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-03", newGraceSku: "GB-DVA-FRS-46ML-03", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-04", newGraceSku: "GB-DVA-FRS-46ML-04", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-05", newGraceSku: "GB-DVA-FRS-46ML-05", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle" },
+    { oldGraceSku: "GB-DVA-CLR-46ML-06", newGraceSku: "GB-DVA-FRS-46ML-06", itemName: "Diva 46 ml (1.56 oz) Frosted Glass Bottle" },
+    { oldGraceSku: "GB-ELG-CLR-100ML-ASP-WHT-02", newGraceSku: "GB-ELG-FRS-100ML-ASP-WHT-02", itemName: "Elegant 100 ml (3.38 oz) Frosted Glass Bottle with Antique Sprayer White Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-BLK-S-02", newGraceSku: "GB-ELG-FRS-15ML-BLK-S-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle Short Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SGLD-T", newGraceSku: "GB-ELG-FRS-15ML-SGLD-T", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle Tall Shiny Gold Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-BLK-01", newGraceSku: "GB-ELG-FRS-15ML-MRL-BLK-01", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-BLK-02", newGraceSku: "GB-ELG-FRS-15ML-MRL-BLK-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-MCPR-02", newGraceSku: "GB-ELG-FRS-15ML-MRL-MCPR-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Matte Copper Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-SGLD-02", newGraceSku: "GB-ELG-FRS-15ML-MRL-SGLD-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Shiny Gold Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL", newGraceSku: "GB-ELG-FRS-15ML-MRL", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-SLV-01", newGraceSku: "GB-ELG-FRS-15ML-MRL-SLV-01", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-MSLV-02", newGraceSku: "GB-ELG-FRS-15ML-MRL-MSLV-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Matte Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-MRL-SLV-02", newGraceSku: "GB-ELG-FRS-15ML-MRL-SLV-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Metal Roller Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-BLK-01", newGraceSku: "GB-ELG-FRS-15ML-RBL-BLK-01", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-BLK-02", newGraceSku: "GB-ELG-FRS-15ML-RBL-BLK-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-MCPR", newGraceSku: "GB-ELG-FRS-15ML-RBL-MCPR", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Matte Copper Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-SGLD", newGraceSku: "GB-ELG-FRS-15ML-RBL-SGLD", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Shiny Gold Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL", newGraceSku: "GB-ELG-FRS-15ML-RBL", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-SLV-01", newGraceSku: "GB-ELG-FRS-15ML-RBL-SLV-01", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-MSLV", newGraceSku: "GB-ELG-FRS-15ML-RBL-MSLV", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Matte Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-RBL-SLV-02", newGraceSku: "GB-ELG-FRS-15ML-RBL-SLV-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Roller Ball Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SLV-T-02", newGraceSku: "GB-ELG-FRS-15ML-SLV-T-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle Tall Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR-BLK-01", newGraceSku: "GB-ELG-FRS-15ML-SPR-BLK-01", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR-BLK-02", newGraceSku: "GB-ELG-FRS-15ML-SPR-BLK-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer Black Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR", newGraceSku: "GB-ELG-FRS-15ML-SPR", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR-MCPR-02", newGraceSku: "GB-ELG-FRS-15ML-SPR-MCPR-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer Matte Copper Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR-SGLD-02", newGraceSku: "GB-ELG-FRS-15ML-SPR-SGLD-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer Shiny Gold Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR-MSLV-02", newGraceSku: "GB-ELG-FRS-15ML-SPR-MSLV-02", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer Matte Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-SPR-SLV", newGraceSku: "GB-ELG-FRS-15ML-SPR-SLV", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle with Sprayer Silver Cap" },
+    { oldGraceSku: "GB-ELG-CLR-15ML-WHT-S", newGraceSku: "GB-ELG-FRS-15ML-WHT-S", itemName: "Elegant 15 ml (0.51 oz) Frosted Glass Bottle Short White Cap" },
+    { oldGraceSku: "GB-ELG-CLR-60ML-ASP-WHT-02", newGraceSku: "GB-ELG-FRS-60ML-ASP-WHT-02", itemName: "Elegant 60 ml (2.03 oz) Frosted Glass Bottle with Antique Sprayer White Cap" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-T", newGraceSku: "LB-DVA-FRS-46ML-T", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle Tall Cap" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-01", newGraceSku: "LB-DVA-FRS-46ML-01", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-02", newGraceSku: "LB-DVA-FRS-46ML-02", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-03", newGraceSku: "LB-DVA-FRS-46ML-03", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-04", newGraceSku: "LB-DVA-FRS-46ML-04", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-05", newGraceSku: "LB-DVA-FRS-46ML-05", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle" },
+    { oldGraceSku: "LB-DVA-CLR-46ML-06", newGraceSku: "LB-DVA-FRS-46ML-06", itemName: "Diva 46 ml (1.56 oz) Clear Lotion Bottle" },
+] as const;
+
+export const fixFrostedColorMismatches = mutation({
+    args: {},
+    handler: async (ctx) => {
+        let updated = 0, missing = 0;
+        for (const patch of FROSTED_COLOR_CORRECTIONS) {
+            const doc = await ctx.db
+                .query("products")
+                .withIndex("by_graceSku", (q) => q.eq("graceSku", patch.oldGraceSku))
+                .first();
+            if (!doc) { console.warn("Color fix: NOT FOUND —", patch.oldGraceSku); missing++; continue; }
+            await ctx.db.patch(doc._id, {
+                graceSku: patch.newGraceSku,
+                color: "Frosted",
+                itemName: patch.itemName || doc.itemName,
+            });
+            updated++;
+        }
+        return `Color corrections: ${updated} updated, ${missing} not found.`;
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BULK PRODUCT INSERTION — March 4 2026
+// 16 products identified as missing via full bestbottles.com site crawl
+// Source of truth updated: grace_products_clean.json (2781 → 2797)
+// Run via: npx convex run migrations:addMissingProducts20260304
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MISSING_PRODUCTS_20260304 = [
+    {
+        websiteSku: "",
+        graceSku: "PKG-BOX-BRN-4X4X4",
+        category: "Packaging",
+        family: "Unknown",
+        capacity: "0.0 ml",
+        capacityMl: 0.0,
+        color: "Clear",
+        neckThreadSize: null,
+        heightWithCap: null,
+        heightWithoutCap: "102 ±2 mm Item Width: 102 ±2 m",
+        webPrice1pc: 0.45,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Corrugated Box 4 x 4 x 4. 32 lbs ECT",
+        itemDescription: "Corrugated Box 4 x 4 x 4. 32 lbs ECT",
+        productUrl: "https://www.bestbottles.com/product/Brown-Shipping-Packaging-Box-4x4x4",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "",
+        graceSku: "CMP-CAP-BDOT-17-415",
+        category: "Component",
+        family: "Cap/Component",
+        capacity: "0.0 ml",
+        capacityMl: 0.0,
+        color: "Clear",
+        neckThreadSize: "Size: 17-415 Nemat Internation",
+        heightWithCap: "27 ±0.5 mm Item Diameter: 19 ±",
+        heightWithoutCap: null,
+        webPrice1pc: 0.38,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Black with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pre",
+        itemDescription: "Black with dots cap or closure for rollon bottles. Metal shell cap with plastic insert that has special features for pressing on roller ball. Thread size 17-415",
+        productUrl: "https://www.bestbottles.com/product/Caps-lids-top-roll-on-bottle-Black-Dot-Color-17-415",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "",
+        graceSku: "PKG-BOX-WHT-WINDOW-SM",
+        category: "Packaging",
+        family: "Gift Box",
+        capacity: "0.0 ml",
+        capacityMl: 0.0,
+        color: "Clear",
+        neckThreadSize: null,
+        heightWithCap: null,
+        heightWithoutCap: "89 ±1 mm Item Width: 57 ±1 mm ",
+        webPrice1pc: 0.35,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Plain White folding carton box with window. Size 0.75",
+        itemDescription: "Plain White folding carton box with window. Size 0.75",
+        productUrl: "https://www.bestbottles.com/product/Gift-box-C-small-window-white-color",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "",
+        graceSku: "CMP-CAP-SBLK-13-415",
+        category: "Component",
+        family: "Cap/Component",
+        capacity: "0.0 ml",
+        capacityMl: 0.0,
+        color: "Clear",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "17 ±0.5 mm Item Diameter: 17 ±",
+        heightWithoutCap: null,
+        webPrice1pc: 0.28,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Short shiny black or closure for glass bottle with foam liner. Thread size 13-415",
+        itemDescription: "Short shiny black or closure for glass bottle with foam liner. Thread size 13-415",
+        productUrl: "https://www.bestbottles.com/product/Short-Caps-lids-top-bottle-shiny-black-Color-13-415",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBBell10MtlRollBlkDot",
+        graceSku: "GB-BLL-CLR-10ML-MRL-BDOT",
+        category: "Glass Bottle",
+        family: "Bell",
+        capacity: "10.0 ml",
+        capacityMl: 10.0,
+        color: "Clear",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "66 ±1 mm Item Height without C",
+        heightWithoutCap: "55 ±1 mm Item Diameter: 27 ±0.",
+        webPrice1pc: 0.82,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Bell design 10ml Clear glass bottle with metal roller ball plug and black shiny cap with dots. For use with perfume or f",
+        itemDescription: "Bell design 10ml Clear glass bottle with metal roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants.",
+        productUrl: "https://www.bestbottles.com/product/bell-design-10-ml-glass-bottle-metal-roller-ball-plug-black-shiny-cap-with-dots",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBBell10RollBlkDot",
+        graceSku: "GB-BLL-CLR-10ML-RBL-BDOT",
+        category: "Glass Bottle",
+        family: "Bell",
+        capacity: "10.0 ml",
+        capacityMl: 10.0,
+        color: "Clear",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "66 ±1 mm Item Height without C",
+        heightWithoutCap: "55 ±1 mm Item Diameter: 27 ±0.",
+        webPrice1pc: 0.74,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Bell design 10ml Clear glass bottle with plastic roller ball plug and black shiny cap with dots. For use with perfume or",
+        itemDescription: "Bell design 10ml Clear glass bottle with plastic roller ball plug and black shiny cap with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, classic style bottle good for promotions and decants.",
+        productUrl: "https://www.bestbottles.com/product/bell-design-10-ml-glass-bottle-plastic-roller-ball-plug-black-shiny-cap-with-dots",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBBstn15BlkDrp",
+        graceSku: "GB-BSR-CLR-15ML-DRP-BLK",
+        category: "Glass Bottle",
+        family: "Boston Round",
+        capacity: "15.0 ml",
+        capacityMl: 15.0,
+        color: "Clear",
+        neckThreadSize: "Size: 18-400 Nemat Internation",
+        heightWithCap: "91 ±1 mm Item Height without C",
+        heightWithoutCap: "68 ±1 mm Item Diameter: 25 ±0.",
+        webPrice1pc: 0.67,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Boston round design 15ml, 1/2 oz  Clear glass bottle with a black dropper. For use with perfume oils, diffuser oils, ser",
+        itemDescription: "Boston round design 15ml, 1/2 oz  Clear glass bottle with a black dropper. For use with perfume oils, diffuser oils, serums, primers, facial oils or face oils, moisturizers, and beard oils. Price each",
+        productUrl: "https://www.bestbottles.com/product/boston-round-design-15-ml-clear-glass-bottle-black-dropper",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "PbClear8ozFlpWh",
+        graceSku: "PB-CYL-227ML-WFLP",
+        category: "Glass Bottle",
+        family: "Cylinder",
+        capacity: "227 ml (8 oz)",
+        capacityMl: 227.0,
+        color: "Clear",
+        neckThreadSize: null,
+        heightWithCap: "159 ±2 mm Item Height without ",
+        heightWithoutCap: "156 ±2 mm Item Diameter: 51 ±1",
+        webPrice1pc: 0.97,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Clear plastic cylinder shaped bottle with white flip-top cap for use with perfume or fragrance oil, essential oils, arom",
+        itemDescription: "Clear plastic cylinder shaped bottle with white flip-top cap for use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Clear cylinder, design 4oz. Price Each",
+        productUrl: "https://www.bestbottles.com/product/cylinder-design-16-oz-plastic-bottle-white-flip-top-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "PbClear4ozFlpWh",
+        graceSku: "PB-CYL-CLR-118ML-WFLP",
+        category: "Glass Bottle",
+        family: "Cylinder",
+        capacity: "118 ml (4 oz)",
+        capacityMl: 118.0,
+        color: "Clear",
+        neckThreadSize: null,
+        heightWithCap: "124 ±2 mm Item Height without ",
+        heightWithoutCap: "116 ±2 mm Item Diameter: 41 ±0",
+        webPrice1pc: 0.66,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Clear plastic cylinder shaped bottle with white flip-top cap for use with perfume or fragrance oil, essential oils, arom",
+        itemDescription: "Clear plastic cylinder shaped bottle with white flip-top cap for use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Clear cylinder, design 4oz. Price Each",
+        productUrl: "https://www.bestbottles.com/product/cylinder-design-4-oz-plastic-bottle-white-flip-top-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBCylBlu5BlkShSht",
+        graceSku: "GB-CYL-BLU-5ML-CAP-SBLK",
+        category: "Glass Bottle",
+        family: "Cylinder",
+        capacity: "5.0 ml",
+        capacityMl: 5.0,
+        color: "Blue",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "59 ±1 mm Item Height without C",
+        heightWithoutCap: "53 ±1 mm Item Diameter: 17 ±0.",
+        webPrice1pc: 0.5,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Cylinder design 5ml, 1/6oz Blue glass bottle with short shiny black cap.",
+        itemDescription: "Cylinder design 5ml, 1/6oz Blue glass bottle with short shiny black cap.",
+        productUrl: "https://www.bestbottles.com/product/cylinder-design-5-ml-blue-glass-bottle-short-shiny-black-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "PbNat16ozFlpWh",
+        graceSku: "PB-CYL-454ML-WFLP",
+        category: "Glass Bottle",
+        family: "Cylinder",
+        capacity: "454 ml (16 oz)",
+        capacityMl: 454.0,
+        color: "Clear",
+        neckThreadSize: null,
+        heightWithCap: "194 ±2 mm Item Height without ",
+        heightWithoutCap: "195 ±2 mm Item Diameter: 62 ±1",
+        webPrice1pc: 1.16,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Natural color plastic cylinder shaped bottle with white flip-top cap for use with perfume or fragrance oil, essential oi",
+        itemDescription: "Natural color plastic cylinder shaped bottle with white flip-top cap for use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Natural color cylinder, design 4oz. Price Each",
+        productUrl: "https://www.bestbottles.com/product/cylinder-design-8-oz-plastic-bottle-white-flip-top-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBElgFrst15BlkShSht",
+        graceSku: "GB-ELG-FRS-15ML-CAP-SBLK",
+        category: "Glass Bottle",
+        family: "Elegant",
+        capacity: "15.0 ml",
+        capacityMl: 15.0,
+        color: "Frosted",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "66 ±1 mm Item Height without C",
+        heightWithoutCap: "61 ±1 mm Item Width: 36 ±0.5 m",
+        webPrice1pc: 0.8,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Elegant design 15ml, 1/2oz frosted glass bottle with short shiny black cap.",
+        itemDescription: "Elegant design 15ml, 1/2oz frosted glass bottle with short shiny black cap.",
+        productUrl: "https://www.bestbottles.com/product/elegant-design-15-ml-frosted-glass-bottle-short-shiny-black-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBPillar9MtlRollBlkdot",
+        graceSku: "GB-PIL-CLR-9ML-MRL-BDOT",
+        category: "Glass Bottle",
+        family: "Pillar",
+        capacity: "9 ml",
+        capacityMl: 9.0,
+        color: "Clear",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "70 ±1 mm Item Height without C",
+        heightWithoutCap: "57 ±1 mm Item Diameter: 21 ±0.",
+        webPrice1pc: 0.89,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Pillar shaped 9ml Clear glass bottle with metal roller ball plug and cap in black with dots. For use with perfume or fra",
+        itemDescription: "Pillar shaped 9ml Clear glass bottle with metal roller ball plug and cap in black with dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, Small sized bottle for decants, promotion, and samples.",
+        productUrl: "https://www.bestbottles.com/product/pillar-design-5-ml-glass-bottle-metal-roller-ball-plug-black-dots-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBPillar9RollBlkDot",
+        graceSku: "GB-PIL-CLR-9ML-RBL-BDOT",
+        category: "Glass Bottle",
+        family: "Pillar",
+        capacity: "9 ml",
+        capacityMl: 9.0,
+        color: "Clear",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "70 ±1 mm Item Height without C",
+        heightWithoutCap: "57 ±1 mm Item Diameter: 21 ±0.",
+        webPrice1pc: 0.83,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Pillar shaped 9ml Clear glass bottle with plastic roller ball plug and cap with black dots. For use with perfume or frag",
+        itemDescription: "Pillar shaped 9ml Clear glass bottle with plastic roller ball plug and cap with black dots. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, Small sized bottle for decants, promotion,  and samples.",
+        productUrl: "https://www.bestbottles.com/product/pillar-design-5-ml-glass-bottle-roller-ball-plug-black-dots-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBPillar9BlkShSht",
+        graceSku: "GB-PIL-CLR-9ML-CAP-BLK",
+        category: "Glass Bottle",
+        family: "Pillar",
+        capacity: "9 ml",
+        capacityMl: 9.0,
+        color: "Clear",
+        neckThreadSize: "Size: GBPillar9BlkSht Nemat In",
+        heightWithCap: "69 ±1 mm Item Height without C",
+        heightWithoutCap: "57 ±1 mm Item Diameter: 21 ±0.",
+        webPrice1pc: 0.44,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Pillar shaped 9ml, Clear glass bottle with black short cap. For use with perfume or fragrance oil, essential oils, aroma",
+        itemDescription: "Pillar shaped 9ml, Clear glass bottle with black short cap. For use with perfume or fragrance oil, essential oils, aromatic oils and aromatherapy. Refillable, Small sized bottle for decants, promotion, samples and travel accessory. Price each",
+        productUrl: "https://www.bestbottles.com/product/pillar-design-9-ml-glass-bottle-black-short-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+    {
+        websiteSku: "GBTulip6BlkShSht",
+        graceSku: "GB-TUL-CLR-6ML-CAP-SBLK",
+        category: "Glass Bottle",
+        family: "Tulip",
+        capacity: "6.0 ml",
+        capacityMl: 6.0,
+        color: "Clear",
+        neckThreadSize: "Size: 13-415 Nemat Internation",
+        heightWithCap: "47 ±0.5 mm Item Height without",
+        heightWithoutCap: "45 ±0.5 mm Item Diameter: 23 ±",
+        webPrice1pc: 0.59,
+        webPrice10pc: null,
+        webPrice12pc: null,
+        stockStatus: "In Stock",
+        itemName: "Tulip design 6ml, 1/5oz Clear glass bottle with short shiny black cap.",
+        itemDescription: "Tulip design 6ml, 1/5oz Clear glass bottle with short shiny black cap.",
+        productUrl: "https://www.bestbottles.com/product/tulip-design-6ml-bottle-short-shiny-black-cap",
+        dataGrade: "B",
+        verified: false,
+        components: []
+    },
+] as const;
+
+export const addMissingProducts20260304 = mutation({
+    args: {},
+    handler: async (ctx) => {
+        let inserted = 0, skipped = 0;
+        for (const p of MISSING_PRODUCTS_20260304) {
+            const existing = await ctx.db
+                .query("products")
+                .withIndex("by_graceSku", (q) => q.eq("graceSku", p.graceSku))
+                .first();
+            if (existing) { skipped++; continue; }
+            await ctx.db.insert("products", {
+                ...p,
+                // Required nullable fields the schema enforces
+                applicator: (p as any).applicator ?? "N/A",
+                capColor: (p as any).capColor ?? null,
+                capStyle: (p as any).capStyle ?? null,
+                trimColor: (p as any).trimColor ?? null,
+                shape: (p as any).shape ?? null,
+                diameter: (p as any).diameter ?? null,
+                bottleCollection: (p as any).bottleCollection ?? null,
+                bottleWeightG: (p as any).bottleWeightG ?? null,
+                capacityOz: (p as any).capacityOz ?? null,
+                caseQuantity: (p as any).caseQuantity ?? null,
+                qbPrice: (p as any).qbPrice ?? null,
+                fitmentStatus: (p as any).fitmentStatus ?? "unmapped",
+                graceDescription: (p as any).graceDescription ?? null,
+                imageUrl: null,
+                productId: null,
+                capHeight: null,
+                ballMaterial: null,
+                components: [],
+                webPrice10pc: p.webPrice10pc ?? null,
+                webPrice12pc: p.webPrice12pc ?? null,
+                neckThreadSize: p.neckThreadSize ?? null,
+                heightWithCap: p.heightWithCap ?? null,
+                heightWithoutCap: p.heightWithoutCap ?? null,
+            });
+            inserted++;
+        }
+        return `Bulk insert: ${inserted} inserted, ${skipped} already existed.`;
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PRICE FILL — 16 in-stock components with missing webPrice1pc (March 4 2026)
+// Prices sourced from live bestbottles.com product pages
+// Run via: npx convex run migrations:fillMissingComponentPrices
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MISSING_PRICE_PATCHES = [
+    { graceSku: "CMP-SPR-LVN-BULB", webPrice1pc: 4.25, webPrice12pc: 48.45 },
+    { graceSku: "CMP-SPR-RED-02", webPrice1pc: 0.7, webPrice12pc: 7.98 },
+    { graceSku: "CMP-CLS-BLK-13-425", webPrice1pc: 0.2, webPrice12pc: 2.28 },
+    { graceSku: "CMP-CLS-WHT-13-425", webPrice1pc: 0.55, webPrice12pc: 6.27 },
+    { graceSku: "CMP-CLS-BLK-03", webPrice1pc: 0.2, webPrice12pc: 2.28 },
+    { graceSku: "CMP-CAP-PHN-24400-BLK", webPrice1pc: 0.2, webPrice12pc: 2.28 },
+    { graceSku: "CMP-CLS-BLK-06", webPrice1pc: 0.9, webPrice12pc: 10.26 },
+    { graceSku: "CMP-CLS-SLV-02", webPrice1pc: 0.9, webPrice12pc: 10.26 },
+    { graceSku: "CMP-CLS-BLK-07", webPrice1pc: 0.95, webPrice12pc: 10.83 },
+    { graceSku: "CMP-CLS-SLV-03", webPrice1pc: 0.95, webPrice12pc: 10.83 },
+    { graceSku: "CMP-CLS-BLK-08", webPrice1pc: 0.5, webPrice12pc: 5.7 },
+    { graceSku: "CMP-CLS-SLV-04", webPrice1pc: 0.5, webPrice12pc: 5.7 },
+    { graceSku: "CMP-CLS-GLD-02", webPrice1pc: 0.55, webPrice12pc: 6.27 },
+    { graceSku: "CMP-CLS-GDRD", webPrice1pc: 5.0, webPrice12pc: 57.0 },
+    { graceSku: "CMP-DRP-AMB", webPrice1pc: 0.45, webPrice12pc: 5.13 },
+    { graceSku: "CMP-ROC-WHT-03", webPrice1pc: 0.37, webPrice12pc: 4.22 },
+] as const;
+
+export const fillMissingComponentPrices = mutation({
+    args: {},
+    handler: async (ctx) => {
+        let updated = 0, missing = 0;
+        for (const p of MISSING_PRICE_PATCHES) {
+            const doc = await ctx.db
+                .query("products")
+                .withIndex("by_graceSku", (q) => q.eq("graceSku", p.graceSku))
+                .first();
+            if (!doc) { console.warn("Price fill: NOT FOUND —", p.graceSku); missing++; continue; }
+            await ctx.db.patch(doc._id, {
+                webPrice1pc: p.webPrice1pc,
+                webPrice12pc: p.webPrice12pc,
+                qbPrice: p.webPrice1pc,
+            });
+            updated++;
+        }
+        return `Price fill: ${updated} updated, ${missing} not found.`;
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INSERT 16 COMPONENT RECORDS — previously in JSON only, never synced to Convex
+// Run via: npx convex run migrations:insertMissingComponents
+// ─────────────────────────────────────────────────────────────────────────────
+
+const MISSING_COMPONENTS = [
+    {
+        websiteSku: "AntqSprBulbLavender",
+        graceSku: "CMP-SPR-LVN-BULB",
+        category: "Component",
+        family: "Sprayer",
+        applicator: "N/A",
+        itemName: "Antique Sprayer Bulb Lavender",
+        itemDescription: "Product Lavender - Other - Other",
+        webPrice1pc: 4.25,
+        webPrice12pc: 48.45,
+        webPrice10pc: null,
+        qbPrice: 4.25,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Lavender",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: null,
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/Vintage-antique-bulb-sprayer-Lavender",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "GBATom5RedBurg",
+        graceSku: "CMP-SPR-RED-02",
+        category: "Component",
+        family: "Sprayer",
+        applicator: "Fine Mist Sprayer",
+        itemName: "Sprayer Red",
+        itemDescription: "Red Burgundy color Metal shell atomizer with 5ml capacity glass bottle, each.",
+        webPrice1pc: 0.7,
+        webPrice12pc: 7.98,
+        webPrice10pc: null,
+        qbPrice: 0.7,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Red",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "13-415",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/spray-top-black-trim-color-17-415",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CP13-425Blk",
+        graceSku: "CMP-CLS-BLK-13-425",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Black Thread 13-425",
+        itemDescription: "13-425 Black Phenolic caps F217 Liner..",
+        webPrice1pc: 0.2,
+        webPrice12pc: 2.28,
+        webPrice10pc: null,
+        qbPrice: 0.2,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Black",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "13-425",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/caps-lids-top-bottle-black-color-1oz-20-400",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CP13-425Wht",
+        graceSku: "CMP-CLS-WHT-13-425",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure White Thread 13-425",
+        itemDescription: "13-425 White Phenolic caps F217 Liner",
+        webPrice1pc: 0.55,
+        webPrice12pc: 6.27,
+        webPrice10pc: null,
+        qbPrice: 0.55,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "White",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "13-425",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/dropper-white-rubber-bulb-copper-trim-glass-pipette",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CapBlackPoly22mm-400",
+        graceSku: "CMP-CLS-BLK-03",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Black",
+        itemDescription: "Black Phenolic cap with polyseal cone 22mm-400",
+        webPrice1pc: 0.2,
+        webPrice12pc: 2.28,
+        webPrice10pc: null,
+        qbPrice: 0.2,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Black",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "22-400",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/caps-lids-top-bottle-black-color-1oz-20-400",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CP24-400BlkPls",
+        graceSku: "CMP-CAP-PHN-24400-BLK",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "N/A",
+        itemName: "Phenolic Cap 24-400 Black Taperseal",
+        itemDescription: "24-400 Black Phenolic Taperseal",
+        webPrice1pc: 0.2,
+        webPrice12pc: 2.28,
+        webPrice10pc: null,
+        qbPrice: 0.2,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Black",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "24-400",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/caps-lids-top-bottle-black-color-2oz-20-400",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CJ30BlkCap",
+        graceSku: "CMP-CLS-BLK-06",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Black",
+        itemDescription: "Black Caps for 30ml Cream Jars",
+        webPrice1pc: 0.9,
+        webPrice12pc: 10.26,
+        webPrice10pc: null,
+        qbPrice: 0.9,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Black",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "PRESS-FIT",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/cream-jar-style-30-ml-frosted-glass-bottle-black-cap",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CJ30SlCap",
+        graceSku: "CMP-CLS-SLV-02",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Silver",
+        itemDescription: "Silver Caps for 30ml Cream Jars",
+        webPrice1pc: 0.9,
+        webPrice12pc: 10.26,
+        webPrice10pc: null,
+        qbPrice: 0.9,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Silver",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "PRESS-FIT",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/cream-jar-style-30-ml-frosted-glass-bottle-silver-cap",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CJ40BlkCap",
+        graceSku: "CMP-CLS-BLK-07",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Black",
+        itemDescription: "Black Caps for 40ml Cream Jars",
+        webPrice1pc: 0.95,
+        webPrice12pc: 10.83,
+        webPrice10pc: null,
+        qbPrice: 0.95,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Black",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "PRESS-FIT",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/cream-jar-style-40-ml-frosted-glass-bottle-black-cap",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CJ40SlCap",
+        graceSku: "CMP-CLS-SLV-03",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Silver",
+        itemDescription: "Silver caps for 40ml Cream Jars",
+        webPrice1pc: 0.95,
+        webPrice12pc: 10.83,
+        webPrice10pc: null,
+        qbPrice: 0.95,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Silver",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "PRESS-FIT",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/cream-jar-style-40-ml-frosted-glass-bottle-silver-cap",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CJ5BlkCap",
+        graceSku: "CMP-CLS-BLK-08",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Black",
+        itemDescription: "Black caps for 5ml Cream Jars",
+        webPrice1pc: 0.5,
+        webPrice12pc: 5.7,
+        webPrice10pc: null,
+        qbPrice: 0.5,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Black",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "PRESS-FIT",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/cream-jar-style-5-ml-amber-glass-bottle-black-cap",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CJ5SlCap",
+        graceSku: "CMP-CLS-SLV-04",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Silver",
+        itemDescription: "Silver caps for 5ml Cream Jars",
+        webPrice1pc: 0.5,
+        webPrice12pc: 5.7,
+        webPrice10pc: null,
+        qbPrice: 0.5,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Silver",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "PRESS-FIT",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/cream-jar-style-5-ml-amber-glass-bottle-silver-cap",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CPKeyChnGld",
+        graceSku: "CMP-CLS-GLD-02",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Gold",
+        itemDescription: "Golden cap with Key Chain for Decorative bottles.",
+        webPrice1pc: 0.55,
+        webPrice12pc: 6.27,
+        webPrice10pc: null,
+        qbPrice: 0.55,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Gold",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "SPECIAL",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/caps-lids-top-bottle-shiny-gold-color-15-415",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CPTslRed",
+        graceSku: "CMP-CLS-GDRD",
+        category: "Component",
+        family: "Cap/Closure",
+        applicator: "Cap/Closure",
+        itemName: "Cap/Closure Gold Red",
+        itemDescription: "Golden cap with Red tassel for decorative bottles.",
+        webPrice1pc: 5.0,
+        webPrice12pc: 57.0,
+        webPrice10pc: null,
+        qbPrice: 5.0,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "Red",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "SPECIAL",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/vintage-antique-bulb-sprayer-black-tassel",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "Droppers1ozElg",
+        graceSku: "CMP-DRP-AMB",
+        category: "Component",
+        family: "Dropper",
+        applicator: "Dropper",
+        itemName: "Dropper Amber",
+        itemDescription: "10ml Glass Roller Bottle / Amber",
+        webPrice1pc: 0.45,
+        webPrice12pc: 5.13,
+        webPrice10pc: null,
+        qbPrice: 0.45,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: null,
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: "17-415",
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/dropper-black-rubber-bulb-black-trim-glass-pipette-15ml",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+    {
+        websiteSku: "CPWhite1Oz",
+        graceSku: "CMP-ROC-WHT-03",
+        category: "Component",
+        family: "Roll-On Cap",
+        applicator: "Plastic Roller Ball",
+        itemName: "Roll-On Cap White",
+        itemDescription: "White P/P Smooth Cylinder 1 Oz Roll on Cap",
+        webPrice1pc: 0.37,
+        webPrice12pc: 4.22,
+        webPrice10pc: null,
+        qbPrice: 0.37,
+        stockStatus: "In Stock",
+        color: null,
+        capColor: "White",
+        capStyle: null, trimColor: null, shape: null, diameter: null,
+        bottleCollection: null, bottleWeightG: null, capacityMl: null,
+        capacityOz: null, capacity: null, caseQuantity: null,
+        neckThreadSize: null,
+        heightWithCap: null, heightWithoutCap: null,
+        productUrl: "https://www.bestbottles.com/product/caps-lids-top-roll-on-bottle-black-dot-color-13-415",
+        dataGrade: "B", fitmentStatus: "unmapped",
+        graceDescription: null, imageUrl: null, productId: null,
+        capHeight: null, ballMaterial: null,
+        verified: false, components: [],
+    },
+] as const;
+
+export const insertMissingComponents = mutation({
+    args: {},
+    handler: async (ctx) => {
+        let inserted = 0, skipped = 0;
+        for (const p of MISSING_COMPONENTS) {
+            const exists = await ctx.db.query("products")
+                .withIndex("by_graceSku", (q) => q.eq("graceSku", p.graceSku)).first();
+            if (exists) { skipped++; continue; }
+            await ctx.db.insert("products", { ...(p as any), components: [] });
+            inserted++;
+        }
+        return `Components insert: ${inserted} inserted, ${skipped} already existed.`;
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// APPLICATOR NORMALIZATION — align Convex DB with new roller ball taxonomy
+// Run BEFORE schema deployment via: npx convex run migrations:normalizeApplicatorValues
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const normalizeApplicatorValues = mutation({
+    args: {},
+    handler: async (ctx) => {
+        const MAP: Record<string, string | null> = {
+            "Roller": "Plastic Roller Ball",
+            "Roller Ball": "Plastic Roller Ball",
+            "Roll-On": "Plastic Roller Ball",
+            "Metal Roll-On": "Metal Roller Ball",
+            "Metal Roller": "Metal Roller Ball",
+            "Plastic Roller": "Plastic Roller Ball",
+            "Plug": "Plastic Roller Ball",
+            "Sprayer": "Fine Mist Sprayer",
+            "Antique Sprayer": "Vintage Bulb Sprayer",
+            "Antique Sprayer Tassel": "Vintage Bulb Sprayer with Tassel",
+            "Antique Bulb Sprayer": "Vintage Bulb Sprayer",
+            "Antique Bulb Sprayer with Tassel": "Vintage Bulb Sprayer with Tassel",
+            "None": null,
+        };
+        const staleValues = new Set(Object.keys(MAP));
+
+        // Single paginate call — re-run this mutation until updated=0
+        const page = await ctx.db.query("products")
+            .order("asc")
+            .paginate({ cursor: null, numItems: 200 });
+
+        let updated = 0;
+        for (const doc of page.page) {
+            const old = doc.applicator as string | null;
+            if (old !== null && old !== undefined && staleValues.has(old)) {
+                await ctx.db.patch(doc._id, { applicator: MAP[old] as any });
+                updated++;
+            }
+        }
+        return `Batch: ${updated} updated this run. IsDone=${page.isDone}. Re-run until updated=0.`;
+    },
+});
+
+export const patchSingleStaleApplicator = mutation({
+    args: { cursor: v.optional(v.union(v.string(), v.null())) },
+    handler: async (ctx, { cursor }) => {
+        const MAP: Record<string, string | null> = {
+            "Plastic Roller": "Plastic Roller Ball", "Metal Roller": "Metal Roller Ball",
+            "Roller": "Plastic Roller Ball", "Roller Ball": "Plastic Roller Ball",
+            "Roll-On": "Plastic Roller Ball", "Metal Roll-On": "Metal Roller Ball",
+            "Plug": "Plastic Roller Ball", "Sprayer": "Fine Mist Sprayer",
+            "Antique Sprayer": "Vintage Bulb Sprayer",
+            "Antique Sprayer Tassel": "Vintage Bulb Sprayer with Tassel",
+            "Antique Bulb Sprayer": "Vintage Bulb Sprayer",
+            "Antique Bulb Sprayer with Tassel": "Vintage Bulb Sprayer with Tassel",
+            "None": null,
+        };
+        const page = await ctx.db.query("products")
+            .paginate({ cursor: cursor ?? null, numItems: 100 });
+        let fixed = 0;
+        for (const doc of page.page) {
+            const val = doc.applicator as string | null;
+            if (val && val in MAP) {
+                await ctx.db.patch(doc._id, { applicator: MAP[val] as any });
+                fixed++;
+            }
+        }
+        return { fixed, nextCursor: page.continueCursor, isDone: page.isDone };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FILL NULL BOTTLE APPLICATORS — 280 glass/lotion/aluminum bottles were missing
+// applicator values. Inferred from product names/families. Packaging, cream jars,
+// accessories, components intentionally left at null (attribute doesn't apply).
+// Run repeatedly (passing returned cursor) until isDone=true.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const APPLICATOR_FILLS: Record<string, string> = {};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PATCH INDIVIDUAL PRODUCT FIELDS — targeted one-off corrections
+// Allows updating itemName, graceDescription, or any scalar field on a product
+// identified by its graceSku, without a full re-import.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const patchProductField = mutation({
+    args: {
+        graceSku: v.string(),
+        field: v.string(),
+        value: v.string(),
+    },
+    handler: async (ctx, { graceSku, field, value }) => {
+        const product = await ctx.db
+            .query("products")
+            .withIndex("by_graceSku", (q) => q.eq("graceSku", graceSku))
+            .first();
+        if (!product) throw new Error(`Product not found: ${graceSku}`);
+        await ctx.db.patch(product._id, { [field]: value } as any);
+        return { patched: product._id, graceSku, field, value };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// One-off product insertion — adds a single missing product record.
+// Idempotent: skips if graceSku already exists.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Patch arbitrary fields on a productGroup by its _id. */
+export const patchProductGroupFields = mutation({
+    args: { id: v.id("productGroups"), fields: v.any() },
+    handler: async (ctx, { id, fields }) => {
+        await ctx.db.patch(id, fields);
+        return { patched: id };
+    },
+});
+
+/**
+ * Re-patch Boston Round groupDescription from capacity-keyed map.
+ * Use when updating copy (e.g. removing em dashes). Descriptions keyed by capacityMl.
+ */
+export const patchBostonRoundDescriptions = mutation({
+    args: {
+        descriptions: v.array(
+            v.object({ capacityMl: v.number(), description: v.string() })
+        ),
+    },
+    handler: async (ctx, { descriptions }) => {
+        const map = new Map(descriptions.map((d) => [d.capacityMl, d.description]));
+        const groups = await ctx.db
+            .query("productGroups")
+            .withIndex("by_family", (q) => q.eq("family", "Boston Round"))
+            .collect();
+        let patched = 0;
+        for (const g of groups) {
+            const cap = g.capacityMl ?? 0;
+            const desc = map.get(cap);
+            if (desc) {
+                await ctx.db.patch(g._id, { groupDescription: desc });
+                patched++;
+            }
+        }
+        return { patched, total: groups.length };
+    },
+});
+
+/** Patch arbitrary fields on a product by its _id. */
+export const patchProductById = mutation({
+    args: { id: v.id("products"), fields: v.any() },
+    handler: async (ctx, { id, fields }) => {
+        await ctx.db.patch(id, fields);
+        return { patched: id };
+    },
+});
+
+/**
+ * Patch the applicator field on all products belonging to a given set of
+ * productGroup IDs. Used by the Fine Mist → Perfume Spray Pump capacity split.
+ */
+export const patchVariantApplicatorBatch = mutation({
+    args: {
+        groupIds: v.array(v.id("productGroups")),
+        fromApplicator: v.string(),
+        toApplicator: v.string(),
+    },
+    handler: async (ctx, { groupIds, fromApplicator, toApplicator }) => {
+        let patched = 0;
+        for (const groupId of groupIds) {
+            const variants = await ctx.db
+                .query("products")
+                .withIndex("by_productGroupId", (q) => q.eq("productGroupId", groupId))
+                .collect();
+            for (const p of variants) {
+                if (p.applicator === fromApplicator) {
+                    await ctx.db.patch(p._id, { applicator: toApplicator });
+                    patched++;
+                }
+            }
+        }
+        return { patched };
+    },
+});
+
+/**
+ * Generic: patch a single string field on all products belonging to a given
+ * set of productGroup IDs, but only where the current value matches fromValue.
+ */
+export const patchVariantsFieldBatch = mutation({
+    args: {
+        groupIds: v.array(v.id("productGroups")),
+        field: v.string(),
+        fromValue: v.string(),
+        toValue: v.string(),
+    },
+    handler: async (ctx, { groupIds, field, fromValue, toValue }) => {
+        let patched = 0;
+        for (const groupId of groupIds) {
+            const variants = await ctx.db
+                .query("products")
+                .withIndex("by_productGroupId", (q) => q.eq("productGroupId", groupId))
+                .collect();
+            for (const p of variants) {
+                if ((p as any)[field] === fromValue) {
+                    await ctx.db.patch(p._id, { [field]: toValue } as any);
+                    patched++;
+                }
+            }
+        }
+        return { patched };
+    },
+});
+
+/** Patch family (and optionally other fields) on all products that belong to a group. */
+export const patchVariantFamily = mutation({
+    args: {
+        groupId: v.id("productGroups"),
+        family: v.string(),
+    },
+    handler: async (ctx, { groupId, family }) => {
+        const variants = await ctx.db
+            .query("products")
+            .withIndex("by_productGroupId", (q) => q.eq("productGroupId", groupId))
+            .collect();
+        for (const v2 of variants) {
+            await ctx.db.patch(v2._id, { family });
+        }
+        return { updated: variants.length };
+    },
+});
+
+export const insertMissingProduct = mutation({
+    args: { product: v.any() },
+    handler: async (ctx, { product }) => {
+        const existing = await ctx.db
+            .query("products")
+            .withIndex("by_graceSku", (q) => q.eq("graceSku", product.graceSku))
+            .first();
+        if (existing) return { skipped: true, id: existing._id, graceSku: product.graceSku };
+        const id = await ctx.db.insert("products", product);
+        return { inserted: true, id, graceSku: product.graceSku };
+    },
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ADDITIVE GROUP BUILDER — creates productGroups for orphaned products only.
+//
+// Safe to run at any time:
+//   - Never deletes or modifies existing productGroups (heroImageUrls preserved).
+//   - Idempotent: re-running skips already-linked products and existing groups.
+//
+// Run order:
+//   npx convex run migrations:groupOrphanedProducts
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Internal: insert a single new productGroup (called from groupOrphanedProducts). */
+export const insertSingleGroup = internalMutation({
+    args: {
+        group: v.object({
+            slug: v.string(),
+            displayName: v.string(),
+            family: v.string(),
+            capacity: v.union(v.string(), v.null()),
+            capacityMl: v.union(v.number(), v.null()),
+            color: v.union(v.string(), v.null()),
+            category: v.string(),
+            bottleCollection: v.union(v.string(), v.null()),
+            neckThreadSize: v.union(v.string(), v.null()),
+            variantCount: v.number(),
+            priceRangeMin: v.union(v.number(), v.null()),
+            priceRangeMax: v.union(v.number(), v.null()),
+            applicatorTypes: v.array(v.string()),
+        }),
+    },
+    handler: async (ctx, { group }) => {
+        const id = await ctx.db.insert("productGroups", group);
+        return id;
+    },
+});
+
+/** Internal: link a batch of products to their groups and optionally patch group stats. */
+export const linkOrphanBatch = internalMutation({
+    args: {
+        links: v.array(v.object({
+            productId: v.id("products"),
+            groupId: v.id("productGroups"),
+        })),
+        groupStats: v.array(v.object({
+            groupId: v.id("productGroups"),
+            variantCount: v.number(),
+            priceRangeMin: v.union(v.number(), v.null()),
+            priceRangeMax: v.union(v.number(), v.null()),
+            applicatorTypes: v.array(v.string()),
+        })),
+    },
+    handler: async (ctx, { links, groupStats }) => {
+        for (const { productId, groupId } of links) {
+            await ctx.db.patch(productId, { productGroupId: groupId });
+        }
+        for (const { groupId, variantCount, priceRangeMin, priceRangeMax, applicatorTypes } of groupStats) {
+            await ctx.db.patch(groupId, { variantCount, priceRangeMin, priceRangeMax, applicatorTypes });
+        }
+        return { linked: links.length };
+    },
+});
+
+/**
+ * Additive migration: builds productGroups for any product that currently
+ * has no productGroupId. Existing groups are never modified or deleted.
+ *
+ * Usage:  npx convex run migrations:groupOrphanedProducts
+ */
+export const groupOrphanedProducts = action({
+    args: {},
+    handler: async (ctx) => {
+        // 1. Load all existing groups into slug→id map (read-only, no side effects).
+        const existingGroups = await ctx.runQuery(internal.migrations.getAllGroups, {}) as Array<{
+            _id: Id<"productGroups">; slug: string;
+        }>;
+        const slugToId = new Map<string, Id<"productGroups">>(existingGroups.map((g) => [g.slug, g._id]));
+
+        // 2. Page through all products, collect orphans.
+        type OrphanProduct = {
+            _id: Id<"products">;
+            websiteSku: string;
+            graceSku: string;
+            category: string;
+            family: string | null;
+            capacityMl: number | null;
+            capacity: string | null;
+            color: string | null;
+            neckThreadSize: string | null;
+            bottleCollection: string | null;
+            applicator: string | null;
+            webPrice1pc: number | null;
+            productGroupId?: Id<"productGroups"> | null;
+        };
+
+        const PAGE_SIZE = 200;
+        let cursor: string | null = null;
+        let isDone = false;
+        const orphans: OrphanProduct[] = [];
+
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+            for (const p of result.page) {
+                if (!p.productGroupId) {
+                    orphans.push(p as unknown as OrphanProduct);
+                }
+            }
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        if (orphans.length === 0) {
+            return { message: "No orphaned products found. All products already linked.", created: 0, linked: 0 };
+        }
+
+        // 3. Compute group definitions for each orphan.
+        type NewGroupDef = {
+            slug: string;
+            displayName: string;
+            family: string;
+            capacity: string | null;
+            capacityMl: number | null;
+            color: string | null;
+            category: string;
+            bottleCollection: string | null;
+            neckThreadSize: string | null;
+            variantCount: number;
+            priceRangeMin: number | null;
+            priceRangeMax: number | null;
+            applicatorTypes: string[];
+        };
+
+        const newGroupMap = new Map<string, NewGroupDef>();
+        const orphanSlugMap = new Map<string, string>(); // product _id → group slug
+
+        for (const p of orphans) {
+            const isMetalAtomizer = p.applicator === "Metal Atomizer" || (p.websiteSku || "").startsWith("GBAtom");
+            const effectiveCategory = isMetalAtomizer ? "Metal Atomizer" : (p.category ?? "unknown");
+            const effectiveFamily = isMetalAtomizer ? "Atomizer" : (p.family ?? null);
+            const applicatorBucket = BOTTLE_CATEGORIES.has(effectiveCategory)
+                ? getApplicatorBucket(p.applicator)
+                : null;
+            const isDecorativeFamily = effectiveFamily === "Decorative" || effectiveFamily === "Apothecary";
+            const decorativeShape = isDecorativeFamily ? detectDecorativeShape(p.websiteSku || "") : null;
+            const decAccessory = isDecorativeFamily ? detectDecorativeAccessory(p.websiteSku || "") : null;
+            const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
+                ? getComponentSubType(p.websiteSku ?? "", p.websiteSku ?? "", p.applicator ?? null)
+                : null;
+
+            const slug = buildSlug(
+                effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory,
+                p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null, componentSubType,
+            );
+            orphanSlugMap.set(String(p._id), slug);
+
+            if (!slugToId.has(slug) && !newGroupMap.has(slug)) {
+                newGroupMap.set(slug, {
+                    slug,
+                    displayName: buildDisplayName(
+                        effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory,
+                        applicatorBucket, decorativeShape, decAccessory?.label ?? null, componentSubType, p.neckThreadSize ?? null,
+                    ),
+                    family: effectiveFamily || effectiveCategory || "unknown",
+                    capacity: p.capacity ?? null,
+                    capacityMl: p.capacityMl ?? null,
+                    color: isMetalAtomizer ? null : (p.color ?? null),
+                    category: effectiveCategory,
+                    bottleCollection: p.bottleCollection ?? null,
+                    neckThreadSize: p.neckThreadSize ?? null,
+                    variantCount: 0,
+                    priceRangeMin: null,
+                    priceRangeMax: null,
+                    applicatorTypes: [],
+                });
+            }
+
+            // Accumulate stats for new groups
+            const targetMap = newGroupMap.has(slug) ? newGroupMap : null;
+            if (targetMap) {
+                const g = targetMap.get(slug)!;
+                g.variantCount++;
+                const price = p.webPrice1pc;
+                if (price != null && price > 0) {
+                    if (g.priceRangeMin == null || price < g.priceRangeMin) g.priceRangeMin = price;
+                    if (g.priceRangeMax == null || price > g.priceRangeMax) g.priceRangeMax = price;
+                }
+                if (p.applicator && !g.applicatorTypes.includes(p.applicator)) {
+                    g.applicatorTypes.push(p.applicator);
+                }
+            }
+        }
+
+        // 4. Insert new groups one at a time and record their IDs.
+        let created = 0;
+        for (const [slug, groupDef] of newGroupMap) {
+            const newId = await ctx.runMutation(internal.migrations.insertSingleGroup, { group: groupDef });
+            slugToId.set(slug, newId as Id<"productGroups">);
+            created++;
+        }
+
+        // 5. Build link + stat update batches and apply in chunks of 100.
+        const links: { productId: Id<"products">; groupId: Id<"productGroups"> }[] = [];
+        for (const p of orphans) {
+            const slug = orphanSlugMap.get(String(p._id));
+            if (!slug) continue;
+            const groupId = slugToId.get(slug);
+            if (!groupId) continue;
+            links.push({ productId: p._id, groupId });
+        }
+
+        // Recompute stats for ALL groups that received new products (including pre-existing ones)
+        const groupStatMap = new Map<string, { variantCount: number; priceRangeMin: number | null; priceRangeMax: number | null; applicatorTypes: Set<string> }>();
+        for (const { productId, groupId } of links) {
+            const gKey = String(groupId);
+            if (!groupStatMap.has(gKey)) {
+                groupStatMap.set(gKey, { variantCount: 0, priceRangeMin: null, priceRangeMax: null, applicatorTypes: new Set() });
+            }
+            const stats = groupStatMap.get(gKey)!;
+            stats.variantCount++;
+            const p = orphans.find((o) => o._id === productId);
+            if (p?.webPrice1pc && p.webPrice1pc > 0) {
+                if (stats.priceRangeMin == null || p.webPrice1pc < stats.priceRangeMin) stats.priceRangeMin = p.webPrice1pc;
+                if (stats.priceRangeMax == null || p.webPrice1pc > stats.priceRangeMax) stats.priceRangeMax = p.webPrice1pc;
+            }
+            if (p?.applicator) stats.applicatorTypes.add(p.applicator);
+        }
+
+        const groupStatsArr = Array.from(groupStatMap.entries()).map(([gIdStr, s]) => ({
+            groupId: gIdStr as Id<"productGroups">,
+            variantCount: s.variantCount,
+            priceRangeMin: s.priceRangeMin,
+            priceRangeMax: s.priceRangeMax,
+            applicatorTypes: [...s.applicatorTypes],
+        }));
+
+        const BATCH = 100;
+        let linked = 0;
+        for (let i = 0; i < links.length; i += BATCH) {
+            const batchLinks = links.slice(i, i + BATCH);
+            // Only include group stats in the first batch that covers those groups
+            const batchGroupIds = new Set(batchLinks.map((l) => String(l.groupId)));
+            const batchStats = i === 0
+                ? groupStatsArr.filter((s) => batchGroupIds.has(String(s.groupId)))
+                : [];
+            const result = await ctx.runMutation(internal.migrations.linkOrphanBatch, {
+                links: batchLinks,
+                groupStats: batchStats,
+            });
+            linked += result.linked;
+        }
+
+        // Push remaining group stats in a final pass
+        if (groupStatsArr.length > 0) {
+            const STAT_BATCH = 50;
+            for (let i = 0; i < groupStatsArr.length; i += STAT_BATCH) {
+                await ctx.runMutation(internal.migrations.linkOrphanBatch, {
+                    links: [],
+                    groupStats: groupStatsArr.slice(i, i + STAT_BATCH),
+                });
+            }
+        }
+
+        return {
+            orphansFound: orphans.length,
+            newGroupsCreated: created,
+            productsLinked: linked,
+            message: `Created ${created} new groups, linked ${linked} orphaned products.`,
+        };
     },
 });
