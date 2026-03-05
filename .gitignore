@@ -46,3 +46,10 @@ next-env.d.ts
 
 # MCP config (contains API keys)
 .mcp.json
+
+# Large binary / reference assets (stored outside git)
+/reference_images/
+/dist/
+
+# Python virtual environments
+.venv*/
