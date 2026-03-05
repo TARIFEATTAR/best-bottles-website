@@ -31,6 +31,14 @@ export default defineConfig({
                                     .filter('_type == "journal"')
                                     .defaultOrdering([{ field: "publishedAt", direction: "desc" }])
                             ),
+                        S.listItem()
+                            .title("Journal Drafts (Unpublished)")
+                            .child(
+                                S.documentList()
+                                    .title("Unpublished Journal Articles")
+                                    .filter('_type == "journal" && _id in path("drafts.**")')
+                                    .defaultOrdering([{ field: "_updatedAt", direction: "desc" }])
+                            ),
                         S.divider(),
                         // ── Product Pages ─────────────────────────────────────
                         S.listItem()
