@@ -4840,40 +4840,15 @@ export const fixAtomizerGroups = action({
         const EXISTING_10ML_GROUP_SLUG = "atomizer-10ml";
 
         // Fetch all Atomizer products
-        const allProducts: Array<{
-            _id: string;
-            graceSku: string;
-            itemName: string;
-            color: string | null;
-            neckThreadSize: string | null;
-            capacityMl: number | null;
-            webPrice1pc: number | null;
-            webPrice12pc: number | null;
-            productGroupId: string | null;
-        }> = await ctx.runQuery(internal.migrations.getProductsByThread, {
+        const allProducts = await ctx.runQuery(internal.migrations.getProductsByThread, {
             neckThreadSize: "SKIP",
-        }).catch(() => []);
+        }).catch(() => [] as Array<{ _id: string; graceSku: string; itemName: string; color: string | null; neckThreadSize: string | null; capacityMl: number | null; webPrice1pc: number | null; webPrice12pc: number | null; productGroupId: string | undefined }>);
 
         // Fallback: query by family
-        const atomizerProducts: Array<{
-            _id: string;
-            graceSku: string;
-            itemName: string;
-            color: string | null;
-            neckThreadSize: string | null;
-            capacityMl: number | null;
-            webPrice1pc: number | null;
-            webPrice12pc: number | null;
-            productGroupId: string | null;
-        }> = [];
+        const atomizerProducts: typeof allProducts = [];
 
         // Get all product groups to find the existing ones
-        const allGroups: Array<{
-            _id: string;
-            slug: string;
-            displayName: string;
-            family: string;
-        }> = await ctx.runQuery(internal.migrations.getAllGroups, {});
+        const allGroups = await ctx.runQuery(internal.migrations.getAllGroups, {});
 
         const existing5mlGroup = allGroups.find(
             (g) => g.slug === EXISTING_5ML_GROUP_SLUG
@@ -4890,14 +4865,8 @@ export const fixAtomizerGroups = action({
         }
 
         // Get all products linked to the 5ml group
-        const fiveMlVariants: Array<{
-            _id: string;
-            graceSku: string;
-            color: string | null;
-            neckThreadSize: string | null;
-            webPrice1pc: number | null;
-        }> = await ctx.runQuery(internal.migrations.getProductsByGroupId, {
-            groupId: existing5mlGroup._id as any,
+        const fiveMlVariants = await ctx.runQuery(internal.migrations.getProductsByGroupId, {
+            groupId: existing5mlGroup._id,
         });
 
         // Also get unlinked atomizer products (groupId = null)
