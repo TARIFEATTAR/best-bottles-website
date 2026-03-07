@@ -609,8 +609,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             )}
 
             <div className="pt-[156px] lg:pt-[104px]">
-                {/* ── Breadcrumb ──────────────────────────────────────────────────── */}
-                <div className="border-b border-champagne/50 bg-bone overflow-x-auto">
+                {/* ── Breadcrumb (hidden on mobile to maximize product image space) ── */}
+                <div className="hidden sm:block border-b border-champagne/50 bg-bone overflow-x-auto">
                     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex items-center space-x-2 text-xs text-slate whitespace-nowrap">
                         <Link href="/" className="hover:text-muted-gold transition-colors shrink-0">Home</Link>
                         <ChevronRight className="w-3 h-3 shrink-0" />
@@ -639,8 +639,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 </div>
 
                 {/* ── Hero Section ──────────────────────────────────────────────── */}
-                <section className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 lg:py-16">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start">
+                <section className="max-w-[1440px] mx-auto px-2 sm:px-6 py-2 sm:py-8 lg:py-16">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-20 items-start">
 
                         {/* ── Image Panel ──────────────────────────────────────────── */}
                         <div className="lg:sticky lg:top-[120px]">
@@ -649,16 +649,16 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 initial={{ opacity: 0.6 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.3 }}
-                                className="aspect-square bg-travertine rounded-sm border border-champagne/50 flex items-center justify-center relative overflow-hidden"
+                                className="aspect-square bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
                             >
                                 {selectedVariant?.imageUrl ? (
                                     <img
                                         src={selectedVariant.imageUrl}
                                         alt={selectedVariant.itemName}
-                                        className="w-full h-full object-contain p-12"
+                                        className="w-full h-full object-contain p-4 sm:p-12"
                                     />
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center text-center p-12">
+                                    <div className="flex flex-col items-center justify-center text-center p-4 sm:p-12">
                                         <Package className="w-20 h-20 text-champagne mb-4" strokeWidth={0.75} />
                                         <p className="text-xs text-slate/60 uppercase tracking-wider font-medium">{group.family}</p>
                                         <p className="text-sm text-slate/80 font-medium mt-1">{group.capacity}</p>
@@ -730,7 +730,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                         </div>
 
                         {/* ── Config Panel ─────────────────────────────────────────── */}
-                        <div>
+                        <div className="px-2 sm:px-0">
                             {/* Category · Family */}
                             <p className="text-xs uppercase tracking-[0.2em] text-muted-gold font-bold mb-2">
                                 {group.category} · {group.family}

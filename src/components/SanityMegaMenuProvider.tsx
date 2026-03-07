@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useMemo } from "react";
 
 export type MegaMenuPanelsData = {
     bottles?: { featuredImage?: { asset?: { _ref: string } }; title?: string; subtitle?: string; href?: string };
@@ -15,11 +15,7 @@ export function useMegaMenuPanels() {
 }
 
 export function SanityMegaMenuProvider({ children, initialData }: { children: React.ReactNode; initialData: MegaMenuPanelsData | null | undefined }) {
-    const [data, setData] = useState<MegaMenuPanelsData | null>(initialData ?? null);
-
-    useEffect(() => {
-        if (initialData) setData(initialData);
-    }, [initialData]);
+    const data = useMemo(() => initialData ?? null, [initialData]);
 
     return <MegaMenuContext.Provider value={data}>{children}</MegaMenuContext.Provider>;
 }
