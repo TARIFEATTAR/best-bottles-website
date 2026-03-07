@@ -1,4 +1,4 @@
-import { mutation, action, internalMutation, internalQuery } from "./_generated/server";
+import { mutation, action, query, internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import type { Doc, Id } from "./_generated/dataModel";
@@ -1269,7 +1269,7 @@ export const populateAllBell10mlComponents = action({
             };
         }
 
-        const patches = bell10Products.map((p) => ({ id: p._id, components }));
+        const patches: { id: Id<"products">; components: unknown[] }[] = bell10Products.map((p: Doc<"products">) => ({ id: p._id, components }));
         await ctx.runMutation(internal.migrations.patchProductComponentsBatch, { patches });
 
         return {
@@ -3715,15 +3715,7 @@ export const fillMissingComponentPrices = mutation({
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Diagnostic: list product group slugs containing "nemat" — run: npx convex run migrations:listNematSlugs */
-export const listNematSlugs = action({
-    args: {},
-    handler: async (ctx) => {
-        const bad = await ctx.runQuery(internal.migrations.listNematSlugsInternal, {});
-        return bad;
-    },
-});
-
-export const listNematSlugsInternal = internalQuery({
+export const listNematSlugs = query({
     args: {},
     handler: async (ctx) => {
         const groups = await ctx.db.query("productGroups").collect();
