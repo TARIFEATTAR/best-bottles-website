@@ -1,10 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, LayoutGrid, ShoppingBag, Sparkles, User } from "lucide-react";
+import { Home, LayoutGrid, ShoppingBag, Sparkles, User, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../CartProvider";
 import { useGrace } from "../useGrace";
+
+const GRACE_TAB_ONBOARDING_KEY = "grace-tab-onboarding-seen";
 
 // ─── Tab definitions ─────────────────────────────────────────────────────────
 
@@ -30,11 +34,35 @@ export default function MobileTabBar() {
     const pathname = usePathname();
     const { itemCount } = useCart();
     const { openPanel } = useGrace();
+    const [showGraceTooltip, setShowGraceTooltip] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => setMounted(true), []);
+    useEffect(() => {
+        if (!mounted || typeof window === "undefined") return;
+        if (!localStorage.getItem(GRACE_TAB_ONBOARDING_KEY)) setShowGraceTooltip(true);
+    }, [mounted]);
+
+    const dismissGraceTooltip = () => {
+        setShowGraceTooltip(false);
+        try {
+            localStorage.setItem(GRACE_TAB_ONBOARDING_KEY, "1");
+        } catch {
+            /* ignore */
+        }
+    };
+
+    useEffect(() => {
+        if (!showGraceTooltip) return;
+        const t = setTimeout(dismissGraceTooltip, 5000);
+        return () => clearTimeout(t);
+    }, [showGraceTooltip]);
 
     function handleAction(action: "cart" | "grace") {
         if (action === "cart") {
             window.dispatchEvent(new Event("open-cart-drawer"));
         } else {
+            dismissGraceTooltip();
             openPanel();
         }
     }
@@ -88,16 +116,41 @@ export default function MobileTabBar() {
                     );
 
                     if (tab.action) {
+                        const isGrace = tab.key === "grace";
                         return (
-                            <button
-                                key={tab.key}
-                                role="tab"
-                                aria-selected={false}
-                                onClick={() => handleAction(tab.action!)}
-                                className="group flex-1 flex items-center justify-center h-full min-w-[44px] cursor-pointer"
-                            >
-                                {inner}
-                            </button>
+                            <div key={tab.key} className="relative flex-1 flex items-center justify-center h-full min-w-[44px]">
+                                <AnimatePresence>
+                                    {isGrace && showGraceTooltip && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 4 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[200px] z-[60]"
+                                        >
+                                            <div className="bg-obsidian text-bone text-xs rounded-xl shadow-xl px-3 py-2.5 pr-7 relative">
+                                                <p className="leading-snug">Chat with Grace anytime for fitment, pricing, or product help.</p>
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); dismissGraceTooltip(); }}
+                                                    aria-label="Dismiss"
+                                                    className="absolute top-1.5 right-1.5 p-0.5 rounded hover:bg-white/10 transition-colors"
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
+                                            </div>
+                                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-obsidian rotate-45" />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <button
+                                    role="tab"
+                                    aria-selected={false}
+                                    onClick={() => handleAction(tab.action!)}
+                                    className="group w-full flex items-center justify-center h-full min-w-[44px] cursor-pointer"
+                                >
+                                    {inner}
+                                </button>
+                            </div>
                         );
                     }
 

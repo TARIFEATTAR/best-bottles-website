@@ -1475,7 +1475,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     if (filters.search) chips.push({ label: `"${filters.search}"`, onRemove: () => { handleFilterChange({ search: "" }); setSearchInput(""); } });
 
     return (
-        <main className="min-h-screen bg-bone pt-[156px] lg:pt-[104px]">
+        <main className="min-h-screen bg-bone pt-[160px] lg:pt-[120px]">
             <Navbar variant="catalog" initialSearchValue={filters.search || undefined} />
 
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
@@ -1897,7 +1897,7 @@ export default function CatalogPage() {
     return (
         <Suspense
             fallback={
-                <main className="min-h-screen bg-bone pt-[156px] lg:pt-[104px]">
+                <main className="min-h-screen bg-bone pt-[160px] lg:pt-[120px]">
                     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
                         <div className="mb-4 sm:mb-12 border-b border-champagne/50 pb-4 sm:pb-8">
                             <div className="h-10 w-64 bg-champagne/30 rounded animate-pulse mb-3" />

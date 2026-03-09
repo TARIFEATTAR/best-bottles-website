@@ -84,7 +84,7 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
     const showVideo = mediaType === "video" && videoUrl;
 
     return (
-        <section className="relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[156px] lg:pt-[104px] flex items-center bg-bone overflow-hidden">
+        <section className="relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[160px] lg:pt-[120px] flex items-center bg-bone overflow-hidden">
             <div className="absolute inset-0 z-0 bg-travertine">
                 {isMultiSlide ? (
                     slides.map((s, i) => {
@@ -155,7 +155,7 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
                         <Link href={slide?.ctaHref || DEFAULT_HERO_SLIDE.ctaHref} className="w-full sm:w-auto px-8 py-4 bg-white text-obsidian uppercase text-sm font-semibold tracking-wider hover:bg-bone transition-colors duration-300 shadow-md text-center">
                             {(slide?.ctaText === "Explore Collections" ? "Browse Catalog" : slide?.ctaText) || DEFAULT_HERO_SLIDE.ctaText}
                         </Link>
-                        <button onClick={openGrace} className="group flex items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300">
+                        <button onClick={openGrace} className="hidden lg:flex group items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300">
                             <span className="text-shimmer border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Ask Grace — AI Bottling Specialist</span>
                         </button>
                     </FadeUp>
@@ -174,9 +174,9 @@ function TrustBar() {
         : "2,300+";
 
     const items = [
-        { stat: "$50 Order Minimum", label: "No unit minimum — order what you need", icon: Zap },
-        { stat: productCount, label: "Premium Products", icon: ShoppingBag },
-        { stat: "Fitment Verified", label: "Every closure matched to your bottle", icon: ShieldCheck },
+        { stat: "$50 Order Minimum", statMobile: "$50 Order Min", label: "Order what you need", icon: Zap },
+        { stat: `${productCount} Products`, label: "Premium bottles & closures", icon: ShoppingBag },
+        { stat: "Fitment Verified", label: "Guaranteed compatibility", icon: ShieldCheck },
     ];
 
     return (
@@ -189,8 +189,11 @@ function TrustBar() {
                                 <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-gold" strokeWidth={1.5} />
                             </div>
                             <div className="min-w-0">
-                                <h4 className="font-serif text-sm sm:text-lg text-obsidian font-medium leading-tight">{item.stat}</h4>
-                                <p className="text-[11px] sm:text-xs text-slate mt-0.5 leading-snug">{item.label}</p>
+                                <h4 className="font-serif text-sm sm:text-lg text-obsidian font-medium leading-tight">
+                                    <span className="sm:hidden">{"statMobile" in item ? item.statMobile : item.stat}</span>
+                                    <span className="hidden sm:inline">{item.stat}</span>
+                                </h4>
+                                <p className="hidden sm:block text-[11px] sm:text-xs text-slate mt-0.5 leading-snug">{item.label}</p>
                             </div>
                         </FadeUp>
                     ))}

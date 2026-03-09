@@ -600,7 +600,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         return (
             <main className="min-h-screen bg-bone">
                 <Navbar hideMobileSearch />
-                <div className="pt-[104px] sm:pt-[156px] lg:pt-[104px] flex items-center justify-center min-h-screen">
+                <div className="pt-[104px] sm:pt-[160px] lg:pt-[120px] flex items-center justify-center min-h-screen">
                     <div className="flex flex-col items-center">
                         <div className="w-10 h-10 rounded-full border-2 border-champagne border-t-muted-gold animate-spin mb-4"></div>
                         <p className="text-xs uppercase tracking-widest font-semibold text-slate">Loading product...</p>
@@ -616,7 +616,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         return (
             <main className="min-h-screen bg-bone">
                 <Navbar hideMobileSearch />
-                <div className="pt-[104px] sm:pt-[156px] lg:pt-[104px] max-w-[1440px] mx-auto px-4 sm:px-6 py-32 text-center">
+                <div className="pt-[104px] sm:pt-[160px] lg:pt-[120px] max-w-[1440px] mx-auto px-4 sm:px-6 py-32 text-center">
                     <h1 className="font-serif text-4xl text-obsidian mb-4">Product Not Found</h1>
                     <p className="text-slate mb-8 text-sm">This product may have been moved or is no longer available.</p>
                     <Link
@@ -667,7 +667,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 />
             )}
 
-            <div className="pt-[104px] sm:pt-[156px] lg:pt-[104px]">
+            <div className="pt-[104px] sm:pt-[160px] lg:pt-[120px]">
                 {/* ── Breadcrumb ──────────────────────────────────────────────────── */}
                 <div className="border-b border-champagne/50 bg-bone overflow-x-auto">
                     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-1.5 sm:py-3 flex items-center space-x-2 text-[11px] sm:text-xs text-slate whitespace-nowrap">
