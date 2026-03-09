@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, use } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback, use } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -293,6 +293,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const [fitmentDrawerOpen, setFitmentDrawerOpen] = useState(false);
     
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+    const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
     const [selectedCapColor, setSelectedCapColor] = useState<string | null>(null);
     const [selectedCapStyle, setSelectedCapStyle] = useState<string | null>(null);
     const [selectedTrimColor, setSelectedTrimColor] = useState<string | null>(null);
@@ -301,6 +302,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const [qty, setQty] = useState(qtyParam);
     const [addedFlash, setAddedFlash] = useState(false);
     const [pdpBlocks, setPdpBlocks] = useState<PdpBlock[]>([]);
+    const [stickyBarVisible, setStickyBarVisible] = useState(false);
+    const inlineCartRef = useRef<HTMLDivElement>(null);
 
     const group = data?.group;
     const variants = useMemo(() => (data?.variants as ProductVariant[] | undefined) ?? [], [data?.variants]);
@@ -385,7 +388,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         router.replace(`/products/${slug}`);
     }, [applicatorParam, validApplicatorParam, router, slug]);
 
-    const activeApplicator = defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
+    const activeApplicator = selectedApplicator && applicatorOptions.includes(selectedApplicator)
+        ? selectedApplicator
+        : defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
     const variantsForApplicator = useMemo(
         () => variants.filter((v) => v.applicator === activeApplicator),
         [variants, activeApplicator]
@@ -505,6 +510,17 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         return true;
     }, [trimColorOptions]);
 
+    // ── Roller type toggle for roll-on groups ─────────────────────────────────
+    const isRollonGroup = slug.includes("rollon");
+    const rollerTypeOptions = useMemo(() => {
+        if (!isRollonGroup || applicatorOptions.length < 2) return [];
+        // Normalize to "Metal" / "Plastic" labels
+        return applicatorOptions.map((a) => ({
+            value: a,
+            label: /metal/i.test(a) ? "Metal Roller" : /plastic/i.test(a) ? "Plastic Roller" : a,
+        }));
+    }, [isRollonGroup, applicatorOptions]);
+
     // ── Dynamic SEO title ────────────────────────────────────────────────────
     useEffect(() => {
         if (group) {
@@ -539,6 +555,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             .catch(() => { if (!cancelled) setPdpBlocks([]); });
         return () => { cancelled = true; };
     }, [slug, group?.family]);
+
+    // ── Mobile sticky bar: only visible once inline Add to Cart scrolls out of view ──
+    useEffect(() => {
+        const el = inlineCartRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setStickyBarVisible(!entry.isIntersecting),
+            { threshold: 0 }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     // ── JSON-LD structured data ──────────────────────────────────────────────
     const jsonLd = useMemo(() => {
@@ -815,6 +843,36 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                             {!isAtomizer && (
                                 <>
+                                    {/* Roller type toggle — Metal vs Plastic for roll-on groups */}
+                                    {rollerTypeOptions.length >= 2 && (
+                                        <div className="mb-6">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
+                                                Roller Type
+                                            </p>
+                                            <div className="flex gap-2">
+                                                {rollerTypeOptions.map((opt) => (
+                                                    <button
+                                                        key={opt.value}
+                                                        onClick={() => {
+                                                            setSelectedApplicator(opt.value);
+                                                            setSelectedVariantId(null);
+                                                            setSelectedCapColor(null);
+                                                            setSelectedCapStyle(null);
+                                                            setSelectedTrimColor(null);
+                                                        }}
+                                                        className={`px-4 py-2 text-sm font-medium border rounded-sm transition-all ${
+                                                            activeApplicator === opt.value
+                                                                ? "border-obsidian bg-obsidian text-white"
+                                                                : "border-champagne text-obsidian hover:border-muted-gold"
+                                                        }`}
+                                                    >
+                                                        {opt.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {/* Cap color selector */}
                                     {capColorOptions.length > 0 && (
                                         <div className="mb-6">
@@ -1043,7 +1101,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             <PdpInlinePromo blocks={pdpBlocks} />
 
                             {/* Quantity + Add to Cart */}
-                            <div className="flex items-stretch space-x-3 mb-6">
+                            <div ref={inlineCartRef} className="flex items-stretch space-x-3 mb-6">
                                 <div className="flex items-center border border-champagne rounded-sm bg-white">
                                     <button
                                         onClick={() => setQty((q) => Math.max(1, q - 1))}
@@ -1252,8 +1310,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 <div className="h-32 bg-linen border-t border-champagne/30"></div>
             </div>
 
-            {/* Mobile sticky purchase bar */}
-            <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-champagne bg-bone/95 backdrop-blur-md pb-[max(env(safe-area-inset-bottom),8px)]">
+            {/* Mobile sticky purchase bar — only appears once inline Add to Cart scrolls out of view (Baymard best practice) */}
+            <div className={`lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-champagne bg-bone/95 backdrop-blur-md pb-[max(env(safe-area-inset-bottom),8px)] transition-transform duration-300 ${stickyBarVisible ? "translate-y-0" : "translate-y-full"}`}>
                 <div className="px-4 py-3 flex items-center gap-3">
                     <div className="min-w-0">
                         <p className="text-[10px] uppercase tracking-wider text-slate font-semibold">From</p>
