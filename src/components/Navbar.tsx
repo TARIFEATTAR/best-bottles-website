@@ -451,16 +451,32 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         {/* Mobile logo — centered absolutely so hamburger/heart don't shift it */}
                         <Link
                             href="/"
-                            className="lg:hidden absolute left-1/2 -translate-x-1/2 font-display text-2xl font-medium tracking-tight text-obsidian pointer-events-auto"
+                            className="lg:hidden absolute left-1/2 -translate-x-1/2 pointer-events-auto"
                         >
-                            BEST BOTTLES
+                            <div className="relative w-[180px] h-[36px]">
+                                <Image
+                                    src="/assets/best-bottles-logo.png"
+                                    alt="Best Bottles"
+                                    fill
+                                    className="object-contain"
+                                    priority
+                                />
+                            </div>
                         </Link>
                         {/* Desktop logo */}
                         <Link
                             href="/"
-                            className="hidden lg:flex font-display text-2xl font-medium tracking-tight text-obsidian shrink-0"
+                            className="hidden lg:flex shrink-0 mr-4"
                         >
-                            BEST BOTTLES
+                            <div className="relative w-[240px] h-[48px]">
+                                <Image
+                                    src="/assets/best-bottles-logo.png"
+                                    alt="Best Bottles"
+                                    fill
+                                    className="object-contain object-left"
+                                    priority
+                                />
+                            </div>
                         </Link>
                         <nav
                             className="hidden lg:flex items-center gap-x-12 text-sm font-medium text-obsidian tracking-wide normal-case shrink-0"
@@ -537,10 +553,10 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                 disabled={isTranscribing}
                                 aria-label={isDictating ? "Stop recording" : "Search by voice"}
                                 className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${isDictating
-                                        ? "text-muted-gold animate-grace-pulse"
-                                        : isTranscribing
-                                            ? "text-muted-gold animate-bounce"
-                                            : "text-slate/40 hover:text-slate"
+                                    ? "text-muted-gold animate-grace-pulse"
+                                    : isTranscribing
+                                        ? "text-muted-gold animate-bounce"
+                                        : "text-slate/40 hover:text-slate"
                                     }`}
                             >
                                 <Mic className="w-4 h-4" />
@@ -554,8 +570,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                 aria-label="AI Help"
                                 title="Chat with Grace — AI Bottling Specialist"
                                 className={`hidden sm:flex items-center space-x-2 text-sm font-medium px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${graceActive
-                                        ? "bg-obsidian text-bone border-obsidian shadow-md"
-                                        : "bg-white text-obsidian border-champagne hover:border-muted-gold shadow-sm"
+                                    ? "bg-obsidian text-bone border-obsidian shadow-md"
+                                    : "bg-white text-obsidian border-champagne hover:border-muted-gold shadow-sm"
                                     }`}
                             >
                                 {graceActive ? (
@@ -615,10 +631,10 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                 disabled={isTranscribing}
                                 aria-label={isDictating ? "Stop recording" : "Search by voice"}
                                 className={`shrink-0 p-1 rounded-lg transition-all duration-200 disabled:cursor-not-allowed ${isDictating
-                                        ? "text-muted-gold animate-grace-pulse"
-                                        : isTranscribing
-                                            ? "text-muted-gold animate-bounce"
-                                            : "text-slate/40 hover:text-slate"
+                                    ? "text-muted-gold animate-grace-pulse"
+                                    : isTranscribing
+                                        ? "text-muted-gold animate-bounce"
+                                        : "text-slate/40 hover:text-slate"
                                     }`}
                             >
                                 <Mic className="w-4 h-4" />
@@ -664,7 +680,15 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     <div className="fixed top-0 left-0 bottom-0 z-[61] w-[360px] max-w-[88vw] bg-bone border-r border-champagne shadow-2xl lg:hidden flex flex-col">
                         <div className="h-[44px] bg-obsidian" />
                         <div className="h-[72px] px-4 flex items-center justify-between border-b border-champagne">
-                            <span className="font-display text-2xl tracking-tight text-obsidian">BEST BOTTLES</span>
+                            <div className="relative w-[180px] h-[36px]">
+                                <Image
+                                    src="/assets/best-bottles-logo.png"
+                                    alt="Best Bottles"
+                                    fill
+                                    className="object-contain object-left"
+                                    priority
+                                />
+                            </div>
                             <button
                                 aria-label="Close menu"
                                 onClick={() => setMobileMenuOpen(false)}
