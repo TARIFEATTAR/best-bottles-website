@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Zap, Star, ShoppingBag, MapPin } from "lucide-react";
+import { ArrowRight, Zap, Star, ShoppingBag, MapPin, Search, MessageCircle, Compass, ChevronRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -11,6 +12,8 @@ import Navbar from "@/components/Navbar";
 import { useGrace } from "@/components/useGrace";
 import { urlFor } from "@/sanity/lib/image";
 import type { HomepageData } from "@/sanity/lib/queries";
+import { APPLICATOR_NAV, applicatorNavHref, applicatorNavHrefMulti } from "@/lib/catalogFilters";
+import type { ApplicatorNavValue } from "@/lib/catalogFilters";
 
 const FadeUp = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => (
     <motion.div
@@ -25,12 +28,12 @@ const FadeUp = ({ children, delay = 0, className = "" }: { children: React.React
 );
 
 const DEFAULT_START_HERE = [
-    { title: "essential oils & roll-ons", subtitle: "Roller-ready bottles for oils, topicals, and fragrance oils.", href: "/catalog?applicators=rollon", img: "/assets/vintage-spray.png", bg: "#DFD6C9" },
-    { title: "skincare & serums", subtitle: "Dropper and pump formats for treatment-focused formulas.", href: "/catalog?applicators=dropper&applicators=lotionpump", img: "/assets/collection_skincare.png", bg: "#EADDD1" },
+    { title: "essential oils & roll-ons", subtitle: "Roller-ready bottles for oils, topicals, and fragrance oils.", href: applicatorNavHref("rollon"), img: "/assets/vintage-spray.png", bg: "#DFD6C9" },
+    { title: "skincare & serums", subtitle: "Dropper and pump formats for treatment-focused formulas.", href: applicatorNavHrefMulti(["dropper", "lotionpump"]), img: "/assets/collection_skincare.png", bg: "#EADDD1" },
     { title: "sample & discovery", subtitle: "Vials and compact formats for trial, travel, and discovery kits.", href: "/catalog?families=Vial", img: "/assets/Hero-BB.png", bg: "#EAE0D5" },
     { title: "gift & retail packaging", subtitle: "Presentation-ready packaging for launches, gifting, and retail shelves.", href: "/catalog?category=Packaging", img: "/assets/collection_amber.png", bg: "#F3E5D8" },
     { title: "components & closures", subtitle: "Caps, droppers, pumps, and fitments matched by thread size.", href: "/catalog?category=Component", img: "/assets/bottle_screwcap.png", bg: "#DCD0C0" },
-    { title: "fine mist & spray bottles", subtitle: "Spray-forward bottle families for fragrance and room scent formats.", href: "/catalog?applicators=spray", img: "/assets/Cylinder-BB.png", bg: "#D5C5B1" },
+    { title: "fine mist & spray bottles", subtitle: "Spray-forward bottle families for fragrance and room scent formats.", href: applicatorNavHref("spray"), img: "/assets/Cylinder-BB.png", bg: "#D5C5B1" },
 ];
 
 const DEFAULT_FAMILIES = [
@@ -46,9 +49,9 @@ const DEFAULT_FAMILIES = [
 ];
 
 const DEFAULT_ARTICLES = [
-    { title: "Glass vs. Plastic: Why Material Matters for Your Brand", category: "Materials", img: "/assets/collection_perfume.png", slug: "#" },
-    { title: "Finding Your Thread: A Complete Neck Size Compatibility Guide", category: "Technical", img: "/assets/family_cylinder.png", slug: "#" },
-    { title: "From Etsy to Retail: Scaling Your Packaging Strategy", category: "Growth", img: "/assets/collection_amber.png", slug: "#" },
+    { title: "Glass vs. Plastic: Why Material Matters for Your Brand", category: "Materials", img: "/assets/collection_perfume.png", slug: "/blog" },
+    { title: "Finding Your Thread: A Complete Neck Size Compatibility Guide", category: "Technical", img: "/assets/family_cylinder.png", slug: "/blog" },
+    { title: "From Etsy to Retail: Scaling Your Packaging Strategy", category: "Growth", img: "/assets/collection_amber.png", slug: "/blog" },
 ];
 
 type HeroSlide = NonNullable<HomepageData["heroSlides"]>[number];
@@ -81,7 +84,7 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
     const showVideo = mediaType === "video" && videoUrl;
 
     return (
-        <section className="relative min-h-[80vh] lg:h-[82vh] lg:min-h-[650px] pt-[156px] lg:pt-[104px] flex items-center bg-bone overflow-hidden">
+        <section className="relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[156px] lg:pt-[104px] flex items-center bg-bone overflow-hidden">
             <div className="absolute inset-0 z-0 bg-travertine">
                 {isMultiSlide ? (
                     slides.map((s, i) => {
@@ -239,104 +242,267 @@ const APPLICATOR_ICONS: Record<string, React.ReactNode> = {
     ),
 };
 
-function ShopByApplication() {
-    const entries = [
-        { value: "rollon", label: "Roll-ons", subtitle: "Essential oils, perfume oils, topicals" },
-        { value: "spray", label: "Sprays", subtitle: "Fine mist, atomizers, antique bulb" },
-        { value: "reducer", label: "Splash & Reducer", subtitle: "Aftershave, cologne, beard oil" },
-        { value: "lotionpump", label: "Lotion Pumps", subtitle: "Skincare, body care, serums" },
-        { value: "dropper", label: "Droppers", subtitle: "Serums, tinctures, CBD, essential oils" },
-    ];
+/* ─── Guided Selector: 3-step funnel (Use Case → Dispenser → Size) ─── */
+
+const USE_CASES: Array<{ id: string; label: string; subtitle: string; icon: string; applicators: ApplicatorNavValue[] }> = [
+    { id: "fragrance", label: "Fragrance & Perfume", subtitle: "Spray, rollerball, and splash formats", icon: "🌸", applicators: ["spray", "rollon", "reducer"] },
+    { id: "essentials", label: "Essential Oils", subtitle: "Roll-on and dropper bottles for oils", icon: "💧", applicators: ["rollon", "dropper"] },
+    { id: "skincare", label: "Skincare & Serums", subtitle: "Dropper and pump formats", icon: "🧴", applicators: ["dropper", "lotionpump"] },
+    { id: "gift", label: "Gift & Retail", subtitle: "Presentation-ready packaging", icon: "🎁", applicators: ["spray", "rollon", "dropper", "lotionpump", "reducer"] },
+    { id: "samples", label: "Samples & Travel", subtitle: "Vials and compact formats", icon: "🧪", applicators: ["spray", "rollon", "dropper"] },
+    { id: "other", label: "Something Else", subtitle: "Browse the full catalog", icon: "✨", applicators: [] },
+];
+
+// Derive DISPENSERS from the shared APPLICATOR_NAV config (single source of truth)
+const DISPENSERS = APPLICATOR_NAV.map((nav) => ({
+    value: nav.value,
+    label: nav.label,
+    subtitle: nav.subtitle,
+}));
+
+const SIZE_RANGES = [
+    { label: "Miniature", subtitle: "1–5 ml", params: "capacities=1+ml&capacities=2+ml&capacities=3+ml&capacities=5+ml" },
+    { label: "Small", subtitle: "6–15 ml", params: "capacities=6+ml&capacities=8+ml&capacities=10+ml&capacities=12+ml&capacities=15+ml" },
+    { label: "Medium", subtitle: "20–50 ml", params: "capacities=20+ml&capacities=25+ml&capacities=30+ml&capacities=50+ml" },
+    { label: "Large", subtitle: "75–120 ml", params: "capacities=75+ml&capacities=100+ml&capacities=120+ml" },
+    { label: "Any Size", subtitle: "Show all", params: "" },
+];
+
+function GuidedSelector({ onClose }: { onClose: () => void }) {
+    const router = useRouter();
+    const [step, setStep] = useState(1);
+    const [useCase, setUseCase] = useState<string | null>(null);
+    const [applicator, setApplicator] = useState<string | null>(null);
+
+    const selectedUseCase = USE_CASES.find((u) => u.id === useCase);
+    const availableDispensers = selectedUseCase?.applicators.length
+        ? DISPENSERS.filter((d) => selectedUseCase.applicators.includes(d.value))
+        : DISPENSERS;
+
+    const handleUseCaseSelect = useCallback((id: string) => {
+        setUseCase(id);
+        if (id === "other") {
+            router.push("/catalog");
+            onClose();
+            return;
+        }
+        setStep(2);
+    }, [router, onClose]);
+
+    const handleDispenserSelect = useCallback((value: string) => {
+        setApplicator(value);
+        setStep(3);
+    }, []);
+
+    const handleSizeSelect = useCallback((sizeParams: string) => {
+        // Resolve nav-level applicator to actual bucket values via shared config
+        const nav = applicator ? APPLICATOR_NAV.find((n) => n.value === applicator) : null;
+        const params = new URLSearchParams();
+        if (nav) params.set("applicators", nav.buckets.join(","));
+        const url = `/catalog?${params.toString()}${sizeParams ? `&${sizeParams}` : ""}`;
+        router.push(url);
+        onClose();
+    }, [applicator, router, onClose]);
+
+    const stepLabels = ["Use Case", "Dispenser", "Size"];
 
     return (
-        <section className="bg-bone py-16 border-b border-champagne/40">
-            <div className="max-w-[1440px] mx-auto px-6">
-                <FadeUp className="mb-10">
-                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-2">Applicator Type</p>
-                    <h2 className="font-serif text-4xl text-obsidian font-medium tracking-tight leading-tight">Choose an applicator</h2>
-                </FadeUp>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                    {entries.map((entry, i) => (
-                        <FadeUp key={entry.value} delay={i * 0.07}>
-                            <Link
-                                href={`/catalog?applicators=${entry.value}`}
-                                className="group flex flex-col h-full bg-white border border-champagne/50 rounded-sm p-6 hover:border-muted-gold hover:shadow-md transition-all duration-300 cursor-pointer"
-                            >
-                                <div className="text-obsidian/40 group-hover:text-muted-gold transition-colors duration-300 mb-5">
-                                    {APPLICATOR_ICONS[entry.value]}
-                                </div>
-                                <h3 className="font-serif text-xl text-obsidian font-medium mb-1 leading-snug">{entry.label}</h3>
-                                <p className="text-xs text-slate leading-relaxed mb-4 flex-1">{entry.subtitle}</p>
-                                <span className="text-xs font-semibold text-muted-gold uppercase tracking-wider flex items-center group-hover:gap-2 transition-all duration-300">
-                                    Browse <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                </span>
-                            </Link>
-                        </FadeUp>
-                    ))}
+        <section className="bg-white border-y border-champagne/40">
+            <div className="max-w-[1440px] mx-auto px-6 py-12 lg:py-16">
+                {/* Step indicator */}
+                <div className="flex items-center justify-center mb-10 gap-2">
+                    {stepLabels.map((label, i) => {
+                        const stepNum = i + 1;
+                        const isActive = step === stepNum;
+                        const isDone = step > stepNum;
+                        return (
+                            <React.Fragment key={label}>
+                                {i > 0 && <ChevronRight className="w-4 h-4 text-champagne mx-1" />}
+                                <button
+                                    onClick={() => { if (isDone) setStep(stepNum); }}
+                                    disabled={!isDone}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                                        isActive ? "bg-obsidian text-white" : isDone ? "bg-muted-gold/10 text-muted-gold cursor-pointer hover:bg-muted-gold/20" : "bg-travertine text-slate/50"
+                                    }`}
+                                >
+                                    {isDone ? <Check className="w-3.5 h-3.5" /> : <span className="w-5 h-5 rounded-full bg-current/10 flex items-center justify-center text-xs">{stepNum}</span>}
+                                    {label}
+                                </button>
+                            </React.Fragment>
+                        );
+                    })}
+                </div>
+
+                {/* Step 1: Use Case */}
+                {step === 1 && (
+                    <FadeUp>
+                        <div className="text-center mb-8">
+                            <h2 className="font-serif text-3xl lg:text-4xl text-obsidian font-medium">What are you packaging?</h2>
+                            <p className="text-slate text-sm mt-2">Pick the closest match — we&apos;ll narrow the catalog for you.</p>
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                            {USE_CASES.map((uc) => (
+                                <button
+                                    key={uc.id}
+                                    onClick={() => handleUseCaseSelect(uc.id)}
+                                    className="group flex flex-col items-center text-center p-6 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-md transition-all duration-300"
+                                >
+                                    <span className="text-3xl mb-3">{uc.icon}</span>
+                                    <h3 className="font-serif text-lg text-obsidian font-medium mb-1 leading-snug">{uc.label}</h3>
+                                    <p className="text-xs text-slate leading-relaxed">{uc.subtitle}</p>
+                                </button>
+                            ))}
+                        </div>
+                    </FadeUp>
+                )}
+
+                {/* Step 2: Dispenser */}
+                {step === 2 && (
+                    <FadeUp>
+                        <div className="text-center mb-8">
+                            <h2 className="font-serif text-3xl lg:text-4xl text-obsidian font-medium">How should it dispense?</h2>
+                            <p className="text-slate text-sm mt-2">Choose a dispensing method for your {selectedUseCase?.label.toLowerCase()} products.</p>
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+                            {availableDispensers.map((d) => (
+                                <button
+                                    key={d.value}
+                                    onClick={() => handleDispenserSelect(d.value)}
+                                    className="group flex flex-col h-full bg-bone border border-champagne/50 rounded-sm p-6 hover:border-muted-gold hover:shadow-md transition-all duration-300"
+                                >
+                                    <div className="text-obsidian/40 group-hover:text-muted-gold transition-colors duration-300 mb-4">
+                                        {APPLICATOR_ICONS[d.value]}
+                                    </div>
+                                    <h3 className="font-serif text-lg text-obsidian font-medium mb-1 leading-snug">{d.label}</h3>
+                                    <p className="text-xs text-slate leading-relaxed">{d.subtitle}</p>
+                                </button>
+                            ))}
+                        </div>
+                    </FadeUp>
+                )}
+
+                {/* Step 3: Size */}
+                {step === 3 && (
+                    <FadeUp>
+                        <div className="text-center mb-8">
+                            <h2 className="font-serif text-3xl lg:text-4xl text-obsidian font-medium">What size?</h2>
+                            <p className="text-slate text-sm mt-2">Pick a size range — you can always refine in the catalog.</p>
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+                            {SIZE_RANGES.map((s) => (
+                                <button
+                                    key={s.label}
+                                    onClick={() => handleSizeSelect(s.params)}
+                                    className="group flex flex-col items-center p-6 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-md transition-all duration-300 w-[140px]"
+                                >
+                                    <h3 className="font-serif text-lg text-obsidian font-medium mb-1">{s.label}</h3>
+                                    <p className="text-xs text-slate">{s.subtitle}</p>
+                                </button>
+                            ))}
+                        </div>
+                    </FadeUp>
+                )}
+
+                {/* Close / Skip */}
+                <div className="text-center mt-8">
+                    <button onClick={onClose} className="text-xs text-slate hover:text-obsidian transition-colors uppercase tracking-wider">
+                        Skip — browse the full catalog
+                    </button>
                 </div>
             </div>
         </section>
     );
 }
 
-function CuratedCollections({
-    startHereEyebrow,
-    startHereTitle,
-    startHereSubheading,
-    startHereCards,
-}: {
-    startHereEyebrow?: string;
-    startHereTitle?: string;
-    startHereSubheading?: string;
-    startHereCards?: HomepageData["startHereCards"];
-}) {
-    const cards = startHereCards?.length
-        ? startHereCards.map((c) => {
-            const bg = c.backgroundColor?.startsWith("#") ? c.backgroundColor : c.backgroundColor ? `#${c.backgroundColor}` : "#DFD6C9";
-            return {
-                title: c.title,
-                subtitle: c.subtitle ?? "",
-                href: c.href,
-                img: c.image ? urlFor(c.image) : "",
-                bg,
-            };
-        })
-        : DEFAULT_START_HERE.map((c) => ({ ...c, bg: c.bg }));
+/* ─── PathChooser: 3 clear entry paths ─── */
+
+function PathChooser() {
+    const { open: openGrace } = useGrace();
+    const router = useRouter();
+    const [showGuided, setShowGuided] = useState(false);
+    const [searchFocused, setSearchFocused] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleSearchSubmit = useCallback((e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchValue.trim()) {
+            router.push(`/catalog?search=${encodeURIComponent(searchValue.trim())}`);
+        }
+    }, [searchValue, router]);
+
+    if (showGuided) {
+        return <GuidedSelector onClose={() => setShowGuided(false)} />;
+    }
 
     return (
-        <section className="pt-16 pb-20 bg-white border-y border-champagne/40">
+        <section className="bg-white border-b border-champagne/40 py-14 lg:py-16">
             <div className="max-w-[1440px] mx-auto px-6">
-                <FadeUp className="mb-8">
-                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-2">{startHereEyebrow?.trim() || "Guided Browsing"}</p>
-                    <h2 className="font-serif text-4xl text-obsidian font-medium tracking-tight">{startHereTitle?.trim() || "Start Here"}</h2>
-                    <p className="text-[14px] text-slate mt-2">{startHereSubheading?.trim() || "Choose your use case to narrow the catalog faster."}</p>
+                <FadeUp className="text-center mb-10">
+                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-2">Find Your Bottle</p>
+                    <h2 className="font-serif text-3xl lg:text-4xl text-obsidian font-medium tracking-tight">How would you like to start?</h2>
                 </FadeUp>
-            </div>
-            <div className="pl-6 lg:pl-[max(1.5rem,calc((100vw-1440px)/2+1.5rem))] overflow-hidden">
-                <div className="flex overflow-x-auto gap-4 pb-8 snap-x snap-mandatory hide-scroll pr-[10vw]">
-                    {cards.map((card, i) => (
-                        <FadeUp key={card.title} delay={i * 0.08} className="w-[80vw] sm:w-[280px] xl:w-[240px] lg:w-[260px] shrink-0 snap-center lg:snap-start">
-                            <Link
-                                href={card.href}
-                                className="group relative flex flex-col h-[280px] rounded-[10px] overflow-hidden cursor-pointer shadow-sm"
-                                style={{ backgroundColor: card.bg }}
-                            >
-                                <div className="absolute inset-0 z-0">
-                                    <Image
-                                        src={card.img || DEFAULT_START_HERE.find((d) => d.title === card.title)?.img || "/assets/Hero-BB.png"}
-                                        alt={card.title}
-                                        fill
-                                        className="object-cover object-bottom group-hover:scale-105 transition-transform duration-700 ease-out"
-                                        unoptimized={!!card.img?.startsWith("http")}
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+                    {/* Path 1: I Know What I Need */}
+                    <FadeUp delay={0.1}>
+                        <div className="group flex flex-col items-center text-center p-8 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-lg transition-all duration-300">
+                            <div className="w-14 h-14 rounded-full bg-white border border-champagne/40 flex items-center justify-center mb-5 group-hover:border-muted-gold transition-colors">
+                                <Search className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" />
+                            </div>
+                            <h3 className="font-serif text-xl text-obsidian font-medium mb-2">I Know What I Need</h3>
+                            <p className="text-xs text-slate leading-relaxed mb-5">Search by name, SKU, size, or color.</p>
+                            <form onSubmit={handleSearchSubmit} className="w-full">
+                                <div className={`flex border rounded-full overflow-hidden transition-all duration-300 ${searchFocused ? "border-muted-gold ring-2 ring-muted-gold/20" : "border-champagne"}`}>
+                                    <input
+                                        type="text"
+                                        value={searchValue}
+                                        onChange={(e) => setSearchValue(e.target.value)}
+                                        onFocus={() => setSearchFocused(true)}
+                                        onBlur={() => setSearchFocused(false)}
+                                        placeholder="e.g. 30ml amber dropper"
+                                        className="flex-1 px-4 py-2.5 text-sm bg-white focus:outline-none placeholder-slate/50 text-obsidian min-w-0"
                                     />
+                                    <button type="submit" className="px-4 bg-obsidian text-white hover:bg-muted-gold transition-colors">
+                                        <ArrowRight className="w-4 h-4" />
+                                    </button>
                                 </div>
-                                <div className="relative z-10 p-5 mt-1 flex flex-col h-full justify-between">
-                                    <h3 className="font-bold text-obsidian text-[18px] lowercase leading-snug tracking-tight drop-shadow-sm">{card.title}</h3>
-                                    <p className="text-[11px] uppercase tracking-wider font-semibold text-obsidian/70 mt-auto leading-relaxed">{card.subtitle}</p>
-                                </div>
-                            </Link>
-                        </FadeUp>
-                    ))}
+                            </form>
+                        </div>
+                    </FadeUp>
+
+                    {/* Path 2: Help Me Choose */}
+                    <FadeUp delay={0.2}>
+                        <button
+                            onClick={() => setShowGuided(true)}
+                            className="group flex flex-col items-center text-center p-8 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-lg transition-all duration-300 w-full"
+                        >
+                            <div className="w-14 h-14 rounded-full bg-white border border-champagne/40 flex items-center justify-center mb-5 group-hover:border-muted-gold transition-colors">
+                                <Compass className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" />
+                            </div>
+                            <h3 className="font-serif text-xl text-obsidian font-medium mb-2">Help Me Choose</h3>
+                            <p className="text-xs text-slate leading-relaxed mb-5">3 quick questions to find your perfect bottle.</p>
+                            <span className="text-xs font-semibold text-muted-gold uppercase tracking-wider flex items-center group-hover:gap-2 transition-all duration-300">
+                                Start <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </span>
+                        </button>
+                    </FadeUp>
+
+                    {/* Path 3: Talk to Grace */}
+                    <FadeUp delay={0.3}>
+                        <button
+                            onClick={openGrace}
+                            className="group flex flex-col items-center text-center p-8 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-lg transition-all duration-300 w-full"
+                        >
+                            <div className="w-14 h-14 rounded-full bg-white border border-champagne/40 flex items-center justify-center mb-5 group-hover:border-muted-gold transition-colors">
+                                <MessageCircle className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" />
+                            </div>
+                            <h3 className="font-serif text-xl text-obsidian font-medium mb-2">Talk to Grace</h3>
+                            <p className="text-xs text-slate leading-relaxed mb-5">Our AI bottling specialist will guide you.</p>
+                            <span className="text-xs font-semibold text-muted-gold uppercase tracking-wider flex items-center group-hover:gap-2 transition-all duration-300">
+                                Ask Now <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </span>
+                        </button>
+                    </FadeUp>
                 </div>
             </div>
         </section>
@@ -353,8 +519,8 @@ function DesignFamilies({ designFamilyCards }: { designFamilyCards?: HomepageDat
         <section className="py-24 bg-bone overflow-hidden">
             <div className="pl-6 lg:pl-[max(1.5rem,calc((100vw-1440px)/2+1.5rem))]">
                 <FadeUp className="mb-12">
-                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-3">The Collection</p>
-                    <h2 className="font-serif text-4xl text-obsidian font-medium">Design families</h2>
+                    <p className="text-xs uppercase tracking-[0.25em] text-slate font-semibold mb-3">Already Know Your Style?</p>
+                    <h2 className="font-serif text-4xl text-obsidian font-medium">Shop by design family</h2>
                 </FadeUp>
                 <div className="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory hide-scroll pr-[10vw]">
                     {families.map((fam, i) => {
@@ -414,7 +580,9 @@ function SocialProof() {
                                 <p className="font-serif italic text-[20px] text-obsidian leading-relaxed mb-8">&quot;{test.quote}&quot;</p>
                                 <div>
                                     <div className="flex items-center space-x-3 mb-2">
-                                        <div className="w-10 h-10 rounded-full bg-travertine" />
+                                        <div className="w-10 h-10 rounded-full bg-travertine flex items-center justify-center text-sm font-semibold text-muted-gold">
+                                            {test.name.split(' ').map(n => n[0]).join('')}
+                                        </div>
                                         <div>
                                             <p className="text-sm font-semibold text-obsidian">{test.name}</p>
                                             <p className="text-xs text-slate">{test.brand}</p>
@@ -488,18 +656,34 @@ function EducationPreview({ educationPreview: edu }: { educationPreview?: Homepa
 }
 
 function Newsletter() {
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const email = new FormData(form).get("email") as string;
+        if (email?.trim()) {
+            // TODO: wire up to email service (Mailchimp, ConvertKit, etc.)
+            setSubmitted(true);
+        }
+    }, []);
+
     return (
         <section className="bg-linen py-24 border-t border-champagne/30 text-center">
             <div className="max-w-xl mx-auto px-6">
                 <FadeUp>
                     <h2 className="font-serif text-3xl text-obsidian font-medium mb-4">Stay in the Know</h2>
                     <p className="text-slate mb-8">Packaging insights, new arrivals, and scaling strategies. No spam—just expertise.</p>
-                    <form className="flex w-full items-center border border-champagne bg-white p-1 rounded-full shadow-sm hover:border-muted-gold transition-colors focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/20">
-                        <input type="email" placeholder="Your email address" className="flex-1 px-6 py-3 bg-transparent text-sm focus:outline-none placeholder-slate/60 text-obsidian" required />
-                        <button type="submit" className="px-6 py-3 bg-muted-gold text-white uppercase text-xs font-bold tracking-wider rounded-full hover:bg-obsidian transition-colors duration-300">
-                            Subscribe
-                        </button>
-                    </form>
+                    {submitted ? (
+                        <p className="text-muted-gold font-semibold text-sm">Thanks for subscribing! We&apos;ll be in touch.</p>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="flex w-full items-center border border-champagne bg-white p-1 rounded-full shadow-sm hover:border-muted-gold transition-colors focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/20">
+                            <input type="email" name="email" placeholder="Your email address" className="flex-1 px-6 py-3 bg-transparent text-sm focus:outline-none placeholder-slate/60 text-obsidian" required />
+                            <button type="submit" className="px-6 py-3 bg-muted-gold text-white uppercase text-xs font-bold tracking-wider rounded-full hover:bg-obsidian transition-colors duration-300">
+                                Subscribe
+                            </button>
+                        </form>
+                    )}
                 </FadeUp>
             </div>
         </section>
@@ -515,9 +699,15 @@ function Footer() {
                         <h4 className="font-serif text-2xl text-white mb-6">BEST BOTTLES</h4>
                         <p className="text-sm italic font-serif text-muted-gold mb-6">Beautifully Contained.</p>
                         <div className="flex space-x-4">
-                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-muted-gold transition-colors cursor-pointer" />
-                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-muted-gold transition-colors cursor-pointer" />
-                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-muted-gold transition-colors cursor-pointer" />
+                            <a href="https://www.instagram.com/nematinternational/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-muted-gold transition-colors" aria-label="Instagram">
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                            </a>
+                            <a href="https://www.facebook.com/NematInternational" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-muted-gold transition-colors" aria-label="Facebook">
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/company/nematinternational/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-muted-gold transition-colors" aria-label="LinkedIn">
+                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </a>
                         </div>
                     </div>
                     <div>
@@ -573,13 +763,7 @@ export default function HomePage({ homepageData }: { homepageData: HomepageData 
             <Navbar variant="home" />
             <Hero heroSlides={homepageData?.heroSlides} />
             <TrustBar />
-            <ShopByApplication />
-            <CuratedCollections
-                startHereEyebrow={homepageData?.startHereEyebrow}
-                startHereTitle={homepageData?.startHereTitle}
-                startHereSubheading={homepageData?.startHereSubheading}
-                startHereCards={homepageData?.startHereCards}
-            />
+            <PathChooser />
             <DesignFamilies designFamilyCards={homepageData?.designFamilyCards} />
             <SocialProof />
             <EducationPreview educationPreview={homepageData?.educationPreview} />

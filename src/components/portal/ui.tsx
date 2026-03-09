@@ -56,7 +56,7 @@ const tagStyles: Record<TagVariant, string> = {
     gold: "bg-amber-50 text-amber-700 border-amber-200",
     green: "bg-emerald-50 text-emerald-700 border-emerald-200",
     muted: "bg-neutral-100 text-neutral-600 border-neutral-200",
-    blue: "bg-blue-50 text-blue-700 border-blue-200",
+    blue: "bg-champagne/20 text-muted-gold border-champagne",
 };
 
 export function PortalTag({

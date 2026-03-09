@@ -19,6 +19,40 @@ export const APPLICATOR_BUCKETS = [
 
 export type ApplicatorBucket = (typeof APPLICATOR_BUCKETS)[number]["value"];
 
+// ─── Navigation-level applicator categories (single source of truth) ─────────
+// Used by: HomePage start-here cards, GuidedSelector dispensers, Navbar mega menu.
+// Each nav category maps to one or more fine-grained APPLICATOR_BUCKETS values.
+export const APPLICATOR_NAV = [
+    { value: "rollon", label: "Roll-On", subtitle: "Perfume oils, essential oils, topicals", buckets: ["rollon"] as ApplicatorBucket[] },
+    { value: "spray", label: "Fine Mist & Spray", subtitle: "Fragrance, room scent, setting spray", buckets: ["finemist", "perfumespray"] as ApplicatorBucket[] },
+    { value: "dropper", label: "Dropper", subtitle: "Serums, tinctures, CBD, essential oils", buckets: ["dropper"] as ApplicatorBucket[] },
+    { value: "lotionpump", label: "Lotion Pump", subtitle: "Skincare, body care, serums", buckets: ["lotionpump"] as ApplicatorBucket[] },
+    { value: "reducer", label: "Reducer", subtitle: "Aftershave, cologne, beard oil", buckets: ["reducer"] as ApplicatorBucket[] },
+] as const;
+
+export type ApplicatorNavValue = (typeof APPLICATOR_NAV)[number]["value"];
+
+/** Build a catalog URL query string for a nav-level applicator category. */
+export function applicatorNavHref(navValue: ApplicatorNavValue): string {
+    const nav = APPLICATOR_NAV.find((n) => n.value === navValue);
+    if (!nav) return "/catalog";
+    const params = new URLSearchParams();
+    params.set("applicators", nav.buckets.join(","));
+    return `/catalog?${params.toString()}`;
+}
+
+/** Build a catalog URL from multiple nav-level applicator values. */
+export function applicatorNavHrefMulti(navValues: ApplicatorNavValue[]): string {
+    const allBuckets = navValues.flatMap((v) => {
+        const nav = APPLICATOR_NAV.find((n) => n.value === v);
+        return nav ? nav.buckets : [];
+    });
+    if (!allBuckets.length) return "/catalog";
+    const params = new URLSearchParams();
+    params.set("applicators", allBuckets.join(","));
+    return `/catalog?${params.toString()}`;
+}
+
 export function applicatorBucketMatchesProductValues(bucket: ApplicatorBucket, productApplicatorTypes: string[]): boolean {
     const def = APPLICATOR_BUCKETS.find((b) => b.value === bucket);
     if (!def) return false;
@@ -31,6 +65,8 @@ export const SORT_OPTIONS = [
     { value: "price-desc", label: "Price: High to Low" },
     { value: "name-asc", label: "Name: A–Z" },
     { value: "name-desc", label: "Name: Z–A" },
+    { value: "capacity-asc", label: "Capacity: Small to Large" },
+    { value: "capacity-desc", label: "Capacity: Large to Small" },
     { value: "variants-desc", label: "Most Variants" },
 ] as const;
 

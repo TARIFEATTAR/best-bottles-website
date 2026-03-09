@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, ChevronRight, Droplet, SprayCan, CheckCircle2, Droplets, Sparkles } from 'lucide-react';
+import { X, ChevronRight, Droplet, SprayCan, CheckCircle2, Droplets, Sparkles, Check } from 'lucide-react';
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
+import { useCart } from './CartProvider';
 
 interface FitmentDrawerProps {
     isOpen: boolean;
@@ -21,8 +22,10 @@ interface FitmentOption {
 }
 
 export default function FitmentDrawer({ isOpen, onClose, bottleSku }: FitmentDrawerProps) {
+    const { addItems } = useCart();
     const [step, setStep] = useState<2 | 3>(2);
     const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
+    const [addedSku, setAddedSku] = useState<string | null>(null);
 
     const matchData = useQuery(api.products.getCompatibleFitments, { bottleSku });
     const componentsMap = (matchData?.components ?? {}) as Record<string, FitmentOption[]>;
@@ -244,13 +247,21 @@ export default function FitmentDrawer({ isOpen, onClose, bottleSku }: FitmentDra
 
                                         <button
                                             onClick={() => {
-                                                setAgentStatus('Successfully added 1x ' + fitment.itemName + ' bundle to the cart.');
-                                                alert('Added bundle to cart! (Demo)');
+                                                addItems([{
+                                                    graceSku: fitment.graceSku,
+                                                    itemName: fitment.itemName,
+                                                    quantity: 1,
+                                                    unitPrice: fitment.price1 ?? null,
+                                                    color: fitment.color ?? undefined,
+                                                }]);
+                                                setAddedSku(fitment.graceSku);
+                                                setTimeout(() => setAddedSku(null), 1800);
+                                                setAgentStatus('Successfully added 1x ' + fitment.itemName + ' to the cart.');
                                             }}
                                             className="mt-4 w-full py-2 bg-bone hover:bg-champagne/40 border border-champagne text-obsidian text-[11px] font-medium uppercase tracking-widest transition-colors rounded-lg flex items-center justify-center gap-1.5"
                                             data-agent-action="add-to-cart"
                                         >
-                                            Add
+                                            {addedSku === fitment.graceSku ? <><Check className="w-3 h-3" /> Added</> : "Add"}
                                         </button>
                                     </div>
                                 ))}

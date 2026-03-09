@@ -617,6 +617,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         }]);
         setAddedFlash(true);
         setTimeout(() => setAddedFlash(false), 1800);
+        // Auto-open the cart drawer
+        window.dispatchEvent(new Event("open-cart-drawer"));
     };
 
     return (
@@ -930,7 +932,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     {variantsForApplicator.length > 1 && (
                                         <div className="mb-6">
                                             <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
-                                                {activeApplicator ? "Cap Color / Variant (Preview)" : "Cap Finish"}
+                                                {activeApplicator ? "Cap Color / Variant" : "Cap Finish"}
                                             </p>
                                             <div className="flex flex-wrap gap-3">
                                                 {capSwatchPreview.map((item) => {
@@ -1082,6 +1084,16 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </button>
                             </div>
 
+                            {/* Request a Quote CTA */}
+                            <div className="mb-6">
+                                <Link
+                                    href={`/request-quote?products=${encodeURIComponent(`${selectedVariant?.itemName ?? group?.displayName ?? ''} (SKU: ${selectedVariant?.graceSku ?? ''})`)}&quantities=${encodeURIComponent(`${qty} units`)}`}
+                                    className="w-full flex items-center justify-center space-x-2 py-3 border border-obsidian text-obsidian text-xs font-bold uppercase tracking-widest hover:bg-obsidian hover:text-white transition-colors"
+                                >
+                                    <span>Request a Quote</span>
+                                </Link>
+                            </div>
+
                             {/* Product Description — group-level copy preferred, then variant, skipped when Sanity rich desc exists */}
                             {pdpBlocks.every((b) => b._type !== "pdpRichDescription") && (group?.groupDescription || selectedVariant?.itemDescription) && (
                                 <div className="mb-6 pt-5 border-t border-champagne/60">
@@ -1146,7 +1158,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </div>
                                 <button
                                     onClick={() => setFitmentDrawerOpen(true)}
-                                    className="text-xs text-muted-gold hover:underline transition-colors hidden sm:block"
+                                    className="text-xs text-muted-gold hover:underline transition-colors"
                                 >
                                     View all components →
                                 </button>
