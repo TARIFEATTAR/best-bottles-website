@@ -543,8 +543,8 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                     <div className="flex items-center space-x-2 shrink-0">
                         <button
                             onClick={openPanel}
-                            aria-label="Ask Grace"
-                            title="AI Bottling Specialist"
+                            aria-label="AI Help"
+                            title="Chat with Grace — AI Bottling Specialist"
                             className={`hidden sm:flex items-center space-x-2 text-sm font-medium px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${graceActive
                                     ? "bg-obsidian text-bone border-obsidian shadow-md"
                                     : "bg-white text-obsidian border-champagne hover:border-muted-gold shadow-sm"
@@ -557,7 +557,7 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                             ) : (
                                 <span className="w-2 h-2 rounded-full bg-muted-gold animate-grace-pulse shrink-0" />
                             )}
-                            <span>Ask Grace</span>
+                            <span>AI Help</span>
                         </button>
 
                         <Link href="/sign-in" aria-label="Account" className="p-2 hover:text-muted-gold transition-colors">

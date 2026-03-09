@@ -153,7 +153,7 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
                     </FadeUp>
                     <FadeUp delay={0.5} className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
                         <Link href={slide?.ctaHref || DEFAULT_HERO_SLIDE.ctaHref} className="w-full sm:w-auto px-8 py-4 bg-white text-obsidian uppercase text-sm font-semibold tracking-wider hover:bg-bone transition-colors duration-300 shadow-md text-center">
-                            {slide?.ctaText || DEFAULT_HERO_SLIDE.ctaText}
+                            {(slide?.ctaText === "Explore Collections" ? "Browse Catalog" : slide?.ctaText) || DEFAULT_HERO_SLIDE.ctaText}
                         </Link>
                         <button onClick={openGrace} className="group flex items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300">
                             <span className="text-shimmer border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Ask Grace — AI Bottling Specialist</span>

@@ -67,8 +67,8 @@ export const heroBlock = defineType({
             name: "ctaText",
             title: "Button Text",
             type: "string",
-            description: "Primary CTA button label (e.g. Explore Collections, Shop Black Friday). Leave empty for default.",
-            initialValue: "Explore Collections",
+            description: "Primary CTA button label (e.g. Browse Catalog, Shop Black Friday). Leave empty for default.",
+            initialValue: "Browse Catalog",
         }),
         defineField({
             name: "ctaHref",
