@@ -364,10 +364,13 @@ export default function GraceElevenLabsProvider({
         setStatus("listening");
     }, []);
 
-    const handleDisconnect = useCallback(() => {
+    const handleDisconnect = useCallback((details?: { reason?: string; message?: string; closeCode?: number; closeReason?: string }) => {
         const sinceConnect = Date.now() - lastConnectTimeRef.current;
         const wasImmediateDrop = lastConnectTimeRef.current > 0 && sinceConnect < 3000;
         console.log(`[Grace EL] Disconnected — cleaning up state (${sinceConnect}ms after connect, immediate=${wasImmediateDrop})`);
+        if (details) {
+            console.log("[Grace EL] Disconnect details:", JSON.stringify(details, null, 2));
+        }
         connectingRef.current = false;
         closingRef.current = false;
         lastConnectTimeRef.current = 0;
@@ -423,6 +426,14 @@ export default function GraceElevenLabsProvider({
             setErrorMessage("");
             setStatus(conversationActiveRef.current ? "listening" : "idle");
         }, 4000);
+    }, []);
+
+    const handleDebug = useCallback((debug: unknown) => {
+        console.log("[Grace EL DEBUG]", debug);
+    }, []);
+
+    const handleStatusChange = useCallback((ev: { status: string }) => {
+        console.log("[Grace EL] SDK status →", ev.status);
     }, []);
 
     // ── Stable clientTools ────────────────────────────────────────────────────
@@ -725,6 +736,8 @@ export default function GraceElevenLabsProvider({
         onMessage: handleMessage,
         onModeChange: handleModeChange,
         onError: handleError,
+        onDebug: handleDebug,
+        onStatusChange: handleStatusChange,
     });
 
     // Keep conversationRef in sync so callbacks above can always access latest

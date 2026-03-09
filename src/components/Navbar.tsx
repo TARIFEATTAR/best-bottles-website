@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
     Search, User, ShoppingBag, Mic, ChevronDown, Menu, X,
-    Sparkles, FlaskConical, Gem, ArrowRight, Heart,
+    Sparkles, FlaskConical, Gem, ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useGrace } from "./useGrace";
@@ -448,10 +448,10 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         >
                             <Menu className="w-5 h-5" strokeWidth={1.75} />
                         </button>
-                        {/* Mobile logo — text, Cormorant, centered */}
+                        {/* Mobile logo — text, Cormorant, left-aligned */}
                         <Link
                             href="/"
-                            className="lg:hidden absolute left-1/2 -translate-x-1/2 font-cormorant text-lg font-semibold tracking-tight text-obsidian hover:text-muted-gold transition-colors pointer-events-auto"
+                            className="lg:hidden ml-1 font-cormorant text-lg font-semibold tracking-tight text-obsidian hover:text-muted-gold transition-colors"
                         >
                             BEST BOTTLES
                         </Link>
@@ -551,27 +551,25 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         <div className="flex items-center justify-end space-x-2 shrink-0 ml-auto lg:ml-0">
                             <button
                                 onClick={openPanel}
-                                aria-label="AI Help"
+                                aria-label="Grace AI"
                                 title="Chat with Grace — AI Bottling Specialist"
-                                className={`hidden sm:flex items-center space-x-2 text-sm font-medium px-3.5 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${graceActive
+                                className={`flex items-center space-x-2 text-sm font-medium px-3 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${graceActive
                                     ? "bg-obsidian text-bone border-obsidian shadow-md"
                                     : "bg-white text-obsidian border-champagne hover:border-muted-gold shadow-sm"
                                     }`}
                             >
                                 {graceActive ? (
-                                    <span className="grace-voice-bars grace-voice-bars--light" aria-hidden="true">
+                                    <span className="grace-voice-bars grace-voice-bars--light shrink-0" aria-hidden="true">
                                         <span /><span /><span /><span />
                                     </span>
                                 ) : (
-                                    <span className="w-2 h-2 rounded-full bg-muted-gold animate-grace-pulse shrink-0" />
+                                    <span className="grace-voice-bars shrink-0" aria-hidden="true">
+                                        <span /><span /><span /><span />
+                                    </span>
                                 )}
-                                <span>AI Help</span>
+                                <span className="lg:hidden">Grace AI</span>
+                                <span className="hidden lg:inline">Grace — AI Assistant</span>
                             </button>
-
-                            {/* Wishlist — mobile only */}
-                            <Link href="/wishlist" aria-label="Wishlist" className="lg:hidden p-2 text-obsidian hover:text-muted-gold transition-colors">
-                                <Heart className="w-5 h-5" strokeWidth={1.5} />
-                            </Link>
 
                             <Link href="/sign-in" aria-label="Account" className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors">
                                 <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
@@ -627,27 +625,6 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         </form>
                     </div>
 
-                    {/* Row 3: Grace prompt — mobile only */}
-                    <div className="flex lg:hidden pb-3">
-                        <button
-                            onClick={openPanel}
-                            className="grace-ask-btn-glow flex-1 flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-muted-gold/10 border border-muted-gold/25 hover:bg-muted-gold/15 active:bg-muted-gold/20 transition-colors cursor-pointer"
-                        >
-                            <span className="w-2 h-2 rounded-full bg-muted-gold animate-grace-pulse shrink-0" />
-                            <span className="text-[13px] text-obsidian">
-                                {graceActive ? "Grace is listening…" : "Ask Grace — fitments, sizing, compatibility"}
-                            </span>
-                            <span className="ml-auto shrink-0 flex items-center">
-                                {graceActive ? (
-                                    <span className="text-[11px] font-bold uppercase tracking-wider text-muted-gold">Open</span>
-                                ) : (
-                                    <span className="grace-voice-bars inline-block" aria-hidden="true" style={{ transform: "scale(1.15)" }}>
-                                        <span /><span /><span /><span />
-                                    </span>
-                                )}
-                            </span>
-                        </button>
-                    </div>
                 </div>
             </header>
 

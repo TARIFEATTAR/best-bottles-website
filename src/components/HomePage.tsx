@@ -113,7 +113,7 @@ function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroS
     const showVideo = mediaType === "video" && videoUrl;
 
     return (
-        <section className={`${showOnMobile ? "flex" : "hidden lg:flex"} relative w-full h-[100dvh] pt-[160px] lg:pt-[120px] items-end lg:items-center bg-bone overflow-hidden`}>
+        <section className={`${showOnMobile ? "flex" : "hidden lg:flex"} relative w-full h-[100dvh] pt-[160px] lg:pt-[120px] pb-[calc(3.5rem+env(safe-area-inset-bottom,0px))] lg:pb-0 items-end lg:items-center bg-bone overflow-hidden`}>
             <div className="absolute inset-0 z-0 bg-travertine">
                 {isMultiSlide ? (
                     slides.map((s, i) => {
@@ -180,7 +180,7 @@ function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroS
                 </>
             )}
 
-            <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10 pt-4 lg:pt-0 pb-20 lg:pb-0">
+            <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-16 relative z-10 pt-4 lg:pt-0 pb-20 lg:pb-0 mb-5 lg:mb-0">
                 <div className="max-w-[600px]">
                     <FadeUp delay={0.2}>
                         {(() => {
@@ -211,8 +211,8 @@ function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroS
                                 if (spaceIdx === -1) return headline;
                                 return (
                                     <>
-                                        <span className="block sm:inline">{headline.slice(0, spaceIdx)}</span>
-                                        <span className="block sm:inline">{headline.slice(spaceIdx + 1)}</span>
+                                        <span className="block leading-tight">{headline.slice(0, spaceIdx)}</span>
+                                        <span className="block leading-tight">{headline.slice(spaceIdx + 1)}</span>
                                     </>
                                 );
                             })()}
