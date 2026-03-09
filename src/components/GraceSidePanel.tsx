@@ -625,7 +625,7 @@ export function GraceFloatingTrigger() {
 
     if (panelMode !== "closed") return null;
 
-    const wrapperClasses = `fixed z-40 flex flex-col items-end ${useCompactTrigger
+    const wrapperClasses = `fixed z-40 hidden lg:flex flex-col items-end ${useCompactTrigger
         ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4`
         : "bottom-6 right-6"
         }`;

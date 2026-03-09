@@ -60,6 +60,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Mobile Tab Bar spacing ────────────────────────────────────────────── */
+/* Add bottom padding on mobile so content isn't hidden behind the tab bar */
+@media (max-width: 1023px) {
+  main {
+    padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* Animations */
 @media (prefers-reduced-motion: no-preference) {
   .animate-fade-up {
