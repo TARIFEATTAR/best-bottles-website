@@ -186,20 +186,20 @@ type NavLinkDef =
 
 const NAV_LINKS: Record<string, NavLinkDef[]> = {
     home: [
+        { label: "Shop All", href: "/catalog" },
         { label: "Bottles", href: "/catalog?category=Glass+Bottle", megaId: "bottles" as MegaMenuId },
         { label: "Closures", href: "/catalog?category=Component", megaId: "closures" as MegaMenuId },
         { label: "Specialty", href: "/catalog", megaId: "specialty" as MegaMenuId },
         { label: "Journal", href: "/blog" },
         { label: "About", href: "/about" },
-        { label: "Resources", href: "/resources" },
     ],
     catalog: [
+        { label: "Shop All", href: "/catalog" },
         { label: "Bottles", href: "/catalog?category=Glass+Bottle", megaId: "bottles" as MegaMenuId },
         { label: "Closures", href: "/catalog?category=Component", megaId: "closures" as MegaMenuId },
         { label: "Specialty", href: "/catalog", megaId: "specialty" as MegaMenuId },
         { label: "Journal", href: "/blog" },
         { label: "About", href: "/about" },
-        { label: "Resources", href: "/resources" },
     ],
 };
 
@@ -223,6 +223,13 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    // Allow other components to open the cart drawer via custom event
+    useEffect(() => {
+        const handler = () => setCartOpen(true);
+        window.addEventListener("open-cart-drawer", handler);
+        return () => window.removeEventListener("open-cart-drawer", handler);
     }, []);
 
     useEffect(() => {
@@ -555,9 +562,9 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                             <span>Ask Grace</span>
                         </button>
 
-                        <button aria-label="Account" className="p-2 hover:text-muted-gold transition-colors">
+                        <Link href="/sign-in" aria-label="Account" className="p-2 hover:text-muted-gold transition-colors">
                             <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
-                        </button>
+                        </Link>
 
                         <button
                             aria-label="Cart"
@@ -646,7 +653,7 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                                                 key={link.label}
                                                 href={link.href}
                                                 onClick={() => setMobileMenuOpen(false)}
-                                                className="flex items-center justify-between py-3 text-sm font-semibold uppercase tracking-wide text-obsidian border-b border-champagne/40"
+                                                className="flex items-center justify-between py-3 min-h-[44px] text-sm font-semibold uppercase tracking-wide text-obsidian border-b border-champagne/40"
                                             >
                                                 {link.label}
                                                 <ArrowRight className="w-4 h-4 text-slate" />
@@ -661,7 +668,7 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                                         <div key={link.label} className="border-b border-champagne/40 pb-2">
                                             <button
                                                 onClick={() => setMobileOpenSection(isExpanded ? null : link.megaId)}
-                                                className="w-full flex items-center justify-between py-3 text-sm font-semibold uppercase tracking-wide text-obsidian"
+                                                className="w-full flex items-center justify-between py-3 min-h-[44px] text-sm font-semibold uppercase tracking-wide text-obsidian"
                                                 aria-expanded={isExpanded}
                                             >
                                                 {link.label}
@@ -675,7 +682,7 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                                                                 {col.heading}
                                                             </p>
                                                             <div className="space-y-1">
-                                                                {col.links.slice(0, 6).map((item) => (
+                                                                {col.links.map((item) => (
                                                                     <Link
                                                                         key={item.label}
                                                                         href={item.href}

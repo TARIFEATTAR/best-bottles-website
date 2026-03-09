@@ -1,8 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
     Search, ArrowRight, X, Package, ChevronDown, ChevronUp,
@@ -67,10 +67,12 @@ function FamilyBanner({ family }: { family: string }) {
     if (!imgUrl) return null;
     return (
         <div className="relative w-full h-40 sm:h-52 lg:h-60 rounded-sm overflow-hidden mb-6 sm:mb-8 -ml-0">
-            <img
+            <Image
                 src={imgUrl}
                 alt={family}
-                className="w-full h-full object-cover object-center"
+                fill
+                className="object-cover object-center"
+                unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 via-obsidian/20 to-transparent" />
             <div className="absolute bottom-5 left-6">
@@ -217,11 +219,13 @@ function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGro
             >
                 <div className="relative aspect-[4/5] bg-travertine w-full overflow-hidden flex items-center justify-center">
                     {group.heroImageUrl ? (
-                        <img
+                        <Image
                             src={group.heroImageUrl}
                             alt={group.displayName}
-                            className="w-full h-full object-contain p-4"
-                            loading="lazy"
+                            fill
+                            className="object-contain p-4"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                            unoptimized
                         />
                     ) : (
                         <div className="flex flex-col items-center justify-center text-center p-4">
@@ -743,13 +747,15 @@ function LineItemRow({
             {/* Image + Name */}
             <td className="py-3 px-4">
                 <Link href={href} className="flex items-center gap-4">
-                    <div className="w-14 h-14 shrink-0 bg-travertine rounded border border-champagne/40 flex items-center justify-center overflow-hidden">
+                    <div className="w-14 h-14 shrink-0 bg-travertine rounded border border-champagne/40 flex items-center justify-center overflow-hidden relative">
                         {group.heroImageUrl ? (
-                            <img
+                            <Image
                                 src={group.heroImageUrl}
                                 alt={group.displayName}
-                                className="w-full h-full object-contain p-1"
-                                loading="lazy"
+                                fill
+                                className="object-contain p-1"
+                                sizes="56px"
+                                unoptimized
                             />
                         ) : (
                             <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
@@ -883,13 +889,15 @@ function LineItemMobileCard({
         >
             <div className="flex items-center p-3 gap-3">
                 {/* Thumbnail */}
-                <div className="w-14 h-14 shrink-0 bg-travertine rounded border border-champagne/40 flex items-center justify-center overflow-hidden">
+                <div className="w-14 h-14 shrink-0 bg-travertine rounded border border-champagne/40 flex items-center justify-center overflow-hidden relative">
                     {group.heroImageUrl ? (
-                        <img
+                        <Image
                             src={group.heroImageUrl}
                             alt={group.displayName}
-                            className="w-full h-full object-contain p-1"
-                            loading="lazy"
+                            fill
+                            className="object-contain p-1"
+                            sizes="56px"
+                            unoptimized
                         />
                     ) : (
                         <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
@@ -1374,6 +1382,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             result.sort((a, b) => b.displayName.localeCompare(a.displayName));
         } else if (sortBy === "variants-desc") {
             result.sort((a, b) => (b.variantCount ?? 0) - (a.variantCount ?? 0));
+        } else if (sortBy === "capacity-asc") {
+            result.sort((a, b) => (a.capacityMl ?? Infinity) - (b.capacityMl ?? Infinity));
+        } else if (sortBy === "capacity-desc") {
+            result.sort((a, b) => (b.capacityMl ?? -Infinity) - (a.capacityMl ?? -Infinity));
         } else {
             // "featured" default: by design family (Cylinder→Elegant→Circle→Sleek…), then capacity small→big
             // Bottle categories first; packaging/components at end
@@ -1491,7 +1503,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                         <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl text-obsidian font-medium leading-[1.1] mb-1 sm:mb-2">Master Catalog</h1>
                         <p className="text-slate text-xs sm:text-sm max-w-xl">
                             {totalCount > 0 ? `${totalCount.toLocaleString()} product groups.` : "Loading catalog..."}
-                            <span className="hidden sm:inline">{" "}Need help narrowing options? Ask Grace, your AI Bottling Specialist.</span>
+                            <span>{" "}Need help? Ask Grace, your AI Bottling Specialist.</span>
                         </p>
                     </div>
 

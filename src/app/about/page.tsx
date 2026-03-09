@@ -3,12 +3,12 @@ import Link from "next/link";
 import { ArrowRight, Award, Globe, Shield, Users } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "About Best Bottles — 170+ Years of Packaging Excellence",
-    description: "Discover the story behind Best Bottles and Nemat International. 170 years of fragrance and packaging expertise, serving brands from startups to retail.",
+    title: "About Best Bottles — 20+ Years of Packaging Excellence",
+    description: "Discover the story behind Best Bottles and Nemat International. Over 20 years of fragrance and packaging expertise, serving brands from startups to retail.",
 };
 
 const VALUES = [
-    { icon: Award, title: "Heritage", description: "Over 170 years of fragrance and packaging expertise, rooted in the Nemat International family tradition." },
+    { icon: Award, title: "Heritage", description: "Over 20 years of fragrance and packaging expertise, rooted in the Nemat International family tradition." },
     { icon: Shield, title: "Quality", description: "Every glass bottle meets Type III cosmetic and pharmaceutical standards. UV-resistant amber glass available across all families." },
     { icon: Globe, title: "Made in USA", description: "Domestic manufacturing means no tariff surprises, shorter lead times, and consistent quality control." },
     { icon: Users, title: "Partnership", description: "From 12-piece samples to 100,000-unit production runs, we scale with your brand at every stage." },
@@ -25,7 +25,7 @@ export default function AboutPage() {
                         The Art of Beautiful Packaging
                     </h1>
                     <p className="text-lg text-slate leading-relaxed max-w-[600px] mx-auto">
-                        Best Bottles is a division of Nemat International, a family-owned business with over 170 years
+                        Best Bottles is a division of Nemat International, a family-owned business with over 20 years
                         of fragrance expertise. We provide premium glass bottles and packaging solutions to beauty,
                         fragrance, and wellness brands worldwide.
                     </p>
@@ -52,7 +52,7 @@ export default function AboutPage() {
                 <div className="max-w-[800px] mx-auto space-y-8">
                     <h2 className="font-serif text-3xl text-obsidian">From Fragrance House to Packaging Partner</h2>
                     <p className="text-slate leading-relaxed">
-                        What began as a family fragrance business in the 1850s has evolved into one of the most trusted
+                        What began as a family fragrance business has evolved into one of the most trusted
                         names in premium glass packaging. Our founder&apos;s original insight was simple: the bottle should
                         be as beautiful as what&apos;s inside it.
                     </p>

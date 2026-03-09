@@ -31,6 +31,8 @@ export const SORT_OPTIONS = [
     { value: "price-desc", label: "Price: High to Low" },
     { value: "name-asc", label: "Name: A–Z" },
     { value: "name-desc", label: "Name: Z–A" },
+    { value: "capacity-asc", label: "Capacity: Small to Large" },
+    { value: "capacity-desc", label: "Capacity: Large to Small" },
     { value: "variants-desc", label: "Most Variants" },
 ] as const;
 

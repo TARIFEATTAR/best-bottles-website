@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { X, ShoppingBag, Plus, Minus, Trash2, ArrowRight, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "./CartProvider";
@@ -158,7 +159,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                 <div className="flex items-center gap-1 rounded-md overflow-hidden bg-bone/50 border border-champagne/50">
                                                     <button
                                                         onClick={() => updateQuantity(item.graceSku, item.quantity - 1)}
-                                                        className="w-7 h-7 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
+                                                        className="w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
                                                         aria-label="Decrease quantity"
                                                     >
                                                         <Minus className="w-3 h-3" />
@@ -168,7 +169,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     </span>
                                                     <button
                                                         onClick={() => updateQuantity(item.graceSku, item.quantity + 1)}
-                                                        className="w-7 h-7 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
+                                                        className="w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
                                                         aria-label="Increase quantity"
                                                     >
                                                         <Plus className="w-3 h-3" />
@@ -235,6 +236,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                     <span className="relative">{isCheckingOut ? "Preparing Checkout…" : "Proceed to Checkout"}</span>
                                     <ArrowRight className="w-4 h-4 relative transition-transform duration-300 group-hover:translate-x-0.5" />
                                 </button>
+
+                                <Link
+                                    href={`/request-quote?products=${encodeURIComponent(items.map(i => `${i.itemName} (x${i.quantity})`).join(', '))}`}
+                                    onClick={onClose}
+                                    className="w-full flex items-center justify-center gap-2 py-3 mt-2 border border-obsidian text-obsidian text-[13px] font-medium tracking-wide rounded-xl hover:bg-obsidian hover:text-bone transition-all duration-300"
+                                >
+                                    Request Quote for This Order
+                                </Link>
 
                                 <p className="text-[11px] text-slate text-center mt-3 tracking-wide">
                                     Secure checkout · Terms apply
