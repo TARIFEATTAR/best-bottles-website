@@ -494,9 +494,10 @@ export async function resolveProductRequestCore(
     }
 
     if (parsed.family) {
+        const family = parsed.family;
         const familyHits = await ctx.db
             .query("productGroups")
-            .withIndex("by_family", (q) => q.eq("family", parsed.family))
+            .withIndex("by_family", (q) => q.eq("family", family))
             .collect();
         for (const hit of familyHits) candidateMap.set(hit.slug, hit);
     }

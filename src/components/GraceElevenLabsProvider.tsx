@@ -1363,14 +1363,6 @@ export default function GraceElevenLabsProvider({
         });
     }, [safeSetVolume]);
 
-    // ── Legacy dictation stubs ───────────────────────────────────────────────
-
-    const startDictation = useCallback(async () => {
-        if (!conversationActiveRef.current) startConversation();
-    }, [startConversation]);
-
-    const stopDictation = useCallback(() => { /* VAD handled by ElevenLabs natively */ }, []);
-
     // ── Action confirmation (cart adds) ──────────────────────────────────────
 
     const confirmAction = useCallback(
