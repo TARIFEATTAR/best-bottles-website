@@ -118,6 +118,37 @@
 **Problem:** The 56px Grace button at `fixed bottom-6 right-6` overlaps product cards in the catalog grid and would overlap a sticky mobile CTA bar if implemented. No safe zone padding exists.
 **Recommended Fix:** Add `pb-20` (80px) bottom padding to catalog grid and PDP content on mobile. If implementing a sticky CTA bar, move the Grace widget above it or to a different position.
 
+### H13. Homepage Has Multiple Placeholder/Broken Elements That Undermine Premium Feel
+**Page:** Homepage (`src/components/HomePage.tsx`)
+**Problem:** Several elements are unfinished stubs that create an unprofessional impression:
+- **Testimonial avatars are empty divs** (~line 417): `<div className="w-10 h-10 rounded-full bg-travertine" />` — no photos, initials, or icons. "Serving 500+ Brands" claim has no logo bar.
+- **Social media icons in footer are empty circles** (~lines 518-521) — circular divs with no icons or links. Looks like broken UI.
+- **Newsletter form has no backend** (~lines 490-507) — no `onSubmit` handler, will trigger a page reload on submit.
+- **Default education article links go to `#`** (~lines 48-52) — `DEFAULT_ARTICLES` slugs are all `"#"`, meaning the education section links are broken unless Sanity overrides them.
+- **Account button in nav has no onClick handler** (`Navbar.tsx` ~line 558-559) — clicking does nothing.
+**User Impact:** A premium B2B buyer evaluating the site as a potential vendor sees broken social links, empty avatars, and non-functional forms — these signals suggest an unfinished product and erode trust.
+**Recommended Fix:** Either complete these elements (real testimonials with photos, working social links, newsletter integration) or remove them entirely. Incomplete UI is worse than absent UI for a "Muted Luxury" brand.
+
+### H14. TrustBar Is Below the Fold — Key Differentiators Invisible on Landing
+**Page:** Homepage (`src/components/HomePage.tsx` ~lines 165-197)
+**Problem:** The TrustBar shows four strong B2B differentiators ("No Order Minimum", "2,300+ Products", "Free Sample Kits", "Made in USA / No Tariff Surprises"), but the hero is `min-h-[80vh]` (~line 84) which pushes the TrustBar off-screen on most viewports. The most powerful selling points are invisible without scrolling.
+**Recommended Fix:** Either reduce the hero to `min-h-[65vh]` so the TrustBar peeks above the fold, or incorporate 2-3 key trust stats directly into the hero overlay area.
+
+### H15. "170 Years" Heritage Claim Exists Only in Meta Description — Not Visible on Any Page
+**Page:** Homepage, About
+**Problem:** The powerful "170 years of expertise" differentiator appears only in the `<meta name="description">` tag (`layout.tsx` ~line 26) — it is not rendered in any visible page element. The TrustBar, hero, and About page all omit this claim.
+**User Impact:** The strongest credibility signal in the brand's arsenal is invisible to actual visitors, only seen by search engines.
+**Recommended Fix:** Add "170+ Years of Bottling Heritage" to the TrustBar or hero eyebrow. The current hero eyebrow ("A Division of Nemat International") has low recognition value — replace with heritage messaging.
+
+### H16. Homepage "Start Here" and "Shop by Application" Sections Create Redundant Navigation
+**Page:** Homepage (`src/components/HomePage.tsx`)
+**Problem:** Two separate homepage sections serve overlapping purposes:
+- **"Start Here" / "Curated Collections"** (~lines 282-344): 6 cards for Essential Oils & Roll-Ons, Skincare & Serums, Sample & Discovery, Gift & Retail Packaging, Components & Closures, Fine Mist & Spray Bottles
+- **"Shop by Application"** (~lines 242-280): 5 cards for Roll-ons, Sprays, Splash & Reducer, Lotion Pumps, Droppers
+
+Both use applicator-centric labels rather than industry/use-case labels. A visitor sees two sections that look similar but have subtly different content, creating decision paralysis rather than clarity.
+**Recommended Fix:** Consolidate into one section. Use industry/use-case labels for "Start Here" (Fragrance & Perfumery, Skincare & Serums, Wellness & Aromatherapy, Sample Programs, Gift & Retail, Custom Projects) and remove or repurpose "Shop by Application" — those applicator types already exist in the mega menu.
+
 ---
 
 ## MEDIUM PRIORITY (Fix Post-Launch — Polish and optimization)
@@ -222,11 +253,11 @@
 
 ## GRACE AI SPECIFIC FINDINGS
 
-### G1. Greeting Appears at 3 Seconds, Not 5 as Specified
-**File:** `GraceChatWidget.tsx` ~line 72
-**Behavior:** `setTimeout` set to 3000ms.
-**Expected:** 5000ms idle trigger as specified in brand requirements.
-**Fix:** Change timeout to 5000ms. Also track real user interaction (scroll, click) — not just chat panel open — before suppressing the greeting.
+### G1. Grace Greeting Bubble is NOT IMPLEMENTED
+**File:** `src/components/GraceSidePanel.tsx` (exports `GraceFloatingTrigger`), `src/components/GraceContext.ts`
+**Behavior:** The Grace floating trigger (`GraceFloatingTrigger`, lines 590-619 of `GraceSidePanel.tsx`) is a static button — it renders permanently at the bottom-right corner. There is no `setTimeout`, no `showGreeting` state, no dismissable speech bubble, no idle detection. Searching the entire `src/` directory for `greetingBubble`, `idle.*5`, `5000.*idle`, `auto.*greet`, `welcome.*bubble`, or `showGreeting` yields zero results. The `GraceContext.ts` has no greeting-related state fields.
+**Expected:** 5-second idle trigger showing a dismissable greeting bubble with contextual message. Bubble should have an X button and not reappear after dismissal (persisted in localStorage).
+**Fix:** Implement the full greeting bubble feature: (1) add `showGreeting` / `greetingDismissed` state to GraceContext, (2) add a `setTimeout(5000)` that fires when no user interaction detected, (3) render a speech-bubble tooltip above the floating trigger with page-contextual text, (4) add X dismiss button that sets `greetingDismissed` in localStorage.
 
 ### G2. Greeting Bubble is Static — Not Page-Contextual
 **File:** `GraceChatWidget.tsx` ~line 85
@@ -313,17 +344,17 @@ The navbar includes a full Web Audio API voice search integration with silence d
 
 | Section | Score | Justification |
 |---------|-------|---------------|
-| **Homepage** | 6/10 | Strong brand sections but value prop is entirely CMS-dependent; no fallback hero; no clear "Shop All" CTA |
+| **Homepage** | 5/10 | Poetic hero headline prioritizes aesthetics over clarity; TrustBar with key differentiators pushed below fold by 80vh hero; placeholder testimonials, broken social icons, and non-functional newsletter undermine premium feel; "Start Here" and "Shop by Application" overlap; 170-year heritage claim hidden in meta only |
 | **Navigation** | 5/10 | Mega menus are well-structured, PDP breadcrumbs work well, but catalog/blog lack breadcrumbs, no unfiltered catalog link, mobile silently truncates menu items, and tap targets are undersized |
 | **Collection Pages** | 6/10 | Comprehensive filters and dual view modes, but missing capacity sort, out-of-stock indicators, and grouped capacity ranges |
 | **Product Detail Pages** | 5/10 | Fitment matching is excellent but specs are below fold, color swap navigates away, most PDPs are bare without CMS content |
-| **Grace AI** | 7/10 | Strongest feature — deep tool set, good persona, voice mode. Weakened by static greetings, no page context injection, and missing comparison tool |
+| **Grace AI** | 6/10 | Deep tool set, strong persona, voice mode; but greeting bubble is entirely unimplemented (static button only), no page context injection, no comparison tool, no browsing history tracking |
 | **Mobile** | 4/10 | Functional but unpolished — tap targets too small, no sticky CTA, Grace overlaps content, PDP scroll is excessive |
 | **Cart & Checkout** | 3/10 | Cart items lack variant details, no tier nudge, no compatibility warnings, no shipping info, checkout abandons brand entirely |
 | **Brand Consistency** | 5/10 | Custom components are premium but shadcn blue palette violation undermines every interaction; 404 and error states are generic |
 
 ---
 
-## OVERALL PLATFORM SCORE: 5.1 / 10
+## OVERALL PLATFORM SCORE: 4.9 / 10
 
-Best Bottles has strong architectural foundations — the fitment engine, Grace AI, Sanity editorial system, and B2B portal represent genuine differentiation. However, the platform is undermined by two systemic problems: (1) the shadcn/ui blue palette was never customized, creating a visual split personality between premium brand components and generic UI elements, and (2) the cart-to-checkout flow lacks critical B2B information (variant details, tier nudges, compatibility warnings, shipping estimates) before ejecting users to an unbranded Shopify checkout. **The single most important fix is overhauling the CSS variables in `globals.css` to replace the blue shadcn palette with the Obsidian/Bone/Gold brand system** — this is a single-file change that immediately elevates every interactive element across the entire site.
+Best Bottles has strong architectural foundations — the fitment engine, Grace AI tool system, Sanity editorial blocks, and B2B portal represent genuine differentiation that competitors lack. However, the platform is undermined by three systemic problems: (1) the shadcn/ui blue palette was never customized, creating a visual split personality between premium brand components and generic UI elements across every interactive touchpoint, (2) the cart-to-checkout flow lacks critical B2B information (variant details, tier nudges, compatibility warnings, shipping estimates) before ejecting users to an unbranded Shopify checkout, and (3) the homepage — the most critical conversion page — has multiple unfinished placeholder elements (empty testimonial avatars, broken social icons, non-functional newsletter, dead article links) that signal "beta product" rather than "170-year heritage brand." **The single most important fix is overhauling the CSS variables in `globals.css` to replace the blue shadcn palette with the Obsidian/Bone/Gold brand system** — this is a single-file change that immediately elevates every interactive element across the entire site. The second priority should be cleaning up homepage placeholder elements that damage first impressions.
