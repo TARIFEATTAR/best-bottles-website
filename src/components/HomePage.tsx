@@ -173,22 +173,24 @@ function TrustBar() {
         ? `${(Math.floor(raw / 100) * 100).toLocaleString()}+`
         : "2,300+";
 
+    const items = [
+        { stat: "$50 Order Minimum", label: "No unit minimum — order what you need", icon: Zap },
+        { stat: productCount, label: "Premium Products", icon: ShoppingBag },
+        { stat: "Fitment Verified", label: "Every closure matched to your bottle", icon: ShieldCheck },
+    ];
+
     return (
-        <section className="bg-linen border-y border-champagne/50 py-8 relative z-20">
-            <div className="max-w-[1440px] mx-auto px-6">
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 divide-x-0 lg:divide-x divide-champagne/50">
-                    {[
-                        { stat: "$50 Order Minimum", label: "No unit minimum — order what you need", icon: Zap },
-                        { stat: productCount, label: "Premium Products", icon: ShoppingBag },
-                        { stat: "Fitment Verified", label: "Every closure matched to your bottle", icon: ShieldCheck },
-                    ].map((item, i) => (
-                        <FadeUp key={i} delay={0.2 + i * 0.1} className="flex items-center space-x-4 lg:pl-8 first:lg:pl-0">
-                            <div className="w-10 h-10 rounded-full bg-bone flex items-center justify-center shrink-0 border border-champagne/30">
-                                <item.icon className="w-5 h-5 text-muted-gold" strokeWidth={1.5} />
+        <section className="bg-linen border-y border-champagne/50 py-6 sm:py-8 relative z-20">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
+                <div className="grid grid-cols-3 gap-4 sm:gap-6 divide-x divide-champagne/60">
+                    {items.map((item, i) => (
+                        <FadeUp key={i} delay={0.2 + i * 0.1} className="flex flex-col sm:flex-row sm:items-center items-center text-center sm:text-left gap-2 sm:gap-4 sm:pl-6 first:sm:pl-0">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-bone flex items-center justify-center shrink-0 border border-champagne/30">
+                                <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-gold" strokeWidth={1.5} />
                             </div>
-                            <div>
-                                <h4 className="font-serif text-lg text-obsidian font-medium leading-tight">{item.stat}</h4>
-                                <p className="text-xs text-slate mt-0.5">{item.label}</p>
+                            <div className="min-w-0">
+                                <h4 className="font-serif text-sm sm:text-lg text-obsidian font-medium leading-tight">{item.stat}</h4>
+                                <p className="text-[11px] sm:text-xs text-slate mt-0.5 leading-snug">{item.label}</p>
                             </div>
                         </FadeUp>
                     ))}

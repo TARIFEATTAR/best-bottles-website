@@ -560,14 +560,14 @@ export default function Navbar({ variant = "home", initialSearchValue, hideMobil
                             <span>AI Help</span>
                         </button>
 
-                        <Link href="/sign-in" aria-label="Account" className="p-2 hover:text-muted-gold transition-colors">
+                        <Link href="/sign-in" aria-label="Account" className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors">
                             <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
                         </Link>
 
                         <button
                             aria-label="Cart"
                             onClick={() => setCartOpen(true)}
-                            className="p-2 hover:text-muted-gold transition-colors relative cursor-pointer"
+                            className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors relative cursor-pointer"
                         >
                             <ShoppingBag className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
                             {itemCount > 0 && (
