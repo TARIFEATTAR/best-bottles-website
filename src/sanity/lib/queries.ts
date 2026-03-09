@@ -16,6 +16,7 @@ export const HOMEPAGE_QUERY = `
       ctaText,
       ctaHref
     },
+    mobileHeroMode,
     mobileTagline,
     mobileSectionLabel,
     mobileCategoryCards[] {
@@ -163,6 +164,7 @@ export type HomepageData = {
         ctaText?: string;
         ctaHref?: string;
     }>;
+    mobileHeroMode?: "categories" | "hero";
     mobileTagline?: string;
     mobileSectionLabel?: string;
     mobileCategoryCards?: Array<{

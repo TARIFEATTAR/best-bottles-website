@@ -64,7 +64,8 @@ const DEFAULT_HERO_SLIDE: Partial<HeroSlide> & { eyebrow: string; headline: stri
     ctaHref: "/catalog",
 };
 
-function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
+function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroSlides"]; mobileHeroMode?: "categories" | "hero" }) {
+    const showOnMobile = mobileHeroMode === "hero";
     const { open: openGrace } = useGrace();
     const slides: HeroSlide[] = heroSlides?.length ? heroSlides : [{ ...DEFAULT_HERO_SLIDE } as HeroSlide];
     const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -84,7 +85,7 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
     const showVideo = mediaType === "video" && videoUrl;
 
     return (
-        <section className="hidden lg:flex relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[156px] lg:pt-[104px] items-center bg-bone overflow-hidden">
+        <section className={`${showOnMobile ? "flex" : "hidden lg:flex"} relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[156px] lg:pt-[104px] items-center bg-bone overflow-hidden`}>
             <div className="absolute inset-0 z-0 bg-travertine">
                 {isMultiSlide ? (
                     slides.map((s, i) => {
@@ -177,6 +178,9 @@ const DEFAULT_MOBILE_CATEGORIES = [
 ];
 
 function MobileCategoryGrid({ data }: { data?: HomepageData | null }) {
+    // Hide when Sanity is set to "hero" mode — the full hero shows instead
+    if (data?.mobileHeroMode === "hero") return null;
+
     const tagline = data?.mobileTagline ?? "Premium glass packaging for beauty & wellness brands.";
     const sectionLabel = data?.mobileSectionLabel ?? "Shop by Application";
 
@@ -821,7 +825,7 @@ export default function HomePage({ homepageData }: { homepageData: HomepageData 
     return (
         <main className="min-h-screen">
             <Navbar variant="home" />
-            <Hero heroSlides={homepageData?.heroSlides} />
+            <Hero heroSlides={homepageData?.heroSlides} mobileHeroMode={homepageData?.mobileHeroMode} />
             <MobileCategoryGrid data={homepageData} />
             <TrustBar />
             <PathChooser />

@@ -16,6 +16,20 @@ export const homepagePage = defineType({
             description: "Add 1 slide for a static hero, or 2+ for a rotating carousel (e.g. Black Friday, seasonal promos). Each slide has its own image, text, and button link.",
         }),
         defineField({
+            name: "mobileHeroMode",
+            title: "Mobile Hero Mode",
+            type: "string",
+            options: {
+                list: [
+                    { title: "Category Grid (default)", value: "categories" },
+                    { title: "Full Hero (sales, promos)", value: "hero" },
+                ],
+                layout: "radio",
+            },
+            initialValue: "categories",
+            description: "Choose what mobile users see at the top. 'Category Grid' shows the Shop by Application cards. 'Full Hero' shows the hero slider (great for sales, seasonal promos, product launches).",
+        }),
+        defineField({
             name: "mobileTagline",
             title: "Mobile Tagline",
             type: "string",
