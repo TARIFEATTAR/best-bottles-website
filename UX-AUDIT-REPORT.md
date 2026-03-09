@@ -29,11 +29,11 @@
 **User Impact:** A decisive buyer or curious explorer who wants to see the full 230+ product range must click a category and then manually clear filters, or know to type `/catalog` directly. The "All Products" link only exists buried in the footer.
 **Recommended Fix:** Add a "Catalog" or "Shop All" link to the primary nav (between Specialty and Journal), linking to `/catalog` with no filters.
 
-### C3. No Breadcrumbs on Any Interior Page
-**Page:** Site-wide — catalog, PDP, blog, about, resources
-**Problem:** Zero breadcrumb components exist in the codebase. No `<nav aria-label="breadcrumb">` anywhere. Users navigating Home → Bottles → Diva → Diva 30ml Clear have no visual trail and no way to navigate upward in the hierarchy without browser back or re-navigating from the top menu.
-**User Impact:** With 230+ product groups across 40+ families, breadcrumbs are essential for orientation ("Where am I?"), upward navigation ("Back to Diva family"), and SEO (structured data). Their absence creates dead-end navigation on every interior page.
-**Recommended Fix:** Create a `<Breadcrumb>` component using the route structure. Render on catalog (`Home > Catalog > [Category]`), PDP (`Home > Catalog > [Family] > [Product]`), blog, and all interior pages.
+### C3. Breadcrumbs Missing on Catalog, Blog, and Interior Pages
+**Page:** Catalog (`/catalog`), Blog (`/blog`), About, Resources — all non-PDP interior pages
+**Problem:** Breadcrumbs exist on Product Detail Pages (`src/app/products/[slug]/page.tsx` lines 641-668, `Home > Catalog > [Family] > [Product]` with clickable segments and mobile horizontal scroll), but are completely absent on the catalog page, blog pages, and all other interior pages. Additionally, some prototype collection pages (e.g., `src/app/collections/boston-round-30ml/page.tsx`) have hardcoded breadcrumbs with non-functional `href="#"` placeholder links.
+**User Impact:** A user browsing the catalog with filters applied has no breadcrumb trail showing their navigation context. Blog readers can't navigate back to the blog index. The inconsistency between PDP (has breadcrumbs) and catalog (doesn't) is disorienting.
+**Recommended Fix:** Extend the PDP breadcrumb pattern to catalog (`Home > Catalog > [Active Category/Family]`), blog (`Home > Journal > [Article]`), and all interior pages. Fix placeholder `href="#"` links in prototype collection pages.
 
 ### C4. Cart Items Don't Show Variant Details
 **Page:** Cart Drawer (`src/components/cart/CartItem.tsx` ~line 25)
@@ -208,6 +208,16 @@
 **Page:** `/about` (`AboutPage.tsx`)
 **Recommended Fix:** Use progressive disclosure — lead with key metrics, expand to full narrative.
 
+### M21. Mobile Mega Menu Silently Truncates Items
+**Page:** Mobile nav (`src/components/Navbar.tsx` ~line 678)
+**Problem:** Mobile mega menu sections use `slice(0, 6)` to limit items per column. The Bottles > Design Families column has 9 entries but only 6 are shown — with no "View All" link indicating more exist. Users on mobile never discover 3 design families.
+**Recommended Fix:** Remove the `slice(0, 6)` truncation, or add a "View All [N] Families" link at the bottom of each truncated section.
+
+### M22. No Search Autocomplete or Suggestions
+**Page:** Search (`src/components/Navbar.tsx` lines 506-536)
+**Problem:** Search is submit-only — no typeahead suggestions, recent searches, or category-level matches. Voice search via Web Audio API exists (a strength), but text search has no preview before submission.
+**Recommended Fix:** Add a search suggestions dropdown showing top 5 matching products/families as the user types. Show recent searches when the input is focused but empty.
+
 ---
 
 ## GRACE AI SPECIFIC FINDINGS
@@ -294,6 +304,9 @@ Offering both grid and line/table views serves two buyer archetypes: the visual 
 ### 5. B2B Portal Infrastructure
 The Clerk-gated portal with account dashboard, order history, draft orders, and Grace Projects demonstrates serious B2B commitment. The tiered account structure (Graduate, Scaler, Professional) with different pricing and features is well-architected for scaling businesses.
 
+### 6. Voice Search and PDP Breadcrumbs
+The navbar includes a full Web Audio API voice search integration with silence detection and transcription — a premium touch that most e-commerce sites lack. PDP breadcrumbs (`src/app/products/[slug]/page.tsx` lines 641-668) are well-implemented with clickable segments, filter context preservation, and mobile horizontal scroll. The nav-to-cart funnel is complete with no dead ends, including a proper empty cart state with guidance text.
+
 ---
 
 ## OVERALL FLUIDITY SCORES
@@ -301,7 +314,7 @@ The Clerk-gated portal with account dashboard, order history, draft orders, and 
 | Section | Score | Justification |
 |---------|-------|---------------|
 | **Homepage** | 6/10 | Strong brand sections but value prop is entirely CMS-dependent; no fallback hero; no clear "Shop All" CTA |
-| **Navigation** | 5/10 | Mega menus are well-structured but no breadcrumbs, no unfiltered catalog link, and mobile tap targets are undersized |
+| **Navigation** | 5/10 | Mega menus are well-structured, PDP breadcrumbs work well, but catalog/blog lack breadcrumbs, no unfiltered catalog link, mobile silently truncates menu items, and tap targets are undersized |
 | **Collection Pages** | 6/10 | Comprehensive filters and dual view modes, but missing capacity sort, out-of-stock indicators, and grouped capacity ranges |
 | **Product Detail Pages** | 5/10 | Fitment matching is excellent but specs are below fold, color swap navigates away, most PDPs are bare without CMS content |
 | **Grace AI** | 7/10 | Strongest feature — deep tool set, good persona, voice mode. Weakened by static greetings, no page context injection, and missing comparison tool |
