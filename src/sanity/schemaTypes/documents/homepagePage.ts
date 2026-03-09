@@ -16,6 +16,42 @@ export const homepagePage = defineType({
             description: "Add 1 slide for a static hero, or 2+ for a rotating carousel (e.g. Black Friday, seasonal promos). Each slide has its own image, text, and button link.",
         }),
         defineField({
+            name: "mobileHeroMode",
+            title: "Mobile Hero Mode",
+            type: "string",
+            options: {
+                list: [
+                    { title: "Category Grid (default)", value: "categories" },
+                    { title: "Full Hero (sales, promos)", value: "hero" },
+                ],
+                layout: "radio",
+            },
+            initialValue: "categories",
+            description: "Choose what mobile users see at the top. 'Category Grid' shows the Shop by Application cards. 'Full Hero' shows the hero slider (great for sales, seasonal promos, product launches).",
+        }),
+        defineField({
+            name: "mobileTagline",
+            title: "Mobile Tagline",
+            type: "string",
+            description: "One-line value prop shown on mobile below the logo (replaces hero). Example: Premium glass packaging for beauty & wellness brands.",
+            initialValue: "Premium glass packaging for beauty & wellness brands.",
+        }),
+        defineField({
+            name: "mobileSectionLabel",
+            title: "Mobile Section Label",
+            type: "string",
+            description: "Label above the mobile category grid. Example: Shop by Application",
+            initialValue: "Shop by Application",
+        }),
+        defineField({
+            name: "mobileCategoryCards",
+            title: "Mobile Category Cards",
+            type: "array",
+            of: [defineArrayMember({ type: "mobileCategoryCard" })],
+            validation: (Rule) => Rule.max(8),
+            description: "2-column card grid shown on mobile in place of the hero. Up to 8 cards. Drag to reorder.",
+        }),
+        defineField({
             name: "startHereEyebrow",
             title: "Start Here — Eyebrow",
             type: "string",

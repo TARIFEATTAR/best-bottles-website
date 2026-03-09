@@ -8,6 +8,7 @@ import { startHereCard } from "./objects/startHereCard";
 import { designFamilyCard } from "./objects/designFamilyCard";
 import { educationPreview } from "./objects/educationPreview";
 import { megaMenuFeaturedCard } from "./objects/megaMenuFeaturedCard";
+import { mobileCategoryCard } from "./objects/mobileCategoryCard";
 import { megaMenuPanels } from "./objects/megaMenuPanels";
 import { pdpFeatureStrip } from "./objects/pdpFeatureStrip";
 import { pdpRichDescription } from "./objects/pdpRichDescription";
@@ -27,6 +28,7 @@ export const schemaTypes = [
     heroBlock,
     startHereCard,
     designFamilyCard,
+    mobileCategoryCard,
     educationPreview,
     megaMenuFeaturedCard,
     megaMenuPanels,

@@ -64,8 +64,8 @@ const DEFAULT_HERO_SLIDE: Partial<HeroSlide> & { eyebrow: string; headline: stri
     ctaHref: "/catalog",
 };
 
-function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
-    const { open: openGrace } = useGrace();
+function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroSlides"]; mobileHeroMode?: "categories" | "hero" }) {
+    const showOnMobile = mobileHeroMode === "hero";
     const slides: HeroSlide[] = heroSlides?.length ? heroSlides : [{ ...DEFAULT_HERO_SLIDE } as HeroSlide];
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const slide = slides[currentIndex];
@@ -84,7 +84,7 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
     const showVideo = mediaType === "video" && videoUrl;
 
     return (
-        <section className="relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[160px] lg:pt-[120px] flex items-center bg-bone overflow-hidden">
+        <section className={`${showOnMobile ? "flex" : "hidden lg:flex"} relative min-h-[65vh] lg:h-[68vh] lg:min-h-[550px] pt-[160px] lg:pt-[120px] items-center bg-bone overflow-hidden`}>
             <div className="absolute inset-0 z-0 bg-travertine">
                 {isMultiSlide ? (
                     slides.map((s, i) => {
@@ -155,11 +155,71 @@ function Hero({ heroSlides }: { heroSlides?: HomepageData["heroSlides"] }) {
                         <Link href={slide?.ctaHref || DEFAULT_HERO_SLIDE.ctaHref} className="w-full sm:w-auto px-8 py-4 bg-white text-obsidian uppercase text-sm font-semibold tracking-wider hover:bg-bone transition-colors duration-300 shadow-md text-center">
                             {(slide?.ctaText === "Explore Collections" ? "Browse Catalog" : slide?.ctaText) || DEFAULT_HERO_SLIDE.ctaText}
                         </Link>
-                        <button onClick={openGrace} className="hidden lg:flex group items-center space-x-2 text-white text-sm font-bold hover:text-muted-gold transition-colors duration-300">
-                            <span className="text-shimmer border-b-2 border-white group-hover:border-muted-gold transition-colors pb-1">Ask Grace — AI Bottling Specialist</span>
-                        </button>
                     </FadeUp>
                 </div>
+            </div>
+        </section>
+    );
+}
+
+/* ─── Mobile Category Grid: replaces Hero on mobile ─── */
+
+const DEFAULT_MOBILE_CATEGORIES = [
+    { label: "Roll-On Bottles", href: "/catalog?applicators=rollon", img: "/assets/vintage-spray.png" },
+    { label: "Spray Bottles", href: "/catalog?applicators=spray", img: "/assets/Cylinder-BB.png" },
+    { label: "Dropper Bottles", href: "/catalog?applicators=dropper", img: "/assets/collection_skincare.png" },
+    { label: "Lotion Pumps", href: "/catalog?applicators=lotionpump", img: "/assets/collection_amber.png" },
+    { label: "Reducer Bottles", href: "/catalog?applicators=reducer", img: "/assets/bottle_screwcap.png" },
+    { label: "Shop All 2,300+", href: "/catalog", img: "/assets/Hero-BB.png" },
+];
+
+function MobileCategoryGrid({ data }: { data?: HomepageData | null }) {
+    // Hide when Sanity is set to "hero" mode — the full hero shows instead
+    if (data?.mobileHeroMode === "hero") return null;
+
+    const tagline = data?.mobileTagline ?? "Premium glass packaging for beauty & wellness brands.";
+    const sectionLabel = data?.mobileSectionLabel ?? "Shop by Application";
+
+    const cards = data?.mobileCategoryCards?.length
+        ? data.mobileCategoryCards.map((c) => ({
+            label: c.label,
+            href: c.href,
+            img: c.image ? urlFor(c.image) : "",
+        }))
+        : DEFAULT_MOBILE_CATEGORIES;
+
+    return (
+        <section className="lg:hidden bg-bone">
+            {/* Tagline */}
+            <div className="px-5 pt-4 pb-3 text-center">
+                <p className="font-serif text-sm text-slate leading-relaxed">{tagline}</p>
+            </div>
+
+            {/* Section label */}
+            <div className="px-5 pb-3">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-gold font-bold">{sectionLabel}</p>
+            </div>
+
+            {/* 2-column grid */}
+            <div className="grid grid-cols-2 gap-3 px-4 pb-5">
+                {cards.map((card, i) => {
+                    const imgSrc = card.img || DEFAULT_MOBILE_CATEGORIES[i % DEFAULT_MOBILE_CATEGORIES.length]?.img || "/assets/Hero-BB.png";
+                    return (
+                        <Link key={card.label + i} href={card.href} className="group relative aspect-[4/5] overflow-hidden rounded-sm bg-travertine">
+                            <Image
+                                src={imgSrc}
+                                alt={card.label}
+                                fill
+                                className="object-cover object-center group-active:scale-105 transition-transform duration-300"
+                                unoptimized={imgSrc.startsWith("http")}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-obsidian/15 to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 p-3">
+                                <h3 className="font-serif text-[15px] text-white leading-tight">{card.label}</h3>
+                            </div>
+                        </Link>
+                    );
+                })}
             </div>
         </section>
     );
@@ -775,7 +835,8 @@ export default function HomePage({ homepageData }: { homepageData: HomepageData 
     return (
         <main className="min-h-screen">
             <Navbar variant="home" />
-            <Hero heroSlides={homepageData?.heroSlides} />
+            <Hero heroSlides={homepageData?.heroSlides} mobileHeroMode={homepageData?.mobileHeroMode} />
+            <MobileCategoryGrid data={homepageData} />
             <TrustBar />
             <PathChooser />
             <DesignFamilies designFamilyCards={homepageData?.designFamilyCards} />

@@ -16,6 +16,14 @@ export const HOMEPAGE_QUERY = `
       ctaText,
       ctaHref
     },
+    mobileHeroMode,
+    mobileTagline,
+    mobileSectionLabel,
+    mobileCategoryCards[] {
+      label,
+      href,
+      image
+    },
     startHereEyebrow,
     startHereTitle,
     startHereSubheading,
@@ -155,6 +163,14 @@ export type HomepageData = {
         eyebrow?: string;
         ctaText?: string;
         ctaHref?: string;
+    }>;
+    mobileHeroMode?: "categories" | "hero";
+    mobileTagline?: string;
+    mobileSectionLabel?: string;
+    mobileCategoryCards?: Array<{
+        label: string;
+        href: string;
+        image?: { asset?: { _ref: string } };
     }>;
     startHereEyebrow?: string;
     startHereTitle?: string;
