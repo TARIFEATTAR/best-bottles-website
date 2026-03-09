@@ -603,9 +603,9 @@ export function GraceFloatingTrigger() {
     return (
         <button
             onClick={openPanel}
-            className={`fixed z-40 bg-obsidian text-bone rounded-full shadow-xl hover:bg-muted-gold transition-all duration-200 cursor-pointer group ${useCompactTrigger
-                ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 flex items-center justify-center`
-                : "bottom-6 right-6 flex items-center space-x-2.5 px-5 py-3"
+            className={`fixed z-40 bg-obsidian text-bone rounded-full shadow-xl hover:bg-muted-gold transition-all duration-200 cursor-pointer group hidden lg:flex ${useCompactTrigger
+                ? `${isProductPage ? "bottom-[104px]" : "bottom-4"} right-4 w-12 h-12 items-center justify-center`
+                : "bottom-6 right-6 items-center space-x-2.5 px-5 py-3"
                 }`}
             aria-label="Ask Grace"
             suppressHydrationWarning
