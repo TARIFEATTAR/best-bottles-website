@@ -6,6 +6,7 @@ import {
     normalizeComponentsByType,
     selectBestFitmentRule,
 } from "./componentUtils";
+import { resolveProductRequestCore } from "./productResolver";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PRODUCT QUERIES — Powers the Homepage + Catalog + PDP
@@ -482,6 +483,19 @@ export const getCatalogGroups = query({
         }
 
         return await ctx.db.query("productGroups").take(limit);
+    },
+});
+
+export const resolveProductRequest = query({
+    args: {
+        searchTerm: v.string(),
+        familyLimit: v.optional(v.string()),
+        categoryLimit: v.optional(v.string()),
+        applicatorFilter: v.optional(v.string()),
+        limit: v.optional(v.number()),
+    },
+    handler: async (ctx, args) => {
+        return await resolveProductRequestCore(ctx, args);
     },
 });
 

@@ -32,6 +32,33 @@ import {
     type PageContext,
 } from "./GraceContext";
 
+type GraceStructuredResponse = {
+    assistantText: string;
+    actions: Array<
+        | { type: "showProducts"; products: ProductCard[] }
+        | { type: "compareProducts"; products: ProductCard[] }
+        | { type: "proposeCartAdd"; products: Array<ProductCard & { quantity: number }>; awaitingConfirmation: boolean }
+        | { type: "navigateToPage"; path: string; title: string; description?: string; autoNavigate?: boolean; prefillFields?: Record<string, string> }
+        | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> }
+        | { type: "updateFormField"; formType: "sample" | "quote" | "contact" | "newsletter"; fieldName: string; value: string }
+        | { type: "submitForm" }
+    >;
+    retrievalTrace: Array<{ query: string }>;
+    toolCallsUsed: string[];
+    classification: {
+        intent?: string | null;
+        productFamily?: string | null;
+        capacityMl?: number | null;
+        color?: string | null;
+        applicator?: string | null;
+        resolvedGroupSlug?: string | null;
+        resolutionConfidence?: number | null;
+        provider: string;
+        voiceOrText: string;
+    };
+    latencyMs: number;
+};
+
 // ─── Strip markdown ──────────────────────────────────────────────────────────
 
 function stripMarkdown(text: string): string {
@@ -205,32 +232,6 @@ function selectDirectProductMatch(products: ProductCard[], query?: string): Prod
     return best.product;
 }
 
-function normalizeTextIntentQuery(rawMessage: string): string {
-    return rawMessage
-        .replace(/^(can you\s+)?(please\s+)?/i, "")
-        .replace(/^(show|find|browse|open)\s+(me\s+)?/i, "")
-        .replace(/^take me to\s+/i, "")
-        .replace(/^i(?:'| a)?m looking for\s+/i, "")
-        .replace(/^looking for\s+/i, "")
-        .replace(/^the\s+/i, "")
-        .replace(/[?.!]+$/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-}
-
-function isGenericPromptChip(rawMessage: string): boolean {
-    const normalized = rawMessage.trim().toLowerCase();
-    return [
-        "find a bottle",
-        "check compatibility",
-        "volume pricing",
-        "track my order",
-        "pair a cap",
-        "view compatibility",
-        "see bulk pricing",
-    ].includes(normalized);
-}
-
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 export default function GraceElevenLabsProvider({
@@ -336,7 +337,8 @@ export default function GraceElevenLabsProvider({
     // Stable ref to the conversation object — filled after useConversation runs
     const conversationRef = useRef<ReturnType<typeof useConversation> | null>(null);
 
-    const askGrace = useAction(api.grace.askGrace);
+    const respondGrace = useAction(api.grace.respond);
+    const saveGraceTurn = useMutation(api.grace.saveConversationTurn);
     const submitFormMutation = useMutation(api.forms.submit);
 
     // Keep submitFormMutation in a ref so clientTools (empty deps) can call latest version
@@ -350,16 +352,105 @@ export default function GraceElevenLabsProvider({
     const activeFormRef = useRef<ActiveForm | null>(null);
     useEffect(() => { activeFormRef.current = activeForm; }, [activeForm]);
 
+    const sessionIdRef = useRef(`storefront:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 10)}`);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const mediaStreamRef = useRef<MediaStream | null>(null);
+    const audioChunksRef = useRef<Blob[]>([]);
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const shouldTranscribeRef = useRef(true);
+    const audioUrlRef = useRef<string | null>(null);
+    const audioElementRef = useRef<HTMLAudioElement | null>(null);
+    const startDictationRef = useRef<() => Promise<void>>(async () => undefined);
+    const sendRef = useRef<(text?: string, fromVoice?: boolean) => Promise<void>>(async () => undefined);
+
+    const cleanupAudioPlayback = useCallback(() => {
+        if (audioElementRef.current) {
+            audioElementRef.current.pause();
+            audioElementRef.current.src = "";
+            audioElementRef.current = null;
+        }
+        if (audioUrlRef.current) {
+            URL.revokeObjectURL(audioUrlRef.current);
+            audioUrlRef.current = null;
+        }
+    }, []);
+
+    const cleanupRecording = useCallback(() => {
+        if (silenceTimerRef.current) {
+            clearTimeout(silenceTimerRef.current);
+            silenceTimerRef.current = null;
+        }
+        if (audioContextRef.current) {
+            void audioContextRef.current.close().catch(() => undefined);
+            audioContextRef.current = null;
+        }
+        mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
+        mediaStreamRef.current = null;
+        mediaRecorderRef.current = null;
+    }, []);
+
+    const persistGraceTurn = useCallback(async (
+        userMessage: string,
+        response: GraceStructuredResponse
+    ) => {
+        try {
+            await saveGraceTurn({
+                sessionId: sessionIdRef.current,
+                channel: "storefront",
+                entrypoint: "grace-panel",
+                pageType: pageContextRef.current?.pageType ?? "other",
+                userMessage,
+                assistantMessage: response.assistantText,
+                toolCallsUsed: response.toolCallsUsed,
+                intent: response.classification.intent ?? undefined,
+                productFamily: response.classification.productFamily ?? undefined,
+                capacityMl: response.classification.capacityMl ?? undefined,
+                color: response.classification.color ?? undefined,
+                applicator: response.classification.applicator ?? undefined,
+                resolvedGroupSlug: response.classification.resolvedGroupSlug ?? undefined,
+                resolutionConfidence: response.classification.resolutionConfidence ?? undefined,
+                latencyMs: response.latencyMs,
+                provider: response.classification.provider,
+                voiceOrText: response.classification.voiceOrText,
+            });
+        } catch (error) {
+            console.warn("[Grace] Failed to persist turn:", error);
+        }
+    }, [saveGraceTurn]);
+
     // ── Stable event handlers ────────────────────────────────────────────────
     // All of these are useCallback with [] deps so they're the SAME object
     // reference on every render. This prevents useConversation from seeing
     // "changed" options and tearing down a live WebSocket.
+
+    // Queued page context to send after connection opens (avoids SDK overrides bug)
+    const pendingContextRef = useRef<string | null>(null);
 
     const handleConnect = useCallback(() => {
         console.log("[Grace EL] Connected — WS live");
         connectingRef.current = false;
         lastConnectTimeRef.current = Date.now();
         setStatus("listening");
+
+        // Inject page context as a silent first message now that the socket is live.
+        // We avoid startSession overrides because @elevenlabs/react <=0.14.1 drops
+        // the WebSocket immediately when overrides are present.
+        const ctx = pendingContextRef.current;
+        if (ctx) {
+            pendingContextRef.current = null;
+            setTimeout(() => {
+                const conv = conversationRef.current;
+                if (conv?.status === "connected") {
+                    try {
+                        conv.sendUserMessage(ctx);
+                        console.log("[Grace EL] Page context injected via sendUserMessage");
+                    } catch (e) {
+                        console.warn("[Grace EL] Failed to inject page context:", e);
+                    }
+                }
+            }, 300);
+        }
     }, []);
 
     const handleDisconnect = useCallback(() => {
@@ -390,6 +481,8 @@ export default function GraceElevenLabsProvider({
 
     const handleMessage = useCallback((message: { source: string; message: string }) => {
         if (message.source === "user" && message.message) {
+            // Suppress the silent page-context injection from appearing in chat
+            if (message.message.startsWith("=== CURRENT SESSION CONTEXT ===")) return;
             setMessages((prev) => [
                 ...prev,
                 { role: "user", content: message.message, id: `u-${Date.now()}` },
@@ -703,7 +796,6 @@ export default function GraceElevenLabsProvider({
             }
         },
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }), []); // intentionally empty — tools use setMessages/setActiveForm (stable setters) and refs only
 
     // ── useConversation with stable options ──────────────────────────────────
@@ -779,7 +871,15 @@ export default function GraceElevenLabsProvider({
         setConversationActive(false);
         setMessages([]);
         safeEndSession();
-    }, [safeEndSession]);
+        shouldTranscribeRef.current = false;
+        if (mediaRecorderRef.current?.state === "recording") {
+            mediaRecorderRef.current.stop();
+        } else {
+            cleanupRecording();
+        }
+        cleanupAudioPlayback();
+        setStatus("idle");
+    }, [cleanupRecording, cleanupAudioPlayback, safeEndSession]);
 
     const minimizeToStrip = useCallback(() => setPanelMode("strip"), []);
     const open = openPanel;
@@ -788,9 +888,16 @@ export default function GraceElevenLabsProvider({
         setPanelMode("closed");
         setConversationActive(false);
         safeEndSession();
+        shouldTranscribeRef.current = false;
+        if (mediaRecorderRef.current?.state === "recording") {
+            mediaRecorderRef.current.stop();
+        } else {
+            cleanupRecording();
+        }
+        cleanupAudioPlayback();
         setStatus("idle");
         setMessages([]);
-    }, [safeEndSession]);
+    }, [cleanupRecording, cleanupAudioPlayback, safeEndSession]);
 
     const onNavigate = useCallback(() => {
         setPanelMode(conversationActiveRef.current ? "strip" : "closed");
@@ -798,10 +905,413 @@ export default function GraceElevenLabsProvider({
 
     const clearPendingNavigation = useCallback(() => setPendingNavigation(null), []);
 
-    // ── Start ElevenLabs voice conversation ──────────────────────────────────
+    // ── Unified voice + text backend flow ────────────────────────────────────
+
+    const messagesRef = useRef(messages);
+    useEffect(() => { messagesRef.current = messages; }, [messages]);
+
+    const applyBackendActions = useCallback(async (actions: GraceStructuredResponse["actions"]) => {
+        const renderable: GraceMessage[] = [];
+
+        for (const action of actions) {
+            if (action.type === "updateFormField") {
+                setActiveForm((prev) => {
+                    if (!prev) {
+                        return {
+                            formType: action.formType,
+                            fields: { [action.fieldName]: action.value },
+                            filledOrder: [action.fieldName],
+                            submitting: false,
+                            submitted: false,
+                            error: "",
+                        };
+                    }
+                    const alreadyFilled = prev.filledOrder.includes(action.fieldName);
+                    return {
+                        ...prev,
+                        formType: action.formType,
+                        fields: { ...prev.fields, [action.fieldName]: action.value },
+                        filledOrder: alreadyFilled
+                            ? prev.filledOrder
+                            : [...prev.filledOrder, action.fieldName],
+                    };
+                });
+                setPanelMode("open");
+                continue;
+            }
+
+            if (action.type === "submitForm") {
+                const form = activeFormRef.current;
+                if (form && !form.submitted && !form.submitting) {
+                    setActiveForm((prev) => (prev ? { ...prev, submitting: true, error: "" } : null));
+                    try {
+                        await submitFormMutationRef.current({
+                            formType: form.formType as "sample" | "quote" | "contact" | "newsletter",
+                            name: form.fields.name || undefined,
+                            email: form.fields.email || "",
+                            company: form.fields.company || undefined,
+                            phone: form.fields.phone || undefined,
+                            message: form.fields.message || undefined,
+                            products: form.fields.products || undefined,
+                            quantities: form.fields.quantities || undefined,
+                            source: "grace",
+                        });
+                        setActiveForm((prev) =>
+                            prev ? { ...prev, submitting: false, submitted: true } : null
+                        );
+                    } catch (error) {
+                        const errorMessage = error instanceof Error ? error.message : "Submission failed";
+                        setActiveForm((prev) =>
+                            prev ? { ...prev, submitting: false, error: errorMessage } : null
+                        );
+                    }
+                }
+                continue;
+            }
+
+            if (action.type === "navigateToPage" && action.autoNavigate !== false) {
+                setPendingNavigation(action.path);
+                setPanelMode(conversationActiveRef.current ? "strip" : "closed");
+            }
+
+            if (action.type === "prefillForm") {
+                window.dispatchEvent(
+                    new CustomEvent("grace:prefillForm", {
+                        detail: { formType: action.formType, fields: action.fields },
+                    })
+                );
+            }
+
+            renderable.push({
+                role: "grace",
+                content: "",
+                id: `a-${Date.now()}-${renderable.length}`,
+                action,
+            });
+        }
+
+        return renderable;
+    }, []);
+
+    const playAssistantAudio = useCallback(async (text: string) => {
+        cleanupAudioPlayback();
+
+        if (!conversationActiveRef.current) {
+            setStatus("idle");
+            return;
+        }
+
+        if (!voiceEnabledRef.current || !text.trim()) {
+            setStatus("listening");
+            setTimeout(() => {
+                void startDictationRef.current();
+            }, 150);
+            return;
+        }
+
+        try {
+            setStatus("speaking");
+            const response = await fetch("/api/voice", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Voice synthesis failed");
+            }
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            audioUrlRef.current = url;
+
+            const audio = new Audio(url);
+            audio.volume = voiceEnabledRef.current ? 1 : 0;
+            audioElementRef.current = audio;
+
+            audio.onended = () => {
+                cleanupAudioPlayback();
+                if (conversationActiveRef.current) {
+                    setStatus("listening");
+                    void startDictationRef.current();
+                } else {
+                    setStatus("idle");
+                }
+            };
+            audio.onerror = () => {
+                cleanupAudioPlayback();
+                if (conversationActiveRef.current) {
+                    setStatus("listening");
+                    void startDictationRef.current();
+                } else {
+                    setStatus("idle");
+                }
+            };
+
+            await audio.play();
+        } catch (error) {
+            console.error("[Grace voice] Playback failed:", error);
+            cleanupAudioPlayback();
+            if (conversationActiveRef.current) {
+                setStatus("listening");
+                setTimeout(() => {
+                    void startDictationRef.current();
+                }, 150);
+            } else {
+                setStatus("idle");
+            }
+        }
+    }, [cleanupAudioPlayback]);
+
+    const send = useCallback(
+        async (text?: string, fromVoice = false) => {
+            const msg = (text ?? input).trim();
+            if (!msg) return;
+
+            setInput("");
+            setMessages((prev) => [...prev, { role: "user", content: msg, id: `u-${Date.now()}` }]);
+            setStatus("thinking");
+            setErrorMessage("");
+
+            try {
+                const history: Array<{ role: "user" | "assistant"; content: string }> = [
+                    ...messagesRef.current
+                        .filter((message) => message.content.trim().length > 0)
+                        .map((message) => ({
+                            role: (message.role === "grace" ? "assistant" : "user") as "user" | "assistant",
+                            content: message.content,
+                        })),
+                    { role: "user" as const, content: msg },
+                ];
+
+                const contextBlock = formatPageContextForGrace(pageContextRef.current);
+                const response = await Promise.race([
+                    respondGrace({
+                        messages: history,
+                        voiceMode: fromVoice || conversationActiveRef.current,
+                        ...(contextBlock ? { pageContextBlock: contextBlock } : {}),
+                        channel: "storefront",
+                        sessionMetadata: {
+                            sessionId: sessionIdRef.current,
+                            entrypoint: "grace-panel",
+                            pageType: pageContextRef.current?.pageType ?? "other",
+                        },
+                    }) as Promise<GraceStructuredResponse>,
+                    new Promise<GraceStructuredResponse>((_, reject) =>
+                        setTimeout(() => reject(new Error("Grace took too long to respond. Please try again.")), 45000)
+                    ),
+                ]);
+
+                const actionMessages = await applyBackendActions(response.actions);
+                const assistantText = stripMarkdown(response.assistantText);
+
+                setGraceQuery(response.retrievalTrace[0]?.query ?? "");
+                setMessages((prev) => {
+                    const next = [...prev];
+                    if (assistantText || actionMessages.length === 0) {
+                        const [firstAction, ...restActions] = actionMessages;
+                        next.push({
+                            role: "grace",
+                            content: assistantText,
+                            id: `g-${Date.now()}`,
+                            action: firstAction?.action,
+                        });
+                        for (const actionMessage of restActions) {
+                            next.push(actionMessage);
+                        }
+                    } else {
+                        for (const actionMessage of actionMessages) {
+                            next.push(actionMessage);
+                        }
+                    }
+                    return next;
+                });
+
+                void persistGraceTurn(msg, response);
+
+                if (conversationActiveRef.current) {
+                    await playAssistantAudio(assistantText);
+                } else {
+                    setStatus("idle");
+                }
+            } catch (error) {
+                const message = error instanceof Error
+                    ? error.message
+                    : "I had trouble connecting just now. Please try again in a moment.";
+                console.error("[Grace] respond failed:", error);
+                setErrorMessage(message);
+                setMessages((prev) => [
+                    ...prev,
+                    { role: "grace", content: message, id: `g-${Date.now()}` },
+                ]);
+                setStatus("error");
+                setTimeout(() => {
+                    setStatus(conversationActiveRef.current ? "listening" : "idle");
+                    setErrorMessage("");
+                }, 4000);
+            }
+        },
+        [input, respondGrace, applyBackendActions, persistGraceTurn, playAssistantAudio]
+    );
+
+    useEffect(() => {
+        sendRef.current = send;
+    }, [send]);
+
+    const startDictation = useCallback(async () => {
+        if (forceTextOnly) return;
+        if (mediaRecorderRef.current?.state === "recording") return;
+
+        try {
+            setStatus("listening");
+            setErrorMessage("");
+
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaStreamRef.current = stream;
+            const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+                ? "audio/webm;codecs=opus"
+                : MediaRecorder.isTypeSupported("audio/mp4")
+                    ? "audio/mp4"
+                    : "";
+            const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+
+            shouldTranscribeRef.current = true;
+            audioChunksRef.current = [];
+            mediaRecorderRef.current = recorder;
+
+            recorder.ondataavailable = (event) => {
+                if (event.data.size > 0) audioChunksRef.current.push(event.data);
+            };
+
+            recorder.onstop = async () => {
+                const shouldTranscribe = shouldTranscribeRef.current;
+                cleanupRecording();
+
+                if (!shouldTranscribe) {
+                    setStatus(conversationActiveRef.current ? "idle" : "idle");
+                    return;
+                }
+
+                const blob = new Blob(audioChunksRef.current, {
+                    type: recorder.mimeType || "audio/webm",
+                });
+
+                if (blob.size < 500) {
+                    if (conversationActiveRef.current) {
+                        setStatus("listening");
+                        setTimeout(() => {
+                            void startDictationRef.current();
+                        }, 150);
+                    } else {
+                        setStatus("idle");
+                    }
+                    return;
+                }
+
+                setStatus("transcribing");
+                try {
+                    const formData = new FormData();
+                    formData.append("audio", blob, "grace-recording.webm");
+                    const response = await fetch("/api/voice/transcribe", {
+                        method: "POST",
+                        body: formData,
+                    });
+                    if (!response.ok) {
+                        const payload = await response.json().catch(() => ({ error: "Voice transcription failed." }));
+                        throw new Error((payload as { error?: string }).error ?? "Voice transcription failed.");
+                    }
+                    const { text: transcript } = (await response.json()) as { text?: string };
+                    if (transcript?.trim()) {
+                        await sendRef.current(transcript.trim(), true);
+                    } else if (conversationActiveRef.current) {
+                        setStatus("listening");
+                        setTimeout(() => {
+                            void startDictationRef.current();
+                        }, 150);
+                    } else {
+                        setStatus("idle");
+                    }
+                } catch (error) {
+                    console.error("[Grace voice] Transcription failed:", error);
+                    setVoiceFailed(true);
+                    setStatus("error");
+                    setErrorMessage(
+                        error instanceof Error ? error.message : "Voice transcription failed."
+                    );
+                    setTimeout(() => {
+                        setStatus(conversationActiveRef.current ? "listening" : "idle");
+                        setErrorMessage("");
+                    }, 4000);
+                }
+            };
+
+            recorder.start();
+
+            try {
+                const audioContext = new AudioContext();
+                audioContextRef.current = audioContext;
+                const analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                audioContext.createMediaStreamSource(stream).connect(analyser);
+                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                const SILENCE_THRESHOLD = 8;
+                const SILENCE_DELAY_MS = 1500;
+
+                const checkSilence = () => {
+                    if (mediaRecorderRef.current?.state !== "recording") return;
+                    analyser.getByteFrequencyData(dataArray);
+                    const rms = Math.sqrt(
+                        dataArray.reduce((sum, value) => sum + value * value, 0) / dataArray.length
+                    );
+                    if (rms < SILENCE_THRESHOLD) {
+                        if (!silenceTimerRef.current) {
+                            silenceTimerRef.current = setTimeout(() => {
+                                silenceTimerRef.current = null;
+                                if (mediaRecorderRef.current?.state === "recording") {
+                                    mediaRecorderRef.current.stop();
+                                }
+                            }, SILENCE_DELAY_MS);
+                        }
+                    } else if (silenceTimerRef.current) {
+                        clearTimeout(silenceTimerRef.current);
+                        silenceTimerRef.current = null;
+                    }
+
+                    requestAnimationFrame(checkSilence);
+                };
+
+                requestAnimationFrame(checkSilence);
+            } catch {
+                // AudioContext unavailable; recording still works without auto-stop.
+            }
+        } catch (error) {
+            console.error("[Grace voice] Failed to start recording:", error);
+            const message =
+                error instanceof Error && error.name === "NotAllowedError"
+                    ? "Microphone permission is blocked. Please allow mic access and try again."
+                    : "I couldn't access your microphone right now.";
+            setVoiceFailed(true);
+            setErrorMessage(message);
+            setConversationActive(false);
+            setStatus("error");
+            setPanelMode("open");
+        }
+    }, [forceTextOnly, cleanupRecording]);
+
+    useEffect(() => {
+        startDictationRef.current = startDictation;
+    }, [startDictation]);
+
+    const stopDictation = useCallback(() => {
+        shouldTranscribeRef.current = false;
+        if (mediaRecorderRef.current?.state === "recording") {
+            mediaRecorderRef.current.stop();
+        } else {
+            cleanupRecording();
+        }
+    }, [cleanupRecording]);
 
     const startConversation = useCallback(async () => {
-        // Text-only mode: skip voice entirely
         if (forceTextOnly) {
             setMessages((prev) => [
                 ...prev,
@@ -815,323 +1325,43 @@ export default function GraceElevenLabsProvider({
             return;
         }
 
-        if (conversationRef.current?.status === "connected") {
-            console.log("[Grace EL] startConversation skipped — already connected");
-            return;
-        }
-        // If connectingRef has been stuck for >20s, force-reset it (previous attempt hung)
-        if (connectingRef.current) {
-            console.warn("[Grace EL] connectingRef was stuck — force-resetting");
-            connectingRef.current = false;
-            safeEndSession();
-        }
-        // Allow old socket to fully close before reconnecting
-        const sinceLastEnd = Date.now() - lastEndSessionRef.current;
-        if (sinceLastEnd < 600) {
-            await new Promise((r) => setTimeout(r, 600 - sinceLastEnd));
-        }
-        connectingRef.current = true;
-
-        try {
-            setConversationActive(true);
-            setStatus("connecting");
-            setErrorMessage("");
-            setVoiceFailed(false); // clear previous failure on new attempt
-
-            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-                if (!isLocalhost) {
-                    throw new Error(
-                        "Microphone access requires a secure connection (HTTPS). " +
-                        "Please use https:// or access via localhost instead of a network IP."
-                    );
-                }
-            }
-
-            const connectOnce = async () => {
-                const t0 = performance.now();
-                const res = await fetch("/api/elevenlabs/signed-url");
-                if (!res.ok) {
-                    const err = await res.json().catch(() => ({}));
-                    throw new Error(
-                        (err as { error?: string }).error ??
-                        "Failed to get ElevenLabs connection. Check ELEVENLABS_API_KEY and ELEVENLABS_AGENT_ID."
-                    );
-                }
-                const { signedUrl } = (await res.json()) as { signedUrl?: string };
-                if (!signedUrl) throw new Error("ElevenLabs did not return a valid signed URL.");
-
-                console.log(`[Grace EL] Starting WebSocket session (fetch took ${Math.round(performance.now() - t0)}ms)`);
-
-                const contextBlock = formatPageContextForGrace(pageContextRef.current);
-                await Promise.race([
-                    conversationRef.current!.startSession({
-                        signedUrl,
-                        connectionType: "websocket",
-                        ...(contextBlock ? {
-                            overrides: {
-                                agent: { prompt: { prompt: contextBlock } },
-                            },
-                        } : {}),
-                    }),
-                    new Promise<never>((_, reject) =>
-                        setTimeout(() => reject(new Error("Voice connection timed out after 15 seconds.")), 15000)
-                    ),
-                ]);
-            };
-
-            // One automatic retry with a fresh signed URL handles stale/half-closed sockets.
-            let lastError: unknown;
-            for (let attempt = 1; attempt <= 2; attempt += 1) {
-                try {
-                    await connectOnce();
-
-                    // Brief stability check — verify the socket didn't immediately close.
-                    // We check our own ref (reset to 0 by handleDisconnect) rather than
-                    // the SDK status to avoid TypeScript narrowing issues.
-                    await new Promise((r) => setTimeout(r, 500));
-                    if (lastConnectTimeRef.current === 0) {
-                        throw new Error("Voice connection dropped immediately after establishing.");
-                    }
-
-                    connectingRef.current = false;
-                    safeSetVolume(voiceEnabledRef.current ? 1 : 0);
-                    console.log(`[Grace EL] WebSocket session established (attempt ${attempt})`);
-                    return;
-                } catch (e) {
-                    lastError = e;
-                    console.warn(`[Grace EL] startSession attempt ${attempt} failed:`, e);
-                    safeEndSession();
-                    if (attempt < 2) {
-                        await new Promise((r) => setTimeout(r, 500));
-                    }
-                }
-            }
-
-            throw lastError instanceof Error ? lastError : new Error("Failed to establish voice session.");
-        } catch (err) {
-            console.error("[Grace EL] Connection failed:", err);
-            connectingRef.current = false;
-            setConversationActive(false);
-            setStatus("idle");
-            setVoiceFailed(true); // triggers the banner in GraceSidePanel
-
-            // Show a friendly in-chat message instead of a broken error state.
-            // Grace continues working in text mode via Convex.
-            setMessages((prev) => [
-                ...prev,
-                {
-                    role: "grace" as const,
-                    content:
-                        "I wasn't able to connect my voice right now — no worries! " +
-                        "Just type your question below and I'll help you in text mode.",
-                    id: `g-${Date.now()}`,
-                },
-            ]);
-            setPanelMode("open");
-        }
-    }, [forceTextOnly, safeSetVolume]); // stable for voice path; forceTextOnly is a build-time constant
+        setConversationActive(true);
+        setVoiceFailed(false);
+        setPanelMode("open");
+        cleanupAudioPlayback();
+        shouldTranscribeRef.current = true;
+        await startDictation();
+    }, [forceTextOnly, startDictation, cleanupAudioPlayback]);
 
     const endConversation = useCallback(() => {
         setConversationActive(false);
-        safeEndSession();
+        shouldTranscribeRef.current = false;
+        if (mediaRecorderRef.current?.state === "recording") {
+            mediaRecorderRef.current.stop();
+        } else {
+            cleanupRecording();
+        }
+        cleanupAudioPlayback();
         setStatus("idle");
-    }, [safeEndSession]);
+    }, [cleanupRecording, cleanupAudioPlayback]);
 
     // ── Toggle / interrupt ───────────────────────────────────────────────────
 
     const stopSpeaking = useCallback(() => {
-        if (status === "speaking") setStatus("listening");
-    }, [status]);
+        cleanupAudioPlayback();
+        setStatus(conversationActiveRef.current ? "listening" : "idle");
+    }, [cleanupAudioPlayback]);
 
     const toggleVoice = useCallback(() => {
-        setVoiceEnabled((v) => {
-            const next = !v;
+        setVoiceEnabled((value) => {
+            const next = !value;
             safeSetVolume(next ? 1 : 0);
+            if (audioElementRef.current) {
+                audioElementRef.current.volume = next ? 1 : 0;
+            }
             return next;
         });
     }, [safeSetVolume]);
-
-    // ── Send text message (text-only falls back to Convex LLM) ──────────────
-
-    const messagesRef = useRef(messages);
-    useEffect(() => { messagesRef.current = messages; }, [messages]);
-
-    const handleLocalTextIntent = useCallback(
-        async (rawMessage: string): Promise<boolean> => {
-            const page = pageContextRef.current;
-            const normalized = rawMessage.trim().toLowerCase();
-
-            if (
-                page?.pageType === "pdp" &&
-                page.currentProduct &&
-                /(add( this)? to (my )?(order|cart)|add to order)/i.test(normalized)
-            ) {
-                const current = page.currentProduct;
-                setMessages((prev) => [
-                    ...prev,
-                    {
-                        role: "grace",
-                        content: "I can add this bottle to your order. Confirm below and I'll place it in your cart.",
-                        id: `a-${Date.now()}`,
-                        action: {
-                            type: "proposeCartAdd",
-                            products: [{
-                                graceSku: current.graceSku,
-                                itemName: current.name,
-                                quantity: 1,
-                                webPrice1pc: current.webPrice1pc ?? undefined,
-                                family: current.family,
-                                capacity: current.capacity,
-                                color: current.color,
-                            }],
-                            awaitingConfirmation: true,
-                        },
-                    },
-                ]);
-                return true;
-            }
-
-            const isBrowseIntent =
-                !isGenericPromptChip(rawMessage) &&
-                /^(?:can you\s+)?(?:please\s+)?(show|find|browse|open)\b/i.test(rawMessage);
-            const isTakeMeThereIntent = /^(?:can you\s+)?(?:please\s+)?take me to\b/i.test(rawMessage);
-            if (!isBrowseIntent && !isTakeMeThereIntent) {
-                return false;
-            }
-
-            const query = normalizeTextIntentQuery(rawMessage);
-            if (!query) {
-                return false;
-            }
-
-            try {
-                const searchRes = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        tool_name: "searchCatalog",
-                        parameters: { searchTerm: query },
-                    }),
-                });
-                const searchData = await searchRes.json() as { result?: ProductCard[] };
-                const products: ProductCard[] = Array.isArray(searchData.result) ? searchData.result : [];
-                if (products.length === 0) {
-                    return false;
-                }
-
-                const directProduct = selectDirectProductMatch(products, query);
-                const displayProducts = directProduct ? [directProduct] : products;
-                const redirectUrl = buildBrowsePath(displayProducts, query);
-                setGraceQuery(query);
-                setPendingNavigation(redirectUrl);
-                setPanelMode("strip");
-
-                const summary = displayProducts.slice(0, 3)
-                    .map((p) => [p.itemName, p.capacity, p.color].filter(Boolean).join(" "))
-                    .join(", ");
-                const destinationLabel = displayProducts.length === 1 ? "product page" : "catalog results";
-                setMessages((prev) => [
-                    ...prev,
-                    {
-                        role: "grace",
-                        content: `Taking you to the ${destinationLabel} now. Found ${displayProducts.length} option${displayProducts.length === 1 ? "" : "s"}${summary ? `, including ${summary}.` : "."}`,
-                        id: `g-${Date.now()}`,
-                    },
-                ]);
-                return true;
-            } catch (err) {
-                console.error("[Grace EL] local text intent search failed:", err);
-                return false;
-            }
-        },
-        []
-    );
-
-    const send = useCallback(
-        async (text?: string, fromVoice = false) => {
-            const msg = (text ?? input).trim();
-            if (!msg) return;
-            setInput("");
-
-            if (conversationActiveRef.current && safeSendUserMessage(msg)) {
-                setMessages((prev) => [
-                    ...prev,
-                    { role: "user", content: msg, id: `u-${Date.now()}` },
-                ]);
-                setStatus("thinking");
-                return;
-            }
-
-            // WebSocket is dead or not active — fall through to Convex/Claude text mode
-            if (conversationActiveRef.current) {
-                console.warn("[Grace EL] Voice WebSocket dead, falling back to text mode");
-                setConversationActive(false);
-                safeEndSession();
-            }
-
-            const userMsg: GraceMessage = { role: "user", content: msg, id: `${Date.now()}` };
-            setMessages((prev) => [...prev, userMsg]);
-            setStatus("thinking");
-            setErrorMessage("");
-
-            if (await handleLocalTextIntent(msg)) {
-                setStatus("idle");
-                return;
-            }
-
-            try {
-                const history: Array<{ role: "user" | "assistant"; content: string }> = [
-                    ...messagesRef.current.map((m) => ({
-                        role: (m.role === "grace" ? "assistant" : "user") as "user" | "assistant",
-                        content: m.content,
-                    })),
-                    { role: "user" as const, content: msg },
-                ];
-
-                const tLlm = performance.now();
-                const contextBlock = formatPageContextForGrace(pageContextRef.current);
-                const response = await Promise.race([
-                    (askGrace as (args: { messages: typeof history; voiceMode?: boolean; pageContextBlock?: string }) => Promise<string>)({
-                        messages: history,
-                        voiceMode: fromVoice,
-                        ...(contextBlock ? { pageContextBlock: contextBlock } : {}),
-                    }),
-                    new Promise<string>((_, reject) =>
-                        setTimeout(() => reject(new Error("Grace took too long to respond. Please try again.")), 45000)
-                    ),
-                ]);
-                console.log(`[Grace EL] LLM round-trip: ${Math.round(performance.now() - tLlm)}ms`);
-
-                setMessages((prev) => [
-                    ...prev,
-                    { role: "grace", content: stripMarkdown(response), id: `${Date.now() + 1}` },
-                ]);
-                setStatus("idle");
-            } catch (err) {
-                const errMsg = err instanceof Error
-                    ? err.message
-                    : "I had trouble connecting just now. Please try again in a moment.";
-                console.error("[Grace EL] askGrace failed:", err);
-                setErrorMessage(errMsg);
-                setMessages((prev) => [
-                    ...prev,
-                    { role: "grace", content: errMsg, id: `${Date.now() + 1}` },
-                ]);
-                setStatus("error");
-                setTimeout(() => { setStatus("idle"); setErrorMessage(""); }, 4000);
-            }
-        },
-        [input, askGrace, safeSendUserMessage, safeEndSession, handleLocalTextIntent]
-    );
-
-    // ── Legacy dictation stubs ───────────────────────────────────────────────
-
-    const startDictation = useCallback(async () => {
-        if (!conversationActiveRef.current) startConversation();
-    }, [startConversation]);
-
-    const stopDictation = useCallback(() => { /* VAD handled by ElevenLabs natively */ }, []);
 
     // ── Action confirmation (cart adds) ──────────────────────────────────────
 
@@ -1249,9 +1479,11 @@ export default function GraceElevenLabsProvider({
 
     useEffect(() => {
         return () => {
-            safeEndSession();
+            shouldTranscribeRef.current = false;
+            cleanupRecording();
+            cleanupAudioPlayback();
         };
-    }, [safeEndSession]);
+    }, [cleanupRecording, cleanupAudioPlayback]);
 
     return (
         <GraceContext.Provider

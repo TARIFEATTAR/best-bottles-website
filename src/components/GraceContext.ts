@@ -45,7 +45,9 @@ export type GraceAction =
     | { type: "buildKit"; items: KitItem[]; totalPrice?: number }
     | { type: "proposeCartAdd"; products: Array<ProductCard & { quantity: number }>; awaitingConfirmation: boolean }
     | { type: "navigateToPage"; path: string; title: string; description?: string; autoNavigate?: boolean }
-    | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> };
+    | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> }
+    | { type: "updateFormField"; formType: "sample" | "quote" | "contact" | "newsletter"; fieldName: string; value: string }
+    | { type: "submitForm" };
 
 export interface GraceMessage {
     role: "user" | "grace";

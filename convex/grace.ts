@@ -1,4 +1,4 @@
-import { query, mutation, action } from "./_generated/server";
+import { query, mutation, action, type ActionCtx } from "./_generated/server";
 import { v } from "convex/values";
 import { api } from "./_generated/api";
 import Anthropic from "@anthropic-ai/sdk";
@@ -7,6 +7,12 @@ import {
     normalizeComponentsByType,
     selectBestFitmentRule,
 } from "./componentUtils";
+import {
+    normalizeApplicatorValue,
+    resolveProductRequestCore,
+    type ResolveProductRequestResult,
+    type ResolverProductCard,
+} from "./productResolver";
 
 // ─── Models ───────────────────────────────────────────────────────────────────
 
@@ -14,17 +20,6 @@ const MODEL_TEXT = "claude-sonnet-4-6";
 const MODEL_VOICE = "claude-3-5-haiku-latest";
 const MAX_TOOL_ITERATIONS_TEXT = 7;
 const MAX_TOOL_ITERATIONS_VOICE = 2;
-
-const APPLICATOR_VALUE_ALIASES: Record<string, string> = {
-    "metal roller": "Metal Roller Ball",
-    "plastic roller": "Plastic Roller Ball",
-    "metal roller ball": "Metal Roller Ball",
-    "plastic roller ball": "Plastic Roller Ball",
-    "antique bulb sprayer": "Vintage Bulb Sprayer",
-    "antique bulb sprayer with tassel": "Vintage Bulb Sprayer with Tassel",
-    "vintage bulb sprayer": "Vintage Bulb Sprayer",
-    "vintage bulb sprayer with tassel": "Vintage Bulb Sprayer with Tassel",
-};
 
 const VOICE_MODE_ADDENDUM = `
 
@@ -64,7 +59,7 @@ CRITICAL: proposeCartAdd always requires customer confirmation via the UI card. 
 
 // ─── Tool definitions (passed to Claude as function signatures) ───────────────
 
-const GRACE_TOOLS: Anthropic.Tool[] = [
+const GRACE_DATA_TOOLS: Anthropic.Tool[] = [
     {
         name: "searchCatalog",
         description:
@@ -162,6 +157,183 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
         },
     },
 ];
+
+const GRACE_UI_TOOLS: Anthropic.Tool[] = [
+    {
+        name: "showProducts",
+        description:
+            "Display product cards in the Grace panel. Use this after searching when the customer wants to browse options visually.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                query: { type: "string", description: "A clean product query for the customer-visible options." },
+                family: { type: "string", description: "Optional family restriction." },
+            },
+            required: ["query"],
+        },
+    },
+    {
+        name: "compareProducts",
+        description:
+            "Display a comparison table for up to four product options when the customer is choosing between products.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                query: { type: "string", description: "A clean product query for the options to compare." },
+                family: { type: "string", description: "Optional family restriction." },
+            },
+            required: ["query"],
+        },
+    },
+    {
+        name: "navigateToPage",
+        description:
+            "Navigate the customer to a catalog or product page. Prefer canonical product group slugs and valid catalog URLs.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                path: { type: "string" },
+                title: { type: "string" },
+                description: { type: "string" },
+                autoNavigate: { type: "boolean" },
+                prefillFields: {
+                    type: "object",
+                    additionalProperties: { type: "string" },
+                },
+            },
+            required: ["path", "title"],
+        },
+    },
+    {
+        name: "proposeCartAdd",
+        description:
+            "Show a confirmation card before adding items to the customer's cart. Never assume cart confirmation without this step.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                products: {
+                    type: "array",
+                    items: {
+                        type: "object",
+                        properties: {
+                            itemName: { type: "string" },
+                            graceSku: { type: "string" },
+                            quantity: { type: "number" },
+                            webPrice1pc: { type: "number" },
+                            family: { type: "string" },
+                            capacity: { type: "string" },
+                            color: { type: "string" },
+                            slug: { type: "string" },
+                        },
+                        required: ["itemName", "graceSku"],
+                    },
+                },
+            },
+            required: ["products"],
+        },
+    },
+    {
+        name: "prefillForm",
+        description: "Prefill a form in the Grace panel when all fields are already known.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                formType: { type: "string" },
+                fields: {
+                    type: "object",
+                    additionalProperties: { type: "string" },
+                },
+            },
+            required: ["formType", "fields"],
+        },
+    },
+    {
+        name: "updateFormField",
+        description: "Fill a single live form field in the Grace panel during the conversation.",
+        input_schema: {
+            type: "object" as const,
+            properties: {
+                formType: { type: "string" },
+                fieldName: { type: "string" },
+                value: { type: "string" },
+            },
+            required: ["formType", "fieldName", "value"],
+        },
+    },
+    {
+        name: "submitForm",
+        description: "Submit the active Grace form after all required customer details are filled in.",
+        input_schema: {
+            type: "object" as const,
+            properties: {},
+            required: [],
+        },
+    },
+];
+
+const GRACE_RESPONSE_TOOLS = [...GRACE_DATA_TOOLS, ...GRACE_UI_TOOLS];
+
+const STRUCTURED_ACTION_ADDENDUM = `
+
+## STRUCTURED UI ACTIONS
+You also have UI tools for the storefront Grace panel.
+
+Use showProducts when the customer wants to browse options visually.
+Use compareProducts when they are deciding between options.
+Use navigateToPage when you want to move them to a product page or catalog page.
+Use proposeCartAdd before adding anything to the cart.
+Use updateFormField one field at a time for conversational form filling, and submitForm only after the required details are collected.
+
+When a product request is specific enough to identify one group confidently, prefer navigating to that product page instead of speaking abstractly about search results.
+When the customer asks to browse a family or category, prefer showProducts.
+`;
+
+type GraceUiAction =
+    | { type: "showProducts"; products: ResolverProductCard[] }
+    | { type: "compareProducts"; products: ResolverProductCard[] }
+    | { type: "proposeCartAdd"; products: Array<ResolverProductCard & { quantity: number }>; awaitingConfirmation: boolean }
+    | { type: "navigateToPage"; path: string; title: string; description?: string; autoNavigate?: boolean; prefillFields?: Record<string, string> }
+    | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> }
+    | { type: "updateFormField"; formType: "sample" | "quote" | "contact" | "newsletter"; fieldName: string; value: string }
+    | { type: "submitForm" };
+
+type GraceResolvedProduct = {
+    slug: string;
+    displayName: string;
+    family: string;
+    capacityMl: number | null;
+    color: string | null;
+    neckThreadSize: string | null;
+    applicatorTypes: string[];
+    confidence: number;
+};
+
+type GraceRespondResult = {
+    assistantText: string;
+    actions: GraceUiAction[];
+    retrievalTrace: Array<{
+        query: string;
+        normalizedQuery: string;
+        resolutionMode: ResolveProductRequestResult["resolutionMode"];
+        confidence: number;
+        bestGroupSlug: string | null;
+        groupSlugs: string[];
+    }>;
+    toolCallsUsed: string[];
+    resolvedProducts: GraceResolvedProduct[];
+    classification: {
+        intent: string | null;
+        productFamily: string | null;
+        capacityMl: number | null;
+        color: string | null;
+        applicator: string | null;
+        resolvedGroupSlug: string | null;
+        resolutionConfidence: number | null;
+        provider: "anthropic";
+        voiceOrText: "voice" | "text";
+    };
+    latencyMs: number;
+};
 
 // ─── System prompt builder ────────────────────────────────────────────────────
 
@@ -428,50 +600,6 @@ GENERAL RULES:
 // These queries are called by the askGrace action as Claude tool executions.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Normalize search terms for better matching — item names use "roller ball", not "roll-on"
-function normalizeSearchTerm(term: string): string {
-    let t = term.toLowerCase();
-
-    // ─── Phase 1: Use Case / Intent Mapping ─────────────────────────────────
-    // If they ask for "thick oil", we want to point them to Roll-ons (rollers)
-    if (/\b(thick oil|perfume oil|body oil|attar|oud)\b/i.test(t)) {
-        t = t.replace(/\b(thick oil|perfume oil|body oil|attar|oud)\b/gi, "roll-on");
-    }
-    // If they ask for "fine mist", "cologne", or "spray", we want Sprayers
-    if (/\b(fine mist|cologne|body spray|fragrance spray)\b/i.test(t)) {
-        t = t.replace(/\b(fine mist|cologne|body spray|fragrance spray)\b/gi, "sprayer");
-    }
-    // "wedding favor" or "sample" -> small vials
-    if (/\b(wedding favor|sample|prototype)\b/i.test(t)) {
-        t = t.replace(/\b(wedding favor|sample|prototype)\b/gi, "vial");
-    }
-
-    return t
-        .replace(/\broll[- ]?on\b/gi, "roller")
-        .replace(/\broll[- ]?on\s*bottle\b/gi, "roller bottle")
-        .replace(/\bsplash[- ]?on\b/gi, "reducer")
-        .replace(/\blotion\s*pump\s*bottle\b/gi, "lotion pump")
-        .replace(/\bdropper\s*bottle\b/gi, "dropper")
-        // Strip non-technical descriptors that cause zero matches (AI often prepends these)
-        .replace(/\b(thick|thin|best|good|nice|premium|very|high quality)\b/gi, "")
-        // Handle common transcribed numbers
-        .replace(/\bfive\b/gi, "5")
-        .replace(/\bnine\b/gi, "9")
-        .replace(/\bten\b/gi, "10")
-        .replace(/\bthirty\b/gi, "30")
-        .replace(/\bfifty\b/gi, "50")
-        .replace(/\bone\s*hundred\b/gi, "100")
-        .replace(/\b(\d+)\s*(ml|oz)\b/gi, "$1$2")
-        .replace(/\s+/g, " ")
-        .trim();
-}
-
-function normalizeApplicatorValue(value: string | null | undefined): string | null {
-    if (!value) return null;
-    const normalized = APPLICATOR_VALUE_ALIASES[value.trim().toLowerCase()];
-    return normalized ?? value.trim();
-}
-
 /**
  * AI Tool: Search Catalog
  * Grace uses this to find specific bottles or closures based on a user's text prompt.
@@ -484,181 +612,19 @@ export const searchCatalog = query({
         applicatorFilter: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
-        const normalizedTerm = normalizeSearchTerm(args.searchTerm);
-        const searchTermToUse = normalizedTerm || args.searchTerm;
+        const resolved = await resolveProductRequestCore(ctx, {
+            searchTerm: args.searchTerm,
+            categoryLimit: args.categoryLimit,
+            familyLimit: args.familyLimit,
+            applicatorFilter: args.applicatorFilter,
+            limit: 8,
+        });
 
-        // When an applicator filter is active, take more results before filtering
-        const takeCount = args.applicatorFilter ? 100 : 25;
-
-        let q = ctx.db.query("products").withSearchIndex("search_itemName", (q) =>
-            q.search("itemName", searchTermToUse)
-        );
-        if (args.categoryLimit) {
-            q = q.filter((q) => q.eq(q.field("category"), args.categoryLimit));
-        }
-        if (args.familyLimit) {
-            q = q.filter((q) => q.eq(q.field("family"), args.familyLimit));
-        }
-        let results = await q.take(takeCount);
-
-        // Fallback or Expanded search: 
-        // 1. If few results 
-        // 2. OR if user explicitly asked for "30ml roll-on", we want to proactively include the 28ml cylinders too.
-        const isRollOnSearch = /\b(roll|roller|ball)\b/i.test(args.searchTerm);
-        const is30mlSearch = /\b30\s*ml\b/i.test(args.searchTerm);
-
-        if (results.length < 5 || (isRollOnSearch && is30mlSearch)) {
-            const fallbackQ = ctx.db
-                .query("products")
-                .withSearchIndex("search_itemName", (q) => q.search("itemName", "roller"));
-            let fallback = await fallbackQ.take(80);
-
-            if (args.familyLimit) {
-                fallback = fallback.filter((p) => p.family === args.familyLimit);
-            }
-            if (args.categoryLimit) {
-                fallback = fallback.filter((p) => p.category === args.categoryLimit);
-            }
-
-            // Intelligent size matching:
-            // If they ask for 30ml roll-on, we also want to surface the 28ml Cylinder variants.
-            const targetCapacities = new Set<number>();
-            const capacityMatch = args.searchTerm.match(/\b(\d+)\s*ml\b/i);
-            if (capacityMatch) {
-                const ml = parseInt(capacityMatch[1]);
-                targetCapacities.add(ml);
-                if (ml === 30 && isRollOnSearch) targetCapacities.add(28); // Proactively include 28ml
-            }
-
-            if (targetCapacities.size > 0) {
-                const byCapacity = fallback.filter((p) => p.capacityMl !== null && targetCapacities.has(p.capacityMl));
-                if (byCapacity.length > 0) fallback = byCapacity;
-            }
-
-            const seen = new Set(results.map((r) => r.graceSku));
-            for (const p of fallback) {
-                if (!seen.has(p.graceSku) && results.length < takeCount) {
-                    results = [...results, p];
-                    seen.add(p.graceSku);
-                }
-            }
+        if (resolved.resolutionMode === "exact_group" && resolved.bestGroupVariants.length > 0) {
+            return resolved.bestGroupVariants.slice(0, 8);
         }
 
-        // ── Structured fallback via productGroups ──────────────────────────
-        // Text search on itemName is weak for structured queries like "100ml circle".
-        // Parse family name and capacity from the search term and cross-check
-        // productGroups so we never miss an obvious match.
-        const KNOWN_FAMILIES = [
-            "Apothecary", "Atomizer", "Bell", "Boston Round", "Circle", "Cylinder",
-            "Diamond", "Diva", "Elegant", "Empire", "Grace", "Rectangle", "Round",
-            "Sleek", "Slim", "Tulip", "Vial",
-        ];
-        const termLower = args.searchTerm.toLowerCase();
-        const detectedFamily = args.familyLimit
-            ?? KNOWN_FAMILIES.find((f) => termLower.includes(f.toLowerCase()))
-            ?? null;
-        const capMatch = args.searchTerm.match(/\b(\d+)\s*ml\b/i);
-        const detectedCapMl = capMatch ? parseInt(capMatch[1]) : null;
-
-        if (detectedFamily || detectedCapMl) {
-            let groupHits = detectedFamily
-                ? await ctx.db.query("productGroups").withIndex("by_family", (q) => q.eq("family", detectedFamily)).collect()
-                : await ctx.db.query("productGroups").collect();
-            if (detectedCapMl) {
-                groupHits = groupHits.filter((g) => g.capacityMl === detectedCapMl);
-            }
-            if (groupHits.length > 0) {
-                const existingSkus = new Set(results.map((r) => r.graceSku));
-                for (const group of groupHits) {
-                    const variants = await ctx.db.query("products")
-                        .withIndex("by_productGroupId", (q) => q.eq("productGroupId", group._id))
-                        .take(5);
-                    for (const v of variants) {
-                        if (!existingSkus.has(v.graceSku) && results.length < takeCount) {
-                            results.push(v);
-                            existingSkus.add(v.graceSku);
-                        }
-                    }
-                }
-            }
-        }
-
-        // ── Description-based search via productGroups.groupDescription ────
-        // Catches natural-language queries ("beard oil bottle", "sample vial
-        // for trade shows") that don't match itemName but appear in the
-        // SEO-rich group descriptions.
-        if (results.length < takeCount) {
-            const descHits = await ctx.db
-                .query("productGroups")
-                .withSearchIndex("search_groupDescription", (q) => {
-                    let sq = q.search("groupDescription", searchTermToUse);
-                    if (args.categoryLimit) sq = sq.eq("category", args.categoryLimit);
-                    if (args.familyLimit) sq = sq.eq("family", args.familyLimit);
-                    return sq;
-                })
-                .take(10);
-            if (descHits.length > 0) {
-                const existingSkus = new Set(results.map((r) => r.graceSku));
-                for (const group of descHits) {
-                    const variants = await ctx.db.query("products")
-                        .withIndex("by_productGroupId", (q) => q.eq("productGroupId", group._id))
-                        .take(3);
-                    for (const v of variants) {
-                        if (!existingSkus.has(v.graceSku) && results.length < takeCount) {
-                            results.push(v);
-                            existingSkus.add(v.graceSku);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Apply applicator filter in JS after fetching (Convex search index doesn't support OR filters)
-        if (args.applicatorFilter) {
-            const allowed = new Set(
-                args.applicatorFilter
-                    .split(",")
-                    .map((s) => normalizeApplicatorValue(s))
-                    .filter((s): s is string => Boolean(s))
-                    .map((s) => s.toLowerCase())
-            );
-            results = results
-                .filter((p) => {
-                    const normalizedApplicator = normalizeApplicatorValue(p.applicator);
-                    return normalizedApplicator ? allowed.has(normalizedApplicator.toLowerCase()) : false;
-                })
-                .slice(0, 25);
-        }
-
-        // Return a trimmed version — components arrays are large and waste tokens.
-        // Normalize capacity strings: remove internal spaces ("9 ml" → "9ml")
-        const enrichedResults = await Promise.all(
-            results.map(async (p) => {
-                let slug: string | undefined = undefined;
-                if (p.productGroupId) {
-                    const group = await ctx.db.get(p.productGroupId);
-                    if (group) slug = group.slug;
-                }
-                return {
-                    graceSku: p.graceSku,
-                    itemName: p.itemName,
-                    category: p.category,
-                    family: p.family,
-                    capacity: p.capacity ? p.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u) => u.toLowerCase()) : p.capacity,
-                    capacityMl: p.capacityMl,
-                    color: p.color,
-                    applicator: p.applicator,
-                    capColor: p.capColor,
-                    neckThreadSize: p.neckThreadSize,
-                    webPrice1pc: p.webPrice1pc,
-                    webPrice12pc: p.webPrice12pc,
-                    caseQuantity: p.caseQuantity,
-                    stockStatus: p.stockStatus,
-                    slug,
-                };
-            })
-        );
-        return enrichedResults;
+        return resolved.representativeVariants.slice(0, 8);
     },
 });
 
@@ -933,6 +899,449 @@ export const getGraceInstructions = query({
     },
 });
 
+function detectPromptIntent(message: string): string | null {
+    const normalized = message.trim().toLowerCase();
+    if (!normalized) return null;
+    if (/\b(compare|difference|versus|vs)\b/.test(normalized)) return "compare_products";
+    if (/\b(add to (my )?(cart|order)|i want that|i'll take it)\b/.test(normalized)) return "add_to_cart";
+    if (/\b(compatib|fit|work with|pair with|goes with)\b/.test(normalized)) return "check_compatibility";
+    if (/\b(sample|quote|contact|newsletter|submit)\b/.test(normalized)) return "form_request";
+    if (/\b(show|find|browse|open|looking for|need)\b/.test(normalized)) return "browse_products";
+    return "general_assistance";
+}
+
+function mapResolvedProductsFromResult(result: ResolveProductRequestResult): GraceResolvedProduct[] {
+    return result.groups.slice(0, 5).map((group) => ({
+        slug: group.slug,
+        displayName: group.displayName,
+        family: group.family,
+        capacityMl: group.capacityMl,
+        color: group.color,
+        neckThreadSize: group.neckThreadSize,
+        applicatorTypes: group.applicatorTypes,
+        confidence: group.confidence,
+    }));
+}
+
+function summarizeResolution(result: ResolveProductRequestResult) {
+    return {
+        query: result.query.raw,
+        normalizedQuery: result.query.normalized,
+        resolutionMode: result.resolutionMode,
+        confidence: result.confidence,
+        bestGroupSlug: result.bestGroup?.slug ?? null,
+        groupSlugs: result.groups.slice(0, 5).map((group) => group.slug),
+    };
+}
+
+function selectDisplayProducts(result: ResolveProductRequestResult, limit = 4): ResolverProductCard[] {
+    if (result.resolutionMode === "exact_group" && result.bestGroupVariants.length > 0) {
+        return result.bestGroupVariants.slice(0, limit);
+    }
+    return result.representativeVariants.slice(0, limit);
+}
+
+function buildCatalogPathFromResolution(result: ResolveProductRequestResult): string {
+    if (result.bestGroup && result.resolutionMode === "exact_group") {
+        return `/products/${result.bestGroup.slug}`;
+    }
+
+    const families = [...new Set(result.groups.map((group) => group.family).filter(Boolean))];
+    if (families.length === 1) {
+        return `/catalog?family=${encodeURIComponent(families[0])}`;
+    }
+
+    const normalizedQuery = result.query.raw.trim();
+    return normalizedQuery
+        ? `/catalog?search=${encodeURIComponent(normalizedQuery)}`
+        : "/catalog";
+}
+
+async function resolveCanonicalNavigation(
+    ctx: ActionCtx,
+    path: string
+): Promise<string> {
+    if (!path.startsWith("/products/")) return path;
+
+    const rawSlug = path.replace(/^\/products\//, "").split("?")[0];
+    const existing = await ctx.runQuery(api.products.getProductGroup, { slug: rawSlug });
+    if (existing?.group) return path;
+
+    const fallbackQuery = rawSlug.replace(/[-_]+/g, " ");
+    const resolved = await ctx.runQuery(api.products.resolveProductRequest, {
+        searchTerm: fallbackQuery,
+        limit: 4,
+    });
+
+    return buildCatalogPathFromResolution(resolved);
+}
+
+async function runGraceTurn(
+    ctx: ActionCtx,
+    args: {
+        messages: Array<{ role: "user" | "assistant"; content: string }>;
+        voiceMode?: boolean;
+        pageContextBlock?: string;
+        structuredActions?: boolean;
+    }
+): Promise<GraceRespondResult> {
+    const t0 = Date.now();
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+        return {
+            assistantText: "Grace is not yet configured. Please contact the team to enable the AI concierge.",
+            actions: [],
+            retrievalTrace: [],
+            toolCallsUsed: [],
+            resolvedProducts: [],
+            classification: {
+                intent: detectPromptIntent(args.messages[args.messages.length - 1]?.content ?? ""),
+                productFamily: null,
+                capacityMl: null,
+                color: null,
+                applicator: null,
+                resolvedGroupSlug: null,
+                resolutionConfidence: null,
+                provider: "anthropic",
+                voiceOrText: args.voiceMode ? "voice" : "text",
+            },
+            latencyMs: 0,
+        };
+    }
+
+    const isVoice = !!args.voiceMode;
+    const structuredActions = !!args.structuredActions;
+    const model = isVoice ? MODEL_VOICE : MODEL_TEXT;
+    const maxIterations = isVoice ? MAX_TOOL_ITERATIONS_VOICE : MAX_TOOL_ITERATIONS_TEXT;
+    const maxTokens = isVoice ? 200 : 1024;
+    const anthropic = new Anthropic({ apiKey });
+
+    const tKnowledge = Date.now();
+    const knowledge = isVoice
+        ? await ctx.runQuery(api.grace.getVoiceKnowledge, {})
+        : await ctx.runQuery(api.grace.getCoreKnowledge, {});
+    console.log(`[Grace perf] knowledge load: ${Date.now() - tKnowledge}ms (${knowledge.length} entries, mode=${isVoice ? "voice" : "text"})`);
+
+    let systemPrompt = buildSystemPrompt(knowledge);
+    if (args.pageContextBlock) {
+        systemPrompt = args.pageContextBlock + "\n\n" + systemPrompt;
+    }
+    if (structuredActions) {
+        systemPrompt += STRUCTURED_ACTION_ADDENDUM;
+    }
+    if (isVoice) {
+        systemPrompt += VOICE_MODE_ADDENDUM;
+    }
+
+    const messages: Anthropic.MessageParam[] = args.messages.map((message) => ({
+        role: message.role,
+        content: message.content,
+    }));
+
+    const tools = structuredActions ? GRACE_RESPONSE_TOOLS : GRACE_DATA_TOOLS;
+    const actions: GraceUiAction[] = [];
+    const retrievalTrace: GraceRespondResult["retrievalTrace"] = [];
+    const toolCallsUsed: string[] = [];
+    const resolvedProductsBySlug = new Map<string, GraceResolvedProduct>();
+
+    async function callAnthropic(retries = 2): Promise<Anthropic.Message> {
+        for (let attempt = 0; attempt <= retries; attempt++) {
+            try {
+                const tApi = Date.now();
+                const result = await anthropic.messages.create({
+                    model,
+                    max_tokens: maxTokens,
+                    system: systemPrompt,
+                    tools,
+                    messages,
+                });
+                console.log(`[Grace perf] anthropic call (${model}): ${Date.now() - tApi}ms`);
+                return result;
+            } catch (e: unknown) {
+                const err = e as { status?: number; error?: { status?: number } };
+                const status = err?.status ?? err?.error?.status;
+                if ((status === 429 || status === 529) && attempt < retries) {
+                    const wait = Math.min(2000 * Math.pow(2, attempt), 8000);
+                    await new Promise((resolve) => setTimeout(resolve, wait));
+                    continue;
+                }
+                throw e;
+            }
+        }
+        throw new Error("Exhausted retries");
+    }
+
+    try {
+        for (let iteration = 0; iteration < maxIterations; iteration++) {
+            const response = await callAnthropic();
+
+            if (response.stop_reason === "end_turn") {
+                const text = response.content
+                    .filter((block) => block.type === "text")
+                    .map((block) => block.text)
+                    .join("\n")
+                    .trim();
+                const lastResolved = [...resolvedProductsBySlug.values()][0] ?? null;
+                const latestUserMessage = args.messages[args.messages.length - 1]?.content ?? "";
+
+                return {
+                    assistantText:
+                        text || "I wasn't able to formulate a response. Please try rephrasing your question.",
+                    actions,
+                    retrievalTrace,
+                    toolCallsUsed,
+                    resolvedProducts: [...resolvedProductsBySlug.values()],
+                    classification: {
+                        intent: detectPromptIntent(latestUserMessage),
+                        productFamily: lastResolved?.family ?? null,
+                        capacityMl: lastResolved?.capacityMl ?? null,
+                        color: lastResolved?.color ?? null,
+                        applicator: lastResolved?.applicatorTypes?.[0] ?? null,
+                        resolvedGroupSlug: lastResolved?.slug ?? null,
+                        resolutionConfidence: lastResolved?.confidence ?? null,
+                        provider: "anthropic",
+                        voiceOrText: isVoice ? "voice" : "text",
+                    },
+                    latencyMs: Date.now() - t0,
+                };
+            }
+
+            if (response.stop_reason !== "tool_use") break;
+
+            messages.push({ role: "assistant", content: response.content });
+            const toolResults: Anthropic.ToolResultBlockParam[] = [];
+
+            for (const block of response.content) {
+                if (block.type !== "tool_use") continue;
+
+                toolCallsUsed.push(block.name);
+                const tTool = Date.now();
+                let result = "Action recorded.";
+
+                try {
+                    if (block.name === "searchCatalog") {
+                        const input = block.input as {
+                            searchTerm: string;
+                            categoryLimit?: string;
+                            familyLimit?: string;
+                            applicatorFilter?: string;
+                        };
+                        const resolved = await ctx.runQuery(api.products.resolveProductRequest, {
+                            searchTerm: input.searchTerm,
+                            categoryLimit: input.categoryLimit,
+                            familyLimit: input.familyLimit,
+                            applicatorFilter: input.applicatorFilter,
+                            limit: 6,
+                        });
+                        retrievalTrace.push(summarizeResolution(resolved));
+                        for (const resolvedProduct of mapResolvedProductsFromResult(resolved)) {
+                            resolvedProductsBySlug.set(resolvedProduct.slug, resolvedProduct);
+                        }
+                        result =
+                            resolved.groups.length > 0
+                                ? JSON.stringify({
+                                      resolutionMode: resolved.resolutionMode,
+                                      confidence: resolved.confidence,
+                                      bestGroup: resolved.bestGroup,
+                                      groups: resolved.groups.slice(0, 4),
+                                      representativeVariants: selectDisplayProducts(resolved, 4),
+                                  })
+                                : "No products found for that search. Try a broader term.";
+                    } else if (block.name === "getFamilyOverview") {
+                        const input = block.input as { family: string };
+                        const data = await ctx.runQuery(api.grace.getFamilyOverview, {
+                            family: input.family,
+                        });
+                        result = data
+                            ? JSON.stringify(data, null, 2)
+                            : `No products found for the "${input.family}" family. Check the family name spelling.`;
+                    } else if (block.name === "getBottleComponents") {
+                        const input = block.input as { bottleSku: string };
+                        const data = await ctx.runQuery(api.grace.getBottleComponents, {
+                            bottleSku: input.bottleSku,
+                        });
+                        result = data
+                            ? JSON.stringify(data, null, 2)
+                            : `No bottle found with SKU "${input.bottleSku}". Try searchCatalog first to find the correct SKU.`;
+                    } else if (block.name === "checkCompatibility") {
+                        const input = block.input as { threadSize: string };
+                        const data = await ctx.runQuery(api.grace.checkCompatibility, {
+                            threadSize: input.threadSize,
+                        });
+                        result = data.length > 0
+                            ? JSON.stringify(data, null, 2)
+                            : `No fitment data found for thread size ${input.threadSize}.`;
+                    } else if (block.name === "getCatalogStats") {
+                        const data = await ctx.runQuery(api.grace.getCatalogStats, {});
+                        result = JSON.stringify(data, null, 2);
+                    } else if (block.name === "showProducts" || block.name === "compareProducts") {
+                        const input = block.input as { query: string; family?: string };
+                        const resolved = await ctx.runQuery(api.products.resolveProductRequest, {
+                            searchTerm: input.query,
+                            familyLimit: input.family,
+                            limit: 6,
+                        });
+                        retrievalTrace.push(summarizeResolution(resolved));
+                        for (const resolvedProduct of mapResolvedProductsFromResult(resolved)) {
+                            resolvedProductsBySlug.set(resolvedProduct.slug, resolvedProduct);
+                        }
+                        const products = selectDisplayProducts(resolved, block.name === "compareProducts" ? 4 : 6);
+                        actions.push({
+                            type: block.name,
+                            products,
+                        } as GraceUiAction);
+                        result =
+                            products.length > 0
+                                ? JSON.stringify({
+                                      shown: products.length,
+                                      resolutionMode: resolved.resolutionMode,
+                                      bestGroup: resolved.bestGroup?.displayName ?? null,
+                                  })
+                                : "No products found to display.";
+                    } else if (block.name === "navigateToPage") {
+                        const input = block.input as {
+                            path: string;
+                            title: string;
+                            description?: string;
+                            autoNavigate?: boolean;
+                            prefillFields?: Record<string, string>;
+                        };
+                        const canonicalPath = await resolveCanonicalNavigation(ctx, input.path);
+                        actions.push({
+                            type: "navigateToPage",
+                            path: canonicalPath,
+                            title: input.title,
+                            description: input.description,
+                            autoNavigate: input.autoNavigate,
+                            prefillFields: input.prefillFields,
+                        });
+                        result = JSON.stringify({ path: canonicalPath, title: input.title });
+                    } else if (block.name === "proposeCartAdd") {
+                        const input = block.input as {
+                            products?: Array<ResolverProductCard & { quantity?: number }>;
+                        };
+                        actions.push({
+                            type: "proposeCartAdd",
+                            products: (input.products ?? []).map((product) => ({
+                                ...product,
+                                quantity: product.quantity ?? 1,
+                            })),
+                            awaitingConfirmation: true,
+                        });
+                        result = "Cart confirmation card queued.";
+                    } else if (block.name === "prefillForm") {
+                        const input = block.input as {
+                            formType: "sample" | "quote" | "contact" | "newsletter";
+                            fields: Record<string, string>;
+                        };
+                        actions.push({
+                            type: "prefillForm",
+                            formType: input.formType,
+                            fields: input.fields ?? {},
+                        });
+                        result = "Form prefill queued.";
+                    } else if (block.name === "updateFormField") {
+                        const input = block.input as {
+                            formType: "sample" | "quote" | "contact" | "newsletter";
+                            fieldName: string;
+                            value: string;
+                        };
+                        actions.push({
+                            type: "updateFormField",
+                            formType: input.formType,
+                            fieldName: input.fieldName,
+                            value: input.value,
+                        });
+                        result = `Updated ${input.fieldName}.`;
+                    } else if (block.name === "submitForm") {
+                        actions.push({ type: "submitForm" });
+                        result = "Form submission requested.";
+                    } else {
+                        result = `Unknown tool: ${block.name}`;
+                    }
+                } catch (e) {
+                    result = `Tool error: ${e instanceof Error ? e.message : String(e)}`;
+                }
+
+                console.log(`[Grace perf] tool ${block.name}: ${Date.now() - tTool}ms`);
+                toolResults.push({
+                    type: "tool_result",
+                    tool_use_id: block.id,
+                    content: result,
+                });
+            }
+
+            messages.push({ role: "user", content: toolResults });
+        }
+    } catch (e: unknown) {
+        const err = e as { status?: number; error?: { status?: number } };
+        const status = err?.status ?? err?.error?.status;
+        if (status === 429 || status === 529) {
+            return {
+                assistantText:
+                    "I'm experiencing a brief moment of high demand. Could you try again in just a few seconds? I'll be right here.",
+                actions,
+                retrievalTrace,
+                toolCallsUsed,
+                resolvedProducts: [...resolvedProductsBySlug.values()],
+                classification: {
+                    intent: detectPromptIntent(args.messages[args.messages.length - 1]?.content ?? ""),
+                    productFamily: null,
+                    capacityMl: null,
+                    color: null,
+                    applicator: null,
+                    resolvedGroupSlug: null,
+                    resolutionConfidence: null,
+                    provider: "anthropic",
+                    voiceOrText: isVoice ? "voice" : "text",
+                },
+                latencyMs: Date.now() - t0,
+            };
+        }
+        console.error("Grace AI error:", err);
+        return {
+            assistantText:
+                "I ran into an unexpected issue. Please try again in a moment, or reach out to our team at sales@nematinternational.com if this persists.",
+            actions,
+            retrievalTrace,
+            toolCallsUsed,
+            resolvedProducts: [...resolvedProductsBySlug.values()],
+            classification: {
+                intent: detectPromptIntent(args.messages[args.messages.length - 1]?.content ?? ""),
+                productFamily: null,
+                capacityMl: null,
+                color: null,
+                applicator: null,
+                resolvedGroupSlug: null,
+                resolutionConfidence: null,
+                provider: "anthropic",
+                voiceOrText: isVoice ? "voice" : "text",
+            },
+            latencyMs: Date.now() - t0,
+        };
+    }
+
+    return {
+        assistantText: "I ran into an issue processing your request. Please try again in a moment.",
+        actions,
+        retrievalTrace,
+        toolCallsUsed,
+        resolvedProducts: [...resolvedProductsBySlug.values()],
+        classification: {
+            intent: detectPromptIntent(args.messages[args.messages.length - 1]?.content ?? ""),
+            productFamily: null,
+            capacityMl: null,
+            color: null,
+            applicator: null,
+            resolvedGroupSlug: null,
+            resolutionConfidence: null,
+            provider: "anthropic",
+            voiceOrText: isVoice ? "voice" : "text",
+        },
+        latencyMs: Date.now() - t0,
+    };
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // PATCH UTILITY (run once after catalog updates)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1162,170 +1571,143 @@ export const askGrace = action({
         pageContextBlock: v.optional(v.string()),
     },
     handler: async (ctx, args): Promise<string> => {
-        const t0 = Date.now();
-        const apiKey = process.env.ANTHROPIC_API_KEY;
-        if (!apiKey) {
-            return "Grace is not yet configured. Please contact the team to enable the AI concierge.";
+        const result = await runGraceTurn(ctx, {
+            messages: args.messages,
+            voiceMode: args.voiceMode,
+            pageContextBlock: args.pageContextBlock,
+            structuredActions: false,
+        });
+        return result.assistantText;
+    },
+});
+
+export const respond = action({
+    args: {
+        messages: v.array(
+            v.object({
+                role: v.union(v.literal("user"), v.literal("assistant")),
+                content: v.string(),
+            })
+        ),
+        voiceMode: v.optional(v.boolean()),
+        pageContextBlock: v.optional(v.string()),
+        channel: v.optional(v.union(v.literal("storefront"), v.literal("portal"))),
+        sessionMetadata: v.optional(
+            v.object({
+                sessionId: v.optional(v.string()),
+                entrypoint: v.optional(v.string()),
+                pageType: v.optional(v.string()),
+                conversionStage: v.optional(v.string()),
+            })
+        ),
+    },
+    handler: async (ctx, args): Promise<GraceRespondResult> => {
+        return await runGraceTurn(ctx, {
+            messages: args.messages,
+            voiceMode: args.voiceMode,
+            pageContextBlock: args.pageContextBlock,
+            structuredActions: true,
+        });
+    },
+});
+
+export const saveConversationTurn = mutation({
+    args: {
+        sessionId: v.string(),
+        userId: v.optional(v.string()),
+        channel: v.optional(v.string()),
+        entrypoint: v.optional(v.string()),
+        pageType: v.optional(v.string()),
+        resolvedPersona: v.optional(v.string()),
+        conversionStage: v.optional(v.string()),
+        userMessage: v.string(),
+        assistantMessage: v.string(),
+        toolCallsUsed: v.optional(v.array(v.string())),
+        intent: v.optional(v.string()),
+        productFamily: v.optional(v.string()),
+        capacityMl: v.optional(v.number()),
+        color: v.optional(v.string()),
+        applicator: v.optional(v.string()),
+        resolvedGroupSlug: v.optional(v.string()),
+        resolutionConfidence: v.optional(v.number()),
+        latencyMs: v.optional(v.number()),
+        provider: v.optional(v.string()),
+        voiceOrText: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        const now = Date.now();
+        let conversation = await ctx.db
+            .query("conversations")
+            .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
+            .first();
+
+        if (!conversation) {
+            const conversationId = await ctx.db.insert("conversations", {
+                sessionId: args.sessionId,
+                userId: args.userId,
+                channel: args.channel,
+                entrypoint: args.entrypoint,
+                pageType: args.pageType,
+                resolvedPersona: args.resolvedPersona,
+                conversionStage: args.conversionStage,
+                startedAt: now,
+                lastMessageAt: now,
+            });
+            conversation = await ctx.db.get(conversationId);
+        } else {
+            await ctx.db.patch(conversation._id, {
+                userId: args.userId ?? conversation.userId,
+                channel: args.channel ?? conversation.channel,
+                entrypoint: args.entrypoint ?? conversation.entrypoint,
+                pageType: args.pageType ?? conversation.pageType,
+                resolvedPersona: args.resolvedPersona ?? conversation.resolvedPersona,
+                conversionStage: args.conversionStage ?? conversation.conversionStage,
+                lastMessageAt: now + 1,
+            });
         }
 
-        const isVoice = !!args.voiceMode;
-        const model = isVoice ? MODEL_VOICE : MODEL_TEXT;
-        const maxIterations = isVoice ? MAX_TOOL_ITERATIONS_VOICE : MAX_TOOL_ITERATIONS_TEXT;
-        const maxTokens = isVoice ? 200 : 1024;
-
-        const anthropic = new Anthropic({ apiKey });
-
-        // ── 1. Build system prompt from live graceKnowledge ──────────────────
-        const tKnowledge = Date.now();
-        const knowledge = isVoice
-            ? await ctx.runQuery(api.grace.getVoiceKnowledge, {})
-            : await ctx.runQuery(api.grace.getCoreKnowledge, {});
-        console.log(`[Grace perf] knowledge load: ${Date.now() - tKnowledge}ms (${knowledge.length} entries, mode=${isVoice ? "voice" : "text"})`);
-
-        let systemPrompt = buildSystemPrompt(knowledge);
-        if (args.pageContextBlock) {
-            systemPrompt = args.pageContextBlock + "\n\n" + systemPrompt;
-        }
-        if (isVoice) {
-            systemPrompt += VOICE_MODE_ADDENDUM;
+        if (!conversation) {
+            throw new Error("Failed to create or load Grace conversation.");
         }
 
-        // ── 2. Set up the mutable message list for the agentic loop ──────────
-        const messages: Anthropic.MessageParam[] = args.messages.map((m) => ({
-            role: m.role,
-            content: m.content,
-        }));
+        await ctx.db.insert("messages", {
+            conversationId: conversation._id,
+            role: "user",
+            content: args.userMessage,
+            intent: args.intent,
+            productFamily: args.productFamily,
+            capacityMl: args.capacityMl,
+            color: args.color,
+            applicator: args.applicator,
+            resolvedGroupSlug: args.resolvedGroupSlug,
+            resolutionConfidence: args.resolutionConfidence,
+            provider: args.provider,
+            voiceOrText: args.voiceOrText,
+            createdAt: now,
+        });
 
-        // ── 3. Agentic tool-use loop ──────────────────────────────────────────
+        await ctx.db.insert("messages", {
+            conversationId: conversation._id,
+            role: "assistant",
+            content: args.assistantMessage,
+            toolCallsUsed: args.toolCallsUsed,
+            intent: args.intent,
+            productFamily: args.productFamily,
+            capacityMl: args.capacityMl,
+            color: args.color,
+            applicator: args.applicator,
+            resolvedGroupSlug: args.resolvedGroupSlug,
+            resolutionConfidence: args.resolutionConfidence,
+            latencyMs: args.latencyMs,
+            provider: args.provider,
+            voiceOrText: args.voiceOrText,
+            createdAt: now + 1,
+        });
 
-        async function callAnthropic(retries = 2): Promise<Anthropic.Message> {
-            for (let attempt = 0; attempt <= retries; attempt++) {
-                try {
-                    const tApi = Date.now();
-                    const result = await anthropic.messages.create({
-                        model,
-                        max_tokens: maxTokens,
-                        system: systemPrompt,
-                        tools: GRACE_TOOLS,
-                        messages,
-                    });
-                    console.log(`[Grace perf] anthropic call (${model}): ${Date.now() - tApi}ms`);
-                    return result;
-                } catch (e: unknown) {
-                    const err = e as { status?: number; error?: { status?: number } };
-                    const status = err?.status ?? err?.error?.status;
-                    if ((status === 429 || status === 529) && attempt < retries) {
-                        const wait = Math.min(2000 * Math.pow(2, attempt), 8000);
-                        await new Promise((r) => setTimeout(r, wait));
-                        continue;
-                    }
-                    throw e;
-                }
-            }
-            throw new Error("Exhausted retries");
-        }
+        await ctx.db.patch(conversation._id, {
+            lastMessageAt: now + 1,
+        });
 
-        try {
-            for (let iteration = 0; iteration < maxIterations; iteration++) {
-                const response = await callAnthropic();
-
-                // ── Final text response ───────────────────────────────────────
-                if (response.stop_reason === "end_turn") {
-                    const textBlock = response.content.find((b) => b.type === "text");
-                    console.log(`[Grace perf] TOTAL: ${Date.now() - t0}ms (${iteration + 1} iteration(s))`);
-                    return textBlock && textBlock.type === "text"
-                        ? textBlock.text
-                        : "I wasn't able to formulate a response. Please try rephrasing your question.";
-                }
-
-                // ── Tool use — execute each tool and feed results back ────────
-                if (response.stop_reason === "tool_use") {
-                    messages.push({ role: "assistant", content: response.content });
-
-                    const toolResults: Anthropic.ToolResultBlockParam[] = [];
-
-                    for (const block of response.content) {
-                        if (block.type !== "tool_use") continue;
-
-                        let result: string;
-                        const tTool = Date.now();
-                        try {
-                            if (block.name === "searchCatalog") {
-                                const input = block.input as {
-                                    searchTerm: string;
-                                    categoryLimit?: string;
-                                    familyLimit?: string;
-                                    applicatorFilter?: string;
-                                };
-                                const data = await ctx.runQuery(api.grace.searchCatalog, {
-                                    searchTerm: input.searchTerm,
-                                    categoryLimit: input.categoryLimit,
-                                    familyLimit: input.familyLimit,
-                                    applicatorFilter: input.applicatorFilter,
-                                });
-                                result = data.length > 0
-                                    ? JSON.stringify(data, null, 2)
-                                    : "No products found for that search. Try a broader term.";
-                            } else if (block.name === "getFamilyOverview") {
-                                const input = block.input as { family: string };
-                                const data = await ctx.runQuery(api.grace.getFamilyOverview, {
-                                    family: input.family,
-                                });
-                                result = data
-                                    ? JSON.stringify(data, null, 2)
-                                    : `No products found for the "${input.family}" family. Check the family name spelling.`;
-                            } else if (block.name === "getBottleComponents") {
-                                const input = block.input as { bottleSku: string };
-                                const data = await ctx.runQuery(api.grace.getBottleComponents, {
-                                    bottleSku: input.bottleSku,
-                                });
-                                result = data
-                                    ? JSON.stringify(data, null, 2)
-                                    : `No bottle found with SKU "${input.bottleSku}". Try searchCatalog first to find the correct SKU.`;
-                            } else if (block.name === "checkCompatibility") {
-                                const input = block.input as { threadSize: string };
-                                const data = await ctx.runQuery(api.grace.checkCompatibility, {
-                                    threadSize: input.threadSize,
-                                });
-                                result = data.length > 0
-                                    ? JSON.stringify(data, null, 2)
-                                    : `No fitment data found for thread size ${input.threadSize}.`;
-                            } else if (block.name === "getCatalogStats") {
-                                const data = await ctx.runQuery(api.grace.getCatalogStats, {});
-                                result = JSON.stringify(data, null, 2);
-                            } else {
-                                result = `Unknown tool: ${block.name}`;
-                            }
-                        } catch (e) {
-                            result = `Tool error: ${e instanceof Error ? e.message : String(e)}`;
-                        }
-                        console.log(`[Grace perf] tool ${block.name}: ${Date.now() - tTool}ms`);
-
-                        toolResults.push({
-                            type: "tool_result",
-                            tool_use_id: block.id,
-                            content: result,
-                        });
-                    }
-
-                    messages.push({ role: "user", content: toolResults });
-                    continue;
-                }
-
-                break;
-            }
-        } catch (e: unknown) {
-            const err = e as { status?: number; error?: { status?: number } };
-            const status = err?.status ?? err?.error?.status;
-            console.log(`[Grace perf] TOTAL (error): ${Date.now() - t0}ms`);
-            if (status === 429 || status === 529) {
-                return "I'm experiencing a brief moment of high demand. Could you try again in just a few seconds? I'll be right here.";
-            }
-            console.error("Grace AI error:", err);
-            return "I ran into an unexpected issue. Please try again in a moment, or reach out to our team at sales@nematinternational.com if this persists.";
-        }
-
-        console.log(`[Grace perf] TOTAL: ${Date.now() - t0}ms`);
-        return "I ran into an issue processing your request. Please try again in a moment.";
+        return { conversationId: conversation._id };
     },
 });

@@ -145,9 +145,17 @@ export async function askGraceForViewerProject(projectId: string, message: strin
         },
     ];
 
-    const assistantMessage = await getConvex().action(api.grace.askGrace, {
+    const response = await getConvex().action(api.grace.respond, {
         messages: history,
         voiceMode: false,
+        channel: "portal",
+        sessionMetadata: {
+            sessionId: workspace.activeProject.convexConversationId
+                ? `portal:${viewer.clerkOrgId}:${projectId}`
+                : `portal:${viewer.clerkOrgId}:${projectId}`,
+            entrypoint: "grace-workspace",
+            pageType: "portal",
+        },
     });
 
     await getConvex().mutation(api.portal.saveGraceChatTurn, {
@@ -155,8 +163,19 @@ export async function askGraceForViewerProject(projectId: string, message: strin
         clerkUserId: viewer.clerkUserId,
         projectId: projectId as never,
         userMessage: message,
-        assistantMessage,
+        assistantMessage: response.assistantText,
+        toolCallsUsed: response.toolCallsUsed,
+        intent: response.classification.intent ?? undefined,
+        productFamily: response.classification.productFamily ?? undefined,
+        capacityMl: response.classification.capacityMl ?? undefined,
+        color: response.classification.color ?? undefined,
+        applicator: response.classification.applicator ?? undefined,
+        resolvedGroupSlug: response.classification.resolvedGroupSlug ?? undefined,
+        resolutionConfidence: response.classification.resolutionConfidence ?? undefined,
+        latencyMs: response.latencyMs,
+        provider: response.classification.provider,
+        voiceOrText: response.classification.voiceOrText,
     });
 
-    return { assistantMessage };
+    return { assistantMessage: response.assistantText };
 }

@@ -41,6 +41,17 @@ export async function POST(req: NextRequest) {
         let result: unknown;
 
         switch (tool_name) {
+            case "resolveProductRequest": {
+                result = await convex.query(api.products.resolveProductRequest, {
+                    searchTerm: (parameters.searchTerm as string) ?? "",
+                    applicatorFilter: parameters.applicatorFilter as string | undefined,
+                    categoryLimit: parameters.categoryLimit as string | undefined,
+                    familyLimit: parameters.familyLimit as string | undefined,
+                    limit: parameters.limit as number | undefined,
+                });
+                break;
+            }
+
             case "searchCatalog": {
                 result = await convex.query(api.grace.searchCatalog, {
                     searchTerm: (parameters.searchTerm as string) ?? "",

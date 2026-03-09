@@ -1,0 +1,571 @@
+{
+  "startedAt": "2026-03-08T00:11:58.857Z",
+  "convexUrl": "https://helpful-elephant-638.convex.cloud",
+  "promptsPath": "/Users/jordanrichter/Projects/Clients/Nemat-International/Best-Bottles-Website-02-20-2026/data/grace-evals/prompts.json",
+  "summary": {
+    "promptCount": 12,
+    "passCount": 11,
+    "top1FamilyAccuracy": 9,
+    "top3FamilyRecall": 10,
+    "exactSlugHits": 1,
+    "wrongFamilyCount": 2
+  },
+  "rows": [
+    {
+      "id": "S1",
+      "prompt": "Show me roll-on bottles",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Bell",
+        "Cylinder",
+        "Slim",
+        "Round"
+      ],
+      "expectedResolutionMode": "ranked_groups",
+      "passMetric": "top3FamilyHit",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.5,
+        "bestGroup": {
+          "slug": "bell-10ml-clear-13-415-rollon",
+          "displayName": "10 ml Clear Bell Roll-On Bottle",
+          "family": "Bell",
+          "capacityMl": 10,
+          "color": "Clear",
+          "score": 50,
+          "confidence": 0.5
+        },
+        "top3Groups": [
+          {
+            "slug": "bell-10ml-clear-13-415-rollon",
+            "family": "Bell",
+            "confidence": 0.5
+          },
+          {
+            "slug": "rectangle-10ml-clear-13-415-rollon",
+            "family": "Rectangle",
+            "confidence": 0.5
+          },
+          {
+            "slug": "royal-13ml-clear-13-415-rollon",
+            "family": "Royal",
+            "confidence": 0.5
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    },
+    {
+      "id": "S2",
+      "prompt": "9ml clear cylinder roll-on",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": "cylinder-9ml-clear-13-415-rollon",
+      "expectedTopKFamilies": [
+        "Cylinder"
+      ],
+      "expectedResolutionMode": "exact_group",
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "exact_group",
+        "confidence": 1,
+        "bestGroup": {
+          "slug": "cylinder-9ml-clear-13-415-rollon",
+          "displayName": "9 ml Clear Cylinder Roll-On Bottle",
+          "family": "Cylinder",
+          "capacityMl": 9,
+          "color": "Clear",
+          "score": 112,
+          "confidence": 1
+        },
+        "top3Groups": [
+          {
+            "slug": "cylinder-9ml-clear-13-415-rollon",
+            "family": "Cylinder",
+            "confidence": 1
+          },
+          {
+            "slug": "cylinder-9ml-clear-17-415-rollon",
+            "family": "Cylinder",
+            "confidence": 1
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": true,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    },
+    {
+      "id": "S3",
+      "prompt": "9ml cylinder roller",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Cylinder"
+      ],
+      "expectedResolutionMode": "exact_group",
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "exact_group",
+        "confidence": 0.96,
+        "bestGroup": {
+          "slug": "cylinder-9ml-amber-17-415-rollon",
+          "displayName": "9 ml Amber Cylinder Roll-On Bottle",
+          "family": "Cylinder",
+          "capacityMl": 9,
+          "color": "Amber",
+          "score": 96,
+          "confidence": 0.96
+        },
+        "top3Groups": [
+          {
+            "slug": "cylinder-9ml-amber-17-415-rollon",
+            "family": "Cylinder",
+            "confidence": 0.96
+          },
+          {
+            "slug": "cylinder-9ml-clear-13-415-rollon",
+            "family": "Cylinder",
+            "confidence": 0.96
+          },
+          {
+            "slug": "cylinder-9ml-clear-17-415-rollon",
+            "family": "Cylinder",
+            "confidence": 0.96
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    },
+    {
+      "id": "S4",
+      "prompt": "I need an attar bottle for thick perfume oil",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Apothecary",
+        "Vial",
+        "Cylinder"
+      ],
+      "expectedResolutionMode": "ranked_groups",
+      "passMetric": "top3FamilyHit",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.18,
+        "bestGroup": {
+          "slug": "slim-100ml-clear-18-415-reducer",
+          "displayName": "100 ml Clear Slim Reducer Bottle",
+          "family": "Slim",
+          "capacityMl": 100,
+          "color": "Clear",
+          "score": 18,
+          "confidence": 0.18
+        },
+        "top3Groups": [
+          {
+            "slug": "slim-100ml-clear-18-415-reducer",
+            "family": "Slim",
+            "confidence": 0.18
+          },
+          {
+            "slug": "apothecary-15ml-cobalt-blue-Ground-glassapplicator",
+            "family": "Apothecary",
+            "confidence": 0.18
+          },
+          {
+            "slug": "apothecary-30ml-clear-Ground-glassapplicator",
+            "family": "Apothecary",
+            "confidence": 0.18
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": false,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    },
+    {
+      "id": "S6",
+      "prompt": "Tell me about the Circle family",
+      "expectedTool": "getFamilyOverview",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Circle"
+      ],
+      "expectedResolutionMode": null,
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.39,
+        "bestGroup": {
+          "slug": "circle-100ml-clear-18-415-perfumespray",
+          "displayName": "100 ml Clear Circle Bottle",
+          "family": "Circle",
+          "capacityMl": 100,
+          "color": "Clear",
+          "score": 39,
+          "confidence": 0.39
+        },
+        "top3Groups": [
+          {
+            "slug": "circle-100ml-clear-18-415-perfumespray",
+            "family": "Circle",
+            "confidence": 0.39
+          },
+          {
+            "slug": "circle-100ml-clear-18-415-lotionpump",
+            "family": "Circle",
+            "confidence": 0.39
+          },
+          {
+            "slug": "circle-100ml-clear-18-415-reducer",
+            "family": "Circle",
+            "confidence": 0.39
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": null,
+        "pass": true
+      }
+    },
+    {
+      "id": "S8",
+      "prompt": "Do you have Square bottles?",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Square"
+      ],
+      "expectedResolutionMode": null,
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.41,
+        "bestGroup": {
+          "slug": "square-15ml-clear-13-415",
+          "displayName": "15 ml Clear Square Bottle with Cap",
+          "family": "Square",
+          "capacityMl": 15,
+          "color": "Clear",
+          "score": 41,
+          "confidence": 0.41
+        },
+        "top3Groups": [
+          {
+            "slug": "square-15ml-clear-13-415",
+            "family": "Square",
+            "confidence": 0.41
+          },
+          {
+            "slug": "square-15ml-clear-13-415-finemist",
+            "family": "Square",
+            "confidence": 0.41
+          },
+          {
+            "slug": "square-15ml-clear-13-415-rollon",
+            "family": "Square",
+            "confidence": 0.41
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": null,
+        "pass": true
+      }
+    },
+    {
+      "id": "S9",
+      "prompt": "Do you have a 100ml circle bottle?",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Circle"
+      ],
+      "expectedResolutionMode": "exact_group",
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "exact_group",
+        "confidence": 0.66,
+        "bestGroup": {
+          "slug": "circle-100ml-clear-18-415-perfumespray",
+          "displayName": "100 ml Clear Circle Bottle",
+          "family": "Circle",
+          "capacityMl": 100,
+          "color": "Clear",
+          "score": 66,
+          "confidence": 0.66
+        },
+        "top3Groups": [
+          {
+            "slug": "circle-100ml-clear-18-415-perfumespray",
+            "family": "Circle",
+            "confidence": 0.66
+          },
+          {
+            "slug": "circle-100ml-clear-18-415-lotionpump",
+            "family": "Circle",
+            "confidence": 0.66
+          },
+          {
+            "slug": "circle-100ml-clear-18-415-reducer",
+            "family": "Circle",
+            "confidence": 0.66
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    },
+    {
+      "id": "S10",
+      "prompt": "I need a beard oil splash bottle",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Cylinder",
+        "Round",
+        "Boston Round"
+      ],
+      "expectedResolutionMode": null,
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.22,
+        "bestGroup": {
+          "slug": "slim-100ml-clear-18-415-reducer",
+          "displayName": "100 ml Clear Slim Reducer Bottle",
+          "family": "Slim",
+          "capacityMl": 100,
+          "color": "Clear",
+          "score": 22,
+          "confidence": 0.22
+        },
+        "top3Groups": [
+          {
+            "slug": "slim-100ml-clear-18-415-reducer",
+            "family": "Slim",
+            "confidence": 0.22
+          },
+          {
+            "slug": "slim-30ml-clear-18-415-reducer",
+            "family": "Slim",
+            "confidence": 0.22
+          },
+          {
+            "slug": "diva-46ml-clear-18-415-reducer",
+            "family": "Diva",
+            "confidence": 0.22
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": false,
+        "top3FamilyHit": false,
+        "resolutionModeMatch": null,
+        "pass": false
+      }
+    },
+    {
+      "id": "F3",
+      "prompt": "What fits a 30ml amber Boston Round roll-on bottle?",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Boston Round"
+      ],
+      "expectedResolutionMode": null,
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "exact_group",
+        "confidence": 1,
+        "bestGroup": {
+          "slug": "boston-round-30ml-amber-20-400-rollon",
+          "displayName": "30 ml Amber Boston Round Roll-On Bottle",
+          "family": "Boston Round",
+          "capacityMl": 30,
+          "color": "Amber",
+          "score": 106,
+          "confidence": 1
+        },
+        "top3Groups": [
+          {
+            "slug": "boston-round-30ml-amber-20-400-rollon",
+            "family": "Boston Round",
+            "confidence": 1
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": null,
+        "pass": true
+      }
+    },
+    {
+      "id": "N1",
+      "prompt": "Show me round bottles",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Round"
+      ],
+      "expectedResolutionMode": "ranked_groups",
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.54,
+        "bestGroup": {
+          "slug": "round-128ml-clear-18-415-perfumespray",
+          "displayName": "128 ml Clear Round Bottle",
+          "family": "Round",
+          "capacityMl": 128,
+          "color": "Clear",
+          "score": 54,
+          "confidence": 0.54
+        },
+        "top3Groups": [
+          {
+            "slug": "round-128ml-clear-18-415-perfumespray",
+            "family": "Round",
+            "confidence": 0.54
+          },
+          {
+            "slug": "round-128ml-clear-18-415-dropper",
+            "family": "Round",
+            "confidence": 0.54
+          },
+          {
+            "slug": "round-128ml-clear-18-415-lotionpump",
+            "family": "Round",
+            "confidence": 0.54
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    },
+    {
+      "id": "N2",
+      "prompt": "Show me the 100ml frosted Circle reducer bottle",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [
+        "Circle"
+      ],
+      "expectedResolutionMode": null,
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "exact_group",
+        "confidence": 1,
+        "bestGroup": {
+          "slug": "circle-100ml-frosted-18-415-reducer",
+          "displayName": "100 ml Frosted Circle Reducer Bottle",
+          "family": "Circle",
+          "capacityMl": 100,
+          "color": "Frosted",
+          "score": 102,
+          "confidence": 1
+        },
+        "top3Groups": [
+          {
+            "slug": "circle-100ml-frosted-18-415-reducer",
+            "family": "Circle",
+            "confidence": 1
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": true,
+        "top3FamilyHit": true,
+        "resolutionModeMatch": null,
+        "pass": true
+      }
+    },
+    {
+      "id": "N5",
+      "prompt": "Show me spray bottles",
+      "expectedTool": "searchCatalog",
+      "expectedTopSlug": null,
+      "expectedTopKFamilies": [],
+      "expectedResolutionMode": "ranked_groups",
+      "passMetric": "top1FamilyMatch",
+      "result": {
+        "resolutionMode": "ranked_groups",
+        "confidence": 0.5,
+        "bestGroup": {
+          "slug": "bell-10ml-clear-13-415-finemist",
+          "displayName": "10 ml Clear Bell Fine Mist Spray Bottle",
+          "family": "Bell",
+          "capacityMl": 10,
+          "color": "Clear",
+          "score": 50,
+          "confidence": 0.5
+        },
+        "top3Groups": [
+          {
+            "slug": "bell-10ml-clear-13-415-finemist",
+            "family": "Bell",
+            "confidence": 0.5
+          },
+          {
+            "slug": "circle-100ml-clear-18-415-antiquespray",
+            "family": "Circle",
+            "confidence": 0.5
+          },
+          {
+            "slug": "cylinder-100ml-clear-18-415-antiquespray",
+            "family": "Cylinder",
+            "confidence": 0.5
+          }
+        ]
+      },
+      "metrics": {
+        "topSlugMatch": null,
+        "top1FamilyMatch": null,
+        "top3FamilyHit": null,
+        "resolutionModeMatch": true,
+        "pass": true
+      }
+    }
+  ]
+}

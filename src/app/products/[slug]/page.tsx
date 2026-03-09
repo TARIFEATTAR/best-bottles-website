@@ -84,6 +84,8 @@ function getFinishFromGraceSku(graceSku: string | null | undefined): { label: st
         PNK: { label: "Pink", swatchName: "Pink" },
         GRN: { label: "Green", swatchName: "Green" },
         BKDT: { label: "Black with Dots", swatchName: "Black" },
+        SLDT: { label: "Silver with Dots", swatchName: "Shiny Silver" },
+        PKDT: { label: "Pink with Dots", swatchName: "Pink" },
     };
     return map[token] ?? null;
 }
@@ -114,14 +116,28 @@ function getCapFinishFromItemName(itemName: string | null | undefined): { label:
         if (name.startsWith("matte silver")) return { label: "Matte Silver (Clear Overcap)", swatchName: "Matte Silver" };
         if (name.startsWith("matte gold")) return { label: "Matte Gold (Clear Overcap)", swatchName: "Matte Gold" };
     }
+    // Dot-pattern caps (must come before generic "black cap" / "silver cap" to avoid false matches)
+    if (name.includes("black dot cap") || name.includes("black dots cap"))
+        return { label: "Black with Dots", swatchName: "Black" };
+    if (name.includes("silver dot cap") || name.includes("silver dots cap"))
+        return { label: "Silver with Dots", swatchName: "Shiny Silver" };
+    if (name.includes("pink dot cap") || name.includes("pink dots cap"))
+        return { label: "Pink with Dots", swatchName: "Pink" };
+
+    // Specific two-word finishes (must precede single-word generic matches)
+    if (name.includes("shiny black cap")) return { label: "Shiny Black", swatchName: "Shiny Black" };
+    if (name.includes("matte copper cap")) return { label: "Matte Copper", swatchName: "Matte Copper" };
+    if (name.includes("shiny copper cap")) return { label: "Shiny Copper", swatchName: "Copper" };
     if (name.includes("short black cap")) return { label: "Short Black", swatchName: "Black" };
     if (name.includes("short white cap")) return { label: "Short White", swatchName: "White" };
     if (name.includes("shiny silver cap")) return { label: "Shiny Silver", swatchName: "Shiny Silver" };
     if (name.includes("matte silver cap")) return { label: "Matte Silver", swatchName: "Matte Silver" };
     if (name.includes("shiny gold cap")) return { label: "Shiny Gold", swatchName: "Shiny Gold" };
     if (name.includes("matte gold cap")) return { label: "Matte Gold", swatchName: "Matte Gold" };
+    if (name.includes("matte black cap")) return { label: "Matte Black", swatchName: "Matte Black" };
     if (name.includes("white cap")) return { label: "White", swatchName: "White" };
     if (name.includes("black cap")) return { label: "Black", swatchName: "Black" };
+    if (name.includes("copper cap")) return { label: "Copper", swatchName: "Copper" };
     if (name.includes("silver cap")) return { label: "Silver", swatchName: "Shiny Silver" };
     if (name.includes("gold cap")) return { label: "Gold", swatchName: "Shiny Gold" };
     return null;
@@ -293,6 +309,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const [fitmentDrawerOpen, setFitmentDrawerOpen] = useState(false);
     
     const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
+    const [selectedApplicator, setSelectedApplicator] = useState<string | null>(null);
     const [selectedCapColor, setSelectedCapColor] = useState<string | null>(null);
     const [selectedCapStyle, setSelectedCapStyle] = useState<string | null>(null);
     const [selectedTrimColor, setSelectedTrimColor] = useState<string | null>(null);
@@ -367,6 +384,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         [variants]
     );
 
+    const isRollonApplicatorGroup = useMemo(
+        () => applicatorOptions.length > 1 && applicatorOptions.every((a) => ROLLON_APPLICATORS.has(a)),
+        [applicatorOptions]
+    );
+
     // Default applicator: URL param (Option A) > user selection > first option > cap closure
     const defaultFromUrl = useMemo(() => {
         if (!applicatorParam) return null;
@@ -385,7 +407,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         router.replace(`/products/${slug}`);
     }, [applicatorParam, validApplicatorParam, router, slug]);
 
-    const activeApplicator = defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
+    const activeApplicator = selectedApplicator ?? defaultFromUrl ?? applicatorOptions[0] ?? (hasCapClosure ? "Cap/Closure" : null);
     const variantsForApplicator = useMemo(
         () => variants.filter((v) => v.applicator === activeApplicator),
         [variants, activeApplicator]
@@ -813,6 +835,43 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                             {!isAtomizer && (
                                 <>
+                                    {/* Applicator toggle (Metal vs Plastic roller for roll-on bottles) */}
+                                    {isRollonApplicatorGroup && (
+                                        <div className="mb-6">
+                                            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
+                                                Roller Type
+                                            </p>
+                                            <div className="inline-flex rounded-sm border border-champagne overflow-hidden">
+                                                {applicatorOptions.map((opt) => {
+                                                    const isActive = activeApplicator === opt;
+                                                    const shortLabel = opt
+                                                        .replace(" Ball", "")
+                                                        .replace("Roller", "Roller");
+                                                    return (
+                                                        <button
+                                                            key={opt}
+                                                            onClick={() => {
+                                                                setSelectedApplicator(opt);
+                                                                setSelectedVariantId(null);
+                                                                setSelectedCapColor(null);
+                                                                setSelectedCapStyle(null);
+                                                                setSelectedTrimColor(null);
+                                                                setSelectedCapComponentSku(null);
+                                                            }}
+                                                            className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all ${
+                                                                isActive
+                                                                    ? "bg-obsidian text-white"
+                                                                    : "bg-white text-obsidian hover:bg-travertine"
+                                                            }`}
+                                                        >
+                                                            {shortLabel}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {/* Cap color selector */}
                                     {capColorOptions.length > 0 && (
                                         <div className="mb-6">

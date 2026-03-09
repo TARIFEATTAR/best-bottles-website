@@ -1,0 +1,100 @@
+[
+  {
+    "id": "S1",
+    "prompt": "Show me roll-on bottles",
+    "familyLimit": null,
+    "expectedTool": "searchCatalog",
+    "expectedResolutionMode": "ranked_groups",
+    "expectedTopKFamilies": ["Bell", "Cylinder", "Slim", "Round"],
+    "expectedApplicatorBucket": "rollon"
+  },
+  {
+    "id": "S2",
+    "prompt": "9ml clear cylinder roll-on",
+    "familyLimit": "Cylinder",
+    "expectedTool": "searchCatalog",
+    "expectedTopSlug": "cylinder-9ml-clear-13-415-rollon",
+    "expectedResolutionMode": "exact_group",
+    "expectedTopKFamilies": ["Cylinder"],
+    "expectedApplicatorBucket": "rollon"
+  },
+  {
+    "id": "S3",
+    "prompt": "9ml cylinder roller",
+    "familyLimit": "Cylinder",
+    "expectedTool": "searchCatalog",
+    "expectedResolutionMode": "exact_group",
+    "expectedTopKFamilies": ["Cylinder"],
+    "expectedApplicatorBucket": "rollon"
+  },
+  {
+    "id": "S4",
+    "prompt": "I need an attar bottle for thick perfume oil",
+    "familyLimit": null,
+    "expectedTool": "searchCatalog",
+    "expectedResolutionMode": "ranked_groups",
+    "expectedTopKFamilies": ["Apothecary", "Vial", "Cylinder"]
+  },
+  {
+    "id": "S6",
+    "prompt": "Tell me about the Circle family",
+    "familyLimit": "Circle",
+    "expectedTool": "getFamilyOverview",
+    "expectedTopKFamilies": ["Circle"]
+  },
+  {
+    "id": "S8",
+    "prompt": "Do you have Square bottles?",
+    "familyLimit": "Square",
+    "expectedTool": "searchCatalog",
+    "expectedTopKFamilies": ["Square"]
+  },
+  {
+    "id": "S9",
+    "prompt": "Do you have a 100ml circle bottle?",
+    "familyLimit": "Circle",
+    "expectedTool": "searchCatalog",
+    "expectedTopKFamilies": ["Circle"],
+    "expectedResolutionMode": "exact_group"
+  },
+  {
+    "id": "S10",
+    "prompt": "I need a beard oil splash bottle",
+    "familyLimit": null,
+    "expectedTool": "searchCatalog",
+    "expectedTopKFamilies": ["Cylinder", "Round", "Boston Round"],
+    "expectedApplicatorBucket": "reducer"
+  },
+  {
+    "id": "F3",
+    "prompt": "What fits a 30ml amber Boston Round roll-on bottle?",
+    "familyLimit": "Boston Round",
+    "expectedTool": "searchCatalog",
+    "expectedTopKFamilies": ["Boston Round"],
+    "expectedApplicatorBucket": "rollon"
+  },
+  {
+    "id": "N1",
+    "prompt": "Show me round bottles",
+    "familyLimit": "Round",
+    "expectedTool": "searchCatalog",
+    "expectedTopKFamilies": ["Round"],
+    "expectedResolutionMode": "ranked_groups"
+  },
+  {
+    "id": "N2",
+    "prompt": "Show me the 100ml frosted Circle reducer bottle",
+    "familyLimit": "Circle",
+    "expectedTool": "searchCatalog",
+    "expectedTopKFamilies": ["Circle"],
+    "expectedApplicatorBucket": "reducer"
+  },
+  {
+    "id": "N5",
+    "prompt": "Show me spray bottles",
+    "familyLimit": null,
+    "expectedTool": "searchCatalog",
+    "expectedResolutionMode": "ranked_groups",
+    "expectedApplicatorBucket": "spray"
+  }
+]
