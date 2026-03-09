@@ -1213,144 +1213,93 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const { filtered, facets, totalCount } = useMemo(() => {
         if (!allGroups) return { filtered: [], facets: null, totalCount: 0 };
 
-        let result = [...allGroups];
-        const total = result.length;
+        const SLUG_BUCKET_SUFFIXES: Record<string, string[]> = {
+            rollon: ["-rollon"], spray: ["-spray"], dropper: ["-dropper"], lotionpump: ["-lotionpump"], reducer: ["-reducer"],
+        };
 
-        // Search (multi-field, including SKU)
-        if (filters.search) {
-            let term = filters.search.toLowerCase()
-                // Replace spelled out numbers commonly spoken to Grace
-                .replace(/\bnine\b/g, "9")
-                .replace(/\bfive\b/g, "5")
-                .replace(/\bten\b/g, "10")
-                .replace(/\bthirty\b/g, "30")
-                .replace(/\bfifty\b/g, "50")
-                .replace(/\bone hundred\b/g, "100")
-                // Remove punctuation
-                .replace(/[^\w\s-]/g, "");
+        // Run filters; when skipMultiSelect=true, omit families/capacities/applicators/colors/neckThreadSizes
+        // so facet counts show "add this option" availability (Baymard: multi-select within facet type).
+        const runFilters = (skipMultiSelect: boolean): CatalogGroup[] => {
+            let r = [...allGroups];
 
-            const tokens = term.split(/\s+/).filter(Boolean);
-
-            if (tokens.length > 0) {
-                result = result.filter((g) => {
-                    // Include all major display fields + applicator types + SKU
-                    const fields = [
-                        g.displayName,
-                        g.family,
-                        g.color,
-                        g.capacity,
-                        g.neckThreadSize,
-                        g.bottleCollection,
-                        g.slug,
-                        (g.applicatorTypes ?? []).join(" "),
-                        skuMap.get(g._id)
-                    ].map(f => {
-                        // Fully cross-match all terms for roll-on bottles
-                        // so that 'roller ball' matches 'rollon', etc.
-                        return (f || "").toLowerCase()
+            if (filters.search) {
+                const term = filters.search.toLowerCase()
+                    .replace(/\bnine\b/g, "9").replace(/\bfive\b/g, "5").replace(/\bten\b/g, "10")
+                    .replace(/\bthirty\b/g, "30").replace(/\bfifty\b/g, "50").replace(/\bone hundred\b/g, "100")
+                    .replace(/[^\w\s-]/g, "");
+                const tokens = term.split(/\s+/).filter(Boolean);
+                if (tokens.length > 0) {
+                    r = r.filter((g) => {
+                        const fields = [
+                            g.displayName, g.family, g.color, g.capacity, g.neckThreadSize, g.bottleCollection, g.slug,
+                            (g.applicatorTypes ?? []).join(" "), skuMap.get(g._id)
+                        ].map(f => (f || "").toLowerCase()
                             .replace(/\broll[ -]?on\b/g, "rollon roller roll-on ball")
                             .replace(/\brollon\b/g, "rollon roller roll-on ball")
                             .replace(/\broller\b/g, "rollon roller roll-on ball")
-                            .replace(/\bball\b/g, "rollon roller roll-on ball");
+                            .replace(/\bball\b/g, "rollon roller roll-on ball"));
+                        return tokens.every(t => fields.join(" ").toLowerCase().includes(t));
                     });
+                }
+            }
+            if (filters.category) r = r.filter((g) => g.category === filters.category);
+            if (filters.collection) r = r.filter((g) => g.bottleCollection === filters.collection);
 
-                    const searchTarget = fields.join(" ").toLowerCase();
-
-                    // All tokens from the input (e.g. '9', 'ml', 'roller', 'ball')
-                    // must be present somewhere in our expanded searchTarget.
-                    return tokens.every(token => searchTarget.includes(token));
+            if (!skipMultiSelect && filters.applicators.length > 0) {
+                r = r.filter((g) => {
+                    const types = g.applicatorTypes ?? [];
+                    const slug = g.slug ?? "";
+                    return filters.applicators.some((bucket) => {
+                        if (!applicatorBucketMatchesProductValues(bucket, types)) return false;
+                        const allowedSuffixes = SLUG_BUCKET_SUFFIXES[bucket];
+                        return !allowedSuffixes || allowedSuffixes.some((s) => slug.endsWith(s));
+                    });
                 });
             }
-        }
-
-        // Category
-        if (filters.category) {
-            result = result.filter((g) => g.category === filters.category);
-        }
-
-        // Collection
-        if (filters.collection) {
-            result = result.filter((g) => g.bottleCollection === filters.collection);
-        }
-
-        // Applicator type (Option A — applicator-first)
-        // Belt-and-suspenders: also filter by slug suffix so spray never appears in roll-on, etc.
-        const SLUG_BUCKET_SUFFIXES: Record<string, string[]> = {
-            rollon: ["-rollon"],
-            spray: ["-spray"],
-            dropper: ["-dropper"],
-            lotionpump: ["-lotionpump"],
-            reducer: ["-reducer"],
+            if (!skipMultiSelect && filters.families.length > 0) {
+                const familySet = new Set(filters.families);
+                r = r.filter((g) => g.family != null && familySet.has(g.family));
+            }
+            if (!skipMultiSelect && filters.colors.length > 0) {
+                const set = new Set(filters.colors);
+                r = r.filter((g) => g.color && set.has(g.color));
+            }
+            if (!skipMultiSelect && filters.capacities.length > 0) {
+                const selectedMls = new Set(
+                    filters.capacities.map((cap) => {
+                        const m = cap.match(/^(\d+(?:\.\d+)?)\s*ml/i);
+                        return m ? parseFloat(m[1]) : null;
+                    }).filter((n): n is number => n !== null)
+                );
+                r = r.filter((g) => g.capacityMl != null && selectedMls.has(g.capacityMl));
+            }
+            if (!skipMultiSelect && filters.neckThreadSizes.length > 0) {
+                const set = new Set(filters.neckThreadSizes);
+                r = r.filter((g) => g.neckThreadSize && set.has(g.neckThreadSize));
+            }
+            if (filters.componentType) {
+                r = r.filter((g) => classifyComponentType(g.displayName, g.family) === filters.componentType);
+            }
+            if (filters.priceMin !== null) {
+                r = r.filter((g) => g.priceRangeMin !== null && g.priceRangeMin >= filters.priceMin!);
+            }
+            if (filters.priceMax !== null) {
+                r = r.filter((g) => g.priceRangeMin !== null && g.priceRangeMin <= filters.priceMax!);
+            }
+            return r;
         };
-        if (filters.applicators.length > 0) {
-            result = result.filter((g) => {
-                const types = g.applicatorTypes ?? [];
-                const slug = g.slug ?? "";
-                const matchesBucket = filters.applicators.some((bucket) => {
-                    if (!applicatorBucketMatchesProductValues(bucket, types)) return false;
-                    const allowedSuffixes = SLUG_BUCKET_SUFFIXES[bucket];
-                    if (allowedSuffixes && !allowedSuffixes.some((s) => slug.endsWith(s))) return false;
-                    return true;
-                });
-                return matchesBucket;
-            });
-        }
 
-        // Families (multi-select) — strict match only
-        if (filters.families.length > 0) {
-            const familySet = new Set(filters.families);
-            result = result.filter((g) => g.family != null && familySet.has(g.family));
-        }
+        const result = runFilters(false);
+        const facetBase = runFilters(true); // broader set for facet counts (multi-select options stay visible)
 
-        // Colors (multi-select)
-        if (filters.colors.length > 0) {
-            const set = new Set(filters.colors);
-            result = result.filter((g) => g.color && set.has(g.color));
-        }
-
-        // Capacities (multi-select) — match by ml value so normalised labels still filter
-        if (filters.capacities.length > 0) {
-            // filters.capacities now stores canonical labels like "5 ml"; extract ml numbers for matching
-            const selectedMls = new Set(
-                filters.capacities.map((cap) => {
-                    const m = cap.match(/^(\d+(?:\.\d+)?)\s*ml/i);
-                    return m ? parseFloat(m[1]) : null;
-                }).filter((n): n is number => n !== null)
-            );
-            result = result.filter((g) => g.capacityMl !== null && g.capacityMl !== undefined && selectedMls.has(g.capacityMl));
-        }
-
-        // Neck thread sizes (multi-select)
-        if (filters.neckThreadSizes.length > 0) {
-            const set = new Set(filters.neckThreadSizes);
-            result = result.filter((g) => g.neckThreadSize && set.has(g.neckThreadSize));
-        }
-
-        // Component type
-        if (filters.componentType) {
-            result = result.filter((g) => classifyComponentType(g.displayName, g.family) === filters.componentType);
-        }
-
-        // Price range
-        if (filters.priceMin !== null) {
-            result = result.filter((g) => g.priceRangeMin !== null && g.priceRangeMin >= filters.priceMin!);
-        }
-        if (filters.priceMax !== null) {
-            result = result.filter((g) => g.priceRangeMin !== null && g.priceRangeMin <= filters.priceMax!);
-        }
-
-        // Compute facets from filtered set
+        // Compute multi-select facets from facetBase so options stay visible (Baymard)
         const applicatorCounts: Record<string, number> = {};
         for (const bucket of APPLICATOR_BUCKETS) {
-            const count = result.filter((g) => applicatorBucketMatchesProductValues(bucket.value, g.applicatorTypes ?? [])).length;
+            const count = facetBase.filter((g) => applicatorBucketMatchesProductValues(bucket.value, g.applicatorTypes ?? [])).length;
             if (count > 0) applicatorCounts[bucket.value] = count;
         }
-        // Build families facet — only count bottle/jar categories, not components.
-        // This prevents families like "Lotion Pump", "Sprayer", "Roll-On Cap", "Dropper"
-        // (which are component applicator types) from appearing alongside bottle design
-        // families in the sidebar. Components already have their own "Component Type" filter.
         const familyFacets = countBy(
-            result.filter((g) => !COMPONENT_CATEGORIES.has(g.category)),
+            facetBase.filter((g) => !COMPONENT_CATEGORIES.has(g.category)),
             (g) => g.family,
         );
         const facetData: Facets = {
@@ -1358,27 +1307,27 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             collections: countBy(result, (g) => g.bottleCollection),
             applicators: applicatorCounts,
             families: familyFacets,
-            colors: countBy(result, (g) => g.color),
+            colors: countBy(facetBase, (g) => g.color),
             capacities: {},
-            neckThreadSizes: countBy(result, (g) => g.neckThreadSize),
+            neckThreadSizes: countBy(facetBase, (g) => g.neckThreadSize),
             componentTypes: countBy(result, (g) => classifyComponentType(g.displayName, g.family)),
             priceRange: { min: Infinity, max: -Infinity },
         };
 
-        // Build capacity facets — normalise all raw strings to a canonical "X ml" label
-        // keyed by ml value so "5 ml (0.17 oz)" and "5.0 ml" merge into one entry "5 ml".
+        // Build capacity facets from facetBase
         const capMap: Record<number, { label: string; count: number }> = {};
-        for (const g of result) {
+        for (const g of facetBase) {
             const ml = g.capacityMl;
             if (ml !== null && ml !== undefined && ml > 0) {
                 if (!capMap[ml]) {
-                    // Format: integer if whole number, one decimal if not (e.g. 4.5 ml)
                     const label = Number.isInteger(ml) ? `${ml} ml` : `${ml} ml`;
                     capMap[ml] = { label, count: 0 };
                 }
                 capMap[ml].count++;
             }
-            if (g.priceRangeMin !== null && g.priceRangeMin !== undefined) {
+        }
+        for (const g of result) {
+            if (g.priceRangeMin != null) {
                 if (g.priceRangeMin < facetData.priceRange.min) facetData.priceRange.min = g.priceRangeMin;
                 if (g.priceRangeMin > facetData.priceRange.max) facetData.priceRange.max = g.priceRangeMin;
             }
@@ -1438,7 +1387,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             });
         }
 
-        return { filtered: result, facets: facetData, totalCount: total };
+        return { filtered: result, facets: facetData, totalCount: result.length };
     }, [allGroups, filters, sortBy, skuMap]);
 
     const visibleProducts = filtered.slice(0, visibleCount);
