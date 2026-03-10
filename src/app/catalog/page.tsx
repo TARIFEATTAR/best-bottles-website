@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
-    Search, ArrowRight, X, Package, ChevronDown, ChevronUp,
-    SlidersHorizontal, ArrowUpDown, LayoutGrid, List, Plus, Minus, ShoppingCart, MessageCircle, Sparkles,
-} from "lucide-react";
+    MagnifyingGlass as Search, ArrowRight, X, Package, CaretDown as ChevronDown, CaretUp as ChevronUp,
+    SlidersHorizontal, ArrowsDownUp as ArrowUpDown, SquaresFour as LayoutGrid, List, Plus, Minus, ShoppingCart, ChatCircle as MessageCircle, Sparkles,
+} from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";

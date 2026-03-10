@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, Calendar } from "lucide-react";
+import { ArrowLeft, Clock, Calendar } from "@/components/icons";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Navbar from "@/components/Navbar";
 import { client, isSanityConfigured } from "@/sanity/lib/client";

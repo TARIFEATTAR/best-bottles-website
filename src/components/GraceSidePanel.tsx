@@ -5,10 +5,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     X,
-    Send,
-    Mic,
-    Volume2,
-    VolumeX,
+    PaperPlaneTilt,
+    Microphone,
+    SpeakerHigh,
+    SpeakerSlash,
     StopCircle,
     ShoppingCart,
     ArrowRight,
@@ -18,12 +18,12 @@ import {
     GitCompare,
     FileText,
     ExternalLink,
-    ChevronDown,
+    CaretDown,
     Maximize2,
     PanelRightClose,
     Loader2,
     CheckCircle2,
-} from "lucide-react";
+} from "@/components/icons";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useGrace, type GraceStatus, type GraceAction, type ProductCard } from "./useGrace";
@@ -175,7 +175,7 @@ function InlineGraceForm({ formType, prefilled }: { formType: string; prefilled:
     if (submitStatus === "success") {
         return (
             <div className="flex flex-col items-center gap-2 py-4 text-center">
-                <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                <CheckCircle2 className="text-emerald-500" size={32} />
                 <p className="text-xs font-semibold text-obsidian">Submitted!</p>
                 <p className="text-[10px] text-slate leading-relaxed">
                     {formType === "sample"
@@ -225,9 +225,9 @@ function InlineGraceForm({ formType, prefilled }: { formType: string; prefilled:
                 className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg bg-obsidian text-bone text-xs font-bold hover:bg-muted-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 {submitStatus === "submitting" ? (
-                    <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Submitting…</>
+                    <><Loader2 className="animate-spin" size={14} /> Submitting…</>
                 ) : (
-                    <><Send className="w-3.5 h-3.5" /> Submit</>
+                    <><PaperPlaneTilt size={14} /> Submit</>
                 )}
             </button>
         </form>
@@ -283,7 +283,7 @@ function LiveFormPanel() {
             {/* Success state */}
             {submitted ? (
                 <div className="flex flex-col items-center gap-2 px-4 py-5 text-center">
-                    <CheckCircle2 className="w-9 h-9 text-emerald-500" />
+                    <CheckCircle2 className="text-emerald-500" size={36} />
                     <p className="text-xs font-semibold text-obsidian">Submitted — you're all set.</p>
                     <p className="text-[10px] text-slate leading-relaxed">
                         {formType === "sample"
@@ -365,9 +365,9 @@ function LiveFormPanel() {
                             className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-obsidian text-bone text-xs font-bold hover:bg-muted-gold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                             {submitting ? (
-                                <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Submitting…</>
+                                <><Loader2 className="animate-spin" size={14} /> Submitting…</>
                             ) : (
-                                <><Send className="w-3.5 h-3.5" /> Submit</>
+                                <><PaperPlaneTilt size={14} /> Submit</>
                             )}
                         </button>
                         <button
@@ -714,7 +714,7 @@ function VoiceStrip({ isMobile }: { isMobile: boolean }) {
                             className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                             aria-label="Interrupt"
                         >
-                            <Mic className="w-3.5 h-3.5 text-bone" />
+                            <Microphone className="text-bone" size={14} />
                         </button>
                     )}
                     <button
@@ -757,7 +757,7 @@ function VoiceStrip({ isMobile }: { isMobile: boolean }) {
                     </span>
                 )}
                 {!isListening && !isSpeaking && (
-                    <Mic className="w-4 h-4 text-bone/60" />
+                    <Microphone className="text-bone/60" size={16} />
                 )}
                 {graceQuery && (
                     <p
@@ -775,7 +775,7 @@ function VoiceStrip({ isMobile }: { isMobile: boolean }) {
                     className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                     aria-label="Expand panel"
                 >
-                    <Maximize2 className="w-4 h-4 text-bone/70" />
+                    <Maximize2 className="text-bone/70" size={16} />
                 </button>
                 <button
                     onClick={(e) => { e.stopPropagation(); endConversation(); closePanel(); }}
@@ -861,7 +861,7 @@ function VoiceWaveWidget({
                         <span /><span /><span /><span />
                     </span>
                 ) : (
-                    <Mic className="w-5 h-5 text-obsidian/70 group-hover:text-muted-gold transition-colors duration-200" />
+                    <Microphone className="text-obsidian/70 group-hover:text-muted-gold transition-colors duration-200" size={20} />
                 )}
             </button>
 
@@ -944,12 +944,8 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const composerRef = useRef<HTMLDivElement>(null);
-    const pathname = usePathname();
 
-    const isProductPage = pathname?.startsWith("/products/");
-    const chips = isProductPage
-        ? ["Pair a cap", "View compatibility", "See bulk pricing", "Add to order"]
-        : ["Find a bottle", "Check compatibility", "Volume pricing", "Track my order"];
+    const chips: string[] = [];
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -994,7 +990,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                             aria-label="Minimize to sidebar"
                             title="Minimize to voice strip"
                         >
-                            <PanelRightClose className="w-4 h-4 text-slate transition-all duration-200 group-hover:text-muted-gold group-hover:translate-x-0.5" />
+                            <PanelRightClose className="text-slate transition-all duration-200 group-hover:text-muted-gold group-hover:translate-x-0.5" size={16} />
                         </button>
                     )}
                     <div className="w-8 h-8 rounded-full bg-obsidian flex items-center justify-center shrink-0">
@@ -1017,7 +1013,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                             title="Minimize to voice strip"
                             className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
                         >
-                            <ChevronDown className="w-4 h-4 text-slate" />
+                            <CaretDown className="text-slate" size={16} />
                         </button>
                     )}
                     <button
@@ -1025,7 +1021,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                         aria-label={voiceEnabled ? "Mute" : "Unmute"}
                         className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
                     >
-                        {voiceEnabled ? <Volume2 className="w-3.5 h-3.5 text-muted-gold" /> : <VolumeX className="w-3.5 h-3.5 text-slate/40" />}
+                        {voiceEnabled ? <SpeakerHigh className="text-muted-gold" size={14} /> : <SpeakerSlash className="text-slate/40" size={14} />}
                     </button>
                     {cartCount > 0 && (
                         <button
@@ -1287,7 +1283,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                                     ))}
                                 </span>
                             )}
-                            {!isListening && !isSpeaking && !isProcessing && <Mic className="w-3 h-3 text-muted-gold shrink-0" />}
+                            {!isListening && !isSpeaking && !isProcessing && <Microphone className="text-muted-gold shrink-0" size={12} />}
                             <span className="text-[11px] text-slate font-medium truncate">
                                 {isConnecting ? "Connecting…" : isListening ? "Listening…" : isSpeaking ? "Speaking…" : isProcessing ? "Thinking…" : "Voice active"}
                             </span>
@@ -1297,7 +1293,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                                 onClick={() => { stopSpeaking(); startDictation(); }}
                                 className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-obsidian text-bone text-[11px] font-semibold hover:bg-muted-gold transition-colors shrink-0"
                             >
-                                <Mic className="w-3 h-3" /> Cut in
+                                <Microphone size={12} /> Cut in
                             </button>
                         )}
                         <button
@@ -1333,7 +1329,7 @@ function ChatPanel({ isMobile }: { isMobile: boolean }) {
                             aria-label="Send"
                             className="p-1.5 bg-obsidian disabled:bg-champagne/50 text-bone rounded-lg transition-colors hover:bg-muted-gold disabled:cursor-not-allowed"
                         >
-                            <Send className="w-3.5 h-3.5" />
+                            <PaperPlaneTilt size={14} />
                         </button>
                     </div>
                 </div>

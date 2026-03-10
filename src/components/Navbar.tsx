@@ -5,10 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-    Search, User, ShoppingBag, Mic, ChevronDown, Menu, X,
-    Sparkles, FlaskConical, Gem, ArrowRight,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+    MagnifyingGlass, User, ShoppingBag, Microphone, CaretDown, List, X,
+    Sparkle, Flask, Diamond, ArrowRight,
+} from "@/components/icons";
 import { useGrace } from "./useGrace";
 import { useCart } from "./CartProvider";
 import CartDrawer from "./CartDrawer";
@@ -33,11 +32,13 @@ interface MenuColumn {
     links: Array<{ label: string; href: string; badge?: string }>;
 }
 
+type IconWeight = "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+
 interface FeaturedCard {
     title: string;
     subtitle: string;
     href: string;
-    placeholderIcon: LucideIcon;
+    placeholderIcon: React.ComponentType<{ className?: string; size?: number; weight?: IconWeight }>;
     accentColor: string;
 }
 
@@ -86,7 +87,7 @@ const MEGA_PANELS: Record<MegaMenuId, MegaPanel> = {
             title: "New: Grace Collection",
             subtitle: "Refined 55 ml silhouette with premium spray, reducer, and lotion pump options.",
             href: "/catalog?families=Grace",
-            placeholderIcon: Sparkles,
+            placeholderIcon: Sparkle,
             accentColor: "bg-gradient-to-br from-muted-gold/20 to-champagne/40",
         },
         footerLinks: [
@@ -126,7 +127,7 @@ const MEGA_PANELS: Record<MegaMenuId, MegaPanel> = {
             title: "Find Compatible Parts",
             subtitle: "Every bottle page shows its compatible closures. Or ask Grace to match parts by thread size.",
             href: "/catalog?category=Component",
-            placeholderIcon: FlaskConical,
+            placeholderIcon: Flask,
             accentColor: "bg-gradient-to-br from-slate/10 to-champagne/30",
         },
         footerLinks: [
@@ -168,7 +169,7 @@ const MEGA_PANELS: Record<MegaMenuId, MegaPanel> = {
             title: "Decorative Collection",
             subtitle: "Heart, Tola, Marble, Genie, Eternal Flame, and Pear — exquisite artisan shapes.",
             href: "/catalog?families=Decorative",
-            placeholderIcon: Gem,
+            placeholderIcon: Diamond,
             accentColor: "bg-gradient-to-br from-rose-50 to-champagne/40",
         },
         footerLinks: [
@@ -446,7 +447,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             className="lg:hidden p-2 -ml-2 text-obsidian hover:text-muted-gold transition-colors shrink-0"
                             onClick={() => setMobileMenuOpen(true)}
                         >
-                            <Menu className="w-5 h-5" strokeWidth={1.75} />
+                            <List size={20} weight="regular" />
                         </button>
                         {/* Mobile logo — text, Cormorant, left-aligned */}
                         <Link
@@ -484,9 +485,9 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                                 }`}
                                         >
                                             {link.label}
-                                            <ChevronDown
-                                                className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
-                                                    }`}
+                                            <CaretDown
+                                                className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                                                size={14}
                                             />
                                         </button>
 
@@ -521,7 +522,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             className="hidden lg:flex min-w-0 items-center border border-champagne rounded-xl px-3 py-2 bg-white/60 focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/15 transition-all duration-200 space-x-2 lg:min-w-[520px] lg:max-w-[520px]"
                             suppressHydrationWarning
                         >
-                            <Search className="w-4 h-4 text-slate shrink-0" />
+                            <MagnifyingGlass className="text-slate shrink-0" size={16} />
                             <input
                                 type="text"
                                 value={searchValue}
@@ -543,7 +544,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                         : "text-slate/40 hover:text-slate"
                                     }`}
                             >
-                                <Mic className="w-4 h-4" />
+                                <Microphone size={16} />
                             </button>
                             <button type="submit" className="sr-only">Search</button>
                         </form>
@@ -572,7 +573,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             </button>
 
                             <Link href="/sign-in" aria-label="Account" className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors">
-                                <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
+                                <User className="text-obsidian" size={20} />
                             </Link>
 
                             <button
@@ -580,7 +581,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                 onClick={() => setCartOpen(true)}
                                 className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors relative cursor-pointer"
                             >
-                                <ShoppingBag className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
+                                <ShoppingBag className="text-obsidian" size={20} />
                                 {itemCount > 0 && (
                                     <span className="absolute top-0.5 right-0.5 bg-muted-gold text-white text-[10px] w-[16px] h-[16px] flex items-center justify-center rounded-full font-semibold">
                                         {itemCount > 99 ? "99" : itemCount}
@@ -597,7 +598,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                             className="flex flex-1 items-center border border-champagne rounded-xl px-3 py-2 bg-white/60 focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/15 transition-all duration-200 space-x-2"
                             suppressHydrationWarning
                         >
-                            <Search className="w-4 h-4 text-slate shrink-0" />
+                            <MagnifyingGlass className="text-slate shrink-0" size={16} />
                             <input
                                 type="text"
                                 value={searchValue}
@@ -619,7 +620,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                         : "text-slate/40 hover:text-slate"
                                     }`}
                             >
-                                <Mic className="w-4 h-4" />
+                                <Microphone size={16} />
                             </button>
                             <button type="submit" className="sr-only">Search</button>
                         </form>
@@ -661,7 +662,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                 onClick={() => setMobileMenuOpen(false)}
                                 className="p-2 text-obsidian hover:text-muted-gold transition-colors"
                             >
-                                <X className="w-5 h-5" />
+                                <X size={20} />
                             </button>
                         </div>
 
@@ -677,7 +678,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                                 className="flex items-center justify-between py-3 min-h-[44px] text-sm font-semibold tracking-wide text-obsidian border-b border-champagne/40"
                                             >
                                                 {link.label}
-                                                <ArrowRight className="w-4 h-4 text-slate" />
+                                                <ArrowRight className="text-slate" size={16} />
                                             </Link>
                                         );
                                     }
@@ -693,7 +694,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                                 aria-expanded={isExpanded}
                                             >
                                                 {link.label}
-                                                <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                                                <CaretDown className={`transition-transform ${isExpanded ? "rotate-180" : ""}`} size={16} />
                                             </button>
                                             {isExpanded && (
                                                 <div className="pb-2 space-y-4">
@@ -734,7 +735,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                 className="w-full inline-flex items-center justify-center gap-2 py-3 bg-obsidian text-white text-xs uppercase tracking-wider font-bold"
                             >
                                 Browse Full Catalog
-                                <ArrowRight className="w-3.5 h-3.5" />
+                                <ArrowRight size={14} />
                             </Link>
                         </div>
                     </div>
@@ -822,7 +823,7 @@ function MegaMenuPanel({
                                 </div>
                             ) : (
                                 <div className="w-12 h-12 rounded-full bg-white/70 flex items-center justify-center mb-4 shadow-sm">
-                                    <FeaturedIcon className="w-5 h-5 text-muted-gold" strokeWidth={1.5} />
+                                    <FeaturedIcon className="text-muted-gold" size={20} />
                                 </div>
                             )}
                             <h4 className="font-serif text-lg text-obsidian font-medium normal-case mb-2 group-hover:text-muted-gold transition-colors">
@@ -834,7 +835,7 @@ function MegaMenuPanel({
                         </div>
                         <div className="flex items-center gap-1.5 mt-4 text-[11px] font-semibold uppercase tracking-wider text-muted-gold">
                             <span className="normal-case">Explore</span>
-                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight className="group-hover:translate-x-1 transition-transform" size={14} />
                         </div>
                     </Link>
                 </div>
@@ -849,7 +850,7 @@ function MegaMenuPanel({
                             className="text-[11px] uppercase tracking-wider text-slate hover:text-muted-gold transition-colors font-semibold normal-case flex items-center gap-1"
                         >
                             {fl.label}
-                            <ArrowRight className="w-3 h-3" />
+                            <ArrowRight size={12} />
                         </Link>
                     ))}
                 </div>

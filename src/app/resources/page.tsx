@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, Wrench, MessageCircle, FileText, BookMarked } from "lucide-react";
+import { BookOpen, Wrench, ChatCircle, FileText, BookMarked } from "@/components/icons";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ const RESOURCES = [
         href: "/request-quote",
     },
     {
-        icon: MessageCircle,
+        icon: ChatCircle,
         title: "Ask Grace",
         description: "Our AI Bottling Specialist is available 24/7. Ask Grace about compatibility, pricing, and product recommendations.",
         cta: "Open Grace",

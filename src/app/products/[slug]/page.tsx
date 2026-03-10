@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
     Check, ExternalLink,
-} from "lucide-react";
+} from "@/components/icons";
 import { motion } from "framer-motion";
 /* eslint-disable @next/next/no-img-element */
 import { useQuery } from "convex/react";

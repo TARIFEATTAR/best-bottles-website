@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock } from "@/components/icons";
 import { urlFor } from "@/sanity/lib/image";
 
 const CATEGORY_LABELS: Record<string, string> = {

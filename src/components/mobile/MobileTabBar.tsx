@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, LayoutGrid, ShoppingBag, Headphones, User, X } from "lucide-react";
+import { House, GridFour, ShoppingBag, Headphones, User, X } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../CartProvider";
 import { useGrace } from "../useGrace";
@@ -12,17 +12,19 @@ const GRACE_TAB_ONBOARDING_KEY = "grace-tab-onboarding-seen";
 
 // ─── Tab definitions ─────────────────────────────────────────────────────────
 
+type IconWeight = "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+
 interface Tab {
     key: string;
     label: string;
-    icon: typeof Home;
+    icon: React.ComponentType<{ className?: string; size?: number; weight?: IconWeight }>;
     href?: string;
     action?: "cart" | "grace";
 }
 
 const TABS: Tab[] = [
-    { key: "home", label: "Home", icon: Home, href: "/" },
-    { key: "catalog", label: "Catalog", icon: LayoutGrid, href: "/catalog" },
+    { key: "home", label: "Home", icon: House, href: "/" },
+    { key: "catalog", label: "Catalog", icon: GridFour, href: "/catalog" },
     { key: "cart", label: "Cart", icon: ShoppingBag, action: "cart" },
     { key: "grace", label: "AI Help", icon: Headphones, action: "grace" },
     { key: "account", label: "Account", icon: User, href: "/account" },
@@ -89,12 +91,13 @@ export default function MobileTabBar() {
                         <span className="flex flex-col items-center gap-0.5 relative">
                             <span className={`relative ${tab.key === "grace" && showGraceTooltip ? "animate-grace-pulse-subtle" : ""}`}>
                                 <Icon
-                                    className={`w-5 h-5 transition-colors duration-150 ${
+                                    className={`transition-colors duration-150 ${
                                         active
                                             ? "text-muted-gold"
                                             : "text-slate group-hover:text-obsidian"
                                     }`}
-                                    strokeWidth={active ? 2.2 : 1.8}
+                                    size={20}
+                                    weight={active ? "bold" : "regular"}
                                 />
                                 {/* Cart badge */}
                                 {tab.key === "cart" && itemCount > 0 && (
@@ -135,7 +138,7 @@ export default function MobileTabBar() {
                                                     aria-label="Dismiss"
                                                     className="absolute top-1.5 right-1.5 p-0.5 rounded hover:bg-white/10 transition-colors"
                                                 >
-                                                    <X className="w-3 h-3" />
+                                                    <X size={12} />
                                                 </button>
                                             </div>
                                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-obsidian rotate-45" />

@@ -4,7 +4,10 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Zap, ShoppingBag, Search, Compass, ChevronRight, Check, ShieldCheck, MessageCircle } from "lucide-react";
+import {
+    ArrowRight, Lightning, ShoppingBag, MagnifyingGlass, Compass, CaretRight, Check, ShieldCheck, ChatCircle,
+    Flower, Drop, SprayBottle, Gift, Flask, Sparkle,
+} from "@/components/icons";
 import { motion } from "framer-motion";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -163,14 +166,14 @@ function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroS
                         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors"
                         aria-label="Previous slide"
                     >
-                        <ArrowRight className="w-5 h-5 rotate-180" />
+                        <ArrowRight className="rotate-180" size={20} />
                     </button>
                     <button
                         onClick={() => setCurrentIndex((i) => (i + 1) % slides.length)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors"
                         aria-label="Next slide"
                     >
-                        <ArrowRight className="w-5 h-5" />
+                        <ArrowRight size={20} />
                     </button>
                     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
                         {slides.map((_, i) => (
@@ -323,7 +326,7 @@ function TrustBar() {
         : "2,300+";
 
     const items = [
-        { stat: "$50 Order Minimum", statMobile: "$50 Order Min", label: "Order what you need", icon: Zap },
+        { stat: "$50 Order Minimum", statMobile: "$50 Order Min", label: "Order what you need", icon: Lightning },
         { stat: `${productCount} Products`, label: "Premium bottles & closures", icon: ShoppingBag },
         { stat: "Fitment Verified", label: "Guaranteed compatibility", icon: ShieldCheck },
     ];
@@ -335,7 +338,7 @@ function TrustBar() {
                     {items.map((item, i) => (
                         <FadeUp key={i} delay={0.2 + i * 0.1} className="flex flex-col sm:flex-row sm:items-center items-center text-center sm:text-left gap-2 sm:gap-4 sm:pl-6 first:sm:pl-0">
                             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-bone flex items-center justify-center shrink-0 border border-champagne/30">
-                                <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-gold" strokeWidth={1.5} />
+                                <item.icon className="text-muted-gold" size={20} weight="regular" />
                             </div>
                             <div className="min-w-0">
                                 <h4 className="font-serif text-sm sm:text-lg text-obsidian font-medium leading-tight">
@@ -397,13 +400,15 @@ const APPLICATOR_ICONS: Record<string, React.ReactNode> = {
 
 /* ─── Guided Selector: 3-step funnel (Use Case → Dispenser → Size) ─── */
 
-const USE_CASES: Array<{ id: string; label: string; subtitle: string; icon: string; applicators: ApplicatorNavValue[] }> = [
-    { id: "fragrance", label: "Fragrance & Perfume", subtitle: "Spray, rollerball, and splash formats", icon: "🌸", applicators: ["spray", "rollon", "reducer"] },
-    { id: "essentials", label: "Essential Oils", subtitle: "Roll-on and dropper bottles for oils", icon: "💧", applicators: ["rollon", "dropper"] },
-    { id: "skincare", label: "Skincare & Serums", subtitle: "Dropper and pump formats", icon: "🧴", applicators: ["dropper", "lotionpump"] },
-    { id: "gift", label: "Gift & Retail", subtitle: "Presentation-ready packaging", icon: "🎁", applicators: ["spray", "rollon", "dropper", "lotionpump", "reducer"] },
-    { id: "samples", label: "Samples & Travel", subtitle: "Vials and compact formats", icon: "🧪", applicators: ["spray", "rollon", "dropper"] },
-    { id: "other", label: "Something Else", subtitle: "Browse the full catalog", icon: "✨", applicators: [] },
+const USE_CASE_ICONS = { Flower, Drop, SprayBottle, Gift, Flask, Sparkle } as const;
+
+const USE_CASES: Array<{ id: string; label: string; subtitle: string; iconKey: keyof typeof USE_CASE_ICONS; applicators: ApplicatorNavValue[] }> = [
+    { id: "fragrance", label: "Fragrance & Perfume", subtitle: "Spray, rollerball, and splash formats", iconKey: "Flower", applicators: ["spray", "rollon", "reducer"] },
+    { id: "essentials", label: "Essential Oils", subtitle: "Roll-on and dropper bottles for oils", iconKey: "Drop", applicators: ["rollon", "dropper"] },
+    { id: "skincare", label: "Skincare & Serums", subtitle: "Dropper and pump formats", iconKey: "SprayBottle", applicators: ["dropper", "lotionpump"] },
+    { id: "gift", label: "Gift & Retail", subtitle: "Presentation-ready packaging", iconKey: "Gift", applicators: ["spray", "rollon", "dropper", "lotionpump", "reducer"] },
+    { id: "samples", label: "Samples & Travel", subtitle: "Vials and compact formats", iconKey: "Flask", applicators: ["spray", "rollon", "dropper"] },
+    { id: "other", label: "Something Else", subtitle: "Browse the full catalog", iconKey: "Sparkle", applicators: [] },
 ];
 
 // Derive DISPENSERS from the shared APPLICATOR_NAV config (single source of truth)
@@ -470,14 +475,14 @@ function GuidedSelector({ onClose }: { onClose: () => void }) {
                         const isDone = step > stepNum;
                         return (
                             <React.Fragment key={label}>
-                                {i > 0 && <ChevronRight className="w-4 h-4 text-champagne mx-1" />}
+                                {i > 0 && <CaretRight className="w-4 h-4 text-champagne mx-1" size={16} />}
                                 <button
                                     onClick={() => { if (isDone) setStep(stepNum); }}
                                     disabled={!isDone}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${isActive ? "bg-obsidian text-white" : isDone ? "bg-muted-gold/10 text-muted-gold cursor-pointer hover:bg-muted-gold/20" : "bg-travertine text-slate/50"
                                         }`}
                                 >
-                                    {isDone ? <Check className="w-3.5 h-3.5" /> : <span className="w-5 h-5 rounded-full bg-current/10 flex items-center justify-center text-xs">{stepNum}</span>}
+                                    {isDone ? <Check size={14} weight="bold" /> : <span className="w-5 h-5 rounded-full bg-current/10 flex items-center justify-center text-xs">{stepNum}</span>}
                                     {label}
                                 </button>
                             </React.Fragment>
@@ -499,7 +504,9 @@ function GuidedSelector({ onClose }: { onClose: () => void }) {
                                     onClick={() => handleUseCaseSelect(uc.id)}
                                     className="group flex flex-col items-center text-center p-6 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-md transition-all duration-300"
                                 >
-                                    <span className="text-3xl mb-3">{uc.icon}</span>
+                                    <span className="mb-3 text-muted-gold">
+                                        {React.createElement(USE_CASE_ICONS[uc.iconKey], { size: 32, weight: "regular" })}
+                                    </span>
                                     <h3 className="font-serif text-lg text-obsidian font-medium mb-1 leading-snug">{uc.label}</h3>
                                     <p className="text-xs text-slate leading-relaxed">{uc.subtitle}</p>
                                 </button>
@@ -599,7 +606,7 @@ function PathChooser() {
                     <FadeUp delay={0.1}>
                         <div className="group flex flex-col items-center text-center p-8 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-lg transition-all duration-300">
                             <div className="w-14 h-14 rounded-full bg-white border border-champagne/40 flex items-center justify-center mb-5 group-hover:border-muted-gold transition-colors">
-                                <Search className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" />
+                                <MagnifyingGlass className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" size={24} />
                             </div>
                             <h3 className="font-serif text-xl text-obsidian font-medium mb-2">I Know What I Need</h3>
                             <p className="text-xs text-slate leading-relaxed mb-5">Search by name, SKU, size, or color.</p>
@@ -615,7 +622,7 @@ function PathChooser() {
                                         className="flex-1 px-4 py-2.5 text-sm bg-white focus:outline-none placeholder-slate/50 text-obsidian min-w-0"
                                     />
                                     <button type="submit" className="px-4 bg-obsidian text-white hover:bg-muted-gold transition-colors">
-                                        <ArrowRight className="w-4 h-4" />
+                                        <ArrowRight size={16} />
                                     </button>
                                 </div>
                             </form>
@@ -629,12 +636,12 @@ function PathChooser() {
                             className="group flex flex-col items-center text-center p-8 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-lg transition-all duration-300 w-full"
                         >
                             <div className="w-14 h-14 rounded-full bg-white border border-champagne/40 flex items-center justify-center mb-5 group-hover:border-muted-gold transition-colors">
-                                <Compass className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" />
+                                <Compass className="text-obsidian/50 group-hover:text-muted-gold transition-colors" size={24} />
                             </div>
                             <h3 className="font-serif text-xl text-obsidian font-medium mb-2">Help Me Choose</h3>
                             <p className="text-xs text-slate leading-relaxed mb-5">3 quick questions to find your perfect bottle.</p>
                             <span className="text-xs font-semibold text-muted-gold uppercase tracking-wider flex items-center group-hover:gap-2 transition-all duration-300">
-                                Start <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                Start <ArrowRight className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={12} />
                             </span>
                         </button>
                     </FadeUp>
@@ -646,12 +653,12 @@ function PathChooser() {
                             className="group flex flex-col items-center text-center p-8 bg-bone border border-champagne/50 rounded-sm hover:border-muted-gold hover:shadow-lg transition-all duration-300 w-full"
                         >
                             <div className="w-14 h-14 rounded-full bg-white border border-champagne/40 flex items-center justify-center mb-5 group-hover:border-muted-gold transition-colors">
-                                <MessageCircle className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" />
+                                <ChatCircle className="w-6 h-6 text-obsidian/50 group-hover:text-muted-gold transition-colors" size={24} />
                             </div>
                             <h3 className="font-serif text-xl text-obsidian font-medium mb-2">Talk to Grace</h3>
                             <p className="text-xs text-slate leading-relaxed mb-5">Your AI bottling specialist for fitment and product guidance.</p>
                             <span className="text-xs font-semibold text-muted-gold uppercase tracking-wider flex items-center group-hover:gap-2 transition-all duration-300">
-                                Ask Now <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                Ask Now <ArrowRight className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={12} />
                             </span>
                         </button>
                     </FadeUp>
@@ -663,7 +670,7 @@ function PathChooser() {
                         href="/catalog"
                         className="inline-flex items-center gap-2 text-sm text-slate hover:text-obsidian transition-colors font-medium underline underline-offset-4 decoration-champagne hover:decoration-muted-gold"
                     >
-                        Browse All Products <ArrowRight className="w-4 h-4" />
+                        Browse All Products <ArrowRight size={16} />
                     </Link>
                 </FadeUp>
             </div>
@@ -705,7 +712,7 @@ function DesignFamilies({ designFamilyCards }: { designFamilyCards?: HomepageDat
                                             <div className="flex items-center justify-between">
                                                 <p className="text-[14px] text-bone/90 font-medium">{count > 0 ? `${count} products` : "Loading..."}</p>
                                                 <span className="flex items-center text-muted-gold text-sm font-semibold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    Explore <ArrowRight className="w-4 h-4 ml-1" />
+                                                    Explore <ArrowRight className="ml-1" size={16} />
                                                 </span>
                                             </div>
                                         </div>
@@ -786,7 +793,7 @@ function EducationPreview({ educationPreview: edu }: { educationPreview?: Homepa
                     </FadeUp>
                     <FadeUp delay={0.2} className="mt-6 md:mt-0">
                         <Link href={viewAllHref} className="text-sm font-semibold text-muted-gold hover:text-obsidian transition-colors uppercase tracking-widest flex items-center">
-                            View All Articles <ArrowRight className="w-4 h-4 ml-2" />
+                            View All Articles <ArrowRight className="ml-2" size={16} />
                         </Link>
                     </FadeUp>
                 </div>
@@ -807,7 +814,7 @@ function EducationPreview({ educationPreview: edu }: { educationPreview?: Homepa
                                 <h3 className="font-serif text-2xl text-obsidian leading-tight mb-3 group-hover:text-muted-gold transition-colors">{article.title}</h3>
                                 <p className="text-sm text-slate mb-4">{article.excerpt}</p>
                                 <span className="text-sm font-medium text-obsidian flex items-center group-hover:text-muted-gold transition-colors">
-                                    Read More <ArrowRight className="w-4 h-4 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                    Read More <ArrowRight className="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" size={16} />
                                 </span>
                             </Link>
                         </FadeUp>

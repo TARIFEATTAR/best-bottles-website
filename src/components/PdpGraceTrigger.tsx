@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Headphones } from "lucide-react";
+import { Headphones } from "@/components/icons";
 import { useGrace } from "./useGrace";
 
 const PDP_GRACE_SEEN_KEY = "pdp-grace-trigger-seen";
@@ -44,7 +44,7 @@ export default function PdpGraceTrigger() {
                         : "bg-champagne/40 text-slate group-hover:bg-muted-gold/20 group-hover:text-muted-gold"
                 }`}
             >
-                <Headphones className="w-4 h-4" strokeWidth={1.75} />
+                <Headphones size={16} weight="regular" className="text-current" />
             </span>
             <span className="text-xs font-medium tracking-wide">
                 Fitment questions? <span className="text-muted-gold group-hover:underline">Ask Grace</span>

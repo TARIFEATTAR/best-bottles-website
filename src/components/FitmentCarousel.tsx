@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronRight, Sparkles } from "@/components/icons";
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 

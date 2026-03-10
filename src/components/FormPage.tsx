@@ -3,7 +3,7 @@
 import { useState, useEffect, type FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowLeft, Send, CheckCircle2, Loader2 } from "@/components/icons";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 

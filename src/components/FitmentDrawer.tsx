@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, ChevronRight, Droplet, SprayCan, CheckCircle2, Droplets, Sparkles, Check } from 'lucide-react';
+import { X, ChevronRight, Droplet, SprayCan, CheckCircle2, Droplets, Sparkles, Check } from "@/components/icons";
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { useCart } from './CartProvider';

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Award, Globe, Shield, Users } from "lucide-react";
+import { ArrowRight, Award, Globe, Shield, Users } from "@/components/icons";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
     title: "About Best Bottles — 20+ Years of Packaging Excellence",
@@ -17,6 +18,7 @@ const VALUES = [
 export default function AboutPage() {
     return (
         <div className="min-h-screen bg-bone">
+            <Navbar />
             {/* Hero */}
             <section className="pt-32 pb-20 px-6">
                 <div className="max-w-[800px] mx-auto text-center">

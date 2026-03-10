@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { X, ShoppingBag, Plus, Minus, Trash2, ArrowRight, AlertCircle } from "lucide-react";
+import { X, ShoppingBag, Plus, Minus, Trash, ArrowRight, WarningCircle } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "./CartProvider";
 
@@ -87,7 +87,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                         boxShadow: "0 2px 8px rgba(197, 160, 101, 0.15)",
                                     }}
                                 >
-                                    <ShoppingBag className="w-4 h-4 text-muted-gold" />
+                                    <ShoppingBag className="text-muted-gold" size={16} />
                                 </div>
                                 <div>
                                     <h2 className="font-serif text-[17px] font-medium text-obsidian tracking-wide">Your Cart</h2>
@@ -100,7 +100,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 style={{ border: "1px solid rgba(29, 29, 31, 0.08)" }}
                                 aria-label="Close cart"
                             >
-                                <X className="w-4 h-4 text-obsidian/70" />
+                                <X className="text-obsidian/70" size={16} />
                             </button>
                         </div>
 
@@ -127,7 +127,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
                             {items.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center h-full text-center py-16">
-                                    <ShoppingBag className="w-12 h-12 text-champagne mb-4" strokeWidth={1} />
+                                    <ShoppingBag className="text-champagne mb-4" size={48} />
                                     <p className="font-serif text-lg text-obsidian/60 mb-2">Your cart is empty</p>
                                     <p className="text-sm text-slate">Browse our catalog or ask Grace, your AI Bottling Specialist, to find the right bottle and fitment.</p>
                                 </div>
@@ -143,7 +143,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                         style={{ border: "1px solid rgba(212, 197, 169, 0.3)" }}
                                     >
                                         <div className="w-16 h-16 rounded-xl shrink-0 flex items-center justify-center bg-bone/80 border border-champagne/40">
-                                            <ShoppingBag className="w-6 h-6 text-champagne" strokeWidth={1.5} />
+                                            <ShoppingBag className="text-champagne" size={24} />
                                         </div>
 
                                         <div className="flex-1 min-w-0 pr-6">
@@ -162,7 +162,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                         className="w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
                                                         aria-label="Decrease quantity"
                                                     >
-                                                        <Minus className="w-3 h-3" />
+                                                        <Minus size={12} />
                                                     </button>
                                                     <span className="text-[12px] font-medium text-obsidian min-w-[20px] text-center">
                                                         {item.quantity}
@@ -172,7 +172,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                         className="w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
                                                         aria-label="Increase quantity"
                                                     >
-                                                        <Plus className="w-3 h-3" />
+                                                        <Plus size={12} />
                                                     </button>
                                                 </div>
                                                 {item.unitPrice != null && (
@@ -188,12 +188,12 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-full hover:bg-red-50"
                                             aria-label="Remove item"
                                         >
-                                            <Trash2 className="w-3.5 h-3.5 text-slate hover:text-red-500 transition-colors" />
+                                            <Trash className="text-slate hover:text-red-500 transition-colors" size={14} />
                                         </button>
 
                                         {item.quantity % 12 !== 0 && (
                                             <div className="absolute -bottom-2 right-3 bg-amber-50 rounded text-[10px] text-amber-800 px-2 py-0.5 border border-amber-200 shadow-sm flex items-center gap-1 w-max opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <AlertCircle className="w-3 h-3" />
+                                                <WarningCircle size={12} />
                                                 Add {12 - (item.quantity % 12)} more to fill a case
                                             </div>
                                         )}
@@ -208,7 +208,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 {checkoutError && (
                                     <div className="mb-3 text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2.5">
                                         <div className="flex items-start gap-2">
-                                            <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                                            <WarningCircle className="shrink-0 mt-0.5" size={14} />
                                             <div className="flex-1">
                                                 <p>{checkoutError}</p>
                                                 <button
@@ -234,7 +234,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 >
                                     <span className="absolute inset-0 liquid-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
                                     <span className="relative">{isCheckingOut ? "Preparing Checkout…" : "Proceed to Checkout"}</span>
-                                    <ArrowRight className="w-4 h-4 relative transition-transform duration-300 group-hover:translate-x-0.5" />
+                                    <ArrowRight className="relative transition-transform duration-300 group-hover:translate-x-0.5" size={16} />
                                 </button>
 
                                 <Link

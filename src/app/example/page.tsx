@@ -1,5 +1,5 @@
 import FitmentIntegrationDemo from '@/components/FitmentIntegrationDemo';
-import { ArrowLeft, Star, Truck, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Star, Truck, ShieldCheck } from "@/components/icons";
 
 export default function ExampleProductPage() {
     return (

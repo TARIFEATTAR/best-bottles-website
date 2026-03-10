@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, User, ShoppingBag, Shield, Zap, Check } from "lucide-react";
+import { MagnifyingGlass, User, ShoppingBag, Shield, Zap, Check } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -37,7 +37,7 @@ function Navbar() {
                 </div>
                 <div className="flex items-center space-x-6">
                     <div className="hidden lg:flex items-center border border-champagne rounded-full px-4 py-1.5 bg-white/50 space-x-2">
-                        <Search className="w-4 h-4 text-slate" />
+                        <MagnifyingGlass size={16} weight="regular" className="text-slate" />
                         <input type="text" placeholder="Search..." className="bg-transparent text-sm focus:outline-none w-32 placeholder-slate/70" />
                     </div>
                     <button className="hidden sm:flex items-center space-x-2 text-sm font-medium text-obsidian bg-[#FFF] border border-champagne px-3 py-1.5 rounded-full hover:border-muted-gold transition-colors shadow-sm">
@@ -46,10 +46,10 @@ function Navbar() {
                     </button>
                     <div className="flex items-center space-x-4">
                         <button aria-label="Account" className="hover:text-muted-gold transition-colors">
-                            <User className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
+                            <User size={20} weight="regular" className="text-obsidian" />
                         </button>
                         <button aria-label="Cart" className="hover:text-muted-gold transition-colors relative">
-                            <ShoppingBag className="w-5 h-5 text-obsidian" strokeWidth={1.5} />
+                            <ShoppingBag size={20} weight="regular" className="text-obsidian" />
                             <span className="absolute -top-1.5 -right-1.5 bg-muted-gold text-white text-[10px] w-[16px] h-[16px] flex items-center justify-center rounded-full font-semibold">2</span>
                         </button>
                     </div>

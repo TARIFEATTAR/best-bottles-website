@@ -7,8 +7,8 @@ import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import {
     Shield, Droplets, Sun, Leaf, Zap, Award, FlaskConical,
     Package, Recycle, Layers, Check, Star, Clock, Sparkles,
-    Tag, Globe, ChevronDown, ChevronRight,
-} from "lucide-react";
+    Tag, Globe, CaretDown, CaretRight,
+} from "@/components/icons";
 import { urlFor } from "@/sanity/lib/image";
 
 // ─── Shared types ─────────────────────────────────────────────────────────────
@@ -81,7 +81,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
 
 function FeatureIcon({ name, className }: { name: string; className?: string }) {
     const Icon = ICON_MAP[name] ?? Shield;
-    return <Icon className={className ?? "w-5 h-5"} strokeWidth={1.5} />;
+    return <Icon className={className ?? ""} size={20} weight="regular" />;
 }
 
 // ─── Portable Text components (shared across blocks) ──────────────────────────
@@ -351,7 +351,7 @@ function PromoBannerBlock({ block }: { block: PdpPromoBannerBlock }) {
                                 : "bg-obsidian text-white hover:bg-muted-gold hover:text-obsidian"
                         }`}
                     >
-                        {block.ctaText} <ChevronRight className="w-3.5 h-3.5" />
+                        {block.ctaText} <CaretRight size={14} />
                     </Link>
                 )}
             </div>
@@ -382,8 +382,9 @@ function FaqAccordionBlock({ block }: { block: PdpFaqAccordionBlock }) {
                             <span className="font-serif text-[15px] text-obsidian font-medium leading-snug group-hover:text-muted-gold transition-colors">
                                 {item.question}
                             </span>
-                            <ChevronDown
-                                className={`w-4 h-4 text-slate shrink-0 mt-0.5 transition-transform duration-200 ${openIdx === i ? "rotate-180" : ""}`}
+                            <CaretDown
+                                className={`text-slate shrink-0 mt-0.5 transition-transform duration-200 ${openIdx === i ? "rotate-180" : ""}`}
+                                size={16}
                             />
                         </button>
                         {openIdx === i && item.answer && (
