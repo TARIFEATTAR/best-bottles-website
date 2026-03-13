@@ -85,7 +85,7 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
                 familyLimit: {
                     type: "string",
                     description:
-                        "Optional: restrict to a bottle family. Valid values: 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square', 'Rectangle', 'Bell', 'Flair', 'Pillar', 'Teardrop', 'Tulip', 'Vial', 'Apothecary', 'Decorative', 'Atomizer', 'Aluminum Bottle', 'Cream Jar', 'Lotion Bottle', 'Plastic Bottle'. Use 'Apothecary' for apothecary-style glass stopper bottles. Use 'Decorative' for marble-crystal-cap, genie, heart, octagonal, and ornate collectible bottles.",
+                        "Optional: restrict to a bottle family. Valid values: 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square', 'Footed Rectangle', 'Tall Rectangle', 'Bell', 'Flair', 'Pillar', 'Teardrop', 'Tulip', 'Vial', 'Apothecary', 'Decorative', 'Atomizer', 'Aluminum Bottle', 'Cream Jar', 'Lotion Bottle', 'Plastic Bottle'. Use 'Apothecary' for apothecary-style glass stopper bottles. Use 'Decorative' for marble-crystal-cap, genie, heart, octagonal, and ornate collectible bottles. 'Footed Rectangle' is the squat rectangle with a pedestal foot; 'Tall Rectangle' is the slender, tall rectangle with a heavy base.",
                 },
                 applicatorFilter: {
                     type: "string",
@@ -113,7 +113,7 @@ const GRACE_TOOLS: Anthropic.Tool[] = [
                 family: {
                     type: "string",
                     description:
-                        "The bottle family name. Must match exactly: 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square', 'Vial', 'Grace', 'Rectangle', 'Flair'",
+                        "The bottle family name. Must match exactly: 'Cylinder', 'Elegant', 'Boston Round', 'Circle', 'Diva', 'Empire', 'Slim', 'Diamond', 'Sleek', 'Round', 'Royal', 'Square', 'Vial', 'Grace', 'Footed Rectangle', 'Tall Rectangle', 'Flair'",
                 },
             },
             required: ["family"],
@@ -198,7 +198,7 @@ HARD RULE — MINIMUM SIZES PER FAMILY (memorise these; do not contradict them e
 | Circle | 15ml |
 | Vial / Dram | 1ml |
 
-If a customer asks for a size below the minimum (e.g. "10ml Boston Round"), respond: "We don't stock a 10ml Boston Round — our Boston Rounds start at 15ml. I can show you the 15ml, or if you need a 10ml I can point you to our Cylinder or Rectangle options instead." Then pivot and search for those alternatives.
+If a customer asks for a size below the minimum (e.g. "10ml Boston Round"), respond: "We don't stock a 10ml Boston Round — our Boston Rounds start at 15ml. I can show you the 15ml, or if you need a 10ml I can point you to our Cylinder, Footed Rectangle, or Tall Rectangle options instead." Then pivot and search for those alternatives.
 
 ### Protect the Brand
 Best Bottles is an exclusive, high-end supplier that simplifies complex procurement — never a discount warehouse. Acknowledge the $50 minimum order implicitly through upselling and value framing. Never put up walls.
@@ -550,8 +550,8 @@ export const searchCatalog = query({
         // productGroups so we never miss an obvious match.
         const KNOWN_FAMILIES = [
             "Apothecary", "Atomizer", "Bell", "Boston Round", "Circle", "Cylinder",
-            "Diamond", "Diva", "Elegant", "Empire", "Grace", "Rectangle", "Round",
-            "Sleek", "Slim", "Tulip", "Vial",
+            "Diamond", "Diva", "Elegant", "Empire", "Footed Rectangle", "Grace", "Round",
+            "Sleek", "Slim", "Tall Rectangle", "Tulip", "Vial",
         ];
         const termLower = args.searchTerm.toLowerCase();
         const detectedFamily = args.familyLimit

@@ -104,7 +104,7 @@ const CATEGORY_ORDER = [
 // Glass bottles first by family, then by capacity (small→big). Non-bottle categories at end.
 const FAMILY_ORDER = [
     "Cylinder", "Elegant", "Circle", "Sleek", "Diva", "Empire", "Boston Round",
-    "Slim", "Diamond", "Royal", "Round", "Square", "Rectangle", "Flair",
+    "Slim", "Diamond", "Royal", "Round", "Square", "Footed Rectangle", "Tall Rectangle", "Flair",
     "Tulip", "Queen", "Bell", "Swirl", "Grace",
 ];
 // Categories that are "bottle" types — appear first in catalog order

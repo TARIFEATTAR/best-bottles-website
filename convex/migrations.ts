@@ -4990,3 +4990,245 @@ export const fixAtomizerGroups = action({
         };
     },
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+/** Internal: fetch all products for a given family. */
+export const getProductsByFamily = internalQuery({
+    args: { family: v.string() },
+    handler: async (ctx, { family }) => {
+        return await ctx.db
+            .query("products")
+            .withIndex("by_family", (q) => q.eq("family", family))
+            .collect();
+    },
+});
+
+// SPLIT RECTANGLE FAMILY — "Footed Rectangle" vs "Tall Rectangle"
+//
+// The "Rectangle" family contains two physically different bottle shapes
+// sharing the same family name:
+//   1. "Footed Rectangle" — GBRect* / GB-RCT-*-01 — squat with pedestal foot
+//   2. "Tall Rectangle"   — GBTallRect* / GB-RCT-*-02 — slender, heavy base
+//
+// This migration:
+//   a) Renames family on all products from "Rectangle" → the correct sub-family
+//   b) Renames existing productGroups (or creates new ones if needed)
+//   c) Updates slugs and displayNames on productGroups
+//
+// Usage:  npx convex run migrations:splitRectangleFamily
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Internal: batch-patch products with new family name. */
+export const patchRectangleProductBatch = internalMutation({
+    args: {
+        patches: v.array(v.object({
+            productId: v.id("products"),
+            family: v.string(),
+        })),
+    },
+    handler: async (ctx, { patches }) => {
+        for (const { productId, family } of patches) {
+            await ctx.db.patch(productId, { family });
+        }
+        return { patched: patches.length };
+    },
+});
+
+/** Internal: patch a productGroup's family, slug, displayName, and bottleCollection. */
+export const patchRectangleGroup = internalMutation({
+    args: {
+        groupId: v.id("productGroups"),
+        family: v.string(),
+        slug: v.string(),
+        displayName: v.string(),
+        bottleCollection: v.union(v.string(), v.null()),
+    },
+    handler: async (ctx, { groupId, family, slug, displayName, bottleCollection }) => {
+        await ctx.db.patch(groupId, { family, slug, displayName, bottleCollection });
+        return { patched: true };
+    },
+});
+
+export const splitRectangleFamily = action({
+    args: {},
+    handler: async (ctx) => {
+        // 1. Load all Rectangle products
+        const allProducts = await ctx.runQuery(internal.migrations.getProductsByFamily, { family: "Rectangle" }) as Array<{
+            _id: Id<"products">;
+            websiteSku: string;
+            graceSku: string;
+            productGroupId?: Id<"productGroups">;
+            capacity: string | null;
+            capacityMl: number | null;
+            color: string | null;
+            category: string;
+            bottleCollection: string | null;
+            neckThreadSize: string | null;
+            webPrice1pc: number | null;
+            applicator: string | null;
+        }>;
+
+        if (allProducts.length === 0) {
+            return { message: "No Rectangle products found — already split or family name changed." };
+        }
+
+        // 2. Classify each product
+        const footed: typeof allProducts = [];
+        const tall: typeof allProducts = [];
+        for (const p of allProducts) {
+            // GBTallRect* or graceSku ending in -02
+            if (p.websiteSku.startsWith("GBTallRect") || p.graceSku.endsWith("-02")) {
+                tall.push(p);
+            } else {
+                footed.push(p);
+            }
+        }
+
+        // 3. Patch product family names in batches
+        const BATCH = 50;
+        let patchedProducts = 0;
+
+        const footedPatches = footed.map((p) => ({ productId: p._id, family: "Footed Rectangle" }));
+        for (let i = 0; i < footedPatches.length; i += BATCH) {
+            const result = await ctx.runMutation(internal.migrations.patchRectangleProductBatch, {
+                patches: footedPatches.slice(i, i + BATCH),
+            });
+            patchedProducts += result.patched;
+        }
+
+        const tallPatches = tall.map((p) => ({ productId: p._id, family: "Tall Rectangle" }));
+        for (let i = 0; i < tallPatches.length; i += BATCH) {
+            const result = await ctx.runMutation(internal.migrations.patchRectangleProductBatch, {
+                patches: tallPatches.slice(i, i + BATCH),
+            });
+            patchedProducts += result.patched;
+        }
+
+        // 4. Patch productGroups — find existing Rectangle groups and split them
+        const existingGroups = await ctx.runQuery(internal.migrations.getAllGroups, {}) as Array<{
+            _id: Id<"productGroups">;
+            slug: string;
+            family: string;
+            displayName: string;
+            capacity: string | null;
+            capacityMl: number | null;
+            color: string | null;
+            category: string;
+            bottleCollection: string | null;
+        }>;
+
+        const rectGroups = existingGroups.filter((g) => g.family === "Rectangle");
+        let groupsPatched = 0;
+        let groupsCreated = 0;
+
+        for (const group of rectGroups) {
+            // Check which sub-family has products in this group
+            const groupFooted = footed.filter((p) => p.productGroupId && String(p.productGroupId) === String(group._id));
+            const groupTall = tall.filter((p) => p.productGroupId && String(p.productGroupId) === String(group._id));
+
+            if (groupFooted.length > 0 && groupTall.length === 0) {
+                // Pure footed group — rename in place
+                const newSlug = group.slug.replace("rectangle-", "footed-rectangle-");
+                const newDisplayName = group.displayName.replace("Rectangle", "Footed Rectangle");
+                await ctx.runMutation(internal.migrations.patchRectangleGroup, {
+                    groupId: group._id,
+                    family: "Footed Rectangle",
+                    slug: newSlug,
+                    displayName: newDisplayName,
+                    bottleCollection: "Footed Rectangle Collection",
+                });
+                groupsPatched++;
+            } else if (groupTall.length > 0 && groupFooted.length === 0) {
+                // Pure tall group — rename in place
+                const newSlug = group.slug.replace("rectangle-", "tall-rectangle-");
+                const newDisplayName = group.displayName.replace("Rectangle", "Tall Rectangle");
+                await ctx.runMutation(internal.migrations.patchRectangleGroup, {
+                    groupId: group._id,
+                    family: "Tall Rectangle",
+                    slug: newSlug,
+                    displayName: newDisplayName,
+                    bottleCollection: "Tall Rectangle Collection",
+                });
+                groupsPatched++;
+            } else if (groupFooted.length > 0 && groupTall.length > 0) {
+                // Mixed group — rename this one to Footed, create new for Tall
+                const footedSlug = group.slug.replace("rectangle-", "footed-rectangle-");
+                const footedDisplayName = group.displayName.replace("Rectangle", "Footed Rectangle");
+                await ctx.runMutation(internal.migrations.patchRectangleGroup, {
+                    groupId: group._id,
+                    family: "Footed Rectangle",
+                    slug: footedSlug,
+                    displayName: footedDisplayName,
+                    bottleCollection: "Footed Rectangle Collection",
+                });
+                groupsPatched++;
+
+                // Create a new group for Tall
+                const tallSlug = group.slug.replace("rectangle-", "tall-rectangle-");
+                const tallDisplayName = group.displayName.replace("Rectangle", "Tall Rectangle");
+
+                // Compute stats for the tall products in this group
+                let priceMin: number | null = null;
+                let priceMax: number | null = null;
+                const applicatorSet = new Set<string>();
+                for (const p of groupTall) {
+                    if (p.webPrice1pc && p.webPrice1pc > 0) {
+                        if (priceMin == null || p.webPrice1pc < priceMin) priceMin = p.webPrice1pc;
+                        if (priceMax == null || p.webPrice1pc > priceMax) priceMax = p.webPrice1pc;
+                    }
+                    if (p.applicator) applicatorSet.add(p.applicator);
+                }
+
+                const newGroupId = await ctx.runMutation(internal.migrations.insertSingleGroup, {
+                    group: {
+                        slug: tallSlug,
+                        displayName: tallDisplayName,
+                        family: "Tall Rectangle",
+                        capacity: group.capacity,
+                        capacityMl: group.capacityMl,
+                        color: group.color,
+                        category: group.category,
+                        bottleCollection: "Tall Rectangle Collection",
+                        neckThreadSize: groupTall[0]?.neckThreadSize ?? null,
+                        variantCount: groupTall.length,
+                        priceRangeMin: priceMin,
+                        priceRangeMax: priceMax,
+                        applicatorTypes: [...applicatorSet],
+                    },
+                });
+                groupsCreated++;
+
+                // Re-link tall products to the new group
+                const relinks = groupTall.map((p) => ({ productId: p._id, groupId: newGroupId as Id<"productGroups"> }));
+                await ctx.runMutation(internal.migrations.linkOrphanBatch, {
+                    links: relinks,
+                    groupStats: [],
+                });
+
+                // Update footed group's variantCount
+                const footedPriceMin = groupFooted.reduce((min, p) => (p.webPrice1pc && (min == null || p.webPrice1pc < min)) ? p.webPrice1pc : min, null as number | null);
+                const footedPriceMax = groupFooted.reduce((max, p) => (p.webPrice1pc && (max == null || p.webPrice1pc > max)) ? p.webPrice1pc : max, null as number | null);
+                await ctx.runMutation(internal.migrations.linkOrphanBatch, {
+                    links: [],
+                    groupStats: [{
+                        groupId: group._id,
+                        variantCount: groupFooted.length,
+                        priceRangeMin: footedPriceMin,
+                        priceRangeMax: footedPriceMax,
+                        applicatorTypes: [...new Set(groupFooted.map((p) => p.applicator).filter(Boolean) as string[])],
+                    }],
+                });
+            }
+        }
+
+        return {
+            totalRectangleProducts: allProducts.length,
+            footedCount: footed.length,
+            tallCount: tall.length,
+            patchedProducts,
+            groupsPatched,
+            groupsCreated,
+            message: `Split Rectangle family: ${footed.length} → "Footed Rectangle", ${tall.length} → "Tall Rectangle". ${groupsPatched} groups renamed, ${groupsCreated} new groups created.`,
+        };
+    },
+});

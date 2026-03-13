@@ -6,7 +6,7 @@ const FAMILY_OPTIONS = [
     "Aluminum Bottle", "Apothecary", "Atomizer", "Bell", "Boston Round",
     "Circle", "Cream Jar", "Cylinder", "Decorative", "Diamond", "Diva",
     "Elegant", "Empire", "Flair", "Grace", "Lotion Bottle", "Pillar",
-    "Plastic Bottle", "Rectangle", "Roll-On Cap", "Round", "Royal",
+    "Plastic Bottle", "Footed Rectangle", "Tall Rectangle", "Roll-On Cap", "Round", "Royal",
     "Sleek", "Slim", "Square", "Teardrop", "Tulip", "Vial",
 ].map((f) => ({ title: f, value: f }));
 

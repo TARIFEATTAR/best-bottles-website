@@ -77,7 +77,7 @@ Section-level fields:
 
 Bottle families shown in the carousel. **Family Slug must match the catalog exactly.**
 
-**Valid Family Slugs:** Cylinder, Elegant, Circle, Sleek, Round, Diva, Slim, Boston Round, Empire, Rectangle, Atomizer, Flair
+**Valid Family Slugs:** Cylinder, Elegant, Circle, Sleek, Round, Diva, Slim, Boston Round, Empire, Footed Rectangle, Tall Rectangle, Atomizer, Flair
 
 | Field | What it does |
 |-------|--------------|
