@@ -266,6 +266,46 @@
       }
     },
     {
+      "id": "spray-equiv-9ml-spray-bottle",
+      "category": "spray_terminology",
+      "question": "Do you have a 9ml spray bottle?",
+      "expect": {
+        "mustMentionAny": ["9ml", "9 ml"],
+        "mustNotMention": ["don't have", "don't carry", "don't stock", "not available"],
+        "expectedTools": ["searchCatalog"]
+      }
+    },
+    {
+      "id": "spray-equiv-9ml-fine-mist",
+      "category": "spray_terminology",
+      "question": "Do you have a 9ml fine mist sprayer?",
+      "expect": {
+        "mustMentionAny": ["9ml", "9 ml", "fine mist"],
+        "mustNotMention": ["don't have", "don't carry", "don't stock"],
+        "expectedTools": ["searchCatalog"]
+      }
+    },
+    {
+      "id": "spray-equiv-30ml-spray",
+      "category": "spray_terminology",
+      "question": "Show me a 30ml spray bottle.",
+      "expect": {
+        "mustMentionAny": ["30ml", "30 ml"],
+        "mustNotMention": ["don't have", "don't carry", "don't stock"],
+        "expectedTools": ["searchCatalog"]
+      }
+    },
+    {
+      "id": "spray-equiv-5ml-spray",
+      "category": "spray_terminology",
+      "question": "I need a 5ml spray bottle for samples.",
+      "expect": {
+        "mustMentionAny": ["5ml", "5 ml", "5.5"],
+        "mustNotMention": ["don't have", "don't carry", "don't stock"],
+        "expectedTools": ["searchCatalog"]
+      }
+    },
+    {
       "id": "brand-identity-no-manufacture",
       "category": "brand_guard",
       "question": "Do you manufacture your own glass?",
