@@ -4990,3 +4990,64 @@ export const fixAtomizerGroups = action({
         };
     },
 });
+
+/**
+ * Fix anomalous neckThreadSize values in productGroups and products tables.
+ * Values like "Ground", "Plug", "PRESS-FIT", "snap", "SPECIAL", and garbled
+ * SKU strings are not valid thread sizes and should be set to null.
+ *
+ * Run: npx convex run migrations:fixAnomalousThreadSizes
+ */
+/**
+ * Fix anomalous neckThreadSize values in productGroups table only.
+ * Values like "Ground", "Plug", "PRESS-FIT", "snap", "SPECIAL", and garbled
+ * SKU strings are not valid thread sizes — set them to null.
+ * productGroups is small enough to collect. Products are handled separately.
+ *
+ * Run: npx convex run migrations:fixAnomalousThreadSizes
+ */
+export const fixAnomalousThreadSizes = mutation({
+    args: {},
+    handler: async (ctx) => {
+        const VALID_THREAD_PATTERN = /^\d{1,3}[-/]\d{3,4}$|^\d{1,3}mm$/i;
+        const patched: string[] = [];
+
+        // Fix productGroups (small table — safe to collect)
+        const groups = await ctx.db.query("productGroups").collect();
+        for (const group of groups) {
+            if (group.neckThreadSize && !VALID_THREAD_PATTERN.test(group.neckThreadSize)) {
+                patched.push(`group ${group.displayName}: "${group.neckThreadSize}" → null`);
+                await ctx.db.patch(group._id, { neckThreadSize: null });
+            }
+        }
+
+        return { patchedCount: patched.length, details: patched };
+    },
+});
+
+/**
+ * Fix anomalous neckThreadSize values in products table (paginated).
+ * Run: npx convex run migrations:fixAnomalousThreadSizesProducts
+ */
+export const fixAnomalousThreadSizesProducts = mutation({
+    args: { cursor: v.optional(v.string()) },
+    handler: async (ctx, args) => {
+        const VALID_THREAD_PATTERN = /^\d{1,3}[-/]\d{3,4}$|^\d{1,3}mm$/i;
+        const patched: string[] = [];
+
+        const result = await ctx.db.query("products").paginate({ numItems: 500, cursor: args.cursor ?? null });
+        for (const product of result.page) {
+            if (product.neckThreadSize && !VALID_THREAD_PATTERN.test(product.neckThreadSize)) {
+                patched.push(`${product.graceSku}: "${product.neckThreadSize}" → null`);
+                await ctx.db.patch(product._id, { neckThreadSize: null });
+            }
+        }
+
+        return {
+            patchedCount: patched.length,
+            details: patched,
+            isDone: result.isDone,
+            continueCursor: result.isDone ? null : result.continueCursor,
+        };
+    },
+});

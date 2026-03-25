@@ -501,12 +501,17 @@ function FilterSidebarContent({
 
     const sortedThreads = useMemo(() => {
         if (!facets) return [];
-        return Object.entries(facets.neckThreadSizes).sort(([a], [b]) => {
-            const na = parseFloat(a);
-            const nb = parseFloat(b);
-            if (!isNaN(na) && !isNaN(nb)) return na - nb;
-            return a.localeCompare(b);
-        });
+        // Valid thread sizes match patterns like "18-415", "20-400", "13-415", "16mm"
+        // Filter out anomalous values like "Ground", "Plug", "PRESS-FIT", "snap", "SPECIAL", garbled SKUs
+        const VALID_THREAD_PATTERN = /^\d{1,3}[-/]\d{3,4}$|^\d{1,3}mm$/i;
+        return Object.entries(facets.neckThreadSizes)
+            .filter(([thread]) => VALID_THREAD_PATTERN.test(thread))
+            .sort(([a], [b]) => {
+                const na = parseFloat(a);
+                const nb = parseFloat(b);
+                if (!isNaN(na) && !isNaN(nb)) return na - nb;
+                return a.localeCompare(b);
+            });
     }, [facets]);
 
     const sortedFamilies = useMemo(() => {
