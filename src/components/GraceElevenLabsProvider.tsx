@@ -585,9 +585,9 @@ export default function GraceElevenLabsProvider({
                 navPath = `${navPath}?${qs}`;
             }
 
-            // Validate product paths — Grace sometimes fabricates slugs from product names.
-            // If the slug doesn't exist in the database, search the catalog and redirect
-            // to the real slug (or catalog filtered results) instead.
+            // Validate product paths — Grace often fabricates slugs from product names.
+            // When the slug doesn't exist, search the catalog using the TITLE (which
+            // contains the actual product description) to find the real product.
             if (navPath.startsWith("/products/")) {
                 const rawSlug = navPath.replace(/^\/products\//, "").split("?")[0];
                 try {
@@ -600,9 +600,12 @@ export default function GraceElevenLabsProvider({
                     const groupExists = checkData.result && (checkData.result as { group?: unknown }).group;
 
                     if (!groupExists) {
-                        // Slug doesn't exist — search catalog to find the real slug
-                        console.warn(`[Grace nav] Slug "${rawSlug}" not found — searching catalog instead`);
-                        const searchTerm = slugToSearchTerm(rawSlug);
+                        // Slug doesn't exist — use the title (e.g. "3ml spray bottle")
+                        // as a search term instead of the garbled slug
+                        const searchTerm = parameters.title && parameters.title.length > 3
+                            ? parameters.title
+                            : slugToSearchTerm(rawSlug);
+                        console.warn(`[Grace nav] Slug "${rawSlug}" not found — searching for "${searchTerm}"`);
                         const searchRes = await fetch("/api/elevenlabs/server-tools", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -615,7 +618,11 @@ export default function GraceElevenLabsProvider({
                         const hits: ProductCard[] = Array.isArray(searchData.result) ? searchData.result : [];
 
                         if (hits.length > 0) {
-                            navPath = buildBrowsePath(hits, searchTerm);
+                            // Try direct match first — navigate to exact product if possible
+                            const directHit = selectDirectProductMatch(hits, searchTerm);
+                            navPath = directHit
+                                ? `/products/${directHit.slug}`
+                                : buildBrowsePath(hits, searchTerm);
                         } else {
                             // No matches — fall back to catalog search
                             navPath = buildCatalogPath([], searchTerm);
