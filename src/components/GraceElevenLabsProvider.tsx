@@ -104,8 +104,19 @@ function buildCatalogPath(products: ProductCard[], query?: string, family?: stri
     if (family) {
         qs.set("families", family);
     } else {
-        const families = [...new Set(products.map((p) => p.family).filter(Boolean))];
-        if (families.length >= 1 && families[0]) {
+        // Count products per family and only include the dominant one(s).
+        // If one family has 70%+ of results, use only that family — don't
+        // pollute the filter with stray results from other families.
+        const familyCounts = new Map<string, number>();
+        for (const p of products) {
+            if (p.family) familyCounts.set(p.family, (familyCounts.get(p.family) || 0) + 1);
+        }
+        const sorted = [...familyCounts.entries()].sort((a, b) => b[1] - a[1]);
+        const total = products.length;
+
+        if (sorted.length > 0) {
+            const dominant = sorted.filter(([, count]) => count / total >= 0.3).map(([f]) => f);
+            const families = dominant.length > 0 ? dominant : [sorted[0][0]];
             qs.set("families", families.join(","));
         } else if (sanitizedQuery) {
             qs.set("search", sanitizedQuery);
