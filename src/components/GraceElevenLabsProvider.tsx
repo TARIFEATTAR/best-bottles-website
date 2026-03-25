@@ -112,6 +112,13 @@ function buildCatalogPath(products: ProductCard[], query?: string, family?: stri
         }
     }
 
+    // Extract capacity from query (e.g. "3ml", "30ml", "100ml") and pass as search
+    // so the catalog page shows the right size, not all products in the family
+    const capMatch = query?.match(/\b(\d+(?:\.\d+)?)\s*ml\b/i);
+    if (capMatch) {
+        qs.set("search", `${capMatch[1]}ml`);
+    }
+
     qs.set("grace", "1");
     return `/catalog?${qs.toString()}`;
 }
@@ -199,7 +206,14 @@ function selectDirectProductMatch(products: ProductCard[], query?: string): Prod
     if (!best?.product.slug || best.coverage < 0.75) {
         return null;
     }
+    // If the second-best is nearly as good, check if they share the same slug
+    // (same product group, different variants). If so, it's not ambiguous — pick the best.
     if (secondBest && secondBest.coverage >= best.coverage - 0.1 && secondBest.matches >= best.matches - 1) {
+        // Same product group → not ambiguous, use the best match
+        if (secondBest.product.slug === best.product.slug) {
+            return best.product;
+        }
+        // Different product groups with similar scores → genuinely ambiguous, show catalog
         return null;
     }
 
