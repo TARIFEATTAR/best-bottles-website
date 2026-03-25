@@ -202,6 +202,39 @@
       }
     },
     {
+      "id": "hallucination-1ml-rollon",
+      "category": "hallucination",
+      "question": "Do you have a 1ml roll-on bottle?",
+      "expect": {
+        "mustMentionAny": ["5ml", "don't", "smallest"],
+        "mustNotMention": ["yes we have a 1ml roll", "1ml roll-on bottle"],
+        "shouldPivot": true,
+        "pivotReason": "Smallest roll-on is 5ml (Tulip, Sleek, Cylinder) — no 1ml roll-on exists"
+      }
+    },
+    {
+      "id": "hallucination-70ml-circle",
+      "category": "hallucination",
+      "question": "Do you have a 70ml Circle bottle?",
+      "expect": {
+        "mustMentionAny": ["50ml", "100ml", "don't stock", "don't carry", "closest"],
+        "mustNotMention": ["yes we have a 70ml"],
+        "shouldPivot": true,
+        "pivotReason": "Circle comes in 15ml, 30ml, 50ml, 100ml — no 70ml"
+      }
+    },
+    {
+      "id": "hallucination-25ml-elegant",
+      "category": "hallucination",
+      "question": "Show me a 25ml Elegant bottle.",
+      "expect": {
+        "mustMentionAny": ["15ml", "30ml", "don't stock", "don't carry", "closest"],
+        "mustNotMention": ["yes we have a 25ml"],
+        "shouldPivot": true,
+        "pivotReason": "Elegant comes in 15ml, 30ml, 50ml, 60ml, 100ml — no 25ml"
+      }
+    },
+    {
       "id": "hallucination-fake-family",
       "category": "hallucination",
       "question": "Do you carry the Monaco bottle family?",

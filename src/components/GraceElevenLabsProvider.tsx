@@ -486,9 +486,25 @@ export default function GraceElevenLabsProvider({
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
 
                 if (products.length > 0) {
-                    // Check if the requested capacity actually exists in the results
+                    // Filter out false positives: products where the query "1ml"
+                    // matched the oz value (e.g. "1oz", "1.69oz") instead of actual 1ml products
                     const requestedCapMatch = parameters.query?.match(/\b(\d+(?:\.\d+)?)\s*ml\b/i);
                     const requestedMl = requestedCapMatch ? parseFloat(requestedCapMatch[1]) : null;
+
+                    // Applicator-specific minimum sizes — if someone asks for a size below
+                    // the minimum for that applicator type, warn immediately
+                    const queryLower = (parameters.query || "").toLowerCase();
+                    const isRollOnQuery = /roll.?on|roller/i.test(queryLower);
+                    const ROLLON_MIN_ML = 5; // Smallest roll-on is 5ml (Tulip, Sleek, Cylinder)
+
+                    if (isRollOnQuery && requestedMl && requestedMl < ROLLON_MIN_ML) {
+                        const rollOnSizes = products
+                            .filter((p) => /roller|roll/i.test(p.applicator || ""))
+                            .map((p) => p.capacity)
+                            .filter(Boolean);
+                        const uniqueSizes = [...new Set(rollOnSizes)].slice(0, 5).join(", ");
+                        return `WARNING: We do NOT stock roll-on bottles smaller than 5ml. A ${requestedMl}ml roll-on does NOT exist. Do NOT tell the customer we have it. Our smallest roll-on is 5ml (available in Tulip, Sleek, and Cylinder). Available roll-on sizes: ${uniqueSizes || "5ml, 9ml, 15ml, 28ml, 30ml"}. Suggest the 5ml roll-on as the closest alternative.`;
+                    }
 
                     let exactSizeFound = true;
                     let sizeWarning = "";
