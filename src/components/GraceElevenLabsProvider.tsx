@@ -486,6 +486,57 @@ export default function GraceElevenLabsProvider({
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
 
                 if (products.length > 0) {
+                    // Filter out false positives: products where the query "1ml"
+                    // matched the oz value (e.g. "1oz", "1.69oz") instead of actual 1ml products
+                    const requestedCapMatch = parameters.query?.match(/\b(\d+(?:\.\d+)?)\s*ml\b/i);
+                    const requestedMl = requestedCapMatch ? parseFloat(requestedCapMatch[1]) : null;
+
+                    // Applicator-specific minimum sizes — if someone asks for a size below
+                    // the minimum for that applicator type, warn immediately
+                    const queryLower = (parameters.query || "").toLowerCase();
+                    const isRollOnQuery = /roll.?on|roller/i.test(queryLower);
+                    const ROLLON_MIN_ML = 5; // Smallest roll-on is 5ml (Tulip, Sleek, Cylinder)
+
+                    if (isRollOnQuery && requestedMl && requestedMl < ROLLON_MIN_ML) {
+                        const rollOnSizes = products
+                            .filter((p) => /roller|roll/i.test(p.applicator || ""))
+                            .map((p) => p.capacity)
+                            .filter(Boolean);
+                        const uniqueSizes = [...new Set(rollOnSizes)].slice(0, 5).join(", ");
+                        return `WARNING: We do NOT stock roll-on bottles smaller than 5ml. A ${requestedMl}ml roll-on does NOT exist. Do NOT tell the customer we have it. Our smallest roll-on is 5ml (available in Tulip, Sleek, and Cylinder). Available roll-on sizes: ${uniqueSizes || "5ml, 9ml, 15ml, 28ml, 30ml"}. Suggest the 5ml roll-on as the closest alternative.`;
+                    }
+
+                    let exactSizeFound = true;
+                    let sizeWarning = "";
+                    if (requestedMl) {
+                        // Tolerance scales with size: ±1ml for small bottles, ±10% for larger
+                        // 3ml→3.3ml (ok), 5ml→5.5ml (ok), but 70ml≠78ml, 50ml≠60ml
+                        const tolerance = Math.max(1, requestedMl * 0.1);
+                        const hasExactSize = products.some((p) => {
+                            const pMl = p.capacityMl ?? parseFloat(p.capacity || "0");
+                            return pMl > 0 && Math.abs(pMl - requestedMl) <= tolerance;
+                        });
+                        if (!hasExactSize) {
+                            exactSizeFound = false;
+                            // Deduplicate and sort available sizes for a clean message
+                            const sizeSet = new Map<number, string>();
+                            for (const p of products) {
+                                const ml = p.capacityMl ?? parseFloat(p.capacity || "0");
+                                if (ml > 0 && p.capacity && !sizeSet.has(ml)) {
+                                    sizeSet.set(ml, p.capacity);
+                                }
+                            }
+                            const sortedSizes = [...sizeSet.entries()]
+                                .sort(([a], [b]) => a - b)
+                                .map(([, label]) => label)
+                                .slice(0, 6);
+                            const availableSizes = sortedSizes.join(", ");
+                            // Also note which families these sizes belong to
+                            const families = [...new Set(products.map((p) => p.family).filter(Boolean))].slice(0, 4).join(", ");
+                            sizeWarning = `WARNING: We do NOT stock a ${requestedMl}ml in this search (families: ${families}). Do NOT tell the customer we have it. The available sizes are: ${availableSizes}. Tell the customer the exact sizes we DO carry and suggest the closest alternative.`;
+                        }
+                    }
+
                     const directProduct = selectDirectProductMatch(products, parameters.query);
                     const displayProducts = directProduct ? [directProduct] : products;
                     const redirectUrl = buildBrowsePath(displayProducts, parameters.query, parameters.family);
@@ -493,20 +544,27 @@ export default function GraceElevenLabsProvider({
                     const summary = displayProducts.slice(0, 3)
                         .map((p) => [p.itemName, p.capacity, p.color].filter(Boolean).join(" "))
                         .join(", ");
-                    const resultMsg = `Found ${products.length} options — top matches: ${summary}. Navigating the customer there now.`;
 
-                    // IMPORTANT: Schedule navigation AFTER returning the result to ElevenLabs.
-                    // If we navigate before returning, the component unmounts and the
-                    // WebSocket dies — the LLM never receives the tool result.
-                    setTimeout(() => {
-                        setGraceQuery(parameters.query || parameters.family || "");
-                        setPendingNavigation(redirectUrl);
-                        setPanelMode("strip");
-                    }, 500);
+                    // Build result message — include size warning if requested size doesn't exist
+                    const resultMsg = sizeWarning
+                        ? `${sizeWarning} Search returned ${products.length} nearby products: ${summary}.`
+                        : `Found ${products.length} options — top matches: ${summary}. Navigating the customer there now.`;
+
+                    // Only navigate if we found the right size — don't navigate to wrong products
+                    if (exactSizeFound) {
+                        // IMPORTANT: Schedule navigation AFTER returning the result to ElevenLabs.
+                        // If we navigate before returning, the component unmounts and the
+                        // WebSocket dies — the LLM never receives the tool result.
+                        setTimeout(() => {
+                            setGraceQuery(parameters.query || parameters.family || "");
+                            setPendingNavigation(redirectUrl);
+                            setPanelMode("strip");
+                        }, 500);
+                    }
 
                     return resultMsg;
                 }
-                return "No products found matching that description. Try a broader search term.";
+                return "No products found matching that description. The customer should try a different size or family.";
             } catch (e) {
                 console.error("[Grace EL] showProducts error:", e);
                 return "Catalog search failed. Please try again.";
