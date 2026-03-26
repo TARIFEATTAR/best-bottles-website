@@ -8,6 +8,7 @@ import {
     useEffect,
     type ReactNode,
 } from "react";
+import { analytics } from "@/lib/analytics";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -97,7 +98,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const removeItem = useCallback((graceSku: string) => {
-        setItems((prev) => prev.filter((i) => i.graceSku !== graceSku));
+        setItems((prev) => {
+            const removed = prev.find((i) => i.graceSku === graceSku);
+            if (removed) analytics.cartItemRemoved({ sku: removed.graceSku, name: removed.itemName });
+            return prev.filter((i) => i.graceSku !== graceSku);
+        });
     }, []);
 
     const updateQuantity = useCallback((graceSku: string, quantity: number) => {
@@ -119,6 +124,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setIsCheckingOut(true);
         setCheckoutError("");
 
+        const cartTotal = items.reduce((sum, i) => sum + (i.unitPrice ?? 0) * i.quantity, 0);
+        analytics.checkoutStarted({
+            itemCount: items.length,
+            cartTotal,
+            skus: items.map((i) => i.graceSku).join(", "),
+        });
+
         try {
             const res = await fetch("/api/shopify/resolve-variants", {
                 method: "POST",
@@ -139,6 +151,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
             if (data.checkoutUrl) {
                 const unmatched: string[] = data.unmatchedSkus ?? [];
+                analytics.checkoutCompleted({ itemCount: items.length, cartTotal, unmatchedCount: unmatched.length });
                 if (unmatched.length > 0) {
                     setCheckoutError(
                         `${unmatched.length} item(s) couldn't be matched in the store and were skipped. Proceeding with the rest.`
@@ -156,6 +169,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         } catch (err) {
             console.error("[Cart] Checkout error:", err);
             const message = err instanceof Error ? err.message : "";
+            analytics.checkoutFailed({ error: message || "unknown", itemCount: items.length });
             if (
                 message.includes("not configured") ||
                 message.includes("503") ||

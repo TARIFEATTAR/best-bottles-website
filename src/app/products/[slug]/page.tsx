@@ -23,6 +23,8 @@ import {
     PdpEditorialZone,
     type PdpBlock,
 } from "@/components/PdpBlocks";
+import PaperDollImage from "@/components/PaperDollImage";
+import { analytics } from "@/lib/analytics";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -526,9 +528,46 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     useEffect(() => {
         if (group) {
             document.title = `${group.displayName} | Best Bottles`;
+            analytics.productViewed({
+                name: group.displayName,
+                family: group.family,
+                capacity: group.capacity ?? "",
+                color: group.color ?? "",
+                neckThreadSize: group.neckThreadSize ?? undefined,
+                price: group.priceRangeMin ?? undefined,
+                slug,
+            });
         }
         return () => { document.title = "Best Bottles"; };
-    }, [group]);
+    }, [group, slug]);
+
+    // ── Bridge current PDP product data for global Grace widgets ────────────
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+
+        if (selectedVariant) {
+            const globalWindow = window as Window & {
+                __GRACE_PRODUCT_NAME__?: string;
+                __GRACE_PRODUCT_SKU__?: string;
+                __GRACE_THREAD_SIZE__?: string;
+            };
+
+            globalWindow.__GRACE_PRODUCT_NAME__ = group?.displayName ?? selectedVariant.itemName ?? "";
+            globalWindow.__GRACE_PRODUCT_SKU__ = selectedVariant.graceSku ?? "";
+            globalWindow.__GRACE_THREAD_SIZE__ = selectedVariant.neckThreadSize ?? "";
+        }
+
+        return () => {
+            const globalWindow = window as Window & {
+                __GRACE_PRODUCT_NAME__?: string;
+                __GRACE_PRODUCT_SKU__?: string;
+                __GRACE_THREAD_SIZE__?: string;
+            };
+            delete globalWindow.__GRACE_PRODUCT_NAME__;
+            delete globalWindow.__GRACE_PRODUCT_SKU__;
+            delete globalWindow.__GRACE_THREAD_SIZE__;
+        };
+    }, [group?.displayName, selectedVariant]);
 
     // ── Sanity two-tier content (family template + product override) ──────────
     useEffect(() => {
@@ -644,6 +683,15 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             capacity: group?.capacity ?? undefined,
             color: group?.color ?? undefined,
         }]);
+        analytics.cartItemAdded({
+            sku: selectedVariant.graceSku,
+            name: selectedVariant.itemName,
+            quantity: qty,
+            unitPrice: selectedVariant.webPrice1pc,
+            family: group?.family,
+            capacity: group?.capacity ?? undefined,
+            source: "pdp",
+        });
         setAddedFlash(true);
         setTimeout(() => setAddedFlash(false), 1800);
         // Auto-open the cart drawer
@@ -711,7 +759,16 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 transition={{ duration: 0.3 }}
                                 className="aspect-square bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
                             >
-                                {selectedVariant?.imageUrl ? (
+                                {group.paperDollFamilyKey && selectedVariant ? (
+                                    <PaperDollImage
+                                        familyKey={group.paperDollFamilyKey}
+                                        glassColor={group.color}
+                                        applicator={selectedVariant.applicator}
+                                        itemName={selectedVariant.itemName}
+                                        fallbackImageUrl={selectedVariant.imageUrl}
+                                        className="w-full h-full p-6 sm:p-12"
+                                    />
+                                ) : selectedVariant?.imageUrl ? (
                                     <img
                                         src={selectedVariant.imageUrl}
                                         alt={selectedVariant.itemName}

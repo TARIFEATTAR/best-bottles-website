@@ -23,6 +23,7 @@ import {
     useMemo,
 } from "react";
 import { Microphone, X } from "@/components/icons";
+import { analytics } from "@/lib/analytics";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -406,6 +407,9 @@ export function GraceWidget() {
     // ── Form state (for updateFormField / submitForm) ─────────────────────────
     const activeFormRef = useRef<{ formType: string; fields: Record<string, string> } | null>(null);
 
+    // ── Session metrics (for analytics) ─────────────────────────────────────
+    const sessionMetricsRef = useRef({ toolsCalled: 0, toolsUsed: new Set<string>(), cartItemsAdded: 0, navigations: 0 });
+
     // ── Stable router ref (for tools) ─────────────────────────────────────────
     const routerRef = useRef(router);
     useEffect(() => { routerRef.current = router; }, [router]);
@@ -423,6 +427,9 @@ export function GraceWidget() {
                 });
                 const data = await r.json() as { result?: ProductCard[] };
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("searchCatalog");
+                analytics.graceToolCalled({ toolName: "searchCatalog", searchTerm: params.searchTerm, family: params.familyLimit, success: products.length > 0 });
                 if (products.length === 0) return "No products found matching that description. Try a different search term.";
 
                 const sizeNote = checkSizeWarning(products, params.searchTerm);
@@ -582,8 +589,13 @@ export function GraceWidget() {
                 const displayProducts = directProduct ? [directProduct] : products;
                 const summary = displayProducts.slice(0, 3).map((p) => [p.itemName, p.capacity, p.color].filter(Boolean).join(" ")).join(", ");
 
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("showProducts");
+                analytics.graceToolCalled({ toolName: "showProducts", searchTerm: params.query, family: params.family, success: products.length > 0 });
                 if (exactSizeFound) {
                     const redirectUrl = buildBrowsePath(displayProducts, params.query, params.family);
+                    sessionMetricsRef.current.navigations++;
+                    analytics.graceNavigation({ destination: redirectUrl, triggeredBy: "showProducts", query: params.query });
                     setTimeout(() => { routerRef.current.push(redirectUrl); }, 500);
                     return `Found ${products.length} options — top matches: ${summary}. Navigating the customer there now.`;
                 }
@@ -624,6 +636,15 @@ export function GraceWidget() {
                     quantity: p.quantity,
                     unitPrice: p.webPrice1pc ?? null,
                 })));
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("proposeCartAdd");
+                sessionMetricsRef.current.cartItemsAdded += products.length;
+                const valueDelta = products.reduce((sum, p) => sum + (p.webPrice1pc ?? 0) * p.quantity, 0);
+                analytics.graceToolCalled({ toolName: "proposeCartAdd", success: true });
+                analytics.graceCartConversion({ itemCount: products.length, itemNames: products.map((p) => p.itemName).join(", "), cartValueDelta: valueDelta });
+                for (const p of products) {
+                    analytics.cartItemAdded({ sku: p.graceSku, name: p.itemName, quantity: p.quantity, unitPrice: p.webPrice1pc, source: "grace" });
+                }
                 const names = products.map((p) => `${p.itemName} ×${p.quantity}`).join(", ");
                 return `Added to cart: ${names}. The customer can see the updated cart icon. Confirm with them that the items were added.`;
             } catch (e) { console.error("[Grace] proposeCartAdd:", e); return "Failed to add items to cart."; }
@@ -666,6 +687,11 @@ export function GraceWidget() {
                 navPath = `${navPath}${navPath.includes("?") ? "&" : "?"}grace=1`;
             }
 
+            sessionMetricsRef.current.toolsCalled++;
+            sessionMetricsRef.current.toolsUsed.add("navigateToPage");
+            sessionMetricsRef.current.navigations++;
+            analytics.graceToolCalled({ toolName: "navigateToPage", success: true });
+            analytics.graceNavigation({ destination: navPath, triggeredBy: "navigateToPage" });
             setTimeout(() => { routerRef.current.push(navPath); }, 500);
             return `Navigating the customer to ${params.title ?? "the page"} now.`;
         },
@@ -716,6 +742,9 @@ export function GraceWidget() {
                     quantities: form.fields.quantities || undefined,
                     source: "grace",
                 });
+                analytics.formSubmitted({ formType: form.formType as "quote" | "sample" | "contact" | "newsletter", source: "grace" });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("submitForm");
                 activeFormRef.current = null;
                 return "Form submitted successfully. Thank the customer.";
             } catch (err) {
@@ -731,10 +760,29 @@ export function GraceWidget() {
     const handleConnect = useCallback(() => {
         connectingRef.current = false;
         setGraceStatus("listening");
+        sessionMetricsRef.current = { toolsCalled: 0, toolsUsed: new Set(), cartItemsAdded: 0, navigations: 0 };
+        const ctx = pageContextRef.current;
+        analytics.graceConversationStarted({
+            pageType: ctx?.pageType ?? "unknown",
+            pathname: ctx?.pathname ?? "/",
+            productName: ctx?.currentProduct?.name,
+            productFamily: ctx?.currentProduct?.family,
+            cartItemCount: ctx?.cartItems.length ?? 0,
+        });
     }, []);
 
     const handleDisconnect = useCallback(() => {
         connectingRef.current = false;
+        const m = sessionMetricsRef.current;
+        const ctx = pageContextRef.current;
+        analytics.graceConversationEnded({
+            pageType: ctx?.pageType ?? "unknown",
+            pathname: ctx?.pathname ?? "/",
+            toolsCalledCount: m.toolsCalled,
+            toolsUsed: [...m.toolsUsed].join(", "),
+            cartItemsAdded: m.cartItemsAdded,
+            navigationsTriggered: m.navigations,
+        });
         setIsActive(false);
         setGraceStatus("idle");
     }, []);
