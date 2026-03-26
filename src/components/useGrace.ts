@@ -1,9 +1,6 @@
 /**
- * Shared Grace context barrel.
- *
- * This provides access to the Grace context currently being handled by
- * GraceElevenLabsProvider. Components should always import from here 
- * to remain provider-agnostic.
+ * Shared Grace context barrel — re-exports from GraceContext.
+ * Returns safe no-ops when GraceWidget handles the conversation directly.
  */
 
 export {

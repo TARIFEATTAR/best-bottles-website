@@ -5,8 +5,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { CartProvider } from "@/components/CartProvider";
-import GraceProviderSwitch from "@/components/GraceProviderSwitch";
 import MegaMenuLayoutWrapper from "@/components/MegaMenuLayoutWrapper";
+import { GraceWidget } from "@/components/grace/GraceWidget";
 
 const cormorant = Cormorant({
   variable: "--font-cormorant",
@@ -49,12 +49,11 @@ export default function RootLayout({
                   <div className="w-10 h-10 border-2 border-muted-gold/30 border-t-muted-gold rounded-full animate-spin" />
                 </div>
               }>
-                <GraceProviderSwitch>
-                  <MegaMenuLayoutWrapper>
-                    {children}
-                  </MegaMenuLayoutWrapper>
-                </GraceProviderSwitch>
+                <MegaMenuLayoutWrapper>
+                  {children}
+                </MegaMenuLayoutWrapper>
               </Suspense>
+              <Suspense><GraceWidget /></Suspense>
             </CartProvider>
           </ConvexClientProvider>
         </body>
