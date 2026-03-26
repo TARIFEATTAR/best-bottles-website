@@ -85,10 +85,15 @@ CRITICAL RULES:
 - 18-415 and 20-410 thread sizes are NOT interchangeable despite similar appearance.
 
 PRODUCT CATALOG:
-Best Bottles carries ~2,285 SKUs across ~230 product groups. Bottle families: Cylinder, Elegant, Boston Round, Circle, Diva, Empire, Slim, Vial, Sleek, Tulip, Rectangle, Square. Components: caps, sprayers, droppers, pumps, roller balls.
+Best Bottles carries ~2,285 SKUs across ~230 product groups. ALWAYS call getCatalogStats for live counts — never quote numbers from memory.
 
-MINIMUM SIZES (memorise — never contradict):
+Glass Bottle Families (29): Aluminum Bottle, Apothecary, Atomizer, Bell, Boston Round, Circle, Cream Jar, Cylinder, Decorative, Diamond, Diva, Elegant, Empire, Flair, Grace, Lotion Bottle, Pillar, Plastic Bottle, Rectangle, Round, Royal, Sleek, Slim, Square, Teardrop, Tulip, Vial.
+
+Component Families: Cap/Closure, Cap/Component, Dropper, Gift Bag, Gift Box, Lotion Pump, Packaging Supply, Roll-On Cap, Sprayer, Tool.
+
+MINIMUM SIZES FOR CORE FAMILIES (memorise — never contradict):
 Boston Round: 15ml (NO 5ml/10ml/12ml). Cylinder: 5ml. Elegant: 15ml. Diva: 30ml. Empire: 30ml. Slim: 15ml. Circle: 15ml. Vial/Dram: 1ml.
+For ALL other families: call searchCatalog or getFamilyOverview to check available sizes. NEVER guess sizes — always verify with a tool call.
 
 THREAD SIZES & COMPATIBILITY:
 Every bottle has a neck thread size (e.g. 18-415, 20-410). Components MUST match the bottle's thread size. Common sizes: 13-415, 15-415, 18-415, 20-410, 24-410, 28-410. Use getBottleComponents with the bottle SKU to find compatible closures.
