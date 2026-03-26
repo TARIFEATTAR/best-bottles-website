@@ -152,6 +152,20 @@ function detectDecorativeAccessory(websiteSku: string): { slug: string; label: s
     return null;
 }
 
+/**
+ * Detect Rectangle sub-design from itemName.
+ * "Footed rectangular design …" → "footed"
+ * "Tall rectangular design …"   → "tall"
+ * Anything else                  → null  (no sub-design distinction)
+ */
+function detectRectangleSubDesign(itemName: string | null | undefined): string | null {
+    if (!itemName) return null;
+    const lower = itemName.toLowerCase();
+    if (lower.startsWith("footed rectangular")) return "footed";
+    if (lower.startsWith("tall rectangular"))   return "tall";
+    return null;
+}
+
 function getDecorativeSuffix(
     shape: string,
     applicatorBucket: string | null,
@@ -221,6 +235,7 @@ function buildSlug(
     shape: string | null = null,
     accessorySlug: string | null = null,
     componentSubType: string | null = null,
+    rectSubDesign: string | null = null,
 ): string {
     const slugify = (s: string) =>
         s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -240,13 +255,15 @@ function buildSlug(
     const f = slugify(familyLabel);
     const c = capacityMl != null ? `${capacityMl}ml` : "0ml";
     const col = slugify(color || "mixed");
+    // Rectangle sub-design prefix: "footed-rectangle" or "tall-rectangle"
+    const fLabel = rectSubDesign ? `${rectSubDesign}-${f}` : f;
     if (BOTTLE_CATEGORIES.has(category) && neckThreadSize) {
         const thread = normalizeThreadForSlug(neckThreadSize) ?? slugify(neckThreadSize);
-        let base = `${f}-${c}-${col}-${thread}`;
+        let base = `${fLabel}-${c}-${col}-${thread}`;
         if (accessorySlug) base = `${base}-${accessorySlug}`;
         return applicatorBucket ? `${base}-${applicatorBucket}` : base;
     }
-    return accessorySlug ? `${f}-${c}-${col}-${accessorySlug}` : `${f}-${c}-${col}`;
+    return accessorySlug ? `${fLabel}-${c}-${col}-${accessorySlug}` : `${fLabel}-${c}-${col}`;
 }
 
 function buildDisplayName(
@@ -259,6 +276,7 @@ function buildDisplayName(
     accessoryLabel: string | null = null,
     componentSubType: string | null = null,
     neckThreadSize: string | null = null,
+    rectSubDesign: string | null = null,
 ): string {
     if (isMetalAtomizerCategory(category)) {
         const cap = capacity && capacity !== "0 ml (0 oz)"
@@ -291,17 +309,21 @@ function buildDisplayName(
     }
 
     // Clean customer-facing bottle name:
-    // [Capacity] [Color] [Family] [Format]
-    // e.g. "5 ml Cobalt Blue Cylinder Spray Bottle"
+    // [Capacity] [Color] [SubDesign?] [Family] [Format]
+    // e.g. "10 ml Clear Footed Rectangle Roll-On Bottle"
     if (BOTTLE_NAMING_CATEGORIES.has(category)) {
         const cap = formatCapacity(capacity);
         const fam = (family || category || "").trim();
         const col = (color || "").trim();
+        // Rectangle sub-design label: "Footed" or "Tall"
+        const subLabel = rectSubDesign
+            ? rectSubDesign.charAt(0).toUpperCase() + rectSubDesign.slice(1)
+            : null;
         const format = applicatorBucket
             ? (APPLICATOR_BUCKET_TITLE[applicatorBucket] ?? "Bottle")
             : "Bottle with Cap";
         const formatSafe = fam.toLowerCase().includes("bottle") && format === "Bottle" ? "" : format;
-        const parts = [cap, col, fam, formatSafe].filter(Boolean);
+        const parts = [cap, col, subLabel, fam, formatSafe].filter(Boolean);
         if (parts.length > 0) return parts.join(" ");
     }
 
@@ -323,6 +345,7 @@ function buildGroupKey(
     shape: string | null = null,
     accessorySlug: string | null = null,
     componentSubType: string | null = null,
+    rectSubDesign: string | null = null,
 ): string {
     if (isMetalAtomizerCategory(category)) {
         return ["Atomizer", capacityMl ?? "null", "metal-shell"].join("|");
@@ -333,6 +356,8 @@ function buildGroupKey(
     const hasDecShape = (family === "Decorative" || family === "Apothecary") && shape;
     let familyKey = hasDecShape ? `Decorative:${shape}` : (family || category);
     if (hasDecShape && accessorySlug) familyKey = `${familyKey}:${accessorySlug}`;
+    // Rectangle sub-design (footed vs tall) → distinct groups
+    if (rectSubDesign) familyKey = `${familyKey}:${rectSubDesign}`;
     const parts: (string | number)[] = [familyKey, capacityMl ?? "null", color || "null"];
     if (BOTTLE_CATEGORIES.has(category)) {
         parts.push(neckThreadSize || "null");
@@ -468,12 +493,15 @@ export const buildProductGroups = action({
                 const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
                     ? getComponentSubType(p.itemName, p.websiteSku, p.applicator)
                     : null;
-                const key = buildGroupKey(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug, componentSubType);
+                const rectSubDesign = effectiveFamily === "Rectangle"
+                    ? detectRectangleSubDesign(p.itemName)
+                    : null;
+                const key = buildGroupKey(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug, componentSubType, rectSubDesign);
 
                 if (!groupMap.has(key)) {
                     groupMap.set(key, {
-                        slug: buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug, componentSubType),
-                        displayName: buildDisplayName(effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory, applicatorBucket, decorativeShape, accessoryLabel, componentSubType, p.neckThreadSize ?? null),
+                        slug: buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, accessorySlug, componentSubType, rectSubDesign),
+                        displayName: buildDisplayName(effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory, applicatorBucket, decorativeShape, accessoryLabel, componentSubType, p.neckThreadSize ?? null, rectSubDesign),
                         family: effectiveFamily || effectiveCategory || "unknown",
                         capacity: p.capacity ?? null,
                         capacityMl: p.capacityMl ?? null,
@@ -566,7 +594,10 @@ export const linkProductsToGroups = action({
                 const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
                     ? getComponentSubType(p.itemName, p.websiteSku, p.applicator)
                     : null;
-                const slug = buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null, componentSubType);
+                const rectSubDesign = effectiveFamily === "Rectangle"
+                    ? detectRectangleSubDesign(p.itemName)
+                    : null;
+                const slug = buildSlug(effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory, p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null, componentSubType, rectSubDesign);
                 const groupId = slugToId.get(slug);
                 if (groupId) {
                     links.push({ id: p._id, groupId });
@@ -4622,6 +4653,7 @@ export const groupOrphanedProducts = action({
             _id: Id<"products">;
             websiteSku: string;
             graceSku: string;
+            itemName: string;
             category: string;
             family: string | null;
             capacityMl: number | null;
@@ -4690,10 +4722,13 @@ export const groupOrphanedProducts = action({
             const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
                 ? getComponentSubType(p.websiteSku ?? "", p.websiteSku ?? "", p.applicator ?? null)
                 : null;
+            const rectSubDesign = effectiveFamily === "Rectangle"
+                ? detectRectangleSubDesign(p.itemName)
+                : null;
 
             const slug = buildSlug(
                 effectiveFamily, p.capacityMl ?? null, p.color ?? null, effectiveCategory,
-                p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null, componentSubType,
+                p.neckThreadSize ?? null, applicatorBucket, decorativeShape, decAccessory?.slug ?? null, componentSubType, rectSubDesign,
             );
             orphanSlugMap.set(String(p._id), slug);
 
@@ -4702,7 +4737,7 @@ export const groupOrphanedProducts = action({
                     slug,
                     displayName: buildDisplayName(
                         effectiveFamily, p.capacity ?? null, p.color ?? null, effectiveCategory,
-                        applicatorBucket, decorativeShape, decAccessory?.label ?? null, componentSubType, p.neckThreadSize ?? null,
+                        applicatorBucket, decorativeShape, decAccessory?.label ?? null, componentSubType, p.neckThreadSize ?? null, rectSubDesign,
                     ),
                     family: effectiveFamily || effectiveCategory || "unknown",
                     capacity: p.capacity ?? null,

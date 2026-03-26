@@ -29,6 +29,8 @@ export default defineSchema({
         primaryGraceSku: v.optional(v.union(v.string(), v.null())),
         primaryWebsiteSku: v.optional(v.union(v.string(), v.null())),
         groupDescription: v.optional(v.union(v.string(), v.null())),
+        /** Links catalog group to Sanity paperDollFamily.familyKey (e.g. CYL-9ML) */
+        paperDollFamilyKey: v.optional(v.union(v.string(), v.null())),
     })
         .index("by_slug", ["slug"])
         .index("by_family", ["family"])
@@ -155,6 +157,15 @@ export default defineSchema({
 
         // ── Phase 1: Product Grouping ────────────────────────────────
         productGroupId: v.optional(v.id("productGroups")), // FK → productGroups
+
+        // ── Paper Doll (Sanity layer assets + compositor) ───────────
+        paperDollBodyUrl: v.optional(v.union(v.string(), v.null())),
+        paperDollFitmentUrl: v.optional(v.union(v.string(), v.null())),
+        paperDollCapUrl: v.optional(v.union(v.string(), v.null())),
+        paperDollRollerUrl: v.optional(v.union(v.string(), v.null())),
+        paperDollLayerOrder: v.optional(v.array(v.string())),
+        paperDollReady: v.optional(v.boolean()),
+        paperDollProcessedAt: v.optional(v.number()),
     })
         .index("by_productId", ["productId"])         // Primary stable anchor
         .index("by_websiteSku", ["websiteSku"])       // BestBottles.com lookup
