@@ -26,6 +26,8 @@ export interface ProductCard {
     itemName: string;
     family?: string;
     capacity?: string;
+    /** Present on searchCatalog results; use for numeric size checks when available */
+    capacityMl?: number | null;
     color?: string;
     applicator?: string;
     neckThreadSize?: string;
@@ -42,6 +44,7 @@ export interface KitItem {
 export type GraceAction =
     | { type: "showProducts"; products: ProductCard[] }
     | { type: "compareProducts"; products: ProductCard[] }
+    | { type: "showProductPresentation"; products: ProductCard[]; headline?: string }
     | { type: "buildKit"; items: KitItem[]; totalPrice?: number }
     | { type: "proposeCartAdd"; products: Array<ProductCard & { quantity: number }>; awaitingConfirmation: boolean }
     | { type: "navigateToPage"; path: string; title: string; description?: string; autoNavigate?: boolean }
@@ -59,7 +62,7 @@ export type PanelMode = "closed" | "strip" | "open";
 // ─── Page context (what the customer is currently viewing) ───────────────────
 
 export interface PageContext {
-    pageType: "home" | "catalog" | "pdp" | "other";
+    pageType: "home" | "catalog" | "pdp" | "cart" | "contact" | "about" | "other";
     pathname: string;
     currentProduct?: {
         name: string;
@@ -70,10 +73,32 @@ export interface PageContext {
         graceSku: string;
         webPrice1pc?: number | null;
         webPrice12pc?: number | null;
+        applicator?: string;
+        stockStatus?: string;
+        slug?: string;
     };
     currentCollection?: string;
     catalogSearch?: string;
-    cartItems: Array<{ graceSku: string; name: string; quantity: number }>;
+    cartItems: Array<{ graceSku: string; name: string; quantity: number; unitPrice?: number | null }>;
+    /** Total cart value in dollars */
+    cartTotal?: number;
+}
+
+// ─── Browsing history (session-level page tracking) ─────────────────────────
+
+export interface BrowsingHistoryEntry {
+    pathname: string;
+    pageType: PageContext["pageType"];
+    /** Product name if on a PDP */
+    productName?: string;
+    /** Product family if on a PDP */
+    productFamily?: string;
+    /** Product capacity if on a PDP */
+    productCapacity?: string;
+    /** Catalog search term if on catalog page */
+    searchTerm?: string;
+    /** ISO timestamp */
+    visitedAt: string;
 }
 
 // ─── Live form state ──────────────────────────────────────────────────────────
@@ -138,14 +163,55 @@ export interface GraceContextValue {
     graceQuery: string;
     /** Current page context — what the customer is viewing right now */
     pageContext: PageContext | null;
+    /** Session browsing history — pages the customer has visited */
+    browsingHistory: BrowsingHistoryEntry[];
 }
 
 // ─── Shared context & hook ───────────────────────────────────────────────────
 
 export const GraceContext = createContext<GraceContextValue | null>(null);
 
-export function useGrace() {
+const NOOP = () => {};
+const NOOP_ASYNC = async () => {};
+
+const GRACE_NOOP: GraceContextValue = {
+    panelMode: "closed",
+    openPanel: NOOP,
+    closePanel: NOOP,
+    minimizeToStrip: NOOP,
+    isOpen: false,
+    open: NOOP,
+    close: NOOP,
+    status: "idle",
+    messages: [],
+    input: "",
+    setInput: NOOP,
+    voiceEnabled: false,
+    toggleVoice: NOOP,
+    send: NOOP_ASYNC,
+    startDictation: NOOP_ASYNC,
+    stopDictation: NOOP,
+    stopSpeaking: NOOP,
+    errorMessage: "",
+    conversationActive: false,
+    startConversation: NOOP,
+    endConversation: NOOP,
+    confirmAction: NOOP,
+    dismissAction: NOOP,
+    onNavigate: NOOP,
+    pendingNavigation: null,
+    clearPendingNavigation: NOOP,
+    activeForm: null,
+    updateFormField: NOOP,
+    submitActiveForm: NOOP_ASYNC,
+    dismissActiveForm: NOOP,
+    voiceFailed: false,
+    graceQuery: "",
+    pageContext: null,
+    browsingHistory: [],
+};
+
+export function useGrace(): GraceContextValue {
     const ctx = useContext(GraceContext);
-    if (!ctx) throw new Error("useGrace must be used within a Grace provider (GraceProviderSwitch)");
-    return ctx;
+    return ctx ?? GRACE_NOOP;
 }

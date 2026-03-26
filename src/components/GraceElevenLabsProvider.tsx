@@ -30,6 +30,7 @@ import {
     type FormType,
     type ActiveForm,
     type PageContext,
+    type BrowsingHistoryEntry,
 } from "./GraceContext";
 
 // ─── Strip markdown ──────────────────────────────────────────────────────────
@@ -49,32 +50,74 @@ function stripMarkdown(text: string): string {
 
 // ─── Page context formatter ───────────────────────────────────────────────────
 
-function formatPageContextForGrace(ctx: PageContext | null): string {
+function formatPageContextForGrace(ctx: PageContext | null, history?: BrowsingHistoryEntry[]): string {
     if (!ctx) return "";
     const lines: string[] = ["=== CURRENT SESSION CONTEXT ==="];
+
+    // ── Current page ──────────────────────────────────────────────────────
     if (ctx.pageType === "pdp" && ctx.currentProduct) {
-        lines.push(`Page: Product Detail — ${ctx.currentProduct.name}`);
-        lines.push(`Family: ${ctx.currentProduct.family} | Size: ${ctx.currentProduct.capacity} | Colour: ${ctx.currentProduct.color}`);
-        if (ctx.currentProduct.neckThreadSize) lines.push(`Thread: ${ctx.currentProduct.neckThreadSize}`);
-        if (ctx.currentProduct.webPrice1pc) lines.push(`From: $${ctx.currentProduct.webPrice1pc.toFixed(2)}/pc`);
-        lines.push(`GRACE INSTRUCTION: Customer is on this product's page. Open by acknowledging what they're looking at. Ask if they need compatible closures or have questions before surfacing alternatives.`);
+        const p = ctx.currentProduct;
+        lines.push(`Page: Product Detail — ${p.name}`);
+        lines.push(`Family: ${p.family} | Size: ${p.capacity} | Color: ${p.color}`);
+        if (p.neckThreadSize) lines.push(`Thread Size: ${p.neckThreadSize}`);
+        if (p.applicator) lines.push(`Applicator: ${p.applicator}`);
+        if (p.webPrice1pc) lines.push(`Price: $${p.webPrice1pc.toFixed(2)}/pc`);
+        if (p.stockStatus) lines.push(`Stock: ${p.stockStatus}`);
+        lines.push(`SKU: ${p.graceSku}`);
+        lines.push(`GRACE INSTRUCTION: Customer is viewing this specific product. You KNOW what they're looking at — reference it by name. Offer compatible closures/caps (use getBottleComponents with SKU ${p.graceSku}). Don't ask "which bottle?" — you already know.`);
     } else if (ctx.pageType === "catalog") {
-        lines.push(`Page: Product Catalogue`);
-        if (ctx.currentCollection) lines.push(`Active Filter: ${ctx.currentCollection}`);
-        if (ctx.catalogSearch) lines.push(`Search: "${ctx.catalogSearch}"`);
-        lines.push(`GRACE INSTRUCTION: Customer is browsing. Ask what they're building to help narrow their search.`);
+        lines.push(`Page: Product Catalog`);
+        if (ctx.currentCollection) lines.push(`Active Family Filter: ${ctx.currentCollection}`);
+        if (ctx.catalogSearch) lines.push(`Active Search: "${ctx.catalogSearch}"`);
+        lines.push(`GRACE INSTRUCTION: Customer is browsing the catalog. Ask what they're building (fragrance, skincare, etc.) and what size/style they need to help narrow results.`);
+    } else if (ctx.pageType === "cart") {
+        lines.push(`Page: Shopping Cart`);
+        lines.push(`GRACE INSTRUCTION: Customer is reviewing their cart. Offer to help with compatible accessories, quantity adjustments, or proceeding to checkout. Check if they need caps/closures for the bottles in their cart.`);
+    } else if (ctx.pageType === "contact") {
+        lines.push(`Page: Contact / Request Form`);
+        lines.push(`GRACE INSTRUCTION: Customer is on a form page. Offer to help fill it out using updateFormField. Ask for their name and email first.`);
+    } else if (ctx.pageType === "about") {
+        lines.push(`Page: About Best Bottles`);
+        lines.push(`GRACE INSTRUCTION: Customer is learning about the company. Be ready to answer questions about Best Bottles (a division of Nemat International, based in Union City, CA).`);
     } else if (ctx.pageType === "home") {
         lines.push(`Page: Homepage`);
-        lines.push(`GRACE INSTRUCTION: Use standard welcome pattern.`);
+        lines.push(`GRACE INSTRUCTION: Customer just arrived. Welcome them and ask what they're looking for — bottles for fragrance, skincare, essential oils, etc.`);
     } else {
         lines.push(`Page: ${ctx.pathname}`);
     }
+
+    // ── Cart state ────────────────────────────────────────────────────────
     if (ctx.cartItems.length > 0) {
-        lines.push(`Cart: ${ctx.cartItems.map((i) => `${i.name} ×${i.quantity}`).join(", ")}`);
-        lines.push(`GRACE INSTRUCTION: Customer has items in cart — suggest compatible components if relevant.`);
+        const cartLines = ctx.cartItems.map((i) => {
+            const price = i.unitPrice ? ` @ $${i.unitPrice.toFixed(2)}/pc` : "";
+            return `  • ${i.name} ×${i.quantity}${price}`;
+        });
+        lines.push(`Cart (${ctx.cartItems.length} item${ctx.cartItems.length > 1 ? "s" : ""}${ctx.cartTotal ? `, ~$${ctx.cartTotal.toFixed(2)} total` : ""}):`);
+        lines.push(...cartLines);
+        lines.push(`GRACE INSTRUCTION: Customer has items in cart. If they're looking at bottles, check if they need compatible closures. If they're looking at closures, verify compatibility with their cart bottles.`);
     } else {
         lines.push(`Cart: Empty`);
     }
+
+    // ── Recent browsing history ───────────────────────────────────────────
+    if (history && history.length > 1) {
+        // Show the last 5 pages visited (excluding current)
+        const recent = history.slice(-6, -1).reverse();
+        if (recent.length > 0) {
+            lines.push(`Recent browsing:`);
+            for (const h of recent) {
+                if (h.productName) {
+                    lines.push(`  • Viewed: ${h.productName} (${h.productFamily ?? ""} ${h.productCapacity ?? ""})`);
+                } else if (h.searchTerm) {
+                    lines.push(`  • Searched: "${h.searchTerm}"`);
+                } else {
+                    lines.push(`  • Visited: ${h.pageType} page`);
+                }
+            }
+            lines.push(`GRACE INSTRUCTION: Use browsing history to make relevant suggestions. If they viewed several products in the same family, they may be comparing — proactively offer a comparison.`);
+        }
+    }
+
     lines.push("=== END CONTEXT ===");
     return lines.join("\n");
 }
@@ -283,6 +326,9 @@ export default function GraceElevenLabsProvider({
         if (pathname === "/") return "home" as const;
         if (pathname.startsWith("/catalog")) return "catalog" as const;
         if (pathname.startsWith("/products/")) return "pdp" as const;
+        if (pathname.startsWith("/cart")) return "cart" as const;
+        if (pathname.startsWith("/contact") || pathname.startsWith("/request")) return "contact" as const;
+        if (pathname.startsWith("/about")) return "about" as const;
         return "other" as const;
     }, [pathname]);
 
@@ -298,13 +344,17 @@ export default function GraceElevenLabsProvider({
             graceSku: i.graceSku,
             name: i.itemName,
             quantity: i.quantity,
+            unitPrice: i.unitPrice ?? null,
         }));
+        const cartTotal = cartItems.reduce((sum, i) => sum + (i.unitPrice ?? 0) * i.quantity, 0);
+
         if (pageType === "pdp" && productGroupResult?.group) {
             const g = productGroupResult.group;
             return {
                 pageType,
                 pathname,
                 cartItems: cartSummary,
+                cartTotal,
                 currentProduct: {
                     name: g.displayName,
                     family: g.family ?? "",
@@ -314,6 +364,8 @@ export default function GraceElevenLabsProvider({
                     graceSku: g.primaryGraceSku ?? "",
                     webPrice1pc: g.priceRangeMin ?? null,
                     webPrice12pc: null,
+                    applicator: (g.applicatorTypes as string[] | undefined)?.[0] ?? undefined,
+                    slug: productSlug ?? undefined,
                 },
             };
         }
@@ -323,15 +375,45 @@ export default function GraceElevenLabsProvider({
                 pageType,
                 pathname,
                 cartItems: cartSummary,
+                cartTotal,
                 currentCollection: familiesParam ?? searchParams.get("collection") ?? undefined,
                 catalogSearch: searchParams.get("search") ?? undefined,
             };
         }
-        return { pageType, pathname, cartItems: cartSummary };
-    }, [pageType, pathname, productGroupResult, searchParams, cartItems]);
+        return { pageType, pathname, cartItems: cartSummary, cartTotal };
+    }, [pageType, pathname, productGroupResult, productSlug, searchParams, cartItems]);
 
     const pageContextRef = useRef<PageContext | null>(null);
     useEffect(() => { pageContextRef.current = pageContext; }, [pageContext]);
+
+    // ── Browsing history — track pages the customer visits this session ────
+    const [browsingHistory, setBrowsingHistory] = useState<BrowsingHistoryEntry[]>([]);
+    const browsingHistoryRef = useRef<BrowsingHistoryEntry[]>([]);
+    useEffect(() => { browsingHistoryRef.current = browsingHistory; }, [browsingHistory]);
+
+    // Record a new history entry whenever the page context changes
+    useEffect(() => {
+        if (!pageContext) return;
+        // Deduplicate — don't record the same pathname twice in a row
+        const last = browsingHistoryRef.current[browsingHistoryRef.current.length - 1];
+        if (last?.pathname === pageContext.pathname) return;
+
+        const entry: BrowsingHistoryEntry = {
+            pathname: pageContext.pathname,
+            pageType: pageContext.pageType,
+            visitedAt: new Date().toISOString(),
+        };
+        if (pageContext.pageType === "pdp" && pageContext.currentProduct) {
+            entry.productName = pageContext.currentProduct.name;
+            entry.productFamily = pageContext.currentProduct.family;
+            entry.productCapacity = pageContext.currentProduct.capacity;
+        }
+        if (pageContext.pageType === "catalog" && pageContext.catalogSearch) {
+            entry.searchTerm = pageContext.catalogSearch;
+        }
+
+        setBrowsingHistory((prev) => [...prev.slice(-49), entry]); // keep last 50 entries
+    }, [pageContext]);
 
     const [panelMode, setPanelMode] = useState<PanelMode>("closed");
     const [status, setStatus] = useState<GraceStatus>("idle");
@@ -389,14 +471,14 @@ export default function GraceElevenLabsProvider({
     // reference on every render. This prevents useConversation from seeing
     // "changed" options and tearing down a live WebSocket.
 
-    const handleConnect = useCallback(() => {
-        console.log("[Grace EL] Connected — session live");
+    const handleConnect = useCallback((props: { conversationId: string }) => {
+        console.log("[Grace EL] Connected — session live, conversationId:", props.conversationId);
         connectingRef.current = false;
         lastConnectTimeRef.current = Date.now();
         setStatus("listening");
     }, []);
 
-    const handleDisconnect = useCallback((details?: { reason?: string; message?: string; closeCode?: number; closeReason?: string }) => {
+    const handleDisconnect = useCallback((details: { reason: string; message?: string; context?: unknown; closeCode?: number; closeReason?: string }) => {
         const sinceConnect = Date.now() - lastConnectTimeRef.current;
         const wasImmediateDrop = lastConnectTimeRef.current > 0 && sinceConnect < 3000;
         console.log(`[Grace EL] Disconnected — cleaning up state (${sinceConnect}ms after connect, immediate=${wasImmediateDrop})`);
@@ -446,11 +528,11 @@ export default function GraceElevenLabsProvider({
         }
     }, []);
 
-    const handleError = useCallback((error: unknown) => {
-        console.error("[Grace EL] Error:", error);
+    const handleError = useCallback((message: string, context?: unknown) => {
+        console.error("[Grace EL] Error:", message, context);
         connectingRef.current = false;
         closingRef.current = false;
-        const raw = typeof error === "string" ? error : String(error ?? "Connection error");
+        const raw = message || "Connection error";
         const msg = /microphone|mic|permission|NotAllowedError|denied/i.test(raw)
             ? "Microphone permission is blocked. Please allow mic access and try again."
             : raw;
@@ -836,6 +918,382 @@ export default function GraceElevenLabsProvider({
             }
         },
 
+        // ── DATA-ONLY TOOLS — query Convex without navigating ─────────────
+        // These let Grace LOOK UP product info to answer questions accurately
+        // without triggering page navigation. Critical for voice conversations.
+
+        searchCatalog: async (parameters: { searchTerm: string; familyLimit?: string; applicatorFilter?: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tool_name: "searchCatalog",
+                        parameters: {
+                            searchTerm: parameters.searchTerm ?? "",
+                            familyLimit: parameters.familyLimit,
+                            applicatorFilter: parameters.applicatorFilter,
+                        },
+                    }),
+                });
+                const data = await r.json() as { result?: ProductCard[] };
+                const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
+
+                if (products.length === 0) {
+                    return "No products found matching that description. Try a different search term or ask the customer to clarify.";
+                }
+
+                // Check if requested capacity exists
+                const capMatch = parameters.searchTerm?.match(/\b(\d+(?:\.\d+)?)\s*ml\b/i);
+                const requestedMl = capMatch ? parseFloat(capMatch[1]) : null;
+                let sizeNote = "";
+                if (requestedMl) {
+                    const tolerance = Math.max(1, requestedMl * 0.1);
+                    const hasSize = products.some((p) => {
+                        const pMl = parseFloat(p.capacity || "0");
+                        return pMl > 0 && Math.abs(pMl - requestedMl) <= tolerance;
+                    });
+                    if (!hasSize) {
+                        const sizes = [...new Set(products.map((p) => p.capacity).filter(Boolean))].slice(0, 6).join(", ");
+                        sizeNote = ` WARNING: ${requestedMl}ml does NOT exist. Available sizes: ${sizes}. Do NOT tell the customer we have ${requestedMl}ml.`;
+                    }
+                }
+
+                // Return a structured summary the LLM can use to answer accurately
+                const uniqueProducts = new Map<string, ProductCard>();
+                for (const p of products) {
+                    const key = `${p.family}-${p.capacity}-${p.color}`;
+                    if (!uniqueProducts.has(key)) uniqueProducts.set(key, p);
+                }
+                const summary = [...uniqueProducts.values()].slice(0, 8).map((p) =>
+                    `${p.family} ${p.capacity || ""} ${p.color || ""} (${p.applicator || "N/A"}, thread: ${p.neckThreadSize || "N/A"})`
+                ).join("; ");
+
+                return `Found ${products.length} products.${sizeNote} Top matches: ${summary}`;
+            } catch (e) {
+                console.error("[Grace EL] searchCatalog error:", e);
+                return "Search failed. Please try again.";
+            }
+        },
+
+        getFamilyOverview: async (parameters: { family: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tool_name: "getFamilyOverview",
+                        parameters: { family: parameters.family },
+                    }),
+                });
+                const data = await r.json() as { result?: Record<string, unknown> };
+                if (!data.result) return `No data found for the ${parameters.family} family.`;
+
+                const v = data.result as {
+                    sizes?: Array<{ label: string; ml: number; variantCount: number }>;
+                    colors?: string[];
+                    applicatorTypes?: string[];
+                    threadSizes?: string[];
+                    priceRange?: { min: number; max: number };
+                };
+
+                const sizes = (v.sizes || []).map((s) => s.label).join(", ");
+                const colors = (v.colors || []).join(", ");
+                const applicators = (v.applicatorTypes || []).join(", ");
+                const threads = (v.threadSizes || []).join(", ");
+
+                return `${parameters.family} family — Sizes: ${sizes}. Colors: ${colors}. Applicators: ${applicators}. Thread sizes: ${threads}.`;
+            } catch (e) {
+                console.error("[Grace EL] getFamilyOverview error:", e);
+                return "Lookup failed. Please try again.";
+            }
+        },
+
+        getBottleComponents: async (parameters: { bottleSku: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tool_name: "getBottleComponents",
+                        parameters: { bottleSku: parameters.bottleSku },
+                    }),
+                });
+                const data = await r.json() as { result?: Record<string, unknown> | null };
+                if (!data.result) return `No compatible components found for SKU "${parameters.bottleSku}". This SKU may not exist or may not be a bottle (only bottles have compatible closures). Verify the SKU with searchCatalog first.`;
+
+                // Parse the structured result into a human-readable summary
+                const result = data.result as {
+                    bottle?: { itemName?: string; neckThreadSize?: string; family?: string; capacity?: string };
+                    components?: Record<string, Array<{
+                        graceSku?: string;
+                        itemName?: string;
+                        webPrice1pc?: number;
+                        capColor?: string;
+                        stockStatus?: string;
+                    }>>;
+                };
+
+                const lines: string[] = [];
+                if (result.bottle) {
+                    lines.push(`Bottle: ${result.bottle.itemName ?? parameters.bottleSku}`);
+                    lines.push(`Thread: ${result.bottle.neckThreadSize ?? "unknown"} | Family: ${result.bottle.family ?? "unknown"} | Size: ${result.bottle.capacity ?? "unknown"}`);
+                }
+
+                if (result.components) {
+                    for (const [type, items] of Object.entries(result.components)) {
+                        if (!Array.isArray(items) || items.length === 0) continue;
+                        const typeName = type.replace(/([A-Z])/g, " $1").trim();
+                        lines.push(`\n${typeName} (${items.length} options):`);
+                        for (const item of items.slice(0, 6)) {
+                            const price = item.webPrice1pc ? `$${item.webPrice1pc.toFixed(2)}/pc` : "price TBD";
+                            const color = item.capColor ? `, ${item.capColor}` : "";
+                            const stock = item.stockStatus ? ` [${item.stockStatus}]` : "";
+                            lines.push(`  • ${item.itemName ?? item.graceSku}${color} — ${price}${stock}`);
+                        }
+                        if (items.length > 6) lines.push(`  ... and ${items.length - 6} more options`);
+                    }
+                }
+
+                return lines.length > 0
+                    ? lines.join("\n")
+                    : `Compatible components: ${JSON.stringify(data.result).slice(0, 800)}`;
+            } catch (e) {
+                console.error("[Grace EL] getBottleComponents error:", e);
+                return "Component lookup failed. Please try again.";
+            }
+        },
+
+        // ── checkCompatibility — thread-size-based reverse lookup ─────────
+        checkCompatibility: async (parameters: { threadSize: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tool_name: "checkCompatibility",
+                        parameters: { threadSize: parameters.threadSize },
+                    }),
+                });
+                const data = await r.json() as { result?: Array<Record<string, unknown>> };
+                const fitments = Array.isArray(data.result) ? data.result : [];
+
+                if (fitments.length === 0) {
+                    return `No bottles found with thread size "${parameters.threadSize}". Common thread sizes are: 13-415, 15-415, 18-415, 20-410, 24-410, 28-410. Try one of those.`;
+                }
+
+                const lines = [`Bottles compatible with ${parameters.threadSize} thread (${fitments.length} found):`];
+                for (const f of fitments.slice(0, 10)) {
+                    lines.push(`  • ${f.bottleName ?? f.bottleCode} — ${f.capacityMl ?? "?"}ml (${f.familyHint ?? "unknown family"})`);
+                }
+                if (fitments.length > 10) lines.push(`  ... and ${fitments.length - 10} more`);
+                return lines.join("\n");
+            } catch (e) {
+                console.error("[Grace EL] checkCompatibility error:", e);
+                return "Compatibility check failed. Please try again.";
+            }
+        },
+
+        // ── getCatalogStats — high-level catalog summary ─────────────────
+        getCatalogStats: async () => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getCatalogStats", parameters: {} }),
+                });
+                const data = await r.json() as { result?: Record<string, unknown> };
+                if (!data.result) return "Could not retrieve catalog statistics.";
+
+                const stats = data.result as {
+                    totalVariants?: number;
+                    totalGroups?: number;
+                    familyCounts?: Record<string, number>;
+                    categoryCounts?: Record<string, number>;
+                };
+
+                const lines = [
+                    `Best Bottles Catalog: ${stats.totalVariants ?? "2,285"} individual SKUs across ${stats.totalGroups ?? "230"} product groups.`,
+                ];
+                if (stats.familyCounts) {
+                    const families = Object.entries(stats.familyCounts)
+                        .sort(([, a], [, b]) => b - a)
+                        .map(([name, count]) => `${name} (${count})`)
+                        .join(", ");
+                    lines.push(`Families: ${families}`);
+                }
+                if (stats.categoryCounts) {
+                    const categories = Object.entries(stats.categoryCounts)
+                        .map(([name, count]) => `${name} (${count})`)
+                        .join(", ");
+                    lines.push(`Categories: ${categories}`);
+                }
+                lines.push(`Note: These are product counts, not live inventory levels. Use searchCatalog with a specific product to check individual stock status.`);
+                return lines.join("\n");
+            } catch (e) {
+                console.error("[Grace EL] getCatalogStats error:", e);
+                return "Stats lookup failed.";
+            }
+        },
+
+        // ══════════════════════════════════════════════════════════════════
+        // NEW TOOLS — Give Grace "eyes" and situational awareness
+        // ══════════════════════════════════════════════════════════════════
+
+        // ── getCurrentPageContext — Grace can "see" what the customer sees ─
+        getCurrentPageContext: () => {
+            const ctx = pageContextRef.current;
+            if (!ctx) return "No page context available — the customer may not have loaded a page yet.";
+
+            const lines: string[] = [];
+            lines.push(`Page type: ${ctx.pageType}`);
+            lines.push(`URL: ${ctx.pathname}`);
+
+            if (ctx.pageType === "pdp" && ctx.currentProduct) {
+                const p = ctx.currentProduct;
+                lines.push(`\nCustomer is viewing a product:`);
+                lines.push(`  Product: ${p.name}`);
+                lines.push(`  Family: ${p.family}`);
+                lines.push(`  Size: ${p.capacity}`);
+                lines.push(`  Color: ${p.color}`);
+                if (p.neckThreadSize) lines.push(`  Thread Size: ${p.neckThreadSize}`);
+                if (p.applicator) lines.push(`  Applicator: ${p.applicator}`);
+                if (p.graceSku) lines.push(`  SKU: ${p.graceSku}`);
+                if (p.webPrice1pc) lines.push(`  Price: $${p.webPrice1pc.toFixed(2)}/pc`);
+                if (p.slug) lines.push(`  Slug: ${p.slug}`);
+            } else if (ctx.pageType === "catalog") {
+                lines.push(`\nCustomer is browsing the catalog.`);
+                if (ctx.currentCollection) lines.push(`  Active filter: ${ctx.currentCollection}`);
+                if (ctx.catalogSearch) lines.push(`  Search term: "${ctx.catalogSearch}"`);
+            } else if (ctx.pageType === "cart") {
+                lines.push(`\nCustomer is on the shopping cart page.`);
+            } else if (ctx.pageType === "contact") {
+                lines.push(`\nCustomer is on a contact/request form page.`);
+            } else if (ctx.pageType === "home") {
+                lines.push(`\nCustomer is on the homepage.`);
+            }
+
+            // Cart summary
+            if (ctx.cartItems.length > 0) {
+                lines.push(`\nCart (${ctx.cartItems.length} item${ctx.cartItems.length > 1 ? "s" : ""}):`);
+                for (const item of ctx.cartItems) {
+                    const price = item.unitPrice ? ` @ $${item.unitPrice.toFixed(2)}/pc` : "";
+                    lines.push(`  • ${item.name} ×${item.quantity}${price}`);
+                }
+                if (ctx.cartTotal) lines.push(`  Total: ~$${ctx.cartTotal.toFixed(2)}`);
+            } else {
+                lines.push(`\nCart: Empty`);
+            }
+
+            return lines.join("\n");
+        },
+
+        // ── getCartContents — detailed cart read ──────────────────────────
+        getCartContents: () => {
+            const ctx = pageContextRef.current;
+            if (!ctx) return "No cart data available.";
+
+            if (ctx.cartItems.length === 0) {
+                return "The customer's cart is empty. They haven't added any products yet.";
+            }
+
+            const lines = [`Cart contains ${ctx.cartItems.length} item${ctx.cartItems.length > 1 ? "s" : ""}:`];
+            for (const item of ctx.cartItems) {
+                const price = item.unitPrice ? `$${item.unitPrice.toFixed(2)}/pc` : "price TBD";
+                const subtotal = item.unitPrice ? ` (subtotal: $${(item.unitPrice * item.quantity).toFixed(2)})` : "";
+                lines.push(`  • ${item.name} — SKU: ${item.graceSku} — Qty: ${item.quantity} — ${price}${subtotal}`);
+            }
+            if (ctx.cartTotal) {
+                lines.push(`\nCart total: $${ctx.cartTotal.toFixed(2)}`);
+            }
+            lines.push(`\nYou can suggest compatible accessories (closures, sprayers, etc.) for the bottles in this cart using getBottleComponents with each bottle's SKU.`);
+            return lines.join("\n");
+        },
+
+        // ── getBrowsingHistory — what has the customer looked at? ─────────
+        getBrowsingHistory: () => {
+            const history = browsingHistoryRef.current;
+            if (!history || history.length === 0) {
+                return "No browsing history yet — the customer just started their session.";
+            }
+
+            const lines = [`Customer has visited ${history.length} page${history.length > 1 ? "s" : ""} this session:`];
+            // Show most recent first
+            const recent = [...history].reverse().slice(0, 15);
+            for (const entry of recent) {
+                const time = new Date(entry.visitedAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+                if (entry.productName) {
+                    lines.push(`  • [${time}] Viewed product: ${entry.productName} (${entry.productFamily ?? ""} ${entry.productCapacity ?? ""})`);
+                } else if (entry.searchTerm) {
+                    lines.push(`  • [${time}] Searched catalog: "${entry.searchTerm}"`);
+                } else {
+                    lines.push(`  • [${time}] Visited: ${entry.pageType} page (${entry.pathname})`);
+                }
+            }
+            if (history.length > 15) lines.push(`  ... and ${history.length - 15} earlier pages`);
+
+            // Add insight
+            const productViews = history.filter((h) => h.productName);
+            if (productViews.length >= 2) {
+                const families = [...new Set(productViews.map((h) => h.productFamily).filter(Boolean))];
+                if (families.length === 1) {
+                    lines.push(`\nInsight: Customer has viewed ${productViews.length} products all in the ${families[0]} family — they seem focused on this line.`);
+                } else if (families.length > 1) {
+                    lines.push(`\nInsight: Customer is comparing across families: ${families.join(", ")}. Consider offering a side-by-side comparison.`);
+                }
+            }
+
+            return lines.join("\n");
+        },
+
+        // ── showProductPresentation — display a curated multi-product showcase ─
+        showProductPresentation: async (parameters: { searchTerm: string; headline?: string; familyLimit?: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tool_name: "searchCatalog",
+                        parameters: {
+                            searchTerm: parameters.searchTerm ?? "",
+                            familyLimit: parameters.familyLimit,
+                        },
+                    }),
+                });
+                const data = await r.json() as { result?: ProductCard[] };
+                const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
+
+                if (products.length === 0) {
+                    return "No products found to present. Try a different search term.";
+                }
+
+                // Show up to 6 products in a presentation card
+                const presented = products.slice(0, 6);
+                setMessages((prev) => [
+                    ...prev,
+                    {
+                        role: "grace",
+                        content: "",
+                        id: `a-${Date.now()}`,
+                        action: {
+                            type: "showProductPresentation",
+                            products: presented,
+                            headline: parameters.headline ?? `Here's what I found for "${parameters.searchTerm}"`,
+                        },
+                    },
+                ]);
+
+                const summary = presented
+                    .map((p) => `${p.itemName} (${p.capacity ?? ""} ${p.color ?? ""})`)
+                    .join("; ");
+
+                return `Presenting ${presented.length} products to the customer: ${summary}. The product cards are now visible. Ask which one interests them or if they'd like details on any specific option.`;
+            } catch (e) {
+                console.error("[Grace EL] showProductPresentation error:", e);
+                return "Product presentation failed. Please try again.";
+            }
+        },
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }), []); // intentionally empty — tools use setMessages/setActiveForm (stable setters) and refs only
 
@@ -863,19 +1321,19 @@ export default function GraceElevenLabsProvider({
     const safeEndSession = useCallback(() => {
         if (closingRef.current) return;
         const conv = conversationRef.current;
-        if (conv?.status === "connected") {
+        if (conv?.status === "connected" || conv?.status === "connecting") {
             closingRef.current = true;
             lastEndSessionRef.current = Date.now();
-            try {
-                conv.endSession();
-            } catch (e) {
-                // SDK throws when socket is already closing/closed — ignore
-                if (!String(e).includes("CLOSING") && !String(e).includes("CLOSED")) {
-                    console.warn("[Grace EL] endSession error:", e);
-                }
-            } finally {
-                closingRef.current = false;
-            }
+            // endSession() is async in SDK v0.14+ — fire-and-forget with error handling
+            conv.endSession()
+                .catch((e: unknown) => {
+                    if (!String(e).includes("CLOSING") && !String(e).includes("CLOSED")) {
+                        console.warn("[Grace EL] endSession error:", e);
+                    }
+                })
+                .finally(() => {
+                    closingRef.current = false;
+                });
         }
     }, []);
 
@@ -984,17 +1442,24 @@ export default function GraceElevenLabsProvider({
                 }
             }
 
-            const contextBlock = formatPageContextForGrace(pageContextRef.current);
+            const contextBlock = formatPageContextForGrace(pageContextRef.current, browsingHistoryRef.current);
 
-            const buildSessionOverrides = () => (
-                contextBlock
-                    ? {
-                        overrides: {
-                            agent: { prompt: { prompt: contextBlock } },
-                        },
-                    }
-                    : {}
-            );
+            // Resolve dynamic variables required by the ElevenLabs agent's first message.
+            // The agent greeting uses {{_product_name_}} — if not supplied, ElevenLabs
+            // immediately disconnects with "Missing required dynamic variables".
+            const page = pageContextRef.current;
+            const productName = page?.currentProduct?.name ?? "our collection";
+
+            const buildSessionOverrides = () => ({
+                overrides: {
+                    ...(contextBlock
+                        ? { agent: { prompt: { prompt: contextBlock } } }
+                        : {}),
+                },
+                dynamicVariables: {
+                    _product_name_: productName,
+                },
+            });
 
             const connectViaWebSocket = async () => {
                 const t0 = performance.now();
@@ -1267,7 +1732,7 @@ export default function GraceElevenLabsProvider({
                 ];
 
                 const tLlm = performance.now();
-                const contextBlock = formatPageContextForGrace(pageContextRef.current);
+                const contextBlock = formatPageContextForGrace(pageContextRef.current, browsingHistoryRef.current);
                 const response = await Promise.race([
                     (askGrace as (args: { messages: typeof history; voiceMode?: boolean; pageContextBlock?: string }) => Promise<string>)({
                         messages: history,
@@ -1467,6 +1932,7 @@ export default function GraceElevenLabsProvider({
                 voiceFailed,
                 graceQuery,
                 pageContext,
+                browsingHistory,
             }}
         >
             {children}
