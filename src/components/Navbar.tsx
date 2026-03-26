@@ -568,8 +568,8 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                         <span /><span /><span /><span />
                                     </span>
                                 )}
-                                <span className="lg:hidden">Grace AI</span>
-                                <span className="hidden lg:inline">Grace — AI Assistant</span>
+                                <span className="lg:hidden">Ask Grace</span>
+                                <span className="hidden lg:inline">Ask Grace AI</span>
                             </button>
 
                             <Link href="/sign-in" aria-label="Account" className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors">

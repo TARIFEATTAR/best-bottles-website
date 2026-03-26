@@ -73,6 +73,10 @@ export {
     ArrowsOutSimple,
     Database,
     Pen,
+    Waveform,
+    Eyedropper,
+    Rows as RowsIcon,
+    Question,
 } from "@phosphor-icons/react";
 
 export { ArrowsLeftRight as GitCompare } from "@phosphor-icons/react";

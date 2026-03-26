@@ -168,6 +168,8 @@ function scoreResponse(testCase, responseText) {
             "no results", "not in our catalog", "don't offer",
             "not something we", "i'm not finding", "doesn't appear",
             "don't recognize", "not familiar with",
+            "isn't a color we carry", "isn't a colour we carry",
+            "not a color we carry", "not a colour we carry",
         ];
         const admits = admitSignals.some((s) => text.includes(s));
         checks.push({

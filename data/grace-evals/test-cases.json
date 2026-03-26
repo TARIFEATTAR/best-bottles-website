@@ -116,7 +116,7 @@
       "category": "component_accuracy",
       "question": "What sprayers fit the 30ml Elegant bottle?",
       "expect": {
-        "mustMentionAny": ["18-415", "18/415", "eighteen"],
+        "mustMentionAny": ["15-415", "15/415", "fifteen"],
         "mustNotMention": ["20-400"],
         "expectedTools": ["searchCatalog", "getBottleComponents"],
         "shouldReturnComponents": true
@@ -150,6 +150,18 @@
         "mustMentionAny": ["lotion pump", "pump", "18-415"],
         "expectedTools": ["searchCatalog", "getBottleComponents"],
         "shouldReturnComponents": true
+      }
+    },
+    {
+      "id": "exact-cylinder-5ml-clear-rollon",
+      "category": "exact_retrieval",
+      "question": "Show me the 5ml clear Cylinder roll-on bottle.",
+      "expect": {
+        "mustMention": ["Cylinder", "5ml", "Clear"],
+        "mustNotMention": ["Cobalt Blue", "don't stock", "don't carry"],
+        "expectedTools": ["searchCatalog"],
+        "expectedFamily": "Cylinder",
+        "expectedCapacityMl": 5
       }
     },
     {

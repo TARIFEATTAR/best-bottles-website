@@ -1,17 +1,8 @@
 "use client";
 
-/**
- * GraceWidget — Self-contained ElevenLabs voice widget with full client tools.
- *
- * Connects via WebSocket using the React SDK. Registers 16 client tools
- * covering catalog search, navigation, cart, forms, and context awareness.
- *
- * Requires: ConvexClientProvider, CartProvider, ClerkProvider as ancestors.
- */
-
 import { useConversation } from "@elevenlabs/react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useQuery, useMutation, useAction } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useCart } from "@/components/CartProvider";
 import { useAuth } from "@clerk/nextjs";
@@ -21,60 +12,23 @@ import {
     useCallback,
     useEffect,
     useMemo,
+    type ReactNode,
 } from "react";
-import { Microphone, X } from "@/components/icons";
 import { analytics } from "@/lib/analytics";
-
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-interface ProductCard {
-    graceSku: string;
-    itemName: string;
-    family?: string;
-    capacity?: string;
-    capacityMl?: number | null;
-    color?: string;
-    applicator?: string;
-    neckThreadSize?: string;
-    webPrice1pc?: number;
-    webPrice12pc?: number;
-    slug?: string;
-}
-
-interface PageContext {
-    pageType: "home" | "catalog" | "pdp" | "cart" | "contact" | "about" | "other";
-    pathname: string;
-    currentProduct?: {
-        name: string;
-        family: string;
-        capacity: string;
-        color: string;
-        neckThreadSize: string | null;
-        graceSku: string;
-        webPrice1pc?: number | null;
-        applicator?: string;
-        slug?: string;
-    };
-    currentCollection?: string;
-    catalogSearch?: string;
-    cartItems: Array<{ graceSku: string; name: string; quantity: number; unitPrice?: number | null }>;
-    cartTotal?: number;
-}
-
-interface BrowsingHistoryEntry {
-    pathname: string;
-    pageType: PageContext["pageType"];
-    productName?: string;
-    productFamily?: string;
-    productCapacity?: string;
-    searchTerm?: string;
-    visitedAt: string;
-}
+import {
+    GraceContext,
+    type GraceContextValue,
+    type GraceStatus,
+    type GraceMessage,
+    type PanelMode,
+    type PageContext,
+    type BrowsingHistoryEntry,
+    type ActiveForm,
+    type FormType,
+    type ProductCard,
+} from "@/components/GraceContext";
 
 // ─── Core product intelligence injected into ElevenLabs session ─────────────
-// This is the knowledge that makes Grace accurate. Without it, the ElevenLabs
-// LLM has no idea what products exist, what thread sizes mean, or when to
-// call tools. This MUST be sent as a session override prompt.
 
 const GRACE_VOICE_CONSTITUTION = `You are Grace — the packaging concierge for Best Bottles, the premium glass packaging division of Nemat International, a family-owned Bay Area company (Union City, CA).
 
@@ -310,9 +264,14 @@ function checkRollOnMinimum(query: string, requestedMl: number | null, products:
     return `WARNING: We do NOT stock roll-on bottles smaller than 5ml. A ${requestedMl}ml roll-on does NOT exist. Our smallest roll-on is 5ml. Available roll-on sizes: ${uniqueSizes || "5ml, 9ml, 15ml, 28ml, 30ml"}.`;
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
+let msgCounter = 0;
+function nextMsgId(): string {
+    return `grace-msg-${Date.now()}-${++msgCounter}`;
+}
 
-export function GraceWidget() {
+// ─── Provider ────────────────────────────────────────────────────────────────
+
+export default function GraceProvider({ children }: { children: ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -323,13 +282,40 @@ export function GraceWidget() {
     const submitFormRef = useRef(submitFormMutation);
     useEffect(() => { submitFormRef.current = submitFormMutation; }, [submitFormMutation]);
 
-    // ── Connection state ──────────────────────────────────────────────────────
-    const [isActive, setIsActive] = useState(false);
-    const [graceStatus, setGraceStatus] = useState<"idle" | "connecting" | "listening" | "speaking" | "error">("idle");
+    // ── Panel state ──────────────────────────────────────────────────────────
+    const [panelMode, setPanelMode] = useState<PanelMode>("closed");
+    const isOpen = panelMode === "open";
+
+    const openPanel = useCallback(() => {
+        setPanelMode("open");
+    }, []);
+
+    const closePanel = useCallback(() => {
+        setPanelMode("closed");
+    }, []);
+
+    const minimizeToStrip = useCallback(() => {
+        setPanelMode("strip");
+    }, []);
+
+    // ── Connection state ─────────────────────────────────────────────────────
+    const [graceStatus, setGraceStatus] = useState<GraceStatus>("idle");
+    const [conversationActive, setConversationActive] = useState(false);
     const connectingRef = useRef(false);
     const conversationRef = useRef<ReturnType<typeof useConversation> | null>(null);
 
-    // ── Page context ──────────────────────────────────────────────────────────
+    // ── Messages & streaming ─────────────────────────────────────────────────
+    const [messages, setMessages] = useState<GraceMessage[]>([]);
+    const [streamingText, setStreamingText] = useState("");
+    const [input, setInput] = useState("");
+    const [voiceEnabled, setVoiceEnabled] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [voiceFailed, setVoiceFailed] = useState(false);
+    const [graceQuery, setGraceQuery] = useState("");
+
+    const toggleVoice = useCallback(() => setVoiceEnabled((v) => !v), []);
+
+    // ── Page context ─────────────────────────────────────────────────────────
     const pageType = useMemo((): PageContext["pageType"] => {
         if (pathname === "/") return "home";
         if (pathname.startsWith("/catalog")) return "catalog";
@@ -385,7 +371,7 @@ export function GraceWidget() {
     const pageContextRef = useRef<PageContext>(pageContext);
     useEffect(() => { pageContextRef.current = pageContext; }, [pageContext]);
 
-    // ── Browsing history ──────────────────────────────────────────────────────
+    // ── Browsing history ─────────────────────────────────────────────────────
     const [browsingHistory, setBrowsingHistory] = useState<BrowsingHistoryEntry[]>([]);
     const browsingHistoryRef = useRef<BrowsingHistoryEntry[]>([]);
     useEffect(() => { browsingHistoryRef.current = browsingHistory; }, [browsingHistory]);
@@ -404,20 +390,58 @@ export function GraceWidget() {
         setBrowsingHistory((prev) => [...prev.slice(-49), entry]);
     }, [pageContext]);
 
-    // ── Form state (for updateFormField / submitForm) ─────────────────────────
+    // ── Form state ───────────────────────────────────────────────────────────
+    const [activeForm, setActiveForm] = useState<ActiveForm | null>(null);
     const activeFormRef = useRef<{ formType: string; fields: Record<string, string> } | null>(null);
 
-    // ── Session metrics (for analytics) ─────────────────────────────────────
+    const updateFormField = useCallback((formType: FormType, fieldName: string, value: string) => {
+        if (!activeFormRef.current) activeFormRef.current = { formType, fields: {} };
+        activeFormRef.current.fields[fieldName] = value;
+        setActiveForm((prev) => {
+            const fields = { ...(prev?.fields ?? {}), [fieldName]: value };
+            const filledOrder = prev?.filledOrder ? [...prev.filledOrder] : [];
+            if (!filledOrder.includes(fieldName)) filledOrder.push(fieldName);
+            return { formType, fields, filledOrder, submitting: false, submitted: false, error: "" };
+        });
+    }, []);
+
+    const submitActiveForm = useCallback(async () => {
+        const form = activeFormRef.current;
+        if (!form || !form.fields.email) return;
+        try {
+            setActiveForm((prev) => prev ? { ...prev, submitting: true } : null);
+            await submitFormRef.current({
+                formType: form.formType as "sample" | "quote" | "contact" | "newsletter",
+                name: form.fields.name || undefined,
+                email: form.fields.email,
+                company: form.fields.company || undefined,
+                phone: form.fields.phone || undefined,
+                message: form.fields.message || undefined,
+                products: form.fields.products || undefined,
+                quantities: form.fields.quantities || undefined,
+                source: "grace",
+            });
+            setActiveForm((prev) => prev ? { ...prev, submitting: false, submitted: true } : null);
+            activeFormRef.current = null;
+        } catch (err) {
+            setActiveForm((prev) => prev ? { ...prev, submitting: false, error: err instanceof Error ? err.message : "Unknown error" } : null);
+        }
+    }, []);
+
+    const dismissActiveForm = useCallback(() => {
+        activeFormRef.current = null;
+        setActiveForm(null);
+    }, []);
+
+    // ── Session metrics ──────────────────────────────────────────────────────
     const sessionMetricsRef = useRef({ toolsCalled: 0, toolsUsed: new Set<string>(), cartItemsAdded: 0, navigations: 0 });
 
-    // ── Stable router ref (for tools) ─────────────────────────────────────────
+    // ── Stable refs ──────────────────────────────────────────────────────────
     const routerRef = useRef(router);
     useEffect(() => { routerRef.current = router; }, [router]);
 
-    // ── Client tools ──────────────────────────────────────────────────────────
+    // ── Client tools ─────────────────────────────────────────────────────────
     const clientTools = useMemo(() => ({
-
-        // ── DATA TOOLS ────────────────────────────────────────────────────────
 
         searchCatalog: async (params: { searchTerm: string; familyLimit?: string; applicatorFilter?: string }) => {
             try {
@@ -507,8 +531,6 @@ export function GraceWidget() {
             } catch (e) { console.error("[Grace] getCatalogStats:", e); return "Stats lookup failed."; }
         },
 
-        // ── CONTEXT TOOLS ─────────────────────────────────────────────────────
-
         getCurrentPageContext: () => {
             const ctx = pageContextRef.current;
             if (!ctx) return "No page context available.";
@@ -565,8 +587,6 @@ export function GraceWidget() {
             }
             return lines.join("\n");
         },
-
-        // ── ACTION TOOLS ──────────────────────────────────────────────────────
 
         showProducts: async (params: { query: string; family?: string }) => {
             try {
@@ -629,8 +649,7 @@ export function GraceWidget() {
             const products = (params.products ?? []).map((p) => ({ ...p, quantity: p.quantity ?? 1 }));
             if (products.length === 0) return "No products specified to add.";
             try {
-                const cartRef = addToCart;
-                cartRef(products.map((p) => ({
+                addToCart(products.map((p) => ({
                     graceSku: p.graceSku,
                     itemName: p.itemName,
                     quantity: p.quantity,
@@ -712,8 +731,6 @@ export function GraceWidget() {
             } catch (e) { console.error("[Grace] showProductPresentation:", e); return "Product presentation failed."; }
         },
 
-        // ── FORM TOOLS ────────────────────────────────────────────────────────
-
         prefillForm: (params: { formType: string; fields: Record<string, string> }) => {
             window.dispatchEvent(new CustomEvent("grace:prefillForm", { detail: { formType: params.formType, fields: params.fields } }));
             return "Form pre-filled. The customer can review and submit.";
@@ -755,11 +772,12 @@ export function GraceWidget() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }), []);
 
-    // ── ElevenLabs conversation ───────────────────────────────────────────────
+    // ── ElevenLabs callbacks ─────────────────────────────────────────────────
 
     const handleConnect = useCallback(() => {
         connectingRef.current = false;
         setGraceStatus("listening");
+        setConversationActive(true);
         sessionMetricsRef.current = { toolsCalled: 0, toolsUsed: new Set(), cartItemsAdded: 0, navigations: 0 };
         const ctx = pageContextRef.current;
         analytics.graceConversationStarted({
@@ -769,6 +787,16 @@ export function GraceWidget() {
             productFamily: ctx?.currentProduct?.family,
             cartItemCount: ctx?.cartItems.length ?? 0,
         });
+
+        if (pendingMessageRef.current) {
+            const pending = pendingMessageRef.current;
+            pendingMessageRef.current = null;
+            setTimeout(() => {
+                if (conversationRef.current?.status === "connected") {
+                    conversationRef.current.sendUserMessage(pending);
+                }
+            }, 500);
+        }
     }, []);
 
     const handleDisconnect = useCallback(() => {
@@ -783,8 +811,9 @@ export function GraceWidget() {
             cartItemsAdded: m.cartItemsAdded,
             navigationsTriggered: m.navigations,
         });
-        setIsActive(false);
+        setConversationActive(false);
         setGraceStatus("idle");
+        setStreamingText("");
     }, []);
 
     const handleModeChange = useCallback((mode: { mode: string }) => {
@@ -796,8 +825,27 @@ export function GraceWidget() {
         console.error("[Grace] Error:", error);
         connectingRef.current = false;
         setGraceStatus("error");
-        setTimeout(() => setGraceStatus(isActive ? "listening" : "idle"), 4000);
-    }, [isActive]);
+        setErrorMessage(typeof error === "string" ? error : "Connection error");
+        setVoiceFailed(true);
+        setTimeout(() => {
+            setGraceStatus((prev) => prev === "error" ? "idle" : prev);
+        }, 5000);
+    }, []);
+
+    const handleMessage = useCallback((payload: { message: string; source?: string; role?: string }) => {
+        const role = payload.role === "user" ? "user" as const : "grace" as const;
+        if (role === "grace") {
+            setStreamingText("");
+        }
+        setMessages((prev) => [
+            ...prev,
+            { role, content: payload.message, id: nextMsgId() },
+        ]);
+    }, []);
+
+    const handleAgentChatResponsePart = useCallback((payload: { text: string }) => {
+        setStreamingText((prev) => prev + payload.text);
+    }, []);
 
     const conversation = useConversation({
         clientTools,
@@ -805,17 +853,23 @@ export function GraceWidget() {
         onDisconnect: handleDisconnect,
         onModeChange: handleModeChange,
         onError: handleError,
+        onMessage: handleMessage,
+        onAgentChatResponsePart: handleAgentChatResponsePart,
     });
 
     useEffect(() => { conversationRef.current = conversation; });
 
-    // ── Start / stop ──────────────────────────────────────────────────────────
+    // ── Start / stop ─────────────────────────────────────────────────────────
 
-    const startGrace = useCallback(async () => {
+    const voiceEnabledRef = useRef(voiceEnabled);
+    useEffect(() => { voiceEnabledRef.current = voiceEnabled; }, [voiceEnabled]);
+
+    const startConversation = useCallback(async (forceTextOnly?: boolean) => {
         if (connectingRef.current || conversationRef.current?.status === "connected") return;
         connectingRef.current = true;
-        setIsActive(true);
         setGraceStatus("connecting");
+
+        const useTextOnly = forceTextOnly ?? !voiceEnabledRef.current;
 
         try {
             const res = await fetch("/api/elevenlabs/signed-url");
@@ -830,17 +884,13 @@ export function GraceWidget() {
             const page = pageContextRef.current;
             const productName = page?.currentProduct?.name ?? "our collection";
 
-            // Combine the core constitution (product intelligence, rules, tool strategy)
-            // with the live session context (current page, cart, browsing history).
-            // This is the ONLY way the ElevenLabs LLM gets product knowledge —
-            // without this, it has no idea what Best Bottles sells.
             const fullPrompt = contextBlock
                 ? `${GRACE_VOICE_CONSTITUTION}\n\n${contextBlock}`
                 : GRACE_VOICE_CONSTITUTION;
 
             await conversation.startSession({
                 signedUrl,
-                connectionType: "websocket",
+                ...(useTextOnly ? { textOnly: true } : { connectionType: "websocket" as const }),
                 overrides: {
                     agent: {
                         prompt: { prompt: fullPrompt },
@@ -854,118 +904,134 @@ export function GraceWidget() {
         } catch (err) {
             console.error("[Grace] Connection failed:", err);
             connectingRef.current = false;
-            setIsActive(false);
             setGraceStatus("idle");
+            setVoiceFailed(true);
+            setErrorMessage(err instanceof Error ? err.message : "Connection failed");
         }
     }, [conversation]);
 
-    const stopGrace = useCallback(() => {
+    const endConversation = useCallback(() => {
         try { conversationRef.current?.endSession(); } catch { /* ignore */ }
-        setIsActive(false);
+        setConversationActive(false);
         setGraceStatus("idle");
+        setStreamingText("");
     }, []);
 
     useEffect(() => { return () => { try { conversationRef.current?.endSession(); } catch { /* ignore */ } }; }, []);
 
-    // ── Render: floating orb ──────────────────────────────────────────────────
+    // ── Voice upgrade: reconnect with audio when mic is toggled on ─────────
+    const prevVoiceRef = useRef(voiceEnabled);
+    useEffect(() => {
+        const wasOff = !prevVoiceRef.current;
+        prevVoiceRef.current = voiceEnabled;
+        if (!wasOff || !voiceEnabled) return;
+        if (!conversationActive) return;
 
-    const isConnected = graceStatus === "listening" || graceStatus === "speaking";
-    const isSpeaking = graceStatus === "speaking";
+        (async () => {
+            try { conversationRef.current?.endSession(); } catch { /* ignore */ }
+            setConversationActive(false);
+            setGraceStatus("idle");
+            connectingRef.current = false;
+            await new Promise((r) => setTimeout(r, 300));
+            startConversation(false);
+        })();
+    }, [voiceEnabled, conversationActive, startConversation]);
+
+    // ── Auto-start conversation when panel opens (once per open) ────────────
+    const hasAutoStartedRef = useRef(false);
+
+    useEffect(() => {
+        if (panelMode === "open" && !hasAutoStartedRef.current) {
+            hasAutoStartedRef.current = true;
+            if (!conversationActive && graceStatus === "idle") {
+                startConversation(true);
+            }
+        }
+        if (panelMode === "closed") {
+            hasAutoStartedRef.current = false;
+        }
+    }, [panelMode, conversationActive, graceStatus, startConversation]);
+
+    // ── Send text message ────────────────────────────────────────────────────
+
+    const pendingMessageRef = useRef<string | null>(null);
+
+    const send = useCallback(async (text?: string) => {
+        const msg = (text ?? input).trim();
+        if (!msg) return;
+        setInput("");
+
+        setMessages((prev) => [
+            ...prev,
+            { role: "user", content: msg, id: nextMsgId() },
+        ]);
+
+        if (conversationRef.current?.status === "connected") {
+            conversationRef.current.sendUserMessage(msg);
+        } else {
+            pendingMessageRef.current = msg;
+            await startConversation(true);
+        }
+    }, [input, startConversation]);
+
+    // ── Navigation handling ──────────────────────────────────────────────────
+    const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
+    const onNavigate = useCallback((path: string) => {
+        router.push(path);
+        setPendingNavigation(null);
+    }, [router]);
+    const clearPendingNavigation = useCallback(() => setPendingNavigation(null), []);
+
+    // ── Compose context value ────────────────────────────────────────────────
+
+    const contextValue = useMemo((): GraceContextValue => ({
+        panelMode,
+        openPanel,
+        closePanel,
+        minimizeToStrip,
+        isOpen,
+        open: openPanel,
+        close: closePanel,
+        status: graceStatus,
+        messages,
+        streamingText,
+        input,
+        setInput,
+        voiceEnabled,
+        toggleVoice,
+        send,
+        startDictation: async () => {},
+        stopDictation: () => {},
+        stopSpeaking: () => {},
+        errorMessage,
+        conversationActive,
+        startConversation,
+        endConversation,
+        confirmAction: () => {},
+        dismissAction: () => {},
+        onNavigate,
+        pendingNavigation,
+        clearPendingNavigation,
+        activeForm,
+        updateFormField,
+        submitActiveForm,
+        dismissActiveForm,
+        voiceFailed,
+        graceQuery,
+        pageContext,
+        browsingHistory,
+    }), [
+        panelMode, openPanel, closePanel, minimizeToStrip, isOpen,
+        graceStatus, messages, streamingText, input, voiceEnabled, toggleVoice,
+        send, errorMessage, conversationActive, startConversation, endConversation,
+        onNavigate, pendingNavigation, clearPendingNavigation,
+        activeForm, updateFormField, submitActiveForm, dismissActiveForm,
+        voiceFailed, graceQuery, pageContext, browsingHistory,
+    ]);
 
     return (
-        <button
-            onClick={isActive ? stopGrace : startGrace}
-            className="fixed bottom-6 right-6 z-[9999] flex items-center justify-center w-14 h-14 rounded-full border transition-all duration-300 cursor-pointer group grace-orb"
-            style={{
-                background: "#1D1D1F",
-                borderColor: isConnected ? "#D4AF61" : "rgba(212, 175, 97, 0.45)",
-                boxShadow: isSpeaking
-                    ? "0 0 24px rgba(212, 175, 97, 0.55), 0 0 48px rgba(212, 175, 97, 0.2)"
-                    : isConnected
-                        ? "0 0 14px rgba(212, 175, 97, 0.35)"
-                        : "0 0 10px rgba(212, 175, 97, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3)",
-            }}
-            aria-label={isActive ? "Close Grace" : "Talk to Grace"}
-            title={isActive ? "Click to end conversation" : "Talk to Grace — AI packaging consultant"}
-            type="button"
-        >
-            {/* Ambient glow rings — idle pulse */}
-            {!isActive && (
-                <>
-                    <span
-                        className="absolute inset-[-4px] rounded-full animate-[grace-pulse_3s_ease-in-out_infinite]"
-                        style={{ border: "1px solid rgba(212, 175, 97, 0.25)" }}
-                    />
-                    <span
-                        className="absolute inset-[-9px] rounded-full animate-[grace-pulse_3s_ease-in-out_0.6s_infinite]"
-                        style={{ border: "1px solid rgba(212, 175, 97, 0.12)" }}
-                    />
-                </>
-            )}
-
-            {/* Pulsing rings when speaking */}
-            {isSpeaking && (
-                <>
-                    <span
-                        className="absolute inset-[-3px] rounded-full animate-[grace-wave_1.8s_ease-out_infinite]"
-                        style={{ border: "1.5px solid rgba(212, 175, 97, 0.5)" }}
-                    />
-                    <span
-                        className="absolute inset-[-3px] rounded-full animate-[grace-wave_1.8s_ease-out_0.6s_infinite]"
-                        style={{ border: "1.5px solid rgba(212, 175, 97, 0.35)" }}
-                    />
-                    <span
-                        className="absolute inset-[-3px] rounded-full animate-[grace-wave_1.8s_ease-out_1.2s_infinite]"
-                        style={{ border: "1px solid rgba(212, 175, 97, 0.2)" }}
-                    />
-                </>
-            )}
-
-            {/* Listening glow */}
-            {graceStatus === "listening" && (
-                <span
-                    className="absolute inset-[-2px] rounded-full animate-[grace-pulse_2s_ease-in-out_infinite]"
-                    style={{ border: "1.5px solid rgba(212, 175, 97, 0.4)" }}
-                />
-            )}
-
-            {/* Connecting spinner */}
-            {graceStatus === "connecting" && (
-                <span
-                    className="absolute inset-0 rounded-full animate-spin"
-                    style={{ border: "2px solid transparent", borderTopColor: "#D4AF61" }}
-                />
-            )}
-
-            {/* Icon */}
-            {isActive ? (
-                <X size={22} weight="bold" color="#D4AF61" />
-            ) : (
-                <Microphone size={22} weight="fill" color="#D4AF61" />
-            )}
-
-            {/* Status label on hover */}
-            <span
-                className="absolute right-16 bg-obsidian text-bone text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                style={{ border: "1px solid rgba(212, 175, 97, 0.3)" }}
-            >
-                {graceStatus === "connecting" && "Connecting..."}
-                {graceStatus === "listening" && "Grace is listening"}
-                {graceStatus === "speaking" && "Grace is speaking"}
-                {graceStatus === "error" && "Connection error"}
-                {graceStatus === "idle" && "Talk to Grace"}
-            </span>
-
-            <style>{`
-                @keyframes grace-pulse {
-                    0%, 100% { opacity: 0.3; transform: scale(1); }
-                    50% { opacity: 1; transform: scale(1.04); }
-                }
-                @keyframes grace-wave {
-                    0% { opacity: 0.7; transform: scale(1); }
-                    100% { opacity: 0; transform: scale(1.7); }
-                }
-            `}</style>
-        </button>
+        <GraceContext.Provider value={contextValue}>
+            {children}
+        </GraceContext.Provider>
     );
 }

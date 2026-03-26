@@ -131,6 +131,8 @@ export interface GraceContextValue {
     close: () => void;
     status: GraceStatus;
     messages: GraceMessage[];
+    /** Partial agent response being streamed in real-time */
+    streamingText: string;
     input: string;
     setInput: (v: string) => void;
     voiceEnabled: boolean;
@@ -148,22 +150,13 @@ export interface GraceContextValue {
     onNavigate: (path: string) => void;
     pendingNavigation: string | null;
     clearPendingNavigation: () => void;
-    // ── Live conversational form ──────────────────────────────────────────────
-    /** The active form being filled by Grace, or null when no form is open */
     activeForm: ActiveForm | null;
-    /** Update (or create) a single field — called by Grace's updateFormField tool */
     updateFormField: (formType: FormType, fieldName: string, value: string) => void;
-    /** Grace-initiated submit — fires the Convex mutation programmatically */
     submitActiveForm: () => Promise<void>;
-    /** Customer (or Grace) dismisses / resets the active form */
     dismissActiveForm: () => void;
-    /** True after a voice connection attempt fails — shows UI banner, does not block text mode */
     voiceFailed: boolean;
-    /** Current product search query Grace is surfacing (shown in VoiceStrip while catalog is open) */
     graceQuery: string;
-    /** Current page context — what the customer is viewing right now */
     pageContext: PageContext | null;
-    /** Session browsing history — pages the customer has visited */
     browsingHistory: BrowsingHistoryEntry[];
 }
 
@@ -184,6 +177,7 @@ const GRACE_NOOP: GraceContextValue = {
     close: NOOP,
     status: "idle",
     messages: [],
+    streamingText: "",
     input: "",
     setInput: NOOP,
     voiceEnabled: false,

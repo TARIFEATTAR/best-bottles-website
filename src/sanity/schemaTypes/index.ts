@@ -16,6 +16,8 @@ import { pdpGalleryRow } from "./objects/pdpGalleryRow";
 import { pdpPromoBanner } from "./objects/pdpPromoBanner";
 import { pdpFaqAccordion } from "./objects/pdpFaqAccordion";
 import { pdpTrustBadges } from "./objects/pdpTrustBadges";
+import { paperDollLayerAsset } from "./objects/paperDollLayerAsset";
+import { paperDollFamily } from "./documents/paperDollFamily";
 
 export const schemaTypes = [
     // Documents
@@ -24,6 +26,7 @@ export const schemaTypes = [
     homepagePage,
     productFamilyContent,
     productGroupContent,
+    paperDollFamily,
     // Objects — Homepage
     heroBlock,
     startHereCard,
@@ -39,4 +42,6 @@ export const schemaTypes = [
     pdpPromoBanner,
     pdpFaqAccordion,
     pdpTrustBadges,
+    // Paper Doll
+    paperDollLayerAsset,
 ];

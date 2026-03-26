@@ -6,7 +6,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { CartProvider } from "@/components/CartProvider";
 import MegaMenuLayoutWrapper from "@/components/MegaMenuLayoutWrapper";
-import { GraceWidget } from "@/components/grace/GraceWidget";
+import GraceProvider from "@/components/grace/GraceProvider";
+import GraceChatDrawer from "@/components/grace/GraceChatDrawer";
+import GraceLayoutShell from "@/components/grace/GraceLayoutShell";
 import { MixpanelProvider } from "@/components/MixpanelProvider";
 import {
   SITE_URL,
@@ -113,12 +115,16 @@ export default function RootLayout({
                   <div className="w-10 h-10 border-2 border-muted-gold/30 border-t-muted-gold rounded-full animate-spin" />
                 </div>
               }>
-                <MegaMenuLayoutWrapper>
-                  {children}
-                </MegaMenuLayoutWrapper>
+                <GraceProvider>
+                  <GraceLayoutShell>
+                    <MegaMenuLayoutWrapper>
+                      {children}
+                    </MegaMenuLayoutWrapper>
+                  </GraceLayoutShell>
+                  <GraceChatDrawer />
+                </GraceProvider>
               </Suspense>
               <MixpanelProvider />
-              <Suspense><GraceWidget /></Suspense>
             </CartProvider>
           </ConvexClientProvider>
         </body>

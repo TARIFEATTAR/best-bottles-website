@@ -20,6 +20,7 @@ export default defineConfig({
                             .child(
                                 S.documentList()
                                     .title("Homepage")
+                                    .apiVersion("v2025-02-19")
                                     .filter('_type == "homepagePage"')
                                     .defaultOrdering([{ field: "_updatedAt", direction: "desc" }])
                             ),
@@ -28,6 +29,7 @@ export default defineConfig({
                             .child(
                                 S.documentList()
                                     .title("Journal Articles")
+                                    .apiVersion("v2025-02-19")
                                     .filter('_type == "journal"')
                                     .defaultOrdering([{ field: "publishedAt", direction: "desc" }])
                             ),
@@ -36,6 +38,7 @@ export default defineConfig({
                             .child(
                                 S.documentList()
                                     .title("Unpublished Journal Articles")
+                                    .apiVersion("v2025-02-19")
                                     .filter('_type == "journal" && _id in path("drafts.**")')
                                     .defaultOrdering([{ field: "_updatedAt", direction: "desc" }])
                             ),
@@ -46,6 +49,7 @@ export default defineConfig({
                             .child(
                                 S.documentList()
                                     .title("Family Templates")
+                                    .apiVersion("v2025-02-19")
                                     .filter('_type == "productFamilyContent"')
                                     .defaultOrdering([{ field: "family", direction: "asc" }])
                             ),
@@ -54,16 +58,30 @@ export default defineConfig({
                             .child(
                                 S.documentList()
                                     .title("Product Overrides")
+                                    .apiVersion("v2025-02-19")
                                     .filter('_type == "productGroupContent"')
                                     .defaultOrdering([{ field: "_updatedAt", direction: "desc" }])
+                            ),
+                        S.listItem()
+                            .title("Paper Doll Families")
+                            .child(
+                                S.documentList()
+                                    .title("Paper Doll Families")
+                                    .apiVersion("v2025-02-19")
+                                    .filter('_type == "paperDollFamily"')
+                                    .defaultOrdering([{ field: "familyKey", direction: "asc" }])
                             ),
                         S.divider(),
                         // ── Everything else ────────────────────────────────────
                         ...S.documentTypeListItems().filter(
                             (item) =>
-                                !["homepagePage", "journal", "productFamilyContent", "productGroupContent"].includes(
-                                    item.getId() ?? ""
-                                )
+                                ![
+                                    "homepagePage",
+                                    "journal",
+                                    "productFamilyContent",
+                                    "productGroupContent",
+                                    "paperDollFamily",
+                                ].includes(item.getId() ?? "")
                         ),
                     ]),
         }),
