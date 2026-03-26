@@ -25,6 +25,7 @@ import {
 } from "@/components/PdpBlocks";
 import PaperDollImage from "@/components/PaperDollImage";
 import { analytics } from "@/lib/analytics";
+import { SITE_URL, buildProductJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -527,7 +528,26 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     // ── Dynamic SEO title ────────────────────────────────────────────────────
     useEffect(() => {
         if (group) {
-            document.title = `${group.displayName} | Best Bottles`;
+            document.title = `${group.displayName} — ${group.family} ${group.capacity ?? ""} | Best Bottles`.replace(/\s+/g, " ");
+
+            const desc = group.groupDescription
+                ?? `${group.displayName} from the ${group.family} collection. ${group.capacity ?? ""} glass bottle. Wholesale pricing from Best Bottles.`.trim();
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+                metaDesc = document.createElement("meta");
+                metaDesc.setAttribute("name", "description");
+                document.head.appendChild(metaDesc);
+            }
+            metaDesc.setAttribute("content", desc);
+
+            let linkCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+            if (!linkCanonical) {
+                linkCanonical = document.createElement("link");
+                linkCanonical.setAttribute("rel", "canonical");
+                document.head.appendChild(linkCanonical);
+            }
+            linkCanonical.href = `https://www.bestbottles.com/products/${slug}`;
+
             analytics.productViewed({
                 name: group.displayName,
                 family: group.family,
@@ -611,28 +631,32 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     // ── JSON-LD structured data ──────────────────────────────────────────────
     const jsonLd = useMemo(() => {
         if (!group || !selectedVariant) return null;
-        return {
-            "@context": "https://schema.org",
-            "@type": "Product",
+        return buildProductJsonLd({
             name: group.displayName,
             description: group.groupDescription
                 ?? selectedVariant.itemDescription
                 ?? `${group.displayName} — ${group.family} collection from Best Bottles. ${group.capacity ?? ""}`.trim(),
             sku: selectedVariant.websiteSku,
-            brand: { "@type": "Brand", name: "Best Bottles" },
-            category: group.category,
-            ...(selectedVariant.imageUrl && { image: selectedVariant.imageUrl }),
-            offers: {
-                "@type": "AggregateOffer",
-                priceCurrency: "USD",
-                lowPrice: selectedVariant.webPrice12pc ?? selectedVariant.webPrice10pc ?? selectedVariant.webPrice1pc,
-                highPrice: selectedVariant.webPrice1pc,
-                availability: selectedVariant.stockStatus === "In Stock"
-                    ? "https://schema.org/InStock"
-                    : "https://schema.org/OutOfStock",
-            },
-        };
-    }, [group, selectedVariant]);
+            image: selectedVariant.imageUrl ?? undefined,
+            url: `${SITE_URL}/products/${slug}`,
+            family: group.family,
+            priceLow: selectedVariant.webPrice12pc ?? selectedVariant.webPrice10pc ?? selectedVariant.webPrice1pc,
+            priceHigh: selectedVariant.webPrice1pc,
+            inStock: selectedVariant.stockStatus === "In Stock",
+            neckThreadSize: group.neckThreadSize ?? undefined,
+            capacity: group.capacity ?? undefined,
+        });
+    }, [group, selectedVariant, slug]);
+
+    const breadcrumbJsonLd = useMemo(() => {
+        if (!group) return null;
+        return buildBreadcrumbJsonLd([
+            { name: "Home", url: SITE_URL },
+            { name: "Catalog", url: `${SITE_URL}/catalog` },
+            { name: group.family, url: `${SITE_URL}/catalog?family=${encodeURIComponent(group.family)}` },
+            { name: group.displayName, url: `${SITE_URL}/products/${slug}` },
+        ]);
+    }, [group, slug]);
 
     // ── Loading state ────────────────────────────────────────────────────────
 
@@ -700,11 +724,16 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
     return (
         <main className="min-h-screen bg-bone">
-            {/* JSON-LD structured data for SEO */}
             {jsonLd && (
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            )}
+            {breadcrumbJsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
                 />
             )}
             <Navbar hideMobileSearch />

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "eslint",
     "test:smoke": "vitest run tests/catalog.smoke.test.ts",
@@ -46,6 +47,7 @@
     "mixpanel-browser": "^2.77.0",
     "next": "16.1.6",
     "next-sanity": "^12.1.6",
+    "next-sitemap": "^4.2.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-use-measure": "^2.1.7",
