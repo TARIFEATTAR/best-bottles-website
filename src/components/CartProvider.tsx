@@ -25,6 +25,8 @@ export interface CartItem {
 interface CartContextValue {
     items: CartItem[];
     itemCount: number;
+    /** False until client has read localStorage — use to avoid SSR/client cart count mismatches (hydration). */
+    isCartHydrated: boolean;
     addItems: (newItems: CartItem[]) => void;
     removeItem: (graceSku: string) => void;
     updateQuantity: (graceSku: string, quantity: number) => void;
@@ -38,7 +40,9 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 export function useCart(): CartContextValue {
     const ctx = useContext(CartContext);
-    if (!ctx) throw new Error("useCart must be used within CartProvider");
+    if (!ctx) {
+        throw new Error("useCart must be used within CartProvider");
+    }
     return ctx;
 }
 
@@ -72,7 +76,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const [hydrated, setHydrated] = useState(false);
 
     useEffect(() => {
-        setItems(loadCartFromStorage());
+        const loaded = loadCartFromStorage();
+        setItems(loaded);
         setHydrated(true);
     }, []);
 
@@ -194,6 +199,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             value={{
                 items,
                 itemCount,
+                isCartHydrated: hydrated,
                 addItems,
                 removeItem,
                 updateQuantity,

@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { House, GridFour, ShoppingBag, Headphones, User, X } from "@/components/icons";
+import { House, GridFour, ShoppingBag, User, X, Microphone } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCart } from "../CartProvider";
-import { useGrace } from "../useGrace";
+import { useCart } from "@/components/CartProvider";
+import { useGrace } from "@/components/useGrace";
 
 const GRACE_TAB_ONBOARDING_KEY = "grace-tab-onboarding-seen";
 
@@ -26,7 +26,7 @@ const TABS: Tab[] = [
     { key: "home", label: "Home", icon: House, href: "/" },
     { key: "catalog", label: "Catalog", icon: GridFour, href: "/catalog" },
     { key: "cart", label: "Cart", icon: ShoppingBag, action: "cart" },
-    { key: "grace", label: "AI Help", icon: Headphones, action: "grace" },
+    { key: "grace", label: "Ask Grace AI", icon: Microphone, action: "grace" },
     { key: "account", label: "Account", icon: User, href: "/account" },
 ];
 
@@ -34,12 +34,13 @@ const TABS: Tab[] = [
 
 export default function MobileTabBar() {
     const pathname = usePathname();
-    const { itemCount } = useCart();
+    const { itemCount, isCartHydrated } = useCart();
     const { openPanel } = useGrace();
     const [showGraceTooltip, setShowGraceTooltip] = useState(false);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => setMounted(true), []);
+
     useEffect(() => {
         if (!mounted || typeof window === "undefined") return;
         if (!localStorage.getItem(GRACE_TAB_ONBOARDING_KEY)) setShowGraceTooltip(true);
@@ -88,30 +89,32 @@ export default function MobileTabBar() {
                     const Icon = tab.icon;
 
                     const inner = (
-                        <span className="flex flex-col items-center gap-0.5 relative">
-                            <span className={`relative ${tab.key === "grace" && showGraceTooltip ? "animate-grace-pulse-subtle" : ""}`}>
-                                <Icon
-                                    className={`transition-colors duration-150 ${
-                                        active
-                                            ? "text-muted-gold"
-                                            : "text-slate group-hover:text-obsidian"
-                                    }`}
-                                    size={20}
-                                    weight={active ? "bold" : "regular"}
-                                />
-                                {/* Cart badge — only after mount to avoid hydration mismatch (cart loads from localStorage) */}
-                                {tab.key === "cart" && mounted && itemCount > 0 && (
-                                    <span className="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 flex items-center justify-center rounded-full bg-muted-gold text-[10px] font-semibold text-obsidian px-1 leading-none">
-                                        {itemCount > 99 ? "99+" : itemCount}
-                                    </span>
-                                )}
-                            </span>
+                        <span className="flex flex-col items-center gap-1.5 relative">
+                            {tab.key === "grace" ? (
+                                <div className={`w-12 h-12 -mt-6 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${active ? "bg-muted-gold" : "bg-obsidian hover:bg-black hover:scale-105 active:scale-95"} ${showGraceTooltip ? "ring-4 ring-muted-gold/20 animate-grace-pulse" : ""}`}>
+                                    <Icon
+                                        className="text-white"
+                                        size={24}
+                                        weight="fill"
+                                    />
+                                </div>
+                            ) : (
+                                <span className="relative">
+                                    <Icon
+                                        className={`transition-colors duration-150 ${active ? "text-muted-gold" : "text-slate group-hover:text-obsidian"}`}
+                                        size={20}
+                                        weight={active ? "bold" : "regular"}
+                                    />
+                                    {tab.key === "cart" && mounted && isCartHydrated && itemCount > 0 && (
+                                        <span className="absolute -top-1.5 -right-2.5 min-w-[16px] h-4 flex items-center justify-center rounded-full bg-muted-gold text-[10px] font-semibold text-obsidian px-1 leading-none">
+                                            {itemCount > 99 ? "99+" : itemCount}
+                                        </span>
+                                    )}
+                                </span>
+                            )}
                             <span
-                                className={`text-[10px] leading-tight font-medium transition-colors duration-150 ${
-                                    active
-                                        ? "text-muted-gold"
-                                        : "text-slate group-hover:text-obsidian"
-                                }`}
+                                className={`text-[8px] leading-tight font-bold uppercase tracking-tight transition-colors duration-150 text-center ${tab.key === "grace" ? "text-obsidian mt-0.5" : (active ? "text-muted-gold" : "text-slate")}`}
+                                style={{ maxWidth: "60px" }}
                             >
                                 {tab.label}
                             </span>
@@ -132,7 +135,7 @@ export default function MobileTabBar() {
                                             className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[200px] z-[60]"
                                         >
                                             <div className="bg-obsidian text-bone text-xs rounded-xl shadow-xl px-3 py-2.5 pr-7 relative">
-                                                <p className="leading-snug">Need fitment help? Ask Grace — your bottle & closure expert.</p>
+                                                <p className="leading-snug">Need fitment help? Talk with Grace — your bottle & closure expert.</p>
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); dismissGraceTooltip(); }}
                                                     aria-label="Dismiss"

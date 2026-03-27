@@ -30,70 +30,6 @@ import {
 
 // ─── Core product intelligence injected into ElevenLabs session ─────────────
 
-const GRACE_VOICE_CONSTITUTION = `You are Grace — the packaging concierge for Best Bottles, the premium glass packaging division of Nemat International, a family-owned Bay Area company (Union City, CA).
-
-CRITICAL RULES:
-- WAIT for the customer to speak FIRST. Your opening line must be a short, warm greeting — nothing else. Do NOT call any tools, do NOT mention products, and do NOT reference what the customer is viewing until THEY bring it up.
-- NEVER call a tool unless the customer has explicitly asked a question or made a request. If they haven't asked yet, just greet them and wait.
-- NEVER say "I pulled up", "I found", "let me show you", or claim ANY action unless a tool ACTUALLY returned results in this conversation. If no tool has been called yet, you have found nothing — say nothing about products.
-- ALWAYS call searchCatalog before answering ANY product question. Never guess from memory.
-- NEVER invent SKUs, sizes, or prices. If data isn't in a tool result, say you'll look into it.
-- NEVER say "we don't have that" without searching first.
-- Frosted is a FINISH, not a family. "Elegant Frosted" = Elegant family, frosted finish.
-- 18-415 and 20-410 thread sizes are NOT interchangeable despite similar appearance.
-- NEVER volunteer information proactively. Only provide product details, prices, or recommendations AFTER the customer asks.
-
-PRODUCT CATALOG:
-Best Bottles carries ~2,285 SKUs across ~230 product groups. ALWAYS call getCatalogStats for live counts — never quote numbers from memory.
-
-Glass Bottle Families (29): Aluminum Bottle, Apothecary, Atomizer, Bell, Boston Round, Circle, Cream Jar, Cylinder, Decorative, Diamond, Diva, Elegant, Empire, Flair, Grace, Lotion Bottle, Pillar, Plastic Bottle, Rectangle, Round, Royal, Sleek, Slim, Square, Teardrop, Tulip, Vial.
-
-Component Families: Cap/Closure, Cap/Component, Dropper, Gift Bag, Gift Box, Lotion Pump, Packaging Supply, Roll-On Cap, Sprayer, Tool.
-
-MINIMUM SIZES FOR CORE FAMILIES (memorise — never contradict):
-Boston Round: 15ml (NO 5ml/10ml/12ml). Cylinder: 5ml. Elegant: 15ml. Diva: 30ml. Empire: 30ml. Slim: 15ml. Circle: 15ml. Vial/Dram: 1ml.
-For ALL other families: call searchCatalog or getFamilyOverview to check available sizes. NEVER guess sizes — always verify with a tool call.
-
-THREAD SIZES & COMPATIBILITY:
-Every bottle has a neck thread size (e.g. 18-415, 20-410). Components MUST match the bottle's thread size. Common sizes: 13-415, 15-415, 18-415, 20-410, 24-410, 28-410. Use getBottleComponents with the bottle SKU to find compatible closures.
-
-APPLICATOR MATCHING BY VISCOSITY:
-- Thick oil/attar: Tola bottle or Dropper (NEVER roll-on for thick oils)
-- Thin fragrance oil/serum: Roll-on or Dropper
-- EDT/EDP/toner: Fine Mist Sprayer (NEVER roll-on for alcohol-based)
-- Lotion/cream: Lotion Pump
-- Essential oil/CBD: Dropper or Roll-on
-
-SPRAY TERMINOLOGY:
-"spray bottle" = "fine mist sprayer" = "sprayer" = "atomizer" = same thing. When customer says "spray", they mean Fine Mist Sprayer.
-
-TOOL STRATEGY:
-1. For "what fits this bottle?" → searchCatalog to get the SKU, then getBottleComponents
-2. For "show me X bottles" → searchCatalog with applicatorFilter if they mention an applicator type
-3. For "tell me about the Cylinder line" → getFamilyOverview
-4. For "what's in my cart?" → getCartContents
-5. For "what am I looking at?" → getCurrentPageContext
-6. ALWAYS search before recommending. Two tool calls max for compatibility questions.
-
-PRICING ETIQUETTE:
-- NEVER volunteer prices unless asked. Describe by name, size, color — not price.
-- NEVER say SKU codes to customers. Use natural names: "the 30ml frosted Cylinder" not "CYL-FRS-30ML".
-- For voice: round prices to friendly numbers. "about a dollar fifty" not "$1.47".
-
-RESPONSE FORMAT:
-- Your FIRST message must be ONLY a brief greeting, like: "Hi, I'm Grace! How can I help you today?" — nothing more. No product mentions, no tool calls, no offers.
-- Keep answers under 3 sentences. B2B buyers value brevity.
-- End with ONE short question to keep the conversation going — but only AFTER the customer has spoken first.
-- Never use markdown, bullet points, or headers in voice mode.
-- Speak naturally — "eighteen four-fifteen" not "18-415".
-- NEVER narrate your actions. Don't say "Let me pull that up" or "I'm searching now." Just wait for the result and share it naturally.
-
-BRAND IDENTITY:
-Best Bottles is a SUPPLIER, not a manufacturer. Say "we source" not "we make". We use the SAME bottles for Nemat's own products sold at Ulta, Sephora, and Whole Foods — that's our quality validation. $50 minimum order, no unit minimum.
-
-CONTACT: sales@nematinternational.com · 1-800-936-3628 · Mon–Fri 9:30am–5:30pm PST
-WAREHOUSE PICKUP: 34135 7th Street, Union City, CA 94587 · Call 1 day ahead · 10:30am–3:00pm`;
-
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function formatPageContextForGrace(ctx: PageContext | null, history?: BrowsingHistoryEntry[]): string {
@@ -154,6 +90,11 @@ function formatPageContextForGrace(ctx: PageContext | null, history?: BrowsingHi
 
 function sanitizeCatalogQuery(rawQuery: string | undefined): string {
     return (rawQuery ?? "").split(/,|\s+and\s+/i)[0].replace(/\s+/g, " ").trim();
+}
+
+/** Normalize for deduping duplicate agent_response + streaming copies of the same line */
+function normalizeGraceMessageText(s: string): string {
+    return s.replace(/\s+/g, " ").trim();
 }
 
 function slugToSearchTerm(rawSlug: string): string {
@@ -308,12 +249,12 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const [messages, setMessages] = useState<GraceMessage[]>([]);
     const [streamingText, setStreamingText] = useState("");
     const [input, setInput] = useState("");
-    const [voiceEnabled, setVoiceEnabled] = useState(true);
+    const [voiceEnabled, setVoiceEnabled] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [voiceFailed, setVoiceFailed] = useState(false);
     const [graceQuery, setGraceQuery] = useState("");
 
-    const toggleVoice = useCallback(() => setVoiceEnabled((v) => !v), []);
+    const toggleVoiceRef = useRef<(() => void) | null>(null);
 
     // ── Page context ─────────────────────────────────────────────────────────
     const pageType = useMemo((): PageContext["pageType"] => {
@@ -788,18 +729,29 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             cartItemCount: ctx?.cartItems.length ?? 0,
         });
 
+        // Send page context as a contextual update (does not require dashboard override permissions)
+        const contextBlock = formatPageContextForGrace(pageContextRef.current, browsingHistoryRef.current);
+        if (contextBlock && conversationRef.current?.getId?.()) {
+            conversationRef.current.sendContextualUpdate(contextBlock);
+        }
+
         if (pendingMessageRef.current) {
             const pending = pendingMessageRef.current;
             pendingMessageRef.current = null;
             setTimeout(() => {
-                if (conversationRef.current?.status === "connected") {
+                if (conversationRef.current?.getId?.()) {
                     conversationRef.current.sendUserMessage(pending);
                 }
             }, 500);
         }
     }, []);
 
-    const handleDisconnect = useCallback(() => {
+    const handleDisconnect = useCallback((details: { reason: string; message?: string; closeCode?: number; closeReason?: string }) => {
+        if (details.reason === "error") {
+            console.warn("[Grace] Disconnected due to error:", details.message, details.closeCode, details.closeReason);
+        } else if (details.reason === "agent") {
+            console.log("[Grace] Agent ended the session.", details.closeReason ?? "");
+        }
         connectingRef.current = false;
         const m = sessionMetricsRef.current;
         const ctx = pageContextRef.current;
@@ -832,19 +784,69 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         }, 5000);
     }, []);
 
+    // Track whether onMessage fires after streaming completes
+    const streamingFinalizedRef = useRef(false);
+
     const handleMessage = useCallback((payload: { message: string; source?: string; role?: string }) => {
         const role = payload.role === "user" ? "user" as const : "grace" as const;
-        if (role === "grace") {
-            setStreamingText("");
-        }
-        setMessages((prev) => [
-            ...prev,
-            { role, content: payload.message, id: nextMsgId() },
-        ]);
+        // Skip user echoes — send() already adds user messages to state
+        if (role === "user") return;
+        // Mark that onMessage handled finalization (prevents duplicate from stop-event fallback)
+        streamingFinalizedRef.current = true;
+        setStreamingText("");
+        const text = payload.message;
+        const norm = normalizeGraceMessageText(text);
+        setMessages((prev) => {
+            const last = prev[prev.length - 1];
+            if (
+                last?.role === "grace"
+                && normalizeGraceMessageText(last.content) === norm
+            ) {
+                return prev;
+            }
+            return [
+                ...prev,
+                { role, content: text, id: nextMsgId() },
+            ];
+        });
     }, []);
 
-    const handleAgentChatResponsePart = useCallback((payload: { text: string }) => {
-        setStreamingText((prev) => prev + payload.text);
+    const handleAgentChatResponsePart = useCallback((payload: { text: string; type?: string }) => {
+        if (payload.type === "stop") {
+            // Do not clear streamingFinalizedRef here — onMessage may have already set it to true.
+            // Clearing it caused the 600ms fallback to duplicate the same assistant bubble.
+            const stopText = payload.text ?? "";
+            setTimeout(() => {
+                if (!streamingFinalizedRef.current) {
+                    // onMessage didn't fire — finalize from streaming text
+                    setStreamingText((prev) => {
+                        const final = (prev + stopText).trim();
+                        if (final) {
+                            const n = normalizeGraceMessageText(final);
+                            setMessages((msgs) => {
+                                const last = msgs[msgs.length - 1];
+                                if (last?.role === "grace" && normalizeGraceMessageText(last.content) === n) {
+                                    return msgs;
+                                }
+                                return [
+                                    ...msgs,
+                                    { role: "grace" as const, content: final, id: nextMsgId() },
+                                ];
+                            });
+                        }
+                        return "";
+                    });
+                }
+                streamingFinalizedRef.current = false;
+            }, 600);
+            return;
+        }
+        setStreamingText((prev) => {
+            if (prev === "") {
+                streamingFinalizedRef.current = false;
+            }
+            return prev + payload.text;
+        });
     }, []);
 
     const conversation = useConversation({
@@ -864,12 +866,11 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const voiceEnabledRef = useRef(voiceEnabled);
     useEffect(() => { voiceEnabledRef.current = voiceEnabled; }, [voiceEnabled]);
 
-    const startConversation = useCallback(async (forceTextOnly?: boolean) => {
-        if (connectingRef.current || conversationRef.current?.status === "connected") return;
+    const startConversation = useCallback(async (forceTextOnly?: boolean): Promise<boolean> => {
+        const useTextOnly = forceTextOnly ?? !voiceEnabledRef.current;
+        if (connectingRef.current || conversationRef.current?.getId?.()) return false;
         connectingRef.current = true;
         setGraceStatus("connecting");
-
-        const useTextOnly = forceTextOnly ?? !voiceEnabledRef.current;
 
         try {
             const res = await fetch("/api/elevenlabs/signed-url");
@@ -880,77 +881,86 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             const { signedUrl } = (await res.json()) as { signedUrl?: string };
             if (!signedUrl) throw new Error("ElevenLabs did not return a valid signed URL.");
 
-            const contextBlock = formatPageContextForGrace(pageContextRef.current, browsingHistoryRef.current);
             const page = pageContextRef.current;
             const productName = page?.currentProduct?.name ?? "our collection";
 
-            const fullPrompt = contextBlock
-                ? `${GRACE_VOICE_CONSTITUTION}\n\n${contextBlock}`
-                : GRACE_VOICE_CONSTITUTION;
-
+            console.log(`[Grace] Starting ${useTextOnly ? "text" : "voice"} session...`);
             await conversation.startSession({
                 signedUrl,
-                ...(useTextOnly ? { textOnly: true } : { connectionType: "websocket" as const }),
-                overrides: {
-                    agent: {
-                        prompt: { prompt: fullPrompt },
-                        firstMessage: "Hi, I'm Grace from Best Bottles. How can I help you today?",
-                    },
-                },
+                textOnly: useTextOnly,
+                ...(!useTextOnly ? { preferHeadphonesForIosDevices: true } : {}),
                 dynamicVariables: {
                     _product_name_: productName,
                 },
             });
+            console.log("[Grace] Session started successfully.");
+            setConversationActive(true);
+            return true;
         } catch (err) {
             console.error("[Grace] Connection failed:", err);
             connectingRef.current = false;
-            setGraceStatus("idle");
+            setGraceStatus("error");
             setVoiceFailed(true);
             setErrorMessage(err instanceof Error ? err.message : "Connection failed");
+            return false;
+        } finally {
+            connectingRef.current = false;
         }
     }, [conversation]);
 
-    const endConversation = useCallback(() => {
-        try { conversationRef.current?.endSession(); } catch { /* ignore */ }
+    const endConversation = useCallback(async () => {
+        try { await conversationRef.current?.endSession(); } catch { /* ignore */ }
         setConversationActive(false);
         setGraceStatus("idle");
         setStreamingText("");
     }, []);
 
-    useEffect(() => { return () => { try { conversationRef.current?.endSession(); } catch { /* ignore */ } }; }, []);
-
-    // ── Voice upgrade: reconnect with audio when mic is toggled on ─────────
-    const prevVoiceRef = useRef(voiceEnabled);
     useEffect(() => {
-        const wasOff = !prevVoiceRef.current;
-        prevVoiceRef.current = voiceEnabled;
-        if (!wasOff || !voiceEnabled) return;
-        if (!conversationActive) return;
-
-        (async () => {
+        return () => {
             try { conversationRef.current?.endSession(); } catch { /* ignore */ }
-            setConversationActive(false);
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    // ── Toggle voice: must be called from a click handler (user gesture) ───
+    // Browsers require a user gesture to grant microphone access.
+    const toggleVoice = useCallback(async () => {
+        const nextVoice = !voiceEnabled;
+        setVoiceEnabled(nextVoice);
+        voiceEnabledRef.current = nextVoice;
+
+        // Tear down existing session so we can restart with different mode
+        try { await conversationRef.current?.endSession(); } catch { /* ignore */ }
+        setConversationActive(false);
+        setGraceStatus("idle");
+        setErrorMessage("");
+        setVoiceFailed(false);
+        connectingRef.current = false;
+
+        // Do not call getUserMedia here — @elevenlabs/client VoiceConversation already acquires
+        // the mic (twice: preliminary + Input). Priming + stopping tracks can break the second capture on Safari/Chrome.
+
+        await new Promise((r) => setTimeout(r, 400));
+
+        const success = await startConversation(!nextVoice);
+
+        // If voice failed (mic denied, timeout), fall back to text mode
+        if (!success && nextVoice) {
+            console.warn("[Grace] Voice failed, falling back to text mode.");
+            setVoiceEnabled(false);
+            setVoiceFailed(true);
+            setErrorMessage("Voice unavailable — using text mode instead.");
             setGraceStatus("idle");
             connectingRef.current = false;
+            // Clear duplicate greeting from the failed voice attempt
+            setMessages([]);
+            setStreamingText("");
             await new Promise((r) => setTimeout(r, 300));
-            startConversation(false);
-        })();
-    }, [voiceEnabled, conversationActive, startConversation]);
-
-    // ── Auto-start conversation when panel opens (once per open) ────────────
-    const hasAutoStartedRef = useRef(false);
-
-    useEffect(() => {
-        if (panelMode === "open" && !hasAutoStartedRef.current) {
-            hasAutoStartedRef.current = true;
-            if (!conversationActive && graceStatus === "idle") {
-                startConversation(true);
-            }
+            await startConversation(true);
         }
-        if (panelMode === "closed") {
-            hasAutoStartedRef.current = false;
-        }
-    }, [panelMode, conversationActive, graceStatus, startConversation]);
+    }, [voiceEnabled, startConversation]);
+
+    toggleVoiceRef.current = toggleVoice;
 
     // ── Send text message ────────────────────────────────────────────────────
 
@@ -966,9 +976,13 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             { role: "user", content: msg, id: nextMsgId() },
         ]);
 
-        if (conversationRef.current?.status === "connected") {
+        if (conversationRef.current?.getId?.()) {
             conversationRef.current.sendUserMessage(msg);
         } else {
+            // Clear stale error state so the retry can proceed
+            setErrorMessage("");
+            setGraceStatus("idle");
+            setVoiceFailed(false);
             pendingMessageRef.current = msg;
             await startConversation(true);
         }
@@ -998,7 +1012,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         input,
         setInput,
         voiceEnabled,
-        toggleVoice,
+        toggleVoice: toggleVoiceRef.current ?? (async () => {}),
         send,
         startDictation: async () => {},
         stopDictation: () => {},
@@ -1022,7 +1036,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         browsingHistory,
     }), [
         panelMode, openPanel, closePanel, minimizeToStrip, isOpen,
-        graceStatus, messages, streamingText, input, voiceEnabled, toggleVoice,
+        graceStatus, messages, streamingText, input, voiceEnabled,
         send, errorMessage, conversationActive, startConversation, endConversation,
         onNavigate, pendingNavigation, clearPendingNavigation,
         activeForm, updateFormField, submitActiveForm, dismissActiveForm,
