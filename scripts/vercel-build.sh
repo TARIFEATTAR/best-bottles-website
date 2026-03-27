@@ -4,7 +4,7 @@
 # Only deploy Convex when: production env AND deploying main branch.
 set -e
 if [ "$VERCEL_ENV" = "production" ] && [ "$VERCEL_GIT_COMMIT_REF" = "main" ]; then
-  npx convex deploy --cmd 'npm run build'
+  npx convex deploy --cmd 'npx next build --webpack'
 else
-  npm run build
+  npx next build --webpack
 fi

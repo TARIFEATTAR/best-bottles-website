@@ -91,10 +91,6 @@ export async function POST(req: NextRequest) {
                 );
         }
 
-        console.log(
-            `[EL server-tool] ${tool_name}: ${Date.now() - t0}ms`
-        );
-
         return NextResponse.json({ result });
     } catch (err) {
         console.error("[EL server-tool] Error:", err);

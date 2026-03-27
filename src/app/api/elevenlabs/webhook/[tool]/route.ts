@@ -83,8 +83,6 @@ export async function POST(
     const t0 = Date.now();
     const result = await handler(body as Record<string, unknown>);
 
-    console.log(`[EL webhook] ${tool}: ${Date.now() - t0}ms`);
-
     return NextResponse.json(result);
   } catch (err) {
     console.error(`[EL webhook] ${tool} error:`, err);
@@ -124,8 +122,6 @@ export async function GET(
 
     const t0 = Date.now();
     const result = await handler(queryParams);
-
-    console.log(`[EL webhook] ${tool} (GET): ${Date.now() - t0}ms`);
 
     return NextResponse.json(result);
   } catch (err) {
