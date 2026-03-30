@@ -82,12 +82,33 @@ const ROLLER_KEY_MAP: Record<string, string> = {
     "Plastic Roller Ball": "PLS-ROLL",
 };
 
+/** Map trim color descriptions (from itemName) to Sanity sprayer/pump variant keys */
+const TRIM_KEY_MAP: Record<string, string> = {
+    black: "BLK",
+    gold: "GL",
+    "matte silver": "MATT-SL",
+    "shiny silver": "SHN-SL",
+    turquoise: "TUR",
+    red: "RD",
+};
+
 function parseCapFromItemName(itemName: string): string | null {
     const match = itemName.toLowerCase().match(/and\s+(.+?)\s+cap/);
     if (!match) return null;
     const desc = match[1].trim();
     if (CAP_KEY_MAP[desc]) return CAP_KEY_MAP[desc];
     for (const [key, value] of Object.entries(CAP_KEY_MAP)) {
+        if (desc.includes(key)) return value;
+    }
+    return null;
+}
+
+function parseTrimFromItemName(itemName: string): string | null {
+    const match = itemName.toLowerCase().match(/with\s+(.+?)\s+trim/);
+    if (!match) return null;
+    const desc = match[1].trim();
+    if (TRIM_KEY_MAP[desc]) return TRIM_KEY_MAP[desc];
+    for (const [key, value] of Object.entries(TRIM_KEY_MAP)) {
         if (desc.includes(key)) return value;
     }
     return null;
@@ -203,6 +224,7 @@ export default function PaperDollImage({
         if (mode !== "rollon" || !applicator) return null;
         return ROLLER_KEY_MAP[applicator] ?? null;
     }, [mode, applicator]);
+    const trimKey = useMemo(() => parseTrimFromItemName(itemName), [itemName]);
 
     const bySlot = useMemo(() => {
         if (!family) return {};
@@ -229,10 +251,10 @@ export default function PaperDollImage({
             else if (slot === "cap") variantKey = capKey;
             else if (slot === "roller") variantKey = rollerKey;
             else if (slot === "sprayer") {
-                variantKey = bySlot.sprayer?.[0]?.variantKey ?? null;
+                variantKey = trimKey ?? bySlot.sprayer?.[0]?.variantKey ?? null;
             }
             else if (slot === "pump") {
-                variantKey = bySlot.pump?.[0]?.variantKey ?? null;
+                variantKey = trimKey ?? bySlot.pump?.[0]?.variantKey ?? null;
             }
 
             if (!variantKey) return;
@@ -249,7 +271,7 @@ export default function PaperDollImage({
         });
 
         return result;
-    }, [family, mode, bodyKey, capKey, rollerKey, bySlot]);
+    }, [family, mode, bodyKey, capKey, rollerKey, trimKey, bySlot]);
 
     // Track per-layer load state for smooth appearance
     const [layersReady, setLayersReady] = useState<Set<string>>(new Set());
