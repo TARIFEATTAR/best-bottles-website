@@ -84,10 +84,8 @@ export const applyBatchMutation = internalMutation({
 
             if (Object.keys(patch).length > 0) {
                 patch.importSource = IMPORT_SOURCE;
-                await ctx.db.patch(
-                    doc._id,
-                    patch as unknown as Parameters<typeof ctx.db.patch>[1],
-                );
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                await ctx.db.patch(doc._id, patch as any);
                 overwritten += Object.keys(patch).length - 1;
             }
             matched++;
