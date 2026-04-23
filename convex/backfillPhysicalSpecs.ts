@@ -157,6 +157,13 @@ export const backfillBatchMutation = internalMutation({
     },
 });
 
+type BackfillBatchResult = {
+    matched: number;
+    unmatched: number;
+    fieldsPatched: number;
+    unmatchedSample: string[];
+};
+
 /**
  * Action wrapper — takes a chunk of records from the caller and forwards to
  * the mutation. Matches the seedProducts.ts seedBatch pattern.
@@ -166,8 +173,11 @@ export const backfillBatch = action({
         records: v.array(v.any()),
         batchIndex: v.number(),
     },
-    handler: async (ctx, args) => {
-        const result = await ctx.runMutation(
+    handler: async (
+        ctx,
+        args,
+    ): Promise<BackfillBatchResult & { batchIndex: number }> => {
+        const result: BackfillBatchResult = await ctx.runMutation(
             internal.backfillPhysicalSpecs.backfillBatchMutation,
             { records: args.records }
         );

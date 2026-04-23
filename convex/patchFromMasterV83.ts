@@ -169,6 +169,14 @@ export const patchBatchMutation = internalMutation({
     },
 });
 
+type PatchBatchResult = {
+    matched: number;
+    unmatched: number;
+    fieldsPatched: number;
+    fieldCounts: Record<string, number>;
+    unmatchedSample: string[];
+};
+
 /**
  * Action wrapper for the Node driver.
  */
@@ -177,8 +185,11 @@ export const patchBatch = action({
         records: v.array(v.any()),
         batchIndex: v.number(),
     },
-    handler: async (ctx, args) => {
-        const result = await ctx.runMutation(
+    handler: async (
+        ctx,
+        args,
+    ): Promise<PatchBatchResult & { batchIndex: number }> => {
+        const result: PatchBatchResult = await ctx.runMutation(
             internal.patchFromMasterV83.patchBatchMutation,
             { records: args.records },
         );
