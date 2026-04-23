@@ -95,13 +95,24 @@ export const applyBatchMutation = internalMutation({
     },
 });
 
+type ApplyBatchResult = {
+    matched: number;
+    unmatched: number;
+    overwritten: number;
+    counts: Record<string, number>;
+    unmatchedSample: string[];
+};
+
 export const applyBatch = action({
     args: {
         records: v.array(v.any()),
         batchIndex: v.number(),
     },
-    handler: async (ctx, args) => {
-        const r = await ctx.runMutation(
+    handler: async (
+        ctx,
+        args,
+    ): Promise<ApplyBatchResult & { batchIndex: number }> => {
+        const r: ApplyBatchResult = await ctx.runMutation(
             internal.applyCaseWeightCorrections.applyBatchMutation,
             { records: args.records },
         );
