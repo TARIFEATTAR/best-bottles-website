@@ -106,6 +106,7 @@ export default defineSchema({
         diameter: v.union(v.string(), v.null()),
         bottleWeightG: v.union(v.number(), v.null()),
         caseQuantity: v.union(v.number(), v.null()),
+        caseWeightG: v.optional(v.union(v.number(), v.null())),
 
         // ── Pricing ─────────────────────────────────────────────────
         qbPrice: v.union(v.number(), v.null()),
@@ -121,6 +122,7 @@ export default defineSchema({
         productUrl: v.union(v.string(), v.null()),
         dataGrade: v.union(v.string(), v.null()),
         bottleCollection: v.union(v.string(), v.null()),
+        useCaseDescription: v.optional(v.union(v.string(), v.null())),
 
         // ── Fitment ─────────────────────────────────────────────────
         fitmentStatus: v.union(v.string(), v.null()),

@@ -1,11 +1,11 @@
-import { mutation, query } from "./_generated/server";
+import { internalMutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 /**
  * Sync Paper Doll layer image URLs from Sanity (or render pipeline) onto a product row.
  * Looks up by graceSku (canonical SKU in this codebase).
  */
-export const updateProductLayers = mutation({
+export const updateProductLayers = internalMutation({
     args: {
         graceSku: v.string(),
         bodyImageUrl: v.optional(v.string()),
@@ -44,7 +44,7 @@ export const updateProductLayers = mutation({
  * Link a product group to a Paper Doll family (e.g. CYL-9ML).
  * Sets paperDollFamilyKey on the productGroups row so the PDP renders composites.
  */
-export const linkGroupToFamily = mutation({
+export const linkGroupToFamily = internalMutation({
     args: {
         groupId: v.id("productGroups"),
         familyKey: v.string(),
@@ -58,7 +58,7 @@ export const linkGroupToFamily = mutation({
 /**
  * Batch-link all product groups matching a family + capacityMl to a paper doll family key.
  */
-export const linkFamilyGroups = mutation({
+export const linkFamilyGroups = internalMutation({
     args: {
         family: v.string(),
         capacityMl: v.number(),

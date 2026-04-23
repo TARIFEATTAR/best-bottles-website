@@ -86,11 +86,11 @@ HARD RULE — MINIMUM SIZES PER FAMILY (memorise these; do not contradict them e
 | Family | Smallest size we stock |
 |---|---|
 | Boston Round | **15ml** (there is NO 5ml, 10ml, or 12ml Boston Round) |
-| Cylinder | 5ml |
+| Cylinder | 3ml (fractional sizes include 3.3ml, 4ml, 5ml, 5.5ml) |
 | Elegant | 15ml |
 | Diva | 30ml |
-| Empire | 30ml |
-| Slim | 15ml |
+| Empire | **50ml** (there is NO 15ml, 30ml, or 46ml Empire — sizes are 50ml and 100ml only) |
+| Slim | **30ml** (there is NO 15ml Slim — sizes are 30ml, 50ml, 100ml) |
 | Circle | 15ml |
 | Vial / Dram | 1ml |
 

@@ -1,4 +1,4 @@
-import { query, mutation, action } from "./_generated/server";
+import { query, mutation, internalMutation, action } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import {
@@ -551,7 +551,7 @@ export const getProductGroupsByFamily = query({
  * Called by scripts/push_descriptions.mjs in batches of 50.
  * Returns { updated, notFound } so the runner can report skipped SKUs.
  */
-export const patchDescriptions = mutation({
+export const patchDescriptions = internalMutation({
     args: {
         patches: v.array(v.object({
             websiteSku: v.string(),
@@ -581,7 +581,7 @@ export const patchDescriptions = mutation({
  * Update heroImageUrl on a productGroup — called by the Sanity image upload script
  * after uploading a grid image and receiving the CDN URL.
  */
-export const updateProductGroupHeroImage = mutation({
+export const updateProductGroupHeroImage = internalMutation({
     args: {
         id: v.id("productGroups"),
         heroImageUrl: v.string(),
@@ -948,7 +948,7 @@ export const getProductExportPage = action({
  * productGroups (~230 lightweight docs) with zero extra product queries.
  * Catalog page load time: ~2-4s → <500ms.
  */
-export const backfillPrimarySkus = mutation({
+export const backfillPrimarySkus = internalMutation({
     args: {},
     handler: async (ctx) => {
         const groups = await ctx.db.query("productGroups").collect();

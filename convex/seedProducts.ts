@@ -1,4 +1,4 @@
-import { mutation, internalMutation, action } from "./_generated/server";
+import { internalMutation, action } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 
@@ -92,7 +92,7 @@ export const insertBatch = internalMutation({
 /**
  * Clear 500 products from the table at a time. Run multiple times until 0.
  */
-export const clearAll = mutation({
+export const clearAll = internalMutation({
     args: {},
     handler: async (ctx) => {
         const batch = await ctx.db.query("products").take(50);

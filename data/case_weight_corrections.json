@@ -1,0 +1,7550 @@
+[
+  {
+    "websiteSku": "OBagPurple4x6",
+    "caseWeightG": null,
+    "bottleWeightG": 6.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "OBagSilver4x6",
+    "caseWeightG": null,
+    "bottleWeightG": 6.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "OBagIvory4x6",
+    "caseWeightG": null,
+    "bottleWeightG": 6.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "OBagPink4x6",
+    "caseWeightG": null,
+    "bottleWeightG": 6.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "VBagBlack4x3",
+    "caseWeightG": null,
+    "bottleWeightG": 4.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "VBagGreen4x3",
+    "caseWeightG": null,
+    "bottleWeightG": null,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "VBagRed4x3",
+    "caseWeightG": null,
+    "bottleWeightG": 4.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "VBagBlue4x3",
+    "caseWeightG": null,
+    "bottleWeightG": 4.0,
+    "caseQuantity": 500
+  },
+  {
+    "websiteSku": "GBTallRect10RollBlkSh",
+    "caseWeightG": null,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrShnBlkTall",
+    "caseWeightG": null,
+    "bottleWeightG": null,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrShnBlk",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrMtSlTall",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrcl50DrpSl",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrcl50DrpGl",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrcl50DrpCu",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrMtSl",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrShnBlkTal",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrShnBlk",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrMtSlTall",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrMtSl",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrWht",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50DrpSl",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50DrpGl",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GBCrclFrst50DrpCu",
+    "caseWeightG": null,
+    "bottleWeightG": 99.0,
+    "caseQuantity": 270
+  },
+  {
+    "websiteSku": "GB3TPlShnSlBl",
+    "caseWeightG": 19240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstn1ozMtlRollonMattSl",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstn1ozMtlRollonShnSl",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstn1ozMtlRollonMattBlk",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstn1ozMtlRollonGl",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstn1ozMtlRollonMattGl",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstn1ozMtlRollonBlk",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstnAmb1ozMtlRollonGl",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstnAmb1ozMtlRollonMatt",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstnAmb1ozMtlRollonMatt",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstnAmb1ozMtlRollonMatt",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBstnAmb1ozMtlRollonShnS",
+    "caseWeightG": 21520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollBlkSh",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollGlSh",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollSlSh",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollBlkDot",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollPinkDot",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollSlDot",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollCuMatt",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollGlMatt",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12RollSlMatt",
+    "caseWeightG": 21700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollShnSl",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollShnGl",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollShBlk",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollWht",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollMattCu",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollBlkDot",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollPnkDot",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollSlDot",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollSl",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollMattSl",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9RollMattGl",
+    "caseWeightG": 20836.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50SpryShnGl",
+    "caseWeightG": 20440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50SpryShnSl",
+    "caseWeightG": 20440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50SpryMtSl",
+    "caseWeightG": 20440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100SpBl",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50SpryShnBlk",
+    "caseWeightG": 20440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollBlkSh",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollCuMatt",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollGlMatt",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollPinkDot",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollSlDot",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollSlMatt",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollSlSh",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollBlkDot",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollBlkSh",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollCuMatt",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollGlMatt",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollGlSh",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollPinkDot",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollSlDot",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollSlMatt",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6RollSlSh",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollBlkDot",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5RollGlSh",
+    "caseWeightG": 21280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128RdcrShnBlkTall",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRnd128RdcrMtSlTall",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrShnBlkTal",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrMtSlTall",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "Gb12TPlShnGlRed",
+    "caseWeightG": 20200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Gb12TPlShnSlBl",
+    "caseWeightG": 20200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB12TPlSl",
+    "caseWeightG": 20200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Alu125mlLotionPumpWhite",
+    "caseWeightG": 22000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Alu125mlLotionPumpBlack",
+    "caseWeightG": 22000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnClOvrCap",
+    "caseWeightG": 31480.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRnd78AnSpBlk",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpPnk",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpLvn",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpIvyGl",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpGl",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpIvySl",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpRed",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpMtSl",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpWht",
+    "caseWeightG": 31240.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd128SpryMtGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRnd128LtnShnGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBRnd128LtnMtSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128SpryCu",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRnd128LtnCu",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128SpryMtGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnMtGl",
+    "caseWeightG": 32000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnShnGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnShnBlk",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128SpryMtSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnMtSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnShnSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128DrpCu",
+    "caseWeightG": 37960.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128DrpGl",
+    "caseWeightG": 37960.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128SpryCu",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRndFrst128LtnCu",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRnd128LtnMtGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128SpryShnGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRnd128SpryShnBlk",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRnd128LtnShnBlk",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128SpryMtSl",
+    "caseWeightG": 21800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBRnd128LtnClOvrCap",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128SpryShnSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "LBRnd128LtnShnSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128SpryShnGl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128SpryShnBlk",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128SpryShnSl",
+    "caseWeightG": 32200.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBMtlMrblLarge",
+    "caseWeightG": 27000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "Gb6TPlShnGlRed",
+    "caseWeightG": 19000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Gb6TPlShnSlBl",
+    "caseWeightG": 19000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB6TPlSl",
+    "caseWeightG": 19000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Alu120mlLotionPumpBlack",
+    "caseWeightG": 22000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Alu120mlLotionPumpWhite",
+    "caseWeightG": 22000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB09BlackCapApp",
+    "caseWeightG": 22840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrBlkLthr",
+    "caseWeightG": 22888.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrIvyLthr",
+    "caseWeightG": 22888.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrPnkLthr",
+    "caseWeightG": 22888.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrBrwnLthr",
+    "caseWeightG": 22888.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrLBrwnLthr",
+    "caseWeightG": 22888.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollMattSl",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollBlkDot",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollSlDot",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollPnkDot",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollMattGl",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollShnGl",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollShnSl",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollMattCu",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollShBlk",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCylSwrl9MtlRollWht",
+    "caseWeightG": 23572.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrShnGl",
+    "caseWeightG": 20580.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrShnBlkTall",
+    "caseWeightG": 20580.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrShnBlk",
+    "caseWeightG": 20580.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrShnSl",
+    "caseWeightG": 20580.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrMtSl",
+    "caseWeightG": 20580.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrWht",
+    "caseWeightG": 20580.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollCuMatt",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollGlMatt",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollGlSh",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollPinkDot",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollSlDot",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollSlMatt",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollSlSh",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollBlkDot",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollBlkDot",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollBlkSh",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollCuMatt",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollGlMatt",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollGlSh",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollPinkDot",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollSlDot",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollSlMatt",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6MtlRollSlSh",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5MtlRollBlkSh",
+    "caseWeightG": 22970.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnShnBlk",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnShnGl",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnShnSl",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnMtGl",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnMtSl",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnCu",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm50LtnClOvrCap",
+    "caseWeightG": 22384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslGl",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslBlk",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslIvyGl",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslLvn",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslWht",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslPnk",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslRed",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslMtSl",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBRnd78AnSpTslIvySl",
+    "caseWeightG": 33544.0,
+    "bottleWeightG": null,
+    "caseQuantity": 288
+  },
+  {
+    "websiteSku": "GBCyl50RollBlk",
+    "caseWeightG": 22816.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl50RollWht",
+    "caseWeightG": 22816.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrMtSlTall",
+    "caseWeightG": 21460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrWht",
+    "caseWeightG": 24968.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrShnBlk",
+    "caseWeightG": 23112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrShnGl",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrShnSl",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrWht",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrShnGl",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrShnBlk",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrShnSl",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrMtSl",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrMtSl",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrWhite",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrBlk",
+    "caseWeightG": 24112.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBSlm30RdcrBlkLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrIvyLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrPnkLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrBlkLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrBrwnLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrLBrwnLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30RdcrBrwnLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30RdcrLBrwnLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30RdcrIvyLthr",
+    "caseWeightG": 24040.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SpryBlkMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SpryBlkSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SpryBluMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SpryCuMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SpryGlMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SpryGlSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SprySlMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SprySlSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SpryBlkMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SpryBlkSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SpryBluMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SpryCuMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SpryGlMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SpryGlSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SprySlMatt",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SprySlSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulipAmb5SprySlSh",
+    "caseWeightG": 23815.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrace55mlSl",
+    "caseWeightG": 23220.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpPnk",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpGl",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpLvn",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpIvyGl",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpBlk",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlim50AnSpIvySl",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpRed",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpMtSl",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpWht",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpIvySl",
+    "caseWeightG": 23248.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnShnBlk",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnShnGl",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnShnSl",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnMtGl",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnMtSl",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnCu",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30LtnClOvrCap",
+    "caseWeightG": 23320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags4X8",
+    "caseWeightG": 24900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl9SpryShSl",
+    "caseWeightG": 18280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrShnBlkTall",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElg60RdcrMtSlTall",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrShnBlkTall",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrMtSlTall",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": 216
+  },
+  {
+    "websiteSku": "LBGrce55LtnMtGl",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrce55LtnMtSl",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrce55LtnCu",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrce55LtnShnGl",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrce55LtnShnBlk",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrce55LtnClOvrCap",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBGrce55LtnShnSl",
+    "caseWeightG": 22560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60WhtClOvrCp",
+    "caseWeightG": 24504.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnClOvrCap",
+    "caseWeightG": 26312.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60WhtClOvrCp",
+    "caseWeightG": 26312.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslRed",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslBlk",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslGl",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslIvyGl",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslIvySl",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslLvn",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslPnk",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslWht",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpTslMtSl",
+    "caseWeightG": 37000.0,
+    "bottleWeightG": null,
+    "caseQuantity": 240
+  },
+  {
+    "websiteSku": "GBRndFrst78RdcrBlkLthr",
+    "caseWeightG": 26100.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrShnGl",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrShnBlk",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrShnSl",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrMtSl",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrWht",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrShnGl",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrShnBlk",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrShnSl",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrMtSl",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrWht",
+    "caseWeightG": 24800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags3x3",
+    "caseWeightG": 9200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags3x12",
+    "caseWeightG": 26200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags4x12",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags3x4",
+    "caseWeightG": 9200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk30WhtRectClOverCap",
+    "caseWeightG": 24760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SpryShnGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SprySlSh",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SpryShnBlk",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg2ozSpryMtSl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60SpryShnBlk",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60SpryShnGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60SpryMtSl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60SpryShnSl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SpryMtGl",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnMtGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnMtSl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SpryShnSl",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SpryCu",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnCu",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60SpryMtGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnMtGl",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnMtSl",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60DrpSl",
+    "caseWeightG": 24088.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60DrpGl",
+    "caseWeightG": 24088.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60DrpCu",
+    "caseWeightG": 24088.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60SpryCu",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnCu",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg30SpryMattGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg30FrstSpryMattGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnShnGl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnShnBlk",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60SpryMtSl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnClrOvrCap",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg60LtnShnSl",
+    "caseWeightG": 25128.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnShnGl",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnShnBlk",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst60LtnShnSl",
+    "caseWeightG": 26984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslBlk",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslGl",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslIvyGl",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslLvn",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslPnk",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslIvySl",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslRed",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslWht",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm50AnSpTslMtSl",
+    "caseWeightG": 24976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpBlk",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpGl",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpLvn",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpIvyGl",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpPnk",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpIvySl",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128RdcrBlkLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128RdcrIvyLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128RdcrBrwnLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128RdcrLBrwnLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128RdcrPnkLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrBlkLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrBrwnLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrLBrwnLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrPnkLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128RdcrIvyLthr",
+    "caseWeightG": 17640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrBlkLthr",
+    "caseWeightG": 23880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrBrwnLthr",
+    "caseWeightG": 23880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrLBrwnLthr",
+    "caseWeightG": 23880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrPnkLthr",
+    "caseWeightG": 23880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55RdcrIvyLthr",
+    "caseWeightG": 23880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpBlk",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpPnk",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpIvyGl",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpLvn",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpGl",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpRed",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpIvySl",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpMtSl",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpWht",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd60AnSpTslRed",
+    "caseWeightG": 25384.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrShnSl",
+    "caseWeightG": 25192.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrShnGl",
+    "caseWeightG": 25192.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrShnBlk",
+    "caseWeightG": 25192.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrMtSl",
+    "caseWeightG": 25192.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrWht",
+    "caseWeightG": 25192.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrIvyLthr",
+    "caseWeightG": 36616.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrPnkLthr",
+    "caseWeightG": 36616.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrBlkLthr",
+    "caseWeightG": 36616.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrLBrwnLthr",
+    "caseWeightG": 36616.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrBrwnLthr",
+    "caseWeightG": 36616.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrShnBlkTall",
+    "caseWeightG": 25920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrMtSlTall",
+    "caseWeightG": 25920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrShnBlkTal",
+    "caseWeightG": 25920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrMtSlTall",
+    "caseWeightG": 25920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrMtSl",
+    "caseWeightG": 37512.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrShnSl",
+    "caseWeightG": 37512.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrWht",
+    "caseWeightG": 37512.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrBlkLthr",
+    "caseWeightG": 26376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrBrwnLthr",
+    "caseWeightG": 26376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrLBrwnLthr",
+    "caseWeightG": 26376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrPnkLthr",
+    "caseWeightG": 26376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60RdcrIvyLthr",
+    "caseWeightG": 26376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnClOvrCap",
+    "caseWeightG": 26480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrShnBlkTall",
+    "caseWeightG": 26056.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrMtSlTall",
+    "caseWeightG": 26056.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJFrst30BlkCap",
+    "caseWeightG": 28720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJAmb30SlCap",
+    "caseWeightG": 28720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJFrst30Slcap",
+    "caseWeightG": 28720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslBlk",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslPnk",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslGl",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslIvySl",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslRed",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpMtSl",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpWht",
+    "caseWeightG": 26740.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpRed",
+    "caseWeightG": 24980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnClOvrCap",
+    "caseWeightG": 26488.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50WhtClOvrCp",
+    "caseWeightG": 26488.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46SpryMtGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnMtGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46SpryShnGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnShnGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnShnBlk",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46SpryShnBlk",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46SpryMtSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnMtSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46SpryShnSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnShnSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46SpryCu",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva46LtnCu",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46SpryMtGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnMtGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46SpryShnGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46SpryShnBlk",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46SpryMtSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnMtSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46SpryShnSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46SpryCu",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnCu",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnShnGl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnShnBlk",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnClOvrCap",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst46LtnShnSl",
+    "caseWeightG": 27320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpBlk",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpGl",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpIvyGl",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpIvySl",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpLvn",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpPnk",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpRed",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpLvn",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpPnk",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpMtSl",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpIvySl",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpGl",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpIvyGl",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpBlk",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpWht",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpRed",
+    "caseWeightG": 29672.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpMtSl",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpWht",
+    "caseWeightG": 27624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrShnBlk",
+    "caseWeightG": 13936.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrMtSl",
+    "caseWeightG": 13936.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50SpryMtSl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50SpryShnSl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50SpryShnGl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50SpryShnBlk",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50SpryMtGl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnMtGl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnShnGl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnShnBlk",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnMtSl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnShnSl",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50DrpSl",
+    "caseWeightG": 26488.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50DrpGl",
+    "caseWeightG": 26488.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50DrpCu",
+    "caseWeightG": 26488.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50SpryCu",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp50LtnCu",
+    "caseWeightG": 27136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55SpryMtGl",
+    "caseWeightG": 27620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55SpryShnGl",
+    "caseWeightG": 27620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55SpryShnBlk",
+    "caseWeightG": 27620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55SpryMtSl",
+    "caseWeightG": 27620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55SpryShnSl",
+    "caseWeightG": 27620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55SpryCu",
+    "caseWeightG": 27620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBMtlCylSl",
+    "caseWeightG": 27400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBMtlCylGl",
+    "caseWeightG": 27400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrShnBlkTall",
+    "caseWeightG": 14188.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrMtSlTall",
+    "caseWeightG": 14188.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrShnBlkTa",
+    "caseWeightG": 14524.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrMtSlTall",
+    "caseWeightG": 14524.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTiara50mlBlkLthr",
+    "caseWeightG": 28945.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTiara50mlIvyLthr",
+    "caseWeightG": 28945.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTiara50mlPnkLthr",
+    "caseWeightG": 28945.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpLvn",
+    "caseWeightG": 28540.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100SpryShnSl",
+    "caseWeightG": 28090.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100SpryShnGl",
+    "caseWeightG": 28090.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100SpryMtSl",
+    "caseWeightG": 28090.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlim100SpryMattSl",
+    "caseWeightG": 28090.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlim100SprySlShn",
+    "caseWeightG": 28090.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnShnBlk",
+    "caseWeightG": 38520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnShnGl",
+    "caseWeightG": 38520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg30SlCap",
+    "caseWeightG": 28264.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg30GlCap",
+    "caseWeightG": 28264.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslLvn",
+    "caseWeightG": 26960.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslIvyGl",
+    "caseWeightG": 26960.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslWht",
+    "caseWeightG": 26960.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBGrce55AnSpTslMtSl",
+    "caseWeightG": 26960.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrcl100LtnClOvrCap",
+    "caseWeightG": 14692.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnClOvrCap",
+    "caseWeightG": 14692.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrShnGl",
+    "caseWeightG": 20392.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrShnSl",
+    "caseWeightG": 20392.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrMtSl",
+    "caseWeightG": 20392.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrShnBlk",
+    "caseWeightG": 20392.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrShnGl",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrShnBlk",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrShnSl",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrMtSl",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrWht",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30SpryCu",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrShnGl",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrShnBlk",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrShnSl",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrMtSl",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrWht",
+    "caseWeightG": 27048.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpBlk",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpGl",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpIvyGl",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpIvySl",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpPnk",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpRed",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpMtSl",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpWht",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl50MtlRollBlk",
+    "caseWeightG": 14716.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl50MtlRollWht",
+    "caseWeightG": 14716.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrBlkLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrBrwnLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrLBrwnLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrPnkLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46RdcrIvyLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrBlkLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrBrwnLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrLBrwnLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrPnkLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46RdcrIvyLthr",
+    "caseWeightG": 29000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100SpryMtGl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100SpryShnGl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100SpryShnBlk",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100SpryMtSl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100SpryShnSl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100SpryCu",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100SpryMtGl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100SpryShnGl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100SpryShnBlk",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100SpryMtSl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100SpryShnSl",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100SpryCu",
+    "caseWeightG": 14944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrBlkLthr",
+    "caseWeightG": 28432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrIvyLthr",
+    "caseWeightG": 28432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrPnkLthr",
+    "caseWeightG": 28432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrBrwnLthr",
+    "caseWeightG": 28432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50RdcrLBrwnLthr",
+    "caseWeightG": 28432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslBlk",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslGl",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslIvyGl",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslLvn",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslPnk",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslIvySl",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslRed",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslLvn",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslIvyGl",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslIvySl",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslWht",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslPnk",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslRed",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslBlk",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslMtSl",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60AnSpTslGl",
+    "caseWeightG": 31464.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslWht",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst60AnSpTslMtSl",
+    "caseWeightG": 29288.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100MtSlClOvrCap",
+    "caseWeightG": 29980.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128DrpSl",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128DrpGl",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128DrpCu",
+    "caseWeightG": 31000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128DrpSl",
+    "caseWeightG": 21000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslBlk",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslGl",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslIvyGl",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslIvySl",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslLvn",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslPnk",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslRed",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslWht",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozAnSpTslMtSl",
+    "caseWeightG": 29800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrShnBlkTall",
+    "caseWeightG": 21160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozRdcrMtSlTall",
+    "caseWeightG": 21160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrBlkLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrBlkLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrIvyLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrPnkLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrBrwnLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrLBrwnLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrIvyLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrBrwnLthr",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrLBrwnLth",
+    "caseWeightG": 15448.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrShnBlkTall",
+    "caseWeightG": 28456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrMtSlTall",
+    "caseWeightG": 28456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrShnBlkTal",
+    "caseWeightG": 28456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrMtSlTall",
+    "caseWeightG": 28456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100LtnShnSl",
+    "caseWeightG": 30820.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100LtnShnGl",
+    "caseWeightG": 30820.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100LtnShnBlk",
+    "caseWeightG": 30820.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100LtnMtGl",
+    "caseWeightG": 30820.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100LtnMtSl",
+    "caseWeightG": 30820.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlm100LtnCu",
+    "caseWeightG": 30820.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndBlu4ozStpr",
+    "caseWeightG": 31600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnMtGl",
+    "caseWeightG": 18136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnShnGl",
+    "caseWeightG": 18136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnShnBlk",
+    "caseWeightG": 18136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnMtSl",
+    "caseWeightG": 18136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnShnSl",
+    "caseWeightG": 18136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCrclFrst100LtnCu",
+    "caseWeightG": 18136.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnClOvrCap",
+    "caseWeightG": 21544.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpBlk",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpGl",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpLvn",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpPnk",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslBlk",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslGl",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpIvyGl",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpIvySl",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpRed",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpMtSl",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpWht",
+    "caseWeightG": 29728.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpLvn",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpPnk",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpMtSl",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpIvySl",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpGl",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpIvyGl",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpBlk",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpWht",
+    "caseWeightG": 30680.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva30LtnMtGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva30LtnShnGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva30LtnShnBlk",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva30LtnMtSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva30LtnShnSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva30LtnCu",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnClOvrCap",
+    "caseWeightG": 29160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpPnk",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpIvyGl",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpLvn",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpGl",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpIvySl",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpRed",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpMtSl",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpBlk",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpWht",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslWht",
+    "caseWeightG": 30610.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBPearClear4ozStpr",
+    "caseWeightG": 32400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB4ozApthPearBlue",
+    "caseWeightG": 32400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB4ozApthPearClear",
+    "caseWeightG": 32400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozSpryShnGl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozSpryMtSl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozSpryMtGl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnMtGl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnShnGl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozSpryShnBlk",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnShnBlk",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnMtSl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozSpryShnSl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnShnSl",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDmnd2ozSpryCu",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDmnd2ozLtnCu",
+    "caseWeightG": 22120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslBlk",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslGl",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslIvyGl",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslLvn",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslPnk",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslIvySl",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslWht",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslMtSl",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst78AnSpTslRed",
+    "caseWeightG": 39070.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30SpryMtGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30SpryMtGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnMtGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30SpryShnGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnShnGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30SpryShnBlk",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnShnBlk",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30SpryMtSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnMtSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30SpryShnSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnShnSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30SpryCu",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDivaFrst30LtnCu",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30SpryShnGl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30SpryShnBlk",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30SpryMtSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30SpryShnSl",
+    "caseWeightG": 30216.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslIvyGl",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslLvn",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslPnk",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslIvySl",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslRed",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslWht",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp50AnSpTslMtSl",
+    "caseWeightG": 31456.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30SpryShnBlk",
+    "caseWeightG": 16552.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30SpryMtSl",
+    "caseWeightG": 16552.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30SpryShnSl",
+    "caseWeightG": 16552.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30SpryShnGl",
+    "caseWeightG": 16552.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm30SpryCu",
+    "caseWeightG": 16552.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslPnk",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslBlk",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslGl",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslIvyGl",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslIvySl",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslLvn",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslRed",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlm100AnSpTslMtSl",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpRed",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslLvn",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslIvyGl",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslIvySl",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslWht",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslPnk",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslBlk",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslMtSl",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslGl",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslRed",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslBlkRng",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslIvyGlR",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslPnkRng",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslLvnRng",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslGlRng",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslIvySlR",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslRedRng",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpTslWhtRng",
+    "caseWeightG": 32920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrShnBlk",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrGl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrSl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrWht",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrShnGl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrShnBlk",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrShnGl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrShnSl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrMtSl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBPearBlu4ozStpr",
+    "caseWeightG": 34800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJFrst40Slcap",
+    "caseWeightG": 33200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJAmb40Slcap",
+    "caseWeightG": 33200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJAmb40Blkcap",
+    "caseWeightG": 33200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJFrst40Blkcap",
+    "caseWeightG": 33200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndClear4ozStpr",
+    "caseWeightG": 35000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "CJAmb30BlkCap",
+    "caseWeightG": 33400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrBlkLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrBrwnLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrLBrwnLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrPnkLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30RdcrIvyLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrBlkLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrBrwnLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrLBrwnLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrPnkLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30RdcrIvyLthr",
+    "caseWeightG": 32328.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrShnBlkTall",
+    "caseWeightG": 34376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100RdcrMtSlTall",
+    "caseWeightG": 34376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrShnBlkTal",
+    "caseWeightG": 34376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrMtSlTall",
+    "caseWeightG": 34376.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrShnSl",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrShnGl",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBTulip6SprySlMt",
+    "caseWeightG": 34800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl50RdcrWht",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrShnGl",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst50RdcrShnSl",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpBlk",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpPnk",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpIvyGl",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpLvn",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpGl",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpIvySl",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpMtSl",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpWht",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpRed",
+    "caseWeightG": 34360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnClOvrCap",
+    "caseWeightG": 34824.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnClOvrCap",
+    "caseWeightG": 34824.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100WhtClOvrCp",
+    "caseWeightG": 34824.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100SpryShnBlk",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100SpryShnGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100SpryShnBlk",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100SpryShnGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100SpryMtSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100SpryShnSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100SpryMtGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnMtGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnShnGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnShnBlk",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100SpryMtSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnMtSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100SpryShnSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnShnSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100SpryCu",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100LtnCu",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100SpryMtGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnMtGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnShnGl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnShnBlk",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnMtSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnShnSl",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100SpryCu",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElgFrst100LtnCu",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBElg100WhtClOvrCp",
+    "caseWeightG": 35496.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrShnGl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrShnSl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrMtSl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrWht",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpMtSl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpWht",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpRed",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpLvn",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpPnk",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpMtSl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpIvySl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpGl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpIvyGl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpBlk",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpWht",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpRed",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpBlk",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpGl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpIvyGl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpIvySl",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpLvn",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpPnk",
+    "caseWeightG": 34440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpLvn",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpPnk",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpBlk",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpGl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpIvyGl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpRed",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpIvySl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpMtSl",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpWht",
+    "caseWeightG": 33480.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrShnGl",
+    "caseWeightG": 36112.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrShnBlk",
+    "caseWeightG": 36112.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrShnSl",
+    "caseWeightG": 36112.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrMtSl",
+    "caseWeightG": 36112.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrWht",
+    "caseWeightG": 36112.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrBlkLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrIvyLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrPnkLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrBlkLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrIvyLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrPnkLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrBrwnLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg60RdcrLBrwnLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrBrwnLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100RdcrLBrwnLthr",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnShnSl",
+    "caseWeightG": 38520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslBlk",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslPnk",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslIvyGl",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslLvn",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslGl",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslIvySl",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslRed",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslWht",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRnd128AnSpTslMtSl",
+    "caseWeightG": 36520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrShnBlkTall",
+    "caseWeightG": 36784.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrMtSlTall",
+    "caseWeightG": 36784.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrShnBlkTall",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrShnBlk",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrMtSlTall",
+    "caseWeightG": 36840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100WhtRectClOverCap",
+    "caseWeightG": 37120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB4ozApthRound",
+    "caseWeightG": 38800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GB4ozApthRoundBlue",
+    "caseWeightG": 38800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnClOvrCap",
+    "caseWeightG": 37400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100SpryShnBlk",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100SpryShnGl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek100SpSlShn",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnShnBlk",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnShnGl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnShnSl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnClOvrCap",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100SpryMtGl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnMtGl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnMtSl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100SpryCu",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk100LtnCu",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100SpryMtSl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100SpryShnSl",
+    "caseWeightG": 37624.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpBlk",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpRed",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpIvyGl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpLvn",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpPnk",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpMtSl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpIvySl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpGl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpIvyGl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpBlk",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpWht",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpRed",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpMtSl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpWht",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpGl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpIvySl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpLvn",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpPnk",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst30SpryMattGl",
+    "caseWeightG": 38184.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100SpryMtGl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnMtGl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnMtSl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpLvn",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpPnk",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpMtSl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpIvySl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpGl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpIvyGl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpBlk",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpWht",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpRed",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100SpryCu",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBCyl100LtnCu",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100SpryShnGl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100SpryShnBlk",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100SpryMtSl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100SpryShnSl",
+    "caseWeightG": 38240.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslBlk",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslIvyGl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslPnk",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslLvn",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslGl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslIvySl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslRed",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslWht",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslMtSl",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslBlkRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslIvyGlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslPnkRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslLvnRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslGlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslIvySlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslRedRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpTslWhtRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpBlkRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpIvyGlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpPnkRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpLvnRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpGlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpIvySlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpRedRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46AnSpWhtRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpBlkRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpIvyGlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpPnkRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpLvnRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpGlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpIvySlRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpRedRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst46AnSpWhtRng",
+    "caseWeightG": 35720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrBlkLthr",
+    "caseWeightG": 38632.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrIvyLthr",
+    "caseWeightG": 38632.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrPnkLthr",
+    "caseWeightG": 38632.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrBrwnLthr",
+    "caseWeightG": 38632.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100RdcrLBrwnLthr",
+    "caseWeightG": 38632.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslBlk",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslGl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslIvyGl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslIvySl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslLvn",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslMtSl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslPnk",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslRed",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva30AnSpTslWht",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslBlk",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslGl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslIvyGl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslIvySl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslLvn",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslMtSl",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslPnk",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslRed",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDivaFrst30AnSpTslWht",
+    "caseWeightG": 37256.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrShnGl",
+    "caseWeightG": 39880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrShnBlk",
+    "caseWeightG": 39880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrShnSl",
+    "caseWeightG": 39880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrMtSl",
+    "caseWeightG": 39880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrWht",
+    "caseWeightG": 39880.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SpryBlkSh",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SpryGlSh",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SprySlMatt",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SprySlSh",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SpryGlSh",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SpryBlkSh",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SprySlMatt",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SprySlSh",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SpryBlkMatt",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SpryBlkMatt",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SpryBluMatt",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SpryCuMatt",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSleek8SpryGlMatt",
+    "caseWeightG": 32500.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SpryBluMatt",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SpryCuMatt",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBBell12SpryGlMatt",
+    "caseWeightG": 28600.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpWht",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpLvn",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpPnk",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpMtSl",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpIvySl",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpGl",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpIvyGl",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpBlk",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpWht",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpRed",
+    "caseWeightG": 39640.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslBlk",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslGl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslIvyGl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslLvn",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslPnk",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslRed",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslIvySl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslLvn",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslIvyGl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslIvySl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslWht",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslPnk",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslRed",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslBlk",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslMtSl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElg100AnSpTslGl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslWht",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBElgFrst100AnSpTslMtSl",
+    "caseWeightG": 39976.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrBrwnLthr",
+    "caseWeightG": 39920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrLBrwnLthr",
+    "caseWeightG": 39920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrBlkLthr",
+    "caseWeightG": 39920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrIvyLthr",
+    "caseWeightG": 39920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100RdcrPnkLthr",
+    "caseWeightG": 39920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrShnBlkTall",
+    "caseWeightG": 41320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrMtSlTall",
+    "caseWeightG": 41320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslLvn",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslIvyGl",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslIvySl",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslWht",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslPnk",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslRed",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslBlk",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslMtSl",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk100AnSpTslGl",
+    "caseWeightG": 40984.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrBlkLthr",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrIvyLthr",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrPnkLthr",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnShnBlk",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnShnGl",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnClOvrCap",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnShnSl",
+    "caseWeightG": 42760.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnMtGl",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnMtSl",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50LtnCu",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50SpryShnBlk",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50SpryShnGl",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50SpryMtSl",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50SpryShnSl",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50SpryMtGl",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50SpryCu",
+    "caseWeightG": 43120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags6x10",
+    "caseWeightG": 44200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrShnGl",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrShnBlk",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrShnSl",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrMtSl",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrWht",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46mlAnSpBlkRng",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46mlAnSpLvnRng",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva46mlAnSpRdRng",
+    "caseWeightG": 43000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30DrpSl",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30DrpCu",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30DrpGl",
+    "caseWeightG": 23950.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslLvn",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslIvyGl",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslIvySl",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslWht",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslPnk",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslRed",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslBlk",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslMtSl",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCyl100AnSpTslGl",
+    "caseWeightG": 43840.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrShnSl",
+    "caseWeightG": 13936.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrShnGl",
+    "caseWeightG": 13936.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100RdcrWht",
+    "caseWeightG": 13936.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrShnGl",
+    "caseWeightG": 42370.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrShnSl",
+    "caseWeightG": 42370.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrMtSl",
+    "caseWeightG": 42370.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrWht",
+    "caseWeightG": 42370.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrShnBlkTall",
+    "caseWeightG": 25030.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30RdcrMtSlTall",
+    "caseWeightG": 25030.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBSlk50WhtRectClOverCap",
+    "caseWeightG": 44920.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrBrwnLthr",
+    "caseWeightG": 45280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50RdcrLBrwnLthr",
+    "caseWeightG": 45280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrShnBlkTall",
+    "caseWeightG": 43210.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrShnBlk",
+    "caseWeightG": 43210.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrMtSlTall",
+    "caseWeightG": 43210.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnClOvrCap",
+    "caseWeightG": 43630.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30SpryMtGl",
+    "caseWeightG": 26380.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30SpryShnGl",
+    "caseWeightG": 26380.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30SpryShnBlk",
+    "caseWeightG": 26380.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30SpryMtSl",
+    "caseWeightG": 26380.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30SpryShnSl",
+    "caseWeightG": 26380.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30SpryCu",
+    "caseWeightG": 26380.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100SpryMtGl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnMtGl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100SpryShnGl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnShnGl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100SpryShnBlk",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnShnBlk",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100SpryMtSl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnMtSl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100SpryShnSl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnShnSl",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100SpryCu",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBDiva100LtnCu",
+    "caseWeightG": 44260.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrShnGl",
+    "caseWeightG": 46120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrShnSl",
+    "caseWeightG": 46120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrMtSl",
+    "caseWeightG": 46120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrWht",
+    "caseWeightG": 46120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrShnBlk",
+    "caseWeightG": 46120.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpLvn",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpPnk",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpMtSl",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpIvySl",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpGl",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpIvyGl",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpBlk",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpWht",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpRed",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslBlk",
+    "caseWeightG": 47440.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrShnBlkTall",
+    "caseWeightG": 47080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrMtSlTall",
+    "caseWeightG": 47080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrBlkLthr",
+    "caseWeightG": 45520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrBrwnLthr",
+    "caseWeightG": 45520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrLBrwnLthr",
+    "caseWeightG": 45520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrPnkLthr",
+    "caseWeightG": 45520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100RdcrIvyLthr",
+    "caseWeightG": 45520.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnClOvrCap",
+    "caseWeightG": 47560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100WhtClOvrCp",
+    "caseWeightG": 47560.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100RdcrPnkLthr",
+    "caseWeightG": 47944.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Alu100mlSprayBlack",
+    "caseWeightG": 45000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100SpryMtGl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnMtGl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100SpryShnGl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnShnGl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100SpryShnBlk",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnShnBlk",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100SpryMtSl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnMtSl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100SpryShnSl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnShnSl",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100SpryCu",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBEmp100LtnCu",
+    "caseWeightG": 48280.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpMtSl",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpGl",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpIvyGl",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpWht",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpBlk",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpIvySl",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpLvn",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpPnk",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpRed",
+    "caseWeightG": 46780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpLvn",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpPnk",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpMtSl",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpIvySl",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpGl",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpIvyGl",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpBlk",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpRed",
+    "caseWeightG": 29620.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslLvn",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslIvyGl",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslIvySl",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslWht",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslPnk",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslRed",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslMtSl",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk50AnSpTslGl",
+    "caseWeightG": 50320.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrBlkLthr",
+    "caseWeightG": 49720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrBrwnLthr",
+    "caseWeightG": 49720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrLBrwnLthr",
+    "caseWeightG": 49720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrPnkLthr",
+    "caseWeightG": 49720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100RdcrIvyLthr",
+    "caseWeightG": 49720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBMtlBsktGlTsl",
+    "caseWeightG": 39700.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslWht",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslRed",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslMtSl",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslBlk",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslGl",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslIvyGl",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslIvySl",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslLvn",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBDiva100AnSpTslPnk",
+    "caseWeightG": 48460.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "LBMetalSilver1oz",
+    "caseWeightG": 51000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslBlk",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslGl",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslIvyGl",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslIvySl",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslLvn",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslMtSl",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslPnk",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslRed",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBSlk30AnSpTslWht",
+    "caseWeightG": 31780.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpLvn",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpPnk",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpMtSl",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpIvyGl",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpWht",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpRed",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpBlk",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpGl",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpIvySl",
+    "caseWeightG": 51160.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpBlk",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpGl",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpLvn",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100mlAnSpPnk",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpIvySl",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpRed",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpMtSl",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpIvyGl",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpWht",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpPnk",
+    "caseWeightG": 53416.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpBlk",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpGl",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpIvyGl",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpLvn",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpPnk",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpMtSl",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpWht",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpIvySl",
+    "caseWeightG": 55720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslIvySl",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslWht",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslMtSl",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslBlk",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslGl",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslIvyGl",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslLvn",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslPnk",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEmp100AnSpTslRed",
+    "caseWeightG": 53080.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslBlk",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslGl",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslIvyGl",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslLvn",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslPnk",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslIvySl",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslRed",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslWht",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrcl100AnSpTslMtSl",
+    "caseWeightG": 55432.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslIvyGl",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslIvySl",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslBlk",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslGl",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslLvn",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslPnk",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslRed",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpRed",
+    "caseWeightG": 65800.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslWht",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBCrclFrst100AnSpTslMtSl",
+    "caseWeightG": 19900.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags8x12",
+    "caseWeightG": 69200.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEternalFlameClear",
+    "caseWeightG": 16360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBEternalFlameGreen",
+    "caseWeightG": 16360.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "RecloseableBags12x15",
+    "caseWeightG": 126400.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Box-4x4x4",
+    "caseWeightG": 151000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "Box-5x5x5",
+    "caseWeightG": 151000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "BoxECreamMatteCube",
+    "caseWeightG": 151000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "BoxDWhiteGloss",
+    "caseWeightG": 151000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "BoxECreamMatteRctMed",
+    "caseWeightG": 151000.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpBlk",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpGl",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpIvyGl",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpIvySl",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpLvn",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpPnk",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpRed",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpMtSl",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  },
+  {
+    "websiteSku": "GBRndFrst128AnSpWht",
+    "caseWeightG": 23720.0,
+    "bottleWeightG": null,
+    "caseQuantity": null
+  }
+]

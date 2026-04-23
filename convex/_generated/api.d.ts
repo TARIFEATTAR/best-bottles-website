@@ -8,18 +8,23 @@
  * @module
  */
 
+import type * as applyCaseWeightCorrections from "../applyCaseWeightCorrections.js";
+import type * as backfillPhysicalSpecs from "../backfillPhysicalSpecs.js";
 import type * as componentUtils from "../componentUtils.js";
 import type * as debug5ml from "../debug5ml.js";
 import type * as fitments from "../fitments.js";
 import type * as fix5mlCapColors from "../fix5mlCapColors.js";
+import type * as fixOrphanProducts from "../fixOrphanProducts.js";
 import type * as forms from "../forms.js";
 import type * as grace from "../grace.js";
 import type * as gracePrompt from "../gracePrompt.js";
 import type * as graceSearchUtils from "../graceSearchUtils.js";
 import type * as graceToolDefs from "../graceToolDefs.js";
+import type * as importMissingLiveProducts from "../importMissingLiveProducts.js";
 import type * as knowledge from "../knowledge.js";
 import type * as migrations from "../migrations.js";
 import type * as paperDoll from "../paperDoll.js";
+import type * as patchFromMasterV83 from "../patchFromMasterV83.js";
 import type * as portal from "../portal.js";
 import type * as products from "../products.js";
 import type * as seedProducts from "../seedProducts.js";
@@ -32,18 +37,23 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  applyCaseWeightCorrections: typeof applyCaseWeightCorrections;
+  backfillPhysicalSpecs: typeof backfillPhysicalSpecs;
   componentUtils: typeof componentUtils;
   debug5ml: typeof debug5ml;
   fitments: typeof fitments;
   fix5mlCapColors: typeof fix5mlCapColors;
+  fixOrphanProducts: typeof fixOrphanProducts;
   forms: typeof forms;
   grace: typeof grace;
   gracePrompt: typeof gracePrompt;
   graceSearchUtils: typeof graceSearchUtils;
   graceToolDefs: typeof graceToolDefs;
+  importMissingLiveProducts: typeof importMissingLiveProducts;
   knowledge: typeof knowledge;
   migrations: typeof migrations;
   paperDoll: typeof paperDoll;
+  patchFromMasterV83: typeof patchFromMasterV83;
   portal: typeof portal;
   products: typeof products;
   seedProducts: typeof seedProducts;

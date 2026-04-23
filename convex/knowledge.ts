@@ -1,10 +1,10 @@
-import { mutation } from "./_generated/server";
+import { internalMutation } from "./_generated/server";
 
 /**
  * Run this once to populate Grace AI's knowledge base tables.
  * npx convex run knowledge:seedAll
  */
-export const seedAll = mutation({
+export const seedAll = internalMutation({
     args: {},
     handler: async (ctx) => {
 
@@ -318,7 +318,7 @@ export const seedAll = mutation({
 //
 // Usage: npx convex run knowledge:seedConstitution
 // ─────────────────────────────────────────────────────────────────────────────
-export const seedConstitution = mutation({
+export const seedConstitution = internalMutation({
     args: {},
     handler: async (ctx) => {
 

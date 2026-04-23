@@ -5,6 +5,14 @@
 /.pnp
 .pnp.js
 
+# Next.js build output & caches
+/.next
+/out
+/build
+
+# Vercel deployment metadata & caches
+/.vercel
+
 # Compiled Sanity Studio
 /dist
 
