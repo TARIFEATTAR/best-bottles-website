@@ -27,6 +27,17 @@ function getConvex(): ConvexHttpClient {
 
 export async function POST(req: NextRequest) {
     try {
+        // Optional shared-secret verification. When ELEVENLABS_WEBHOOK_SECRET
+        // is set, incoming requests must match. Left optional so dev/preview
+        // environments without the secret still work.
+        const expectedSecret = process.env.ELEVENLABS_WEBHOOK_SECRET;
+        if (expectedSecret) {
+            const provided = req.headers.get("x-webhook-secret");
+            if (provided !== expectedSecret) {
+                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            }
+        }
+
         const body = (await req.json()) as {
             tool_name?: string;
             parameters?: Record<string, unknown>;
@@ -57,7 +68,21 @@ export async function POST(req: NextRequest) {
                 } else if (data.length === 0) {
                     result = `No products found for that search. Try a broader term.${emptySearchCatalogHint(searchParams.searchTerm)}`;
                 } else {
-                    result = buildSearchCatalogToolResult(searchParams, data);
+                    const slim = data.map((p) => ({
+                        graceSku: p.graceSku,
+                        itemName: p.itemName,
+                        family: p.family,
+                        capacity: p.capacity,
+                        capacityMl: p.capacityMl,
+                        color: p.color,
+                        applicator: p.applicator,
+                        capColor: p.capColor,
+                        neckThreadSize: p.neckThreadSize,
+                        slug: p.slug,
+                        webPrice1pc: p.webPrice1pc,
+                        stockStatus: p.stockStatus,
+                    }));
+                    result = buildSearchCatalogToolResult(searchParams, slim);
                 }
                 break;
             }
@@ -70,9 +95,34 @@ export async function POST(req: NextRequest) {
             }
 
             case "getBottleComponents": {
-                result = await convex.query(api.grace.getBottleComponents, {
+                const data = await convex.query(api.grace.getBottleComponents, {
                     bottleSku: (parameters.bottleSku as string) ?? "",
                 });
+                if (data && typeof data === "object" && "bottle" in data) {
+                    const d = data as {
+                        bottle: Record<string, unknown>;
+                        componentTypes: string[];
+                        totalComponents: number;
+                        components: Record<string, unknown>;
+                    };
+                    result = {
+                        bottle: {
+                            graceSku: d.bottle.graceSku,
+                            itemName: d.bottle.itemName,
+                            family: d.bottle.family,
+                            capacity: d.bottle.capacity,
+                            color: d.bottle.color,
+                            neckThreadSize: d.bottle.neckThreadSize,
+                            capStyle: d.bottle.capStyle,
+                            webPrice1pc: d.bottle.webPrice1pc,
+                        },
+                        componentTypes: d.componentTypes,
+                        totalComponents: d.totalComponents,
+                        components: d.components,
+                    };
+                } else {
+                    result = data;
+                }
                 break;
             }
 
@@ -105,9 +155,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ result });
     } catch (err) {
         console.error("[EL server-tool] Error:", err);
-        return NextResponse.json(
-            { error: err instanceof Error ? err.message : "Internal error" },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: "Internal error" }, { status: 500 });
     }
 }
