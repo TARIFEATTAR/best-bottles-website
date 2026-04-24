@@ -10,6 +10,7 @@
 
 import type * as applyCaseWeightCorrections from "../applyCaseWeightCorrections.js";
 import type * as backfillPhysicalSpecs from "../backfillPhysicalSpecs.js";
+import type * as backfillTrimColor from "../backfillTrimColor.js";
 import type * as componentUtils from "../componentUtils.js";
 import type * as debug5ml from "../debug5ml.js";
 import type * as fitments from "../fitments.js";
@@ -39,6 +40,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   applyCaseWeightCorrections: typeof applyCaseWeightCorrections;
   backfillPhysicalSpecs: typeof backfillPhysicalSpecs;
+  backfillTrimColor: typeof backfillTrimColor;
   componentUtils: typeof componentUtils;
   debug5ml: typeof debug5ml;
   fitments: typeof fitments;
