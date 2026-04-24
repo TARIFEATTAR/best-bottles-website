@@ -27,14 +27,25 @@ function getConvex(): ConvexHttpClient {
 
 export async function POST(req: NextRequest) {
     try {
-        // Optional shared-secret verification. When ELEVENLABS_WEBHOOK_SECRET
-        // is set, incoming requests must match. Left optional so dev/preview
-        // environments without the secret still work.
+        // All 12 agent tools are registered on ElevenLabs as type:"client",
+        // which means the browser (our own page) fetches this endpoint — not
+        // ElevenLabs' servers. Legit callers are always same-origin. External
+        // callers still need the secret if set.
         const expectedSecret = process.env.ELEVENLABS_WEBHOOK_SECRET;
         if (expectedSecret) {
-            const provided = req.headers.get("x-webhook-secret");
-            if (provided !== expectedSecret) {
-                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            const originHeader = req.headers.get("origin");
+            const hostHeader = req.headers.get("host");
+            let isSameOrigin = false;
+            if (originHeader && hostHeader) {
+                try {
+                    isSameOrigin = new URL(originHeader).host === hostHeader;
+                } catch { /* malformed origin */ }
+            }
+            if (!isSameOrigin) {
+                const provided = req.headers.get("x-webhook-secret");
+                if (provided !== expectedSecret) {
+                    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+                }
             }
         }
 
