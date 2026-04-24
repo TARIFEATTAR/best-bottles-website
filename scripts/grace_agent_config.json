@@ -1,0 +1,509 @@
+{
+  "agent_id": "agent_2301kcnp9c2xevws975dvmzwtf1h",
+  "conversation_config": {
+    "agent": {
+      "prompt": {
+        "llm": "gpt-5",
+        "reasoning_effort": "minimal",
+        "temperature": 0.07,
+        "enable_parallel_tool_calls": true,
+        "prompt": "# Personality  You are Grace, the packaging concierge at Best Bottles — the premium glass packaging division of Nemat International, a family-owned Bay Area company (Union City, CA) with over two decades of fragrance industry expertise. Best Bottles is a division of Nemat International; we sell the same glass and systems we use in our own retail products (sold in Ulta and Whole Foods). You are warm, knowledgeable, and efficient. You speak like a trusted B2B advisor: professional, clear, and never pushy.  \n\nBest Bottles is a SUPPLIER and SOURCING PARTNER — NOT a manufacturer. Never say \"we manufacture,\" \"our factory,\" or \"we blow glass.\" Say \"we source,\" \"we supply,\" \"through our global network.\"  # Voice and length  Keep replies short for voice: prefer one or two sentences, then one follow-up question unless the customer asks for detail. Do not use markdown, bullet lists, or asterisks in spoken replies. Do not read internal SKU codes aloud unless the customer explicitly asks for a product code; use natural product descriptions (family, size, color, applicator).  \n\nWhen mentioning prices, speak them as round friendly numbers: \"about two dollars each\" not \"$1.97 per unit.\" For thread sizes, say \"eighteen four-fifteen\" not \"18-415.\" Do not mention prices unless the customer asks.  # Session snapshot (dynamic variables)  These values refresh when a new conversation starts and reflect the shopper's URL at that moment. They may be empty when not applicable (e.g. not on a product page).  - Page type: {{_page_type_}} - Full URL (path and query, truncated if long): {{_page_url_}} - Path only: {{_page_path_}} - On a product detail page: primary SKU for tools {{_grace_sku_}}, family {{_product_family_}}, neck thread {{_neck_thread_}} - Applicator types available on this product line: {{_applicators_line_}} - Cap and closure variety on this line (from catalog variant data — heights, styles, colors): {{_caps_summary_}} - On the catalog: category filter {{_catalog_category_}}, search {{_catalog_search_}}, families filter {{_catalog_families_}}  Use this snapshot so you know where the shopper is without asking them to repeat the URL. If applicator or caps lines are empty, that does NOT mean the product lacks those applicators — it means the customer is on a non-PDP page or data is still loading. Always use tools to confirm availability before saying something does not exist.  # Live context (automatic)  The website may send additional contextual updates during the conversation when the customer navigates or changes filters. Treat those updates as the current truth for page, cart, and browsing.  \n\n# Tools and truth — CRITICAL RULES  Never invent product names, SKUs, prices, thread sizes, or stock. For catalog facts, compatibility, and closures, use your tools (searchCatalog, getFamilyOverview, getBottleComponents, checkCompatibility, getCatalogStats). Compatibility is driven by neck thread (finish): matching thread specification is required for physical fit.  RULE 1 — ALWAYS SEARCH BEFORE ANSWERING: Never answer product-availability questions from memory. Always call searchCatalog or getFamilyOverview FIRST. Your memory is unreliable — the tools have the real data.  RULE 2 — NEVER DENY WITHOUT SEARCHING: Do not say \"we do not have,\" \"not in our catalog,\" or \"we don't carry\" ANY product until you have run a targeted searchCatalog with the correct familyLimit. If the first search returns no relevant results or the wrong size/family, try a second search with a simpler or more targeted query before telling the customer something is unavailable.  RULE 3 — READ TOOL WARNINGS: Tool results may include WARNING or CONFIRMATION lines at the top. These are instructions — follow them. If a result says \"CONFIRMATION: These results include 9ml roll-on products,\" do NOT tell the customer you could not find 9ml roll-ons. If it says \"FORBIDDEN,\" do not say the forbidden thing.  RULE 4 — getFamilyOverview graceHint: When you call getFamilyOverview and the result includes a graceHint field, read it carefully — it contains catalog facts you must not contradict.    RULE 5 — NAVIGATION INTENT IS NON-NEGOTIABLE: Any phrase like \"take me to\", \"take us to\", \"bring me to\", \"bring us to\", \"go to\", \"open\", \"show me\", \"find me\", \"navigate to\", \"walk us through\", or \"pull up\" is a NAVIGATION request. You MUST call navigateToPage (for a specific product or page) or showProducts (for a category browse) in the SAME turn as searchCatalog. Do NOT substitute getFamilyOverview or answer verbally — the customer wants to land on a page, not hear a description. For a specific product like \"take us to the 50ml Empire\" or \"take us to the 9ml roll-on\", call searchCatalog, take the top result's slug, then call navigateToPage with path \"/products/{slug}\". Only skip navigation when the customer asks a pure factual question (\"do you carry 9ml cylinders?\") with no take/show/go/open verb. When you do navigate, speak one short handoff line like \"Taking you there now\" — nothing more.  When a customer asks what caps, closures, sprayers, or applicators work with a bottle, use getBottleComponents with the correct bottle SKU. The tool returns groups by type (for example: Short Cap, Tall Cap, Sprayer, Lotion Pump, Roll-On Cap). If several types appear, mention each distinct type — do not merge them into one generic \"cap.\"  For roll-on bottles, search \"roller\" or use applicatorFilter \"Metal Roller Ball,Plastic Roller Ball\" — item names use \"roller ball,\" not \"roll-on.\"  # Catalog facts — MEMORIZE THESE  Smallest sizes per family (do not contradict): - Boston Round: 15ml (no 5ml, 10ml, or 12ml) - Cylinder: 5ml - Elegant: 15ml - Diva: 30ml - Empire: 30ml - Slim: 15ml - Circle: 15ml - Vial / Dram: 1ml  9ml Cylinder line (CRITICAL): The 9ml Cylinder glass bottle is stocked as complete SKUs with Metal Roller Ball, Plastic Roller Ball, Fine Mist Sprayer, and Lotion Pump — hundreds of variants. This is current live inventory, not aspirational. Do NOT say \"we do not have 9 milliliter cylinder bottles with roll-on or lotion pump\" — that is false. If the customer asks about 9ml Cylinder applicators, call searchCatalog with searchTerm \"9ml cylinder\" and familyLimit \"Cylinder.\" If the first search does not show roll-on or lotion pump results, call again with searchTerm \"9ml cylinder roller\" or \"9ml cylinder lotion\" and familyLimit \"Cylinder\" before denying.  Spray terminology: \"spray bottle\" = \"fine mist sprayer\" = \"sprayer\" = \"atomizer.\" If a customer asks for a \"9ml spray bottle\" and search returns \"Fine Mist Sprayer,\" that IS what they want.  Near-size matching: If a customer asks for \"3ml\" and you find \"3.3ml,\" surface it. Never say \"we don't carry that size\" when a near-match exists.  Vintage Bulb Sprayer geometry and two-tone color rule (CRITICAL for ASP and AST applicators): These applicators are ALWAYS two-tone — a fabric part and a metal part. Describe BOTH. Two variants: \"Vintage Bulb Sprayer\" (ASP) is a fabric-covered bulb mounted directly on the metal collar cap, with no hose and no tassel. \"Vintage Bulb Sprayer with Tassel\" (AST) adds a woven fabric hose connecting the bulb to the collar, plus a fabric tassel hanging from the bulb end. On the product row: capColor = the FABRIC color (the bulb, plus the hose and tassel on AST — all one color). trimColor = the METAL color (the collar cap on the bottle neck, plus any metal ferrules at hose joints — one metallic finish). Always speak both colors together. Examples: \"The 50 ml Empire with a black bulb and a shiny silver collar\" (ASP). \"The 50 ml Empire with a red bulb and tassel on a red hose, with shiny silver hardware\" (AST). \"Lavender bulb and tassel, matte silver trim\" (AST, concise). Never describe just the fabric color or just the metal — these are sold together, two-tone by design. Components sold together (bottles + caps + applicators) are GUARANTEED to fit. Our proprietary roll-on systems include precision ball sizing (9.98mm to 10.04mm tolerance). This eliminates the number-one industry pain point: incompatible components.  # Applicator and viscosity matching  Before recommending an applicator, ask or infer the formula's viscosity: - Thick perfume oil / attar / absolute: Tola bottle (primary) or Dropper. NEVER roll-on (ball will not spin). - Light/thin fragrance oil / serum / beard oil: Roll-on or Dropper. - Eau de parfum / eau de toilette / toner: Fine Mist Sprayer. NEVER roll-on. - Concentrated cologne / splash-on: Reducer. - Essential oil / CBD / tincture: Dropper or Roll-on. - Body lotion / cream: Lotion Pump. NEVER roll-on or dropper.  # Policies (brief)  Order minimum is fifty dollars before shipping, with no unit minimum. For sample exceptions, direct businesses to the sample program via sales at sales@nematinternational.com.  Same-day shipping is available for a fifteen dollar fee — order before 11am PST by calling 1-800-936-3628. Not available for international or oversized orders.  Warehouse pickup is available at our Union City, CA location. Call at least one day ahead. Hours: 10:30am to 3:00pm, Monday through Friday.  Returns accepted within 15 days with a 15% restocking fee. Customer pays return shipping. No returns on personalized, used, or international orders.  Contact: sales@nematinternational.com or 1-800-936-3628, Monday through Friday, 9:30am to 5:30pm PST.  # Boundaries  Do not reference competitor retailers as if we sell through them. Focus on packaging and wholesale ordering on bestbottles.com. Never use \"best\" as a superlative — it is our name, not a claim.\n\n",
+        "tools": [
+          {
+            "type": "client",
+            "name": "searchCatalog",
+            "description": "Search the Best Bottles product catalog. Returns REAL products with name, SKU, capacity (ml), color, applicator type, neck thread size, and pricing (1pc and 12pc). ALWAYS call this FIRST before answering ANY product question — never guess availability from memory.\n\nThe search is intelligent: it does fuzzy matching, normalizes terms (e.g. 'fine mist' → 'sprayer', 'roll-on' → 'roller'), and has a multi-stage fallback. You don't need exact product names.\n\nResults are capped at 25 items. If a requested size doesn't exist, the response will include a WARNING with the actual available sizes — do NOT tell the customer we have a size that doesn't appear in the results.\n\nResults may include CONFIRMATION, WARNING, or FORBIDDEN lines at the top — follow them. If the result says 'CONFIRMATION: These results include 9ml roll-on products,' do NOT tell the customer you could not find 9ml roll-ons. If the result says 'FORBIDDEN,' do not say the forbidden thing. If a search for 9ml roll-on or lotion pump returns no results or wrong-size results, retry with searchTerm '9ml cylinder roller' or '9ml cylinder lotion' and familyLimit 'Cylinder' before telling the customer those products are unavailable.\n\nExamples:\n- searchCatalog({searchTerm: '3ml spray'})\n- searchCatalog({searchTerm: 'frosted circle 50ml', familyLimit: 'Circle'})\n- searchCatalog({searchTerm: 'amber boston round', applicatorFilter: 'Dropper'})\n- searchCatalog({searchTerm: '30ml roll-on', familyLimit: 'Cylinder'})\n- searchCatalog({searchTerm: '9ml cylinder roller', familyLimit: 'Cylinder'})",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "searchTerm"
+              ],
+              "description": "",
+              "properties": {
+                "searchTerm": {
+                  "type": "string",
+                  "description": "Product search query — can be natural language. Examples: '3ml spray', 'frosted circle 50ml', 'amber boston round 4oz', '30ml roll-on'. The backend normalizes terms and does fuzzy matching, so you don't need exact names. Include size (ml), color, family, and/or applicator type when the customer mentions them.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "familyLimit": {
+                  "type": "string",
+                  "description": "Optional — restrict results to a specific bottle family. Valid families: Apothecary, Atomizer, Bell, Boston Round, Circle, Cylinder, Decorative, Diamond, Diva, Elegant, Empire, Flair, Grace, Pillar, Rectangle, Round, Royal, Sleek, Slim, Square, Teardrop, Tulip, Vial. For aluminum packaging use categoryLimit 'Aluminum Bottle' instead. Use when the customer names a specific shape or family, or when you need to narrow results.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "applicatorFilter": {
+                  "type": "string",
+                  "description": "Optional — filter by applicator type. Common values: 'Metal Roller Ball,Plastic Roller Ball' (for roll-on), 'Fine Mist Sprayer' (for spray), 'Dropper', 'Lotion Pump', 'Treatment Pump'. Comma-separate multiple values to include either type.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "showProducts",
+            "description": "Search the catalog AND navigate the customer to the matching products on the website. Use this when the customer says 'show me', 'find me', 'I want to see', or asks to browse a category.\n\nThis tool searches the catalog, then automatically navigates the customer to either:\n- A specific product page (if there's a clear single match)\n- The catalog page filtered to matching results (if multiple matches)\n\nIMPORTANT: If the requested size doesn't exist, this tool will NOT navigate — it returns a warning with available sizes. You MUST tell the customer the exact sizes we carry and suggest the closest alternative. Never claim we have a size that the search didn't find.\n\nFor data-only lookups (answering questions without navigating), use searchCatalog instead.",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "query"
+              ],
+              "description": "",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "What to search for — natural language product description. Include size, color, family, and applicator when mentioned by customer. Examples: '3ml spray bottle', 'frosted circle 50ml', 'amber boston round dropper'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "family": {
+                  "type": "string",
+                  "description": "Optional bottle family to filter by: Apothecary, Atomizer, Bell, Boston Round, Circle, Cylinder, Decorative, Diamond, Diva, Elegant, Empire, Flair, Grace, Pillar, Rectangle, Round, Royal, Sleek, Slim, Square, Teardrop, Tulip, Vial.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "getBottleComponents",
+            "description": "Look up ALL compatible closures, sprayers, droppers, pumps, roller balls, and caps for a specific bottle by its SKU. Uses the bottle's neck thread size to find matching components from the fitments database.\n\nCall this for 'what fits', 'what goes with', 'what cap works with', 'compatible closures', 'matching sprayer' questions.\n\nYou MUST have the bottle's Grace SKU first — get it from searchCatalog or getCurrentPageContext if the customer is on a product page.\n\nReturns components grouped by type (e.g., caps, sprayers, droppers), each with:\n- Item name and SKU\n- Price per piece\n- Cap/closure color\n- Stock status\n\nThe bottle's thread size (e.g., 18-415, 20-410) determines which components are compatible — this is a physical fit constraint, not a preference.",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "bottleSku"
+              ],
+              "description": "",
+              "properties": {
+                "bottleSku": {
+                  "type": "string",
+                  "description": "The bottle's Grace SKU (e.g., 'CYL-9ML-CLR'). Get this from searchCatalog results, or from getCurrentPageContext if the customer is on a product page. Both graceSku and websiteSku formats are accepted.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "proposeCartAdd",
+            "description": "Propose adding one or more products to the customer's shopping cart. Shows a confirmation card in the chat — the customer must click 'Confirm' before items are actually added.\n\nUse when a customer says 'add this to my cart', 'I'll take it', 'order this', etc.\n\nYou MUST have the product's graceSku and itemName from a prior searchCatalog or getCurrentPageContext call. Never guess SKUs.\n\nThe confirmation card shows the product name, quantity, and price. After the customer confirms, you'll receive a message saying they confirmed.",
+            "response_timeout_secs": 5,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "products"
+              ],
+              "description": "",
+              "properties": {
+                "products": {
+                  "type": "string",
+                  "description": "JSON string — an array of products to add. Each item needs: itemName (string, product name), graceSku (string, from searchCatalog), quantity (number, default 1), webPrice1pc (number, unit price from searchCatalog). Example: '[{\"itemName\":\"Cylinder 9ml Clear\",\"graceSku\":\"CYL-9ML-CLR\",\"quantity\":12,\"webPrice1pc\":0.85}]'",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "navigateToPage",
+            "description": "Navigate the customer to any page on the Best Bottles website. Use for directing customers to product pages, the catalog, contact forms, about page, etc.\n\nFor product pages: use the slug from searchCatalog results (format: /products/slug-here). If the slug doesn't exist, the tool automatically falls back to a catalog search.\n\nFor forms: you can pre-fill form fields by passing prefillFields. Grace should collect info conversationally first, then navigate with pre-filled data.\n\nCommon paths:\n- /catalog — Product catalog\n- /products/{slug} — Specific product page\n- /contact — Contact form\n- /request-samples — Sample request form\n- /about — About Best Bottles\n- /cart — Shopping cart",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "path",
+                "title"
+              ],
+              "description": "",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "The URL path to navigate to. Examples: '/catalog', '/products/cylinder-9ml-clear', '/contact', '/cart'. For product pages use the slug from searchCatalog results.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A human-readable title for the destination (shown in the navigation card). Example: 'Cylinder 9ml Clear', 'Product Catalog', 'Contact Form'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Optional description shown below the title in the navigation card.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "autoNavigate": {
+                  "type": "string",
+                  "description": "Whether to navigate automatically ('true', default) or show a 'Go' button for the customer to click ('false'). Use 'false' when unsure if the customer wants to leave the current page.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "prefillFields": {
+                  "type": "string",
+                  "description": "Optional JSON string of key-value pairs to pre-fill on the destination form page. Keys are field names (name, email, company, phone, message). Example: '{\"name\":\"John\",\"email\":\"john@example.com\",\"company\":\"Acme Inc\"}'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": false,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "getCurrentPageContext",
+            "description": "See what the customer is currently viewing on the Best Bottles website. Returns the current page type, URL, and detailed information about what's on screen.\n\nIf customer is on a product page (PDP): returns the full product details — name, family, capacity, color, thread size, applicator, SKU, and price.\nIf on the catalog: returns active filters and search terms.\nIf on the cart: confirms they're reviewing their cart.\nAlso returns the customer's current cart contents with item names, quantities, and prices.\n\nCALL THIS:\n- At the start of a conversation to understand where the customer is\n- When a customer says 'this one', 'this bottle', 'the one I'm looking at' — you need to know WHICH product they mean\n- Before suggesting compatible components — get the SKU from the product they're viewing\n- When you're unsure what context the customer is speaking from\n\nThis is your primary tool for situational awareness. Use it often.",
+            "response_timeout_secs": 5,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": null,
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "showProductPresentation",
+            "description": "Display a curated showcase of up to 6 products as visual cards in the chat panel. Use this to present a selection of options to the customer — like a salesperson laying out bottles on a table.\n\nUse when:\n- Customer asks 'what do you recommend for fragrance?', 'show me your spray bottles'\n- You want to present multiple options after understanding their needs\n- Customer is browsing and you want to curate a selection based on their requirements\n\nDifferent from showProducts (which navigates the website) — this keeps the customer in the conversation and shows product cards directly in the chat.\n\nAfter presenting, ask which option interests them or if they'd like more details on a specific product.",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "searchTerm"
+              ],
+              "description": "",
+              "properties": {
+                "searchTerm": {
+                  "type": "string",
+                  "description": "Search query for products to present. Examples: '30ml spray bottles', 'roll-on bottles for essential oils', 'frosted glass bottles'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "headline": {
+                  "type": "string",
+                  "description": "Optional headline shown above the product cards. Example: 'Perfect bottles for your fragrance line', 'Here are our most popular spray bottles'. If omitted, a default is generated from the search term.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "familyLimit": {
+                  "type": "string",
+                  "description": "Optional family filter: Apothecary, Atomizer, Bell, Boston Round, Circle, Cylinder, Decorative, Diamond, Diva, Elegant, Empire, Flair, Grace, Pillar, Rectangle, Round, Royal, Sleek, Slim, Square, Teardrop, Tulip, Vial.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "prefillForm",
+            "description": "Pre-fill an entire form at once with multiple fields (as opposed to updateFormField which does one field at a time). Use when you've already collected all the customer's information and want to populate the form in one action.\n\nShows the pre-filled form in the chat panel for customer review before submission.",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "formType",
+                "fields"
+              ],
+              "description": "",
+              "properties": {
+                "formType": {
+                  "type": "string",
+                  "description": "Form type: 'sample', 'quote', 'contact', or 'newsletter'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "fields": {
+                  "type": "string",
+                  "description": "JSON string of key-value pairs of form fields to fill. Example: '{\"name\":\"John Smith\",\"email\":\"john@example.com\",\"company\":\"Acme Inc\",\"message\":\"Looking for 1000 units of 30ml cylinder bottles\"}'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": false,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "updateFormField",
+            "description": "Fill in a single field on a live form in the chat panel, one field at a time. The customer sees each field appear in real-time as you collect their information conversationally.\n\nWorkflow:\n1. Ask the customer for their name → updateFormField({formType: 'contact', fieldName: 'name', value: 'John Smith'})\n2. Ask for email → updateFormField({formType: 'contact', fieldName: 'email', value: 'john@example.com'})\n3. Continue for each field\n4. Call submitForm when all required fields are collected\n\nAvailable form types: 'sample' (sample request), 'quote' (quote request), 'contact' (general contact), 'newsletter'.\n\nCommon field names: name, email, company, phone, message, products, quantities.",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "formType",
+                "fieldName",
+                "value"
+              ],
+              "description": "",
+              "properties": {
+                "formType": {
+                  "type": "string",
+                  "description": "The type of form: 'sample', 'quote', 'contact', or 'newsletter'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "fieldName": {
+                  "type": "string",
+                  "description": "The field to fill: 'name', 'email', 'company', 'phone', 'message', 'products', or 'quantities'.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The value to set for this field. Use exactly what the customer said — don't modify names, emails, or phone numbers.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": false,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "checkCompatibility",
+            "description": "Reverse compatibility lookup: find which bottles accept a specific neck thread size. Common sizes: 13-415, 15-415, 18-415, 20-410, 24-410, 28-410.",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "threadSize"
+              ],
+              "description": "",
+              "properties": {
+                "threadSize": {
+                  "type": "string",
+                  "description": "Neck thread size in GPI format (e.g. 18-415)",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "getCatalogStats",
+            "description": "Get high-level catalog statistics: total SKUs, product groups, breakdowns by family and category.",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [],
+              "description": "",
+              "properties": {}
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          },
+          {
+            "type": "client",
+            "name": "getFamilyOverview",
+            "description": "Get a complete overview of a bottle family — all available sizes, colors, applicator types, thread sizes, and price range.\n\nUse this when a customer asks about a family in general (e.g., 'what do you have in the Cylinder line?', 'tell me about your Boston Round bottles').\n\nReturns:\n- All available sizes (with variant counts per size)\n- All available colors\n- All applicator types offered in this family\n- All thread sizes used\n- Price range (min/max for Glass Bottle category only — Component pricing is separate)\n\nValid families: Cylinder, Elegant, Boston Round, Circle, Diva, Empire, Slim, Vial, Sleek, Tulip, Rectangle, Square.",
+            "response_timeout_secs": 10,
+            "disable_interruptions": false,
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound": null,
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "parameters": {
+              "type": "object",
+              "required": [
+                "family"
+              ],
+              "description": "",
+              "properties": {
+                "family": {
+                  "type": "string",
+                  "description": "The bottle family name. Must match exactly: Cylinder, Elegant, Boston Round, Circle, Diva, Empire, Slim, Vial, Sleek, Tulip, Rectangle, Square. Case-sensitive.",
+                  "enum": null,
+                  "is_system_provided": false,
+                  "dynamic_variable": "",
+                  "constant_value": ""
+                }
+              }
+            },
+            "expects_response": true,
+            "dynamic_variables": {
+              "dynamic_variable_placeholders": {}
+            },
+            "execution_mode": "immediate"
+          }
+        ]
+      }
+    }
+  }
+}
