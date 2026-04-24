@@ -1,7 +1,7 @@
 import { query, mutation, internalMutation, action } from "./_generated/server";
 import { v } from "convex/values";
 import { api } from "./_generated/api";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import {
     filterGroupedComponentsByFitmentRule,
     normalizeComponentsByType,
@@ -787,7 +787,7 @@ Operational guidance for Grace:
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GRACE AI CORE ACTION — Claude Sonnet 4.6 with agentic tool use
+// GRACE AI CORE ACTION — OpenAI GPT-4.1 (text) / GPT-4.1-mini (voice) with agentic tool use
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const askGrace = action({
@@ -802,7 +802,7 @@ export const askGrace = action({
         pageContextBlock: v.optional(v.string()),
     },
     handler: async (ctx, args): Promise<string> => {
-        const apiKey = process.env.ANTHROPIC_API_KEY;
+        const apiKey = process.env.OPENAI_API_KEY;
         if (!apiKey) {
             return "Grace is not yet configured. Please contact the team to enable the AI concierge.";
         }
@@ -812,7 +812,7 @@ export const askGrace = action({
         const maxIterations = isVoice ? MAX_TOOL_ITERATIONS_VOICE : MAX_TOOL_ITERATIONS_TEXT;
         const maxTokens = isVoice ? 200 : 1024;
 
-        const anthropic = new Anthropic({ apiKey });
+        const openai = new OpenAI({ apiKey });
 
         // ── 1. Build system prompt (self-contained constitution, no DB fetch) ──
         // Constitution comes FIRST so the model cannot be overridden by a
@@ -832,27 +832,33 @@ export const askGrace = action({
         }
 
         // ── 2. Set up the mutable message list for the agentic loop ──────────
-        const messages: Anthropic.MessageParam[] = args.messages.map((m) => ({
-            role: m.role,
-            content: m.content,
-        }));
+        const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+            { role: "system", content: systemPrompt },
+            ...args.messages.map((m) => ({
+                role: m.role,
+                content: m.content,
+            })),
+        ];
 
         // ── 3. Agentic tool-use loop ──────────────────────────────────────────
 
-        async function callAnthropic(retries = 2): Promise<Anthropic.Message> {
+        async function callOpenAI(
+            retries = 2,
+        ): Promise<OpenAI.Chat.Completions.ChatCompletion> {
             for (let attempt = 0; attempt <= retries; attempt++) {
                 try {
-                    return await anthropic.messages.create({
+                    return await openai.chat.completions.create({
                         model,
                         max_tokens: maxTokens,
-                        system: systemPrompt,
                         tools: GRACE_TOOLS,
+                        tool_choice: "auto",
+                        parallel_tool_calls: true,
                         messages,
                     });
                 } catch (e: unknown) {
-                    const err = e as { status?: number; error?: { status?: number } };
-                    const status = err?.status ?? err?.error?.status;
-                    if ((status === 429 || status === 529) && attempt < retries) {
+                    const err = e as { status?: number };
+                    const status = err?.status;
+                    if ((status === 429 || status === 529 || status === 503) && attempt < retries) {
                         const wait = Math.min(2000 * Math.pow(2, attempt), 8000);
                         await new Promise((r) => setTimeout(r, wait));
                         continue;
@@ -865,94 +871,108 @@ export const askGrace = action({
 
         try {
             for (let iteration = 0; iteration < maxIterations; iteration++) {
-                const response = await callAnthropic();
+                const response = await callOpenAI();
+                const choice = response.choices[0];
+                const msg = choice.message;
 
                 // ── Final text response ───────────────────────────────────────
-                if (response.stop_reason === "end_turn") {
-                    const textBlock = response.content.find((b) => b.type === "text");
-                    return textBlock && textBlock.type === "text"
-                        ? textBlock.text
+                if (choice.finish_reason === "stop" || !msg.tool_calls || msg.tool_calls.length === 0) {
+                    return typeof msg.content === "string" && msg.content.length > 0
+                        ? msg.content
                         : "I wasn't able to formulate a response. Please try rephrasing your question.";
                 }
 
-                // ── Tool use — execute each tool and feed results back ────────
-                if (response.stop_reason === "tool_use") {
-                    messages.push({ role: "assistant", content: response.content });
+                // ── Tool calls — execute each, feed results back ──────────────
+                if (choice.finish_reason === "tool_calls" && msg.tool_calls) {
+                    // Push the assistant turn (with tool_calls) so OpenAI can correlate IDs.
+                    messages.push({
+                        role: "assistant",
+                        content: msg.content ?? null,
+                        tool_calls: msg.tool_calls,
+                    });
 
-                    const toolResults: Anthropic.ToolResultBlockParam[] = [];
-
-                    for (const block of response.content) {
-                        if (block.type !== "tool_use") continue;
+                    for (const toolCall of msg.tool_calls) {
+                        if (toolCall.type !== "function") continue;
+                        const name = toolCall.function.name;
+                        let parsedArgs: Record<string, unknown> = {};
+                        try {
+                            parsedArgs = JSON.parse(toolCall.function.arguments || "{}");
+                        } catch { /* leave empty */ }
 
                         let result: string;
                         try {
-                            if (block.name === "searchCatalog") {
-                                const input = block.input as {
+                            if (name === "searchCatalog") {
+                                const input = parsedArgs as {
                                     searchTerm: string;
-                                    categoryLimit?: string;
-                                    familyLimit?: string;
-                                    applicatorFilter?: string;
+                                    categoryLimit?: string | null;
+                                    familyLimit?: string | null;
+                                    applicatorFilter?: string | null;
                                 };
                                 const data = await ctx.runQuery(api.grace.searchCatalog, {
                                     searchTerm: input.searchTerm,
-                                    categoryLimit: input.categoryLimit,
-                                    familyLimit: input.familyLimit,
-                                    applicatorFilter: input.applicatorFilter,
+                                    categoryLimit: input.categoryLimit ?? undefined,
+                                    familyLimit: input.familyLimit ?? undefined,
+                                    applicatorFilter: input.applicatorFilter ?? undefined,
                                 });
                                 result = data.length > 0
-                                    ? buildSearchCatalogToolResult(input, data)
+                                    ? buildSearchCatalogToolResult(
+                                        {
+                                            searchTerm: input.searchTerm,
+                                            familyLimit: input.familyLimit ?? undefined,
+                                            applicatorFilter: input.applicatorFilter ?? undefined,
+                                        },
+                                        data,
+                                    )
                                     : `No products found for that search. Try a broader term.${emptySearchCatalogHint(input.searchTerm)}`;
-                            } else if (block.name === "getFamilyOverview") {
-                                const input = block.input as { family: string };
+                            } else if (name === "getFamilyOverview") {
+                                const input = parsedArgs as { family: string };
                                 const data = await ctx.runQuery(api.grace.getFamilyOverview, {
                                     family: input.family,
                                 });
                                 result = data
                                     ? JSON.stringify(data, null, 2)
                                     : `No products found for the "${input.family}" family. Check the family name spelling.`;
-                            } else if (block.name === "getBottleComponents") {
-                                const input = block.input as { bottleSku: string };
+                            } else if (name === "getBottleComponents") {
+                                const input = parsedArgs as { bottleSku: string };
                                 const data = await ctx.runQuery(api.grace.getBottleComponents, {
                                     bottleSku: input.bottleSku,
                                 });
                                 result = data
                                     ? buildBottleComponentsToolResult(data)
                                     : `No bottle found with SKU "${input.bottleSku}". Try searchCatalog first to find the correct SKU.`;
-                            } else if (block.name === "checkCompatibility") {
-                                const input = block.input as { threadSize: string };
+                            } else if (name === "checkCompatibility") {
+                                const input = parsedArgs as { threadSize: string };
                                 const data = await ctx.runQuery(api.grace.checkCompatibility, {
                                     threadSize: input.threadSize,
                                 });
                                 result = data.length > 0
                                     ? JSON.stringify(data, null, 2)
                                     : `No fitment data found for thread size ${input.threadSize}.`;
-                            } else if (block.name === "getCatalogStats") {
+                            } else if (name === "getCatalogStats") {
                                 const data = await ctx.runQuery(api.grace.getCatalogStats, {});
                                 result = JSON.stringify(data, null, 2);
                             } else {
-                                result = `Unknown tool: ${block.name}`;
+                                result = `Unknown tool: ${name}`;
                             }
                         } catch (e) {
                             result = `Tool error: ${e instanceof Error ? e.message : String(e)}`;
                         }
 
-                        toolResults.push({
-                            type: "tool_result",
-                            tool_use_id: block.id,
+                        messages.push({
+                            role: "tool",
+                            tool_call_id: toolCall.id,
                             content: result,
                         });
                     }
-
-                    messages.push({ role: "user", content: toolResults });
                     continue;
                 }
 
                 break;
             }
         } catch (e: unknown) {
-            const err = e as { status?: number; error?: { status?: number } };
-            const status = err?.status ?? err?.error?.status;
-            if (status === 429 || status === 529) {
+            const err = e as { status?: number };
+            const status = err?.status;
+            if (status === 429 || status === 529 || status === 503) {
                 return "I'm experiencing a brief moment of high demand. Could you try again in just a few seconds? I'll be right here.";
             }
             console.error("Grace AI error:", err);

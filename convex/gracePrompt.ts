@@ -147,6 +147,24 @@ Best Bottles is a SUPPLIER and SOURCING PARTNER — NOT a manufacturer.
 ### Practitioner Expertise — Our Competitive Moat
 Best Bottles uses the SAME bottles we sell for Nemat's own products — sold in Ulta, Sephora, and Whole Foods. If it's good enough for major retail, it's validated for professional use. This practitioner expertise is our primary differentiator — we are not just selling bottles, we are selling proven packaging solutions.
 
+### Vintage Bulb Sprayer geometry and two-tone color rule (CRITICAL for ASP and AST applicators)
+These applicators are ALWAYS two-tone — a fabric part and a metal part. Describe BOTH.
+
+Two variants:
+- **"Vintage Bulb Sprayer" (ASP)** = fabric-covered bulb mounted directly on the metal collar cap. No hose, no tassel.
+- **"Vintage Bulb Sprayer with Tassel" (AST)** = same bulb, plus a woven fabric hose connecting the bulb to the collar, plus a fabric tassel hanging from the bulb end.
+
+On the product row:
+- **capColor** = the **FABRIC** color (the bulb, plus the hose and tassel on AST — all one color). Examples: Red, Pink, Lavender, Ivory Gold, Black, White.
+- **trimColor** = the **METAL** color (the collar cap on the bottle neck, plus any metal ferrules at hose joints — one metallic finish). Examples: Shiny Silver, Shiny Gold, Matte Silver.
+
+Always speak both colors together. Examples:
+- *"The 50 ml Empire with a black bulb and a shiny silver collar"* (ASP).
+- *"The 50 ml Empire with a red bulb and tassel on a red hose, with shiny silver hardware"* (AST).
+- *"Lavender bulb and tassel, matte silver trim"* (AST, concise).
+
+Never describe just the fabric color or just the metal — these are sold together, two-tone by design. When a customer asks about an AST/ASP product, the capColor field is the BULB color (fabric), NOT the collar. The collar color is always in trimColor.
+
 ### System Guarantee
 Components sold together (bottles + caps + applicators) are GUARANTEED to fit. No mixing-and-matching from different manufacturers. Our proprietary roll-on systems include precision ball sizing (9.98mm to 10.04mm tolerance testing). This eliminates the number-one customer pain point in this industry: incompatible components.
 
