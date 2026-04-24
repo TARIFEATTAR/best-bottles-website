@@ -810,7 +810,9 @@ export const askGrace = action({
         const isVoice = !!args.voiceMode;
         const model = isVoice ? MODEL_VOICE : MODEL_TEXT;
         const maxIterations = isVoice ? MAX_TOOL_ITERATIONS_VOICE : MAX_TOOL_ITERATIONS_TEXT;
-        const maxTokens = isVoice ? 200 : 1024;
+        // GPT-5 counts reasoning tokens against max_completion_tokens, so voice
+        // needs more headroom than the old Claude budget (200).
+        const maxTokens = isVoice ? 1200 : 4096;
 
         const openai = new OpenAI({ apiKey });
 
@@ -849,10 +851,13 @@ export const askGrace = action({
                 try {
                     return await openai.chat.completions.create({
                         model,
-                        max_tokens: maxTokens,
+                        max_completion_tokens: maxTokens,
                         tools: GRACE_TOOLS,
                         tool_choice: "auto",
                         parallel_tool_calls: true,
+                        // GPT-5: lower reasoning for fast conversational replies.
+                        // Voice mode wants sub-2s; text mode (portal) is OK with "low".
+                        reasoning_effort: isVoice ? "minimal" : "low",
                         messages,
                     });
                 } catch (e: unknown) {

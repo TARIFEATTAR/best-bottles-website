@@ -11,8 +11,8 @@ import type OpenAI from "openai";
 
 // ─── Models ───────────────────────────────────────────────────────────────────
 
-export const MODEL_TEXT = "gpt-4.1";
-export const MODEL_VOICE = "gpt-4.1-mini";
+export const MODEL_TEXT = "gpt-5";
+export const MODEL_VOICE = "gpt-5-mini";
 export const MAX_TOOL_ITERATIONS_TEXT = 7;
 export const MAX_TOOL_ITERATIONS_VOICE = 2;
 
