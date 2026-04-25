@@ -809,6 +809,21 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 prefill = params.prefillFields;
             }
 
+            // Cart is a drawer (Navbar-owned), not a route — dispatch the global open event instead of routing.
+            if (navPath === "/cart" || navPath.startsWith("/cart?") || navPath.startsWith("/cart/")) {
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("navigateToPage");
+                analytics.graceToolCalled({ toolName: "navigateToPage", success: true });
+                analytics.graceNavigation({ destination: "/cart#drawer", triggeredBy: "navigateToPage" });
+                setTimeout(() => {
+                    window.dispatchEvent(new Event("open-cart-drawer"));
+                    if (window.matchMedia("(max-width: 768px)").matches) {
+                        closePanelRef.current();
+                    }
+                }, 500);
+                return "Opened the cart drawer for the customer.";
+            }
+
             // LLMs often omit path — infer from title/description via catalog search instead of sending users home.
             if (!navPath || navPath === "/") {
                 const hint = `${params.title ?? ""} ${params.description ?? ""}`.trim();
