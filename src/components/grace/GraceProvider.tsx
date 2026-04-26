@@ -301,7 +301,9 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const { addItems: addToCart, items: cartItems } = useCart();
+    const { addItems: addToCart, items: cartItems, checkout: cartCheckout } = useCart();
+    const cartCheckoutRef = useRef(cartCheckout);
+    useEffect(() => { cartCheckoutRef.current = cartCheckout; }, [cartCheckout]);
     const { userId } = useAuth();
 
     const submitFormMutation = useMutation(api.forms.submit);
@@ -800,6 +802,25 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 setTimeout(() => closePanelRef.current(), 600);
                 return `Added to cart: ${names}. The customer can see the updated cart icon. Confirm with them that the items were added.`;
             } catch (e) { console.error("[Grace] proposeCartAdd:", e); return "Failed to add items to cart."; }
+        },
+
+        proceedToCheckout: async () => {
+            const ctx = pageContextRef.current;
+            if (!ctx || ctx.cartItems.length === 0) {
+                return "The cart is empty — nothing to check out. Ask the customer what they'd like to add first.";
+            }
+            sessionMetricsRef.current.toolsCalled++;
+            sessionMetricsRef.current.toolsUsed.add("proceedToCheckout");
+            analytics.graceToolCalled({ toolName: "proceedToCheckout", success: true });
+            // Close the panel so the new Shopify checkout tab is the focus.
+            setTimeout(() => closePanelRef.current(), 400);
+            try {
+                await cartCheckoutRef.current();
+                return "Opening the Shopify checkout in a new tab. Tell the customer to fill in their shipping and payment details there.";
+            } catch (e) {
+                console.error("[Grace] proceedToCheckout:", e);
+                return "Failed to start checkout. Tell the customer to click 'Proceed to Checkout' in the cart drawer manually, or contact sales@nematinternational.com.";
+            }
         },
 
         navigateToPage: async (params: { path: string; title: string; description?: string; autoNavigate?: boolean | string; prefillFields?: Record<string, string> | string }) => {
