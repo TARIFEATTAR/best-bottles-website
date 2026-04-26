@@ -14,7 +14,7 @@ import { useGrace } from "@/components/useGrace";
 import GraceChatMessage, { StreamingMessage, ThinkingIndicator } from "./GraceChatMessage";
 
 /** Desktop drawer width; keep in sync with layout push in `GraceLayoutShell`. */
-const DRAWER_WIDTH = 420;
+const DRAWER_WIDTH = 560;
 
 function useIsMobile() {
     const [mobile, setMobile] = useState(false);

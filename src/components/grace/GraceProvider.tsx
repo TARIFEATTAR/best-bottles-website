@@ -796,6 +796,8 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                     analytics.cartItemAdded({ sku: p.graceSku, name: p.itemName, quantity: p.quantity, unitPrice: p.webPrice1pc, source: "grace" });
                 }
                 const names = products.map((p) => `${p.itemName} ×${p.quantity}`).join(", ");
+                // Close Grace's panel after a successful add so the cart icon update is visible and the screen isn't crowded.
+                setTimeout(() => closePanelRef.current(), 600);
                 return `Added to cart: ${names}. The customer can see the updated cart icon. Confirm with them that the items were added.`;
             } catch (e) { console.error("[Grace] proposeCartAdd:", e); return "Failed to add items to cart."; }
         },
@@ -817,9 +819,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 analytics.graceNavigation({ destination: "/cart#drawer", triggeredBy: "navigateToPage" });
                 setTimeout(() => {
                     window.dispatchEvent(new Event("open-cart-drawer"));
-                    if (window.matchMedia("(max-width: 768px)").matches) {
-                        closePanelRef.current();
-                    }
+                    closePanelRef.current();
                 }, 500);
                 return "Opened the cart drawer for the customer.";
             }

@@ -45,7 +45,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                         onClick={onClose}
-                        className="fixed inset-0 z-50"
+                        className="fixed inset-0 z-[70]"
                         style={{ background: "rgba(29, 29, 31, 0.45)", backdropFilter: "blur(4px)" }}
                         aria-hidden="true"
                     />
@@ -57,7 +57,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: "100%", opacity: 0 }}
                         transition={{ type: "spring", stiffness: 300, damping: 35 }}
-                        className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-[420px] flex flex-col"
+                        className="fixed top-0 right-0 bottom-0 z-[70] w-full max-w-[560px] flex flex-col"
                         style={{
                             background: "rgba(250, 248, 245, 0.95)",
                             backdropFilter: "blur(28px) saturate(180%)",
