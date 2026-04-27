@@ -234,14 +234,19 @@ export async function POST(req: NextRequest) {
                         .map((p) => ({
                             graceSku: p.graceSku,
                             itemName: p.itemName,
-                            family: p.family,
+                            // Fallback path: searchCatalog returns family/slug as
+                            // optional, but the primary `groups`-based path infers
+                            // them as required strings. Coerce to satisfy the
+                            // inferred shape — we know the queried `family` is
+                            // valid because we just used it as the search key.
+                            family: p.family ?? family,
                             capacity: p.capacity,
                             capacityMl: p.capacityMl,
                             color: p.color,
                             neckThreadSize: p.neckThreadSize,
                             webPrice1pc: p.webPrice1pc,
-                            slug: p.slug,
-                            heroImageUrl: null,
+                            slug: p.slug ?? "",
+                            heroImageUrl: null as string | null,
                         }));
                 }
 
