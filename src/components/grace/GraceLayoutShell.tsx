@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { useGrace } from "@/components/useGrace";
 import { DRAWER_WIDTH } from "./GraceChatDrawer";
 
 export default function GraceLayoutShell({ children }: { children: ReactNode }) {
     const { panelMode } = useGrace();
+    const pathname = usePathname();
     const isOpen = panelMode === "open";
 
     const [isMobile, setIsMobile] = useState(false);
@@ -17,14 +19,13 @@ export default function GraceLayoutShell({ children }: { children: ReactNode }) 
         return () => mq.removeEventListener("change", handler);
     }, []);
 
-    const shouldPush = isOpen && !isMobile;
+    // The drawer floats above the page (Copilot-style) — no layout push.
+    // This wrapper is kept as a no-op so callers can reintroduce a push
+    // behind a flag without restructuring the provider tree.
+    void isOpen;
+    void pathname;
+    void isMobile;
+    void DRAWER_WIDTH;
 
-    return (
-        <div
-            className="transition-[margin-right] duration-300 ease-in-out"
-            style={{ marginRight: shouldPush ? DRAWER_WIDTH : 0 }}
-        >
-            {children}
-        </div>
-    );
+    return <div>{children}</div>;
 }

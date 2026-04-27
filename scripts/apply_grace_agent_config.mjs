@@ -226,10 +226,36 @@ async function runApply() {
     }
     console.log();
     info("PATCHing live agent...");
+    // ElevenLabs's PATCH semantics: sending `tools` and `tool_ids` together
+    // is rejected; sending only `tools` doesn't clear server-stored tool_ids
+    // (the agent keeps using them). We send `tools` AND explicitly empty
+    // `tool_ids: []` to force a switch from registered Tool resources to
+    // our inline canonical definitions.
+    //
+    // …except ElevenLabs ALSO rejects `tool_ids: []` alongside `tools` for
+    // the same "both" reason. So we do it in two steps:
+    //   1. Clear tool_ids first (tools omitted)
+    //   2. Send the inline tools
+    const baseConfig = JSON.parse(JSON.stringify(canonical.conversation_config));
+    delete baseConfig.agent.prompt.tools;
+    delete baseConfig.agent.prompt.tool_ids;
+
+    const clear = await fetch(`https://api.elevenlabs.io/v1/convai/agents/${canonical.agent_id}`, {
+        method: "PATCH",
+        headers: { "xi-api-key": API_KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({ conversation_config: { agent: { prompt: { tool_ids: [] } } } }),
+    });
+    if (!clear.ok) {
+        console.error(`${R}✗${X} Step 1 (clear tool_ids) failed: HTTP ${clear.status} — ${(await clear.text()).slice(0, 500)}`);
+        process.exit(2);
+    }
+
+    const payload = JSON.parse(JSON.stringify(canonical.conversation_config));
+    delete payload.agent.prompt.tool_ids;
     const res = await fetch(`https://api.elevenlabs.io/v1/convai/agents/${canonical.agent_id}`, {
         method: "PATCH",
         headers: { "xi-api-key": API_KEY, "Content-Type": "application/json" },
-        body: JSON.stringify({ conversation_config: canonical.conversation_config }),
+        body: JSON.stringify({ conversation_config: payload }),
     });
     if (!res.ok) {
         console.error(`${R}✗${X} PATCH failed: HTTP ${res.status} — ${(await res.text()).slice(0, 500)}`);

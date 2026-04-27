@@ -104,6 +104,10 @@ export default defineSchema({
         heightWithCap: v.union(v.string(), v.null()),
         heightWithoutCap: v.union(v.string(), v.null()),
         diameter: v.union(v.string(), v.null()),
+        // Numeric mm dimensions populated by some products (atomizers etc).
+        // Kept optional + nullable to preserve back-compat with rows that lack them.
+        depthMm: v.optional(v.union(v.number(), v.null())),
+        widthMm: v.optional(v.union(v.number(), v.null())),
         bottleWeightG: v.union(v.number(), v.null()),
         caseQuantity: v.union(v.number(), v.null()),
         caseWeightG: v.optional(v.union(v.number(), v.null())),
@@ -410,4 +414,43 @@ export default defineSchema({
     })
         .index("by_type", ["formType"])
         .index("by_email", ["email"]),
+
+    // -------------------------------------------------------------------------
+    // GRACE AI SHORTLISTS — saved product collections, shareable via opaque token
+    // -------------------------------------------------------------------------
+
+    // ownerKey is either a clerkOrgId (authed) or an anonymous UUID held in
+    // localStorage. shareToken is server-minted and is the only field used in
+    // public share URLs — never expose ownerKey externally.
+    graceShortlists: defineTable({
+        ownerKey: v.string(),
+        name: v.optional(v.string()),
+        items: v.array(v.object({
+            graceSku: v.string(),
+            addedAt: v.number(),
+            notes: v.optional(v.string()),
+        })),
+        shareToken: v.optional(v.string()),
+        createdAt: v.number(),
+        updatedAt: v.number(),
+    })
+        .index("by_owner", ["ownerKey"])
+        .index("by_shareToken", ["shareToken"]),
+
+    // -------------------------------------------------------------------------
+    // GRACE AI UPLOADS — user-supplied images for reference match + brand mockup
+    // -------------------------------------------------------------------------
+
+    // blobId is the Convex storage ID. ownerKey scopes uploads to anonymous
+    // sessions or authed orgs the same way as shortlists.
+    graceUploads: defineTable({
+        blobId: v.string(),
+        mime: v.string(),
+        size: v.number(),
+        ownerKey: v.string(),
+        kind: v.union(v.literal("reference"), v.literal("logo")),
+        createdAt: v.number(),
+    })
+        .index("by_owner", ["ownerKey"])
+        .index("by_blobId", ["blobId"]),
 });

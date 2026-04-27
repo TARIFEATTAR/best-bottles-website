@@ -1,6 +1,7 @@
 "use client";
 
 import type { GraceMessage } from "@/components/GraceContext";
+import GraceActionRenderer from "./GraceActionRenderer";
 
 interface GraceChatMessageProps {
     message: GraceMessage;
@@ -13,17 +14,36 @@ export default function GraceChatMessage({ message }: GraceChatMessageProps) {
         return (
             <div className="flex justify-end mb-3">
                 <div className="max-w-[80%] px-3.5 py-2.5 text-[14px] leading-relaxed text-obsidian bg-obsidian/[0.05] rounded-2xl rounded-br-sm">
-                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    {message.attachments?.map((a) => (
+                        a.url && a.mime.startsWith("image/") ? (
+                            // eslint-disable-next-line @next/next/no-img-element -- Convex storage URL changes per upload; Next/Image needs whitelisted domain config
+                            <img
+                                key={a.id}
+                                src={a.url}
+                                alt={a.name}
+                                className="rounded-md mb-2 max-h-[180px] object-cover"
+                                style={{ maxWidth: "100%" }}
+                            />
+                        ) : null
+                    ))}
+                    {message.content && <p className="whitespace-pre-wrap">{message.content}</p>}
                 </div>
             </div>
         );
     }
 
+    if (message.action) {
+        console.log("[Grace] GraceChatMessage rendering action:", message.action.type, "for message:", message.id);
+    }
     return (
-        <div className="mb-4">
+        <div
+            className={`mb-4 ${message.pinned ? "pl-3" : ""}`}
+            style={message.pinned ? { borderLeft: "2px solid var(--color-muted-gold)" } : undefined}
+        >
             <p className="text-[14.5px] leading-[1.65] text-obsidian/85 whitespace-pre-wrap font-sans">
                 {message.content}
             </p>
+            {message.action && <GraceActionRenderer action={message.action} />}
         </div>
     );
 }

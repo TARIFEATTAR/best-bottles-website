@@ -376,6 +376,47 @@ export const getAllCatalogGroups = query({
 });
 
 /**
+ * Top families ranked by total variant count, with one representative hero
+ * image each. Used by the workspace's "Popular families" left-rail strip
+ * (renders when an authenticated user has no recent projects yet).
+ *
+ * Without sales data, variant count is the proxy for "popular" — families
+ * with the most SKUs are the ones the catalog has invested in.
+ */
+export const getPopularFamilies = query({
+    args: { limit: v.optional(v.number()) },
+    handler: async (ctx, args) => {
+        const groups = await ctx.db.query("productGroups").collect();
+        const byFamily = new Map<string, {
+            variantCount: number;
+            heroImageUrl: string | null;
+            firstSlug: string | null;
+        }>();
+        for (const g of groups) {
+            if (!g.family) continue;
+            const existing = byFamily.get(g.family);
+            if (existing) {
+                existing.variantCount += g.variantCount ?? 0;
+                if (!existing.heroImageUrl && g.heroImageUrl) {
+                    existing.heroImageUrl = g.heroImageUrl;
+                }
+                if (!existing.firstSlug && g.slug) existing.firstSlug = g.slug;
+            } else {
+                byFamily.set(g.family, {
+                    variantCount: g.variantCount ?? 0,
+                    heroImageUrl: g.heroImageUrl ?? null,
+                    firstSlug: g.slug ?? null,
+                });
+            }
+        }
+        return [...byFamily.entries()]
+            .map(([family, data]) => ({ family, ...data }))
+            .sort((a, b) => b.variantCount - a.variantCount)
+            .slice(0, args.limit ?? 6);
+    },
+});
+
+/**
  * Returns one representative SKU per product group for line-item catalog view.
  *
  * PERFORMANCE FIX: The old version did 230 individual queries (N+1 problem).

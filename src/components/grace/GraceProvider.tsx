@@ -297,14 +297,17 @@ function nextMsgId(): string {
 
 // ─── Provider ────────────────────────────────────────────────────────────────
 
-export default function GraceProvider({ children }: { children: ReactNode }) {
+function GraceProviderBase({
+    children,
+    userId,
+}: {
+    children: ReactNode;
+    userId: string | null;
+}) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const { addItems: addToCart, items: cartItems, checkout: cartCheckout } = useCart();
-    const cartCheckoutRef = useRef(cartCheckout);
-    useEffect(() => { cartCheckoutRef.current = cartCheckout; }, [cartCheckout]);
-    const { userId } = useAuth();
+    const { addItems: addToCart, items: cartItems } = useCart();
 
     const submitFormMutation = useMutation(api.forms.submit);
     const submitFormRef = useRef(submitFormMutation);
@@ -326,6 +329,41 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         setPanelMode("strip");
     }, []);
 
+    // ── Launcher tooltip — shown beside the floating disc when Grace
+    // auto-minimizes during navigation (e.g. "I narrowed the catalog for you").
+    // Auto-clears after `expiresAt`.
+    const [launcherTooltip, setLauncherTooltip] = useState<{ message: string; expiresAt: number } | null>(null);
+
+    const minimizeWithTooltip = useCallback((message: string) => {
+        setPanelMode("closed");
+        setLauncherTooltip({ message, expiresAt: Date.now() + 3500 });
+    }, []);
+
+    useEffect(() => {
+        if (!launcherTooltip) return;
+        const remaining = Math.max(0, launcherTooltip.expiresAt - Date.now());
+        const t = setTimeout(() => setLauncherTooltip(null), remaining);
+        return () => clearTimeout(t);
+    }, [launcherTooltip]);
+
+    const minimizeWithTooltipRef = useRef(minimizeWithTooltip);
+    useEffect(() => { minimizeWithTooltipRef.current = minimizeWithTooltip; }, [minimizeWithTooltip]);
+
+    // Direct message injection (bypass ElevenLabs) — used by client-side flows
+    // like the image-upload vision analysis that don't need agent narration.
+    const appendInlineMessage = useCallback((msg: { role: "user" | "grace"; content: string; action?: import("@/components/GraceContext").GraceAction; attachments?: import("@/components/GraceContext").GraceAttachment[] }) => {
+        setMessages((prev) => [
+            ...prev,
+            {
+                role: msg.role,
+                content: msg.content,
+                id: nextMsgId(),
+                action: msg.action,
+                attachments: msg.attachments,
+            },
+        ]);
+    }, []);
+
     // ── Connection state ─────────────────────────────────────────────────────
     const [graceStatus, setGraceStatus] = useState<GraceStatus>("idle");
     const [conversationActive, setConversationActive] = useState(false);
@@ -343,6 +381,16 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
     const [graceQuery] = useState("");
 
     const toggleVoiceRef = useRef<(() => void) | null>(null);
+
+    /**
+     * FIFO queue of GraceActions emitted by `display*` clientTools. Each tool
+     * call PUSHES; each finalized assistant message SHIFTS the oldest action
+     * off and attaches it to that message. Critical for parallel tool calls
+     * (e.g. Grace shows two product cards in one turn) — earlier code used a
+     * single slot, which caused later tool calls to overwrite earlier ones
+     * and dropped one of the cards. Cleared on `endConversation`.
+     */
+    const pendingActionsRef = useRef<import("@/components/GraceContext").GraceAction[]>([]);
 
     // ── Page context ─────────────────────────────────────────────────────────
     const pageType = useMemo((): PageContext["pageType"] => {
@@ -739,9 +787,9 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 analytics.graceNavigation({ destination: redirectUrl, triggeredBy: "showProducts", query: params.query });
                 setTimeout(() => {
                     routerRef.current.push(redirectUrl);
-                    if (window.matchMedia("(max-width: 768px)").matches) {
-                        closePanelRef.current();
-                    }
+                    // Auto-minimize on navigation so the catalog is fully visible.
+                    // Conversation persists in the provider; click the launcher to reopen.
+                    minimizeWithTooltipRef.current("I narrowed the catalog for you");
                 }, 500);
                 if (exactSizeFound) {
                     return `Found ${products.length} options — top matches: ${summary}. Navigating the customer there now.`;
@@ -798,29 +846,8 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                     analytics.cartItemAdded({ sku: p.graceSku, name: p.itemName, quantity: p.quantity, unitPrice: p.webPrice1pc, source: "grace" });
                 }
                 const names = products.map((p) => `${p.itemName} ×${p.quantity}`).join(", ");
-                // Close Grace's panel after a successful add so the cart icon update is visible and the screen isn't crowded.
-                setTimeout(() => closePanelRef.current(), 600);
                 return `Added to cart: ${names}. The customer can see the updated cart icon. Confirm with them that the items were added.`;
             } catch (e) { console.error("[Grace] proposeCartAdd:", e); return "Failed to add items to cart."; }
-        },
-
-        proceedToCheckout: async () => {
-            const ctx = pageContextRef.current;
-            if (!ctx || ctx.cartItems.length === 0) {
-                return "The cart is empty — nothing to check out. Ask the customer what they'd like to add first.";
-            }
-            sessionMetricsRef.current.toolsCalled++;
-            sessionMetricsRef.current.toolsUsed.add("proceedToCheckout");
-            analytics.graceToolCalled({ toolName: "proceedToCheckout", success: true });
-            // Close the panel so the new Shopify checkout tab is the focus.
-            setTimeout(() => closePanelRef.current(), 400);
-            try {
-                await cartCheckoutRef.current();
-                return "Opening the Shopify checkout in a new tab. Tell the customer to fill in their shipping and payment details there.";
-            } catch (e) {
-                console.error("[Grace] proceedToCheckout:", e);
-                return "Failed to start checkout. Tell the customer to click 'Proceed to Checkout' in the cart drawer manually, or contact sales@nematinternational.com.";
-            }
         },
 
         navigateToPage: async (params: { path: string; title: string; description?: string; autoNavigate?: boolean | string; prefillFields?: Record<string, string> | string }) => {
@@ -840,7 +867,9 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
                 analytics.graceNavigation({ destination: "/cart#drawer", triggeredBy: "navigateToPage" });
                 setTimeout(() => {
                     window.dispatchEvent(new Event("open-cart-drawer"));
-                    closePanelRef.current();
+                    if (window.matchMedia("(max-width: 768px)").matches) {
+                        closePanelRef.current();
+                    }
                 }, 500);
                 return "Opened the cart drawer for the customer.";
             }
@@ -928,11 +957,11 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             sessionMetricsRef.current.navigations++;
             analytics.graceToolCalled({ toolName: "navigateToPage", success: true });
             analytics.graceNavigation({ destination: navPath, triggeredBy: "navigateToPage" });
+            const navTitle = params.title?.trim() || "where you asked";
             setTimeout(() => {
                 routerRef.current.push(navPath);
-                if (window.matchMedia("(max-width: 768px)").matches) {
-                    closePanelRef.current();
-                }
+                // Auto-minimize on navigation; persist conversation in the provider.
+                minimizeWithTooltipRef.current(`Took you to ${navTitle}`);
             }, 500);
             return `Navigating the customer to ${params.title ?? "the page"} now.`;
         },
@@ -997,6 +1026,225 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             }
         },
 
+        // ─── v3 inline display tools (PRD Patterns A–L) ──────────────────────
+        // Each `display*` tool fetches its data, parks a GraceAction on
+        // `pendingActionsRef` queue, and returns brief text the LLM can narrate
+        // alongside the rendered card. The action is attached to the next
+        // assistant message in `handleMessage` / `handleAgentChatResponsePart`.
+        // The remaining display tools (B, C, D, E, F, G, H, I, J, L) are added
+        // alongside their pattern components in later phases.
+
+        displayProductCard: async (params: { graceSku: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: params.graceSku } }),
+                });
+                const data = await r.json() as { result?: ProductCard | null };
+                const product = data.result;
+                if (!product) return `No product found for SKU "${params.graceSku}". Try searchCatalog first.`;
+
+                pendingActionsRef.current.push({ type: "displayProductCard", product });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayProductCard");
+                analytics.graceToolCalled({ toolName: "displayProductCard", success: true });
+                return `Showing ${product.itemName}${product.capacity ? ` (${product.capacity})` : ""} inline. Add a one-line narration above the card.`;
+            } catch (e) {
+                console.error("[Grace] displayProductCard:", e);
+                return "Could not render the product card.";
+            }
+        },
+
+        displayFamilyCard: async (params: { family: string; capacityMl?: number }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getFamilyForCard", parameters: { family: params.family } }),
+                });
+                const data = await r.json() as { result?: import("@/components/GraceContext").FamilyCardPayload | null };
+                if (!data.result) return `No data for the ${params.family} family.`;
+                const payload = data.result;
+                if (params.capacityMl != null) {
+                    const match = payload.variants.find((v) => v.capacityMl === params.capacityMl);
+                    if (match) payload.defaultGraceSku = match.graceSku;
+                }
+                pendingActionsRef.current.push({ type: "displayFamilyCard", payload });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayFamilyCard");
+                analytics.graceToolCalled({ toolName: "displayFamilyCard", success: true });
+                return `Showing the ${params.family} family with ${payload.variants.length} variants inline.`;
+            } catch (e) { console.error("[Grace] displayFamilyCard:", e); return "Could not render the family card."; }
+        },
+
+        displayCompatibility: async (params: { bottleSku: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getBottleComponents", parameters: { bottleSku: params.bottleSku } }),
+                });
+                const data = await r.json() as { result?: { bottle: ProductCard & { neckThreadSize?: string }; components?: Record<string, Array<ProductCard & { capColor?: string; imageUrl?: string }>> } | null };
+                if (!data.result) return `No compatible components found for "${params.bottleSku}".`;
+                const { bottle, components } = data.result;
+                const flatComponents: Array<ProductCard & { componentType?: string; heroImageUrl?: string | null; fitmentVerified?: boolean }> = [];
+                for (const [type, items] of Object.entries(components ?? {})) {
+                    if (!Array.isArray(items)) continue;
+                    for (const item of items.slice(0, 8)) {
+                        flatComponents.push({
+                            ...item,
+                            componentType: type.replace(/([A-Z])/g, " $1").trim(),
+                            heroImageUrl: item.imageUrl ?? null,
+                            fitmentVerified: true,
+                        });
+                    }
+                }
+                pendingActionsRef.current.push({
+                    type: "displayCompatibility",
+                    payload: {
+                        bottle,
+                        threadSize: bottle.neckThreadSize ?? "unknown",
+                        components: flatComponents,
+                    },
+                });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayCompatibility");
+                analytics.graceToolCalled({ toolName: "displayCompatibility", success: true });
+                return `Showing ${flatComponents.length} components compatible with ${bottle.itemName}.`;
+            } catch (e) { console.error("[Grace] displayCompatibility:", e); return "Could not render compatibility tray."; }
+        },
+
+        displayBuildKit: async (params: { bottleSku: string; closureSku?: string; applicatorSku?: string }) => {
+            try {
+                const fetchOne = async (sku: string | undefined) => {
+                    if (!sku) return null;
+                    const r = await fetch("/api/elevenlabs/server-tools", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: sku } }),
+                    });
+                    const data = await r.json() as { result?: ProductCard | null };
+                    return data.result ?? null;
+                };
+                const [bottle, closure, applicator] = await Promise.all([
+                    fetchOne(params.bottleSku),
+                    fetchOne(params.closureSku),
+                    fetchOne(params.applicatorSku),
+                ]);
+                if (!bottle) return `Could not find the bottle SKU "${params.bottleSku}".`;
+                pendingActionsRef.current.push({
+                    type: "displayBuildKit",
+                    payload: { bottle, closure: closure ?? undefined, applicator: applicator ?? undefined },
+                });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayBuildKit");
+                analytics.graceToolCalled({ toolName: "displayBuildKit", success: true });
+                const parts = [bottle.itemName, closure?.itemName, applicator?.itemName].filter(Boolean).join(" + ");
+                return `Built kit: ${parts}. Showing kit composer inline.`;
+            } catch (e) { console.error("[Grace] displayBuildKit:", e); return "Could not assemble the kit."; }
+        },
+
+        displayComparison: async (params: { graceSkus: string[] | string; dimensions?: string[] | string }) => {
+            try {
+                // ElevenLabs sometimes JSON-stringifies array params — defensive parse,
+                // matches the pattern proposeCartAdd already uses.
+                const skus: string[] = (() => {
+                    if (Array.isArray(params.graceSkus)) return params.graceSkus;
+                    if (typeof params.graceSkus === "string") {
+                        try { const parsed = JSON.parse(params.graceSkus); return Array.isArray(parsed) ? parsed : []; }
+                        catch { return params.graceSkus.split(",").map((s) => s.trim()).filter(Boolean); }
+                    }
+                    return [];
+                })();
+                const dimensions: string[] | undefined = (() => {
+                    if (Array.isArray(params.dimensions)) return params.dimensions;
+                    if (typeof params.dimensions === "string") {
+                        try { const parsed = JSON.parse(params.dimensions); return Array.isArray(parsed) ? parsed : undefined; }
+                        catch { return [params.dimensions]; }
+                    }
+                    return undefined;
+                })();
+                console.log("[Grace] displayComparison called", { skus, dimensions });
+                if (skus.length < 2) return "Need at least 2 SKUs to compare. Run searchCatalog first to get the SKUs, then call displayComparison again.";
+
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getProductsForComparison", parameters: { graceSkus: skus } }),
+                });
+                const data = await r.json() as { result?: ProductCard[] };
+                const products = Array.isArray(data.result) ? data.result : [];
+                console.log("[Grace] displayComparison fetched", products.length, "products");
+                if (products.length === 0) return "No products found for those SKUs. Re-run searchCatalog to get fresh SKUs.";
+
+                pendingActionsRef.current.push({
+                    type: "displayComparison",
+                    payload: {
+                        products,
+                        dimensions: dimensions as ("trueScale" | "spec")[] | undefined,
+                    },
+                });
+                console.log("[Grace] pendingAction queued: displayComparison");
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayComparison");
+                analytics.graceToolCalled({ toolName: "displayComparison", success: true });
+                return `Comparison rendered with ${products.length} products${dimensions?.includes("trueScale") ? " at true scale" : ""}. Tell the customer to look at the table.`;
+            } catch (e) { console.error("[Grace] displayComparison:", e); return "Could not render comparison."; }
+        },
+
+        displayCatalogStrip: async (params: { category?: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getCatalogStrip", parameters: { category: params.category ?? null } }),
+                });
+                const data = await r.json() as { result?: import("@/components/GraceContext").CatalogStripPayload | null };
+                if (!data.result) return "Could not load catalog families.";
+                pendingActionsRef.current.push({ type: "displayCatalogStrip", payload: data.result });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayCatalogStrip");
+                analytics.graceToolCalled({ toolName: "displayCatalogStrip", success: true });
+                return `Showing ${data.result.families.length} bottle families. Tell the customer to tap a tile.`;
+            } catch (e) { console.error("[Grace] displayCatalogStrip:", e); return "Could not load catalog strip."; }
+        },
+
+        displayShortlist: async () => {
+            // Pattern J — needs the graceShortlists Convex module (lands in
+            // Phase 5). For now: return a polite message so the model knows
+            // shortlist sharing isn't available yet but it can still narrate.
+            return "Shortlist sharing isn't available yet — coming with Patterns H + I in the next deploy.";
+        },
+
+        displayAnatomy: async (params: { graceSku: string }) => {
+            try {
+                const r = await fetch("/api/elevenlabs/server-tools", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: params.graceSku } }),
+                });
+                const data = await r.json() as { result?: ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null } | null };
+                const product = data.result;
+                if (!product) return `No product found for SKU "${params.graceSku}".`;
+
+                // v1 stub: 4 fixed-percentage pins. Per-family precise anchors
+                // land in a follow-up via Sanity-stored `paperDollFamilyKey` presets.
+                const pins = [
+                    { x: 0.5, y: 0.08, label: "Cap", value: product.capColor ?? undefined },
+                    { x: 0.5, y: 0.22, label: "Neck", value: product.neckThreadSize ?? undefined },
+                    { x: 0.5, y: 0.38, label: "Shoulder" },
+                    { x: 0.5, y: 0.90, label: "Capacity", value: product.capacity ?? undefined },
+                ].filter((p) => p.value || p.label === "Shoulder");
+
+                pendingActionsRef.current.push({ type: "displayAnatomy", payload: { product, pins } });
+                sessionMetricsRef.current.toolsCalled++;
+                sessionMetricsRef.current.toolsUsed.add("displayAnatomy");
+                analytics.graceToolCalled({ toolName: "displayAnatomy", success: true });
+                return `Showing the anatomy of ${product.itemName} with ${pins.length} callouts.`;
+            } catch (e) { console.error("[Grace] displayAnatomy:", e); return "Could not render anatomy view."; }
+        },
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }), []);
 
@@ -1027,12 +1275,24 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
+    // Track auto-reconnect attempts so a persistently failing server doesn't loop forever.
+    const reconnectAttemptsRef = useRef(0);
+    const MAX_RECONNECTS = 2;
+
     const handleDisconnect = useCallback((details: { reason: string; message?: string; closeCode?: number; closeReason?: string }) => {
-        if (details.reason === "error") {
-            console.warn("[Grace] Disconnected due to error:", details.message, details.closeCode, details.closeReason);
-        } else if (details.reason === "agent") {
-            console.log("[Grace] Agent ended the session.", details.closeReason ?? "");
-        }
+        // Verbose telemetry on every disconnect — voice cutouts are hard to
+        // diagnose without close code visibility.
+        console.warn(
+            "[Grace] Voice disconnected — reason:",
+            details.reason,
+            "closeCode:",
+            details.closeCode,
+            "closeReason:",
+            details.closeReason,
+            "msg:",
+            details.message,
+        );
+
         connectingRef.current = false;
         const m = sessionMetricsRef.current;
         const ctx = pageContextRef.current;
@@ -1045,10 +1305,44 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             navigationsTriggered: m.navigations,
         });
         setConversationActive(false);
-        setGraceStatus("idle");
         setStreamingText("");
         setIsAwaitingReply(false);
+
+        // Auto-reconnect on transient failure ONLY when voice is still enabled
+        // (user hasn't toggled it off) and we haven't exhausted attempts.
+        // Close codes treated as transient: 1006 (abnormal close — usually
+        // network), 1011 (server error), 1012/1013 (server restart / try later).
+        const transientCodes = new Set([1006, 1011, 1012, 1013, 1001]);
+        const shouldReconnect =
+            details.reason === "error"
+            && voiceEnabledRef.current
+            && reconnectAttemptsRef.current < MAX_RECONNECTS
+            && (details.closeCode == null || transientCodes.has(details.closeCode));
+
+        if (shouldReconnect) {
+            reconnectAttemptsRef.current += 1;
+            const attempt = reconnectAttemptsRef.current;
+            console.log(`[Grace] Auto-reconnect attempt ${attempt}/${MAX_RECONNECTS}…`);
+            setGraceStatus("connecting");
+            // Exponential backoff: 800ms, then 2s
+            const delay = 800 * Math.pow(2.5, attempt - 1);
+            setTimeout(() => {
+                if (voiceEnabledRef.current && !conversationRef.current?.getId?.()) {
+                    startConversationRef.current(false).catch((err: unknown) => {
+                        console.error("[Grace] Auto-reconnect failed:", err);
+                    });
+                }
+            }, delay);
+        } else {
+            setGraceStatus("idle");
+            // Reset the counter so the next user-initiated session starts fresh.
+            reconnectAttemptsRef.current = 0;
+        }
     }, []);
+
+    // Forward ref to startConversation so handleDisconnect (declared earlier)
+    // can call it without violating callback dependency rules.
+    const startConversationRef = useRef<(forceTextOnly?: boolean) => Promise<boolean>>(async () => false);
 
     const handleModeChange = useCallback((mode: { mode: string }) => {
         if (mode.mode === "speaking") setGraceStatus("speaking");
@@ -1088,21 +1382,40 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             return;
         }
 
-        // Assistant message finalization
+        // Assistant message finalization — attach the OLDEST queued GraceAction.
+        // FIFO so parallel tool calls (e.g. two displayProductCard calls in one
+        // turn) each get attached to a successive Grace message instead of the
+        // later call overwriting the earlier one.
         streamingFinalizedRef.current = true;
         setIsAwaitingReply(false);
         setStreamingText("");
+        const action = pendingActionsRef.current.shift() ?? null;
+        if (action) {
+            console.log(
+                "[Grace] handleMessage attaching action:",
+                action.type,
+                "remaining in queue:",
+                pendingActionsRef.current.length,
+                "to message:",
+                text.slice(0, 60),
+            );
+        }
         setMessages((prev) => {
             const last = prev[prev.length - 1];
             if (
                 last?.role === "grace"
                 && normalizeGraceMessageText(last.content) === norm
             ) {
+                // Same content already finalized — but the action might be new.
+                // Attach it to the existing message if it doesn't already carry one.
+                if (action && !last.action) {
+                    return prev.map((m, i) => i === prev.length - 1 ? { ...m, action } : m);
+                }
                 return prev;
             }
             return [
                 ...prev,
-                { role, content: text, id: nextMsgId() },
+                { role, content: text, id: nextMsgId(), action: action ?? undefined },
             ];
         });
     }, []);
@@ -1114,22 +1427,41 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             const stopText = payload.text ?? "";
             setTimeout(() => {
                 if (!streamingFinalizedRef.current) {
-                    // onMessage didn't fire — finalize from streaming text
+                    // onMessage didn't fire — finalize from streaming text + attach any pending action.
+                    // CRITICAL: only consume an action from the queue when we actually have a
+                    // message to attach it to. Otherwise this path silently drops the action
+                    // and handleMessage (running later via `message` event) never gets it.
                     setStreamingText((prev) => {
                         const final = (prev + stopText).trim();
                         if (final) {
                             const n = normalizeGraceMessageText(final);
+                            const action = pendingActionsRef.current.shift() ?? null;
+                            if (action) {
+                                console.log(
+                                    "[Grace] handleAgentChatResponsePart(stop) attaching action:",
+                                    action.type,
+                                    "remaining in queue:",
+                                    pendingActionsRef.current.length,
+                                    "to:",
+                                    final.slice(0, 60),
+                                );
+                            }
                             setMessages((msgs) => {
                                 const last = msgs[msgs.length - 1];
                                 if (last?.role === "grace" && normalizeGraceMessageText(last.content) === n) {
+                                    if (action && !last.action) {
+                                        return msgs.map((m, i) => i === msgs.length - 1 ? { ...m, action } : m);
+                                    }
                                     return msgs;
                                 }
                                 return [
                                     ...msgs,
-                                    { role: "grace" as const, content: final, id: nextMsgId() },
+                                    { role: "grace" as const, content: final, id: nextMsgId(), action: action ?? undefined },
                                 ];
                             });
                         }
+                        // If `final` was empty: don't shift the queue — let handleMessage
+                        // pick it up on the actual `message` event.
                         return "";
                     });
                 }
@@ -1168,6 +1500,9 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         if (connectingRef.current || conversationRef.current?.getId?.()) return false;
         connectingRef.current = true;
         setGraceStatus("connecting");
+        // A successful (re)connect resets the auto-reconnect counter so the
+        // next disconnect gets the full 2-attempt budget.
+        reconnectAttemptsRef.current = 0;
 
         try {
             const res = await fetch("/api/elevenlabs/signed-url");
@@ -1221,11 +1556,24 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         }
     }, [conversation]);
 
+    // Sync startConversation into the ref so handleDisconnect can invoke it
+    // for auto-reconnect on transient WebSocket failures.
+    useEffect(() => {
+        startConversationRef.current = startConversation;
+    }, [startConversation]);
+
     const endConversation = useCallback(async () => {
+        // User-initiated end — disable voice + zero out reconnect budget so
+        // handleDisconnect doesn't try to bring the session back.
+        voiceEnabledRef.current = false;
+        setVoiceEnabled(false);
+        reconnectAttemptsRef.current = MAX_RECONNECTS;
         try { await conversationRef.current?.endSession(); } catch { /* ignore */ }
         setConversationActive(false);
         setGraceStatus("idle");
         setStreamingText("");
+        // Drop any buffered display action so a fresh thread doesn't inherit it.
+        pendingActionsRef.current = [];
     }, []);
 
     useEffect(() => {
@@ -1316,6 +1664,9 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         openPanel,
         closePanel,
         minimizeToStrip,
+        launcherTooltip,
+        minimizeWithTooltip,
+        appendInlineMessage,
         isOpen,
         open: openPanel,
         close: closePanel,
@@ -1350,6 +1701,7 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
         browsingHistory,
     }), [
         panelMode, openPanel, closePanel, minimizeToStrip, isOpen,
+        launcherTooltip, minimizeWithTooltip, appendInlineMessage,
         graceStatus, messages, streamingText, isAwaitingReply, input, voiceEnabled,
         send, errorMessage, conversationActive, startConversation, endConversation,
         onNavigate, pendingNavigation, clearPendingNavigation,
@@ -1362,4 +1714,23 @@ export default function GraceProvider({ children }: { children: ReactNode }) {
             {children}
         </GraceContext.Provider>
     );
+}
+
+function GraceProviderWithClerk({ children }: { children: ReactNode }) {
+    const { userId } = useAuth();
+    return <GraceProviderBase userId={userId ?? null}>{children}</GraceProviderBase>;
+}
+
+export default function GraceProvider({
+    children,
+    withClerk = false,
+}: {
+    children: ReactNode;
+    withClerk?: boolean;
+}) {
+    if (withClerk) {
+        return <GraceProviderWithClerk>{children}</GraceProviderWithClerk>;
+    }
+
+    return <GraceProviderBase userId={null}>{children}</GraceProviderBase>;
 }

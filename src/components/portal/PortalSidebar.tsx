@@ -76,6 +76,14 @@ const navSections = [
     },
     {
         items: [
+            // Full-screen Grace workspace lives at a top-level route (gated to
+            // authenticated B2B users). External arrow signals it leaves the
+            // portal shell into Grace's own surface.
+            { href: "/grace-workspace", label: "Grace Workspace ↗", id: "grace", external: true },
+        ],
+    },
+    {
+        items: [
             { href: "/portal/account", label: "Account", id: "account" },
         ],
     },
