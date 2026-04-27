@@ -633,6 +633,29 @@ export const updateProductGroupHeroImage = internalMutation({
     },
 });
 
+/**
+ * Public mutation called by Madison Studio's publish edge function after
+ * uploading a per-SKU marketing image to Sanity. Patches products.imageUrl
+ * for the matching websiteSku.
+ */
+export const setImageUrl = mutation({
+    args: {
+        websiteSku: v.string(),
+        imageUrl: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const product = await ctx.db
+            .query("products")
+            .withIndex("by_websiteSku", (q) => q.eq("websiteSku", args.websiteSku))
+            .first();
+        if (!product) {
+            return { success: false, websiteSku: args.websiteSku, error: "not_found" as const };
+        }
+        await ctx.db.patch(product._id, { imageUrl: args.imageUrl });
+        return { success: true, websiteSku: args.websiteSku };
+    },
+});
+
 // Applicator bucket suffixes in slugs (e.g. cylinder-5ml-clear-13-415-spray ends with -spray)
 const APPLICATOR_BUCKET_SUFFIXES = ["-spray", "-finemist", "-perfumespray", "-antiquespray", "-antiquespray-tassel", "-rollon", "-dropper", "-lotionpump", "-reducer", "-glasswand", "-glassapplicator", "-capclosure"] as const;
 
