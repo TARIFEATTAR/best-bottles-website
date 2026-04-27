@@ -51,8 +51,10 @@ export async function POST(req: NextRequest) {
 
         const raw = completion.choices[0]?.message?.content ?? "";
         // Parse the "DESCRIPTION: ... \n SEARCH: ..." shape.
-        const descMatch = raw.match(/DESCRIPTION:\s*(.+?)(?:\n|SEARCH:|$)/is);
-        const searchMatch = raw.match(/SEARCH:\s*(.+?)$/is);
+        // [\s\S] is used instead of `.` + `s` (dotAll) flag because the `s`
+        // flag requires ES2018+ and tsconfig targets ES2017.
+        const descMatch = raw.match(/DESCRIPTION:\s*([\s\S]+?)(?:\n|SEARCH:|$)/i);
+        const searchMatch = raw.match(/SEARCH:\s*([\s\S]+?)$/i);
         const description = (descMatch?.[1] ?? raw).trim();
         const searchTerms = (searchMatch?.[1] ?? "").trim();
 

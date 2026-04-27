@@ -1224,7 +1224,7 @@ function GraceProviderBase({
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: params.graceSku } }),
                 });
-                const data = await r.json() as { result?: ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null } | null };
+                const data = await r.json() as { result?: ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null; capColor?: string | null } | null };
                 const product = data.result;
                 if (!product) return `No product found for SKU "${params.graceSku}".`;
 

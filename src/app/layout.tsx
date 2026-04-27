@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Cormorant, EB_Garamond, Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import ConvexClientProvider from "@/components/ConvexClientProvider";
-import { CartProvider } from "@/components/CartProvider";
-import MegaMenuLayoutWrapper from "@/components/MegaMenuLayoutWrapper";
-import GraceProvider from "@/components/grace/GraceProvider";
-import GraceChatDrawer from "@/components/grace/GraceChatDrawer";
-import GraceLayoutShell from "@/components/grace/GraceLayoutShell";
-import { MixpanelProvider } from "@/components/MixpanelProvider";
+import AppProviders from "@/components/AppProviders";
+import { getMegaMenuPanels } from "@/sanity/lib/queries";
 import {
   SITE_URL,
   SITE_NAME,
@@ -91,44 +84,29 @@ export const metadata: Metadata = {
   verification: {},
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch mega-menu panels on the server (Sanity) and pass to the client-side
+  // provider via props. Lets AppProviders stay a Client Component without
+  // rendering an async Server Component inside it (which Next.js disallows).
+  const megaMenuPanels = await getMegaMenuPanels();
+
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`${cormorant.variable} ${ebGaramond.variable} ${inter.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebSiteJsonLd()) }}
-          />
-          <ConvexClientProvider>
-            <CartProvider>
-              <Suspense fallback={
-                <div className="min-h-screen bg-bone flex items-center justify-center">
-                  <div className="w-10 h-10 border-2 border-muted-gold/30 border-t-muted-gold rounded-full animate-spin" />
-                </div>
-              }>
-                <GraceProvider>
-                  <GraceLayoutShell>
-                    <MegaMenuLayoutWrapper>
-                      {children}
-                    </MegaMenuLayoutWrapper>
-                  </GraceLayoutShell>
-                  <GraceChatDrawer />
-                </GraceProvider>
-              </Suspense>
-              <MixpanelProvider />
-            </CartProvider>
-          </ConvexClientProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={`${cormorant.variable} ${ebGaramond.variable} ${inter.variable} antialiased selection:bg-muted-gold/20 selection:text-obsidian`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrganizationJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebSiteJsonLd()) }}
+        />
+        <AppProviders megaMenuPanels={megaMenuPanels}>{children}</AppProviders>
+      </body>
+    </html>
   );
 }

@@ -1,8 +1,14 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+import { CLERK_ENABLED } from "@/lib/clerk";
 
 const isPortalRoute = createRouteMatcher(["/portal(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
+    if (!CLERK_ENABLED) {
+        return NextResponse.next();
+    }
+
     if (isPortalRoute(req)) {
         await auth.protect();
     }
