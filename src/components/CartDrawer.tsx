@@ -6,7 +6,7 @@ import { X, ShoppingBag, Plus, Minus, Trash, ArrowRight, WarningCircle } from "@
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/CartProvider";
 
-const FREE_SHIPPING_THRESHOLD = 199;
+const FREE_SHIPPING_THRESHOLD = 99;
 
 interface CartDrawerProps {
     isOpen: boolean;
@@ -155,6 +155,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     {[item.family, item.capacity, item.color].filter(Boolean).join(" · ")}
                                                 </p>
                                             )}
+                                            <p className="text-[10px] text-slate/70 font-mono uppercase tracking-wide mb-2">
+                                                SKU {item.graceSku}
+                                            </p>
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-1 rounded-md overflow-hidden bg-bone/50 border border-champagne/50">
                                                     <button
@@ -190,13 +193,6 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                         >
                                             <Trash className="text-slate hover:text-red-500 transition-colors" size={14} />
                                         </button>
-
-                                        {item.quantity % 12 !== 0 && (
-                                            <div className="absolute -bottom-2 right-3 bg-amber-50 rounded text-[10px] text-amber-800 px-2 py-0.5 border border-amber-200 shadow-sm flex items-center gap-1 w-max opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <WarningCircle size={12} />
-                                                Add {12 - (item.quantity % 12)} more to fill a case
-                                            </div>
-                                        )}
                                     </motion.div>
                                 ))
                             )}

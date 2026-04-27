@@ -13,7 +13,6 @@ import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
 import FitmentDrawer from "@/components/FitmentDrawer";
-import PdpGraceTrigger from "@/components/PdpGraceTrigger";
 import { useCart } from "@/components/CartProvider";
 import { APPLICATOR_BUCKETS } from "@/lib/catalogFilters";
 import { client, isSanityConfigured } from "@/sanity/lib/client";
@@ -292,6 +291,15 @@ interface ProductComponent {
     image_url?: string | null;
     price_1?: number | null;
     price_12?: number | null;
+}
+
+interface ApplicatorSibling {
+    _id: string;
+    slug: string;
+    displayName: string;
+    applicatorTypes?: string[];
+    heroImageUrl?: string | null;
+    priceRangeMin?: number | null;
 }
 
 interface ProductVariant {
@@ -850,6 +858,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     }
 
     const inStock = selectedVariant?.stockStatus === "In Stock";
+    const compatibleSiblings = ((applicatorSiblings ?? []) as ApplicatorSibling[]);
     const handleAddToCart = () => {
         if (!selectedVariant || !inStock) return;
         addItems([{
@@ -1066,11 +1075,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </p>
 
                                 <TierLadder variant={selectedVariant} qty={qty} />
-                            </div>
-
-                            {/* ── Talk with Grace (inline, un-intrusive) ───────────────────────────────────────── */}
-                            <div className="mb-6 sm:mb-8">
-                                <PdpGraceTrigger />
                             </div>
 
                             {/* ── Variant Selectors (hidden for atomizers — glass color is the only selection) ── */}
@@ -1396,6 +1400,54 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </Link>
                             </div>
 
+                            {/* Compatibility belongs near the buying decision for B2B confidence. */}
+                            {compatibleSiblings.length > 0 && (
+                                <div className="mb-6 rounded-sm border border-champagne/60 bg-white p-4">
+                                    <div className="flex items-start justify-between gap-4 mb-3">
+                                        <div>
+                                            <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-1">
+                                                Compatible Options
+                                            </p>
+                                            <h3 className="font-serif text-lg text-obsidian">This bottle also takes</h3>
+                                        </div>
+                                        <button
+                                            onClick={() => setFitmentDrawerOpen(true)}
+                                            className="shrink-0 text-xs text-muted-gold hover:underline transition-colors"
+                                        >
+                                            View all →
+                                        </button>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {compatibleSiblings.slice(0, 2).map((sib) => {
+                                            const applicatorLabel = (sib.applicatorTypes ?? []).join(", ") || "Cap & Closure";
+                                            return (
+                                                <Link
+                                                    key={sib._id}
+                                                    href={`/products/${sib.slug}`}
+                                                    className="group flex items-center gap-3 rounded-sm border border-champagne/40 bg-bone/40 p-3 hover:border-muted-gold transition-colors"
+                                                >
+                                                    <div className="w-12 h-12 shrink-0 bg-travertine rounded-sm border border-champagne/30 flex items-center justify-center overflow-hidden">
+                                                        {sib.heroImageUrl ? (
+                                                            <img src={sib.heroImageUrl} alt={sib.displayName} className="w-full h-full object-contain p-1" />
+                                                        ) : (
+                                                            <Package className="w-5 h-5 text-champagne" strokeWidth={1} />
+                                                        )}
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-[10px] uppercase tracking-wider text-muted-gold font-semibold mb-0.5">{applicatorLabel}</p>
+                                                        <p className="text-sm text-obsidian font-medium truncate group-hover:text-muted-gold transition-colors">{sib.displayName}</p>
+                                                        {sib.priceRangeMin != null && (
+                                                            <p className="text-xs text-slate mt-0.5">From {formatPrice(sib.priceRangeMin)}</p>
+                                                        )}
+                                                    </div>
+                                                    <ChevronRight className="w-4 h-4 text-champagne group-hover:text-muted-gold transition-colors shrink-0" />
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
                             {/* Product Description — group-level copy preferred, then variant, skipped when Sanity rich desc exists */}
                             {pdpBlocks.every((b) => b._type !== "pdpRichDescription") && (group?.groupDescription || selectedVariant?.itemDescription) && (
                                 <div className="mb-6 pt-5 border-t border-champagne/60">
@@ -1414,54 +1466,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                 {/* ── Sanity Editorial Zone (feature strip, gallery, FAQ, rich desc) ── */}
                 <PdpEditorialZone blocks={pdpBlocks} />
-
-                {/* ── "This Bottle Also Takes" — cross-compatible applicator siblings ── */}
-                {applicatorSiblings && applicatorSiblings.length > 0 && (
-                    <section className="border-t border-champagne/30">
-                        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-10">
-                            <div className="flex items-center justify-between mb-6">
-                                <div>
-                                    <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-1">Compatible Options</p>
-                                    <h3 className="font-serif text-lg text-obsidian">This Bottle Also Takes</h3>
-                                </div>
-                                <button
-                                    onClick={() => setFitmentDrawerOpen(true)}
-                                    className="text-xs text-muted-gold hover:underline transition-colors"
-                                >
-                                    View all components →
-                                </button>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {applicatorSiblings.map((sib: { _id: string; slug: string; displayName: string; applicatorTypes?: string[]; heroImageUrl?: string | null; priceRangeMin?: number | null }) => {
-                                    const applicatorLabel = (sib.applicatorTypes ?? []).join(", ") || "Cap & Closure";
-                                    return (
-                                        <Link
-                                            key={sib._id}
-                                            href={`/products/${sib.slug}`}
-                                            className="group flex items-center gap-4 p-4 border border-champagne/50 rounded-sm bg-white hover:border-muted-gold transition-colors"
-                                        >
-                                            <div className="w-16 h-16 shrink-0 bg-travertine rounded-sm border border-champagne/30 flex items-center justify-center overflow-hidden">
-                                                {sib.heroImageUrl ? (
-                                                    <img src={sib.heroImageUrl} alt={sib.displayName} className="w-full h-full object-contain p-1" />
-                                                ) : (
-                                                    <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
-                                                )}
-                                            </div>
-                                            <div className="min-w-0 flex-1">
-                                                <p className="text-[10px] uppercase tracking-wider text-muted-gold font-semibold mb-0.5">{applicatorLabel}</p>
-                                                <p className="text-sm text-obsidian font-medium truncate group-hover:text-muted-gold transition-colors">{sib.displayName}</p>
-                                                {sib.priceRangeMin != null && (
-                                                    <p className="text-xs text-slate mt-0.5">From {formatPrice(sib.priceRangeMin)}</p>
-                                                )}
-                                            </div>
-                                            <ChevronRight className="w-4 h-4 text-champagne group-hover:text-muted-gold transition-colors shrink-0" />
-                                        </Link>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </section>
-                )}
 
                 {/* ── Specifications ──────────────────────────────────────────── */}
                 {selectedVariant && (

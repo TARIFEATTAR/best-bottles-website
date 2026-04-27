@@ -257,11 +257,11 @@ function Hero({ heroSlides, mobileHeroMode }: { heroSlides?: HomepageData["heroS
 /* ─── Mobile Category Grid: replaces Hero on mobile ─── */
 
 const DEFAULT_MOBILE_CATEGORIES = [
-    { label: "Roll-On Bottles", href: "/catalog?applicators=rollon", img: "/assets/vintage-spray.png" },
-    { label: "Spray Bottles", href: "/catalog?applicators=spray", img: "/assets/Cylinder-BB.png" },
-    { label: "Dropper Bottles", href: "/catalog?applicators=dropper", img: "/assets/collection_skincare.png" },
-    { label: "Lotion Pumps", href: "/catalog?applicators=lotionpump", img: "/assets/collection_amber.png" },
-    { label: "Reducer Bottles", href: "/catalog?applicators=reducer", img: "/assets/bottle_screwcap.png" },
+    { label: "Roll-On Bottles", href: applicatorNavHref("rollon"), img: "/assets/vintage-spray.png" },
+    { label: "Spray Bottles", href: applicatorNavHref("spray"), img: "/assets/Cylinder-BB.png" },
+    { label: "Dropper Bottles", href: applicatorNavHref("dropper"), img: "/assets/collection_skincare.png" },
+    { label: "Lotion Pumps", href: applicatorNavHref("lotionpump"), img: "/assets/collection_amber.png" },
+    { label: "Reducer Bottles", href: applicatorNavHref("reducer"), img: "/assets/bottle_screwcap.png" },
     { label: "Shop All 2,300+", href: "/catalog", img: "/assets/Hero-BB.png" },
 ];
 
