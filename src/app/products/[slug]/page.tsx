@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
-    Check, ExternalLink,
+    Check, ExternalLink, Truck,
 } from "@/components/icons";
 import { motion } from "framer-motion";
 /* eslint-disable @next/next/no-img-element */
@@ -332,6 +332,96 @@ interface ProductVariant {
 
 
 // ── Spec Row ──────────────────────────────────────────────────────────────────
+
+function TrustStack({ variant, inStock }: { variant: ProductVariant | null | undefined; inStock: boolean }) {
+    const caseQty = variant?.caseQuantity ?? null;
+    const stockLabel = variant?.stockStatus ?? "Unknown";
+
+    return (
+        <div className="mb-4 sm:mb-6">
+            {/* Stock badge — kept as colored pill for at-a-glance read */}
+            <span className={`inline-flex items-center px-3 py-1 text-[11px] uppercase tracking-wider font-bold rounded-full mb-3 ${inStock
+                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                : "bg-red-50 text-red-600 border border-red-200"
+                }`}>
+                <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${inStock ? "bg-emerald-500" : "bg-red-400"}`}></span>
+                {stockLabel}
+            </span>
+
+            {/* Trust rows — case pack + shipping. Quiet, scannable. */}
+            <dl className="space-y-1.5 text-sm">
+                {caseQty && caseQty > 1 && (
+                    <div className="flex items-center gap-2.5 text-obsidian">
+                        <Package className="w-4 h-4 text-slate shrink-0" strokeWidth={1.5} />
+                        <span>Case of <span className="font-semibold">{caseQty}</span> · order any quantity</span>
+                    </div>
+                )}
+                <div className="flex items-center gap-2.5 text-obsidian">
+                    <Truck className="w-4 h-4 text-slate shrink-0" strokeWidth={1.5} />
+                    <span>Free shipping on orders over <span className="font-semibold">$99</span></span>
+                </div>
+            </dl>
+        </div>
+    );
+}
+
+function TierLadder({ variant, qty }: { variant: ProductVariant | null | undefined; qty: number }) {
+    if (!variant?.webPrice1pc) return null;
+
+    const p1 = variant.webPrice1pc;
+    const p10 = variant.webPrice10pc && variant.webPrice10pc < p1 ? variant.webPrice10pc : null;
+    const p12 = variant.webPrice12pc && variant.webPrice12pc < p1 ? variant.webPrice12pc : null;
+
+    type Tier = { minQty: number; price: number; savePct: number };
+    const tiers: Tier[] = [{ minQty: 1, price: p1, savePct: 0 }];
+    if (p10) tiers.push({ minQty: 10, price: p10, savePct: Math.round((1 - p10 / p1) * 100) });
+    if (p12) tiers.push({ minQty: 12, price: p12, savePct: Math.round((1 - p12 / p1) * 100) });
+
+    if (tiers.length === 1) return null; // no discount tiers — hide ladder entirely
+
+    const activeIdx = tiers.reduce((acc, t, i) => (qty >= t.minQty ? i : acc), 0);
+    const next = tiers[activeIdx + 1];
+    const unitsToNext = next ? next.minQty - qty : 0;
+
+    return (
+        <div className="bg-travertine border border-champagne/60 p-4 sm:p-5 rounded-sm">
+            <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Volume Pricing</p>
+            <div className="space-y-1">
+                {tiers.map((t, i) => {
+                    const active = i === activeIdx;
+                    return (
+                        <div
+                            key={t.minQty}
+                            className={`flex items-center justify-between px-2 py-2 rounded-sm transition-colors ${active ? "bg-white border border-muted-gold/40" : ""
+                                }`}
+                        >
+                            <span className={`text-sm ${active ? "text-obsidian font-semibold" : "text-obsidian"}`}>
+                                {t.minQty}+ units
+                            </span>
+                            <div className="flex items-center gap-2">
+                                <span className={`${active ? "font-bold text-obsidian" : "font-semibold text-obsidian"}`}>
+                                    {formatPrice(t.price)} ea
+                                </span>
+                                {t.savePct > 0 && (
+                                    <span className="text-[10px] text-emerald-700 font-bold uppercase bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200">
+                                        Save {t.savePct}%
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {next && unitsToNext > 0 && unitsToNext <= 11 && (
+                <p className="text-xs text-muted-gold mt-3 leading-relaxed">
+                    Add <span className="font-bold">{unitsToNext}</span> more to unlock {formatPrice(next.price)}/ea
+                    <span className="text-slate"> · save {next.savePct}%</span>
+                </p>
+            )}
+        </div>
+    );
+}
 
 function SpecRow({ label, value }: { label: string; value: string | number | null | undefined }) {
     if (value == null || value === "") return null;
@@ -964,40 +1054,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             {/* Sanity trust badges */}
                             <PdpInlineBadges blocks={pdpBlocks} />
 
-                            {/* Stock badge */}
-                            <div className="flex items-center flex-wrap gap-2 mb-3 sm:mb-6">
-                                <span className={`inline-flex items-center px-3 py-1 text-[11px] uppercase tracking-wider font-bold rounded-full ${inStock
-                                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                    : "bg-red-50 text-red-600 border border-red-200"
-                                    }`}>
-                                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${inStock ? "bg-emerald-500" : "bg-red-400"}`}></span>
-                                    {selectedVariant?.stockStatus ?? "Unknown"}
-                                </span>
-                            </div>
+                            {/* Trust Stack — stock, case pack, shipping */}
+                            <TrustStack variant={selectedVariant} inStock={inStock} />
 
-                            {/* Price */}
-                            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-3 mb-4 sm:mb-8 pb-4 sm:pb-8 border-b border-champagne/50">
-                                <div>
-                                    <p className="text-xs text-slate uppercase tracking-wider mb-1">From</p>
-                                    <p className="font-serif text-3xl sm:text-4xl font-medium text-obsidian">
-                                        {formatPrice(selectedVariant?.webPrice1pc ?? group.priceRangeMin)}
-                                        <span className="text-lg font-normal text-slate ml-1">/ea</span>
-                                    </p>
-                                </div>
-                                {(selectedVariant?.webPrice10pc || selectedVariant?.webPrice12pc) && (
-                                    <div className="text-right space-y-0.5">
-                                        {selectedVariant?.webPrice10pc && (
-                                            <p className="text-xs text-slate">
-                                                {formatPrice(selectedVariant.webPrice10pc)} <span className="text-slate/50">×10</span>
-                                            </p>
-                                        )}
-                                        {selectedVariant?.webPrice12pc && (
-                                            <p className="text-xs text-slate">
-                                                {formatPrice(selectedVariant.webPrice12pc)} <span className="text-slate/50">×12</span>
-                                            </p>
-                                        )}
-                                    </div>
-                                )}
+                            {/* Price + Tier Ladder */}
+                            <div className="mb-4 sm:mb-8 pb-4 sm:pb-8 border-b border-champagne/50">
+                                <p className="text-xs text-slate uppercase tracking-wider mb-1">From</p>
+                                <p className="font-serif text-3xl sm:text-4xl font-medium text-obsidian mb-4">
+                                    {formatPrice(selectedVariant?.webPrice1pc ?? group.priceRangeMin)}
+                                    <span className="text-lg font-normal text-slate ml-1">/ea</span>
+                                </p>
+
+                                <TierLadder variant={selectedVariant} qty={qty} />
                             </div>
 
                             {/* ── Talk with Grace (inline, un-intrusive) ───────────────────────────────────────── */}
@@ -1340,40 +1408,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </div>
                             )}
 
-                            {/* Volume pricing table */}
-                            {selectedVariant?.webPrice1pc && (
-                                <div className="bg-travertine border border-champagne/60 p-5 rounded-sm">
-                                    <p className="text-xs uppercase tracking-wider font-bold text-slate mb-4">Volume Pricing</p>
-                                    <div className="space-y-2.5">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm text-obsidian">1+ units</span>
-                                            <span className="font-semibold text-obsidian">{formatPrice(selectedVariant.webPrice1pc)} each</span>
-                                        </div>
-                                        {selectedVariant.webPrice10pc && selectedVariant.webPrice10pc !== selectedVariant.webPrice1pc && (
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-sm text-obsidian">10+ units</span>
-                                                <div className="flex items-center space-x-2">
-                                                    <span className="font-semibold text-obsidian">{formatPrice(selectedVariant.webPrice10pc)} each</span>
-                                                    <span className="text-[10px] text-emerald-600 font-bold uppercase bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200">
-                                                        Save {Math.round((1 - selectedVariant.webPrice10pc / selectedVariant.webPrice1pc) * 100)}%
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        )}
-                                        {selectedVariant.webPrice12pc && selectedVariant.webPrice12pc !== selectedVariant.webPrice1pc && (
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-sm text-obsidian">12+ units</span>
-                                                <div className="flex items-center space-x-2">
-                                                    <span className="font-semibold text-obsidian">{formatPrice(selectedVariant.webPrice12pc)} each</span>
-                                                    <span className="text-[10px] text-emerald-600 font-bold uppercase bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200">
-                                                        Save {Math.round((1 - selectedVariant.webPrice12pc / selectedVariant.webPrice1pc) * 100)}%
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
                 </section>
