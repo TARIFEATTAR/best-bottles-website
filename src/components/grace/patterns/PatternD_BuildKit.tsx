@@ -23,7 +23,10 @@ export interface PatternDBuildKitProps {
 interface KitSlot {
     role: "bottle" | "closure" | "applicator";
     label: string;
-    product: ProductCard | null | undefined;
+    // The slot's product may carry a heroImageUrl (set when payload comes from
+    // the Convex side with hero images attached). Optional because plain
+    // ProductCard payloads don't include it.
+    product: (ProductCard & { heroImageUrl?: string | null }) | null | undefined;
 }
 
 export default function PatternD_BuildKit({
@@ -32,7 +35,7 @@ export default function PatternD_BuildKit({
     onAddKitToCart,
     onAddKitToShortlist,
 }: PatternDBuildKitProps) {
-    const { addToCart } = useCart();
+    const { addItems } = useCart();
 
     const slots: KitSlot[] = [
         { role: "bottle", label: "Bottle", product: payload.bottle },
@@ -53,7 +56,7 @@ export default function PatternD_BuildKit({
             onAddKitToCart(items);
             return;
         }
-        addToCart(
+        addItems(
             items.map((p) => ({
                 graceSku: p.graceSku,
                 itemName: p.itemName,

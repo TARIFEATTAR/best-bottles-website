@@ -30,14 +30,14 @@ export default function GraceCtaRow({
     showPrice = true,
     compact = false,
 }: GraceCtaRowProps) {
-    const { addToCart } = useCart();
+    const { addItems } = useCart();
 
     const handleAdd = () => {
         if (onAddToCart) {
             onAddToCart();
             return;
         }
-        addToCart([
+        addItems([
             {
                 graceSku: product.graceSku,
                 itemName: product.itemName,
