@@ -8,9 +8,19 @@ import { analytics } from "@/lib/analytics";
 
 const MIXPANEL_TOKEN = "ab0478c15b0c8af6cc5eca4d82b2a7ae";
 
-export function MixpanelProvider() {
-  const { userId, isSignedIn } = useAuth();
-  const { user } = useUser();
+function MixpanelProviderBase({
+  userId,
+  isSignedIn,
+  user,
+}: {
+  userId: string | null;
+  isSignedIn: boolean;
+  user: {
+    fullName?: string | null;
+    primaryEmailAddress?: { emailAddress?: string | null } | null;
+    createdAt?: Date | null;
+  } | null;
+}) {
   const { itemCount } = useCart();
   const pathname = usePathname();
   const prevUserIdRef = useRef<string | null>(null);
@@ -53,4 +63,25 @@ export function MixpanelProvider() {
   }, [pathname]);
 
   return null;
+}
+
+function MixpanelProviderWithClerk() {
+  const { userId, isSignedIn } = useAuth();
+  const { user } = useUser();
+
+  return (
+    <MixpanelProviderBase
+      userId={userId ?? null}
+      isSignedIn={!!isSignedIn}
+      user={user ?? null}
+    />
+  );
+}
+
+export function MixpanelProvider({ withClerk = false }: { withClerk?: boolean }) {
+  if (withClerk) {
+    return <MixpanelProviderWithClerk />;
+  }
+
+  return <MixpanelProviderBase userId={null} isSignedIn={false} user={null} />;
 }

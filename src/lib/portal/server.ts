@@ -3,8 +3,14 @@ import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../convex/_generated/api";
+import { CLERK_ENABLED } from "@/lib/clerk";
 
 let convexClient: ConvexHttpClient | null = null;
+
+const DISABLED_VIEWER = {
+    clerkUserId: null,
+    clerkOrgId: null,
+};
 
 function getConvex() {
     if (!convexClient) {
@@ -16,6 +22,10 @@ function getConvex() {
 }
 
 export async function getPortalViewer() {
+    if (!CLERK_ENABLED) {
+        return DISABLED_VIEWER;
+    }
+
     const { userId, orgId } = await auth();
     return {
         clerkUserId: userId ?? null,
@@ -24,6 +34,10 @@ export async function getPortalViewer() {
 }
 
 export async function requirePortalViewer() {
+    if (!CLERK_ENABLED) {
+        throw new Error("Portal auth is disabled.");
+    }
+
     const viewer = await getPortalViewer();
     if (!viewer.clerkUserId) throw new Error("Unauthenticated");
     if (!viewer.clerkOrgId) throw new Error("No active organization selected.");
@@ -55,6 +69,24 @@ export async function getPortalShellData() {
 }
 
 export async function getPortalDashboardData() {
+    if (!CLERK_ENABLED) {
+        return {
+            viewer: DISABLED_VIEWER,
+            account: null,
+            stats: {
+                ytdSpend: 0,
+                activeOrderCount: 0,
+                inTransitCount: 0,
+                unitsInFlight: 0,
+                availableCredit: 0,
+            },
+            activeOrders: [],
+            recentOrders: [],
+            drafts: [],
+            quickReorder: [],
+        };
+    }
+
     const viewer = await requirePortalViewer();
     const dashboard = await getConvex().query(api.portal.getDashboardData, {
         clerkOrgId: viewer.clerkOrgId,
@@ -63,6 +95,10 @@ export async function getPortalDashboardData() {
 }
 
 export async function getPortalOrdersData() {
+    if (!CLERK_ENABLED) {
+        return { viewer: DISABLED_VIEWER, orders: [] };
+    }
+
     const viewer = await requirePortalViewer();
     const orders = await getConvex().query(api.portal.listOrdersByOrg, {
         clerkOrgId: viewer.clerkOrgId,
@@ -71,6 +107,10 @@ export async function getPortalOrdersData() {
 }
 
 export async function getPortalAccountData() {
+    if (!CLERK_ENABLED) {
+        return { viewer: DISABLED_VIEWER, account: null, orders: [] };
+    }
+
     const viewer = await requirePortalViewer();
     const account = await getConvex().query(api.portal.getAccountByOrg, {
         clerkOrgId: viewer.clerkOrgId,
@@ -82,6 +122,10 @@ export async function getPortalAccountData() {
 }
 
 export async function getPortalDraftsData() {
+    if (!CLERK_ENABLED) {
+        return { viewer: DISABLED_VIEWER, drafts: [] };
+    }
+
     const viewer = await requirePortalViewer();
     const drafts = await getConvex().query(api.portal.listDraftsByOrg, {
         clerkOrgId: viewer.clerkOrgId,
@@ -90,6 +134,15 @@ export async function getPortalDraftsData() {
 }
 
 export async function getPortalGraceWorkspace(projectId?: string) {
+    if (!CLERK_ENABLED) {
+        return {
+            viewer: DISABLED_VIEWER,
+            projects: [],
+            activeProject: null,
+            messages: [],
+        };
+    }
+
     const viewer = await requirePortalViewer();
     const workspace = await getConvex().query(api.portal.getGraceWorkspaceByOrg, {
         clerkOrgId: viewer.clerkOrgId,
