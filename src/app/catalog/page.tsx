@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
-    MagnifyingGlass as Search, ArrowRight, X, Package, CaretDown as ChevronDown, CaretUp as ChevronUp,
+    MagnifyingGlass as Search, X, Package, CaretDown as ChevronDown, CaretUp as ChevronUp,
     SlidersHorizontal, ArrowsDownUp as ArrowUpDown, SquaresFour as LayoutGrid, List, Plus, Minus, ShoppingCart, ChatCircle as MessageCircle, Sparkles,
 } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
@@ -178,18 +178,11 @@ function countBy<T>(arr: T[], keyFn: (item: T) => string | null | undefined): Re
 function SkeletonCard() {
     return (
         <div className="flex flex-col h-full bg-white rounded-sm border border-champagne/40 overflow-hidden animate-pulse">
-            <div className="aspect-[4/5] bg-champagne/20 w-full" />
-            <div className="p-5 flex flex-col flex-1 space-y-3">
-                <div className="h-3 w-16 bg-champagne/30 rounded" />
-                <div className="h-5 w-3/4 bg-champagne/30 rounded" />
-                <div className="flex gap-1.5">
-                    <div className="h-4 w-14 bg-champagne/20 rounded-sm" />
-                    <div className="h-4 w-14 bg-champagne/20 rounded-sm" />
-                </div>
-                <div className="mt-auto flex items-end justify-between pt-2">
-                    <div className="h-6 w-20 bg-champagne/30 rounded" />
-                    <div className="h-4 w-16 bg-champagne/20 rounded-sm" />
-                </div>
+            <div className="aspect-[10/11] bg-champagne/20 w-full" />
+            <div className="p-5 flex flex-col flex-1">
+                <div className="h-5 w-3/4 bg-champagne/30 rounded mb-2" />
+                <div className="h-5 w-1/2 bg-champagne/30 rounded mb-3" />
+                <div className="h-6 w-24 bg-champagne/30 rounded mt-auto" />
             </div>
         </div>
     );
@@ -197,7 +190,7 @@ function SkeletonCard() {
 
 function SkeletonGrid() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {Array.from({ length: 12 }).map((_, i) => (
                 <SkeletonCard key={i} />
             ))}
@@ -218,13 +211,13 @@ function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGro
                 transition={{ duration: 0.5, delay: Math.min(index * 0.03, 0.3) }}
                 className="group cursor-pointer flex flex-col h-full bg-white rounded-sm border border-champagne/40 overflow-hidden hover:border-muted-gold hover:shadow-lg transition-all duration-300"
             >
-                <div className="relative aspect-[4/5] bg-travertine w-full overflow-hidden flex items-center justify-center">
+                <div className="relative aspect-[10/11] bg-travertine w-full overflow-hidden flex items-center justify-center">
                     {group.heroImageUrl ? (
                         <Image
                             src={group.heroImageUrl}
                             alt={group.displayName}
                             fill
-                            className="object-cover"
+                            className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                             unoptimized
                         />
@@ -236,53 +229,19 @@ function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGro
                             </p>
                         </div>
                     )}
-                    <div className="absolute inset-0 bg-transparent group-hover:bg-obsidian/5 transition-colors duration-300 pointer-events-none" />
 
-                    <div className="absolute top-3 left-3">
-                        <span className="inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold rounded-full bg-obsidian/80 text-white">
-                            {group.variantCount} variant{group.variantCount !== 1 ? "s" : ""}
-                        </span>
-                    </div>
-
-                    <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-t from-white/95 to-white/60 backdrop-blur-sm border-t border-white/50">
-                        <div className="w-full py-2 bg-obsidian text-white text-[11px] uppercase font-bold tracking-wider text-center hover:bg-muted-gold transition-colors">
-                            Configure <ArrowRight className="inline w-3 h-3 ml-1" />
+                    {group.variantCount > 1 && (
+                        <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                            <span className="inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold rounded-sm bg-obsidian/60 text-white">
+                                {group.variantCount} variants
+                            </span>
                         </div>
-                    </div>
+                    )}
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
-                    <p className="text-[10px] text-slate uppercase tracking-wider font-bold mb-1">{group.category}</p>
-                    <h4 className="font-serif text-lg text-obsidian font-medium mb-2 flex-1 leading-snug">{group.displayName}</h4>
-
-                    {/* Category-specific attributes */}
-                    <div className="flex flex-wrap items-center gap-1.5 mb-3 min-h-[22px]">
-                        {BOTTLE_CATEGORIES.has(group.category) && group.neckThreadSize && (
-                            <span className="text-[10px] text-slate bg-travertine px-1.5 py-0.5 rounded border border-champagne/60 font-medium">
-                                {group.neckThreadSize}
-                            </span>
-                        )}
-                        {COMPONENT_CATEGORIES.has(group.category) && (group.applicatorTypes?.[0]) && (
-                            <span className="text-[10px] text-slate bg-travertine px-1.5 py-0.5 rounded border border-champagne/60 font-medium">
-                                {group.applicatorTypes[0]}
-                            </span>
-                        )}
-                        {group.color && COLOR_SWATCH_MAP[group.color] && (
-                            <span className={`w-3.5 h-3.5 rounded-full shrink-0 ${COLOR_SWATCH_MAP[group.color]}`} title={group.color} />
-                        )}
-                    </div>
-
-                    <div className="flex items-end justify-between mt-auto">
-                        <div className="flex flex-col">
-                            <span className="text-xs text-slate">from</span>
-                            <span className="font-semibold text-obsidian text-lg">{formatPrice(group.priceRangeMin)}/ea</span>
-                        </div>
-                        {group.priceRangeMax && group.priceRangeMax !== group.priceRangeMin && (
-                            <span className="text-[10px] text-slate uppercase font-medium bg-travertine px-2 py-1 rounded-sm border border-champagne">
-                                to {formatPrice(group.priceRangeMax)}
-                            </span>
-                        )}
-                    </div>
+                    <h4 className="font-serif text-lg text-obsidian font-medium leading-snug line-clamp-2 mb-3">{group.displayName}</h4>
+                    <span className="font-semibold text-obsidian text-lg mt-auto">from {formatPrice(group.priceRangeMin)}/ea</span>
                 </div>
             </motion.div>
         </Link>
@@ -1483,7 +1442,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         <main className="min-h-screen bg-warm-white pt-[160px] lg:pt-[120px]">
             <Navbar variant="catalog" initialSearchValue={filters.search || undefined} />
 
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
+            <div className="max-w-[1720px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
 
                 {/* Catalog Header */}
                 <div className="mb-4 sm:mb-12 border-b border-champagne/50 pb-4 sm:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-6">
@@ -1644,7 +1603,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     )}
                 </AnimatePresence>
 
-                <div className="flex flex-col lg:flex-row items-start lg:space-x-12">
+                <div className="flex flex-col lg:flex-row items-start lg:space-x-6">
 
                     {/* Desktop Sidebar */}
                     <aside className="hidden lg:block w-72 shrink-0 sticky top-[120px] max-h-[calc(100vh-140px)] overflow-y-auto hide-scroll pb-12 bg-parchment/30 rounded-xl px-4 pt-4">
@@ -1661,7 +1620,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     </aside>
 
                     {/* Product Grid Content */}
-                    <div className="flex-1 w-full pb-32 border-l-0 lg:border-l border-champagne/30 lg:pl-12">
+                    <div className="flex-1 min-w-0 w-full pb-32 border-l-0 lg:border-l border-champagne/30 lg:pl-6">
 
                         {/* Family banner — shown when a single design family is filtered */}
                         {filters.families.length === 1 && !filters.search && (
@@ -1821,7 +1780,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
                         {/* Product Display — Visual Grid or Line Items */}
                         {visibleProducts.length > 0 && viewMode === "visual" && (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                                 {visibleProducts.map((group: CatalogGroup, pIndex: number) => (
                                     <ProductGroupCard
                                         key={group._id}
@@ -1903,7 +1862,7 @@ export default function CatalogPage() {
         <Suspense
             fallback={
                 <main className="min-h-screen bg-warm-white pt-[160px] lg:pt-[120px]">
-                    <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
+                    <div className="max-w-[1720px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
                         <div className="mb-4 sm:mb-12 border-b border-champagne/50 pb-4 sm:pb-8">
                             <div className="h-10 w-64 bg-champagne/30 rounded animate-pulse mb-3" />
                             <div className="h-4 w-96 max-w-full bg-champagne/20 rounded animate-pulse" />
