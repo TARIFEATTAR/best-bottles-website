@@ -41,6 +41,98 @@ export interface KitItem {
     product: ProductCard;
 }
 
+/** A bottle family aggregate (Pattern B / L). Mirrors the shape Convex returns from `getFamilyOverview` + group rollups. */
+export interface FamilyCardPayload {
+    family: string;
+    tagline?: string;
+    heroImageUrl?: string | null;
+    /** All variants in the family. Each one maps to a `ProductCard`. */
+    variants: Array<ProductCard & { capacityMl?: number | null; heroImageUrl?: string | null }>;
+    /** Default variant graceSku — drives initial selection on the variant pill row. */
+    defaultGraceSku?: string;
+    threadSizes?: string[];
+    /** Family-level price floor, surfaced on the card header. */
+    priceFromCents?: number | null;
+}
+
+/** Compatibility tray (Pattern C). One row of fitment-verified components for a given bottle. */
+export interface CompatibilityPayload {
+    bottle: ProductCard;
+    threadSize: string;
+    components: Array<ProductCard & {
+        componentType?: string;
+        heroImageUrl?: string | null;
+        fitmentVerified?: boolean;
+    }>;
+}
+
+/** Build-a-kit (Pattern D). Three slots — bottle, closure, applicator — each swappable. */
+export interface BuildKitPayload {
+    bottle: ProductCard;
+    closure?: ProductCard | null;
+    applicator?: ProductCard | null;
+    /** Per-row swap candidates the user can pick from. Indexed by role. */
+    alternatives?: {
+        bottle?: ProductCard[];
+        closure?: ProductCard[];
+        applicator?: ProductCard[];
+    };
+    subtotalCents?: number | null;
+}
+
+/** Anatomical bottle view (Pattern E). Pin labels overlay the hero image. */
+export interface AnatomyPayload {
+    product: ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null };
+    pins: Array<{
+        /** 0-1 ratios relative to the image box. */
+        x: number;
+        y: number;
+        label: string;
+        value?: string;
+    }>;
+}
+
+/** Deep spec comparison (Pattern F). True-scale toggle handled by the same payload via `dimensions`. */
+export interface ComparisonPayload {
+    products: Array<ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null; heightMm?: number | null }>;
+    /** Optional rendering hints — `"trueScale"` flips Pattern F into Pattern G. */
+    dimensions?: Array<"trueScale" | "spec">;
+}
+
+/** Catalog discovery strip (Pattern L). 37-family overview with category chips. */
+export interface CatalogStripPayload {
+    families: Array<{
+        family: string;
+        heroImageUrl?: string | null;
+        variantCount: number;
+    }>;
+    activeCategory?: string;
+    categories: string[];
+}
+
+/** Shortlist build + share (Pattern J). */
+export interface ShortlistPayload {
+    shortlistId: string;
+    items: Array<ProductCard & { heroImageUrl?: string | null }>;
+    shareUrl?: string;
+    expiresAt?: number;
+}
+
+/** Reference image match (Pattern H). Stub-friendly: matches array can be empty during processing. */
+export interface ReferenceMatchPayload {
+    referenceUrl: string;
+    description?: string;
+    matches: Array<ProductCard & { heroImageUrl?: string | null; reasoning?: string }>;
+}
+
+/** Brand mockup (Pattern I). v1 stub renders the bottle with the logo as a translucent decal. */
+export interface BrandMockupPayload {
+    product: ProductCard & { heroImageUrl?: string | null };
+    logoUrl: string;
+    /** Optional finish refinement chosen by the user. */
+    capFinish?: string;
+}
+
 export type GraceAction =
     | { type: "showProducts"; products: ProductCard[] }
     | { type: "compareProducts"; products: ProductCard[] }
@@ -48,13 +140,38 @@ export type GraceAction =
     | { type: "buildKit"; items: KitItem[]; totalPrice?: number }
     | { type: "proposeCartAdd"; products: Array<ProductCard & { quantity: number }>; awaitingConfirmation: boolean }
     | { type: "navigateToPage"; path: string; title: string; description?: string; autoNavigate?: boolean }
-    | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> };
+    | { type: "prefillForm"; formType: "sample" | "quote" | "contact" | "newsletter"; fields: Record<string, string> }
+    /* ── v3 inline display actions (PRD patterns A–L) ─── */
+    | { type: "displayProductCard"; product: ProductCard & { heroImageUrl?: string | null } }
+    | { type: "displayFamilyCard"; payload: FamilyCardPayload }
+    | { type: "displayCompatibility"; payload: CompatibilityPayload }
+    | { type: "displayBuildKit"; payload: BuildKitPayload }
+    | { type: "displayAnatomy"; payload: AnatomyPayload }
+    | { type: "displayComparison"; payload: ComparisonPayload }
+    | { type: "displayCatalogStrip"; payload: CatalogStripPayload }
+    | { type: "displayShortlist"; payload: ShortlistPayload }
+    | { type: "displayReferenceMatch"; payload: ReferenceMatchPayload }
+    | { type: "displayBrandMockup"; payload: BrandMockupPayload };
+
+/** A user-uploaded file attached to the conversation (PRD state 17 + Patterns H, I). */
+export interface GraceAttachment {
+    id: string;
+    name: string;
+    mime: string;
+    size: number;
+    /** Convex storage URL once uploaded. Undefined while still uploading. */
+    url?: string;
+    kind?: "reference" | "logo";
+}
 
 export interface GraceMessage {
     role: "user" | "grace";
     content: string;
     id: string;
     action?: GraceAction;
+    /** Pinned voice notes (Pattern K). Renders with a 2px gold left border. */
+    pinned?: boolean;
+    attachments?: GraceAttachment[];
 }
 
 export type PanelMode = "closed" | "strip" | "open";
@@ -133,11 +250,28 @@ export interface ActiveForm {
 
 // ─── Full context shape ───────────────────────────────────────────────────────
 
+/** Contextual tooltip shown beside the floating launcher when Grace
+ * auto-minimizes during navigation (e.g. "I narrowed the catalog for you").
+ * Auto-clears after `expiresAt`. */
+export interface LauncherTooltip {
+    message: string;
+    expiresAt: number;
+}
+
 export interface GraceContextValue {
     panelMode: PanelMode;
     openPanel: () => void;
     closePanel: () => void;
     minimizeToStrip: () => void;
+    /** Tooltip currently displayed beside the launcher disc, or null. */
+    launcherTooltip: LauncherTooltip | null;
+    /** Called by clientTools when Grace navigates the user; auto-minimizes the drawer
+     * and parks a brief contextual hint beside the launcher for ~3 seconds. */
+    minimizeWithTooltip: (message: string) => void;
+    /** Append a message + optional action directly to the conversation,
+     * bypassing ElevenLabs. Used by client-side flows like image-upload
+     * vision analysis that don't need round-trip narration. */
+    appendInlineMessage: (msg: { role: "user" | "grace"; content: string; action?: GraceAction; attachments?: GraceAttachment[] }) => void;
     isOpen: boolean;
     open: () => void;
     close: () => void;
@@ -186,6 +320,9 @@ const GRACE_NOOP: GraceContextValue = {
     openPanel: NOOP,
     closePanel: NOOP,
     minimizeToStrip: NOOP,
+    launcherTooltip: null,
+    minimizeWithTooltip: NOOP,
+    appendInlineMessage: NOOP,
     isOpen: false,
     open: NOOP,
     close: NOOP,

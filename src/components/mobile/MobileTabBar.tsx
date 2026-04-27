@@ -39,6 +39,9 @@ export default function MobileTabBar() {
     const [showGraceTooltip, setShowGraceTooltip] = useState(false);
     const [mounted, setMounted] = useState(false);
 
+    // Routes that own the entire viewport — tab bar would compete for space.
+    const hideTabBar = pathname.startsWith("/grace-workspace");
+
     useEffect(() => {
         setMounted(true); // eslint-disable-line react-hooks/set-state-in-effect -- hydration guard
         if (typeof window !== "undefined" && !localStorage.getItem(GRACE_TAB_ONBOARDING_KEY)) {
@@ -75,6 +78,8 @@ export default function MobileTabBar() {
         if (tab.href === "/") return pathname === "/";
         return pathname.startsWith(tab.href);
     }
+
+    if (hideTabBar) return null;
 
     return (
         <nav

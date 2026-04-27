@@ -156,6 +156,162 @@ export async function POST(req: NextRequest) {
                 break;
             }
 
+            case "getProductBySku": {
+                // Used by the new `displayProductCard` clientTool. Returns the
+                // slim ProductCard shape the inline card components consume.
+                const sku = (parameters.graceSku as string)
+                    ?? (parameters.websiteSku as string)
+                    ?? (parameters.sku as string)
+                    ?? "";
+                if (!sku) {
+                    result = null;
+                    break;
+                }
+                const data = await convex.query(api.products.getBySku, { graceSku: sku });
+                if (!data) {
+                    result = null;
+                } else {
+                    result = {
+                        graceSku: data.graceSku,
+                        itemName: data.itemName,
+                        family: data.family,
+                        capacity: data.capacity,
+                        capacityMl: data.capacityMl,
+                        color: data.color,
+                        applicator: data.applicator,
+                        capColor: data.capColor,
+                        neckThreadSize: data.neckThreadSize,
+                        webPrice1pc: data.webPrice1pc,
+                        webPrice12pc: data.webPrice12pc,
+                        // Hero image from product group (catalog renders this);
+                        // fall back to per-product imageUrl when group hero missing.
+                        heroImageUrl: data.imageUrl ?? null,
+                    };
+                }
+                break;
+            }
+
+            case "getFamilyForCard": {
+                // Pattern B — full family payload: variants + thread sizes + tagline.
+                // Primary path uses cached `primaryGraceSku` on each group; when
+                // the backfill hasn't populated those, falls back to searchCatalog
+                // (which returns real variants with graceSku + slug).
+                const family = (parameters.family as string) ?? "";
+                if (!family) { result = null; break; }
+                const groups = await convex.query(api.products.getProductGroupsByFamily, { family });
+                const overview = await convex.query(api.grace.getFamilyOverview, { family });
+                let variants = (groups ?? [])
+                    .filter((g) => g.primaryGraceSku)
+                    .map((g) => ({
+                        graceSku: g.primaryGraceSku as string,
+                        itemName: g.displayName,
+                        family: g.family,
+                        capacity: g.capacity,
+                        capacityMl: g.capacityMl,
+                        color: g.color,
+                        neckThreadSize: g.neckThreadSize,
+                        webPrice1pc: g.priceRangeMin,
+                        slug: g.slug,
+                        heroImageUrl: g.heroImageUrl ?? null,
+                    }));
+
+                // Fallback: groups missing primaryGraceSku — search the catalog
+                // and dedupe by capacityMl so we still get one variant per size.
+                if (variants.length === 0) {
+                    const search = await convex.query(api.grace.searchCatalog, {
+                        searchTerm: family,
+                        familyLimit: family,
+                    });
+                    const seen = new Set<string | number>();
+                    variants = (Array.isArray(search) ? search : [])
+                        .filter((p) => {
+                            const key = p.capacityMl ?? p.capacity ?? p.graceSku;
+                            if (seen.has(key)) return false;
+                            seen.add(key);
+                            return true;
+                        })
+                        .slice(0, 8)
+                        .map((p) => ({
+                            graceSku: p.graceSku,
+                            itemName: p.itemName,
+                            family: p.family,
+                            capacity: p.capacity,
+                            capacityMl: p.capacityMl,
+                            color: p.color,
+                            neckThreadSize: p.neckThreadSize,
+                            webPrice1pc: p.webPrice1pc,
+                            slug: p.slug,
+                            heroImageUrl: null,
+                        }));
+                }
+
+                result = {
+                    family,
+                    tagline: overview && typeof overview === "object" && "graceHint" in overview
+                        ? String((overview as { graceHint?: string }).graceHint ?? "")
+                        : "",
+                    variants,
+                    defaultGraceSku: variants[0]?.graceSku,
+                    threadSizes: overview && typeof overview === "object" && "threadSizes" in overview
+                        ? ((overview as { threadSizes?: string[] }).threadSizes ?? [])
+                        : [],
+                    priceFromCents: variants.length
+                        ? Math.round((Math.min(...variants.map((v) => v.webPrice1pc ?? Infinity).filter((n) => Number.isFinite(n))) || 0) * 100)
+                        : null,
+                };
+                break;
+            }
+
+            case "getCatalogStrip": {
+                // Pattern L — every family group with hero image, capped at 60.
+                const groups = await convex.query(api.products.getAllCatalogGroups, {});
+                const seenFamilies = new Set<string>();
+                const families: Array<{ family: string; heroImageUrl: string | null; variantCount: number }> = [];
+                for (const g of (groups ?? [])) {
+                    if (!g.family || seenFamilies.has(g.family)) continue;
+                    seenFamilies.add(g.family);
+                    families.push({
+                        family: g.family,
+                        heroImageUrl: g.heroImageUrl ?? null,
+                        variantCount: g.variantCount ?? 0,
+                    });
+                    if (families.length >= 60) break;
+                }
+                result = {
+                    families,
+                    activeCategory: parameters.category ?? null,
+                    categories: ["Roller balls", "Atomizers", "Droppers", "Sprayers", "Apothecary", "Decorative"],
+                };
+                break;
+            }
+
+            case "getProductsForComparison": {
+                // Pattern F — fetch N SKUs in parallel for the comparison table.
+                const skus = (parameters.graceSkus as string[]) ?? [];
+                const fetched = await Promise.all(
+                    skus.map((sku) =>
+                        convex.query(api.products.getBySku, { graceSku: sku }).catch(() => null),
+                    ),
+                );
+                result = fetched
+                    .filter((p): p is NonNullable<typeof p> => !!p)
+                    .map((p) => ({
+                        graceSku: p.graceSku,
+                        itemName: p.itemName,
+                        family: p.family,
+                        capacity: p.capacity,
+                        capacityMl: p.capacityMl,
+                        color: p.color,
+                        applicator: p.applicator,
+                        neckThreadSize: p.neckThreadSize,
+                        webPrice1pc: p.webPrice1pc,
+                        webPrice12pc: p.webPrice12pc,
+                        heroImageUrl: p.imageUrl ?? null,
+                        heightMm: null,
+                    }));
+                break;
+            }
+
             default:
                 return NextResponse.json(
                     { error: `Unknown tool: ${tool_name}` },

@@ -8,7 +8,6 @@ import {
     MagnifyingGlass, User, ShoppingBag, CaretDown, List, X,
     Sparkle, Flask, Diamond, ArrowRight,
 } from "@/components/icons";
-import { useGrace } from "@/components/useGrace";
 import { useCart } from "@/components/CartProvider";
 import CartDrawer from "./CartDrawer";
 import { useMegaMenuPanels } from "./SanityMegaMenuProvider";
@@ -202,7 +201,7 @@ const NAV_LINKS: Record<string, NavLinkDef[]> = {
 
 export default function Navbar({ variant = "home", initialSearchValue }: NavbarProps) {
     const router = useRouter();
-    const { openPanel, isOpen: graceActive } = useGrace();
+    // Grace trigger moved to the floating launcher; useGrace no longer needed here.
     const { itemCount, isCartHydrated } = useCart();
     const megaMenuPanels = useMegaMenuPanels();
     const [cartOpen, setCartOpen] = useState(false);
@@ -536,27 +535,10 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         </form>
                         <div className="hidden lg:flex flex-1" />
                         <div className="flex items-center justify-end space-x-2 shrink-0 ml-auto lg:ml-0">
-                            <button
-                                onClick={openPanel}
-                                aria-label="Grace AI"
-                                title="Chat with Grace — AI Bottling Specialist"
-                                className={`flex items-center space-x-2 text-sm font-medium px-3 py-2 rounded-xl border transition-all duration-200 cursor-pointer ${graceActive
-                                    ? "bg-obsidian text-bone border-obsidian shadow-md"
-                                    : "bg-white text-obsidian border-champagne hover:border-muted-gold shadow-sm"
-                                    }`}
-                            >
-                                {graceActive ? (
-                                    <span className="grace-voice-bars grace-voice-bars--light shrink-0" aria-hidden="true">
-                                        <span /><span /><span /><span />
-                                    </span>
-                                ) : (
-                                    <span className="grace-voice-bars shrink-0" aria-hidden="true">
-                                        <span /><span /><span /><span />
-                                    </span>
-                                )}
-                                <span className="lg:hidden">Ask Grace AI</span>
-                                <span className="hidden lg:inline">Ask Grace AI</span>
-                            </button>
+                            {/* Grace AI trigger removed from navbar in v3 — Grace now opens
+                                via the floating bottom-right launcher (GraceLauncher.tsx)
+                                so the entry point matches the PRD's collapsed-launcher spec.
+                                Mobile keeps the tab-bar Grace button, PDPs keep PdpGraceTrigger. */}
 
                             <Link href="/sign-in" aria-label="Account" className="hidden lg:flex items-center p-2 hover:text-muted-gold transition-colors">
                                 <User className="text-obsidian" size={20} />
