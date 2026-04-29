@@ -123,6 +123,17 @@ export default defineSchema({
         itemName: v.string(),
         itemDescription: v.union(v.string(), v.null()),
         imageUrl: v.optional(v.union(v.string(), v.null())),
+        // Secondary gallery view (cap removed, applicator/dropper/sprayer exposed).
+        // Optional and orthogonal to imageUrl — any combination is valid:
+        //   both set                → PDP gallery shows two thumbnails (primary + cap-off)
+        //   imageUrl only           → single-image PDP, catalog card uses imageUrl
+        //   imageUrlCapOff only     → primary stays null; PDP uses cap-off as the only view
+        //   neither                 → "Photography coming soon" placeholder
+        // Populated by Madison's push-bestbottles-grid-hero (mode=cap-off) and the
+        // bulk PSD push pipeline. Superseded by paperDollFamily layered configurator
+        // when group.paperDollFamilyKey is set, but kept as a static gallery
+        // alongside paper-doll for editorial/lifestyle views (Phase 2).
+        imageUrlCapOff: v.optional(v.union(v.string(), v.null())),
         productUrl: v.union(v.string(), v.null()),
         dataGrade: v.union(v.string(), v.null()),
         bottleCollection: v.union(v.string(), v.null()),
