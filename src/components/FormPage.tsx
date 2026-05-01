@@ -37,6 +37,7 @@ export default function FormPage({ formType, title, subtitle, fields }: FormPage
     });
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
     const [errorMsg, setErrorMsg] = useState("");
+    const hasQuoteContext = formType === "quote" && !!(values.products || values.quantities);
 
     // React to URL searchParam changes (e.g. when Grace navigates to this page with pre-filled params)
     useEffect(() => {
@@ -88,6 +89,44 @@ export default function FormPage({ formType, title, subtitle, fields }: FormPage
         }
     };
 
+    const renderField = (field: FormField) => (
+        <div key={field.name}>
+            <label
+                htmlFor={field.name}
+                className="block text-xs font-bold uppercase tracking-wider text-obsidian/70 mb-1.5"
+            >
+                {field.label}
+                {field.required && <span className="text-red-500 ml-0.5">*</span>}
+            </label>
+            {field.type === "textarea" ? (
+                <textarea
+                    id={field.name}
+                    name={field.name}
+                    required={field.required}
+                    placeholder={field.placeholder}
+                    value={values[field.name] ?? ""}
+                    onChange={(e) => setValues((v) => ({ ...v, [field.name]: e.target.value }))}
+                    rows={4}
+                    className="w-full bg-white border border-champagne/60 rounded-lg px-4 py-3 text-sm text-obsidian placeholder-slate/40 focus:outline-none focus:border-muted-gold focus:ring-2 focus:ring-muted-gold/15 transition-all resize-none"
+                />
+            ) : (
+                <input
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    required={field.required}
+                    placeholder={field.placeholder}
+                    value={values[field.name] ?? ""}
+                    onChange={(e) => setValues((v) => ({ ...v, [field.name]: e.target.value }))}
+                    className="w-full bg-white border border-champagne/60 rounded-lg px-4 py-3 text-sm text-obsidian placeholder-slate/40 focus:outline-none focus:border-muted-gold focus:ring-2 focus:ring-muted-gold/15 transition-all"
+                />
+            )}
+        </div>
+    );
+
+    const quoteFields = fields.filter((field) => field.name === "products" || field.name === "quantities");
+    const contactFields = fields.filter((field) => field.name !== "products" && field.name !== "quantities");
+
     if (status === "success") {
         return (
             <div className="min-h-screen bg-bone flex items-center justify-center px-6">
@@ -130,40 +169,35 @@ export default function FormPage({ formType, title, subtitle, fields }: FormPage
                 <p className="text-slate text-sm leading-relaxed mb-10 max-w-md">{subtitle}</p>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                    {fields.map((field) => (
-                        <div key={field.name}>
-                            <label
-                                htmlFor={field.name}
-                                className="block text-xs font-bold uppercase tracking-wider text-obsidian/70 mb-1.5"
-                            >
-                                {field.label}
-                                {field.required && <span className="text-red-500 ml-0.5">*</span>}
-                            </label>
-                            {field.type === "textarea" ? (
-                                <textarea
-                                    id={field.name}
-                                    name={field.name}
-                                    required={field.required}
-                                    placeholder={field.placeholder}
-                                    value={values[field.name] ?? ""}
-                                    onChange={(e) => setValues((v) => ({ ...v, [field.name]: e.target.value }))}
-                                    rows={4}
-                                    className="w-full bg-white border border-champagne/60 rounded-lg px-4 py-3 text-sm text-obsidian placeholder-slate/40 focus:outline-none focus:border-muted-gold focus:ring-2 focus:ring-muted-gold/15 transition-all resize-none"
-                                />
-                            ) : (
-                                <input
-                                    id={field.name}
-                                    name={field.name}
-                                    type={field.type}
-                                    required={field.required}
-                                    placeholder={field.placeholder}
-                                    value={values[field.name] ?? ""}
-                                    onChange={(e) => setValues((v) => ({ ...v, [field.name]: e.target.value }))}
-                                    className="w-full bg-white border border-champagne/60 rounded-lg px-4 py-3 text-sm text-obsidian placeholder-slate/40 focus:outline-none focus:border-muted-gold focus:ring-2 focus:ring-muted-gold/15 transition-all"
-                                />
-                            )}
-                        </div>
-                    ))}
+                    {formType === "quote" ? (
+                        <>
+                            <section className="rounded-lg border border-champagne/60 bg-white px-4 py-4">
+                                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-gold mb-1">
+                                    Quote Review
+                                </p>
+                                <h2 className="font-serif text-xl text-obsidian mb-2">Confirm products and quantities</h2>
+                                <p className="text-xs text-slate leading-relaxed mb-5">
+                                    {hasQuoteContext
+                                        ? "We carried over your product details. Edit anything here before sending the request."
+                                        : "Add the products, SKUs, finishes, and quantities you want priced."}
+                                </p>
+                                <div className="space-y-5">
+                                    {quoteFields.map(renderField)}
+                                </div>
+                            </section>
+
+                            <section className="pt-4">
+                                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-gold mb-4">
+                                    Contact Details
+                                </p>
+                                <div className="space-y-5">
+                                    {contactFields.map(renderField)}
+                                </div>
+                            </section>
+                        </>
+                    ) : (
+                        fields.map(renderField)
+                    )}
 
                     {status === "error" && errorMsg && (
                         <div className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3">

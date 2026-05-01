@@ -27,7 +27,7 @@ const TABS: Tab[] = [
     { key: "catalog", label: "Catalog", icon: GridFour, href: "/catalog" },
     { key: "cart", label: "Cart", icon: ShoppingBag, action: "cart" },
     { key: "grace", label: "Ask Grace AI", icon: Microphone, action: "grace" },
-    { key: "account", label: "Account", icon: User, href: "/account" },
+    { key: "account", label: "Account", icon: User, href: "/sign-in" },
 ];
 
 // ─── Component ───────────────────────────────────────────────────────────────

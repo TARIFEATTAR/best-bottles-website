@@ -637,6 +637,11 @@ export const updateProductGroupHeroImage = internalMutation({
  * Public mutation called by Madison Studio's publish edge function after
  * uploading a per-SKU marketing image to Sanity. Patches products.imageUrl
  * for the matching websiteSku.
+ *
+ * Single-field convenience wrapper. For multi-view writes (cap-on + cap-off)
+ * use `setVariantImages` below — it supports both fields in a single call
+ * and propagates the primary view to the productGroup's heroImageUrl when
+ * the SKU is the group's primaryWebsiteSku.
  */
 export const setImageUrl = mutation({
     args: {
@@ -653,6 +658,89 @@ export const setImageUrl = mutation({
         }
         await ctx.db.patch(product._id, { imageUrl: args.imageUrl });
         return { success: true, websiteSku: args.websiteSku };
+    },
+});
+
+/**
+ * Variant-aware image patcher — patches either or both views in one call.
+ *
+ * Used by:
+ *   - Madison's push-bestbottles-grid-hero edge function (variant-mode call)
+ *   - The bulk PSD push pipeline (`scripts/04-push-heroes.ts`), which iterates
+ *     a `renders/heroes/{cap-on,cap-off}/{websiteSku}.png` folder pair.
+ *
+ * Behavior:
+ *   - imageUrl       → patches products.imageUrl (the primary/cover view).
+ *                      If this SKU is its productGroup's primaryWebsiteSku,
+ *                      the group's heroImageUrl is ALSO patched so the
+ *                      catalog grid card mirrors the new primary.
+ *   - imageUrlCapOff → patches products.imageUrlCapOff (gallery secondary).
+ *                      Never propagates to the group — catalog cards always
+ *                      show the primary view, never the cap-off detail.
+ *
+ * At least one of the two image fields must be provided; passing neither
+ * returns `{ success: false, error: "no_image_provided" }` without writes.
+ *
+ * Sparse patch semantics — a cap-off-only call does NOT clobber a previously
+ * set imageUrl, and vice versa. Idempotent across re-runs. Safe to bulk-call
+ * across thousands of SKUs from the push pipeline.
+ */
+export const setVariantImages = mutation({
+    args: {
+        websiteSku: v.string(),
+        imageUrl: v.optional(v.string()),
+        imageUrlCapOff: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        if (!args.imageUrl && !args.imageUrlCapOff) {
+            return {
+                success: false,
+                websiteSku: args.websiteSku,
+                error: "no_image_provided" as const,
+            };
+        }
+
+        const product = await ctx.db
+            .query("products")
+            .withIndex("by_websiteSku", (q) => q.eq("websiteSku", args.websiteSku))
+            .first();
+
+        if (!product) {
+            return {
+                success: false,
+                websiteSku: args.websiteSku,
+                error: "not_found" as const,
+            };
+        }
+
+        // Build a sparse patch — only fields the caller actually passed.
+        // Convex patch semantics: omitted keys are left untouched.
+        const variantPatch: { imageUrl?: string; imageUrlCapOff?: string } = {};
+        if (args.imageUrl) variantPatch.imageUrl = args.imageUrl;
+        if (args.imageUrlCapOff) variantPatch.imageUrlCapOff = args.imageUrlCapOff;
+        await ctx.db.patch(product._id, variantPatch);
+
+        // Propagate the primary view to the group's heroImageUrl when this
+        // SKU is the group's designated primary. Skipped for cap-off-only
+        // writes — the catalog grid card never renders the cap-off view.
+        let groupAlsoUpdated = false;
+        if (args.imageUrl && product.productGroupId) {
+            const group = await ctx.db.get(product.productGroupId);
+            if (group && group.primaryWebsiteSku === args.websiteSku) {
+                await ctx.db.patch(group._id, { heroImageUrl: args.imageUrl });
+                groupAlsoUpdated = true;
+            }
+        }
+
+        return {
+            success: true,
+            websiteSku: args.websiteSku,
+            patched: {
+                imageUrl: !!args.imageUrl,
+                imageUrlCapOff: !!args.imageUrlCapOff,
+            },
+            groupAlsoUpdated,
+        };
     },
 });
 

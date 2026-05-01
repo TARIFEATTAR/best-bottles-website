@@ -13,7 +13,6 @@ import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import Navbar from "@/components/Navbar";
 import FitmentDrawer from "@/components/FitmentDrawer";
-import PdpGraceTrigger from "@/components/PdpGraceTrigger";
 import { useCart } from "@/components/CartProvider";
 import { APPLICATOR_BUCKETS } from "@/lib/catalogFilters";
 import { client, isSanityConfigured } from "@/sanity/lib/client";
@@ -24,6 +23,7 @@ import {
     type PdpBlock,
 } from "@/components/PdpBlocks";
 import PaperDollImage from "@/components/PaperDollImage";
+import ProductImageGallery, { type GalleryImage } from "@/components/products/ProductImageGallery";
 import { analytics } from "@/lib/analytics";
 import { SITE_URL, buildProductJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 
@@ -198,12 +198,17 @@ function getCapFinishFromComponent(comp: ProductComponent): { label: string; swa
     return { label: "Cap Option", swatchName: "Standard" };
 }
 
-// Swatch hex values for trim/cap finish names
+// Swatch hex values for trim/cap finish names.
+// When adding new entries: also update LIGHT_SWATCHES below if the color is
+// pale enough that a white check icon would disappear (use dark check instead).
 const COLOR_SWATCH: Record<string, string> = {
+    // ── Base finishes ───────────────────────────────────────────────
     "Matte Gold": "#C5A065",
     "Shiny Gold": "#D4AF37",
+    "Gold": "#D4AF37",
     "Matte Silver": "#ADADAD",
     "Shiny Silver": "#C8C8C8",
+    "Silver": "#C8C8C8",
     "Black": "#1D1D1F",
     "Matte Black": "#2D2D2D",
     "Shiny Black": "#0D0D0D",
@@ -226,10 +231,148 @@ const COLOR_SWATCH: Record<string, string> = {
     "Black with Dots": "#1D1D1F",
     "Pink with Dots": "#F4A7B9",
     "Silver with Dots": "#C8C8C8",
+
+    // ── Spray (Vintage Bulb Sprayer / Antique Spray) prefixed labels ─
+    "Spray Black": "#1D1D1F",
+    "Spray White": "#F5F5F0",
+    "Spray Red": "#C41E3A",
+    "Spray Pink": "#F4A7B9",
+    "Spray Lavender": "#E6E6FA",
+    "Spray Gold": "#D4AF37",
+    "Spray Shiny Gold": "#D4AF37",
+    "Spray Matte Gold": "#C5A065",
+    "Spray Silver": "#C8C8C8",
+    "Spray Shiny Silver": "#C8C8C8",
+    "Spray Matte Silver": "#ADADAD",
+    "Spray Ivory Gold": "#D4AF37",
+    "Spray Ivory Silver": "#C8C8C8",
+    "Spray Copper": "#B87333",
+
+    // ── Screw Cap (Reducer / Cap-Closure) prefixed labels ───────────
+    "Screw Cap Black": "#1D1D1F",
+    "Screw Cap Shiny Black": "#0D0D0D",
+    "Screw Cap Matte Black": "#2D2D2D",
+    "Screw Cap White": "#F5F5F0",
+    "Screw Cap Gold": "#D4AF37",
+    "Screw Cap Shiny Gold": "#D4AF37",
+    "Screw Cap Matte Gold": "#C5A065",
+    "Screw Cap Silver": "#C8C8C8",
+    "Screw Cap Shiny Silver": "#C8C8C8",
+    "Screw Cap Matte Silver": "#ADADAD",
+    "Screw Cap Ivory Gold": "#D4AF37",
+    "Screw Cap Ivory Silver": "#C8C8C8",
+    "Screw Cap Copper": "#B87333",
+
+    // ── Reducer leather wraps ───────────────────────────────────────
+    "Black Leather": "#2A1F18",
+    "Brown Leather": "#7A4A2B",
+    "Light Brown Leather": "#B58356",
+    "Ivory Leather": "#E8DCC4",
+    "Pink Leather": "#D9A6A0",
+
+    // ── Lotion Pump prefixed labels ─────────────────────────────────
+    "Lotion Pump Shiny Black": "#0D0D0D",
+    "Lotion Pump Matte Black": "#2D2D2D",
+    "Lotion Pump Shiny Gold": "#D4AF37",
+    "Lotion Pump Matte Gold": "#C5A065",
+    "Lotion Pump Shiny Silver": "#C8C8C8",
+    "Lotion Pump Matte Silver": "#ADADAD",
+    "Lotion Pump Copper": "#B87333",
+    "Lotion Pump Clear Overcap": "#E8E8E8",
+    "Lotion Pump White Clear Overcap": "#F0EAE0",
+
+    // ── Roller / Roll-on prefixed labels ────────────────────────────
+    "Roller Black": "#1D1D1F",
+    "Roller Shiny Black": "#0D0D0D",
+    "Roller Matte Black": "#2D2D2D",
+    "Roller White": "#F5F5F0",
+    "Roller Shiny Gold": "#D4AF37",
+    "Roller Matte Gold": "#C5A065",
+    "Roller Shiny Silver": "#C8C8C8",
+    "Roller Matte Silver": "#ADADAD",
+    "Roller Copper": "#B87333",
+
+    // ── Dropper prefixed labels ─────────────────────────────────────
+    "Dropper Shiny Black": "#0D0D0D",
+    "Dropper Shiny Gold": "#D4AF37",
+    "Dropper Shiny Silver": "#C8C8C8",
+    "Dropper Matte Silver": "#ADADAD",
+    "Dropper Copper": "#B87333",
+    "Dropper White": "#F5F5F0",
+    "Dropper Black": "#1D1D1F",
 };
 
-// Light swatches that need a dark checkmark
-const LIGHT_SWATCHES = new Set(["White", "Short White", "Shiny Silver", "Matte Silver", "Silver with Dots", "Standard", "Pink", "Pink with Dots", "Rose Gold", "Lavender", "Ivory Gold", "Ivory Silver"]);
+/**
+ * Resolve a swatch hex by trying exact match first, then stripping common
+ * applicator prefixes ("Spray ", "Screw Cap ", "Lotion Pump ", "Roller ",
+ * "Dropper ") and looking up the remainder. Catches new compound labels
+ * without needing every permutation in the static table above.
+ *
+ * Falls back to GLASS_COLOR_SWATCH (since some products use a single field
+ * for both glass and cap), then to a neutral gray.
+ */
+const SWATCH_PREFIX_PATTERNS = [
+    /^Spray\s+/i,
+    /^Screw\s+Cap\s+/i,
+    /^Lotion\s+Pump\s+/i,
+    /^Perfume\s+(Spray\s+)?Pump\s+/i,
+    /^Roller\s+/i,
+    /^Roll[-\s]On\s+/i,
+    /^Dropper\s+/i,
+    /^Atomizer\s+/i,
+    /^Reducer\s+/i,
+    /^Vintage\s+Bulb\s+Sprayer(\s+with\s+Tassel)?\s+/i,
+    /^Antique\s+Spray(\s+Tassel)?\s+/i,
+    /^Cap[/\s]*Closure\s+/i,
+    /\s+Tall$/i,
+];
+function resolveSwatchHex(label: string | null | undefined): string {
+    if (!label) return "#AAAAAA";
+    if (COLOR_SWATCH[label]) return COLOR_SWATCH[label];
+    let trimmed = label;
+    for (const pat of SWATCH_PREFIX_PATTERNS) {
+        const next = trimmed.replace(pat, "").trim();
+        if (next !== trimmed && next.length > 0) {
+            if (COLOR_SWATCH[next]) return COLOR_SWATCH[next];
+            trimmed = next;
+        }
+    }
+    return GLASS_COLOR_SWATCH[label] ?? GLASS_COLOR_SWATCH[trimmed] ?? "#AAAAAA";
+}
+function isLightSwatch(label: string | null | undefined): boolean {
+    if (!label) return false;
+    if (LIGHT_SWATCHES.has(label)) return true;
+    let trimmed = label;
+    for (const pat of SWATCH_PREFIX_PATTERNS) {
+        const next = trimmed.replace(pat, "").trim();
+        if (next !== trimmed && next.length > 0) {
+            if (LIGHT_SWATCHES.has(next)) return true;
+            trimmed = next;
+        }
+    }
+    return false;
+}
+
+// Light swatches that need a dark checkmark.
+// Compound labels (e.g. "Spray White", "Lotion Pump Shiny Silver") are also
+// resolved via isLightSwatch() which strips prefixes and re-checks.
+const LIGHT_SWATCHES = new Set([
+    "White", "Short White",
+    "Silver", "Shiny Silver", "Matte Silver", "Silver with Dots",
+    "Standard",
+    "Pink", "Pink with Dots", "Rose Gold", "Lavender",
+    "Ivory Gold", "Ivory Silver",
+    "Ivory Leather",
+    "Spray White", "Spray Pink", "Spray Lavender",
+    "Spray Shiny Silver", "Spray Matte Silver", "Spray Silver",
+    "Spray Ivory Silver", "Spray Ivory Gold",
+    "Screw Cap White", "Screw Cap Shiny Silver", "Screw Cap Matte Silver",
+    "Screw Cap Silver", "Screw Cap Ivory Silver", "Screw Cap Ivory Gold",
+    "Lotion Pump Shiny Silver", "Lotion Pump Matte Silver",
+    "Lotion Pump Clear Overcap", "Lotion Pump White Clear Overcap",
+    "Roller White", "Roller Shiny Silver", "Roller Matte Silver",
+    "Dropper White", "Dropper Shiny Silver", "Dropper Matte Silver",
+]);
 
 // Glass bottle body color hex map — used for sibling color navigation swatches
 const GLASS_COLOR_SWATCH: Record<string, string> = {
@@ -294,6 +437,15 @@ interface ProductComponent {
     price_12?: number | null;
 }
 
+interface ApplicatorSibling {
+    _id: string;
+    slug: string;
+    displayName: string;
+    applicatorTypes?: string[];
+    heroImageUrl?: string | null;
+    priceRangeMin?: number | null;
+}
+
 interface ProductVariant {
     _id: string;
     graceSku: string;
@@ -301,6 +453,8 @@ interface ProductVariant {
     itemName: string;
     itemDescription: string | null;
     imageUrl: string | null;
+    /** Secondary gallery view — applicator/dropper/sprayer with cap removed. */
+    imageUrlCapOff?: string | null;
     stockStatus: string | null;
     webPrice1pc: number | null;
     webPrice10pc: number | null;
@@ -634,8 +788,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     const variantSwatchPreview = useMemo(() => {
         return variantsForApplicator.map((v) => {
             const resolved = resolveVariantCapFinish(v);
-            const swatchHex = COLOR_SWATCH[resolved.swatchName] ?? GLASS_COLOR_SWATCH[resolved.swatchName] ?? "#AAAAAA";
-            const useDarkCheck = LIGHT_SWATCHES.has(resolved.swatchName) || LIGHT_GLASS.has(resolved.swatchName);
+            const swatchHex = resolveSwatchHex(resolved.swatchName);
+            const useDarkCheck = isLightSwatch(resolved.swatchName) || LIGHT_GLASS.has(resolved.swatchName);
             return {
                 id: v._id,
                 websiteSku: v.websiteSku,
@@ -850,6 +1004,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     }
 
     const inStock = selectedVariant?.stockStatus === "In Stock";
+    const compatibleSiblings = ((applicatorSiblings ?? []) as ApplicatorSibling[]);
     const handleAddToCart = () => {
         if (!selectedVariant || !inStock) return;
         addItems([{
@@ -934,58 +1089,113 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-20 items-start">
 
                         {/* ── Image Panel ──────────────────────────────────────────── */}
+                        {/*
+                            Three rendering modes, in priority order:
+                              1. Paper-doll configurator (when group.paperDollFamilyKey is set)
+                                 — interactive layered image, owns the full panel for now.
+                                 Phase 2: lift the gallery thumb strip below to coexist with
+                                 the configurator as static editorial alternates.
+                              2. ProductImageGallery — primary path. Renders main image at
+                                 aspect-[10/11] (matches Madison's 2080×2288 render output)
+                                 with a thumbnail strip below when both cap-on and cap-off
+                                 views are available, plus a click-to-zoom lightbox.
+                              3. Placeholder — when the variant has no images yet.
+                            Variant-count badge and SKU watermark are shared overlays in
+                            modes 1 and 3, and passed as props to the gallery in mode 2.
+                        */}
                         <div className="lg:sticky lg:top-[120px]">
-                            <motion.div
-                                key={group.paperDollFamilyKey ? "paper-doll" : (selectedVariant?._id ?? "placeholder")}
-                                initial={{ opacity: 0.6 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className={`${group.paperDollFamilyKey ? "aspect-[4/5]" : "aspect-square"} bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden`}
-                            >
-                                {group.paperDollFamilyKey && selectedVariant ? (
-                                    <PaperDollImage
-                                        familyKey={group.paperDollFamilyKey}
-                                        glassColor={group.color}
-                                        applicator={selectedVariant.applicator}
-                                        capColor={selectedVariant.capColor}
-                                        capHeight={selectedVariant.capHeight}
-                                        itemName={selectedVariant.itemName}
-                                        fallbackImageUrl={selectedVariant.imageUrl}
-                                        className="w-full h-full p-6 sm:p-12"
-                                        productOffsets={productOffsets}
-                                        onCapStateChange={handleCapStateChange}
-                                    />
-                                ) : selectedVariant?.imageUrl ? (
-                                    <img
-                                        src={selectedVariant.imageUrl}
-                                        alt={selectedVariant.itemName}
-                                        className="w-full h-full object-contain p-6 sm:p-12"
-                                    />
-                                ) : (
-                                    <div className="flex flex-col items-center justify-center text-center p-6 sm:p-12">
-                                        <Package className="w-20 h-20 text-champagne mb-4" strokeWidth={0.75} />
-                                        <p className="text-xs text-slate/60 uppercase tracking-wider font-medium">{group.family}</p>
-                                        <p className="text-sm text-slate/80 font-medium mt-1">{group.capacity}</p>
-                                        <p className="text-[10px] text-slate/40 uppercase tracking-widest mt-6 font-medium">Photography coming soon</p>
-                                    </div>
-                                )}
-
-                                {/* Variant count */}
-                                <div className="absolute top-4 left-4">
+                            {(() => {
+                                const variantBadge = (
                                     <span className="inline-flex items-center px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full bg-obsidian/80 text-white backdrop-blur-sm">
                                         {group.variantCount} Variant{group.variantCount !== 1 ? "s" : ""}
                                     </span>
-                                </div>
+                                );
+                                const skuWatermark = selectedVariant ? (
+                                    <span className="text-[9px] uppercase tracking-widest text-slate/40 font-mono select-none">
+                                        {selectedVariant.websiteSku}
+                                    </span>
+                                ) : null;
 
-                                {/* SKU watermark */}
-                                {selectedVariant && (
-                                    <div className="absolute bottom-4 right-4">
-                                        <span className="text-[9px] uppercase tracking-widest text-slate/40 font-mono select-none">
-                                            {selectedVariant.websiteSku}
-                                        </span>
-                                    </div>
-                                )}
-                            </motion.div>
+                                // Mode 1 — paper-doll configurator
+                                if (group.paperDollFamilyKey && selectedVariant) {
+                                    return (
+                                        <motion.div
+                                            key="paper-doll"
+                                            initial={{ opacity: 0.6 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="aspect-[10/11] bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
+                                        >
+                                            <PaperDollImage
+                                                familyKey={group.paperDollFamilyKey}
+                                                glassColor={group.color}
+                                                applicator={selectedVariant.applicator}
+                                                capColor={selectedVariant.capColor}
+                                                capHeight={selectedVariant.capHeight}
+                                                itemName={selectedVariant.itemName}
+                                                fallbackImageUrl={selectedVariant.imageUrl}
+                                                className="w-full h-full p-6 sm:p-12"
+                                                productOffsets={productOffsets}
+                                                onCapStateChange={handleCapStateChange}
+                                            />
+                                            <div className="absolute top-4 left-4 pointer-events-none">{variantBadge}</div>
+                                            {skuWatermark && (
+                                                <div className="absolute bottom-4 right-4 pointer-events-none">{skuWatermark}</div>
+                                            )}
+                                        </motion.div>
+                                    );
+                                }
+
+                                // Mode 2 — gallery. Build the image set from any combination
+                                // of imageUrl (cap-on / primary) and imageUrlCapOff. Both
+                                // optional; the gallery handles 1- or 2-image cases cleanly.
+                                const galleryImages: GalleryImage[] = [];
+                                if (selectedVariant?.imageUrl) {
+                                    galleryImages.push({
+                                        url: selectedVariant.imageUrl,
+                                        label: "Cap on",
+                                        alt: `${selectedVariant.itemName} — cap on`,
+                                    });
+                                }
+                                if (selectedVariant?.imageUrlCapOff) {
+                                    galleryImages.push({
+                                        url: selectedVariant.imageUrlCapOff,
+                                        label: "Cap off",
+                                        alt: `${selectedVariant.itemName} — applicator detail with cap removed`,
+                                    });
+                                }
+
+                                if (galleryImages.length > 0) {
+                                    return (
+                                        <ProductImageGallery
+                                            images={galleryImages}
+                                            primaryAlt={selectedVariant?.itemName ?? group.displayName}
+                                            badge={variantBadge}
+                                            watermark={skuWatermark}
+                                            aspectRatio="10/11"
+                                        />
+                                    );
+                                }
+
+                                // Mode 3 — placeholder
+                                return (
+                                    <motion.div
+                                        key="placeholder"
+                                        initial={{ opacity: 0.6 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="aspect-[10/11] bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
+                                    >
+                                        <div className="flex flex-col items-center justify-center text-center p-6 sm:p-12">
+                                            <Package className="w-20 h-20 text-champagne mb-4" strokeWidth={0.75} />
+                                            <p className="text-xs text-slate/60 uppercase tracking-wider font-medium">{group.family}</p>
+                                            <p className="text-sm text-slate/80 font-medium mt-1">{group.capacity}</p>
+                                            <p className="text-[10px] text-slate/40 uppercase tracking-widest mt-6 font-medium">Photography coming soon</p>
+                                        </div>
+                                        <div className="absolute top-4 left-4 pointer-events-none">{variantBadge}</div>
+                                    </motion.div>
+                                );
+                            })()}
 
                             {/* Glass color siblings */}
                             {displaySiblingGroups && displaySiblingGroups.length > 0 && group?.color && (
@@ -1068,11 +1278,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 <TierLadder variant={selectedVariant} qty={qty} />
                             </div>
 
-                            {/* ── Talk with Grace (inline, un-intrusive) ───────────────────────────────────────── */}
-                            <div className="mb-6 sm:mb-8">
-                                <PdpGraceTrigger />
-                            </div>
-
                             {/* ── Variant Selectors (hidden for atomizers — glass color is the only selection) ── */}
 
                             {!isAtomizer && (
@@ -1127,9 +1332,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                             )}
                                             <div className="flex flex-wrap gap-2.5">
                                                 {capColorOptions.map((color) => {
-                                                    const hex = COLOR_SWATCH[color] ?? GLASS_COLOR_SWATCH[color] ?? "#AAAAAA";
+                                                    const hex = resolveSwatchHex(color);
                                                     const isSelected = activeCapColor === color;
-                                                    const useDarkCheck = LIGHT_SWATCHES.has(color);
+                                                    const useDarkCheck = isLightSwatch(color);
                                                     return (
                                                         <button
                                                             key={color}
@@ -1198,9 +1403,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                             </p>
                                             <div className="flex flex-wrap gap-2.5">
                                                 {trimColorOptions.map((color) => {
-                                                    const hex = COLOR_SWATCH[color] ?? "#AAAAAA";
+                                                    const hex = resolveSwatchHex(color);
                                                     const isSelected = activeTrimColor === color;
-                                                    const useDarkCheck = LIGHT_SWATCHES.has(color);
+                                                    const useDarkCheck = isLightSwatch(color);
                                                     return (
                                                         <button
                                                             key={color}
@@ -1396,6 +1601,54 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </Link>
                             </div>
 
+                            {/* Compatibility belongs near the buying decision for B2B confidence. */}
+                            {compatibleSiblings.length > 0 && (
+                                <div className="mb-6 rounded-sm border border-champagne/60 bg-white p-4">
+                                    <div className="flex items-start justify-between gap-4 mb-3">
+                                        <div>
+                                            <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-1">
+                                                Compatible Options
+                                            </p>
+                                            <h3 className="font-serif text-lg text-obsidian">This bottle also takes</h3>
+                                        </div>
+                                        <button
+                                            onClick={() => setFitmentDrawerOpen(true)}
+                                            className="shrink-0 text-xs text-muted-gold hover:underline transition-colors"
+                                        >
+                                            View all →
+                                        </button>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {compatibleSiblings.slice(0, 2).map((sib) => {
+                                            const applicatorLabel = (sib.applicatorTypes ?? []).join(", ") || "Cap & Closure";
+                                            return (
+                                                <Link
+                                                    key={sib._id}
+                                                    href={`/products/${sib.slug}`}
+                                                    className="group flex items-center gap-3 rounded-sm border border-champagne/40 bg-bone/40 p-3 hover:border-muted-gold transition-colors"
+                                                >
+                                                    <div className="w-12 h-12 shrink-0 bg-travertine rounded-sm border border-champagne/30 flex items-center justify-center overflow-hidden">
+                                                        {sib.heroImageUrl ? (
+                                                            <img src={sib.heroImageUrl} alt={sib.displayName} className="w-full h-full object-contain p-1" />
+                                                        ) : (
+                                                            <Package className="w-5 h-5 text-champagne" strokeWidth={1} />
+                                                        )}
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <p className="text-[10px] uppercase tracking-wider text-muted-gold font-semibold mb-0.5">{applicatorLabel}</p>
+                                                        <p className="text-sm text-obsidian font-medium truncate group-hover:text-muted-gold transition-colors">{sib.displayName}</p>
+                                                        {sib.priceRangeMin != null && (
+                                                            <p className="text-xs text-slate mt-0.5">From {formatPrice(sib.priceRangeMin)}</p>
+                                                        )}
+                                                    </div>
+                                                    <ChevronRight className="w-4 h-4 text-champagne group-hover:text-muted-gold transition-colors shrink-0" />
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
                             {/* Product Description — group-level copy preferred, then variant, skipped when Sanity rich desc exists */}
                             {pdpBlocks.every((b) => b._type !== "pdpRichDescription") && (group?.groupDescription || selectedVariant?.itemDescription) && (
                                 <div className="mb-6 pt-5 border-t border-champagne/60">
@@ -1414,54 +1667,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                 {/* ── Sanity Editorial Zone (feature strip, gallery, FAQ, rich desc) ── */}
                 <PdpEditorialZone blocks={pdpBlocks} />
-
-                {/* ── "This Bottle Also Takes" — cross-compatible applicator siblings ── */}
-                {applicatorSiblings && applicatorSiblings.length > 0 && (
-                    <section className="border-t border-champagne/30">
-                        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-10">
-                            <div className="flex items-center justify-between mb-6">
-                                <div>
-                                    <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-1">Compatible Options</p>
-                                    <h3 className="font-serif text-lg text-obsidian">This Bottle Also Takes</h3>
-                                </div>
-                                <button
-                                    onClick={() => setFitmentDrawerOpen(true)}
-                                    className="text-xs text-muted-gold hover:underline transition-colors"
-                                >
-                                    View all components →
-                                </button>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {applicatorSiblings.map((sib: { _id: string; slug: string; displayName: string; applicatorTypes?: string[]; heroImageUrl?: string | null; priceRangeMin?: number | null }) => {
-                                    const applicatorLabel = (sib.applicatorTypes ?? []).join(", ") || "Cap & Closure";
-                                    return (
-                                        <Link
-                                            key={sib._id}
-                                            href={`/products/${sib.slug}`}
-                                            className="group flex items-center gap-4 p-4 border border-champagne/50 rounded-sm bg-white hover:border-muted-gold transition-colors"
-                                        >
-                                            <div className="w-16 h-16 shrink-0 bg-travertine rounded-sm border border-champagne/30 flex items-center justify-center overflow-hidden">
-                                                {sib.heroImageUrl ? (
-                                                    <img src={sib.heroImageUrl} alt={sib.displayName} className="w-full h-full object-contain p-1" />
-                                                ) : (
-                                                    <Package className="w-6 h-6 text-champagne" strokeWidth={1} />
-                                                )}
-                                            </div>
-                                            <div className="min-w-0 flex-1">
-                                                <p className="text-[10px] uppercase tracking-wider text-muted-gold font-semibold mb-0.5">{applicatorLabel}</p>
-                                                <p className="text-sm text-obsidian font-medium truncate group-hover:text-muted-gold transition-colors">{sib.displayName}</p>
-                                                {sib.priceRangeMin != null && (
-                                                    <p className="text-xs text-slate mt-0.5">From {formatPrice(sib.priceRangeMin)}</p>
-                                                )}
-                                            </div>
-                                            <ChevronRight className="w-4 h-4 text-champagne group-hover:text-muted-gold transition-colors shrink-0" />
-                                        </Link>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </section>
-                )}
 
                 {/* ── Specifications ──────────────────────────────────────────── */}
                 {selectedVariant && (

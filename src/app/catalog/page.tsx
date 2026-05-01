@@ -211,7 +211,7 @@ function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGro
                 transition={{ duration: 0.5, delay: Math.min(index * 0.03, 0.3) }}
                 className="group cursor-pointer flex flex-col h-full bg-white rounded-sm border border-champagne/40 overflow-hidden hover:border-muted-gold hover:shadow-lg transition-all duration-300"
             >
-                <div className="relative aspect-[10/11] bg-travertine w-full overflow-hidden flex items-center justify-center">
+                <div className="relative aspect-[10/11] bg-[#efe2d0] w-full overflow-hidden flex items-center justify-center">
                     {group.heroImageUrl ? (
                         <Image
                             src={group.heroImageUrl}

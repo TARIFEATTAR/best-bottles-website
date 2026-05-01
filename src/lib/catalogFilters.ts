@@ -159,8 +159,16 @@ export function filtersToParams(f: CatalogFilters, sort: SortValue, view: ViewMo
     return p;
 }
 
+function getMultiParam(sp: URLSearchParams, key: string): string[] {
+    return sp
+        .getAll(key)
+        .flatMap((value) => value.split(","))
+        .map((value) => value.trim())
+        .filter(Boolean);
+}
+
 export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue; view: ViewMode } {
-    const applicatorValues = sp.get("applicators")?.split(",").filter(Boolean) ?? [];
+    const applicatorValues = getMultiParam(sp, "applicators");
     const validApplicators = applicatorValues.filter((a) =>
         APPLICATOR_BUCKETS.some((b) => b.value === a)
     ) as ApplicatorBucket[];
@@ -172,10 +180,10 @@ export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters;
             collection: sp.get("collection") || null,
             applicators: validApplicators,
             // Accept both ?families=Cylinder,Elegant (multi) and ?family=Cylinder (singular, used by Grace)
-            families: (sp.get("families") ?? sp.get("family"))?.split(",").filter(Boolean) ?? [],
-            colors: sp.get("colors")?.split(",").filter(Boolean) ?? [],
-            capacities: sp.get("capacities")?.split(",").filter(Boolean) ?? [],
-            neckThreadSizes: sp.get("threads")?.split(",").filter(Boolean) ?? [],
+            families: [...getMultiParam(sp, "families"), ...getMultiParam(sp, "family")],
+            colors: getMultiParam(sp, "colors"),
+            capacities: getMultiParam(sp, "capacities"),
+            neckThreadSizes: getMultiParam(sp, "threads"),
             componentType: sp.get("componentType") || null,
             priceMin: sp.get("priceMin") ? Number(sp.get("priceMin")) : null,
             priceMax: sp.get("priceMax") ? Number(sp.get("priceMax")) : null,
