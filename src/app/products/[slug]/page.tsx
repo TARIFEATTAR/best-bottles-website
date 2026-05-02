@@ -1173,6 +1173,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                             badge={variantBadge}
                                             watermark={skuWatermark}
                                             aspectRatio="10/11"
+                                            mainPadding="p-0"
                                         />
                                     );
                                 }
