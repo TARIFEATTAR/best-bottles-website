@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 52, "column": 0}, "map": {"version":3,"sources":["file:///Users/jordanrichter/Projects/Clients/Nemat-International/Best-Bottles-Website-02-20-2026/src/proxy.ts"],"sourcesContent":["import { clerkMiddleware, createRouteMatcher } from \"@clerk/nextjs/server\";\n\nconst isPortalRoute = createRouteMatcher([\"/portal(.*)\"]);\n\nexport default clerkMiddleware(async (auth, req) => {\n    if (isPortalRoute(req)) {\n        await auth.protect();\n    }\n});\n\nexport const config = {\n    matcher: [\n        // Skip Next.js internals and static files\n        \"/((?!_next|[^?]*\\\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)\",\n        // Always run for API routes\n        \"/(api|trpc)(.*)\",\n    ],\n};\n"],"names":[],"mappings":";;;;;;AAAA;AAAA;;AAEA,MAAM,gBAAgB,IAAA,6YAAkB,EAAC;IAAC;CAAc;uCAEzC,IAAA,6YAAe,EAAC,OAAO,MAAM;IACxC,IAAI,cAAc,MAAM;QACpB,MAAM,KAAK,OAAO;IACtB;AACJ;AAEO,MAAM,SAAS;IAClB,SAAS;QACL,0CAA0C;QAC1C;QACA,4BAA4B;QAC5B;KACH;AACL"}}]
-}

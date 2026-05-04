@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/jordanrichter/Projects/Clients/Nemat-International/Best-Bottles-Website-02-20-2026/node_modules/.pnpm/next%4016.1.6_%40babel%2Bcore%407.29.0_%40opentelemetry%2Bapi%401.9.0_babel-plugin-react-compiler%401.0_dfe2944aa2de3f51ba172bc2570b2432/node_modules/next/src/server/route-modules/app-page/vendored/ssr/react-compiler-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-ssr']!.ReactCompilerRuntime\n"],"names":["module","exports","require","vendored","ReactCompilerRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,wQACRC,QAAQ,CAAC,YAAY,CAAEC,oBAAoB","ignoreList":[0]}}]
-}

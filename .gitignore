@@ -2,11 +2,13 @@
 
 # Dependencies
 /node_modules
+**/node_modules/
 /.pnp
 .pnp.js
 
 # Next.js build output & caches
 /.next
+**/.next/
 /out
 /build
 
@@ -23,12 +25,37 @@
 /logs
 *.log
 
+# Local automation / browser scratch
+/.claude/worktrees/
+/.cursor/settings.json
+/.firecrawl/
+/.playwright-mcp/
+
+# Local scratch and generated test outputs
+/tmp/
+/topaz-test/
+/ziOGLQ3X
+
+# Paper Doll / Madison pipeline generated or local-only data
+/pipeline/**/.env
+/pipeline/**/output/
+/pipeline/**/processing/
+/pipeline/**/reference-images/
+/pipeline/**/source-psds/
+/pipeline/**/renders/
+/scripts/madison-pipeline/output/
+
 # Coverage directory used by testing tools
 /coverage
 
 # Misc
 .DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
 *.pem
+~$*
+.~lock.*
 
 # Typescript
 *.tsbuildinfo

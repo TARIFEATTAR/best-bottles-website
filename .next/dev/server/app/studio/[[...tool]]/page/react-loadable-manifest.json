@@ -1,9 +1,0 @@
-{
-  "[project]/node_modules/.pnpm/next-sanity@12.2.1_@emotion+is-prop-valid@1.4.0_@sanity+client@7.20.0_@sanity+types@5.1_19b1e33e6828f6109957930cbf3a792d/node_modules/next-sanity/dist/studio/index.js [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/node_modules/.pnpm/next-sanity@12.2.1_@emotion+is-prop-valid@1.4.0_@sanity+client@7.20.0_@sanity+types@5.1_19b1e33e6828f6109957930cbf3a792d/node_modules/next-sanity/dist/studio/index.js [app-client] (ecmascript, next/dynamic entry)",
-    "files": [
-      "static/chunks/9f6cd_next-sanity_dist_42fe21fc._.js",
-      "static/chunks/9f6cd_next-sanity_dist_studio_index_ed2609d9.js"
-    ]
-  }
-}
