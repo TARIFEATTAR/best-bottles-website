@@ -37,12 +37,12 @@ type ProductRow = {
   capHeight: string | null;
   ballMaterial: string | null;
   neckThreadSize: string | null;
-  heightWithCap: number | null;
-  heightWithoutCap: number | null;
-  diameter: number | null;
-  depthMm: number | null;
-  widthMm: number | null;
-  bottleWeightG: number | null;
+  heightWithCap: string | number | null;
+  heightWithoutCap: string | number | null;
+  diameter: string | number | null;
+  depthMm: string | number | null;
+  widthMm: string | number | null;
+  bottleWeightG: string | number | null;
   itemName: string;
   itemDescription: string | null;
   graceDescription: string | null;
