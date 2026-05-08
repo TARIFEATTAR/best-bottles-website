@@ -30,6 +30,7 @@ export interface ProductCard {
     capacityMl?: number | null;
     color?: string;
     applicator?: string;
+    capColor?: string | null;
     neckThreadSize?: string;
     webPrice1pc?: number;
     webPrice12pc?: number;

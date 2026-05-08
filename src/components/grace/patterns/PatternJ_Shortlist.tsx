@@ -18,6 +18,7 @@ export interface PatternJShortlistProps {
 
 export default function PatternJ_Shortlist({ payload, onOpenShortlistPage }: PatternJShortlistProps) {
     const [copied, setCopied] = useState(false);
+    const [now] = useState(() => Date.now());
     const items = payload.items.slice(0, 4);
 
     const handleCopy = async () => {
@@ -31,7 +32,7 @@ export default function PatternJ_Shortlist({ payload, onOpenShortlistPage }: Pat
 
     const expiryText = payload.expiresAt
         ? (() => {
-            const days = Math.max(0, Math.round((payload.expiresAt - Date.now()) / 86400000));
+            const days = Math.max(0, Math.round((payload.expiresAt - now) / 86400000));
             return `expires in ${days} day${days === 1 ? "" : "s"}`;
         })()
         : null;

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { ArrowsLeftRight } from "@phosphor-icons/react";
-import { useMemo } from "react";
 import type { BuildKitPayload, ProductCard } from "@/components/GraceContext";
 import { useCart } from "@/components/CartProvider";
 
@@ -45,10 +44,9 @@ export default function PatternD_BuildKit({
 
     const filledSlots = slots.filter((s) => s.product) as Array<KitSlot & { product: ProductCard }>;
 
-    const subtotal = useMemo(() => {
-        if (payload.subtotalCents != null) return payload.subtotalCents / 100;
-        return filledSlots.reduce((sum, s) => sum + (s.product.webPrice1pc ?? 0), 0);
-    }, [payload.subtotalCents, filledSlots]);
+    const subtotal = payload.subtotalCents != null
+        ? payload.subtotalCents / 100
+        : filledSlots.reduce((sum, s) => sum + (s.product.webPrice1pc ?? 0), 0);
 
     const handleAddKit = () => {
         const items = filledSlots.map((s) => s.product);

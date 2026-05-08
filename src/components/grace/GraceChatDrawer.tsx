@@ -221,7 +221,10 @@ export default function GraceChatDrawer() {
                             width: isMobile ? "100%" : DRAWER_WIDTH,
                             height: isMobile ? "100dvh" : DRAWER_HEIGHT,
                             // Bottom-right anchor with 22px breathing room (PRD v3).
-                            ...(isMobile ? {} : { right: 22, bottom: 22 }),
+                            ...(isMobile ? {} : {
+                                right: "max(22px, env(safe-area-inset-right))",
+                                bottom: "max(22px, calc(env(safe-area-inset-bottom) + 22px))",
+                            }),
                             background: "var(--color-bone)",
                             border: isMobile ? "none" : "1px solid rgba(212, 197, 169, 0.55)",
                             borderLeft: isMobile ? "1px solid rgba(212, 197, 169, 0.45)" : undefined,
