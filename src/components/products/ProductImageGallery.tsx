@@ -79,11 +79,16 @@ export default function ProductImageGallery({
     mode = "full",
     onActiveChange,
 }: ProductImageGalleryProps) {
-    const [activeUrl, setActiveUrl] = useState<string | null>(images[0]?.url ?? null);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
 
-    const resolvedActiveIndex = images.findIndex((image) => image.url === activeUrl);
-    const activeIndex = resolvedActiveIndex >= 0 ? resolvedActiveIndex : 0;
+    // Reset to primary view when the image set changes (e.g. variant swap).
+    // Using the first URL as a signature avoids resetting on every render.
+    const signature = images.map((i) => i.url).join("|");
+    useEffect(() => {
+        setActiveIndex(0);
+    }, [signature]);
+
     const activeImage = images[activeIndex];
 
     // Notify parent when active image changes — lets the PDP track which
@@ -104,14 +109,12 @@ export default function ProductImageGallery({
             }
             if (images.length <= 1) return;
             if (e.key === "ArrowLeft") {
-                const previousIndex = Math.max(0, activeIndex - 1);
-                setActiveUrl(images[previousIndex]?.url ?? null);
+                setActiveIndex((i) => Math.max(0, i - 1));
             } else if (e.key === "ArrowRight") {
-                const nextIndex = Math.min(images.length - 1, activeIndex + 1);
-                setActiveUrl(images[nextIndex]?.url ?? null);
+                setActiveIndex((i) => Math.min(images.length - 1, i + 1));
             }
         },
-        [activeIndex, lightboxOpen, images],
+        [lightboxOpen, images.length],
     );
 
     useEffect(() => {
@@ -180,7 +183,7 @@ export default function ProductImageGallery({
                                 role="tab"
                                 aria-selected={isActive}
                                 aria-label={`Show ${img.label} view`}
-                                onClick={() => setActiveUrl(img.url)}
+                                onClick={() => setActiveIndex(i)}
                                 className={`
                                     relative aspect-[10/11] w-16 sm:w-20 shrink-0
                                     bg-travertine rounded-sm overflow-hidden
@@ -242,10 +245,9 @@ export default function ProductImageGallery({
                                     <>
                                         <button
                                             type="button"
-                                            onClick={() => {
-                                                const previousIndex = Math.max(0, activeIndex - 1);
-                                                setActiveUrl(images[previousIndex]?.url ?? null);
-                                            }}
+                                            onClick={() =>
+                                                setActiveIndex((i) => Math.max(0, i - 1))
+                                            }
                                             disabled={activeIndex === 0}
                                             className="text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed text-xs uppercase tracking-widest font-medium px-3 py-1"
                                         >
@@ -256,10 +258,11 @@ export default function ProductImageGallery({
                                         </span>
                                         <button
                                             type="button"
-                                            onClick={() => {
-                                                const nextIndex = Math.min(images.length - 1, activeIndex + 1);
-                                                setActiveUrl(images[nextIndex]?.url ?? null);
-                                            }}
+                                            onClick={() =>
+                                                setActiveIndex((i) =>
+                                                    Math.min(images.length - 1, i + 1),
+                                                )
+                                            }
                                             disabled={activeIndex === images.length - 1}
                                             className="text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed text-xs uppercase tracking-widest font-medium px-3 py-1"
                                         >
