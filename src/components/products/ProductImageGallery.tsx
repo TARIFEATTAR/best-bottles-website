@@ -79,16 +79,11 @@ export default function ProductImageGallery({
     mode = "full",
     onActiveChange,
 }: ProductImageGalleryProps) {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeUrl, setActiveUrl] = useState<string | null>(images[0]?.url ?? null);
     const [lightboxOpen, setLightboxOpen] = useState(false);
 
-    // Reset to primary view when the image set changes (e.g. variant swap).
-    // Using the first URL as a signature avoids resetting on every render.
-    const signature = images.map((i) => i.url).join("|");
-    useEffect(() => {
-        setActiveIndex(0);
-    }, [signature]);
-
+    const resolvedActiveIndex = images.findIndex((image) => image.url === activeUrl);
+    const activeIndex = resolvedActiveIndex >= 0 ? resolvedActiveIndex : 0;
     const activeImage = images[activeIndex];
 
     // Notify parent when active image changes — lets the PDP track which
@@ -109,12 +104,14 @@ export default function ProductImageGallery({
             }
             if (images.length <= 1) return;
             if (e.key === "ArrowLeft") {
-                setActiveIndex((i) => Math.max(0, i - 1));
+                const previousIndex = Math.max(0, activeIndex - 1);
+                setActiveUrl(images[previousIndex]?.url ?? null);
             } else if (e.key === "ArrowRight") {
-                setActiveIndex((i) => Math.min(images.length - 1, i + 1));
+                const nextIndex = Math.min(images.length - 1, activeIndex + 1);
+                setActiveUrl(images[nextIndex]?.url ?? null);
             }
         },
-        [lightboxOpen, images.length],
+        [activeIndex, lightboxOpen, images],
     );
 
     useEffect(() => {
@@ -183,7 +180,7 @@ export default function ProductImageGallery({
                                 role="tab"
                                 aria-selected={isActive}
                                 aria-label={`Show ${img.label} view`}
-                                onClick={() => setActiveIndex(i)}
+                                onClick={() => setActiveUrl(img.url)}
                                 className={`
                                     relative aspect-[10/11] w-16 sm:w-20 shrink-0
                                     bg-travertine rounded-sm overflow-hidden
@@ -219,7 +216,7 @@ export default function ProductImageGallery({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-50 bg-obsidian/[0.97] backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
+                        className="fixed inset-0 z-[100] bg-obsidian backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
                         onClick={() => setLightboxOpen(false)}
                         role="dialog"
                         aria-modal="true"
@@ -245,9 +242,10 @@ export default function ProductImageGallery({
                                     <>
                                         <button
                                             type="button"
-                                            onClick={() =>
-                                                setActiveIndex((i) => Math.max(0, i - 1))
-                                            }
+                                            onClick={() => {
+                                                const previousIndex = Math.max(0, activeIndex - 1);
+                                                setActiveUrl(images[previousIndex]?.url ?? null);
+                                            }}
                                             disabled={activeIndex === 0}
                                             className="text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed text-xs uppercase tracking-widest font-medium px-3 py-1"
                                         >
@@ -258,11 +256,10 @@ export default function ProductImageGallery({
                                         </span>
                                         <button
                                             type="button"
-                                            onClick={() =>
-                                                setActiveIndex((i) =>
-                                                    Math.min(images.length - 1, i + 1),
-                                                )
-                                            }
+                                            onClick={() => {
+                                                const nextIndex = Math.min(images.length - 1, activeIndex + 1);
+                                                setActiveUrl(images[nextIndex]?.url ?? null);
+                                            }}
                                             disabled={activeIndex === images.length - 1}
                                             className="text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed text-xs uppercase tracking-widest font-medium px-3 py-1"
                                         >

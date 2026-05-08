@@ -51,12 +51,7 @@ export async function POST(req: NextRequest) {
     } catch (err) {
         console.error("[shopify/resolve-variants] Error:", err);
         return Response.json(
-            {
-                error:
-                    err instanceof Error
-                        ? err.message
-                        : "Failed to resolve variants",
-            },
+            { error: "Failed to resolve variants" },
             { status: 502 },
         );
     }

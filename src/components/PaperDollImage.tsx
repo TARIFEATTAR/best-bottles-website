@@ -271,8 +271,9 @@ function sanityUrl(url: string): string {
 }
 
 // ── Canvas constants ────────────────────────────────────────────────────────
-// All layer PNGs are extracted onto a 1000×1300 canvas. Offsets stored in Sanity
-// are in this coordinate space and must be scaled to match the display size.
+// Legacy fallback for older CYL families. When Sanity provides canvasWidth /
+// canvasHeight, that family-specific source canvas is the authoritative
+// coordinate space for layer offsets.
 const CANVAS_W = 1000;
 const CANVAS_H = 1300;
 

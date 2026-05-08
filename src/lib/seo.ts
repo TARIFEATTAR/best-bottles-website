@@ -89,6 +89,28 @@ export interface ProductJsonLdInput {
 }
 
 export function buildProductJsonLd(p: ProductJsonLdInput) {
+  const additionalProperty = [
+    ...(p.neckThreadSize ? [{ "@type": "PropertyValue", name: "Neck Thread Size", value: p.neckThreadSize }] : []),
+    ...(p.capacity ? [{ "@type": "PropertyValue", name: "Capacity", value: p.capacity }] : []),
+    ...(p.material ? [{ "@type": "PropertyValue", name: "Material", value: p.material }] : []),
+  ];
+  const hasPrice = p.priceLow != null || p.priceHigh != null;
+  const hasAvailability = p.inStock != null;
+  const offers = hasPrice || hasAvailability
+    ? {
+      "@type": "AggregateOffer",
+      priceCurrency: "USD",
+      ...(p.priceLow != null && { lowPrice: p.priceLow.toFixed(2) }),
+      ...(p.priceHigh != null && { highPrice: p.priceHigh.toFixed(2) }),
+      ...(hasAvailability && {
+        availability: p.inStock
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      }),
+      seller: { "@type": "Organization", name: "Best Bottles" },
+    }
+    : null;
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -99,23 +121,8 @@ export function buildProductJsonLd(p: ProductJsonLdInput) {
     category: p.family,
     ...(p.image && { image: p.image }),
     url: p.url,
-    ...(p.neckThreadSize && {
-      additionalProperty: [
-        { "@type": "PropertyValue", name: "Neck Thread Size", value: p.neckThreadSize },
-        ...(p.capacity ? [{ "@type": "PropertyValue", name: "Capacity", value: p.capacity }] : []),
-        ...(p.material ? [{ "@type": "PropertyValue", name: "Material", value: p.material }] : []),
-      ],
-    }),
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      ...(p.priceLow != null && { lowPrice: p.priceLow.toFixed(2) }),
-      ...(p.priceHigh != null && { highPrice: p.priceHigh.toFixed(2) }),
-      availability: p.inStock !== false
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      seller: { "@type": "Organization", name: "Best Bottles" },
-    },
+    ...(additionalProperty.length > 0 && { additionalProperty }),
+    ...(offers && { offers }),
   };
 }
 
