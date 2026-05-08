@@ -2,9 +2,8 @@ import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 /**
- * Public mutation called by Madison Studio's publish edge function after
- * uploading a per-group hero image to Sanity. Patches productGroups.heroImageUrl
- * for the matching slug.
+ * Public mutation called by Madison Studio: sets the live catalog grid hero URL
+ * for a product group (any stable https URL, e.g. library image on Supabase storage).
  */
 export const setHeroImageUrl = mutation({
     args: {

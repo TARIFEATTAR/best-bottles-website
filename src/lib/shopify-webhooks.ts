@@ -13,22 +13,25 @@ export function verifyShopifyWebhook(
     rawBody: Buffer,
     hmacHeader: string | null,
 ): boolean {
-    const secret = process.env.SHOPIFY_WEBHOOK_SECRET;
+    const secret = process.env.SHOPIFY_WEBHOOK_SECRET?.trim();
     if (!secret) {
         console.error("[Shopify Webhook] SHOPIFY_WEBHOOK_SECRET not set");
         return false;
     }
     if (!hmacHeader) return false;
 
-    const digest = createHmac("sha256", secret)
+    const hmac = hmacHeader.trim();
+    // Shopify: base64 HMAC of raw body; compare decoded bytes (see
+    // https://shopify.dev/docs/apps/build/webhooks/subscribe/https#step-5-verify-the-webhook )
+    const digestB64 = createHmac("sha256", secret)
         .update(rawBody)
         .digest("base64");
 
     try {
-        return timingSafeEqual(
-            Buffer.from(digest, "utf-8"),
-            Buffer.from(hmacHeader, "utf-8"),
-        );
+        const a = Buffer.from(digestB64, "base64");
+        const b = Buffer.from(hmac, "base64");
+        if (a.length !== b.length) return false;
+        return timingSafeEqual(a, b);
     } catch {
         return false;
     }
