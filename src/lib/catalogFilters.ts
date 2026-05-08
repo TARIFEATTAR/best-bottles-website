@@ -32,6 +32,21 @@ export const APPLICATOR_NAV = [
 
 export type ApplicatorNavValue = (typeof APPLICATOR_NAV)[number]["value"];
 
+export const CAPACITY_RANGES = [
+    { value: "miniature", label: "Miniature", detail: "1-5 ml", min: 1, max: 5 },
+    { value: "small", label: "Small", detail: "6-15 ml", min: 6, max: 15 },
+    { value: "medium", label: "Medium", detail: "25-50 ml", min: 25, max: 50 },
+    { value: "large", label: "Large", detail: "55-120 ml", min: 55, max: 120 },
+    { value: "bulk", label: "Bulk", detail: "128 ml+", min: 128, max: null },
+] as const;
+
+export type CapacityRangeValue = (typeof CAPACITY_RANGES)[number]["value"];
+
+export function capacityInRange(ml: number | null | undefined, range: (typeof CAPACITY_RANGES)[number]): boolean {
+    if (ml == null || ml <= 0) return false;
+    return ml >= range.min && (range.max == null || ml <= range.max);
+}
+
 /** Build a catalog URL query string for a nav-level applicator category. */
 export function applicatorNavHref(navValue: ApplicatorNavValue): string {
     const nav = APPLICATOR_NAV.find((n) => n.value === navValue);

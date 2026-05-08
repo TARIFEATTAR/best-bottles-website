@@ -2,11 +2,13 @@
 
 # Dependencies
 /node_modules
+**/node_modules/
 /.pnp
 .pnp.js
 
 # Next.js build output & caches
 /.next
+**/.next/
 /out
 /build
 
@@ -23,15 +25,63 @@
 /logs
 *.log
 
+# Local automation / browser scratch
+/.claude/worktrees/
+/.cursor/settings.json
+/.firecrawl/
+/.playwright-mcp/
+
+# Local scratch and generated test outputs
+/tmp/
+/topaz-test/
+/ziOGLQ3X
+/madison-image-pipeline-diagnostic/
+/madison-image-pipeline-diagnostic.zip
+
+# Repo-root image exports are local scratch; production assets live in public/
+# or Sanity/CDN.
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+
+# Local packaged skills belong in AIOS, not this app repo.
+/_skills/
+
+# Paper Doll / Madison pipeline generated or local-only data
+/pipeline/
+/pipeline/**/.env
+/pipeline/**/output/
+/pipeline/**/processing/
+/pipeline/**/reference-images/
+/pipeline/**/source-psds/
+/pipeline/**/renders/
+/scripts/madison-pipeline/
+/scripts/madison-pipeline/output/
+
+# Generated audit/eval/report snapshots
+/data/grace-evals/results/
+/data/audits/20*/convex_snapshot*.json
+/docs/data_alignment/*.json
+/docs/data_alignment/*.xlsx
+
 # Coverage directory used by testing tools
 /coverage
 
 # Misc
 .DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
 *.pem
+~$*
+.~lock.*
 
 # Typescript
 *.tsbuildinfo
 
 # Dotenv and similar local-only files
 *.local
+
+# Local editor workspace files
+*.code-workspace

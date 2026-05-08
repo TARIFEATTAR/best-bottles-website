@@ -20,6 +20,8 @@
     "test:grace:matrix:verbose": "node scripts/grace-retrieval-matrix.mjs --verbose",
     "diag:grace": "node scripts/diagnose_grace.mjs",
     "test:catalog:integrity": "node scripts/catalog-integrity.mjs",
+    "shopify:sync:validate": "node scripts/push_convex_to_shopify.mjs --validate-only",
+    "shopify:sync:dry": "node scripts/push_convex_to_shopify.mjs",
     "paper-doll:manifest": "node scripts/paper-doll/generate-manifest.mjs",
     "paper-doll:upload": "node scripts/paper-doll/upload-paper-doll-family.mjs"
   },

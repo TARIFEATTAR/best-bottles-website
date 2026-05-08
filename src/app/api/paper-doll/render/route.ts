@@ -6,6 +6,21 @@ import { join } from "node:path";
 
 export const runtime = "nodejs";
 
+// SSRF allowlist: layer image URLs must resolve to one of these hosts.
+// Defense-in-depth — URLs come from our own Sanity content but we want an
+// explicit boundary in case the manifest is ever tampered with.
+const ALLOWED_IMAGE_HOSTS = new Set(["cdn.sanity.io"]);
+
+function isAllowedImageUrl(url: string): boolean {
+    try {
+        const u = new URL(url);
+        return (u.protocol === "https:" || u.protocol === "http:")
+            && ALLOWED_IMAGE_HOSTS.has(u.hostname);
+    } catch {
+        return false;
+    }
+}
+
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
 
@@ -159,6 +174,13 @@ export async function POST(req: Request) {
                     { status: 400 }
                 );
             }
+            if (!isAllowedImageUrl(url)) {
+                console.error(`[paper-doll/render] Blocked non-allowlisted URL for slot=${slot}`);
+                return NextResponse.json(
+                    { error: `Invalid image URL for ${slot}` },
+                    { status: 400 }
+                );
+            }
             const res = await fetch(url);
             if (!res.ok) {
                 return NextResponse.json({ error: `Failed to fetch layer ${slot}: ${res.status}` }, { status: 502 });
@@ -196,7 +218,7 @@ export async function POST(req: Request) {
             },
         });
     } catch (e) {
-        const message = e instanceof Error ? e.message : String(e);
-        return NextResponse.json({ error: message }, { status: 500 });
+        console.error("[paper-doll/render] Error:", e);
+        return NextResponse.json({ error: "Render failed" }, { status: 500 });
     }
 }

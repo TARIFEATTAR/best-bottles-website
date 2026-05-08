@@ -35,12 +35,9 @@ export default function GraceWorkspaceClient() {
     // Has the user actually sent anything in this session yet?
     const hasUserSent = messages.some((m) => m.role === "user");
 
-    // Locally track first send so the transition fires immediately
-    // (otherwise we wait for the message to arrive in state).
+    // Locally track first send so the transition fires immediately.
     const [chatStarted, setChatStarted] = useState(hasUserSent);
-    useEffect(() => {
-        if (hasUserSent && !chatStarted) setChatStarted(true);
-    }, [hasUserSent, chatStarted]);
+    const showChat = chatStarted || hasUserSent;
 
     const handleSend = (text?: string) => {
         const v = (text ?? input).trim();
@@ -58,7 +55,7 @@ export default function GraceWorkspaceClient() {
     return (
         <WorkspaceShell onNewConversation={handleNewConversation}>
             <AnimatePresence mode="wait" initial={false}>
-                {!chatStarted ? (
+                {!showChat ? (
                     <motion.div
                         key="greeting"
                         initial={{ opacity: 0, y: 8 }}

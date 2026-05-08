@@ -295,6 +295,52 @@ function nextMsgId(): string {
     return `grace-msg-${Date.now()}-${++msgCounter}`;
 }
 
+const GRACE_TOOL_TIMEOUT_MS = 12000;
+
+async function fetchJsonWithTimeout<T>(
+    url: string,
+    init: RequestInit,
+    timeoutMs = GRACE_TOOL_TIMEOUT_MS,
+): Promise<{ ok: boolean; status: number; data: T | null; error?: string }> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        const response = await fetch(url, { ...init, signal: controller.signal });
+        const data = await response.json().catch(() => null) as T | null;
+        const error = data && typeof data === "object" && "error" in data
+            ? String((data as { error?: unknown }).error ?? "")
+            : undefined;
+        return { ok: response.ok, status: response.status, data, error };
+    } catch (error) {
+        return {
+            ok: false,
+            status: 0,
+            data: null,
+            error: error instanceof DOMException && error.name === "AbortError"
+                ? "Grace timed out while checking the catalog."
+                : error instanceof Error ? error.message : "Grace could not reach the catalog.",
+        };
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+async function callGraceServerTool<T>(
+    toolName: string,
+    parameters: Record<string, unknown>,
+): Promise<{ result: T | null; error?: string; status: number }> {
+    const response = await fetchJsonWithTimeout<{ result?: T; error?: string }>("/api/elevenlabs/server-tools", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool_name: toolName, parameters }),
+    });
+    return {
+        result: response.ok ? response.data?.result ?? null : null,
+        error: response.error || (!response.ok ? `Catalog tool failed with HTTP ${response.status}.` : undefined),
+        status: response.status,
+    };
+}
+
 // ─── Provider ────────────────────────────────────────────────────────────────
 
 function GraceProviderBase({
@@ -591,14 +637,14 @@ function GraceProviderBase({
 
         searchCatalog: async (params: { searchTerm: string; familyLimit?: string; applicatorFilter?: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "searchCatalog", parameters: { searchTerm: params.searchTerm ?? "", familyLimit: params.familyLimit, applicatorFilter: params.applicatorFilter } }),
+                const data = await callGraceServerTool<ProductCard[] | string>("searchCatalog", {
+                    searchTerm: params.searchTerm ?? "",
+                    familyLimit: params.familyLimit,
+                    applicatorFilter: params.applicatorFilter,
                 });
-                const data = await r.json() as { result?: ProductCard[] | string; error?: string };
-                if (!r.ok) {
-                    console.error("[Grace] searchCatalog HTTP", r.status, data.error);
-                    return "Search failed. Please try again.";
+                if (data.error) {
+                    console.error("[Grace] searchCatalog HTTP", data.status, data.error);
+                    return `${data.error} Try a broader search term or ask Grace again.`;
                 }
                 if (typeof data.result === "string") {
                     sessionMetricsRef.current.toolsCalled++;
@@ -627,11 +673,8 @@ function GraceProviderBase({
 
         getFamilyOverview: async (params: { family: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getFamilyOverview", parameters: { family: params.family } }),
-                });
-                const data = await r.json() as { result?: Record<string, unknown> };
+                const data = await callGraceServerTool<Record<string, unknown>>("getFamilyOverview", { family: params.family });
+                if (data.error) return `${data.error} I could not load the ${params.family} family details.`;
                 if (!data.result) return `No data found for the ${params.family} family.`;
                 const v = data.result as { sizes?: Array<{ label: string }>; colors?: string[]; applicatorTypes?: string[]; threadSizes?: string[] };
                 return `${params.family} family — Sizes: ${(v.sizes || []).map((s) => s.label).join(", ")}. Colors: ${(v.colors || []).join(", ")}. Applicators: ${(v.applicatorTypes || []).join(", ")}. Thread sizes: ${(v.threadSizes || []).join(", ")}.`;
@@ -640,11 +683,8 @@ function GraceProviderBase({
 
         getBottleComponents: async (params: { bottleSku: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getBottleComponents", parameters: { bottleSku: params.bottleSku } }),
-                });
-                const data = await r.json() as { result?: Record<string, unknown> | null };
+                const data = await callGraceServerTool<Record<string, unknown> | null>("getBottleComponents", { bottleSku: params.bottleSku });
+                if (data.error) return `${data.error} I could not check components for SKU "${params.bottleSku}".`;
                 if (!data.result) return `No compatible components found for SKU "${params.bottleSku}".`;
                 const result = data.result as { bottle?: { itemName?: string; neckThreadSize?: string; family?: string; capacity?: string }; components?: Record<string, Array<{ graceSku?: string; itemName?: string; webPrice1pc?: number; capColor?: string; stockStatus?: string }>> };
                 const lines: string[] = [];
@@ -663,11 +703,8 @@ function GraceProviderBase({
 
         checkCompatibility: async (params: { threadSize: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "checkCompatibility", parameters: { threadSize: params.threadSize } }),
-                });
-                const data = await r.json() as { result?: Array<Record<string, unknown>> };
+                const data = await callGraceServerTool<Array<Record<string, unknown>>>("checkCompatibility", { threadSize: params.threadSize });
+                if (data.error) return `${data.error} I could not check thread compatibility for "${params.threadSize}".`;
                 const fitments = Array.isArray(data.result) ? data.result : [];
                 if (fitments.length === 0) return `No bottles found with thread size "${params.threadSize}". Common sizes: 13-415, 15-415, 18-415, 20-410, 24-410, 28-410.`;
                 const lines = [`Bottles compatible with ${params.threadSize} thread (${fitments.length} found):`];
@@ -679,11 +716,8 @@ function GraceProviderBase({
 
         getCatalogStats: async () => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getCatalogStats", parameters: {} }),
-                });
-                const data = await r.json() as { result?: Record<string, unknown> };
+                const data = await callGraceServerTool<Record<string, unknown>>("getCatalogStats", {});
+                if (data.error) return `${data.error} I could not retrieve catalog statistics.`;
                 if (!data.result) return "Could not retrieve catalog statistics.";
                 const stats = data.result as { totalVariants?: number; totalGroups?: number; familyCounts?: Record<string, number>; categoryCounts?: Record<string, number> };
                 const lines = [`Best Bottles Catalog: ${stats.totalVariants ?? "2,285"} individual SKUs across ${stats.totalGroups ?? "230"} product groups.`];
@@ -757,11 +791,11 @@ function GraceProviderBase({
 
         showProducts: async (params: { query: string; family?: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "searchCatalog", parameters: { searchTerm: params.query ?? "", familyLimit: params.family } }),
+                const data = await callGraceServerTool<ProductCard[]>("searchCatalog", {
+                    searchTerm: params.query ?? "",
+                    familyLimit: params.family,
                 });
-                const data = await r.json() as { result?: ProductCard[] };
+                if (data.error) return `${data.error} I could not search the catalog right now.`;
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
                 if (products.length === 0) return "No products found. Try a different description.";
 
@@ -800,11 +834,11 @@ function GraceProviderBase({
 
         compareProducts: async (params: { query: string; family?: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "searchCatalog", parameters: { searchTerm: params.query ?? "", familyLimit: params.family } }),
+                const data = await callGraceServerTool<ProductCard[]>("searchCatalog", {
+                    searchTerm: params.query ?? "",
+                    familyLimit: params.family,
                 });
-                const data = await r.json() as { result?: ProductCard[] };
+                if (data.error) return `${data.error} I could not load products to compare.`;
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
                 if (products.length === 0) return "No products found to compare.";
 
@@ -820,8 +854,8 @@ function GraceProviderBase({
             } catch (e) { console.error("[Grace] compareProducts:", e); return "Comparison failed."; }
         },
 
-        proposeCartAdd: (params: { products: Array<{ itemName: string; graceSku: string; quantity?: number; webPrice1pc?: number }> | string }) => {
-            let rawProducts: Array<{ itemName: string; graceSku: string; quantity?: number; webPrice1pc?: number }>;
+        proposeCartAdd: (params: { products: Array<{ itemName: string; graceSku: string; quantity?: number; webPrice1pc?: number; family?: string; capacity?: string; color?: string; applicator?: string; capColor?: string | null }> | string }) => {
+            let rawProducts: Array<{ itemName: string; graceSku: string; quantity?: number; webPrice1pc?: number; family?: string; capacity?: string; color?: string; applicator?: string; capColor?: string | null }>;
             if (typeof params.products === "string") {
                 try { rawProducts = JSON.parse(params.products); } catch { rawProducts = []; }
             } else {
@@ -835,6 +869,11 @@ function GraceProviderBase({
                     itemName: p.itemName,
                     quantity: p.quantity,
                     unitPrice: p.webPrice1pc ?? null,
+                    family: p.family,
+                    capacity: p.capacity,
+                    color: p.color,
+                    applicator: p.applicator,
+                    capColor: p.capColor,
                 })));
                 sessionMetricsRef.current.toolsCalled++;
                 sessionMetricsRef.current.toolsUsed.add("proposeCartAdd");
@@ -879,14 +918,7 @@ function GraceProviderBase({
                 const hint = `${params.title ?? ""} ${params.description ?? ""}`.trim();
                 if (hint.length >= 3) {
                     try {
-                        const inferRes = await fetch("/api/elevenlabs/server-tools", {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                tool_name: "searchCatalog",
-                                parameters: { searchTerm: hint.slice(0, 160) },
-                            }),
-                        });
-                        const inferData = await inferRes.json() as { result?: ProductCard[] };
+                        const inferData = await callGraceServerTool<ProductCard[]>("searchCatalog", { searchTerm: hint.slice(0, 160) });
                         const hits: ProductCard[] = Array.isArray(inferData.result) ? inferData.result : [];
                         navPath = hits.length > 0 ? buildBrowsePath(hits, hint, undefined) : buildCatalogPath([], hint);
                     } catch {
@@ -905,18 +937,10 @@ function GraceProviderBase({
             if (navPath.startsWith("/products/")) {
                 const rawSlug = navPath.replace(/^\/products\//, "").split("?")[0];
                 try {
-                    const checkRes = await fetch("/api/elevenlabs/server-tools", {
-                        method: "POST", headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ tool_name: "getProductGroup", parameters: { slug: rawSlug } }),
-                    });
-                    const checkData = await checkRes.json() as { result?: { group?: unknown } | null };
+                    const checkData = await callGraceServerTool<{ group?: unknown } | null>("getProductGroup", { slug: rawSlug });
                     if (!checkData.result || !(checkData.result as { group?: unknown }).group) {
                         const searchTerm = params.title && params.title.length > 3 ? params.title : slugToSearchTerm(rawSlug);
-                        const searchRes = await fetch("/api/elevenlabs/server-tools", {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ tool_name: "searchCatalog", parameters: { searchTerm } }),
-                        });
-                        const searchData = await searchRes.json() as { result?: ProductCard[] };
+                        const searchData = await callGraceServerTool<ProductCard[]>("searchCatalog", { searchTerm });
                         const hits: ProductCard[] = Array.isArray(searchData.result) ? searchData.result : [];
                         if (hits.length > 0) {
                             const directHit = selectDirectProductMatch(hits, searchTerm);
@@ -968,11 +992,11 @@ function GraceProviderBase({
 
         showProductPresentation: async (params: { searchTerm: string; headline?: string; familyLimit?: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "searchCatalog", parameters: { searchTerm: params.searchTerm ?? "", familyLimit: params.familyLimit } }),
+                const data = await callGraceServerTool<ProductCard[]>("searchCatalog", {
+                    searchTerm: params.searchTerm ?? "",
+                    familyLimit: params.familyLimit,
                 });
-                const data = await r.json() as { result?: ProductCard[] };
+                if (data.error) return `${data.error} Product presentation failed.`;
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
                 if (products.length === 0) return "No products found to present.";
 
@@ -1036,12 +1060,8 @@ function GraceProviderBase({
 
         displayProductCard: async (params: { graceSku: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: params.graceSku } }),
-                });
-                const data = await r.json() as { result?: ProductCard | null };
+                const data = await callGraceServerTool<ProductCard | null>("getProductBySku", { graceSku: params.graceSku });
+                if (data.error) return `${data.error} Could not render the product card.`;
                 const product = data.result;
                 if (!product) return `No product found for SKU "${params.graceSku}". Try searchCatalog first.`;
 
@@ -1058,12 +1078,8 @@ function GraceProviderBase({
 
         displayFamilyCard: async (params: { family: string; capacityMl?: number }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getFamilyForCard", parameters: { family: params.family } }),
-                });
-                const data = await r.json() as { result?: import("@/components/GraceContext").FamilyCardPayload | null };
+                const data = await callGraceServerTool<import("@/components/GraceContext").FamilyCardPayload | null>("getFamilyForCard", { family: params.family });
+                if (data.error) return `${data.error} Could not render the family card.`;
                 if (!data.result) return `No data for the ${params.family} family.`;
                 const payload = data.result;
                 if (params.capacityMl != null) {
@@ -1080,12 +1096,8 @@ function GraceProviderBase({
 
         displayCompatibility: async (params: { bottleSku: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getBottleComponents", parameters: { bottleSku: params.bottleSku } }),
-                });
-                const data = await r.json() as { result?: { bottle: ProductCard & { neckThreadSize?: string }; components?: Record<string, Array<ProductCard & { capColor?: string; imageUrl?: string }>> } | null };
+                const data = await callGraceServerTool<{ bottle: ProductCard & { neckThreadSize?: string }; components?: Record<string, Array<ProductCard & { capColor?: string; imageUrl?: string }>> } | null>("getBottleComponents", { bottleSku: params.bottleSku });
+                if (data.error) return `${data.error} Could not render compatibility tray.`;
                 if (!data.result) return `No compatible components found for "${params.bottleSku}".`;
                 const { bottle, components } = data.result;
                 const flatComponents: Array<ProductCard & { componentType?: string; heroImageUrl?: string | null; fitmentVerified?: boolean }> = [];
@@ -1119,12 +1131,7 @@ function GraceProviderBase({
             try {
                 const fetchOne = async (sku: string | undefined) => {
                     if (!sku) return null;
-                    const r = await fetch("/api/elevenlabs/server-tools", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: sku } }),
-                    });
-                    const data = await r.json() as { result?: ProductCard | null };
+                    const data = await callGraceServerTool<ProductCard | null>("getProductBySku", { graceSku: sku });
                     return data.result ?? null;
                 };
                 const [bottle, closure, applicator] = await Promise.all([
@@ -1168,12 +1175,8 @@ function GraceProviderBase({
                 console.log("[Grace] displayComparison called", { skus, dimensions });
                 if (skus.length < 2) return "Need at least 2 SKUs to compare. Run searchCatalog first to get the SKUs, then call displayComparison again.";
 
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getProductsForComparison", parameters: { graceSkus: skus } }),
-                });
-                const data = await r.json() as { result?: ProductCard[] };
+                const data = await callGraceServerTool<ProductCard[]>("getProductsForComparison", { graceSkus: skus });
+                if (data.error) return `${data.error} Could not render comparison.`;
                 const products = Array.isArray(data.result) ? data.result : [];
                 console.log("[Grace] displayComparison fetched", products.length, "products");
                 if (products.length === 0) return "No products found for those SKUs. Re-run searchCatalog to get fresh SKUs.";
@@ -1195,12 +1198,8 @@ function GraceProviderBase({
 
         displayCatalogStrip: async (params: { category?: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getCatalogStrip", parameters: { category: params.category ?? null } }),
-                });
-                const data = await r.json() as { result?: import("@/components/GraceContext").CatalogStripPayload | null };
+                const data = await callGraceServerTool<import("@/components/GraceContext").CatalogStripPayload | null>("getCatalogStrip", { category: params.category ?? null });
+                if (data.error) return `${data.error} Could not load catalog strip.`;
                 if (!data.result) return "Could not load catalog families.";
                 pendingActionsRef.current.push({ type: "displayCatalogStrip", payload: data.result });
                 sessionMetricsRef.current.toolsCalled++;
@@ -1219,12 +1218,8 @@ function GraceProviderBase({
 
         displayAnatomy: async (params: { graceSku: string }) => {
             try {
-                const r = await fetch("/api/elevenlabs/server-tools", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tool_name: "getProductBySku", parameters: { graceSku: params.graceSku } }),
-                });
-                const data = await r.json() as { result?: ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null; capColor?: string | null } | null };
+                const data = await callGraceServerTool<ProductCard & { heroImageUrl?: string | null; paperDollBodyUrl?: string | null; capColor?: string | null } | null>("getProductBySku", { graceSku: params.graceSku });
+                if (data.error) return `${data.error} Could not render anatomy view.`;
                 const product = data.result;
                 if (!product) return `No product found for SKU "${params.graceSku}".`;
 
@@ -1505,12 +1500,11 @@ function GraceProviderBase({
         reconnectAttemptsRef.current = 0;
 
         try {
-            const res = await fetch("/api/elevenlabs/signed-url");
+            const res = await fetchJsonWithTimeout<{ signedUrl?: string; error?: string }>("/api/elevenlabs/signed-url", {});
             if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error((err as { error?: string }).error ?? "Failed to get ElevenLabs connection.");
+                throw new Error(res.error ?? "Failed to get ElevenLabs connection.");
             }
-            const { signedUrl } = (await res.json()) as { signedUrl?: string };
+            const { signedUrl } = res.data ?? {};
             if (!signedUrl) throw new Error("ElevenLabs did not return a valid signed URL.");
 
             const page = pageContextRef.current;

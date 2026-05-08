@@ -20,6 +20,8 @@ export interface CartItem {
     family?: string;
     capacity?: string;
     color?: string;
+    applicator?: string | null;
+    capColor?: string | null;
 }
 
 interface CartContextValue {
@@ -93,7 +95,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
             for (const item of newItems) {
                 const existing = updated.find((i) => i.graceSku === item.graceSku);
                 if (existing) {
-                    existing.quantity += item.quantity;
+                    Object.assign(existing, {
+                        ...existing,
+                        ...item,
+                        quantity: existing.quantity + item.quantity,
+                    });
                 } else {
                     updated.push({ ...item });
                 }
@@ -159,11 +165,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 analytics.checkoutCompleted({ itemCount: items.length, cartTotal, unmatchedCount: unmatched.length });
                 if (unmatched.length > 0) {
                     setCheckoutError(
-                        `${unmatched.length} item(s) couldn't be matched in the store and were skipped. Proceeding with the rest.`
+                        `${unmatched.length} item(s) could not be matched for online checkout: ${unmatched.join(", ")}. Checkout opened for matched items; request a quote for the unmatched SKU(s).`
                     );
+                } else {
+                    clearCart();
                 }
                 window.open(data.checkoutUrl, "_blank");
-                clearCart();
             } else if (data.unmatchedSkus?.length) {
                 setCheckoutError(
                     `These items aren't available in the online store yet: ${data.unmatchedSkus.join(", ")}. Contact us at sales@bestbottles.com to place your order.`

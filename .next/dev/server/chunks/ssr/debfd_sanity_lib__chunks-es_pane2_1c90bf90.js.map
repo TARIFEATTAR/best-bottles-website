@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"file":"turbopack:///[project]/node_modules/.pnpm/sanity@5.18.0_@emotion+is-prop-valid@1.4.0_@noble+hashes@2.0.1_@oclif+core@4.10.3_@sani_65cd2cb7f6c2940af0c8465504a3d602/node_modules/sanity/lib/_chunks-es/pane2.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}}]
-}

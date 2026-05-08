@@ -61,12 +61,12 @@
       }
     },
     {
-      "id": "exact-slim-15ml",
+      "id": "exact-slim-30ml",
       "category": "exact_retrieval",
-      "question": "Show me the 15ml Slim bottle.",
+      "question": "Show me the 30ml Slim bottle.",
       "expect": {
-        "mustMention": ["Slim", "15ml"],
-        "mustNotMention": ["don't stock"],
+        "mustMention": ["Slim", "30ml"],
+        "mustNotMention": ["don't stock", "don't carry"],
         "expectedTools": ["searchCatalog"],
         "expectedFamily": "Slim"
       }
@@ -106,9 +106,9 @@
       "category": "pivot_behavior",
       "question": "I want a 15ml Empire bottle.",
       "expect": {
-        "mustMention": ["30ml"],
+        "mustMention": ["50ml"],
         "shouldPivot": true,
-        "pivotReason": "Empire starts at 30ml — no 15ml exists"
+        "pivotReason": "Empire starts at 50ml — no 15ml, 30ml, or 46ml exists"
       }
     },
     {

@@ -18,7 +18,9 @@ import { urlFor } from "@/sanity/lib/image";
 import {
     SORT_OPTIONS,
     APPLICATOR_BUCKETS,
+    CAPACITY_RANGES,
     applicatorBucketMatchesProductValues,
+    capacityInRange,
     type SortValue,
     type CatalogFilters,
     type ViewMode,
@@ -34,6 +36,7 @@ import {
 
 const PAGE_SIZE = 24;
 const SEARCH_DEBOUNCE_MS = 300;
+const MAX_VISIBLE_LIMIT = 240;
 
 // ─── Sanity Family Banner ─────────────────────────────────────────────────────
 
@@ -162,6 +165,12 @@ function formatPrice(price: number | null): string {
     return `$${price.toFixed(2)}`;
 }
 
+function clampVisibleLimit(rawLimit: string | null): number {
+    const parsed = Number(rawLimit);
+    if (!Number.isFinite(parsed) || parsed <= PAGE_SIZE) return PAGE_SIZE;
+    return Math.min(Math.ceil(parsed / PAGE_SIZE) * PAGE_SIZE, MAX_VISIBLE_LIMIT);
+}
+
 function countBy<T>(arr: T[], keyFn: (item: T) => string | null | undefined): Record<string, number> {
     const counts: Record<string, number> = {};
     for (const item of arr) {
@@ -274,7 +283,7 @@ function FilterSection({
         <div className={`border-b border-champagne/30 pb-4 mb-4 rounded-lg px-2 -mx-2 transition-all duration-200 ${showGlow ? "ring-1 ring-muted-gold/50 ring-offset-2 ring-offset-bone bg-muted-gold/5" : ""}`}>
             <button
                 onClick={toggle}
-                className="flex items-center justify-between w-full text-xs uppercase tracking-wider font-bold text-slate hover:text-obsidian transition-colors py-1"
+                className="flex min-h-11 items-center justify-between w-full text-xs uppercase tracking-wider font-bold text-slate hover:text-obsidian transition-colors py-2"
                 aria-expanded={isOpen}
             >
                 <span className={hasActiveFilters ? "text-muted-gold font-semibold" : ""}>{title}</span>
@@ -313,15 +322,15 @@ function CheckboxItem({
     swatch?: string;
 }) {
     return (
-        <label className="flex items-center gap-2.5 py-1 cursor-pointer group/check">
+        <label className="flex min-h-11 items-center gap-2.5 py-2 cursor-pointer group/check">
             <input
                 type="checkbox"
                 checked={checked}
                 onChange={onChange}
-                className="w-3.5 h-3.5 rounded border-champagne text-muted-gold focus:ring-muted-gold/30 cursor-pointer"
+                className="w-4 h-4 rounded border-champagne text-muted-gold focus:ring-muted-gold/30 cursor-pointer"
             />
             {swatch && (
-                <span className={`w-3.5 h-3.5 rounded-full shrink-0 ${swatch}`} />
+                <span className={`w-4 h-4 rounded-full shrink-0 ${swatch}`} />
             )}
             <span className={`text-[13px] flex-1 transition-colors ${checked ? "text-muted-gold font-semibold" : "text-obsidian/70 group-hover/check:text-obsidian"}`}>
                 {label}
@@ -453,6 +462,20 @@ function FilterSidebarContent({
         return Object.values(facets.capacities).sort((a, b) => (a.ml ?? 9999) - (b.ml ?? 9999));
     }, [facets]);
 
+    const capacityRanges = useMemo(() => {
+        return CAPACITY_RANGES.map((range) => {
+            const capacities = sortedCapacities.filter((cap) => capacityInRange(cap.ml, range));
+            const selectedCount = capacities.filter((cap) => filters.capacities.includes(cap.label)).length;
+            return {
+                ...range,
+                capacities,
+                count: capacities.reduce((sum, cap) => sum + cap.count, 0),
+                checked: capacities.length > 0 && selectedCount === capacities.length,
+                partiallyChecked: selectedCount > 0 && selectedCount < capacities.length,
+            };
+        }).filter((range) => range.capacities.length > 0);
+    }, [filters.capacities, sortedCapacities]);
+
     const sortedColors = useMemo(() => {
         if (!facets) return [];
         return Object.entries(facets.colors).sort(([, a], [, b]) => b - a);
@@ -483,13 +506,23 @@ function FilterSidebarContent({
         return Object.entries(facets.componentTypes).sort(([, a], [, b]) => b - a);
     }, [facets]);
 
+    const toggleCapacityRange = (labels: string[]) => {
+        const selected = new Set(filters.capacities);
+        const allSelected = labels.every((label) => selected.has(label));
+        for (const label of labels) {
+            if (allSelected) selected.delete(label);
+            else selected.add(label);
+        }
+        onFilterChange({ capacities: [...selected] });
+    };
+
     return (
         <>
             <h3 className="font-serif text-xl text-obsidian border-b border-champagne pb-3 mb-6">Browse</h3>
 
             <button
                 onClick={onClearAll}
-                className={`block text-left text-sm transition-colors w-full mb-6 pb-4 border-b border-champagne/30 ${filtersAreEmpty(filters) ? "text-muted-gold font-semibold" : "text-obsidian hover:text-muted-gold"}`}
+                className={`block min-h-11 text-left text-sm transition-colors w-full mb-6 py-2 border-b border-champagne/30 ${filtersAreEmpty(filters) ? "text-muted-gold font-semibold" : "text-obsidian hover:text-muted-gold"}`}
             >
                 All Products ({totalCount.toLocaleString()})
             </button>
@@ -529,16 +562,16 @@ function FilterSidebarContent({
             )}
 
             {/* Capacity — open by default */}
-            {sortedCapacities.length > 0 && (
+            {capacityRanges.length > 0 && (
                 <FilterSection title="Capacity" defaultOpen hasActiveFilters={filters.capacities.length > 0}>
-                    <div className="space-y-0.5 max-h-[240px] overflow-y-auto hide-scroll">
-                        {sortedCapacities.map((cap) => (
+                    <div className="space-y-0.5">
+                        {capacityRanges.map((range) => (
                             <CheckboxItem
-                                key={cap.label}
-                                label={cap.label}
-                                count={cap.count}
-                                checked={filters.capacities.includes(cap.label)}
-                                onChange={() => toggleArrayFilter("capacities", cap.label)}
+                                key={range.value}
+                                label={`${range.label} — ${range.detail}`}
+                                count={range.count}
+                                checked={range.checked}
+                                onChange={() => toggleCapacityRange(range.capacities.map((cap) => cap.label))}
                             />
                         ))}
                     </div>
@@ -586,7 +619,7 @@ function FilterSidebarContent({
                                     <div className="space-y-1 border-l border-champagne ml-2 pl-4 mb-4">
                                         <button
                                             onClick={() => onFilterChange({ category: filters.category === group.category ? null : group.category, collection: null })}
-                                            className={`block text-left text-[13px] transition-colors w-full py-0.5 ${filters.category === group.category && !filters.collection ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
+                                            className={`block min-h-11 text-left text-[13px] transition-colors w-full py-2 ${filters.category === group.category && !filters.collection ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
                                         >
                                             All {group.category} ({group.totalCount})
                                         </button>
@@ -594,7 +627,7 @@ function FilterSidebarContent({
                                             <button
                                                 key={col.name}
                                                 onClick={() => onFilterChange({ collection: filters.collection === col.name ? null : col.name, category: null })}
-                                                className={`block text-left text-[13px] transition-colors w-full py-0.5 ${filters.collection === col.name ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
+                                                className={`block min-h-11 text-left text-[13px] transition-colors w-full py-2 ${filters.collection === col.name ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
                                             >
                                                 {col.name} ({col.count})
                                             </button>
@@ -615,7 +648,7 @@ function FilterSidebarContent({
                             <button
                                 key={type}
                                 onClick={() => onFilterChange({ componentType: filters.componentType === type ? null : type })}
-                                className={`block text-left text-[13px] transition-colors w-full py-1 ${filters.componentType === type ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
+                                className={`block min-h-11 text-left text-[13px] transition-colors w-full py-2 ${filters.componentType === type ? "text-muted-gold font-semibold" : "text-obsidian/70 hover:text-muted-gold"}`}
                             >
                                 {type} ({count})
                             </button>
@@ -802,7 +835,7 @@ function LineItemRow({
                     <div className="flex items-center border border-champagne rounded-lg bg-white">
                         <button
                             onClick={decrementQty}
-                            className="p-1.5 hover:bg-travertine transition-colors rounded-l-lg"
+                            className="min-h-11 min-w-11 flex items-center justify-center hover:bg-travertine transition-colors rounded-l-lg"
                             aria-label="Decrease quantity"
                         >
                             <Minus className="w-3 h-3 text-slate" />
@@ -817,7 +850,7 @@ function LineItemRow({
                         />
                         <button
                             onClick={incrementQty}
-                            className="p-1.5 hover:bg-travertine transition-colors rounded-r-lg"
+                            className="min-h-11 min-w-11 flex items-center justify-center hover:bg-travertine transition-colors rounded-r-lg"
                             aria-label="Increase quantity"
                         >
                             <Plus className="w-3 h-3 text-slate" />
@@ -1125,7 +1158,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const [filters, setFilters] = useState<CatalogFilters>(initialState.filters);
     const [sortBy, setSortBy] = useState<SortValue>(initialState.sort);
     const [viewMode, setViewMode] = useState<ViewMode>(initialState.view);
-    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+    const [visibleCount, setVisibleCount] = useState(() => clampVisibleLimit(searchParams.get("limit")));
     const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>(() => {
         if (typeof window === "undefined") return {};
         try {
@@ -1140,8 +1173,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
     // Sync URL when filters/sort/view change
     const pushToUrl = useCallback(
-        (f: CatalogFilters, s: SortValue, v: ViewMode) => {
-            const qs = filtersToParams(f, s, v).toString();
+        (f: CatalogFilters, s: SortValue, v: ViewMode, limit?: number) => {
+            const params = filtersToParams(f, s, v);
+            if (limit && limit > PAGE_SIZE) params.set("limit", String(limit));
+            const qs = params.toString();
             router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
         },
         [router, pathname],
@@ -1329,7 +1364,14 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         } else if (sortBy === "capacity-asc") {
             result.sort((a, b) => (a.capacityMl ?? Infinity) - (b.capacityMl ?? Infinity));
         } else if (sortBy === "capacity-desc") {
-            result.sort((a, b) => (b.capacityMl ?? -Infinity) - (a.capacityMl ?? -Infinity));
+            result.sort((a, b) => {
+                const aMissing = a.capacityMl == null;
+                const bMissing = b.capacityMl == null;
+                if (aMissing && bMissing) return 0;
+                if (aMissing) return 1;
+                if (bMissing) return -1;
+                return b.capacityMl! - a.capacityMl!;
+            });
         } else {
             // "featured" default: by design family (Cylinder→Elegant→Circle→Sleek…), then capacity small→big
             // Bottle categories first; packaging/components at end
@@ -1369,10 +1411,9 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                 return next;
             });
             setVisibleCount(PAGE_SIZE);
-            setMobileFilterOpen(false);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (!mobileFilterOpen) window.scrollTo({ top: 0, behavior: "smooth" });
         },
-        [pushToUrl, sortBy, viewMode],
+        [mobileFilterOpen, pushToUrl, sortBy, viewMode],
     );
 
     const handleClearAll = useCallback(() => {
@@ -1394,10 +1435,16 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const handleViewChange = useCallback(
         (value: ViewMode) => {
             setViewMode(value);
-            pushToUrl(filters, sortBy, value);
+            pushToUrl(filters, sortBy, value, visibleCount);
         },
-        [pushToUrl, filters, sortBy],
+        [pushToUrl, filters, sortBy, visibleCount],
     );
+
+    const handleLoadMore = useCallback(() => {
+        const next = Math.min(visibleCount + PAGE_SIZE, filtered.length);
+        setVisibleCount(next);
+        pushToUrl(filters, sortBy, viewMode, next);
+    }, [filtered.length, filters, pushToUrl, sortBy, viewMode, visibleCount]);
 
     const handleSearchInput = useCallback(
         (term: string) => {
@@ -1427,7 +1474,25 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     }
     for (const f of filters.families) chips.push({ label: f, onRemove: () => handleFilterChange({ families: filters.families.filter((x) => x !== f) }) });
     for (const c of filters.colors) chips.push({ label: c, onRemove: () => handleFilterChange({ colors: filters.colors.filter((x) => x !== c) }) });
-    for (const cap of filters.capacities) chips.push({ label: cap, onRemove: () => handleFilterChange({ capacities: filters.capacities.filter((x) => x !== cap) }) });
+    const capacityChipLabels = new Set<string>();
+    if (facets) {
+        const allCapacities = Object.values(facets.capacities);
+        for (const range of CAPACITY_RANGES) {
+            const labels = allCapacities.filter((cap) => capacityInRange(cap.ml, range)).map((cap) => cap.label);
+            if (labels.length > 0 && labels.every((label) => filters.capacities.includes(label))) {
+                labels.forEach((label) => capacityChipLabels.add(label));
+                chips.push({
+                    label: `${range.label} — ${range.detail}`,
+                    onRemove: () => handleFilterChange({ capacities: filters.capacities.filter((x) => !labels.includes(x)) }),
+                });
+            }
+        }
+    }
+    for (const cap of filters.capacities) {
+        if (!capacityChipLabels.has(cap)) {
+            chips.push({ label: cap, onRemove: () => handleFilterChange({ capacities: filters.capacities.filter((x) => x !== cap) }) });
+        }
+    }
     for (const t of filters.neckThreadSizes) chips.push({ label: `Thread ${t}`, onRemove: () => handleFilterChange({ neckThreadSizes: filters.neckThreadSizes.filter((x) => x !== t) }) });
     if (filters.componentType) chips.push({ label: filters.componentType, onRemove: () => handleFilterChange({ componentType: null }) });
     if (filters.priceMin !== null || filters.priceMax !== null) {
@@ -1569,7 +1634,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     </div>
                                     <button
                                         onClick={() => setMobileFilterOpen(false)}
-                                        className="p-1.5 rounded-lg hover:bg-champagne/40 transition-colors"
+                                        className="min-h-11 min-w-11 flex items-center justify-center rounded-lg hover:bg-champagne/40 transition-colors"
+                                        aria-label="Close filters"
                                     >
                                         <X className="w-5 h-5 text-slate" />
                                     </button>
@@ -1688,7 +1754,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                             <div className="flex gap-2 mb-4 sm:mb-6 overflow-x-auto pb-1 hide-scroll sm:flex-wrap">
                                 <button
                                     onClick={() => handleFilterChange({ applicators: [] })}
-                                    className={`shrink-0 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.length === 0
+                                    className={`shrink-0 min-h-11 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.length === 0
                                         ? "bg-obsidian text-white border-obsidian"
                                         : "bg-white border-champagne text-obsidian hover:border-muted-gold"
                                         }`}
@@ -1706,7 +1772,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                                     : [...filters.applicators, bucket.value],
                                             });
                                         }}
-                                        className={`shrink-0 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors whitespace-nowrap ${filters.applicators.includes(bucket.value)
+                                        className={`shrink-0 min-h-11 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors whitespace-nowrap ${filters.applicators.includes(bucket.value)
                                             ? "bg-obsidian text-white border-obsidian"
                                             : "bg-white border-champagne text-obsidian hover:border-muted-gold"
                                             }`}
@@ -1824,7 +1890,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     Showing {visibleCount} of {filtered.length} products
                                 </p>
                                 <button
-                                    onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+                                    onClick={handleLoadMore}
                                     className="px-8 py-3 bg-obsidian text-white uppercase text-xs font-bold tracking-wider hover:bg-muted-gold transition-colors rounded-sm"
                                 >
                                     Load More

@@ -53,8 +53,8 @@ export default function GraceLauncher() {
                     title="Ask Grace — AI bottling concierge"
                     className="fixed z-[55] flex items-center justify-center cursor-pointer group"
                     style={{
-                        right: 22,
-                        bottom: 22,
+                        right: "max(22px, env(safe-area-inset-right))",
+                        bottom: "max(22px, calc(env(safe-area-inset-bottom) + 22px))",
                         width: 56,
                         height: 56,
                         borderRadius: "50%",

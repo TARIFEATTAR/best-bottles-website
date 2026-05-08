@@ -62,7 +62,7 @@ export const searchCatalog = query({
         const takeCount = args.applicatorFilter ? 100 : 25;
 
         // Use search index filter fields (category, family) — faster than post-search .filter()
-        let q = ctx.db.query("products").withSearchIndex("search_itemName", (q) => {
+        const q = ctx.db.query("products").withSearchIndex("search_itemName", (q) => {
             let s = q.search("itemName", searchTermToUse);
             if (categoryLimit) s = s.eq("category", categoryLimit);
             if (args.familyLimit) s = s.eq("family", args.familyLimit);
@@ -146,7 +146,7 @@ export const searchCatalog = query({
             ? [...shapeMatch.primary, ...shapeMatch.also]
             : [];
 
-        let structuredResults: typeof results = [];
+        const structuredResults: typeof results = [];
         let didAdjacentExpansion = false;
 
         if (detectedFamily || detectedCapMl !== null || detectedColor || shapeFamilies.length > 0) {

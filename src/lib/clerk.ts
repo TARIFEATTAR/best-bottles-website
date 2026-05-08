@@ -5,6 +5,7 @@ export function isClerkAuthPath(pathname: string | null): boolean {
     return (
         pathname.startsWith("/portal")
         || pathname.startsWith("/sign-in")
+        || pathname.startsWith("/sign-up")
         // Workspace is gated to authenticated B2B accounts; Clerk must initialize
         // here so `useAuth()` works for the gate check.
         || pathname.startsWith("/grace-workspace")

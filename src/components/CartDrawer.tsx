@@ -14,7 +14,7 @@ interface CartDrawerProps {
 }
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-    const { items, itemCount, removeItem, updateQuantity, checkout, isCheckingOut, checkoutError } = useCart();
+    const { items, itemCount, removeItem, updateQuantity, checkout, isCheckingOut, checkoutError, isCartHydrated } = useCart();
     const drawerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -96,7 +96,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                             </div>
                             <button
                                 onClick={onClose}
-                                className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer hover:bg-black/5"
+                                className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer hover:bg-black/5"
                                 style={{ border: "1px solid rgba(29, 29, 31, 0.08)" }}
                                 aria-label="Close cart"
                             >
@@ -125,7 +125,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                         {/* Items */}
                         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
-                            {items.length === 0 ? (
+                            {!isCartHydrated ? (
+                                <div className="flex flex-col items-center justify-center h-full text-center py-16">
+                                    <ShoppingBag className="text-champagne mb-4" size={48} />
+                                    <p className="font-serif text-lg text-obsidian/60 mb-2">Loading your cart</p>
+                                    <p className="text-sm text-slate">Checking saved cart items on this device.</p>
+                                </div>
+                            ) : items.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center h-full text-center py-16">
                                     <ShoppingBag className="text-champagne mb-4" size={48} />
                                     <p className="font-serif text-lg text-obsidian/60 mb-2">Your cart is empty</p>
@@ -150,11 +156,12 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             <p className="text-[14px] font-medium text-obsidian leading-snug line-clamp-2 mb-0.5">
                                                 {item.itemName}
                                             </p>
-                                            {(item.family || item.capacity) && (
-                                                <p className="text-[12px] text-slate mb-2">
-                                                    {[item.family, item.capacity, item.color].filter(Boolean).join(" · ")}
-                                                </p>
-                                            )}
+                                            <div className="text-[12px] text-slate mb-2 space-y-0.5">
+                                                <p>{[item.family, item.capacity, item.color].filter(Boolean).join(" · ") || "Product details pending"}</p>
+                                                {(item.applicator || item.capColor) && (
+                                                    <p>{[item.applicator, item.capColor].filter(Boolean).join(" · ")}</p>
+                                                )}
+                                            </div>
                                             <p className="text-[10px] text-slate/70 font-mono uppercase tracking-wide mb-2">
                                                 SKU {item.graceSku}
                                             </p>
@@ -162,7 +169,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                 <div className="flex items-center gap-1 rounded-md overflow-hidden bg-bone/50 border border-champagne/50">
                                                     <button
                                                         onClick={() => updateQuantity(item.graceSku, item.quantity - 1)}
-                                                        className="w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
+                                                        className="w-11 h-11 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
                                                         aria-label="Decrease quantity"
                                                     >
                                                         <Minus size={12} />
@@ -172,23 +179,30 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     </span>
                                                     <button
                                                         onClick={() => updateQuantity(item.graceSku, item.quantity + 1)}
-                                                        className="w-9 h-9 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
+                                                        className="w-11 h-11 flex items-center justify-center text-obsidian/60 hover:text-obsidian hover:bg-white transition-colors cursor-pointer"
                                                         aria-label="Increase quantity"
                                                     >
                                                         <Plus size={12} />
                                                     </button>
                                                 </div>
-                                                {item.unitPrice != null && (
-                                                    <span className="text-[14px] font-medium text-obsidian">
-                                                        ${(item.unitPrice * item.quantity).toFixed(2)}
-                                                    </span>
-                                                )}
+                                                <div className="text-right">
+                                                    {item.unitPrice != null ? (
+                                                        <>
+                                                            <p className="text-[11px] text-slate">${item.unitPrice.toFixed(2)} ea</p>
+                                                            <p className="text-[14px] font-medium text-obsidian">
+                                                                ${(item.unitPrice * item.quantity).toFixed(2)}
+                                                            </p>
+                                                        </>
+                                                    ) : (
+                                                        <p className="text-[12px] font-medium text-slate">Quote pricing</p>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
 
                                         <button
                                             onClick={() => removeItem(item.graceSku)}
-                                            className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-full hover:bg-red-50"
+                                            className="absolute top-2 right-2 w-11 h-11 flex items-center justify-center opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity cursor-pointer rounded-full hover:bg-red-50"
                                             aria-label="Remove item"
                                         >
                                             <Trash className="text-slate hover:text-red-500 transition-colors" size={14} />
@@ -242,7 +256,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 </Link>
 
                                 <p className="text-[11px] text-slate text-center mt-3 tracking-wide">
-                                    Secure checkout · Terms apply
+                                    {isCheckingOut ? "Checking Shopify variants and preparing checkout." : "Secure checkout · Terms apply"}
                                 </p>
                             </div>
                         )}

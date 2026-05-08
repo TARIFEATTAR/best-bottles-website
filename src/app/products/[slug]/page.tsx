@@ -484,6 +484,16 @@ interface ProductVariant {
     components?: ProductComponent[] | null;
 }
 
+function supportsSecondaryPdpImage(variant: ProductVariant): boolean {
+    const isEmpire =
+        variant.family === "Empire" ||
+        /^GBEmp/i.test(variant.websiteSku) ||
+        /Empire/i.test(variant.itemName);
+    const applicatorText = `${variant.applicator ?? ""} ${variant.itemName}`.toLowerCase();
+    if (isEmpire && /(vintage|antique).*(bulb|spray)/.test(applicatorText)) return false;
+    return true;
+}
+
 
 // ── Spec Row ──────────────────────────────────────────────────────────────────
 
@@ -1015,6 +1025,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             family: group?.family,
             capacity: group?.capacity ?? undefined,
             color: group?.color ?? undefined,
+            applicator: selectedVariant.applicator,
+            capColor: selectedVariant.capColor,
         }]);
         analytics.cartItemAdded({
             sku: selectedVariant.graceSku,
@@ -1157,7 +1169,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                         alt: `${selectedVariant.itemName} — cap on`,
                                     });
                                 }
-                                if (selectedVariant?.imageUrlCapOff) {
+                                if (selectedVariant?.imageUrlCapOff && supportsSecondaryPdpImage(selectedVariant)) {
                                     galleryImages.push({
                                         url: selectedVariant.imageUrlCapOff,
                                         label: "Cap off",
@@ -1173,6 +1185,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                             badge={variantBadge}
                                             watermark={skuWatermark}
                                             aspectRatio="10/11"
+                                            mainPadding="p-0"
                                         />
                                     );
                                 }

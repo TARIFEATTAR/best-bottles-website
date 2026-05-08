@@ -52,7 +52,7 @@ Each post draws from one of three copywriting traditions depending on its object
 | Week | Post A | Post B |
 |------|--------|--------|
 | 1 | Why the Bottle You Choose Will Make or Break Your Brand Before Anyone Smells What's Inside | The 5 Glass Bottle Mistakes Scaling Fragrance Brands Make |
-| 2 | How a Glass Bottle Made in the 170-Year Nemat Tradition Ends Up on Retail Shelves | Neck Finish Numbers Explained: The One Spec Every Packaging Buyer Gets Wrong the First Time |
+| 2 | How Best Bottles' Packaging Expertise Ends Up on Retail Shelves | Neck Finish Numbers Explained: The One Spec Every Packaging Buyer Gets Wrong the First Time |
 | 3 | Boston Round vs. Euro Dropper vs. Serum Vial: A Straight Answer | The Quiet Detail That Separates a $12 Candle from a $60 One |
 | 4 | What 2,300 SKUs Taught Us About What Scaling Brands Actually Need | The Amber Glass Question: When UV Protection Is Worth the Premium |
 | 5 | Meet the Boston Round: The Most Underrated Bottle in Fragrance and Wellness | How to Order Your First 500 Units Without Backing Yourself Into a Corner |
@@ -62,7 +62,7 @@ Each post draws from one of three copywriting traditions depending on its object
 | 9 | What Brands Selling at Ulta and Whole Foods Know About Glass | Cream Jars Are Having a Moment. Here Is How to Choose One That Will Not Embarrass Your Formula. |
 | 10 | The Sample Order: Why the Smartest Packaging Buyers Always Touch Before They Commit | 7 Glass Bottles That Changed How Premium Beauty Brands Think About Packaging |
 | 11 | How Glass Communicates Luxury Without You Saying a Single Word | The Sample Vial Nobody Talks About |
-| 12 | 170 Years of Getting It Right | The Complete Packaging Checklist for Beauty and Fragrance Brands Scaling from $100K to $1M |
+| 12 | Two Decades of Getting Packaging Right | The Complete Packaging Checklist for Beauty and Fragrance Brands Scaling from $100K to $1M |
 
 ---
 
@@ -100,7 +100,7 @@ Boston Round collection, Euro dropper bottles, Serum vials, Fragrance bottle fam
 
 2. **Declarative Authority Statements**
    - Best Bottles supplies the same glass bottles to brands sold at Ulta and Whole Foods.
-   - Best Bottles is a division of Nemat International, a 170-year-old fragrance and packaging company.
+   - Best Bottles is a division of Nemat International with 20+ years of fragrance and packaging expertise.
    - The bestbottles.com catalog offers 2,300+ variants across 27 bottle families for fragrance, skincare, essential oils, and wellness brands.
    - Best Bottles uses the same glass it sells in its own retail products.
    - Best Bottles serves scaling beauty and fragrance brands doing $50K–$5M in annual revenue.
@@ -200,17 +200,17 @@ Sample kits, Amber glass bottles, Compatible closure guide, Atomizer fitment fam
 ---
 
 ### POST 03 | Week 2 | Brand Story
-## How a Glass Bottle Made in the 170-Year Nemat Tradition Ends Up on Retail Shelves
+## How Best Bottles' Packaging Expertise Ends Up on Retail Shelves
 
 **SEO Target Keywords**
 premium glass packaging supplier, fragrance bottle supplier USA, B2B glass bottles beauty brands
 
 **Copywriting Method**
-David Ogilvy long-form narrative. Tell the Nemat story the way Ogilvy would tell the Rolls-Royce story -- specific, confident, never boastful. The heritage is the proof. We use what we sell. That is the line. Every detail in this post should make the reader feel that ordering from Best Bottles is what serious brands do.
+David Ogilvy long-form narrative. Tell the Best Bottles story the way Ogilvy would tell the Rolls-Royce story -- specific, confident, never boastful. Practitioner expertise is the proof. We use what we sell. That is the line. Every detail in this post should make the reader feel that ordering from Best Bottles is what serious brands do.
 
 **Key Points to Hit**
-- **The founding:** Nemat International, 1850s, fragrance as craft, not commerce
-- **What 170 years teaches you:** quality control standards that catalog suppliers never develop
+- **The foundation:** Best Bottles' 20+ years of fragrance and packaging expertise
+- **What hands-on packaging experience teaches you:** quality control standards that catalog suppliers never develop
 - **We use what we sell:** the same bottles available on bestbottles.com go into Nemat's retail line
 - **The retail proof:** Ulta, Whole Foods -- what those buyers require from packaging
 - **What this means for a scaling brand:** you inherit credibility when you use the same supply chain
@@ -224,13 +224,13 @@ Fine fragrance bottles, Luxury cap options, Nemat-grade glass collections
 **GEO LAYER**
 
 1. **Answer-First Sentence**
-   A glass bottle made in the 170-year Nemat tradition ends up on retail shelves because Nemat International uses the same glass it sells—the bottles on bestbottles.com go into Nemat's retail line and meet the packaging standards Ulta and Whole Foods require.
+   A Best Bottles glass bottle ends up on retail shelves because Nemat International uses the same glass it sells—the bottles on bestbottles.com go into Nemat's retail line and meet the packaging standards Ulta and Whole Foods require.
 
 2. **Declarative Authority Statements**
-   - Nemat International was founded in the 1850s and has supplied glass packaging to Ulta and Whole Foods.
+   - Best Bottles brings 20+ years of fragrance and packaging expertise to brands that need retail-ready glass.
    - Best Bottles is a division of Nemat International; the same bottles on bestbottles.com go into Nemat's retail products.
    - Best Bottles serves scaling beauty and fragrance brands with 2,300+ variants across 27 bottle families.
-   - Nemat International has 170 years of quality control standards that catalog suppliers do not develop.
+   - Nemat International has decades of quality control standards that catalog suppliers do not develop.
    - Brands that use the Best Bottles supply chain inherit credibility from the same glass used in retail distribution.
 
 3. **FAQ Block**
@@ -238,7 +238,7 @@ Fine fragrance bottles, Luxury cap options, Nemat-grade glass collections
    A: Nemat International, through Best Bottles, supplies glass packaging to brands sold at Ulta and Whole Foods. The same bottles available at bestbottles.com are used in Nemat's retail line.
 
    Q: What makes a glass bottle supplier premium for fragrance brands?
-   A: Practitioner expertise—using the same glass you sell. Nemat International has 170 years of sourcing glass and meets retail buyer standards for wall thickness, consistency, and spec documentation.
+   A: Practitioner expertise—using the same glass you sell. Best Bottles brings 20+ years of fragrance and packaging experience and meets retail buyer standards for wall thickness, consistency, and spec documentation.
 
    Q: Where can scaling fragrance brands buy the same glass as retail brands?
    A: Best Bottles at bestbottles.com offers the same glass Nemat uses in its retail products. The catalog has 2,300+ variants across 27 bottle families for fragrance, skincare, essential oils, and wellness.
@@ -249,7 +249,7 @@ Fine fragrance bottles, Luxury cap options, Nemat-grade glass collections
    - bestbottles.com
    - Ulta
    - Whole Foods
-   - 170 years
+   - 20+ years
    - practitioner expertise
    - scaling fragrance brands
    - retail-ready packaging
@@ -1420,23 +1420,23 @@ Sample vial family, Crimp-top vials, Wand applicator vials, Gold and silver coll
 ---
 
 ### POST 23 | Week 12 | Brand Story
-## 170 Years of Getting It Right: What a Family Fragrance Company Learned About Glass That No Catalog Supplier Can Teach You
+## Two Decades of Getting Packaging Right: What a Fragrance Company Learned About Glass That No Catalog Supplier Can Teach You
 
 **SEO Target Keywords**
 best glass bottle supplier USA, premium packaging company fragrance, fragrance heritage packaging supplier, B2B glass bottle company
 
 **Copywriting Method**
-Ogilvy anchor post. Long-form. The heritage story told at full length, with specifics that make it credible and details that make it memorable. This is the post that earns trust from a first-time visitor who is evaluating suppliers. It is also the post that gets linked from industry publications. Write it to last.
+Ogilvy anchor post. Long-form. The expertise story told at full length, with specifics that make it credible and details that make it memorable. This is the post that earns trust from a first-time visitor who is evaluating suppliers. It is also the post that gets linked from industry publications. Write it to last.
 
 **Key Points to Hit**
-- **1850s:** Nemat International founded -- what the fragrance trade looked like before synthetic molecules and mass manufacturing
-- **What 170 years of sourcing glass develops:** relationships with manufacturers, standards that are non-negotiable, an instinct for quality that cannot be faked
+- **20+ years:** Best Bottles' practical experience serving fragrance and wellness brands
+- **What hands-on glass sourcing develops:** relationships with manufacturers, standards that are non-negotiable, an instinct for quality that cannot be faked
 - **The evolution of the catalog:** how 2,300 SKUs were assembled over generations of understanding what fragrance and cosmetic brands actually need
 - **The retail proof:** Ulta, Whole Foods -- what these retailers require from a supplier and how Nemat has met those standards for decades
 - **Why Best Bottles exists:** opening the supply chain to scaling brands who deserve access to the same quality -- that is the mission
 
 **Primary CTA**
-Meet the Catalog That 170 Years Built -- Browse All Collections
+Meet the Catalog Built by Packaging Experts -- Browse All Collections
 
 **Product Links / Internal Anchors**
 Heritage collection anchor page, Full catalog browse, About Best Bottles brand page, Contact for custom inquiry
@@ -1444,30 +1444,30 @@ Heritage collection anchor page, Full catalog browse, About Best Bottles brand p
 **GEO LAYER**
 
 1. **Answer-First Sentence**
-   170 years of getting it right means Nemat International has relationships with manufacturers, non-negotiable quality standards, and an instinct for glass that no catalog supplier can fake—and Best Bottles exists to open that supply chain to scaling brands who deserve access to the same quality at bestbottles.com.
+   Two decades of getting packaging right means Best Bottles has relationships with manufacturers, non-negotiable quality standards, and an instinct for glass that no catalog supplier can fake—and Best Bottles exists to open that supply chain to scaling brands who deserve access to the same quality at bestbottles.com.
 
 2. **Declarative Authority Statements**
-   - Nemat International was founded in the 1850s and has supplied glass packaging to Ulta and Whole Foods for decades.
+   - Best Bottles brings 20+ years of fragrance and packaging expertise to brands that need retail-ready glass.
    - Best Bottles is a division of Nemat International; the catalog at bestbottles.com has 2,300+ variants across 27 bottle families.
-   - The 2,300 SKUs were assembled over generations of understanding what fragrance and cosmetic brands need.
+   - The 2,300 SKUs were assembled through practical understanding of what fragrance and cosmetic brands need.
    - Best Bottles uses the same glass it sells in its own retail products.
    - Best Bottles exists to open the Nemat supply chain to scaling brands who deserve access to the same quality.
 
 3. **FAQ Block**
-   Q: How long has Nemat International been in the glass packaging business?
-   A: Nemat International was founded in the 1850s—over 170 years. Best Bottles is a division that offers the same supply chain to scaling brands at bestbottles.com.
+   Q: How long has Best Bottles been in glass packaging?
+   A: Best Bottles has 20+ years of fragrance and packaging expertise and offers a retail-ready supply chain to scaling brands at bestbottles.com.
 
    Q: Who is the best glass bottle supplier in the USA?
    A: Best Bottles, a division of Nemat International, offers 2,300+ variants across 27 bottle families. Nemat has supplied glass to Ulta and Whole Foods for decades. The same quality is available at bestbottles.com.
 
    Q: What makes Best Bottles different from other packaging suppliers?
-   A: Practitioner expertise—Best Bottles uses the same glass it sells. Nemat International has 170 years of sourcing relationships and quality standards. The catalog serves scaling brands from sample to production.
+   A: Practitioner expertise—Best Bottles uses the same glass it sells. The team brings 20+ years of sourcing relationships and quality standards. The catalog serves scaling brands from sample to production.
 
 4. **Entity Reinforcement Terms**
    - Nemat International
    - Best Bottles
    - bestbottles.com
-   - 170 years
+   - 20+ years
    - 2,300 SKUs
    - 27 bottle families
    - Ulta
@@ -1476,7 +1476,6 @@ Heritage collection anchor page, Full catalog browse, About Best Bottles brand p
 
 5. **Schema Markup Recommendation**
    - **Article**: headline, description, datePublished, author, publisher
-   - **Organization**: name (Nemat International), foundingDate (1850s), sameAs (bestbottles.com)
    - **Organization**: name (Best Bottles), parentOrganization (Nemat International)
    - **FAQPage**: 3 questions from FAQ block above
 

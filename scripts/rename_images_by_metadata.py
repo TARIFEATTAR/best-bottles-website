@@ -9,6 +9,9 @@ Usage:
     # Dry run (see what WOULD happen, no files moved):
     python3 scripts/rename_images_by_metadata.py --images-dir /path/to/images --dry-run
 
+    # Copy into a separate staging directory while applying slug names:
+    python3 scripts/rename_images_by_metadata.py --images-dir /path/to/raw --output-dir /path/to/renamed --copy
+
     # Rename only Diva family:
     python3 scripts/rename_images_by_metadata.py --images-dir /path/to/images --family Diva --dry-run
 
@@ -199,6 +202,7 @@ def find_image_extensions(images_dir: Path) -> dict[str, str]:
 def main():
     parser = argparse.ArgumentParser(description="Rename product images from SKU names to human-readable slugs.")
     parser.add_argument("--images-dir", required=True, help="Directory containing the product images to rename")
+    parser.add_argument("--output-dir", default=None, help="Optional output directory for copied renamed files")
     parser.add_argument("--family", default=None, help="Only rename images for this product family (e.g. 'Diva')")
     parser.add_argument("--dry-run", action="store_true", help="Print what would happen without renaming anything")
     parser.add_argument("--manifest", default=None, help="Path to write a JSON rename manifest (for rollback)")
@@ -209,8 +213,15 @@ def main():
     if not images_dir.is_dir():
         print(f"❌  Images directory not found: {images_dir}", file=sys.stderr)
         sys.exit(1)
+    output_dir = Path(args.output_dir).resolve() if args.output_dir else images_dir
+    if args.output_dir and not args.copy and not args.dry_run:
+        print("❌  --output-dir requires --copy (or --dry-run) so originals are not moved across directories.", file=sys.stderr)
+        sys.exit(1)
+    if not args.dry_run:
+        output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"📂  Images dir : {images_dir}")
+    print(f"📁  Output dir : {output_dir}")
     print(f"📊  CSV source : {CSV_PATH}")
     print(f"🏷️   Family     : {args.family or 'ALL'}")
     print(f"🔍  Mode       : {'DRY RUN' if args.dry_run else ('COPY' if args.copy else 'RENAME')}")
@@ -242,7 +253,7 @@ def main():
         # Always output as .jpg if original was .gif (gifs are often just static)
         out_ext = ".jpg" if ext == ".gif" else ext
         dst_name = f"{new_slug}{out_ext}"
-        dst_path = images_dir / dst_name
+        dst_path = output_dir / dst_name
 
         if dst_path.exists() and dst_path != src_path:
             print(f"⚠️   COLLISION  {src_path.name} → {dst_name} (already exists, skipping)")

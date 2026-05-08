@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/jordanrichter/Projects/Clients/Nemat-International/Best-Bottles-Website-02-20-2026/src/app/loading.tsx"],"sourcesContent":["export default function Loading() {\n    return (\n        <div className=\"min-h-screen bg-bone flex items-center justify-center\">\n            <div className=\"flex flex-col items-center gap-4\">\n                <div className=\"w-10 h-10 border-2 border-muted-gold/30 border-t-muted-gold rounded-full animate-spin\" />\n                <p className=\"text-sm text-slate/70\">Loading…</p>\n            </div>\n        </div>\n    );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACpB,qBACI,0bAAC;QAAI,WAAU;kBACX,cAAA,0bAAC;YAAI,WAAU;;8BACX,0bAAC;oBAAI,WAAU;;;;;;8BACf,0bAAC;oBAAE,WAAU;8BAAwB;;;;;;;;;;;;;;;;;AAIrD"}}]
-}

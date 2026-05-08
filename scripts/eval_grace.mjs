@@ -154,6 +154,10 @@ function scoreResponse(testCase, responseText) {
             "don't stock", "don't carry", "not available in",
             "doesn't include", "doesn't come in", "no ", "not a",
             "smallest", "minimum size", "closest",
+            "largest", "biggest", "top end", "goes up to",
+            "other families", "other family", "other silhouette", "look at other",
+            "isn't something we carry", "isn't something we stock",
+            "would the ", "would you like", "could look at",
             "tola", "dropper", "spray", "atomizer", "pump",
             "won't spin", "leak", "too freely",
         ];
@@ -171,12 +175,15 @@ function scoreResponse(testCase, responseText) {
         totalChecks++;
         const admitSignals = [
             "don't carry", "don't stock", "not a family",
-            "don't have", "not available", "couldn't find",
+            "don't have", "not available", "isn't available", "aren't available",
+            "couldn't find",
             "no results", "not in our catalog", "don't offer",
-            "not something we", "i'm not finding", "doesn't appear",
+            "not something we", "isn't something we", "aren't something we",
+            "i'm not finding", "doesn't appear",
             "don't recognize", "not familiar with",
             "isn't a color we carry", "isn't a colour we carry",
             "not a color we carry", "not a colour we carry",
+            "isn't a colour", "isn't a color",
         ];
         const admits = admitSignals.some((s) => text.includes(s));
         checks.push({
