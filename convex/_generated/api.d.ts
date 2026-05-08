@@ -9,11 +9,14 @@
  */
 
 import type * as applyCaseWeightCorrections from "../applyCaseWeightCorrections.js";
+import type * as backfillEmpireSprayerTrimColor from "../backfillEmpireSprayerTrimColor.js";
 import type * as backfillPhysicalSpecs from "../backfillPhysicalSpecs.js";
 import type * as backfillShopifyIds from "../backfillShopifyIds.js";
 import type * as backfillTrimColor from "../backfillTrimColor.js";
+import type * as backfillTrimColorFromDescription from "../backfillTrimColorFromDescription.js";
 import type * as componentUtils from "../componentUtils.js";
 import type * as debug5ml from "../debug5ml.js";
+import type * as exportEnrichedCatalog from "../exportEnrichedCatalog.js";
 import type * as fitments from "../fitments.js";
 import type * as fix5mlCapColors from "../fix5mlCapColors.js";
 import type * as fixEmpireDiameters from "../fixEmpireDiameters.js";
@@ -31,6 +34,7 @@ import type * as migrations from "../migrations.js";
 import type * as paperDoll from "../paperDoll.js";
 import type * as patchFromMasterV83 from "../patchFromMasterV83.js";
 import type * as portal from "../portal.js";
+import type * as productGroups from "../productGroups.js";
 import type * as products from "../products.js";
 import type * as seedProducts from "../seedProducts.js";
 import type * as shopifySync from "../shopifySync.js";
@@ -43,11 +47,14 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   applyCaseWeightCorrections: typeof applyCaseWeightCorrections;
+  backfillEmpireSprayerTrimColor: typeof backfillEmpireSprayerTrimColor;
   backfillPhysicalSpecs: typeof backfillPhysicalSpecs;
   backfillShopifyIds: typeof backfillShopifyIds;
   backfillTrimColor: typeof backfillTrimColor;
+  backfillTrimColorFromDescription: typeof backfillTrimColorFromDescription;
   componentUtils: typeof componentUtils;
   debug5ml: typeof debug5ml;
+  exportEnrichedCatalog: typeof exportEnrichedCatalog;
   fitments: typeof fitments;
   fix5mlCapColors: typeof fix5mlCapColors;
   fixEmpireDiameters: typeof fixEmpireDiameters;
@@ -65,6 +72,7 @@ declare const fullApi: ApiFromModules<{
   paperDoll: typeof paperDoll;
   patchFromMasterV83: typeof patchFromMasterV83;
   portal: typeof portal;
+  productGroups: typeof productGroups;
   products: typeof products;
   seedProducts: typeof seedProducts;
   shopifySync: typeof shopifySync;
