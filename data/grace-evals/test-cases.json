@@ -450,6 +450,57 @@
         "mustMentionAny": ["diameter", "millimeter", "thread"],
         "mustNotMention": ["I don't know", "not sure"]
       }
+    },
+    {
+      "id": "high-intent-show-products-cylinder-9ml",
+      "category": "agentic_ecommerce",
+      "question": "Show me your 9ml Cylinder roll-on bottles.",
+      "expect": {
+        "mustMentionAny": ["9ml", "9 ml", "Cylinder", "roll-on", "roller"],
+        "mustNotMention": ["don't carry", "don't stock", "not available"],
+        "expectedTools": ["searchCatalog", "showProducts"],
+        "expectedFamily": "Cylinder",
+        "expectedCapacityMl": 9
+      }
+    },
+    {
+      "id": "high-intent-compatible-closures",
+      "category": "agentic_ecommerce",
+      "question": "What closures fit the 30ml Boston Round, and can you show me the bottle?",
+      "expect": {
+        "mustMentionAny": ["20-400", "20/400", "closure", "cap"],
+        "expectedTools": ["searchCatalog", "getBottleComponents", "showProducts"]
+      }
+    },
+    {
+      "id": "high-intent-quote-flow",
+      "category": "agentic_ecommerce",
+      "question": "I need 500 clear 30ml Boston Round bottles. Can you help me request a quote?",
+      "expect": {
+        "mustMentionAny": ["quote", "500", "Boston Round", "30ml"],
+        "expectedTools": ["searchCatalog", "prefillForm"]
+      }
+    },
+    {
+      "id": "high-intent-sample-flow",
+      "category": "agentic_ecommerce",
+      "question": "Can I get samples of the clear 5ml Cylinder spray bottle?",
+      "expect": {
+        "mustMentionAny": ["sample", "5ml", "Cylinder", "spray"],
+        "mustNotMention": ["don't carry", "don't stock"],
+        "expectedTools": ["searchCatalog", "prefillForm"]
+      }
+    },
+    {
+      "id": "high-intent-no-result-recovery",
+      "category": "agentic_ecommerce",
+      "question": "Do you have a 1ml roll-on bottle I can add to a shortlist?",
+      "expect": {
+        "mustMentionAny": ["1ml", "1 ml", "smallest", "alternative", "closest"],
+        "mustNotMention": ["yes", "I found a 1ml roll-on"],
+        "expectedTools": ["searchCatalog"],
+        "shouldPivot": true
+      }
     }
   ]
 }
