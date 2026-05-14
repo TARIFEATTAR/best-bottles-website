@@ -16,6 +16,7 @@
     "eval:grace": "node scripts/eval_grace.mjs",
     "eval:grace:verbose": "node scripts/eval_grace.mjs --verbose",
     "eval:grace:loop": "node scripts/eval_grace.mjs --runs 3 --verbose",
+    "test:grace:truth": "node scripts/grace-family-truth-audit.mjs",
     "test:grace:matrix": "node scripts/grace-retrieval-matrix.mjs",
     "test:grace:matrix:verbose": "node scripts/grace-retrieval-matrix.mjs --verbose",
     "diag:grace": "node scripts/diagnose_grace.mjs",

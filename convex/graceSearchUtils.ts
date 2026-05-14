@@ -24,11 +24,11 @@ export const APPLICATOR_VALUE_ALIASES: Record<string, string> = {
 export const FAMILY_MIN_SIZE_ML: Record<string, number> = {
     "Boston Round": 15,
     Circle: 15,
-    Cylinder: 5,
+    Cylinder: 3,
     Diva: 30,
     Elegant: 15,
-    Empire: 30,
-    Slim: 15,
+    Empire: 50,
+    Slim: 30,
 };
 
 export type { ShapeMatch } from "../src/lib/graceShapeIntent";

@@ -3,6 +3,7 @@ import {
     buildSearchCatalogToolResult,
     detectApplicatorIntent,
     ensureVerified9mlCylinderRollOnCoverage,
+    FAMILY_MIN_SIZE_ML,
     is9mlCylinderRollOnTruthQuery,
     isVerified9mlCylinderRollOnColor,
     normalizeSearchTerm,
@@ -32,6 +33,37 @@ describe("detectApplicatorIntent", () => {
 });
 
 describe("buildSearchCatalogToolResult", () => {
+    it("keeps family minimum-size guardrails aligned with Grace's system prompt", () => {
+        expect(FAMILY_MIN_SIZE_ML.Cylinder).toBe(3);
+        expect(FAMILY_MIN_SIZE_ML.Empire).toBe(50);
+        expect(FAMILY_MIN_SIZE_ML.Slim).toBe(30);
+    });
+
+    it("does not warn Grace away from stocked 3 ml Cylinder bottles", () => {
+        const result = buildSearchCatalogToolResult(
+            { searchTerm: "Do you have a 3ml Cylinder bottle?", familyLimit: "Cylinder" },
+            [
+                { family: "Cylinder", capacity: "3ml", capacityMl: 3, color: "Clear", canonicalColor: "Clear", applicator: "Fine Mist Sprayer", slug: "cylinder-3ml-clear-finemist" },
+            ],
+        );
+
+        expect(result).not.toContain("We do NOT stock a 3ml Cylinder");
+        expect(result).not.toContain("Cylinder starts at");
+    });
+
+    it("warns Grace that 30 ml Empire is not stocked", () => {
+        const result = buildSearchCatalogToolResult(
+            { searchTerm: "Do you have a 30ml Empire bottle?", familyLimit: "Empire" },
+            [
+                { family: "Empire", capacity: "50ml", capacityMl: 50, color: "Clear", canonicalColor: "Clear", applicator: "Fine Mist Sprayer", slug: "empire-50ml-clear-finemist" },
+                { family: "Empire", capacity: "100ml", capacityMl: 100, color: "Clear", canonicalColor: "Clear", applicator: "Fine Mist Sprayer", slug: "empire-100ml-clear-finemist" },
+            ],
+        );
+
+        expect(result).toContain("We do NOT stock a 30ml Empire");
+        expect(result).toContain("Empire starts at 50ml");
+    });
+
     it("tells Grace the verified 9 ml Cylinder roll-on colors without White or Green drift", () => {
         const result = buildSearchCatalogToolResult(
             { searchTerm: "Do you have a 9 mL Cylinder roll-on bottle? Please list every available color option." },
