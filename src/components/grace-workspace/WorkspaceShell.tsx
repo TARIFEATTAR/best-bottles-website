@@ -8,6 +8,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useCart } from "@/components/CartProvider";
 import { useGrace } from "@/components/useGrace";
+import { CLERK_ENABLED } from "@/lib/clerk";
 import { ArrowLeft, Plus } from "./icons";
 
 /**
@@ -48,6 +49,18 @@ interface WorkspaceShellProps {
     onNewConversation: () => void;
 }
 
+type WorkspaceUser = {
+    firstName?: string | null;
+    lastName?: string | null;
+    imageUrl?: string | null;
+    primaryEmailAddress?: { emailAddress?: string | null } | null;
+} | null | undefined;
+
+type WorkspaceOrganization = {
+    id?: string | null;
+    name?: string | null;
+} | null | undefined;
+
 function relativeTime(updatedAt: number): string {
     const ms = Date.now() - updatedAt;
     const day = 86400000;
@@ -58,14 +71,29 @@ function relativeTime(updatedAt: number): string {
     return `${Math.round(ms / 30 / day)} months ago`;
 }
 
-export default function WorkspaceShell({ children, onNewConversation }: WorkspaceShellProps) {
+export default function WorkspaceShell(props: WorkspaceShellProps) {
+    if (CLERK_ENABLED) return <WorkspaceShellWithClerk {...props} />;
+    return <WorkspaceShellView {...props} user={null} organization={null} />;
+}
+
+function WorkspaceShellWithClerk(props: WorkspaceShellProps) {
+    const { user } = useUser();
+    const { organization } = useOrganization();
+    return <WorkspaceShellView {...props} user={user} organization={organization} />;
+}
+
+function WorkspaceShellView({
+    children,
+    onNewConversation,
+    user,
+    organization,
+}: WorkspaceShellProps & {
+    user: WorkspaceUser;
+    organization: WorkspaceOrganization;
+}) {
     const router = useRouter();
     const { itemCount } = useCart();
     const { conversationActive } = useGrace();
-
-    // Real auth + org context (Clerk loads on /grace-workspace per isClerkAuthPath).
-    const { user } = useUser();
-    const { organization } = useOrganization();
 
     const clerkOrgId = organization?.id ?? null;
     const account = useQuery(
