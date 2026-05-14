@@ -21,6 +21,18 @@ describe("canonical product model", () => {
         expect(color.dataQualityFlags).toContain("color_derived_from_sku_swirl");
     });
 
+    it("treats Swrl website SKUs as Swirl even when the source color says White", () => {
+        const color = deriveCanonicalColor({
+            rawColor: "White",
+            websiteSku: "GBCylSwrl9RollWht",
+            itemName: "Cylinder 9 ml White Glass Bottle with Roller White Cap",
+        });
+
+        expect(color.rawColor).toBe("White");
+        expect(color.canonicalColor).toBe("Swirl");
+        expect(color.dataQualityFlags).toContain("color_derived_from_sku_swirl");
+    });
+
     it("normalizes Blue to Cobalt Blue without losing the raw value", () => {
         const color = deriveCanonicalColor({ rawColor: "Blue" });
 
@@ -92,16 +104,15 @@ describe("canonical product model", () => {
         expect(description).toBe("A 9 ml roll-on bottle with roller ball applicator.");
     });
 
-    it("summarizes complete 9 ml color coverage for Grace prompts", () => {
+    it("summarizes complete 9 ml Cylinder roll-on color coverage for Grace prompts", () => {
         const coverage = summarizeCanonicalProductCoverage([
             { family: "Cylinder", capacityMl: 9, canonicalColor: "Clear", applicator: "Metal Roller Ball", slug: "cyl-9-clear" },
-            { family: "Cylinder", capacityMl: 9, canonicalColor: "Amber", applicator: "Fine Mist Sprayer", slug: "cyl-9-amber" },
-            { family: "Cylinder", capacityMl: 9, canonicalColor: "Cobalt Blue", applicator: "Fine Mist Sprayer", slug: "cyl-9-cobalt" },
-            { family: "Cylinder", capacityMl: 9, canonicalColor: "Frosted", applicator: "Fine Mist Sprayer", slug: "cyl-9-frosted" },
+            { family: "Cylinder", capacityMl: 9, canonicalColor: "Amber", applicator: "Metal Roller Ball", slug: "cyl-9-amber" },
+            { family: "Cylinder", capacityMl: 9, canonicalColor: "Cobalt Blue", applicator: "Plastic Roller Ball", slug: "cyl-9-cobalt" },
+            { family: "Cylinder", capacityMl: 9, canonicalColor: "Frosted", applicator: "Plastic Roller Ball", slug: "cyl-9-frosted" },
             { family: "Cylinder", capacityMl: 9, canonicalColor: "Swirl", applicator: "Metal Roller Ball", slug: "cyl-9-swirl" },
-            { family: "Cylinder", capacityMl: 9, canonicalColor: "White", applicator: "Lotion Pump", slug: "cyl-9-white" },
         ]);
 
-        expect(coverage.colors).toEqual(["Amber", "Clear", "Cobalt Blue", "Frosted", "Swirl", "White"]);
+        expect(coverage.colors).toEqual(["Amber", "Clear", "Cobalt Blue", "Frosted", "Swirl"]);
     });
 });

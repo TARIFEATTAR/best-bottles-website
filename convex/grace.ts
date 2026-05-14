@@ -28,6 +28,9 @@ import {
     buildSearchCatalogToolResult,
     buildBottleComponentsToolResult,
     emptySearchCatalogHint,
+    is9mlCylinderRollOnRow,
+    is9mlCylinderRollOnTruthQuery,
+    isVerified9mlCylinderRollOnColor,
 } from "./graceSearchUtils";
 import {
     buildCanonicalProductGroup,
@@ -392,6 +395,18 @@ export const searchCatalog = query({
                 };
             })
         );
+        if (is9mlCylinderRollOnTruthQuery({
+            searchTerm: args.searchTerm,
+            normalizedTerm: searchTermToUse,
+            familyLimit: args.familyLimit,
+            applicatorFilter: args.applicatorFilter,
+        })) {
+            return enrichedResults.filter((p) =>
+                is9mlCylinderRollOnRow(p)
+                && isVerified9mlCylinderRollOnColor(p.canonicalColor ?? p.color)
+            );
+        }
+
         return enrichedResults;
     },
 });

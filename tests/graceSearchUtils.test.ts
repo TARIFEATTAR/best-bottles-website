@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
     buildSearchCatalogToolResult,
     detectApplicatorIntent,
+    is9mlCylinderRollOnTruthQuery,
+    isVerified9mlCylinderRollOnColor,
     normalizeSearchTerm,
 } from "../convex/graceSearchUtils";
 
@@ -28,21 +30,46 @@ describe("detectApplicatorIntent", () => {
 });
 
 describe("buildSearchCatalogToolResult", () => {
-    it("tells Grace not to omit complete 9 ml color coverage", () => {
+    it("tells Grace the verified 9 ml Cylinder roll-on colors without White or Green drift", () => {
         const result = buildSearchCatalogToolResult(
-            { searchTerm: "Do you have a 9 mL bottle? Please list every available color option." },
+            { searchTerm: "Do you have a 9 mL Cylinder roll-on bottle? Please list every available color option." },
             [
                 { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Clear", canonicalColor: "Clear", applicator: "Metal Roller Ball", slug: "cyl-9-clear" },
-                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Amber", canonicalColor: "Amber", applicator: "Fine Mist Sprayer", slug: "cyl-9-amber" },
-                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Cobalt Blue", canonicalColor: "Cobalt Blue", applicator: "Fine Mist Sprayer", slug: "cyl-9-cobalt" },
-                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Frosted", canonicalColor: "Frosted", applicator: "Fine Mist Sprayer", slug: "cyl-9-frosted" },
+                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Amber", canonicalColor: "Amber", applicator: "Metal Roller Ball", slug: "cyl-9-amber" },
+                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Cobalt Blue", canonicalColor: "Cobalt Blue", applicator: "Plastic Roller Ball", slug: "cyl-9-cobalt" },
+                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Frosted", canonicalColor: "Frosted", applicator: "Plastic Roller Ball", slug: "cyl-9-frosted" },
                 { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "Swirl", canonicalColor: "Swirl", applicator: "Metal Roller Ball", slug: "cyl-9-swirl", dataQualityFlags: ["color_derived_from_sku_swirl"] },
-                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "White", canonicalColor: "White", applicator: "Lotion Pump", slug: "cyl-9-white" },
+                { family: "Cylinder", capacity: "9ml", capacityMl: 9, color: "White", canonicalColor: "White", applicator: "Metal Roller Ball", slug: "cyl-9-white-drift" },
+                { family: "Teardrop", capacity: "9ml", capacityMl: 9, color: "Green", canonicalColor: "Green", applicator: "Glass Stopper", slug: "teardrop-9-green" },
             ],
         );
 
+        const coverageLine = result.split("\n").find((line) => line.includes("REQUIRED COVERAGE"));
+
+        expect(result).toContain("VERIFIED 9ML CYLINDER ROLL-ON COLORS: Amber, Clear, Cobalt Blue, Frosted, Swirl");
+        expect(result).toContain("Do NOT list White or Green as 9ml Cylinder roll-on glass colors");
         expect(result).toContain("REQUIRED COVERAGE");
-        expect(result).toContain("Amber, Clear, Cobalt Blue, Frosted, Swirl, White");
+        expect(coverageLine).toContain("Amber, Clear, Cobalt Blue, Frosted, Swirl");
+        expect(coverageLine).not.toContain("White");
+        expect(coverageLine).not.toContain("Green");
         expect(result).toContain("DATA QUALITY NOTE");
+    });
+});
+
+describe("9ml Cylinder roll-on product truth", () => {
+    it("detects 9ml Cylinder roll-on truth questions", () => {
+        expect(is9mlCylinderRollOnTruthQuery({
+            searchTerm: "Do you have a 9 mL Cylinder roll-on bottle?",
+        })).toBe(true);
+        expect(is9mlCylinderRollOnTruthQuery({
+            searchTerm: "Do you have a 9 mL bottle?",
+        })).toBe(false);
+    });
+
+    it("allows only verified 9ml Cylinder roll-on glass colors", () => {
+        expect(isVerified9mlCylinderRollOnColor("Amber")).toBe(true);
+        expect(isVerified9mlCylinderRollOnColor("Swirl")).toBe(true);
+        expect(isVerified9mlCylinderRollOnColor("White")).toBe(false);
+        expect(isVerified9mlCylinderRollOnColor("Green")).toBe(false);
     });
 });
