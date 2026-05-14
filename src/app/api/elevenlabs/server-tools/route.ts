@@ -37,6 +37,11 @@ function getResultCount(result: unknown): number | null {
     return null;
 }
 
+function wantsRawSearchCatalogResult(parameters: Record<string, unknown>): boolean {
+    const format = parameters.responseFormat;
+    return parameters.returnRaw === true || parameters.returnRaw === "true" || format === "raw";
+}
+
 export async function POST(req: NextRequest) {
     try {
         // All 12 agent tools are registered on ElevenLabs as type:"client",
@@ -82,6 +87,7 @@ export async function POST(req: NextRequest) {
         switch (tool_name) {
             case "searchCatalog": {
                 const searchParams = resolveSearchCatalogParameters(parameters);
+                const returnRaw = wantsRawSearchCatalogResult(parameters);
                 const data = await convex.query(
                     api.grace.searchCatalog,
                     searchParams
@@ -89,6 +95,10 @@ export async function POST(req: NextRequest) {
                 if (!Array.isArray(data)) {
                     result = data;
                 } else if (data.length === 0) {
+                    if (returnRaw) {
+                        result = [];
+                        break;
+                    }
                     result = `No products found for that search. Try a broader term.${emptySearchCatalogHint(searchParams.searchTerm)}`;
                 } else {
                     const slim = data.map((p) => ({
@@ -105,11 +115,12 @@ export async function POST(req: NextRequest) {
                         neckThreadSize: p.neckThreadSize,
                         slug: p.slug,
                         webPrice1pc: p.webPrice1pc,
+                        webPrice12pc: p.webPrice12pc,
                         stockStatus: p.stockStatus,
                         dataQualityFlags: p.dataQualityFlags,
                         sourceTrace: p.sourceTrace,
                     }));
-                    result = buildSearchCatalogToolResult(searchParams, slim);
+                    result = returnRaw ? slim : buildSearchCatalogToolResult(searchParams, slim);
                 }
                 break;
             }

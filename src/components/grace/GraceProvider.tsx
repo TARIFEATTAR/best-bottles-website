@@ -711,8 +711,22 @@ function GraceProviderBase({
     const routerRef = useRef(router);
     useEffect(() => { routerRef.current = router; }, [router]);
 
+    const pathnameRef = useRef(pathname);
+    useEffect(() => { pathnameRef.current = pathname; }, [pathname]);
+
     const closePanelRef = useRef(closePanel);
     useEffect(() => { closePanelRef.current = closePanel; }, [closePanel]);
+
+    const completeGraceNavigation = useCallback((message: string) => {
+        if (pathnameRef.current.startsWith("/grace-workspace")) {
+            setPanelMode("open");
+            setLauncherTooltip(null);
+            return;
+        }
+        minimizeWithTooltipRef.current(message);
+    }, []);
+    const completeGraceNavigationRef = useRef(completeGraceNavigation);
+    useEffect(() => { completeGraceNavigationRef.current = completeGraceNavigation; }, [completeGraceNavigation]);
 
     // ── Client tools ─────────────────────────────────────────────────────────
     const clientTools = useMemo(() => ({
@@ -891,6 +905,7 @@ function GraceProviderBase({
                 const data = await callGraceServerTool<ProductCard[]>("searchCatalog", {
                     searchTerm: params.query ?? "",
                     familyLimit: params.family,
+                    returnRaw: true,
                 });
                 if (data.error) return `${data.error} I could not search the catalog right now.`;
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
@@ -925,9 +940,7 @@ function GraceProviderBase({
                 analytics.graceNavigation({ destination: redirectUrl, triggeredBy: "showProducts", query: params.query });
                 setTimeout(() => {
                     routerRef.current.push(redirectUrl);
-                    // Auto-minimize on navigation so the catalog is fully visible.
-                    // Conversation persists in the provider; click the launcher to reopen.
-                    minimizeWithTooltipRef.current("I narrowed the catalog for you");
+                    completeGraceNavigationRef.current("I narrowed the catalog for you");
                 }, 500);
                 if (exactSizeFound) {
                     return `Found ${products.length} options — top matches: ${summary}. Navigating the customer there now.`;
@@ -941,6 +954,7 @@ function GraceProviderBase({
                 const data = await callGraceServerTool<ProductCard[]>("searchCatalog", {
                     searchTerm: params.query ?? "",
                     familyLimit: params.family,
+                    returnRaw: true,
                 });
                 if (data.error) return `${data.error} I could not load products to compare.`;
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
@@ -1022,7 +1036,10 @@ function GraceProviderBase({
                 const hint = `${params.title ?? ""} ${params.description ?? ""}`.trim();
                 if (hint.length >= 3) {
                     try {
-                        const inferData = await callGraceServerTool<ProductCard[]>("searchCatalog", { searchTerm: hint.slice(0, 160) });
+                        const inferData = await callGraceServerTool<ProductCard[]>("searchCatalog", {
+                            searchTerm: hint.slice(0, 160),
+                            returnRaw: true,
+                        });
                         const hits: ProductCard[] = Array.isArray(inferData.result) ? inferData.result : [];
                         navPath = hits.length > 0 ? buildBrowsePath(hits, hint, undefined) : buildCatalogPath([], hint);
                     } catch {
@@ -1044,7 +1061,10 @@ function GraceProviderBase({
                     const checkData = await callGraceServerTool<{ group?: unknown } | null>("getProductGroup", { slug: rawSlug });
                     if (!checkData.result || !(checkData.result as { group?: unknown }).group) {
                         const searchTerm = params.title && params.title.length > 3 ? params.title : slugToSearchTerm(rawSlug);
-                        const searchData = await callGraceServerTool<ProductCard[]>("searchCatalog", { searchTerm });
+                        const searchData = await callGraceServerTool<ProductCard[]>("searchCatalog", {
+                            searchTerm,
+                            returnRaw: true,
+                        });
                         const hits: ProductCard[] = Array.isArray(searchData.result) ? searchData.result : [];
                         if (hits.length > 0) {
                             const directHit = selectDirectProductMatch(hits, searchTerm);
@@ -1088,8 +1108,7 @@ function GraceProviderBase({
             const navTitle = params.title?.trim() || "where you asked";
             setTimeout(() => {
                 routerRef.current.push(navPath);
-                // Auto-minimize on navigation; persist conversation in the provider.
-                minimizeWithTooltipRef.current(`Took you to ${navTitle}`);
+                completeGraceNavigationRef.current(`Took you to ${navTitle}`);
             }, 500);
             return `Navigating the customer to ${params.title ?? "the page"} now.`;
         },
@@ -1099,6 +1118,7 @@ function GraceProviderBase({
                 const data = await callGraceServerTool<ProductCard[]>("searchCatalog", {
                     searchTerm: params.searchTerm ?? "",
                     familyLimit: params.familyLimit,
+                    returnRaw: true,
                 });
                 if (data.error) return `${data.error} Product presentation failed.`;
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
