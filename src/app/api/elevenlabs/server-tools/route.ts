@@ -98,12 +98,16 @@ export async function POST(req: NextRequest) {
                         capacity: p.capacity,
                         capacityMl: p.capacityMl,
                         color: p.color,
+                        rawColor: p.rawColor,
+                        canonicalColor: p.canonicalColor,
                         applicator: p.applicator,
                         capColor: p.capColor,
                         neckThreadSize: p.neckThreadSize,
                         slug: p.slug,
                         webPrice1pc: p.webPrice1pc,
                         stockStatus: p.stockStatus,
+                        dataQualityFlags: p.dataQualityFlags,
+                        sourceTrace: p.sourceTrace,
                     }));
                     result = buildSearchCatalogToolResult(searchParams, slim);
                 }

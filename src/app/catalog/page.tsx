@@ -35,6 +35,7 @@ import {
     catalogSearchResultTieBreak,
     catalogSearchScore,
 } from "@/lib/catalogFilters";
+import { buildCanonicalProductGroup } from "@/lib/canonicalProduct";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -161,6 +162,10 @@ interface CatalogGroup {
     capacity: string | null;
     capacityMl: number | null;
     color: string | null;
+    rawColor?: string | null;
+    canonicalColor?: string | null;
+    canonicalColorOptions?: string[];
+    dataQualityFlags?: string[];
     category: string;
     bottleCollection: string | null;
     neckThreadSize: string | null;
@@ -1320,9 +1325,23 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     }, [mobileFilterOpen]);
 
     // ── Convex Queries ──────────────────────────────────────────────────────
-    const allGroups = useQuery(api.products.getAllCatalogGroups) as CatalogGroup[] | undefined;
+    const rawGroups = useQuery(api.products.getAllCatalogGroups) as CatalogGroup[] | undefined;
     const groupSkus = useQuery(api.products.getCatalogGroupPrimarySkus) as CatalogGroupPrimarySku[] | undefined;
     const taxonomy = useQuery(api.products.getCatalogTaxonomy);
+
+    const allGroups = useMemo(() => {
+        return rawGroups?.map((group) => {
+            const canonical = buildCanonicalProductGroup(group, [], "catalog-ui");
+            return {
+                ...group,
+                color: canonical.canonicalColor ?? group.color,
+                rawColor: canonical.rawColor,
+                canonicalColor: canonical.canonicalColor,
+                canonicalColorOptions: canonical.canonicalColorOptions,
+                dataQualityFlags: canonical.dataQualityFlags,
+            };
+        });
+    }, [rawGroups]);
 
     const skuMap = useMemo(() => {
         const next = new Map<string, string>();
@@ -1350,6 +1369,9 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     g.displayName,
                     g.family,
                     g.color,
+                    g.rawColor,
+                    g.canonicalColor,
+                    (g.canonicalColorOptions ?? []).join(" "),
                     g.capacity,
                     g.capacityMl == null ? null : `${g.capacityMl} ml`,
                     g.category,

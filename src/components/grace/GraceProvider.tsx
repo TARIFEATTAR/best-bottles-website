@@ -747,8 +747,15 @@ function GraceProviderBase({
 
                 const sizeNote = checkSizeWarning(products, params.searchTerm);
                 const unique = new Map<string, ProductCard>();
-                for (const p of products) { const key = `${p.family}-${p.capacity}-${p.color}`; if (!unique.has(key)) unique.set(key, p); }
-                const summary = [...unique.values()].slice(0, 8).map((p) => `${p.family} ${p.capacity || ""} ${p.color || ""} (${p.applicator || "N/A"}, thread: ${p.neckThreadSize || "N/A"})`).join("; ");
+                for (const p of products) {
+                    const color = p.canonicalColor ?? p.color;
+                    const key = `${p.family}-${p.capacity}-${color}`;
+                    if (!unique.has(key)) unique.set(key, p);
+                }
+                const summary = [...unique.values()].slice(0, 8).map((p) => {
+                    const color = p.canonicalColor ?? p.color;
+                    return `${p.family} ${p.capacity || ""} ${color || ""} (${p.applicator || "N/A"}, thread: ${p.neckThreadSize || "N/A"})`;
+                }).join("; ");
                 const tileProducts = selectGraceTileProducts(products, params.searchTerm);
                 if (tileProducts.length > 0 && shouldAutoDisplayCatalogTiles(params.searchTerm)) {
                     pendingActionsRef.current.push({

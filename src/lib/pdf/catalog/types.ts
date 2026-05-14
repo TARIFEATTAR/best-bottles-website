@@ -55,6 +55,9 @@ export interface PrintableCatalogGroup {
     capacity: string | null;
     capacityMl: number | null;
     color: string | null;
+    rawColor: string | null;
+    canonicalColor: string | null;
+    canonicalColorOptions: string[];
     category: string;
     collection: string | null;
     brand: string | null;
@@ -67,6 +70,7 @@ export interface PrintableCatalogGroup {
     description: string | null;
     primaryGraceSku: string | null;
     primaryWebsiteSku: string | null;
+    dataQualityFlags: string[];
 }
 
 export interface PrintableProduct {
@@ -78,6 +82,8 @@ export interface PrintableProduct {
     capacity: string | null;
     capacityMl: number | null;
     color: string | null;
+    rawColor: string | null;
+    canonicalColor: string | null;
     shape: string | null;
     category: string;
     collection: string | null;
@@ -95,6 +101,7 @@ export interface PrintableProduct {
     description: string | null;
     imageUrl: string | null;
     productUrl: string | null;
+    dataQualityFlags: string[];
 }
 
 export interface CatalogFacetSummary {

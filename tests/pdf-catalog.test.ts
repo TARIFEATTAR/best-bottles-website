@@ -12,6 +12,9 @@ function group(overrides: Partial<PrintableCatalogGroup>): PrintableCatalogGroup
         capacity: "10 ml",
         capacityMl: 10,
         color: "Clear",
+        rawColor: "Clear",
+        canonicalColor: "Clear",
+        canonicalColorOptions: ["Clear"],
         category: "Glass Bottle",
         collection: "Essential Oil Bottles",
         brand: "Best Bottles",
@@ -24,6 +27,7 @@ function group(overrides: Partial<PrintableCatalogGroup>): PrintableCatalogGroup
         description: null,
         primaryGraceSku: "BB-GB-000-0001",
         primaryWebsiteSku: "GB001",
+        dataQualityFlags: [],
         ...overrides,
     };
 }
@@ -90,6 +94,31 @@ describe("catalog PDF filters", () => {
     it("accepts the Nemat parent brand alias for current Best Bottles catalog data", () => {
         const options = parseCatalogPdfOptions(new URLSearchParams("brand=Nemat%20International"));
         const results = filterCatalogGroups([group({ id: "a", brand: "Best Bottles" })], options);
+
+        expect(results.map((item) => item.id)).toEqual(["a"]);
+    });
+
+    it("uses catalog search normalization so compact 9ml matches spaced 9 ml PDF data", () => {
+        const options = parseCatalogPdfOptions(new URLSearchParams("search=9ml"));
+        const results = filterCatalogGroups([
+            group({
+                id: "a",
+                displayName: "Cylinder 9 ml Swirl",
+                capacity: "9 ml",
+                capacityMl: 9,
+                color: "Swirl",
+                rawColor: "Clear",
+                canonicalColor: "Swirl",
+                canonicalColorOptions: ["Swirl"],
+                primaryWebsiteSku: "GBCylSwrl9Roll",
+            }),
+            group({
+                id: "b",
+                displayName: "Cylinder 15 ml Clear",
+                capacity: "15 ml",
+                capacityMl: 15,
+            }),
+        ], options);
 
         expect(results.map((item) => item.id)).toEqual(["a"]);
     });

@@ -1,5 +1,11 @@
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "../../../../convex/_generated/api";
+import {
+    buildCanonicalProductGroup,
+    buildCanonicalProductVariant,
+    type CanonicalProductGroupInput,
+    type CanonicalProductVariantInput,
+} from "../../canonicalProduct";
 import { resolvePageConfig } from "./config";
 import { countFacet, filterCatalogGroups, filterProducts } from "./filters";
 import type {
@@ -9,8 +15,8 @@ import type {
     PrintableProduct,
 } from "./types";
 
-type RawCatalogGroup = Record<string, unknown>;
-type RawProduct = Record<string, unknown>;
+type RawCatalogGroup = CanonicalProductGroupInput & Record<string, unknown>;
+type RawProduct = CanonicalProductVariantInput & Record<string, unknown>;
 
 let convexClient: ConvexHttpClient | null = null;
 
@@ -25,10 +31,6 @@ function getConvexClient(): ConvexHttpClient {
 
 function asString(value: unknown): string | null {
     return typeof value === "string" && value.trim() ? value : null;
-}
-
-function asNumber(value: unknown): number | null {
-    return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
 
 function asStringArray(value: unknown): string[] {
@@ -55,56 +57,65 @@ function optimizeImageUrl(url: string | null, quality: CatalogPdfOptions["imageQ
 
 function normalizeGroup(raw: RawCatalogGroup, options: CatalogPdfOptions): PrintableCatalogGroup {
     const brand = asString(raw.brand) ?? "Best Bottles";
+    const canonical = buildCanonicalProductGroup(raw, [], "pdf");
     return {
-        id: String(raw._id ?? raw.id ?? ""),
-        slug: asString(raw.slug) ?? "",
-        displayName: asString(raw.displayName) ?? "Untitled Product",
-        family: asString(raw.family),
-        capacity: asString(raw.capacity),
-        capacityMl: asNumber(raw.capacityMl),
-        color: asString(raw.color),
-        category: asString(raw.category) ?? "Other",
-        collection: asString(raw.bottleCollection),
+        id: canonical.id,
+        slug: canonical.slug,
+        displayName: canonical.displayName,
+        family: canonical.family,
+        capacity: canonical.capacity,
+        capacityMl: canonical.capacityMl,
+        color: canonical.canonicalColor,
+        rawColor: canonical.rawColor,
+        canonicalColor: canonical.canonicalColor,
+        canonicalColorOptions: canonical.canonicalColorOptions,
+        category: canonical.category,
+        collection: canonical.collection,
         brand,
-        neckThreadSize: asString(raw.neckThreadSize),
-        variantCount: asNumber(raw.variantCount) ?? 1,
-        priceRangeMin: asNumber(raw.priceRangeMin),
-        priceRangeMax: asNumber(raw.priceRangeMax),
-        heroImageUrl: optimizeImageUrl(asString(raw.heroImageUrl), options.imageQuality),
-        applicatorTypes: asStringArray(raw.applicatorTypes),
-        description: asString(raw.groupDescription),
-        primaryGraceSku: asString(raw.primaryGraceSku),
-        primaryWebsiteSku: asString(raw.primaryWebsiteSku),
+        neckThreadSize: canonical.neckThreadSize,
+        variantCount: canonical.variantCount,
+        priceRangeMin: canonical.priceRangeMin,
+        priceRangeMax: canonical.priceRangeMax,
+        heroImageUrl: optimizeImageUrl(canonical.heroImageUrl, options.imageQuality),
+        applicatorTypes: canonical.applicatorTypes.length ? canonical.applicatorTypes : asStringArray(raw.applicatorTypes),
+        description: canonical.description,
+        primaryGraceSku: canonical.primaryGraceSku,
+        primaryWebsiteSku: canonical.primaryWebsiteSku,
+        dataQualityFlags: canonical.dataQualityFlags,
     };
 }
 
 function normalizeProduct(raw: RawProduct, options: CatalogPdfOptions): PrintableProduct {
+    const canonical = buildCanonicalProductVariant(raw, null, "pdf");
     return {
-        id: String(raw._id ?? raw.id ?? ""),
-        graceSku: asString(raw.graceSku) ?? "",
-        websiteSku: asString(raw.websiteSku) ?? "",
-        itemName: asString(raw.itemName) ?? "Untitled SKU",
-        family: asString(raw.family),
-        capacity: asString(raw.capacity),
-        capacityMl: asNumber(raw.capacityMl),
-        color: asString(raw.color),
-        shape: asString(raw.shape),
-        category: asString(raw.category) ?? "Other",
-        collection: asString(raw.bottleCollection),
+        id: canonical.id,
+        graceSku: canonical.graceSku,
+        websiteSku: canonical.websiteSku,
+        itemName: canonical.itemName,
+        family: canonical.family,
+        capacity: canonical.capacity,
+        capacityMl: canonical.capacityMl,
+        color: canonical.canonicalColor,
+        rawColor: canonical.rawColor,
+        canonicalColor: canonical.canonicalColor,
+        shape: canonical.shape,
+        category: canonical.category,
+        collection: canonical.collection,
         brand: asString(raw.brand) ?? "Best Bottles",
-        applicator: asString(raw.applicator),
-        neckThreadSize: asString(raw.neckThreadSize),
-        heightWithCap: asString(raw.heightWithCap),
-        heightWithoutCap: asString(raw.heightWithoutCap),
-        diameter: asString(raw.diameter),
-        bottleWeightG: asNumber(raw.bottleWeightG),
-        caseQuantity: asNumber(raw.caseQuantity),
-        price1pc: asNumber(raw.webPrice1pc),
-        price12pc: asNumber(raw.webPrice12pc),
-        stockStatus: asString(raw.stockStatus),
-        description: asString(raw.itemDescription) ?? asString(raw.graceDescription),
-        imageUrl: optimizeImageUrl(asString(raw.imageUrl), options.imageQuality),
-        productUrl: asString(raw.productUrl),
+        applicator: canonical.applicator,
+        neckThreadSize: canonical.neckThreadSize,
+        heightWithCap: canonical.heightWithCap,
+        heightWithoutCap: canonical.heightWithoutCap,
+        diameter: canonical.diameter,
+        bottleWeightG: canonical.bottleWeightG,
+        caseQuantity: canonical.caseQuantity,
+        price1pc: canonical.webPrice1pc,
+        price12pc: canonical.webPrice12pc,
+        stockStatus: canonical.stockStatus,
+        description: canonical.description,
+        imageUrl: optimizeImageUrl(canonical.imageUrl, options.imageQuality),
+        productUrl: canonical.productUrl,
+        dataQualityFlags: canonical.dataQualityFlags,
     };
 }
 
