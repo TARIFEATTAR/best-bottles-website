@@ -28,6 +28,7 @@ import {
     buildSearchCatalogToolResult,
     buildBottleComponentsToolResult,
     emptySearchCatalogHint,
+    ensureVerified9mlCylinderRollOnCoverage,
     is9mlCylinderRollOnRow,
     is9mlCylinderRollOnTruthQuery,
     isVerified9mlCylinderRollOnColor,
@@ -158,9 +159,38 @@ export const searchCatalog = query({
             && !detectedColor
             && !applicatorIntent
             && shapeFamilies.length === 0;
+        const is9mlCylinderRollOnContext = is9mlCylinderRollOnTruthQuery({
+            searchTerm: args.searchTerm,
+            normalizedTerm: searchTermToUse,
+            familyLimit: args.familyLimit,
+            applicatorFilter: args.applicatorFilter,
+        });
 
         const structuredResults: typeof results = [];
+        const verified9mlCylinderRollOnCandidates: typeof results = [];
         let didAdjacentExpansion = false;
+
+        if (is9mlCylinderRollOnContext) {
+            const rollOnGroups = await ctx.db
+                .query("productGroups")
+                .withIndex("by_family", (q) => q.eq("family", "Cylinder"))
+                .collect();
+            for (const group of rollOnGroups) {
+                const groupText = `${group.slug} ${group.displayName}`.toLowerCase();
+                if (
+                    group.capacityMl !== 9
+                    || !/roll[-\s]?on|rollon|roller/.test(groupText)
+                    || !isVerified9mlCylinderRollOnColor(group.color)
+                ) {
+                    continue;
+                }
+                const variants = await ctx.db
+                    .query("products")
+                    .withIndex("by_productGroupId", (q) => q.eq("productGroupId", group._id))
+                    .take(30);
+                verified9mlCylinderRollOnCandidates.push(...variants);
+            }
+        }
 
         if (detectedFamily || detectedCapMl !== null || detectedColor || shapeFamilies.length > 0) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -337,6 +367,13 @@ export const searchCatalog = query({
         results = shapeFamilies.length > 1
             ? diversifyByFamily(sorted, shapeMatch?.primary ?? [], resultLimit)
             : sorted.slice(0, resultLimit);
+        if (is9mlCylinderRollOnContext) {
+            results = ensureVerified9mlCylinderRollOnCoverage(
+                results,
+                verified9mlCylinderRollOnCandidates,
+                resultLimit,
+            );
+        }
 
         // Return a trimmed version — components arrays are large and waste tokens.
         // Normalize capacity strings: remove internal spaces ("9 ml" → "9ml")
@@ -395,12 +432,7 @@ export const searchCatalog = query({
                 };
             })
         );
-        if (is9mlCylinderRollOnTruthQuery({
-            searchTerm: args.searchTerm,
-            normalizedTerm: searchTermToUse,
-            familyLimit: args.familyLimit,
-            applicatorFilter: args.applicatorFilter,
-        })) {
+        if (is9mlCylinderRollOnContext) {
             return enrichedResults.filter((p) =>
                 is9mlCylinderRollOnRow(p)
                 && isVerified9mlCylinderRollOnColor(p.canonicalColor ?? p.color)
