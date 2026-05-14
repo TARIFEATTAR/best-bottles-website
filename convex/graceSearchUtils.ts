@@ -27,8 +27,8 @@ export const FAMILY_MIN_SIZE_ML: Record<string, number> = {
     Cylinder: 5,
     Diva: 30,
     Elegant: 15,
-    Empire: 30,
-    Slim: 15,
+    Empire: 50,
+    Slim: 30,
 };
 
 export type { ShapeMatch } from "../src/lib/graceShapeIntent";
@@ -193,6 +193,55 @@ export function is9mlCylinderRollOnRow(row: {
         row.graceSku,
     ].filter(Boolean).join(" ").toLowerCase();
     return /\b(roll|roller|roll-on|roll on|roller ball)\b/.test(haystack);
+}
+
+export function selectVerified9mlCylinderRollOnRepresentatives<T extends {
+    family?: string | null;
+    capacityMl?: number | null;
+    applicator?: string | null;
+    itemName?: string | null;
+    slug?: string | null;
+    graceSku?: string | null;
+    color?: string | null;
+    canonicalColor?: string | null;
+}>(rows: T[]): T[] {
+    const byColor = new Map<string, T>();
+    for (const row of rows) {
+        const color = row.canonicalColor ?? row.color;
+        if (!is9mlCylinderRollOnRow(row) || !isVerified9mlCylinderRollOnColor(color)) continue;
+        if (!byColor.has(color!)) byColor.set(color!, row);
+    }
+    return VERIFIED_9ML_CYLINDER_ROLLON_COLORS
+        .map((color) => byColor.get(color))
+        .filter((row): row is T => Boolean(row));
+}
+
+export function ensureVerified9mlCylinderRollOnCoverage<T extends {
+    graceSku: string;
+    family?: string | null;
+    capacityMl?: number | null;
+    applicator?: string | null;
+    itemName?: string | null;
+    slug?: string | null;
+    color?: string | null;
+    canonicalColor?: string | null;
+}>(
+    rankedRows: T[],
+    coverageCandidates: T[],
+    limit: number,
+): T[] {
+    const representatives = selectVerified9mlCylinderRollOnRepresentatives(coverageCandidates);
+    if (representatives.length === 0) return rankedRows.slice(0, limit);
+    const seen = new Set<string>();
+    const covered: T[] = [];
+    for (const row of [...representatives, ...rankedRows]) {
+        const key = row.graceSku || `${row.slug ?? ""}|${row.family ?? ""}|${row.color ?? ""}|${row.capacityMl ?? ""}|${row.applicator ?? ""}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        covered.push(row);
+        if (covered.length >= limit) break;
+    }
+    return covered;
 }
 
 // ─── Deduplication ──────────────────────────────────────────────────────────
