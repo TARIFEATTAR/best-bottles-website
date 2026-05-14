@@ -6,6 +6,8 @@
  */
 
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
     APPLICATOR_BUCKETS,
     APPLICATOR_NAV,
@@ -15,6 +17,10 @@ import {
     applicatorBucketMatchesProductValues,
     applicatorNavHref,
     applicatorNavHrefMulti,
+    catalogSearchMatches,
+    catalogSearchRecoverySuggestions,
+    catalogSearchResultTieBreak,
+    catalogSearchScore,
     classifyComponentType,
     filtersAreEmpty,
     filtersToParams,
@@ -22,8 +28,38 @@ import {
     type ApplicatorBucket,
     type CatalogFilters,
     type SortValue,
-    type ViewMode,
 } from "../src/lib/catalogFilters";
+
+type ProductGroupFixture = {
+    slug: string;
+    displayName: string;
+    family?: string;
+    color?: string | null;
+    capacity?: string | null;
+    capacityMl?: number | null;
+    category?: string | null;
+    neckThreadSize?: string | null;
+    applicatorBucket?: string | null;
+};
+
+function loadProductGroupFixtures(): ProductGroupFixture[] {
+    const raw = JSON.parse(readFileSync(join(process.cwd(), "data/product_groups_by_family.json"), "utf8")) as Record<string, ProductGroupFixture[]>;
+    return Object.entries(raw).flatMap(([family, groups]) => groups.map((group) => ({ ...group, family })));
+}
+
+function groupMatchesSearch(query: string, group: ProductGroupFixture): boolean {
+    return catalogSearchMatches(query, [
+        group.displayName,
+        group.family,
+        group.color,
+        group.capacity,
+        group.capacityMl == null ? null : `${group.capacityMl} ml`,
+        group.category,
+        group.neckThreadSize,
+        group.slug,
+        group.applicatorBucket,
+    ]);
+}
 
 // ─── Constants & Data Integrity ─────────────────────────────────────────────
 
@@ -270,6 +306,87 @@ describe("paramsToFilters edge cases", () => {
         const result = paramsToFilters(new URLSearchParams());
         expect(result.filters).toEqual(EMPTY_FILTERS);
         expect(result.sort).toBe("featured");
+    });
+
+    it("defaults direct search URLs to best-match sorting", () => {
+        const result = paramsToFilters(new URLSearchParams("search=15ml+elegant+bottles"));
+        expect(result.filters.search).toBe("15ml elegant bottles");
+        expect(result.sort).toBe("best-match");
+    });
+
+    it("ignores malformed or negative price filters instead of zeroing the catalog", () => {
+        const result = paramsToFilters(new URLSearchParams("priceMin=-5&priceMax=abc"));
+        expect(result.filters.priceMin).toBeNull();
+        expect(result.filters.priceMax).toBeNull();
+    });
+});
+
+// ─── Search tolerance and recovery ──────────────────────────────────────────
+
+describe("catalog search tolerance", () => {
+    it("matches compact and spaced capacity searches", () => {
+        expect(catalogSearchMatches("10ml roll-on", [
+            "10 ml clear cylinder bottle",
+            "Metal Roller Ball",
+            "Glass Bottle",
+        ])).toBe(true);
+    });
+
+    it("matches packaging synonyms buyers naturally type", () => {
+        expect(catalogSearchMatches("amber bottles with caps", [
+            "Brown glass bottle",
+            "Black closure",
+            "13-415",
+        ])).toBe(true);
+    });
+
+    it("treats neck sizes with slash and hyphen variants as equivalent", () => {
+        expect(catalogSearchMatches("13/415", ["13-415 clear bottle"])).toBe(true);
+    });
+
+    it("scores stronger display-name matches above weak attribute matches", () => {
+        const strong = catalogSearchScore("10ml roll-on", [
+            { value: "10 ml Roll-On Bottle", weight: 5 },
+            { value: "Clear", weight: 1 },
+        ]);
+        const weak = catalogSearchScore("10ml roll-on", [
+            { value: "10 ml", weight: 1 },
+            { value: "Roll-On", weight: 1 },
+        ]);
+        expect(strong).toBeGreaterThan(weak);
+    });
+
+    it("provides actionable zero-results recovery suggestions", () => {
+        expect(catalogSearchRecoverySuggestions("amber 10ml roller bottle")).toEqual(
+            expect.arrayContaining(["10 ml", "roll-on", "amber glass bottle"])
+        );
+    });
+
+    it("matches May 4 stakeholder zero-result regression searches against known local product groups", () => {
+        const groups = loadProductGroupFixtures();
+        const bulbHits = groups.filter((group) => groupMatchesSearch("bulb sprayers", group));
+        const rollOnHits = groups.filter((group) => groupMatchesSearch("roll on bottles", group));
+        const elegantHits = groups.filter((group) => groupMatchesSearch("15ml elegant bottles", group));
+
+        expect(bulbHits.map((group) => group.slug)).toContain("empire-50ml-clear-18-415-antiquespray");
+        expect(rollOnHits.map((group) => group.slug)).toContain("elegant-15ml-clear-13-415-rollon");
+        expect(elegantHits.map((group) => group.slug)).toEqual(
+            expect.arrayContaining([
+                "elegant-15ml-clear-13-415",
+                "elegant-15ml-clear-13-415-rollon",
+            ]),
+        );
+    });
+
+    it("uses capacity and stable labels as search-result tie breakers", () => {
+        const groups = loadProductGroupFixtures()
+            .filter((group) => groupMatchesSearch("roll on bottles", group))
+            .sort((a, b) => catalogSearchResultTieBreak(a, b));
+        const firstCapacities = groups.slice(0, 10).map((group) => group.capacityMl ?? Infinity);
+
+        expect(groups.length).toBeGreaterThan(1);
+        expect(firstCapacities[0]).toBe(5);
+        expect(firstCapacities.every((capacity, index) => index === 0 || capacity >= firstCapacities[index - 1])).toBe(true);
     });
 });
 

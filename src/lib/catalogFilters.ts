@@ -47,6 +47,122 @@ export function capacityInRange(ml: number | null | undefined, range: (typeof CA
     return ml >= range.min && (range.max == null || ml <= range.max);
 }
 
+export function normalizeCatalogSearchText(value: string | null | undefined): string {
+    if (!value) return "";
+    let normalized = value
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[–—]/g, "-")
+        .replace(/(\d{1,4})\s*ml\b/g, "$1ml $1 ml")
+        .replace(/\b(\d{1,3})\s*[-/]\s*(\d{3,4})\b/g, "$1-$2 $1/$2")
+        .replace(/\broll[\s-]?on\b/g, "rollon roll-on roller rollerball roller ball")
+        .replace(/\broller\s*ball\b/g, "rollon roll-on roller rollerball roller ball")
+        .replace(/\brollerball\b/g, "rollon roll-on roller rollerball roller ball")
+        .replace(/\bfine[\s-]?mist\b/g, "finemist fine mist atomizer spray sprayer")
+        .replace(/\bperfume\s*spray\b/g, "perfumespray perfume spray sprayer atomizer")
+        .replace(/\bbulb\b/g, "bulb vintage antique")
+        .replace(/\bsprayers?\b/g, "sprayer spray")
+        .replace(/\bspray\b/g, "spray sprayer")
+        .replace(/\batomizers?\b/g, "atomizer spray sprayer finemist")
+        .replace(/\bdroppers?\b/g, "dropper pipette")
+        .replace(/\breducers?\b/g, "reducer orifice plug")
+        .replace(/\blotion\s*pumps?\b/g, "lotionpump lotion pump")
+        .replace(/\bbottles?\b/g, "bottle bottles")
+        .replace(/\bcaps?\b/g, "cap closure lid")
+        .replace(/\bclosures?\b/g, "closure cap lid")
+        .replace(/\bamber\b/g, "amber brown")
+        .replace(/\bbrown\b/g, "brown amber")
+        .replace(/\bcobalt\b/g, "cobalt blue")
+        .replace(/\bfrost(ed)?\b/g, "frosted frost")
+        .replace(/[^\w\s/-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    // Add both spaced and compact capacity variants after punctuation cleanup.
+    normalized = normalized.replace(/\b(\d{1,4})\s+ml\b/g, "$1ml $1 ml");
+    return normalized;
+}
+
+export function catalogSearchTokens(query: string): string[] {
+    const normalized = normalizeCatalogSearchText(query);
+    if (!normalized) return [];
+    const stopWords = new Set(["a", "an", "and", "for", "of", "the", "with"]);
+    return Array.from(new Set(normalized.split(/\s+/).filter((token) => token.length > 0 && !stopWords.has(token))));
+}
+
+export function catalogSearchMatches(query: string, fields: Array<string | null | undefined>): boolean {
+    const tokens = catalogSearchTokens(query);
+    if (tokens.length === 0) return true;
+    const haystack = normalizeCatalogSearchText(fields.filter(Boolean).join(" "));
+    return tokens.every((token) => haystack.includes(token));
+}
+
+export function catalogSearchScore(query: string, weightedFields: Array<{ value: string | null | undefined; weight: number }>): number {
+    const tokens = catalogSearchTokens(query);
+    if (tokens.length === 0) return 0;
+
+    return weightedFields.reduce((score, field) => {
+        const text = normalizeCatalogSearchText(field.value);
+        if (!text) return score;
+        const matchedTokens = tokens.filter((token) => text.includes(token)).length;
+        const exactPhraseBoost = text.includes(normalizeCatalogSearchText(query)) ? field.weight : 0;
+        return score + matchedTokens * field.weight + exactPhraseBoost;
+    }, 0);
+}
+
+export function catalogSearchResultTieBreak(
+    a: {
+        capacityMl?: number | null;
+        family?: string | null;
+        displayName?: string | null;
+        slug?: string | null;
+    },
+    b: {
+        capacityMl?: number | null;
+        family?: string | null;
+        displayName?: string | null;
+        slug?: string | null;
+    },
+): number {
+    const capacityDelta = (a.capacityMl ?? Infinity) - (b.capacityMl ?? Infinity);
+    if (capacityDelta !== 0) return capacityDelta;
+
+    const familyDelta = (a.family ?? "").localeCompare(b.family ?? "");
+    if (familyDelta !== 0) return familyDelta;
+
+    const nameDelta = (a.displayName ?? "").localeCompare(b.displayName ?? "");
+    if (nameDelta !== 0) return nameDelta;
+
+    return (a.slug ?? "").localeCompare(b.slug ?? "");
+}
+
+export function catalogSearchRecoverySuggestions(query: string): string[] {
+    const normalized = normalizeCatalogSearchText(query);
+    const suggestions: string[] = [];
+    const add = (value: string) => {
+        if (!value) return;
+        const normalizedValue = normalizeCatalogSearchText(value);
+        if (normalizedValue && normalizedValue !== normalized && !suggestions.some((s) => normalizeCatalogSearchText(s) === normalizedValue)) {
+            suggestions.push(value);
+        }
+    };
+
+    const mlMatch = normalized.match(/\b(\d{1,4})ml\b/);
+    if (mlMatch) add(`${mlMatch[1]} ml`);
+    if (/\brollon\b|\broller\b/.test(normalized)) add("roll-on");
+    if (/\bspray\b|\bsprayer\b|\batomizer\b|\bfinemist\b/.test(normalized)) add("fine mist spray");
+    if (/\bdropper\b|\bpipette\b/.test(normalized)) add("dropper");
+    if (/\bamber\b|\bbrown\b/.test(normalized)) add("amber glass bottle");
+    if (/\bblack\b/.test(normalized)) add("black cap");
+    if (/\bessential\b|\boil\b|\bperfume\b|\bfragrance\b/.test(normalized)) add("essential oil bottle");
+
+    add("10 ml roll-on");
+    add("18-415");
+    add("clear glass bottle");
+
+    return suggestions.slice(0, 4);
+}
+
 /** Build a catalog URL query string for a nav-level applicator category. */
 export function applicatorNavHref(navValue: ApplicatorNavValue): string {
     const nav = APPLICATOR_NAV.find((n) => n.value === navValue);
@@ -182,29 +298,39 @@ function getMultiParam(sp: URLSearchParams, key: string): string[] {
         .filter(Boolean);
 }
 
+function getNonNegativeNumberParam(sp: URLSearchParams, key: string): number | null {
+    const raw = sp.get(key);
+    if (!raw) return null;
+    const parsed = Number(raw);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+}
+
 export function paramsToFilters(sp: URLSearchParams): { filters: CatalogFilters; sort: SortValue; view: ViewMode } {
     const applicatorValues = getMultiParam(sp, "applicators");
     const validApplicators = applicatorValues.filter((a) =>
         APPLICATOR_BUCKETS.some((b) => b.value === a)
     ) as ApplicatorBucket[];
+    const familiesParam = getMultiParam(sp, "families");
     const viewParam = sp.get("view");
     const view: ViewMode = viewParam === "line" ? "line" : "visual";
+    const search = (sp.get("search") || "").trim().replace(/\s+/g, " ");
+    const sortParam = sp.get("sort") as SortValue | null;
     return {
         filters: {
             category: sp.get("category") || null,
             collection: sp.get("collection") || null,
             applicators: validApplicators,
             // Accept both ?families=Cylinder,Elegant (multi) and ?family=Cylinder (singular, used by Grace)
-            families: [...getMultiParam(sp, "families"), ...getMultiParam(sp, "family")],
+            families: familiesParam.length > 0 ? familiesParam : getMultiParam(sp, "family"),
             colors: getMultiParam(sp, "colors"),
             capacities: getMultiParam(sp, "capacities"),
             neckThreadSizes: getMultiParam(sp, "threads"),
             componentType: sp.get("componentType") || null,
-            priceMin: sp.get("priceMin") ? Number(sp.get("priceMin")) : null,
-            priceMax: sp.get("priceMax") ? Number(sp.get("priceMax")) : null,
-            search: sp.get("search") || "",
+            priceMin: getNonNegativeNumberParam(sp, "priceMin"),
+            priceMax: getNonNegativeNumberParam(sp, "priceMax"),
+            search,
         },
-        sort: (sp.get("sort") as SortValue) || "featured",
+        sort: sortParam || (search ? "best-match" : "featured"),
         view,
     };
 }

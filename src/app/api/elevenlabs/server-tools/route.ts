@@ -25,6 +25,18 @@ function getConvex(): ConvexHttpClient {
     return _convex;
 }
 
+function getResultCount(result: unknown): number | null {
+    if (Array.isArray(result)) return result.length;
+    if (result && typeof result === "object") {
+        const record = result as Record<string, unknown>;
+        for (const key of ["totalVariants", "totalGroups", "totalComponents"]) {
+            const value = record[key];
+            if (typeof value === "number") return value;
+        }
+    }
+    return null;
+}
+
 export async function POST(req: NextRequest) {
     try {
         // All 12 agent tools are registered on ElevenLabs as type:"client",
@@ -323,6 +335,13 @@ export async function POST(req: NextRequest) {
                     { status: 400 }
                 );
         }
+
+        console.info("[EL server-tool] ok", {
+            tool_name,
+            durationMs: Date.now() - t0,
+            resultCount: getResultCount(result),
+            resultType: Array.isArray(result) ? "array" : typeof result,
+        });
 
         return NextResponse.json({ result });
     } catch (err) {

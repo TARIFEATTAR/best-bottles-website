@@ -201,7 +201,7 @@ const NAV_LINKS: Record<string, NavLinkDef[]> = {
     ],
 };
 
-export default function Navbar({ variant = "home", initialSearchValue }: NavbarProps) {
+export default function Navbar({ variant = "home", initialSearchValue, hideMobileSearch = false }: NavbarProps) {
     const router = useRouter();
     // Grace trigger moved to the floating launcher; useGrace no longer needed here.
     const { itemCount, isCartHydrated } = useCart();
@@ -525,15 +525,25 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         >
                             <MagnifyingGlass className="text-slate shrink-0" size={16} />
                             <input
-                                type="text"
+                                type="search"
+                                name="search"
+                                autoComplete="search"
+                                enterKeyHint="search"
                                 value={searchValue}
                                 onChange={(e) => setSearchValue(e.target.value)}
                                 placeholder={searchPlaceholder}
                                 className="bg-transparent text-sm focus:outline-none flex-1 min-w-0 placeholder-slate/60 text-obsidian"
                                 aria-label="Search products"
+                                data-testid="navbar-desktop-search-input"
                                 suppressHydrationWarning
                             />
-                            <button type="submit" className="sr-only">Search</button>
+                            <button
+                                type="submit"
+                                aria-label="Submit product search"
+                                className="shrink-0 rounded-lg p-1.5 text-slate hover:bg-muted-gold/10 hover:text-muted-gold transition-colors"
+                            >
+                                <ArrowRight size={14} />
+                            </button>
                         </form>
                         <div className="hidden lg:flex flex-1" />
                         <div className="flex items-center justify-end space-x-2 shrink-0 ml-auto lg:ml-0">
@@ -562,6 +572,7 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                     </div>
 
                     {/* Row 2: full-width search bar (mobile only) */}
+                    {!hideMobileSearch && (
                     <div className="flex lg:hidden pb-3 border-t border-champagne/40 pt-2">
                         <form
                             onSubmit={handleSearchSubmit}
@@ -570,17 +581,29 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                         >
                             <MagnifyingGlass className="text-slate shrink-0" size={16} />
                             <input
-                                type="text"
+                                type="search"
+                                name="search"
+                                autoComplete="search"
+                                enterKeyHint="search"
                                 value={searchValue}
                                 onChange={(e) => setSearchValue(e.target.value)}
                                 placeholder={searchPlaceholder}
                                 className="bg-transparent text-sm focus:outline-none flex-1 min-w-0 placeholder-slate/60 text-obsidian"
                                 aria-label="Search products"
+                                data-testid="navbar-mobile-search-input"
                                 suppressHydrationWarning
                             />
-                            <button type="submit" className="sr-only">Search</button>
+                            <button
+                                type="submit"
+                                aria-label="Submit product search"
+                                data-testid="navbar-mobile-search-submit"
+                                className="shrink-0 rounded-lg p-1.5 text-slate hover:bg-muted-gold/10 hover:text-muted-gold transition-colors"
+                            >
+                                <ArrowRight size={14} />
+                            </button>
                         </form>
                     </div>
+                    )}
 
                 </div>
             </header>
@@ -654,6 +677,15 @@ export default function Navbar({ variant = "home", initialSearchValue }: NavbarP
                                             </button>
                                             {isExpanded && (
                                                 <div className="pb-2 space-y-4">
+                                                    <Link
+                                                        href={link.href}
+                                                        onClick={() => setMobileMenuOpen(false)}
+                                                        data-testid="mobile-menu-primary-link"
+                                                        className="flex items-center justify-between rounded-sm bg-obsidian px-3 py-3 min-h-[44px] text-xs font-bold uppercase tracking-wider text-white"
+                                                    >
+                                                        View {link.label}
+                                                        <ArrowRight size={14} />
+                                                    </Link>
                                                     {panel.columns.map((col) => (
                                                         <div key={col.heading}>
                                                             <p className="text-[10px] uppercase tracking-[0.2em] text-slate font-bold mb-2">

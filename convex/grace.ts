@@ -32,7 +32,7 @@ import {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GRACE AI TOOL QUERIES
-// These queries are called by the askGrace action as Claude tool executions.
+// These queries are called by the askGrace action as OpenAI tool executions.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -145,6 +145,12 @@ export const searchCatalog = query({
         const shapeFamilies = shapeMatch
             ? [...shapeMatch.primary, ...shapeMatch.also]
             : [];
+        const isBroadCapacityBrowse =
+            detectedCapMl !== null
+            && !detectedFamily
+            && !detectedColor
+            && !applicatorIntent
+            && shapeFamilies.length === 0;
 
         const structuredResults: typeof results = [];
         let didAdjacentExpansion = false;
@@ -219,17 +225,23 @@ export const searchCatalog = query({
                     return scoreB - scoreA;
                 });
 
-                // Limit per-family to ensure shape diversity in results
-                const PER_FAMILY_CAP = shapeFamilies.length > 1 || needsAdjacentExpansion ? 6 : 8;
+                // Limit per-family to ensure shape diversity in results.
+                // For broad size-only questions ("do you have a 9ml bottle?"),
+                // preserve product-group/color coverage instead of letting a few
+                // cap/trim variants crowd out Cobalt Blue, Frosted, or Swirl.
+                const PER_FAMILY_CAP = isBroadCapacityBrowse
+                    ? 40
+                    : shapeFamilies.length > 1 || needsAdjacentExpansion ? 6 : 8;
                 const familyCount: Record<string, number> = {};
                 for (const group of groupHits) {
                     const fam = group.family ?? "";
                     familyCount[fam] = (familyCount[fam] ?? 0) + 1;
                     if (familyCount[fam] > PER_FAMILY_CAP) continue;
 
+                    const variantTakeCount = isBroadCapacityBrowse ? 1 : 8;
                     let variants = await ctx.db.query("products")
                         .withIndex("by_productGroupId", (q) => q.eq("productGroupId", group._id))
-                        .take(8);
+                        .take(variantTakeCount);
                     if (applicatorIntent === "rollon") {
                         variants = variants.filter((v) => /(roller|roll)/i.test(v.applicator ?? ""));
                     } else if (applicatorIntent === "spray") {
@@ -312,7 +324,9 @@ export const searchCatalog = query({
         const sorted = dedupeCatalogResults([...structuredResults, ...results])
             .sort((a, b) => scoreCatalogResult(b, scoreMeta) - scoreCatalogResult(a, scoreMeta));
 
-        const resultLimit = args.applicatorFilter ? 25 : takeCount;
+        const resultLimit = isBroadCapacityBrowse
+            ? 40
+            : args.applicatorFilter ? 25 : takeCount;
         results = shapeFamilies.length > 1
             ? diversifyByFamily(sorted, shapeMatch?.primary ?? [], resultLimit)
             : sorted.slice(0, resultLimit);
@@ -787,7 +801,7 @@ Operational guidance for Grace:
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GRACE AI CORE ACTION — OpenAI GPT-4.1 (text) / GPT-4.1-mini (voice) with agentic tool use
+// GRACE AI CORE ACTION — OpenAI GPT-5 text / GPT-5-mini voice with agentic tool use
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const askGrace = action({

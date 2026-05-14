@@ -202,12 +202,26 @@ export const analytics = {
     adapter.track("Checkout Started", properties);
   },
 
-  checkoutCompleted(properties: {
+  checkoutRedirected(properties: {
     itemCount: number;
     cartTotal: number;
+    skus: string;
+    matchedItemCount: number;
     unmatchedCount: number;
+    checkoutProvider: "shopify";
+    checkoutHost?: string;
   }) {
-    adapter.track("Checkout Completed", properties);
+    adapter.track("Checkout Redirected", properties);
+  },
+
+  orderCompleted(properties: {
+    orderId?: string;
+    itemCount: number;
+    cartTotal: number;
+    checkoutProvider?: "shopify";
+    unmatchedCount?: number;
+  }) {
+    adapter.track("Order Completed", properties);
   },
 
   checkoutFailed(properties: {

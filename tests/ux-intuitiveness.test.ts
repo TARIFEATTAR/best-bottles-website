@@ -16,7 +16,6 @@ import {
     SORT_OPTIONS,
     activeFilterCount,
     applicatorNavHref,
-    applicatorNavHrefMulti,
     classifyComponentType,
     filtersToParams,
     paramsToFilters,
@@ -289,18 +288,18 @@ describe("UX: Edge cases that break user experience", () => {
         expect(result.filters.families).toEqual(["Cylinder"]);
     });
 
-    it("handles negative price values gracefully", () => {
+    it("ignores negative price values gracefully", () => {
         const params = new URLSearchParams("priceMin=-5&priceMax=10");
         const result = paramsToFilters(params);
-        expect(result.filters.priceMin).toBe(-5);
+        expect(result.filters.priceMin).toBeNull();
         expect(result.filters.priceMax).toBe(10);
     });
 
-    it("handles NaN price values", () => {
+    it("ignores NaN price values instead of applying an impossible filter", () => {
         const params = new URLSearchParams("priceMin=abc&priceMax=xyz");
         const result = paramsToFilters(params);
-        expect(result.filters.priceMin).toBeNaN();
-        expect(result.filters.priceMax).toBeNaN();
+        expect(result.filters.priceMin).toBeNull();
+        expect(result.filters.priceMax).toBeNull();
     });
 
     it("handles very long search queries without crashing", () => {

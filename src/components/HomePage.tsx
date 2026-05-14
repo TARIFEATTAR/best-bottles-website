@@ -52,10 +52,16 @@ const DEFAULT_FAMILIES = [
 ];
 
 const DEFAULT_ARTICLES = [
-    { title: "Glass vs. Plastic: Why Material Matters for Your Brand", category: "Materials", excerpt: "Expert insights and strategies to elevate your brand's packaging presence.", img: "/assets/collection_perfume.png", slug: "/blog" },
-    { title: "Finding Your Thread: A Complete Neck Size Compatibility Guide", category: "Technical", excerpt: "Expert insights and strategies to elevate your brand's packaging presence.", img: "/assets/family_cylinder.png", slug: "/blog" },
-    { title: "From Etsy to Retail: Scaling Your Packaging Strategy", category: "Growth", excerpt: "Expert insights and strategies to elevate your brand's packaging presence.", img: "/assets/collection_amber.png", slug: "/blog" },
+    { title: "Glass vs. Plastic: Why Material Matters for Your Brand", category: "Materials", excerpt: "Compare material choices for fragrance, beauty, and wellness packaging so your bottle supports the product and the brand promise.", img: "/assets/collection_perfume.png", slug: "/blog" },
+    { title: "Finding Your Thread: A Complete Neck Size Compatibility Guide", category: "Technical", excerpt: "Understand neck finishes, thread sizes, and fitment language before pairing bottles with caps, droppers, rollers, or sprayers.", img: "/assets/family_cylinder.png", slug: "/blog" },
+    { title: "From Etsy to Retail: Scaling Your Packaging Strategy", category: "Growth", excerpt: "Plan the packaging shift from small-batch sales to retail-ready quantities, consistency, and reorder confidence.", img: "/assets/collection_amber.png", slug: "/blog" },
 ];
+
+function fallbackArticleExcerpt(title: string, category: string) {
+    const match = DEFAULT_ARTICLES.find((article) => article.title === title);
+    if (match) return match.excerpt;
+    return `${category} guidance for choosing packaging with more confidence.`;
+}
 
 const CATEGORY_LABELS: Record<string, string> = {
     "packaging-101": "Packaging 101",
@@ -419,10 +425,10 @@ const DISPENSERS = APPLICATOR_NAV.map((nav) => ({
 }));
 
 const SIZE_RANGES = [
-    { label: "Miniature", subtitle: "1–5 ml", params: "capacities=1+ml&capacities=2+ml&capacities=3+ml&capacities=5+ml" },
-    { label: "Small", subtitle: "6–15 ml", params: "capacities=6+ml&capacities=8+ml&capacities=10+ml&capacities=12+ml&capacities=15+ml" },
-    { label: "Medium", subtitle: "20–50 ml", params: "capacities=20+ml&capacities=25+ml&capacities=30+ml&capacities=50+ml" },
-    { label: "Large", subtitle: "75–120 ml", params: "capacities=75+ml&capacities=100+ml&capacities=120+ml" },
+    { label: "Miniature", subtitle: "1–5 ml (0.03–0.17 oz)", params: "capacities=1+ml&capacities=2+ml&capacities=3+ml&capacities=3.7+ml&capacities=4+ml&capacities=5+ml" },
+    { label: "Small", subtitle: "6–15 ml (0.20–0.51 oz)", params: "capacities=6+ml&capacities=8+ml&capacities=9+ml&capacities=10+ml&capacities=12+ml&capacities=13+ml&capacities=14+ml&capacities=15+ml" },
+    { label: "Medium", subtitle: "20–50 ml (0.68–1.69 oz)", params: "capacities=20+ml&capacities=25+ml&capacities=28+ml&capacities=30+ml&capacities=50+ml" },
+    { label: "Large", subtitle: "55–120 ml (1.86–4.06 oz)", params: "capacities=55+ml&capacities=60+ml&capacities=75+ml&capacities=78+ml&capacities=100+ml&capacities=120+ml" },
     { label: "Any Size", subtitle: "Show all", params: "" },
 ];
 
@@ -457,6 +463,7 @@ function GuidedSelector({ onClose }: { onClose: () => void }) {
         const nav = applicator ? APPLICATOR_NAV.find((n) => n.value === applicator) : null;
         const params = new URLSearchParams();
         if (nav) params.set("applicators", nav.buckets.join(","));
+        if (sizeParams) params.set("sort", "capacity-asc");
         const url = `/catalog?${params.toString()}${sizeParams ? `&${sizeParams}` : ""}`;
         router.push(url);
         onClose();
@@ -614,14 +621,17 @@ function PathChooser() {
                                 <div className={`flex border rounded-full overflow-hidden transition-all duration-300 ${searchFocused ? "border-muted-gold ring-2 ring-muted-gold/20" : "border-champagne"}`}>
                                     <input
                                         type="text"
+                                        name="search"
+                                        autoComplete="search"
                                         value={searchValue}
                                         onChange={(e) => setSearchValue(e.target.value)}
                                         onFocus={() => setSearchFocused(true)}
                                         onBlur={() => setSearchFocused(false)}
                                         placeholder="e.g. 9ml clear cylinder roll-on"
                                         className="flex-1 px-4 py-2.5 text-sm bg-white focus:outline-none placeholder-slate/50 text-obsidian min-w-0"
+                                        aria-label="Search products"
                                     />
-                                    <button type="submit" className="px-4 bg-obsidian text-white hover:bg-muted-gold transition-colors">
+                                    <button type="submit" className="px-4 bg-obsidian text-white hover:bg-muted-gold transition-colors" aria-label="Search products">
                                         <ArrowRight size={16} />
                                     </button>
                                 </div>
@@ -773,7 +783,7 @@ function EducationPreview({ educationPreview: edu }: { educationPreview?: Homepa
         ? edu.featuredArticles.map((a) => ({
             title: a.title,
             category: a.category ? (CATEGORY_LABELS[a.category] ?? a.category) : "Insights",
-            excerpt: a.excerpt ?? "Expert insights and strategies to elevate your brand's packaging presence.",
+            excerpt: a.excerpt ?? fallbackArticleExcerpt(a.title, a.category ? (CATEGORY_LABELS[a.category] ?? a.category) : "Packaging"),
             img: a.image ? urlFor(a.image) : "/assets/collection_perfume.png",
             slug: a.slug ? `/blog/${a.slug}` : "#",
         }))

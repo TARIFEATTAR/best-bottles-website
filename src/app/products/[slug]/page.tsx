@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     ShoppingBag, ArrowLeft, ChevronRight, Package,
-    Check, ExternalLink, Truck,
+    Check, Truck,
 } from "@/components/icons";
 import { motion } from "framer-motion";
 /* eslint-disable @next/next/no-img-element */
@@ -494,6 +494,166 @@ function supportsSecondaryPdpImage(variant: ProductVariant): boolean {
     return true;
 }
 
+type VariantImageTile = {
+    id: string;
+    variant: ProductVariant;
+    imageUrl: string;
+    label: string;
+    swatchHex: string;
+    websiteSku: string;
+};
+
+function getVariantTileImageUrl(variant: ProductVariant): string | null {
+    if (variant.imageUrl) return variant.imageUrl;
+    if (variant.imageUrlCapOff && supportsSecondaryPdpImage(variant)) return variant.imageUrlCapOff;
+    return null;
+}
+
+function getVariantTileLabel(variant: ProductVariant): string {
+    const finish = resolveVariantCapFinish(variant);
+    const trim = variant.trimColor && variant.trimColor !== "Standard" && variant.trimColor !== finish.swatchName
+        ? variant.trimColor
+        : null;
+    return trim ? `${finish.label} / ${trim}` : finish.label;
+}
+
+function VariantImagePicker({
+    tiles,
+    selectedVariantId,
+    onSelect,
+}: {
+    tiles: VariantImageTile[];
+    selectedVariantId: string | null | undefined;
+    onSelect: (variant: ProductVariant) => void;
+}) {
+    if (tiles.length <= 1) return null;
+
+    const renderTile = (tile: VariantImageTile, mobile = false) => {
+        const isSelected = selectedVariantId === tile.id;
+        return (
+            <button
+                key={tile.id}
+                type="button"
+                onClick={() => onSelect(tile.variant)}
+                title={`${tile.label} · ${tile.websiteSku}`}
+                aria-label={`Select ${tile.label} variant`}
+                aria-pressed={isSelected}
+                className={`
+                    relative shrink-0 overflow-hidden rounded-sm bg-travertine
+                    border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-obsidian
+                    ${mobile ? "w-16 aspect-[10/11]" : "h-12 w-full"}
+                    ${
+                        isSelected
+                            ? "border-obsidian ring-2 ring-muted-gold/45 shadow-sm"
+                            : "border-champagne/60 hover:border-muted-gold"
+                    }
+                `}
+            >
+                <img
+                    src={tile.imageUrl}
+                    alt=""
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                />
+                <span
+                    className="absolute bottom-1 left-1 h-3 w-3 rounded-full border border-white/90 shadow-sm"
+                    style={{ backgroundColor: tile.swatchHex }}
+                    aria-hidden="true"
+                />
+                {isSelected && (
+                    <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-obsidian/85 shadow-sm">
+                        <Check
+                            className="h-3 w-3 text-white"
+                            strokeWidth={2.5}
+                        />
+                    </span>
+                )}
+            </button>
+        );
+    };
+
+    return (
+        <div data-testid="pdp-variant-image-picker">
+            <div
+                className="hidden lg:flex lg:w-[58px] lg:flex-col lg:gap-1.5 lg:overflow-y-auto lg:pr-1 lg:max-h-[760px]"
+                aria-label="Variant image options"
+            >
+                {tiles.map((tile) => renderTile(tile))}
+            </div>
+            <div
+                className="mb-3 flex gap-2 overflow-x-auto pb-1 lg:hidden"
+                aria-label="Variant image options"
+            >
+                {tiles.map((tile) => renderTile(tile, true))}
+            </div>
+        </div>
+    );
+}
+
+function SelectedVariantSummary({
+    label,
+    sku,
+    swatchHex,
+}: {
+    label: string;
+    sku?: string | null;
+    swatchHex: string;
+}) {
+    return (
+        <div className="mb-5 rounded-sm border border-champagne/60 bg-white px-4 py-3">
+            <p className="text-[9px] uppercase tracking-[0.18em] font-bold text-muted-gold mb-2">
+                Selected Option
+            </p>
+            <div className="flex items-start justify-between gap-4 sm:items-center">
+                <div className="flex min-w-0 items-start gap-3 sm:items-center">
+                    <span
+                        className="h-7 w-7 shrink-0 rounded-full border border-champagne shadow-sm"
+                        style={{ backgroundColor: swatchHex }}
+                        aria-hidden="true"
+                    />
+                    <div className="min-w-0">
+                        <p className="text-sm font-semibold leading-snug text-obsidian">
+                            {label}
+                        </p>
+                        {sku && (
+                            <p className="mt-1 text-[10px] uppercase tracking-wider text-slate font-mono sm:hidden">
+                                {sku}
+                            </p>
+                        )}
+                    </div>
+                </div>
+                {sku && (
+                    <span className="hidden shrink-0 text-[10px] uppercase tracking-wider text-slate font-mono sm:inline">
+                        {sku}
+                    </span>
+                )}
+            </div>
+        </div>
+    );
+}
+
+function compatibleApplicatorPriority(sibling: ApplicatorSibling, currentFamily?: string | null): number {
+    const text = `${sibling.displayName} ${(sibling.applicatorTypes ?? []).join(" ")}`.toLowerCase();
+    const isEmpire = currentFamily === "Empire";
+
+    if (/reducer/.test(text)) return 0;
+    if (/lotion\s*pump/.test(text)) return 1;
+    if (/dropper/.test(text)) return 2;
+    if (/fine\s*mist|perfume\s*spray/.test(text)) return isEmpire ? 4 : 3;
+    if (/vintage|antique|bulb/.test(text)) return isEmpire ? 5 : 4;
+    return 3;
+}
+
+function sortCompatibleApplicatorSiblings(
+    siblings: ApplicatorSibling[],
+    currentFamily?: string | null,
+): ApplicatorSibling[] {
+    return [...siblings].sort((a, b) => {
+        const priorityDelta = compatibleApplicatorPriority(a, currentFamily) - compatibleApplicatorPriority(b, currentFamily);
+        if (priorityDelta !== 0) return priorityDelta;
+        return a.displayName.localeCompare(b.displayName);
+    });
+}
 
 // ── Spec Row ──────────────────────────────────────────────────────────────────
 
@@ -513,7 +673,7 @@ function TrustStack({ variant, inStock }: { variant: ProductVariant | null | und
             </span>
 
             {/* Trust rows — case pack + shipping. Quiet, scannable. */}
-            <dl className="space-y-1.5 text-sm">
+            <div className="space-y-1.5 text-sm">
                 {caseQty && caseQty > 1 && (
                     <div className="flex items-center gap-2.5 text-obsidian">
                         <Package className="w-4 h-4 text-slate shrink-0" strokeWidth={1.5} />
@@ -524,8 +684,61 @@ function TrustStack({ variant, inStock }: { variant: ProductVariant | null | und
                     <Truck className="w-4 h-4 text-slate shrink-0" strokeWidth={1.5} />
                     <span>Free shipping on orders over <span className="font-semibold">$99</span></span>
                 </div>
-            </dl>
+            </div>
         </div>
+    );
+}
+
+function ProductConfidenceSummary({
+    group,
+    variant,
+    compatibleCount,
+}: {
+    group: {
+        displayName?: string | null;
+        capacity?: string | null;
+        neckThreadSize?: string | null;
+        variantCount?: number | null;
+    };
+    variant: ProductVariant | null | undefined;
+    compatibleCount: number;
+}) {
+    const rows = [
+        { label: "Neck size", value: group.neckThreadSize ?? variant?.neckThreadSize ?? "Unable to verify" },
+        { label: "Capacity", value: group.capacity ?? variant?.capacity ?? "Unable to verify" },
+        { label: "Case quantity", value: variant?.caseQuantity ? `${variant.caseQuantity} units/case` : "Unable to verify" },
+        { label: "Selected SKU", value: variant?.websiteSku ?? variant?.graceSku ?? "Unable to verify" },
+    ];
+
+    return (
+        <section
+            className="mb-5 rounded-sm border border-champagne/60 bg-white p-4 sm:p-5"
+            aria-label="Compatibility and ordering summary"
+            data-testid="pdp-confidence-summary"
+        >
+            <div className="mb-3 flex items-start justify-between gap-4">
+                <div>
+                    <p className="text-[9px] uppercase tracking-[0.18em] font-bold text-muted-gold mb-1">
+                        Compatibility Snapshot
+                    </p>
+                    <h2 className="font-serif text-lg text-obsidian">Confirm fit before you buy</h2>
+                </div>
+                <span className="shrink-0 rounded-full border border-champagne bg-bone px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-slate">
+                    {compatibleCount > 0 ? `${compatibleCount} related` : "Fitment ready"}
+                </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+                {rows.map((row) => (
+                    <div key={row.label} className="rounded-sm bg-bone/70 px-3 py-2">
+                        <p className="text-[9px] uppercase tracking-wider text-slate font-bold">{row.label}</p>
+                        <p className="mt-0.5 text-[13px] text-obsidian font-semibold leading-snug">{row.value}</p>
+                    </div>
+                ))}
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-slate">
+                Use neck size to match caps, rollers, sprayers, reducers, and droppers. If a value is missing, treat it as unable to verify before ordering.
+            </p>
+        </section>
     );
 }
 
@@ -594,6 +807,38 @@ function SpecRow({ label, value }: { label: string; value: string | number | nul
             <dt className="text-xs uppercase tracking-wider font-bold text-slate">{label}</dt>
             <dd className="text-sm text-obsidian font-medium text-right max-w-[55%]">{value}</dd>
         </div>
+    );
+}
+
+function PdpLoadingSkeleton() {
+    return (
+        <main className="min-h-screen bg-bone">
+            <Navbar hideMobileSearch />
+            <div className="pt-[104px] sm:pt-[160px] lg:pt-[120px]">
+                <section className="max-w-[1440px] mx-auto px-4 sm:px-6 py-6 sm:py-10 lg:py-16">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-20 items-start">
+                        <div className="aspect-[10/11] rounded-sm border border-champagne/50 bg-travertine animate-pulse" />
+                        <div>
+                            <div className="h-3 w-32 rounded bg-muted-gold/25 animate-pulse mb-4" />
+                            <div className="h-10 w-4/5 rounded bg-champagne/40 animate-pulse mb-4" />
+                            <div className="h-5 w-2/3 rounded bg-champagne/25 animate-pulse mb-6" />
+                            <div className="grid grid-cols-2 gap-2 mb-6">
+                                {["Neck size", "Capacity", "Case quantity", "Selected SKU"].map((label) => (
+                                    <div key={label} className="rounded-sm border border-champagne/40 bg-white p-3">
+                                        <p className="text-[9px] uppercase tracking-wider text-slate font-bold">{label}</p>
+                                        <div className="mt-2 h-4 w-2/3 rounded bg-champagne/30 animate-pulse" />
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="h-12 w-full rounded-sm bg-obsidian/20 animate-pulse" />
+                            <p className="mt-4 text-xs uppercase tracking-widest font-semibold text-slate">
+                                Preparing product details and fitment data
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
     );
 }
 
@@ -817,11 +1062,59 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     // not here — they would show as selectable but wouldn't change add-to-cart behavior.
     const capSwatchPreview = useMemo(() => variantSwatchPreview, [variantSwatchPreview]);
 
+    const variantImageTiles = useMemo<VariantImageTile[]>(() => {
+        const seen = new Set<string>();
+        const tiles: VariantImageTile[] = [];
+        for (const variant of variantsForApplicator) {
+            if (seen.has(variant._id)) continue;
+            const imageUrl = getVariantTileImageUrl(variant);
+            if (!imageUrl) continue;
+
+            seen.add(variant._id);
+            const finish = resolveVariantCapFinish(variant);
+            const swatchName = finish.swatchName;
+            tiles.push({
+                id: variant._id,
+                variant,
+                imageUrl,
+                label: getVariantTileLabel(variant),
+                swatchHex: resolveSwatchHex(swatchName),
+                websiteSku: variant.websiteSku,
+            });
+        }
+        return tiles;
+    }, [variantsForApplicator]);
+    const hasVariantImagePicker = variantImageTiles.length > 1;
+    const hasCompleteVariantImagePicker =
+        hasVariantImagePicker && variantImageTiles.length === variantsForApplicator.length;
+
+    const selectVariantFromImage = useCallback((variant: ProductVariant) => {
+        const finish = resolveVariantCapFinish(variant);
+        setSelectedVariantId(variant._id);
+        setSelectedApplicator(variant.applicator ?? null);
+        setSelectedCapColor(finish.swatchName);
+        setSelectedCapStyle(variant.capStyle ?? null);
+        setSelectedTrimColor(variant.trimColor || "Standard");
+        setSelectedCapComponentSku(null);
+        setCapSwatchHint(false);
+    }, []);
+
+    const selectedVariantSummary = useMemo(() => {
+        if (!selectedVariant || !hasVariantImagePicker) return null;
+        const finish = resolveVariantCapFinish(selectedVariant);
+        return {
+            label: getVariantTileLabel(selectedVariant),
+            sku: selectedVariant.websiteSku,
+            swatchHex: resolveSwatchHex(finish.swatchName),
+        };
+    }, [selectedVariant, hasVariantImagePicker]);
+
     const showTrimSelector = useMemo(() => {
+        if (hasCompleteVariantImagePicker) return false;
         if (trimColorOptions.length === 0) return false;
         if (trimColorOptions.length === 1 && trimColorOptions[0] === "Standard") return false;
         return true;
-    }, [trimColorOptions]);
+    }, [trimColorOptions, hasCompleteVariantImagePicker]);
 
     // ── Roller type toggle for roll-on groups ─────────────────────────────────
     const isRollonGroup = slug.includes("rollon");
@@ -936,15 +1229,33 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
     // ── Mobile sticky bar: only visible once inline Add to Cart scrolls out of view ──
     useEffect(() => {
-        const el = inlineCartRef.current;
-        if (!el) return;
-        const observer = new IntersectionObserver(
-            ([entry]) => setStickyBarVisible(!entry.isIntersecting),
-            { threshold: 0 }
-        );
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
+        let frame = 0;
+        const updateStickyBar = () => {
+            const el = inlineCartRef.current;
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            const bottomSafeArea = window.matchMedia("(max-width: 1023px)").matches ? 156 : 0;
+            const headerSafeArea = 96;
+            const inlineCartVisible =
+                rect.bottom > headerSafeArea &&
+                rect.top < viewportHeight - bottomSafeArea;
+            setStickyBarVisible(!inlineCartVisible);
+        };
+        const scheduleUpdate = () => {
+            window.cancelAnimationFrame(frame);
+            frame = window.requestAnimationFrame(updateStickyBar);
+        };
+
+        scheduleUpdate();
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate);
+        return () => {
+            window.cancelAnimationFrame(frame);
+            window.removeEventListener("scroll", scheduleUpdate);
+            window.removeEventListener("resize", scheduleUpdate);
+        };
+    }, [data, selectedVariant?._id]);
 
     // ── JSON-LD structured data ──────────────────────────────────────────────
     const jsonLd = useMemo(() => {
@@ -976,20 +1287,15 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         ]);
     }, [group, slug]);
 
+    const compatibleSiblings = useMemo(
+        () => sortCompatibleApplicatorSiblings((applicatorSiblings ?? []) as ApplicatorSibling[], group?.family),
+        [applicatorSiblings, group?.family],
+    );
+
     // ── Loading state ────────────────────────────────────────────────────────
 
     if (data === undefined) {
-        return (
-            <main className="min-h-screen bg-bone">
-                <Navbar hideMobileSearch />
-                <div className="pt-[104px] sm:pt-[160px] lg:pt-[120px] flex items-center justify-center min-h-screen">
-                    <div className="flex flex-col items-center">
-                        <div className="w-10 h-10 rounded-full border-2 border-champagne border-t-muted-gold animate-spin mb-4"></div>
-                        <p className="text-xs uppercase tracking-widest font-semibold text-slate">Loading product...</p>
-                    </div>
-                </div>
-            </main>
-        );
+        return <PdpLoadingSkeleton />;
     }
 
     // ── Not found state ──────────────────────────────────────────────────────
@@ -1014,7 +1320,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
     }
 
     const inStock = selectedVariant?.stockStatus === "In Stock";
-    const compatibleSiblings = ((applicatorSiblings ?? []) as ApplicatorSibling[]);
     const handleAddToCart = () => {
         if (!selectedVariant || !inStock) return;
         addItems([{
@@ -1116,99 +1421,110 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             modes 1 and 3, and passed as props to the gallery in mode 2.
                         */}
                         <div className="lg:sticky lg:top-[120px]">
-                            {(() => {
-                                const variantBadge = (
-                                    <span className="inline-flex items-center px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full bg-obsidian/80 text-white backdrop-blur-sm">
-                                        {group.variantCount} Variant{group.variantCount !== 1 ? "s" : ""}
-                                    </span>
-                                );
-                                const skuWatermark = selectedVariant ? (
-                                    <span className="text-[9px] uppercase tracking-widest text-slate/40 font-mono select-none">
-                                        {selectedVariant.websiteSku}
-                                    </span>
-                                ) : null;
+                            <div className={hasVariantImagePicker ? "space-y-3 lg:space-y-0 lg:grid lg:grid-cols-[58px_minmax(0,1fr)] lg:gap-3" : ""}>
+                                {hasVariantImagePicker && (
+                                    <VariantImagePicker
+                                        tiles={variantImageTiles}
+                                        selectedVariantId={selectedVariant?._id}
+                                        onSelect={selectVariantFromImage}
+                                    />
+                                )}
+                                <div className="min-w-0">
+                                    {(() => {
+                                        const variantBadge = (
+                                            <span className="inline-flex items-center px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full bg-obsidian/80 text-white backdrop-blur-sm">
+                                                {group.variantCount} Variant{group.variantCount !== 1 ? "s" : ""}
+                                            </span>
+                                        );
+                                        const skuWatermark = selectedVariant ? (
+                                            <span className="text-[9px] uppercase tracking-widest text-slate/40 font-mono select-none">
+                                                {selectedVariant.websiteSku}
+                                            </span>
+                                        ) : null;
 
-                                // Mode 1 — paper-doll configurator
-                                if (group.paperDollFamilyKey && selectedVariant) {
-                                    return (
-                                        <motion.div
-                                            key="paper-doll"
-                                            initial={{ opacity: 0.6 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="aspect-[10/11] bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
-                                        >
-                                            <PaperDollImage
-                                                familyKey={group.paperDollFamilyKey}
-                                                glassColor={group.color}
-                                                applicator={selectedVariant.applicator}
-                                                capColor={selectedVariant.capColor}
-                                                capHeight={selectedVariant.capHeight}
-                                                itemName={selectedVariant.itemName}
-                                                fallbackImageUrl={selectedVariant.imageUrl}
-                                                className="w-full h-full p-6 sm:p-12"
-                                                productOffsets={productOffsets}
-                                                onCapStateChange={handleCapStateChange}
-                                            />
-                                            <div className="absolute top-4 left-4 pointer-events-none">{variantBadge}</div>
-                                            {skuWatermark && (
-                                                <div className="absolute bottom-4 right-4 pointer-events-none">{skuWatermark}</div>
-                                            )}
-                                        </motion.div>
-                                    );
-                                }
+                                        // Mode 1 — paper-doll configurator
+                                        if (group.paperDollFamilyKey && selectedVariant) {
+                                            return (
+                                                <motion.div
+                                                    key="paper-doll"
+                                                    initial={{ opacity: 0.6 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="aspect-[10/11] bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
+                                                >
+                                                    <PaperDollImage
+                                                        familyKey={group.paperDollFamilyKey}
+                                                        glassColor={group.color}
+                                                        applicator={selectedVariant.applicator}
+                                                        capColor={selectedVariant.capColor}
+                                                        capHeight={selectedVariant.capHeight}
+                                                        itemName={selectedVariant.itemName}
+                                                        fallbackImageUrl={selectedVariant.imageUrl}
+                                                        className="w-full h-full p-6 sm:p-12"
+                                                        productOffsets={productOffsets}
+                                                        onCapStateChange={handleCapStateChange}
+                                                    />
+                                                    <div className="absolute top-4 left-4 pointer-events-none">{variantBadge}</div>
+                                                    {skuWatermark && (
+                                                        <div className="absolute bottom-4 right-4 pointer-events-none">{skuWatermark}</div>
+                                                    )}
+                                                </motion.div>
+                                            );
+                                        }
 
-                                // Mode 2 — gallery. Build the image set from any combination
-                                // of imageUrl (cap-on / primary) and imageUrlCapOff. Both
-                                // optional; the gallery handles 1- or 2-image cases cleanly.
-                                const galleryImages: GalleryImage[] = [];
-                                if (selectedVariant?.imageUrl) {
-                                    galleryImages.push({
-                                        url: selectedVariant.imageUrl,
-                                        label: "Cap on",
-                                        alt: `${selectedVariant.itemName} — cap on`,
-                                    });
-                                }
-                                if (selectedVariant?.imageUrlCapOff && supportsSecondaryPdpImage(selectedVariant)) {
-                                    galleryImages.push({
-                                        url: selectedVariant.imageUrlCapOff,
-                                        label: "Cap off",
-                                        alt: `${selectedVariant.itemName} — applicator detail with cap removed`,
-                                    });
-                                }
+                                        // Mode 2 — gallery. Build the image set from any combination
+                                        // of imageUrl (cap-on / primary) and imageUrlCapOff. Both
+                                        // optional; the gallery handles 1- or 2-image cases cleanly.
+                                        const galleryImages: GalleryImage[] = [];
+                                        if (selectedVariant?.imageUrl) {
+                                            galleryImages.push({
+                                                url: selectedVariant.imageUrl,
+                                                label: "Cap on",
+                                                alt: `${selectedVariant.itemName} — cap on`,
+                                            });
+                                        }
+                                        if (selectedVariant?.imageUrlCapOff && supportsSecondaryPdpImage(selectedVariant)) {
+                                            galleryImages.push({
+                                                url: selectedVariant.imageUrlCapOff,
+                                                label: "Cap off",
+                                                alt: `${selectedVariant.itemName} — applicator detail with cap removed`,
+                                            });
+                                        }
 
-                                if (galleryImages.length > 0) {
-                                    return (
-                                        <ProductImageGallery
-                                            images={galleryImages}
-                                            primaryAlt={selectedVariant?.itemName ?? group.displayName}
-                                            badge={variantBadge}
-                                            watermark={skuWatermark}
-                                            aspectRatio="10/11"
-                                            mainPadding="p-0"
-                                        />
-                                    );
-                                }
+                                        if (galleryImages.length > 0) {
+                                            return (
+                                                <ProductImageGallery
+                                                    images={galleryImages}
+                                                    primaryAlt={selectedVariant?.itemName ?? group.displayName}
+                                                    badge={variantBadge}
+                                                    watermark={skuWatermark}
+                                                    aspectRatio="10/11"
+                                                    mainPadding="p-0"
+                                                />
+                                            );
+                                        }
 
-                                // Mode 3 — placeholder
-                                return (
-                                    <motion.div
-                                        key="placeholder"
-                                        initial={{ opacity: 0.6 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="aspect-[10/11] bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
-                                    >
-                                        <div className="flex flex-col items-center justify-center text-center p-6 sm:p-12">
-                                            <Package className="w-20 h-20 text-champagne mb-4" strokeWidth={0.75} />
-                                            <p className="text-xs text-slate/60 uppercase tracking-wider font-medium">{group.family}</p>
-                                            <p className="text-sm text-slate/80 font-medium mt-1">{group.capacity}</p>
-                                            <p className="text-[10px] text-slate/40 uppercase tracking-widest mt-6 font-medium">Photography coming soon</p>
-                                        </div>
-                                        <div className="absolute top-4 left-4 pointer-events-none">{variantBadge}</div>
-                                    </motion.div>
-                                );
-                            })()}
+                                        // Mode 3 — placeholder
+                                        return (
+                                            <motion.div
+                                                key="placeholder"
+                                                initial={{ opacity: 0.6 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ duration: 0.3 }}
+                                                className="aspect-[10/11] bg-travertine rounded-none sm:rounded-sm border-0 sm:border border-champagne/50 flex items-center justify-center relative overflow-hidden"
+                                            >
+                                                <div className="flex flex-col items-center justify-center text-center p-6 sm:p-12">
+                                                    <Package className="w-20 h-20 text-champagne mb-4" strokeWidth={0.75} />
+                                                    <p className="text-xs text-slate/60 uppercase tracking-wider font-medium">{group.family}</p>
+                                                    <p className="text-sm text-slate/80 font-medium mt-1">{group.capacity}</p>
+                                                    <p className="text-[10px] text-slate/40 uppercase tracking-widest mt-6 font-medium">Photography coming soon</p>
+                                                </div>
+                                                <div className="absolute top-4 left-4 pointer-events-none">{variantBadge}</div>
+                                            </motion.div>
+                                        );
+                                    })()}
+                                </div>
+                            </div>
 
                             {/* Glass color siblings */}
                             {displaySiblingGroups && displaySiblingGroups.length > 0 && group?.color && (
@@ -1280,6 +1596,20 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             {/* Trust Stack — stock, case pack, shipping */}
                             <TrustStack variant={selectedVariant} inStock={inStock} />
 
+                            {selectedVariantSummary && (
+                                <SelectedVariantSummary
+                                    label={selectedVariantSummary.label}
+                                    sku={selectedVariantSummary.sku}
+                                    swatchHex={selectedVariantSummary.swatchHex}
+                                />
+                            )}
+
+                            <ProductConfidenceSummary
+                                group={group}
+                                variant={selectedVariant}
+                                compatibleCount={compatibleSiblings.length}
+                            />
+
                             {/* Price + Tier Ladder */}
                             <div className="mb-4 sm:mb-8 pb-4 sm:pb-8 border-b border-champagne/50">
                                 <p className="text-xs text-slate uppercase tracking-wider mb-1">From</p>
@@ -1326,7 +1656,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     )}
 
                                     {/* Cap color selector */}
-                                    {capColorOptions.length > 0 && (
+                                    {!hasCompleteVariantImagePicker && capColorOptions.length > 0 && (
                                         <div className="mb-6 relative">
                                             <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
                                                 Cap Color
@@ -1381,7 +1711,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     )}
 
                                     {/* Cap style selector — only when multiple options exist */}
-                                    {capStyleOptions.length > 1 && (
+                                    {!hasCompleteVariantImagePicker && capStyleOptions.length > 1 && (
                                         <div className="mb-6">
                                             <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">Cap Style</p>
                                             <div className="flex flex-wrap gap-2">
@@ -1449,7 +1779,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     )}
 
                                     {/* Explicit SKU-level selector fallback when metadata is sparse — hidden when Cap Color selector is already showing */}
-                                    {variantsForApplicator.length > 1 && capColorOptions.length === 0 && (
+                                    {!hasCompleteVariantImagePicker && variantsForApplicator.length > 1 && capColorOptions.length === 0 && (
                                         <div className="mb-6">
                                             <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
                                                 {activeApplicator ? "Cap Color / Variant" : "Cap Finish"}
@@ -1507,7 +1837,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                             )}
 
                             {/* ── Atomizer Shell Design selector ── */}
-                            {isAtomizer && variantsForApplicator.length > 1 && (
+                            {isAtomizer && !hasCompleteVariantImagePicker && variantsForApplicator.length > 1 && (
                                 <div className="mb-6">
                                     <p className="text-xs uppercase tracking-wider font-bold text-slate mb-3">
                                         Shell Design
@@ -1584,6 +1914,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 <button
                                     disabled={!inStock || addedFlash}
                                     onClick={handleAddToCart}
+                                    data-testid="pdp-add-to-cart"
                                     className={`flex-1 flex items-center justify-center space-x-2 text-xs font-bold uppercase tracking-widest transition-colors disabled:cursor-not-allowed ${
                                         addedFlash
                                             ? "bg-emerald-600 text-white"
@@ -1632,7 +1963,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                         </button>
                                     </div>
                                     <div className="space-y-2">
-                                        {compatibleSiblings.slice(0, 2).map((sib) => {
+                                        {compatibleSiblings.slice(0, 4).map((sib) => {
                                             const applicatorLabel = (sib.applicatorTypes ?? []).join(", ") || "Cap & Closure";
                                             return (
                                                 <Link
@@ -1716,19 +2047,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                     <SpecRow label="Category" value={selectedVariant.category} />
                                     <SpecRow label="Collection" value={selectedVariant.bottleCollection} />
                                 </dl>
-                                {selectedVariant.productUrl && (
-                                    <div className="mt-6 pt-6 border-t border-champagne/50">
-                                        <a
-                                            href={selectedVariant.productUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm font-semibold text-muted-gold hover:text-obsidian transition-colors"
-                                        >
-                                            View on BestBottles.com
-                                            <ExternalLink className="w-3.5 h-3.5" />
-                                        </a>
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </section>
@@ -1739,7 +2057,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Mobile sticky purchase bar — only appears once inline Add to Cart scrolls out of view (Baymard best practice) */}
-            <div className={`lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-champagne bg-bone/95 backdrop-blur-md pb-[max(env(safe-area-inset-bottom),8px)] transition-transform duration-300 ${stickyBarVisible ? "translate-y-0" : "translate-y-full"}`}>
+            <div
+                data-testid="pdp-sticky-cart-bar"
+                className={`lg:hidden fixed inset-x-0 z-[55] border-t border-champagne bg-bone/95 backdrop-blur-md pb-2 transition-transform duration-300 ${stickyBarVisible ? "translate-y-0" : "translate-y-[calc(100%+5rem)]"}`}
+                style={{ bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))" }}
+            >
                 <div className="px-4 py-3 flex items-center gap-3">
                     <div className="min-w-0">
                         <p className="text-[10px] uppercase tracking-wider text-slate font-semibold">From</p>
@@ -1768,6 +2090,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     <button
                         disabled={!inStock || addedFlash}
                         onClick={handleAddToCart}
+                        data-testid="pdp-sticky-add-to-cart"
                         className={`flex-1 min-w-0 py-3 text-[11px] font-bold uppercase tracking-wider transition-colors ${
                             addedFlash
                                 ? "bg-emerald-600 text-white"

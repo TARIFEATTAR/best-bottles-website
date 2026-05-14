@@ -162,15 +162,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
             if (data.checkoutUrl) {
                 const unmatched: string[] = data.unmatchedSkus ?? [];
-                analytics.checkoutCompleted({ itemCount: items.length, cartTotal, unmatchedCount: unmatched.length });
+                const checkoutUrl = String(data.checkoutUrl);
+                let checkoutHost: string | undefined;
+                try {
+                    checkoutHost = new URL(checkoutUrl).host;
+                } catch {
+                    checkoutHost = undefined;
+                }
+
+                analytics.checkoutRedirected({
+                    itemCount: items.length,
+                    cartTotal,
+                    skus: items.map((i) => i.graceSku).join(", "),
+                    matchedItemCount: Math.max(0, items.length - unmatched.length),
+                    unmatchedCount: unmatched.length,
+                    checkoutProvider: "shopify",
+                    checkoutHost,
+                });
                 if (unmatched.length > 0) {
                     setCheckoutError(
                         `${unmatched.length} item(s) could not be matched for online checkout: ${unmatched.join(", ")}. Checkout opened for matched items; request a quote for the unmatched SKU(s).`
                     );
-                } else {
-                    clearCart();
                 }
-                window.open(data.checkoutUrl, "_blank");
+                window.location.assign(checkoutUrl);
             } else if (data.unmatchedSkus?.length) {
                 setCheckoutError(
                     `These items aren't available in the online store yet: ${data.unmatchedSkus.join(", ")}. Contact us at sales@bestbottles.com to place your order.`
@@ -199,7 +213,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         } finally {
             setIsCheckingOut(false);
         }
-    }, [items, clearCart]);
+    }, [items]);
 
     return (
         <CartContext.Provider

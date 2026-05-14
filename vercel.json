@@ -1,3 +1,9 @@
 {
-  "buildCommand": "bash scripts/vercel-build.sh"
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "functions": {
+    "src/app/api/pdf/catalog/route.ts": {
+      "maxDuration": 300,
+      "memory": 2048
+    }
+  }
 }

@@ -30,6 +30,10 @@ import {
     activeFilterCount,
     filtersToParams,
     paramsToFilters,
+    catalogSearchMatches,
+    catalogSearchRecoverySuggestions,
+    catalogSearchResultTieBreak,
+    catalogSearchScore,
 } from "@/lib/catalogFilters";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -37,6 +41,33 @@ import {
 const PAGE_SIZE = 24;
 const SEARCH_DEBOUNCE_MS = 300;
 const MAX_VISIBLE_LIMIT = 240;
+
+const PACKAGING_ANSWER_BLOCKS = [
+    {
+        question: "What does neck size mean?",
+        answer: "Neck size is the bottle opening and thread finish used to match a bottle with a compatible cap, reducer, sprayer, dropper, or roller. Treat matching neck sizes as the first fitment check, then verify the selected SKU before ordering.",
+        href: "/resources#neck-size",
+        gracePrompt: "Can you explain neck size and help me find bottles and applicators that match?",
+    },
+    {
+        question: "How should I find a 10 ml roll-on bottle for perfume oil?",
+        answer: "Start with the Roll-On applicator filter and small capacities around 6-15 ml, then compare neck size, roller style, cap finish, and case quantity on the product page before adding to cart.",
+        href: "/catalog?applicators=rollon&search=10%20ml%20roll-on",
+        gracePrompt: "I need a 10 ml roll-on bottle for perfume oil. Help me compare compatible options.",
+    },
+    {
+        question: "Can I use any applicator with any bottle?",
+        answer: "No. Applicators and closures need to be compatible with the bottle neck finish and the selected product configuration. If compatibility is not clearly shown, confirm it with Grace or the Best Bottles team before ordering.",
+        href: "/catalog?applicators=rollon,finemist,dropper",
+        gracePrompt: "Can you check applicator compatibility for the bottle I am considering?",
+    },
+    {
+        question: "How many bottles come in a case?",
+        answer: "Case quantity can vary by product and selected SKU. Use the product detail page for the specific bottle, color, size, and applicator configuration you plan to order.",
+        href: "/catalog",
+        gracePrompt: "Can you help me verify case quantity for a product before I order?",
+    },
+] as const;
 
 // ─── Sanity Family Banner ─────────────────────────────────────────────────────
 
@@ -165,6 +196,32 @@ function formatPrice(price: number | null): string {
     return `$${price.toFixed(2)}`;
 }
 
+function formatCatalogSpec(value: string | number | null | undefined): string {
+    if (value === null || value === undefined || value === "" || value === "0 ml (0 oz)") return "—";
+    return String(value);
+}
+
+function formatApplicatorLabels(applicators: string[] | null | undefined): string {
+    const values = (applicators ?? []).filter((value) => value && value !== "Cap/Closure");
+    if (values.length === 0) return "—";
+    return values.slice(0, 2).join(", ") + (values.length > 2 ? ` +${values.length - 2}` : "");
+}
+
+function buildCatalogFaqJsonLd() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: PACKAGING_ANSWER_BLOCKS.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+            },
+        })),
+    };
+}
+
 function clampVisibleLimit(rawLimit: string | null): number {
     const parsed = Number(rawLimit);
     if (!Number.isFinite(parsed) || parsed <= PAGE_SIZE) return PAGE_SIZE;
@@ -211,6 +268,13 @@ function SkeletonGrid() {
 
 function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGroup; index: number; applicatorParam?: string | null }) {
     const href = applicatorParam ? `/products/${group.slug}?applicator=${applicatorParam}` : `/products/${group.slug}`;
+    const cardSpecs = [
+        { label: "Size", value: formatCatalogSpec(group.capacity) },
+        { label: "Color", value: formatCatalogSpec(group.color) },
+        { label: "Neck", value: formatCatalogSpec(group.neckThreadSize) },
+        { label: "Fitment", value: formatApplicatorLabels(group.applicatorTypes) },
+    ];
+
     return (
         <Link href={href}>
             <motion.div
@@ -250,6 +314,14 @@ function ProductGroupCard({ group, index, applicatorParam }: { group: CatalogGro
 
                 <div className="p-5 flex flex-col flex-1">
                     <h4 className="font-serif text-lg text-obsidian font-medium leading-snug line-clamp-2 mb-3">{group.displayName}</h4>
+                    <dl data-testid="catalog-card-specs" className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4 text-[11px]">
+                        {cardSpecs.map((spec) => (
+                            <div key={spec.label} className="min-w-0">
+                                <dt className="text-slate/60 uppercase tracking-[0.14em] font-bold">{spec.label}</dt>
+                                <dd className="truncate text-obsidian/80">{spec.value}</dd>
+                            </div>
+                        ))}
+                    </dl>
                     <span className="font-semibold text-obsidian text-lg mt-auto">from {formatPrice(group.priceRangeMin)}/ea</span>
                 </div>
             </motion.div>
@@ -687,6 +759,58 @@ function FilterSidebarContent({
                 </FilterSection>
             )}
         </>
+    );
+}
+
+function CatalogAnswerBlocks({
+    onAskGrace,
+}: {
+    onAskGrace: (prompt: string) => void;
+}) {
+    return (
+        <section
+            className="mb-5 sm:mb-8 rounded-xl border border-champagne/50 bg-white/80 p-4 sm:p-5"
+            aria-labelledby="catalog-answer-blocks-heading"
+            data-testid="catalog-answer-blocks"
+        >
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between mb-4">
+                <div>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-muted-gold font-bold mb-1">
+                        Packaging Answers
+                    </p>
+                    <h2 id="catalog-answer-blocks-heading" className="font-serif text-xl sm:text-2xl text-obsidian font-medium">
+                        Quick answers before you choose
+                    </h2>
+                </div>
+                <p className="text-xs text-slate max-w-md">
+                    Crawlable guidance for common packaging decisions, with Grace ready when fitment depends on a specific product.
+                </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+                {PACKAGING_ANSWER_BLOCKS.map((item) => (
+                    <article key={item.question} className="rounded-lg border border-champagne/40 bg-bone/50 p-4 flex flex-col min-h-[220px]">
+                        <h3 className="font-serif text-lg leading-snug text-obsidian mb-2">{item.question}</h3>
+                        <p className="text-xs leading-relaxed text-slate mb-4">{item.answer}</p>
+                        <div className="mt-auto flex flex-col gap-2">
+                            <Link
+                                href={item.href}
+                                className="inline-flex min-h-11 items-center justify-center rounded-sm border border-champagne bg-white px-3 py-2 text-[10px] uppercase tracking-wider font-bold text-obsidian hover:border-muted-gold hover:text-muted-gold transition-colors"
+                            >
+                                Explore products
+                            </Link>
+                            <button
+                                type="button"
+                                onClick={() => onAskGrace(item.gracePrompt)}
+                                className="inline-flex min-h-11 items-center justify-center rounded-sm bg-obsidian px-3 py-2 text-[10px] uppercase tracking-wider font-bold text-white hover:bg-muted-gold transition-colors"
+                                data-testid="catalog-answer-grace-cta"
+                            >
+                                Ask Grace
+                            </button>
+                        </div>
+                    </article>
+                ))}
+            </div>
+        </section>
     );
 }
 
@@ -1148,7 +1272,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const router = useRouter();
     const pathname = usePathname();
     const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-    const { open: openGrace } = useGrace();
+    const { open: openGrace, setInput: setGraceInput } = useGrace();
 
     const isGraceNav = searchParams.get("grace") === "1";
     const [graceBannerDismissed, setGraceBannerDismissed] = useState(false);
@@ -1222,24 +1346,19 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
             let r = [...allGroups];
 
             if (filters.search) {
-                const term = filters.search.toLowerCase()
-                    .replace(/\bnine\b/g, "9").replace(/\bfive\b/g, "5").replace(/\bten\b/g, "10")
-                    .replace(/\bthirty\b/g, "30").replace(/\bfifty\b/g, "50").replace(/\bone hundred\b/g, "100")
-                    .replace(/[^\w\s-]/g, "");
-                const tokens = term.split(/\s+/).filter(Boolean);
-                if (tokens.length > 0) {
-                    r = r.filter((g) => {
-                        const fields = [
-                            g.displayName, g.family, g.color, g.capacity, g.neckThreadSize, g.bottleCollection, g.slug,
-                            (g.applicatorTypes ?? []).join(" "), skuMap.get(g._id)
-                        ].map(f => (f || "").toLowerCase()
-                            .replace(/\broll[ -]?on\b/g, "rollon roller roll-on ball")
-                            .replace(/\brollon\b/g, "rollon roller roll-on ball")
-                            .replace(/\broller\b/g, "rollon roller roll-on ball")
-                            .replace(/\bball\b/g, "rollon roller roll-on ball"));
-                        return tokens.every(t => fields.join(" ").toLowerCase().includes(t));
-                    });
-                }
+                r = r.filter((g) => catalogSearchMatches(filters.search, [
+                    g.displayName,
+                    g.family,
+                    g.color,
+                    g.capacity,
+                    g.capacityMl == null ? null : `${g.capacityMl} ml`,
+                    g.category,
+                    g.neckThreadSize,
+                    g.bottleCollection,
+                    g.slug,
+                    (g.applicatorTypes ?? []).join(" "),
+                    skuMap.get(g._id),
+                ]));
             }
             if (filters.category) r = r.filter((g) => g.category === filters.category);
             if (filters.collection) r = r.filter((g) => g.bottleCollection === filters.collection);
@@ -1343,14 +1462,21 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
         // Sort
         if (sortBy === "best-match" && filters.search) {
-            // Score by how many search tokens appear in the display name (name-priority relevance)
-            const tokens = filters.search.toLowerCase().split(/\s+/).filter(Boolean);
-            const score = (g: typeof result[0]) => {
-                const name = g.displayName.toLowerCase();
-                return tokens.reduce((acc, t) => acc + (name.includes(t) ? 2 : 0), 0)
-                    + (g.family ? tokens.reduce((acc, t) => acc + (g.family!.toLowerCase().includes(t) ? 1 : 0), 0) : 0);
-            };
-            result.sort((a, b) => score(b) - score(a));
+            // Name/SKU/applicator relevance first, then supporting product attributes.
+            const score = (g: typeof result[0]) => catalogSearchScore(filters.search, [
+                { value: g.displayName, weight: 5 },
+                { value: skuMap.get(g._id), weight: 5 },
+                { value: (g.applicatorTypes ?? []).join(" "), weight: 4 },
+                { value: g.family, weight: 3 },
+                { value: g.capacity, weight: 3 },
+                { value: g.capacityMl == null ? null : `${g.capacityMl} ml`, weight: 3 },
+                { value: g.color, weight: 2 },
+                { value: g.neckThreadSize, weight: 2 },
+                { value: g.category, weight: 1 },
+                { value: g.bottleCollection, weight: 1 },
+                { value: g.slug, weight: 1 },
+            ]);
+            result.sort((a, b) => score(b) - score(a) || catalogSearchResultTieBreak(a, b));
         } else if (sortBy === "price-asc") {
             result.sort((a, b) => (a.priceRangeMin ?? Infinity) - (b.priceRangeMin ?? Infinity));
         } else if (sortBy === "price-desc") {
@@ -1399,6 +1525,11 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
     const visibleProducts = filtered.slice(0, visibleCount);
     const hasMore = visibleCount < filtered.length;
     const isLoading = allGroups === undefined;
+    const activeCount = activeFilterCount(filters);
+    const searchRecoverySuggestions = useMemo(
+        () => catalogSearchRecoverySuggestions(filters.search),
+        [filters.search],
+    );
 
     // ── Handler Functions ────────────────────────────────────────────────────
 
@@ -1460,6 +1591,14 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
         [handleFilterChange, sortBy],
     );
 
+    const handleAskGrace = useCallback(
+        (prompt: string) => {
+            setGraceInput(prompt);
+            openGrace();
+        },
+        [openGrace, setGraceInput],
+    );
+
     const toggleCategory = useCallback((cat: string) => {
         setExpandedCategories((prev) => ({ ...prev, [cat]: prev[cat] === false ? true : !prev[cat] ? false : !prev[cat] }));
     }, []);
@@ -1505,6 +1644,10 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
 
     return (
         <main className="min-h-screen bg-warm-white pt-[160px] lg:pt-[120px]">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(buildCatalogFaqJsonLd()) }}
+            />
             <Navbar variant="catalog" initialSearchValue={filters.search || undefined} />
 
             <div className="max-w-[1720px] mx-auto px-4 sm:px-6 py-4 sm:py-8">
@@ -1514,7 +1657,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     <div>
                         <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl text-obsidian font-medium leading-[1.1] mb-1 sm:mb-2">Master Catalog</h1>
                         <p className="text-slate text-xs sm:text-sm max-w-xl">
-                            {totalCount > 0 ? `${totalCount.toLocaleString()} product groups.` : "Loading catalog..."}
+                            {isLoading ? "Loading catalog..." : `${totalCount.toLocaleString()} product group${totalCount === 1 ? "" : "s"} currently visible.`}
                             <span>{" "}Need help? Talk with Grace, your AI Bottling Specialist.</span>
                         </p>
                     </div>
@@ -1524,14 +1667,19 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                         <div className="flex items-center border border-champagne rounded-full px-4 py-2.5 bg-white/80 space-x-2 w-full md:w-80 hover:border-muted-gold transition-colors focus-within:border-muted-gold focus-within:ring-2 focus-within:ring-muted-gold/20">
                             <Search className="w-4 h-4 text-slate shrink-0" />
                             <input
-                                type="text"
+                                type="search"
+                                name="search"
+                                autoComplete="search"
+                                enterKeyHint="search"
                                 value={searchInput}
                                 onChange={(e) => handleSearchInput(e.target.value)}
                                 placeholder="Search products, SKUs, families..."
                                 className="bg-transparent text-sm focus:outline-none w-full placeholder-slate/60 text-obsidian"
+                                aria-label="Search products"
+                                data-testid="catalog-search-input"
                             />
                             {searchInput && (
-                                <button onClick={() => handleSearchInput("")} className="shrink-0">
+                                <button onClick={() => handleSearchInput("")} className="shrink-0" aria-label="Clear search">
                                     <X className="w-4 h-4 text-slate hover:text-obsidian transition-colors" />
                                 </button>
                             )}
@@ -1547,20 +1695,26 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             className="mb-3 sm:mb-6 flex flex-wrap items-center gap-2"
+                            aria-label="Active catalog filters"
                         >
                             <span className="text-xs uppercase tracking-wider font-semibold text-slate">Active Filters:</span>
                             {chips.map((chip, i) => (
                                 <span
                                     key={`${chip.label}-${i}`}
                                     className="inline-flex items-center px-3 py-1.5 bg-muted-gold/10 text-muted-gold border border-muted-gold/30 text-xs font-semibold rounded-full"
+                                    data-testid="catalog-active-filter-chip"
                                 >
                                     <span className="truncate max-w-[160px]">{chip.label}</span>
-                                    <button onClick={chip.onRemove} className="ml-2 hover:text-obsidian transition-colors shrink-0">
+                                    <button
+                                        onClick={chip.onRemove}
+                                        className="ml-2 hover:text-obsidian transition-colors shrink-0"
+                                        aria-label={`Remove ${chip.label} filter`}
+                                    >
                                         <X className="w-3 h-3" />
                                     </button>
                                 </span>
                             ))}
-                            {chips.length >= 2 && (
+                            {chips.length > 0 && (
                                 <button
                                     onClick={handleClearAll}
                                     className="text-xs text-slate hover:text-obsidian transition-colors underline underline-offset-2"
@@ -1577,12 +1731,13 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                     <button
                         onClick={() => setMobileFilterOpen(true)}
                         className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-champagne rounded-lg text-sm font-medium text-obsidian hover:border-muted-gold transition-colors"
+                        data-testid="catalog-mobile-filter-button"
                     >
                         <SlidersHorizontal className="w-4 h-4" />
                         Filters
-                        {activeFilterCount(filters) > 0 && (
+                        {activeCount > 0 && (
                             <span className="w-5 h-5 rounded-full bg-muted-gold text-white text-[10px] flex items-center justify-center font-bold">
-                                {activeFilterCount(filters)}
+                                {activeCount}
                             </span>
                         )}
                     </button>
@@ -1622,13 +1777,14 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
                                 className="fixed top-0 left-0 bottom-0 z-50 w-[300px] max-w-[85vw] bg-warm-white overflow-y-auto lg:hidden"
                                 style={{ boxShadow: "8px 0 40px rgba(29,29,31,0.15)" }}
+                                data-testid="catalog-filter-drawer"
                             >
                                 <div className="flex items-center justify-between px-5 py-4 border-b border-champagne/50 sticky top-0 bg-warm-white z-10">
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-serif text-lg text-obsidian font-medium">Filters</h3>
-                                        {activeFilterCount(filters) > 0 && (
+                                        {activeCount > 0 && (
                                             <span className="w-5 h-5 rounded-full bg-muted-gold text-white text-[10px] flex items-center justify-center font-bold">
-                                                {activeFilterCount(filters)}
+                                                {activeCount}
                                             </span>
                                         )}
                                     </div>
@@ -1661,7 +1817,7 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                         }}
                                         className="w-full py-3 bg-obsidian text-white text-sm font-bold uppercase tracking-wider hover:bg-muted-gold transition-colors rounded-sm"
                                     >
-                                        View {filtered.length} {filtered.length === 1 ? "Result" : "Results"}
+                                        {isLoading ? "Loading results" : `View ${filtered.length} ${filtered.length === 1 ? "Result" : "Results"}`}
                                     </button>
                                 </div>
                             </motion.div>
@@ -1734,8 +1890,12 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                         <ArrowUpDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate pointer-events-none" />
                                     </div>
 
-                                    <span className="hidden sm:inline-flex px-2 sm:px-3 py-1 bg-white border border-champagne text-[10px] sm:text-xs font-semibold text-slate uppercase rounded-full whitespace-nowrap">
-                                        {filtered.length} {filtered.length === 1 ? "Product" : "Products"}
+                                    <span
+                                        className="hidden sm:inline-flex px-2 sm:px-3 py-1 bg-white border border-champagne text-[10px] sm:text-xs font-semibold text-slate uppercase rounded-full whitespace-nowrap"
+                                        aria-live="polite"
+                                        data-testid="catalog-result-count"
+                                    >
+                                        {isLoading ? "Loading" : `${filtered.length} ${filtered.length === 1 ? "Product" : "Products"}`}
                                     </span>
                                     {chips.length > 0 && (
                                         <button
@@ -1754,6 +1914,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                             <div className="flex gap-2 mb-4 sm:mb-6 overflow-x-auto pb-1 hide-scroll sm:flex-wrap">
                                 <button
                                     onClick={() => handleFilterChange({ applicators: [] })}
+                                    aria-pressed={filters.applicators.length === 0}
+                                    data-testid="catalog-quick-applicator"
                                     className={`shrink-0 min-h-11 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors ${filters.applicators.length === 0
                                         ? "bg-obsidian text-white border-obsidian"
                                         : "bg-white border-champagne text-obsidian hover:border-muted-gold"
@@ -1772,6 +1934,8 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                                     : [...filters.applicators, bucket.value],
                                             });
                                         }}
+                                        aria-pressed={filters.applicators.includes(bucket.value)}
+                                        data-testid="catalog-quick-applicator"
                                         className={`shrink-0 min-h-11 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-colors whitespace-nowrap ${filters.applicators.includes(bucket.value)
                                             ? "bg-obsidian text-white border-obsidian"
                                             : "bg-white border-champagne text-obsidian hover:border-muted-gold"
@@ -1783,12 +1947,14 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                             </div>
                         )}
 
+                        <CatalogAnswerBlocks onAskGrace={handleAskGrace} />
+
                         {/* Loading */}
                         {isLoading && <SkeletonGrid />}
 
                         {/* Empty State */}
                         {!isLoading && filtered.length === 0 && (
-                            <div className="flex flex-col items-center justify-center py-24 text-center">
+                            <div className="flex flex-col items-center justify-center py-24 text-center" data-testid="catalog-empty-state">
                                 <Package className="w-16 h-16 text-champagne mb-6" strokeWidth={1} />
                                 <h3 className="font-serif text-2xl text-obsidian mb-3">No products found</h3>
                                 <p className="text-slate text-sm max-w-md mb-4">
@@ -1800,6 +1966,28 @@ function CatalogContent({ searchParams }: { searchParams: URLSearchParams }) {
                                     <p className="text-slate text-xs mb-6">
                                         Try removing {chips.length === 1 ? "your filter" : "some filters"} to see more results.
                                     </p>
+                                )}
+                                {searchRecoverySuggestions.length > 0 && (
+                                    <div className="mb-6 max-w-lg">
+                                        <p className="text-[11px] uppercase tracking-[0.18em] font-bold text-slate mb-3">
+                                            Try a broader packaging term
+                                        </p>
+                                        <div className="flex flex-wrap items-center justify-center gap-2">
+                                            {searchRecoverySuggestions.map((suggestion) => (
+                                                <button
+                                                    key={suggestion}
+                                                    onClick={() => {
+                                                        setSearchInput(suggestion);
+                                                        handleFilterChange({ search: suggestion });
+                                                    }}
+                                                    className="min-h-11 px-4 py-2 rounded-full border border-champagne bg-white text-xs font-semibold text-obsidian hover:border-muted-gold hover:text-muted-gold transition-colors"
+                                                    data-testid="catalog-search-recovery-suggestion"
+                                                >
+                                                    {suggestion}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                 )}
                                 <div className="flex flex-col sm:flex-row gap-3 mt-2">
                                     <button
