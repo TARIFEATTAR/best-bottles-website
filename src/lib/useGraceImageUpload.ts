@@ -85,7 +85,7 @@ export function useGraceImageUpload() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         tool_name: "searchCatalog",
-                        parameters: { searchTerm: searchTerms, familyLimit: null, categoryLimit: null, applicatorFilter: null },
+                        parameters: { searchTerm: searchTerms, familyLimit: null, categoryLimit: null, applicatorFilter: null, returnRaw: true },
                     }),
                 });
                 const searchData = (await searchRes.json()) as { result?: ProductCard[] | string };

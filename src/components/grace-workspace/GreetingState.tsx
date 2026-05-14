@@ -206,7 +206,7 @@ export default function GreetingState({
 
                 {/* Footer note */}
                 <div className="mt-3.5 text-center text-[11px] tracking-[0.04em] text-slate">
-                    A division of Nemat International · 2,300 SKUs · 37 families · Made in USA
+                    A division of Nemat International · 2,300 SKUs · 37 families
                 </div>
             </div>
         </div>
