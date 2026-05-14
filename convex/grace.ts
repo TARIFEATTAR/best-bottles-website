@@ -29,6 +29,10 @@ import {
     buildBottleComponentsToolResult,
     emptySearchCatalogHint,
 } from "./graceSearchUtils";
+import {
+    buildCanonicalProductGroup,
+    buildCanonicalProductVariant,
+} from "../src/lib/canonicalProduct";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GRACE AI TOOL QUERIES
@@ -335,19 +339,29 @@ export const searchCatalog = query({
         // Normalize capacity strings: remove internal spaces ("9 ml" → "9ml")
         const enrichedResults = await Promise.all(
             results.map(async (p) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                let group: any = null;
                 let slug: string | undefined = undefined;
                 if (p.productGroupId) {
-                    const group = await ctx.db.get(p.productGroupId);
+                    group = await ctx.db.get(p.productGroupId);
                     if (group) slug = group.slug;
                 }
+                const canonicalVariant = buildCanonicalProductVariant(p, group, "grace");
+                const canonicalGroup = group
+                    ? buildCanonicalProductGroup(group, [p], "grace")
+                    : null;
                 return {
                     graceSku: p.graceSku,
                     itemName: p.itemName,
                     category: p.category,
                     family: p.family,
-                    capacity: p.capacity ? p.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u) => u.toLowerCase()) : p.capacity,
-                    capacityMl: p.capacityMl,
-                    color: p.color,
+                    capacity: canonicalVariant.capacity
+                        ? canonicalVariant.capacity.replace(/\s+/g, "")
+                        : p.capacity ? p.capacity.replace(/\s*(ml|oz)\s*/gi, (_, u) => u.toLowerCase()) : p.capacity,
+                    capacityMl: canonicalVariant.capacityMl,
+                    color: canonicalVariant.canonicalColor ?? p.color,
+                    rawColor: canonicalVariant.rawColor,
+                    canonicalColor: canonicalVariant.canonicalColor,
                     applicator: p.applicator,
                     capColor: p.capColor,
                     capStyle: p.capStyle,
@@ -363,6 +377,18 @@ export const searchCatalog = query({
                     webPrice12pc: p.webPrice12pc,
                     stockStatus: p.stockStatus,
                     slug,
+                    dataQualityFlags: canonicalVariant.dataQualityFlags,
+                    sourceTrace: canonicalVariant.sourceTrace,
+                    catalogGroup: canonicalGroup
+                        ? {
+                            slug: canonicalGroup.slug,
+                            displayName: canonicalGroup.displayName,
+                            rawColor: canonicalGroup.rawColor,
+                            canonicalColor: canonicalGroup.canonicalColor,
+                            canonicalColorOptions: canonicalGroup.canonicalColorOptions,
+                            dataQualityFlags: canonicalGroup.dataQualityFlags,
+                        }
+                        : null,
                 };
             })
         );

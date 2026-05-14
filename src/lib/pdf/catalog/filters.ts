@@ -1,4 +1,8 @@
-import { APPLICATOR_BUCKETS, applicatorBucketMatchesProductValues } from "../../catalogFilters";
+import {
+    APPLICATOR_BUCKETS,
+    applicatorBucketMatchesProductValues,
+    catalogSearchMatches,
+} from "../../catalogFilters";
 import { CATEGORY_ORDER, FAMILY_ORDER } from "./config";
 import type { CatalogPdfOptions, PrintableCatalogGroup, PrintableProduct } from "./types";
 
@@ -14,8 +18,7 @@ function includesAny(value: string | null | undefined, filters: string[]): boole
 
 function textMatches(haystack: Array<string | null | undefined>, search: string): boolean {
     if (!search) return true;
-    const needle = normalized(search);
-    return haystack.some((value) => normalized(value).includes(needle));
+    return catalogSearchMatches(search, haystack);
 }
 
 function applicatorMatches(values: string[], filters: string[]): boolean {
@@ -60,6 +63,9 @@ export function filterCatalogGroups(
                     group.collection,
                     group.category,
                     group.color,
+                    group.rawColor,
+                    group.canonicalColor,
+                    group.canonicalColorOptions.join(" "),
                     group.capacity,
                     group.primaryGraceSku,
                     group.primaryWebsiteSku,
@@ -90,6 +96,8 @@ export function filterProducts(
                     product.collection,
                     product.category,
                     product.color,
+                    product.rawColor,
+                    product.canonicalColor,
                     product.capacity,
                     product.graceSku,
                     product.websiteSku,

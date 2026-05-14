@@ -26,6 +26,7 @@ import PaperDollImage from "@/components/PaperDollImage";
 import ProductImageGallery, { type GalleryImage } from "@/components/products/ProductImageGallery";
 import { analytics } from "@/lib/analytics";
 import { SITE_URL, buildProductJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
+import { chooseCanonicalProductDescription } from "@/lib/canonicalProduct";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -1040,6 +1041,15 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         );
     }, [variants, variantsForApplicator, selectedVariantId, activeApplicator, activeCapColor, activeCapStyle, activeTrimColor, capStyleOptions]);
 
+    const productDescription = chooseCanonicalProductDescription({
+        groupDescription: group?.groupDescription ?? null,
+        variantDescription: selectedVariant?.itemDescription ?? null,
+        graceDescription: selectedVariant?.graceDescription ?? null,
+        applicators: selectedVariant?.applicator
+            ? [selectedVariant.applicator]
+            : group?.applicatorTypes ?? [],
+    });
+
     const variantSwatchPreview = useMemo(() => {
         return variantsForApplicator.map((v) => {
             const resolved = resolveVariantCapFinish(v);
@@ -1132,7 +1142,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         if (group) {
             document.title = `${group.displayName} — ${group.family} ${group.capacity ?? ""} | Best Bottles`.replace(/\s+/g, " ");
 
-            const desc = group.groupDescription
+            const desc = productDescription
                 ?? `${group.displayName} from the ${group.family} collection. ${group.capacity ?? ""} glass bottle. Wholesale pricing from Best Bottles.`.trim();
             let metaDesc = document.querySelector('meta[name="description"]');
             if (!metaDesc) {
@@ -1161,7 +1171,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             });
         }
         return () => { document.title = "Best Bottles"; };
-    }, [group, slug]);
+    }, [group, productDescription, slug]);
 
     // ── Bridge current PDP product data for global Grace widgets ────────────
     useEffect(() => {
@@ -1262,8 +1272,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         if (!group || !selectedVariant) return null;
         return buildProductJsonLd({
             name: group.displayName,
-            description: group.groupDescription
-                ?? selectedVariant.itemDescription
+            description: productDescription
                 ?? `${group.displayName} — ${group.family} collection from Best Bottles. ${group.capacity ?? ""}`.trim(),
             sku: selectedVariant.websiteSku,
             image: selectedVariant.imageUrl ?? undefined,
@@ -1275,7 +1284,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             neckThreadSize: group.neckThreadSize ?? undefined,
             capacity: group.capacity ?? undefined,
         });
-    }, [group, selectedVariant, slug]);
+    }, [group, selectedVariant, productDescription, slug]);
 
     const breadcrumbJsonLd = useMemo(() => {
         if (!group) return null;
@@ -1993,14 +2002,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                                 </div>
                             )}
 
-                            {/* Product Description — group-level copy preferred, then variant, skipped when Sanity rich desc exists */}
-                            {pdpBlocks.every((b) => b._type !== "pdpRichDescription") && (group?.groupDescription || selectedVariant?.itemDescription) && (
+                            {/* Product Description — canonical copy avoids showing applicator-mismatched group text. */}
+                            {pdpBlocks.every((b) => b._type !== "pdpRichDescription") && productDescription && (
                                 <div className="mb-6 pt-5 border-t border-champagne/60">
                                     <p className="text-[9px] uppercase tracking-[0.18em] font-sans text-muted-gold mb-3">
                                         About This Product
                                     </p>
                                     <p className="font-serif text-[14.5px] text-obsidian leading-[1.75]">
-                                        {group?.groupDescription ?? selectedVariant?.itemDescription}
+                                        {productDescription}
                                     </p>
                                 </div>
                             )}

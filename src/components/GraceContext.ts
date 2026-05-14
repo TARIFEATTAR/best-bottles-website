@@ -29,12 +29,15 @@ export interface ProductCard {
     /** Present on searchCatalog results; use for numeric size checks when available */
     capacityMl?: number | null;
     color?: string;
+    rawColor?: string | null;
+    canonicalColor?: string | null;
     applicator?: string;
     capColor?: string | null;
     neckThreadSize?: string;
     webPrice1pc?: number;
     webPrice12pc?: number;
     slug?: string;
+    dataQualityFlags?: string[];
 }
 
 export interface KitItem {

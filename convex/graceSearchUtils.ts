@@ -37,6 +37,10 @@ export {
     detectShapeIntent,
     inferCatalogCategoryFromSearchTerm,
 } from "../src/lib/graceShapeIntent";
+import {
+    summarizeCanonicalProductCoverage,
+    type CanonicalProductDataQualityFlag,
+} from "../src/lib/canonicalProduct";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -277,10 +281,13 @@ export function buildSearchCatalogToolResult(
     data: Array<{
         family?: string | null;
         color?: string | null;
+        canonicalColor?: string | null;
         capacityMl?: number | null;
         capacity?: string | null;
         applicator?: string | null;
         itemName?: string | null;
+        slug?: string | null;
+        dataQualityFlags?: CanonicalProductDataQualityFlag[] | string[] | null;
     }>
 ): string {
     const warnings: string[] = [];
@@ -296,6 +303,19 @@ export function buildSearchCatalogToolResult(
     const detectedCapMl = capMatch ? parseInt(capMatch[1]) : null;
     const requestedColor = detectRequestedColorToken(term);
     const applicatorIntent = detectApplicatorIntent(termForCap);
+    const coverage = summarizeCanonicalProductCoverage(data);
+    const asksForColorCoverage = /\b(all|every|each|available)\b.*\bcolou?rs?\b|\bcolou?rs?\b.*\b(all|every|each|available)\b/i.test(term);
+
+    if (detectedCapMl !== null && coverage.colors.length > 1) {
+        warnings.push(
+            `${asksForColorCoverage ? "REQUIRED COVERAGE" : "CATALOG COVERAGE"}: The returned ${detectedCapMl}ml result set includes these canonical color options: ${coverage.colors.join(", ")}. If the customer asks for all colors, list every color in this sentence and do not omit lower-ranked groups.`
+        );
+    }
+    if (coverage.dataQualityFlags.includes("color_derived_from_sku_swirl")) {
+        warnings.push(
+            "DATA QUALITY NOTE: At least one Swirl color is derived from SKU/name evidence because the raw source color may be marked Clear. Preserve this as Swirl in customer-facing color lists and flag it for source-sheet cleanup."
+        );
+    }
 
     const has9mlRollOn = data.some((item) => {
         if (item.capacityMl !== 9) return false;

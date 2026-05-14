@@ -24,7 +24,7 @@ export const GRACE_TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
         function: {
             name: "searchCatalog",
             description:
-                "Search the Best Bottles product catalog by keyword. Call this whenever the customer describes a product type, family, size, color, material, or use case. Returns the top 25 most relevant products with pricing and full specifications. Never guess product details — always search first.",
+                "Search the Best Bottles product catalog by keyword. Call this whenever the customer describes a product type, family, size, color, material, or use case. Returns relevant products with pricing, specifications, canonical color fields, and data-quality flags. Never guess product details — always search first.",
             parameters: {
                 type: "object",
                 properties: {
