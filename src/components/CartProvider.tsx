@@ -183,6 +183,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
                     setCheckoutError(
                         `${unmatched.length} item(s) could not be matched for online checkout: ${unmatched.join(", ")}. Checkout opened for matched items; request a quote for the unmatched SKU(s).`
                     );
+                } else {
+                    clearCart();
                 }
                 window.location.assign(checkoutUrl);
             } else if (data.unmatchedSkus?.length) {
