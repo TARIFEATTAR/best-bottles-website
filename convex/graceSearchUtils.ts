@@ -42,6 +42,18 @@ import {
     type CanonicalProductDataQualityFlag,
 } from "../src/lib/canonicalProduct";
 
+export const VERIFIED_9ML_CYLINDER_ROLLON_COLORS = [
+    "Amber",
+    "Clear",
+    "Cobalt Blue",
+    "Frosted",
+    "Swirl",
+] as const;
+
+const VERIFIED_9ML_CYLINDER_ROLLON_COLOR_SET = new Set<string>(
+    VERIFIED_9ML_CYLINDER_ROLLON_COLORS,
+);
+
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 export type SearchCandidate = {
@@ -119,6 +131,10 @@ export function detectRequestedColorToken(term: string): string | null {
     return colorTokens.find((token) => t.includes(token)) ?? null;
 }
 
+export function isVerified9mlCylinderRollOnColor(color: string | null | undefined): boolean {
+    return Boolean(color && VERIFIED_9ML_CYLINDER_ROLLON_COLOR_SET.has(color));
+}
+
 /**
  * Single applicator intent for filtering/scoring. When the customer names **more than one**
  * applicator type (e.g. "roll-on, sprayer, and lotion pump"), returns null so we do not
@@ -141,6 +157,42 @@ export function detectApplicatorIntent(term: string): "rollon" | "spray" | "drop
     if (hasPump) return "pump";
     if (hasReducer) return "reducer";
     return null;
+}
+
+export function is9mlCylinderRollOnTruthQuery(input: {
+    searchTerm: string;
+    normalizedTerm?: string | null;
+    familyLimit?: string | null;
+    applicatorFilter?: string | null;
+}): boolean {
+    const term = [input.searchTerm, input.normalizedTerm].filter(Boolean).join(" ").toLowerCase();
+    const familyLimit = input.familyLimit?.toLowerCase();
+    const applicatorFilter = input.applicatorFilter?.toLowerCase() ?? "";
+    const has9ml = /\b9\s*ml\b|\b9ml\b/.test(term);
+    const isCylinder = familyLimit === "cylinder" || /\bcylinder\b/.test(term);
+    const wantsRollOn =
+        /\b(roll|roller|roll-on|roll on|roller ball)\b/.test(term)
+        || /\b(roll|roller|roll-on|roll on|roller ball)\b/.test(applicatorFilter);
+
+    return has9ml && isCylinder && wantsRollOn;
+}
+
+export function is9mlCylinderRollOnRow(row: {
+    family?: string | null;
+    capacityMl?: number | null;
+    applicator?: string | null;
+    itemName?: string | null;
+    slug?: string | null;
+    graceSku?: string | null;
+}): boolean {
+    if (row.family?.toLowerCase() !== "cylinder" || row.capacityMl !== 9) return false;
+    const haystack = [
+        row.applicator,
+        row.itemName,
+        row.slug,
+        row.graceSku,
+    ].filter(Boolean).join(" ").toLowerCase();
+    return /\b(roll|roller|roll-on|roll on|roller ball)\b/.test(haystack);
 }
 
 // ─── Deduplication ──────────────────────────────────────────────────────────
@@ -287,6 +339,7 @@ export function buildSearchCatalogToolResult(
         applicator?: string | null;
         itemName?: string | null;
         slug?: string | null;
+        graceSku?: string | null;
         dataQualityFlags?: CanonicalProductDataQualityFlag[] | string[] | null;
     }>
 ): string {
@@ -303,8 +356,32 @@ export function buildSearchCatalogToolResult(
     const detectedCapMl = capMatch ? parseInt(capMatch[1]) : null;
     const requestedColor = detectRequestedColorToken(term);
     const applicatorIntent = detectApplicatorIntent(termForCap);
-    const coverage = summarizeCanonicalProductCoverage(data);
     const asksForColorCoverage = /\b(all|every|each|available)\b.*\bcolou?rs?\b|\bcolou?rs?\b.*\b(all|every|each|available)\b/i.test(term);
+    const isCylinderContext =
+        detectedFamily === "Cylinder"
+        || (input.familyLimit?.toLowerCase() === "cylinder")
+        || /\bcylinder\b/i.test(term)
+        || /\bcylinder\b/i.test(termForCap);
+    const mentionsRollOn = /roll|roller/i.test(term) || /roll|roller/i.test(termForCap);
+    const is9mlCylinderRollOnContext = is9mlCylinderRollOnTruthQuery({
+        searchTerm: term,
+        normalizedTerm: termForCap,
+        familyLimit: input.familyLimit,
+        applicatorFilter: input.applicatorFilter,
+    });
+    const coverageRows = is9mlCylinderRollOnContext
+        ? data.filter((item) =>
+            is9mlCylinderRollOnRow(item)
+            && isVerified9mlCylinderRollOnColor(item.canonicalColor ?? item.color)
+        )
+        : data;
+    const coverage = summarizeCanonicalProductCoverage(coverageRows);
+
+    if (is9mlCylinderRollOnContext) {
+        warnings.push(
+            `VERIFIED 9ML CYLINDER ROLL-ON COLORS: ${VERIFIED_9ML_CYLINDER_ROLLON_COLORS.join(", ")}. Swirl is a verified 9ml Cylinder roll-on glass option. Do NOT list White or Green as 9ml Cylinder roll-on glass colors; White is cap/import drift in this family, and Green belongs to separate decorative/glass-stopper products when present.`,
+        );
+    }
 
     if (detectedCapMl !== null && coverage.colors.length > 1) {
         warnings.push(
@@ -368,12 +445,6 @@ export function buildSearchCatalogToolResult(
         );
     }
 
-    const isCylinderContext =
-        detectedFamily === "Cylinder"
-        || (input.familyLimit?.toLowerCase() === "cylinder")
-        || /\bcylinder\b/i.test(term)
-        || /\bcylinder\b/i.test(termForCap);
-    const mentionsRollOn = /roll|roller/i.test(term) || /roll|roller/i.test(termForCap);
     if (isCylinderContext && detectedCapMl === 9 && mentionsRollOn) {
         const hasRollOnSku = data.some((item) => {
             const app = (item.applicator ?? "").toLowerCase();

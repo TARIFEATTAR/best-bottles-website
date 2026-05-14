@@ -294,7 +294,7 @@ export function deriveCanonicalColor(input: ColorDerivationInput): {
         input.slug,
     ].filter(Boolean).join(" ").toLowerCase();
 
-    if (/\bswirl\b|\bswrl\b/.test(evidence) && normalized.canonicalColor !== "Swirl") {
+    if (/\bswirl\b|\bswrl\b|swrl/.test(evidence) && normalized.canonicalColor !== "Swirl") {
         return {
             rawColor,
             canonicalColor: "Swirl",
