@@ -21,7 +21,7 @@ const RESOURCES = [
         title: "Compatibility Guides",
         description: "Understand neck finishes, thread sizes, and which closures work with which bottles. Our fitment system makes it foolproof.",
         cta: "Browse Catalog",
-        href: "/catalog",
+        href: "/resources#neck-size",
     },
     {
         icon: BookOpen,
@@ -47,17 +47,37 @@ const RESOURCES = [
 ];
 
 const FAQ_ITEMS = [
-    { q: "What is the minimum order quantity?", a: "There's no strict piece count — our minimum order is approximately $50. You can mix and match bottles and components to reach that threshold." },
-    { q: "How do I know which cap fits my bottle?", a: "Every bottle in our catalog lists its neck finish (e.g., 18-415, 20-400). Use our fitment system or ask Grace to find compatible closures instantly." },
-    { q: "Do you offer custom etching?", a: "We offer etching services on select bottles, including atomizers. Contact us to discuss your project and we'll let you know what's possible." },
-    { q: "What are your lead times?", a: "Standard stock orders ship within 3-5 business days. Larger or specialty orders may require additional lead time depending on quantities." },
-    { q: "Are your bottles safe for essential oils?", a: "Our glass bottles are Type III soda-lime glass, suitable for cosmetic and pharmaceutical use. Amber and cobalt blue options offer UV protection for light-sensitive formulations." },
-    { q: "Do you ship internationally?", a: "We primarily serve the domestic US market with competitive shipping rates. For international inquiries, contact us and we'll see what we can do." },
-];
+    { id: "minimum-order", q: "What is the minimum order quantity?", a: "There's no strict piece count — our minimum order is approximately $50. You can mix and match bottles and components to reach that threshold." },
+    { id: "neck-size", q: "How do I know which cap fits my bottle?", a: "Every bottle in our catalog lists its neck finish, such as 18-415 or 20-400. Match the bottle neck finish to the cap, sprayer, dropper, reducer, or roller, then verify the selected SKU before ordering." },
+    { id: "custom-etching", q: "Do you offer custom etching?", a: "We offer etching services on select bottles, including atomizers. Contact us to discuss your project and we'll let you know what's possible." },
+    { id: "lead-times", q: "What are your lead times?", a: "Standard stock orders ship within 3-5 business days. Larger or specialty orders may require additional lead time depending on quantities." },
+    { id: "essential-oils", q: "Are your bottles safe for essential oils?", a: "Our glass bottles are Type III soda-lime glass, suitable for cosmetic and pharmaceutical use. Amber and cobalt blue options offer UV protection for light-sensitive formulations." },
+    { id: "case-quantity", q: "How many bottles come in a case?", a: "Case quantity can vary by product and selected SKU. Check the specific product detail page for the bottle, color, size, and applicator configuration you plan to order." },
+    { id: "international-shipping", q: "Do you ship internationally?", a: "We primarily serve the domestic US market with competitive shipping rates. For international inquiries, contact us and we'll see what we can do." },
+] as const;
+
+function buildResourcesFaqJsonLd() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: FAQ_ITEMS.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: item.a,
+            },
+        })),
+    };
+}
 
 export default function ResourcesPage() {
     return (
         <div className="min-h-screen bg-bone">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(buildResourcesFaqJsonLd()) }}
+            />
             <Navbar />
             {/* Hero */}
             <section className="pt-32 pb-16 px-6">
@@ -98,7 +118,7 @@ export default function ResourcesPage() {
                     <h2 className="font-serif text-3xl text-obsidian mb-10 text-center">Frequently Asked Questions</h2>
                     <div className="space-y-6">
                         {FAQ_ITEMS.map((item) => (
-                            <div key={item.q} className="border-b border-champagne/30 pb-6">
+                            <div key={item.q} id={item.id} className="scroll-mt-32 border-b border-champagne/30 pb-6">
                                 <h3 className="font-serif text-lg text-obsidian mb-2">{item.q}</h3>
                                 <p className="text-sm text-slate leading-relaxed">{item.a}</p>
                             </div>

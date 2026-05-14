@@ -138,7 +138,7 @@ async function main() {
     console.log(`   NEXT_PUBLIC_CONVEX_URL: ${hasConvex ? "set" : "MISSING"}`);
     console.log(`   ELEVENLABS_API_KEY:     ${hasElevenLabsKey ? "set" : "MISSING"}`);
     console.log(`   ELEVENLABS_AGENT_ID:    ${hasElevenLabsAgent ? "set" : "MISSING"}`);
-    console.log("   ANTHROPIC_API_KEY:      (Convex env — set via `npx convex env set ANTHROPIC_API_KEY xxx`)");
+    console.log("   OPENAI_API_KEY:         (Convex env — set via `npx convex env set OPENAI_API_KEY xxx`)");
 
     let exitCode = 0;
 
@@ -215,8 +215,8 @@ async function main() {
     if (catalogDiag.skipped) {
         console.log("   • Catalog section: Set NEXT_PUBLIC_CONVEX_URL in .env.local to validate grace.* queries.");
     }
-    console.log("   • Text mode: Ensure ANTHROPIC_API_KEY is set in Convex:");
-    console.log("     npx convex env set ANTHROPIC_API_KEY sk-ant-...");
+    console.log("   • Text mode / portal Grace: Ensure OPENAI_API_KEY is set in Convex:");
+    console.log("     npx convex env set OPENAI_API_KEY sk-...");
     console.log("   • If voice drops immediately: Known issue — text mode works as fallback.");
     console.log("\n   More catalog coverage: pnpm test:grace:matrix");
     console.log("\n" + "─".repeat(50));

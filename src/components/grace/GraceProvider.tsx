@@ -149,6 +149,7 @@ function buildCatalogPath(products: ProductCard[], query?: string, family?: stri
     const qs = new URLSearchParams();
     const sanitizedQuery = sanitizeCatalogQuery(query);
     const productFams = products.map((p) => p.family).filter(Boolean) as string[];
+    const queryText = (query ?? "").toLowerCase();
 
     const category = inferCatalogCategoryFromSearchTerm(query ?? "");
     if (category) {
@@ -184,6 +185,18 @@ function buildCatalogPath(products: ProductCard[], query?: string, family?: stri
     } else if (capMatch) {
         qs.set("search", `${capMatch[1]}ml`);
     }
+    if (/roll[\s-]?on|roller/.test(queryText)) {
+        qs.set("applicators", "rollon");
+    } else if (/(bulb|vintage|antique).*(spray|sprayer)/.test(queryText)) {
+        qs.set("applicators", "antiquespray,antiquespray-tassel");
+    } else if (/dropper|pipette/.test(queryText)) {
+        qs.set("applicators", "dropper");
+    } else if (/lotion\s*pump/.test(queryText)) {
+        qs.set("applicators", "lotionpump");
+    } else if (/fine[\s-]?mist|spray|sprayer|atomizer/.test(queryText)) {
+        qs.set("applicators", "finemist,perfumespray");
+    }
+    if (!qs.has("sort")) qs.set("sort", capMatch ? "best-match" : "capacity-asc");
     qs.set("grace", "1");
     return `/catalog?${qs.toString()}`;
 }
@@ -288,6 +301,75 @@ function checkRollOnMinimum(query: string, requestedMl: number | null, products:
         .filter(Boolean);
     const uniqueSizes = [...new Set(rollOnSizes)].slice(0, 5).join(", ");
     return `WARNING: We do NOT stock roll-on bottles smaller than 5ml. A ${requestedMl}ml roll-on does NOT exist. Our smallest roll-on is 5ml. Available roll-on sizes: ${uniqueSizes || "5ml, 9ml, 15ml, 28ml, 30ml"}.`;
+}
+
+function requestedCapacityMlFromQuery(query?: string): number | null {
+    const capMatch = query?.match(/\b(\d+(?:\.\d+)?)\s*ml\b/i);
+    return capMatch ? parseFloat(capMatch[1]) : null;
+}
+
+function productCapacityMl(product: ProductCard): number | null {
+    if (typeof product.capacityMl === "number" && Number.isFinite(product.capacityMl)) {
+        return product.capacityMl;
+    }
+    const capMatch = product.capacity?.match(/\b(\d+(?:\.\d+)?)\s*ml\b/i);
+    return capMatch ? parseFloat(capMatch[1]) : null;
+}
+
+function productMatchesApplicatorIntent(product: ProductCard, query?: string): boolean {
+    const q = (query ?? "").toLowerCase();
+    const text = [product.itemName, product.applicator, product.family, product.slug].filter(Boolean).join(" ").toLowerCase();
+    if (/roll[\s-]?on|roller/.test(q)) return /roll[\s-]?on|roller/.test(text);
+    if (/dropper|pipette/.test(q)) return /dropper|pipette/.test(text);
+    if (/lotion\s*pump/.test(q)) return /lotion\s*pump/.test(text);
+    if (/reducer|orifice/.test(q)) return /reducer|orifice/.test(text);
+    if (/(bulb|vintage|antique).*(spray|sprayer)|spray|sprayer|atomizer|fine[\s-]?mist/.test(q)) {
+        return /spray|sprayer|atomizer|fine[\s-]?mist|bulb|vintage|antique/.test(text);
+    }
+    return true;
+}
+
+function selectGraceTileProducts(products: ProductCard[], query?: string, limit = 6): ProductCard[] {
+    const requestedMl = requestedCapacityMlFromQuery(query);
+    let scoped = [...products];
+
+    if (requestedMl != null) {
+        const exactSize = scoped.filter((product) => {
+            const ml = productCapacityMl(product);
+            return ml != null && Math.abs(ml - requestedMl) <= 0.25;
+        });
+        if (exactSize.length > 0) scoped = exactSize;
+    }
+
+    const matchingApplicator = scoped.filter((product) => productMatchesApplicatorIntent(product, query));
+    if (matchingApplicator.length > 0) scoped = matchingApplicator;
+
+    const deduped = Array.from(
+        new Map(scoped.map((product) => [product.slug || product.graceSku || product.itemName, product] as const)).values(),
+    );
+
+    return deduped
+        .sort((a, b) => {
+            const capDelta = (productCapacityMl(a) ?? Infinity) - (productCapacityMl(b) ?? Infinity);
+            if (capDelta !== 0) return capDelta;
+            const familyDelta = (a.family ?? "").localeCompare(b.family ?? "");
+            if (familyDelta !== 0) return familyDelta;
+            return a.itemName.localeCompare(b.itemName);
+        })
+        .slice(0, limit);
+}
+
+function shouldAutoDisplayCatalogTiles(query?: string): boolean {
+    if (!query?.trim()) return false;
+    const q = query.toLowerCase();
+    const asksForVisualOptions = /\b(tile|tiles|card|cards|grid|show|display|see|options?|various|recommend|compare)\b/.test(q);
+    const hasSizeApplicatorIntent = requestedCapacityMlFromQuery(query) != null && /(roll[\s-]?on|roller|spray|sprayer|dropper|applicator|bottle)/i.test(query);
+    return asksForVisualOptions || hasSizeApplicatorIntent;
+}
+
+function graceTileHeadline(query?: string): string {
+    const q = query?.trim();
+    return q ? `Product options for “${q}”` : "Product options";
 }
 
 let msgCounter = 0;
@@ -667,6 +749,14 @@ function GraceProviderBase({
                 const unique = new Map<string, ProductCard>();
                 for (const p of products) { const key = `${p.family}-${p.capacity}-${p.color}`; if (!unique.has(key)) unique.set(key, p); }
                 const summary = [...unique.values()].slice(0, 8).map((p) => `${p.family} ${p.capacity || ""} ${p.color || ""} (${p.applicator || "N/A"}, thread: ${p.neckThreadSize || "N/A"})`).join("; ");
+                const tileProducts = selectGraceTileProducts(products, params.searchTerm);
+                if (tileProducts.length > 0 && shouldAutoDisplayCatalogTiles(params.searchTerm)) {
+                    pendingActionsRef.current.push({
+                        type: "showProductPresentation",
+                        products: tileProducts,
+                        headline: graceTileHeadline(params.searchTerm),
+                    });
+                }
                 return `Found ${products.length} products.${sizeNote ? ` ${sizeNote}` : ""} Top matches: ${summary}`;
             } catch (e) { console.error("[Grace] searchCatalog:", e); return "Search failed. Please try again."; }
         },
@@ -808,11 +898,18 @@ function GraceProviderBase({
                 const exactSizeFound = !sizeWarning;
                 const directProduct = selectDirectProductMatch(products, params.query);
                 const displayProducts = directProduct ? [directProduct] : products;
+                const tileProducts = selectGraceTileProducts(displayProducts, params.query);
                 const summary = displayProducts.slice(0, 3).map((p) => [p.itemName, p.capacity, p.color].filter(Boolean).join(" ")).join(", ");
 
                 sessionMetricsRef.current.toolsCalled++;
                 sessionMetricsRef.current.toolsUsed.add("showProducts");
                 analytics.graceToolCalled({ toolName: "showProducts", searchTerm: params.query, family: params.family, success: products.length > 0 });
+                if (tileProducts.length > 0) {
+                    pendingActionsRef.current.push({
+                        type: "showProducts",
+                        products: tileProducts,
+                    });
+                }
                 // Always open the site when we have hits — even with a size mismatch, send them to a filtered catalog instead of only narrating.
                 const redirectUrl = exactSizeFound
                     ? buildBrowsePath(displayProducts, params.query, params.family)
@@ -1000,7 +1097,12 @@ function GraceProviderBase({
                 const products: ProductCard[] = Array.isArray(data.result) ? data.result : [];
                 if (products.length === 0) return "No products found to present.";
 
-                const presented = products.slice(0, 6);
+                const presented = selectGraceTileProducts(products, params.searchTerm);
+                pendingActionsRef.current.push({
+                    type: "showProductPresentation",
+                    products: presented,
+                    headline: params.headline ?? graceTileHeadline(params.searchTerm),
+                });
                 const summary = presented.map((p) => `${p.itemName} (${p.capacity ?? ""} ${p.color ?? ""}, ${p.applicator ?? "N/A"}, $${p.webPrice1pc?.toFixed(2) ?? "TBD"}/pc)`).join("; ");
                 return `Presenting ${presented.length} products: ${summary}. Describe these options to the customer and ask which interests them.`;
             } catch (e) { console.error("[Grace] showProductPresentation:", e); return "Product presentation failed."; }

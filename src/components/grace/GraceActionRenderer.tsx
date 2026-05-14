@@ -11,6 +11,7 @@ import PatternH_ReferenceMatch from "./patterns/PatternH_ReferenceMatch";
 import PatternI_BrandMockup from "./patterns/PatternI_BrandMockup";
 import PatternJ_Shortlist from "./patterns/PatternJ_Shortlist";
 import PatternL_CatalogDiscovery from "./patterns/PatternL_CatalogDiscovery";
+import GraceProductCard from "./cards/GraceProductCard";
 
 /**
  * Central dispatch for Grace's inline rich actions.
@@ -29,6 +30,48 @@ export interface GraceActionRendererProps {
     action: GraceAction;
     onAddToShortlist?: (p: ProductCard) => void;
     tierLabel?: string | null;
+}
+
+function GraceProductTileGrid({
+    products,
+    headline,
+    onAddToShortlist,
+    tierLabel,
+}: {
+    products: ProductCard[];
+    headline?: string;
+    onAddToShortlist?: (p: ProductCard) => void;
+    tierLabel?: string | null;
+}) {
+    if (products.length === 0) return null;
+
+    return (
+        <div
+            className="rounded-[2px] p-3 space-y-3"
+            style={{
+                background: "var(--color-linen)",
+                border: "1px solid rgba(212, 197, 169, 0.55)",
+            }}
+            data-testid="grace-product-tile-grid"
+        >
+            {headline && (
+                <div className="font-serif text-[16px] font-medium text-obsidian leading-tight">
+                    {headline}
+                </div>
+            )}
+            <div className="grid grid-cols-1 gap-2">
+                {products.slice(0, 6).map((product) => (
+                    <GraceProductCard
+                        key={product.slug ?? product.graceSku}
+                        product={product}
+                        mode="single"
+                        onAddToShortlist={onAddToShortlist}
+                        tierLabel={tierLabel}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default function GraceActionRenderer({ action, onAddToShortlist, tierLabel }: GraceActionRendererProps) {
@@ -85,12 +128,27 @@ export default function GraceActionRenderer({ action, onAddToShortlist, tierLabe
         case "displayAnatomy":
             return <PatternE_Anatomy payload={action.payload} />;
 
-        // Existing legacy actions (showProducts/compareProducts/buildKit/etc)
-        // are not rendered inline today — they continue to act as routing /
-        // cart / form triggers via the provider, which is the v2 behavior.
         case "showProducts":
         case "compareProducts":
+            return (
+                <GraceProductTileGrid
+                    products={action.products}
+                    onAddToShortlist={onAddToShortlist}
+                    tierLabel={tierLabel}
+                />
+            );
         case "showProductPresentation":
+            return (
+                <GraceProductTileGrid
+                    products={action.products}
+                    headline={action.headline}
+                    onAddToShortlist={onAddToShortlist}
+                    tierLabel={tierLabel}
+                />
+            );
+
+        // Existing legacy non-product actions continue to act as routing /
+        // cart / form triggers via the provider, which is the v2 behavior.
         case "buildKit":
         case "proposeCartAdd":
         case "navigateToPage":

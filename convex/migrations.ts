@@ -4879,6 +4879,501 @@ export const groupOrphanedProducts = action({
     },
 });
 
+/**
+ * Safer additive grouping repair for reconciliation inserts.
+ *
+ * Unlike the original groupOrphanedProducts action, dryRun mode is explicit and
+ * affected group stats are recomputed from full group membership so existing
+ * variant counts are not overwritten by orphan-only counts.
+ *
+ * Usage:
+ *   npx convex run migrations:groupOrphanedProductsSafe '{"dryRun":true}'
+ *   npx convex run migrations:groupOrphanedProductsSafe '{"dryRun":false}'
+ */
+export const groupOrphanedProductsSafe = action({
+    args: {
+        dryRun: v.optional(v.boolean()),
+    },
+    handler: async (ctx, args): Promise<{
+        dryRun: boolean;
+        orphansFound: number;
+        newGroupsToCreate: number;
+        linksToExistingGroups: number;
+        linksToNewGroups: number;
+        affectedGroups: number;
+        samples: {
+            orphanLinks: Array<{ graceSku: string; targetSlug: string; existingGroup: boolean }>;
+            newGroups: Array<{ slug: string; displayName: string; variantCount: number }>;
+            groupStats: Array<{ slug: string; variantCount: number; applicatorTypes: string[] }>;
+        };
+        applied?: {
+            newGroupsCreated: number;
+            productsLinked: number;
+            groupStatsPatched: number;
+        };
+        message: string;
+    }> => {
+        const dryRun = args.dryRun !== false;
+        const existingGroups = await ctx.runQuery(internal.migrations.getAllGroups, {}) as Array<{
+            _id: Id<"productGroups">;
+            slug: string;
+        }>;
+        const slugToId = new Map<string, Id<"productGroups">>(existingGroups.map((g) => [g.slug, g._id]));
+        const idToSlug = new Map<string, string>(existingGroups.map((g) => [String(g._id), g.slug]));
+
+        type ProductForGrouping = {
+            _id: Id<"products">;
+            websiteSku: string;
+            graceSku: string;
+            itemName: string;
+            category: string;
+            family: string | null;
+            capacityMl: number | null;
+            capacity: string | null;
+            color: string | null;
+            neckThreadSize: string | null;
+            bottleCollection: string | null;
+            applicator: string | null;
+            webPrice1pc: number | null;
+            productGroupId?: Id<"productGroups"> | null;
+        };
+
+        type NewGroupDef = {
+            slug: string;
+            displayName: string;
+            family: string;
+            capacity: string | null;
+            capacityMl: number | null;
+            color: string | null;
+            category: string;
+            bottleCollection: string | null;
+            neckThreadSize: string | null;
+            variantCount: number;
+            priceRangeMin: number | null;
+            priceRangeMax: number | null;
+            applicatorTypes: string[];
+        };
+
+        const products: ProductForGrouping[] = [];
+        const PAGE_SIZE = 200;
+        let cursor: string | null = null;
+        let isDone = false;
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+            products.push(...(result.page as unknown as ProductForGrouping[]));
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        const computeGrouping = (p: ProductForGrouping) => {
+            const isMetalAtomizer = p.applicator === "Metal Atomizer" || (p.websiteSku || "").startsWith("GBAtom");
+            const effectiveCategory = isMetalAtomizer ? "Metal Atomizer" : (p.category ?? "unknown");
+            const effectiveFamily = isMetalAtomizer ? "Atomizer" : (p.family ?? null);
+            const applicatorBucket = BOTTLE_CATEGORIES.has(effectiveCategory)
+                ? getApplicatorBucket(p.applicator)
+                : null;
+            const isDecorativeFamily = effectiveFamily === "Decorative" || effectiveFamily === "Apothecary";
+            const decorativeShape = isDecorativeFamily ? detectDecorativeShape(p.websiteSku || "") : null;
+            const decAccessory = isDecorativeFamily ? detectDecorativeAccessory(p.websiteSku || "") : null;
+            const componentSubType = COMPONENT_CATEGORIES.has(effectiveCategory)
+                ? getComponentSubType(p.itemName ?? "", p.websiteSku ?? "", p.applicator ?? null)
+                : null;
+            const rectSubDesign = effectiveFamily === "Rectangle"
+                ? detectRectangleSubDesign(p.itemName)
+                : null;
+
+            const slug = buildSlug(
+                effectiveFamily,
+                p.capacityMl ?? null,
+                p.color ?? null,
+                effectiveCategory,
+                p.neckThreadSize ?? null,
+                applicatorBucket,
+                decorativeShape,
+                decAccessory?.slug ?? null,
+                componentSubType,
+                rectSubDesign,
+            );
+
+            const group: NewGroupDef = {
+                slug,
+                displayName: buildDisplayName(
+                    effectiveFamily,
+                    p.capacity ?? null,
+                    p.color ?? null,
+                    effectiveCategory,
+                    applicatorBucket,
+                    decorativeShape,
+                    decAccessory?.label ?? null,
+                    componentSubType,
+                    p.neckThreadSize ?? null,
+                    rectSubDesign,
+                ),
+                family: effectiveFamily || effectiveCategory || "unknown",
+                capacity: p.capacity ?? null,
+                capacityMl: p.capacityMl ?? null,
+                color: isMetalAtomizer ? null : (p.color ?? null),
+                category: effectiveCategory,
+                bottleCollection: p.bottleCollection ?? null,
+                neckThreadSize: p.neckThreadSize ?? null,
+                variantCount: 0,
+                priceRangeMin: null,
+                priceRangeMax: null,
+                applicatorTypes: [],
+            };
+
+            return { slug, group };
+        };
+
+        const orphans = products.filter((p) => !p.productGroupId);
+        const newGroupMap = new Map<string, NewGroupDef>();
+        const orphanTargets: Array<{
+            product: ProductForGrouping;
+            slug: string;
+            group: NewGroupDef;
+            existingGroup: boolean;
+        }> = [];
+
+        for (const p of orphans) {
+            const target = computeGrouping(p);
+            const existingGroup = slugToId.has(target.slug);
+            orphanTargets.push({ product: p, slug: target.slug, group: target.group, existingGroup });
+            if (!existingGroup && !newGroupMap.has(target.slug)) {
+                newGroupMap.set(target.slug, target.group);
+            }
+        }
+
+        const targetGroupIdByProductId = new Map<string, Id<"productGroups"> | "__new__">();
+        const affectedSlugSet = new Set<string>();
+        for (const target of orphanTargets) {
+            affectedSlugSet.add(target.slug);
+            targetGroupIdByProductId.set(String(target.product._id), slugToId.get(target.slug) ?? "__new__");
+        }
+
+        const computeStatsForAffectedGroups = () => {
+            const statMap = new Map<string, {
+                slug: string;
+                variantCount: number;
+                priceRangeMin: number | null;
+                priceRangeMax: number | null;
+                applicatorTypes: Set<string>;
+            }>();
+
+            for (const p of products) {
+                let groupId = p.productGroupId ? String(p.productGroupId) : null;
+                let slug = groupId ? idToSlug.get(groupId) ?? null : null;
+                if (!groupId && targetGroupIdByProductId.has(String(p._id))) {
+                    const target = orphanTargets.find((o) => o.product._id === p._id);
+                    slug = target?.slug ?? null;
+                    groupId = slug ? (String(slugToId.get(slug) ?? slug)) : null;
+                }
+                if (!slug || !affectedSlugSet.has(slug)) continue;
+                if (!statMap.has(slug)) {
+                    statMap.set(slug, {
+                        slug,
+                        variantCount: 0,
+                        priceRangeMin: null,
+                        priceRangeMax: null,
+                        applicatorTypes: new Set<string>(),
+                    });
+                }
+                const stats = statMap.get(slug)!;
+                stats.variantCount++;
+                const price = p.webPrice1pc;
+                if (price != null && price > 0) {
+                    if (stats.priceRangeMin == null || price < stats.priceRangeMin) stats.priceRangeMin = price;
+                    if (stats.priceRangeMax == null || price > stats.priceRangeMax) stats.priceRangeMax = price;
+                }
+                if (p.applicator && p.applicator.trim()) stats.applicatorTypes.add(p.applicator.trim());
+            }
+
+            return statMap;
+        };
+
+        const preCreateStats = computeStatsForAffectedGroups();
+        const sampleNewGroups = [...newGroupMap.values()].slice(0, 10).map((g) => ({
+            slug: g.slug,
+            displayName: g.displayName,
+            variantCount: preCreateStats.get(g.slug)?.variantCount ?? 0,
+        }));
+        const sampleStats = [...preCreateStats.values()].slice(0, 10).map((s) => ({
+            slug: s.slug,
+            variantCount: s.variantCount,
+            applicatorTypes: [...s.applicatorTypes].sort(),
+        }));
+        const baseResult = {
+            dryRun,
+            orphansFound: orphans.length,
+            newGroupsToCreate: newGroupMap.size,
+            linksToExistingGroups: orphanTargets.filter((o) => o.existingGroup).length,
+            linksToNewGroups: orphanTargets.filter((o) => !o.existingGroup).length,
+            affectedGroups: affectedSlugSet.size,
+            samples: {
+                orphanLinks: orphanTargets.slice(0, 10).map((o) => ({
+                    graceSku: o.product.graceSku,
+                    targetSlug: o.slug,
+                    existingGroup: o.existingGroup,
+                })),
+                newGroups: sampleNewGroups,
+                groupStats: sampleStats,
+            },
+        };
+
+        if (dryRun || orphans.length === 0) {
+            return {
+                ...baseResult,
+                message: dryRun
+                    ? `Dry run: would create ${newGroupMap.size} groups and link ${orphans.length} orphan products.`
+                    : "No orphaned products found. All products already linked.",
+            };
+        }
+
+        let created = 0;
+        for (const [slug, groupDef] of newGroupMap) {
+            const newId = await ctx.runMutation(internal.migrations.insertSingleGroup, { group: groupDef });
+            slugToId.set(slug, newId as Id<"productGroups">);
+            idToSlug.set(String(newId), slug);
+            created++;
+        }
+
+        const links = orphanTargets.flatMap((target) => {
+            const groupId = slugToId.get(target.slug);
+            if (!groupId) return [];
+            return [{ productId: target.product._id, groupId }];
+        });
+
+        const appliedStatsMap = computeStatsForAffectedGroups();
+        const groupStatsArr = [...appliedStatsMap.values()].flatMap((stats) => {
+            const groupId = slugToId.get(stats.slug);
+            if (!groupId) return [];
+            return [{
+                groupId,
+                variantCount: stats.variantCount,
+                priceRangeMin: stats.priceRangeMin,
+                priceRangeMax: stats.priceRangeMax,
+                applicatorTypes: [...stats.applicatorTypes].sort(),
+            }];
+        });
+
+        const BATCH = 100;
+        let linked = 0;
+        for (let i = 0; i < links.length; i += BATCH) {
+            const result = await ctx.runMutation(internal.migrations.linkOrphanBatch, {
+                links: links.slice(i, i + BATCH),
+                groupStats: [],
+            });
+            linked += result.linked;
+        }
+
+        const STAT_BATCH = 50;
+        for (let i = 0; i < groupStatsArr.length; i += STAT_BATCH) {
+            await ctx.runMutation(internal.migrations.linkOrphanBatch, {
+                links: [],
+                groupStats: groupStatsArr.slice(i, i + STAT_BATCH),
+            });
+        }
+
+        return {
+            ...baseResult,
+            applied: {
+                newGroupsCreated: created,
+                productsLinked: linked,
+                groupStatsPatched: groupStatsArr.length,
+            },
+            message: `Created ${created} groups, linked ${linked} orphan products, patched ${groupStatsArr.length} group stats.`,
+        };
+    },
+});
+
+function normalizeBottleCollectionForGrace(
+    bottleCollection: string | null | undefined,
+    family: string | null | undefined,
+): string | null {
+    if (!bottleCollection || !bottleCollection.trim()) return null;
+    const collection = bottleCollection.trim();
+    const fam = family?.trim();
+    const reconciliationMap: Record<string, string> = {
+        "Circle Collection": "Circle",
+        "Cylinder Collection": "Cylinder",
+        "Diamond Collection": "Diamond",
+        "Diva Collection": "Diva",
+        "Elegant Collection": "Elegant",
+        "Empire Collection": "Empire",
+        "Grace Collection": "Grace",
+        "Round Collection": "Round",
+        "Sleek Collection": "Sleek",
+        "Slim Collection": "Slim",
+        "Cream Jar Collection": "Cream Jar",
+        "Travel & Aluminum Collection": "Aluminum Bottle",
+    };
+    const normalized = reconciliationMap[collection];
+    if (normalized && (!fam || normalized === fam)) return normalized;
+    return collection;
+}
+
+export const patchProductGroupCollectionBatch = internalMutation({
+    args: {
+        patches: v.array(v.object({
+            id: v.id("productGroups"),
+            bottleCollection: v.union(v.string(), v.null()),
+        })),
+    },
+    handler: async (ctx, args) => {
+        for (const { id, bottleCollection } of args.patches) {
+            await ctx.db.patch(id, { bottleCollection });
+        }
+        return { patched: args.patches.length };
+    },
+});
+
+/**
+ * Normalize collection labels that drifted between AIOS master and Convex.
+ *
+ * Examples:
+ *   "Empire Collection" → "Empire"
+ *   "Cream Jar Collection" → "Cream Jar"
+ *   "Travel & Aluminum Collection" → "Aluminum Bottle"
+ *
+ * Usage:
+ *   npx convex run migrations:normalizeBottleCollectionLabels '{"dryRun":true}'
+ *   npx convex run migrations:normalizeBottleCollectionLabels '{"dryRun":false}'
+ */
+export const normalizeBottleCollectionLabels = action({
+    args: {
+        dryRun: v.optional(v.boolean()),
+    },
+    handler: async (ctx, args): Promise<{
+        dryRun: boolean;
+        productPatches: number;
+        groupPatches: number;
+        samples: {
+            products: Array<{ graceSku: string; from: string | null; to: string | null }>;
+            groups: Array<{ slug: string; from: string | null; to: string | null }>;
+        };
+        applied?: { productsPatched: number; groupsPatched: number };
+        message: string;
+    }> => {
+        const dryRun = args.dryRun !== false;
+        const productPatches: Array<{
+            id: Id<"products">;
+            fields: { bottleCollection: string | null };
+            graceSku: string;
+            from: string | null;
+            to: string | null;
+        }> = [];
+        const groupPatches: Array<{
+            id: Id<"productGroups">;
+            bottleCollection: string | null;
+            slug: string;
+            from: string | null;
+            to: string | null;
+        }> = [];
+
+        const PAGE_SIZE = 200;
+        let cursor: string | null = null;
+        let isDone = false;
+        while (!isDone) {
+            const result = await ctx.runQuery(internal.migrations.getProductPage, {
+                cursor,
+                numItems: PAGE_SIZE,
+            }) as PageResult;
+            for (const p of result.page) {
+                const current = p.bottleCollection ?? null;
+                const normalized = normalizeBottleCollectionForGrace(current, p.family ?? null);
+                if (normalized !== current) {
+                    productPatches.push({
+                        id: p._id,
+                        fields: { bottleCollection: normalized },
+                        graceSku: p.graceSku ?? "",
+                        from: current,
+                        to: normalized,
+                    });
+                }
+            }
+            isDone = result.isDone;
+            cursor = result.continueCursor;
+        }
+
+        const groups = await ctx.runQuery(internal.migrations.getAllGroups, {}) as Array<{
+            _id: Id<"productGroups">;
+            slug: string;
+            family?: string | null;
+            bottleCollection?: string | null;
+        }>;
+        for (const g of groups) {
+            const current = g.bottleCollection ?? null;
+            const normalized = normalizeBottleCollectionForGrace(current, g.family ?? null);
+            if (normalized !== current) {
+                groupPatches.push({
+                    id: g._id,
+                    bottleCollection: normalized,
+                    slug: g.slug,
+                    from: current,
+                    to: normalized,
+                });
+            }
+        }
+
+        const base = {
+            dryRun,
+            productPatches: productPatches.length,
+            groupPatches: groupPatches.length,
+            samples: {
+                products: productPatches.slice(0, 20).map((p) => ({
+                    graceSku: p.graceSku,
+                    from: p.from,
+                    to: p.to,
+                })),
+                groups: groupPatches.slice(0, 20).map((g) => ({
+                    slug: g.slug,
+                    from: g.from,
+                    to: g.to,
+                })),
+            },
+        };
+
+        if (dryRun) {
+            return {
+                ...base,
+                message: `Dry run: would normalize ${productPatches.length} products and ${groupPatches.length} groups.`,
+            };
+        }
+
+        const PRODUCT_BATCH = 100;
+        let productsPatched = 0;
+        for (let i = 0; i < productPatches.length; i += PRODUCT_BATCH) {
+            const result = await ctx.runMutation(internal.migrations.patchProductFields, {
+                patches: productPatches.slice(i, i + PRODUCT_BATCH).map((p) => ({
+                    id: p.id,
+                    fields: p.fields,
+                })),
+            });
+            productsPatched += result.patched;
+        }
+
+        const GROUP_BATCH = 100;
+        let groupsPatched = 0;
+        for (let i = 0; i < groupPatches.length; i += GROUP_BATCH) {
+            const result = await ctx.runMutation(internal.migrations.patchProductGroupCollectionBatch, {
+                patches: groupPatches.slice(i, i + GROUP_BATCH).map((g) => ({
+                    id: g.id,
+                    bottleCollection: g.bottleCollection,
+                })),
+            });
+            groupsPatched += result.patched;
+        }
+
+        return {
+            ...base,
+            applied: { productsPatched, groupsPatched },
+            message: `Normalized ${productsPatched} products and ${groupsPatched} groups.`,
+        };
+    },
+});
+
 // ─────────────────────────────────────────────────────────────────────────────
 // FIX ATOMIZER PRODUCT GROUPS
 //

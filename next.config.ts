@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const projectRoot = process.cwd();
+
 // ── Validate required environment variables at build time ────────────────
 const requiredEnvVars = [
     "NEXT_PUBLIC_CONVEX_URL",
@@ -15,6 +17,10 @@ for (const key of requiredEnvVars) {
 
 const nextConfig: NextConfig = {
     reactStrictMode: false,
+    outputFileTracingRoot: projectRoot,
+    turbopack: {
+        root: projectRoot,
+    },
     images: {
         remotePatterns: [
             {

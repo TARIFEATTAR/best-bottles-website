@@ -172,6 +172,7 @@ export default function MobileTabBar() {
                             role="tab"
                             aria-selected={active}
                             aria-current={active ? "page" : undefined}
+                            data-testid={`mobile-tab-${tab.key}`}
                             className="group flex-1 flex items-center justify-center h-full min-w-[44px]"
                         >
                             {inner}

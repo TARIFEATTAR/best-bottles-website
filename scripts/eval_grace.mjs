@@ -18,9 +18,9 @@
  *
  * Requires:
  *   - NEXT_PUBLIC_CONVEX_URL in .env.local (or CONVEX_URL env var)
- *   - ANTHROPIC_API_KEY on the *Convex deployment* (not only in .env.local).
+ *   - OPENAI_API_KEY on the *Convex deployment* (not only in .env.local).
  *     Dashboard → Project → Settings → Environment Variables, or:
- *       npx convex env set ANTHROPIC_API_KEY sk-ant-api03-...
+ *       npx convex env set OPENAI_API_KEY sk-...
  *     Must match the deployment URL you use (dev vs prod).
  */
 
@@ -365,16 +365,16 @@ async function main() {
                 console.error(`  ${String(sample.response).slice(0, 400).replace(/\n/g, " ")}`);
             }
             console.error(`
-This eval calls Convex action grace:askGrace, which uses ANTHROPIC_API_KEY from
+This eval calls Convex action grace:askGrace, which uses OPENAI_API_KEY from
 your *Convex deployment*, not from .env.local on this machine.
 
-  • Set the key:  npx convex env set ANTHROPIC_API_KEY <your-key>
+  • Set the key:  npx convex env set OPENAI_API_KEY <your-key>
     (or Convex Dashboard → Settings → Environment Variables)
 
   • Target the same deployment as NEXT_PUBLIC_CONVEX_URL in .env.local
     (dev vs prod each need the variable if you run evals against both).
 
-  • If the key is already set: open console.anthropic.com → check credits,
+  • If the key is already set: open platform.openai.com → check credits,
     billing, and that the key is not expired/revoked.
 `);
             process.exit(1);

@@ -68,6 +68,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         role="dialog"
                         aria-modal="true"
                         aria-label="Shopping cart"
+                        data-testid="cart-drawer"
                     >
                         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
                             <div className="absolute inset-0 liquid-shimmer" style={{ opacity: 0.4 }} />
@@ -239,6 +240,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 <button
                                     onClick={checkout}
                                     disabled={isCheckingOut}
+                                    data-testid="checkout-start-button"
                                     className="group w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-medium text-[14px] tracking-wide transition-all duration-300 cursor-pointer relative overflow-hidden bg-obsidian text-bone hover:bg-obsidian/90 disabled:opacity-50"
                                     style={{ boxShadow: "0 4px 20px rgba(29,29,31,0.15)" }}
                                 >
