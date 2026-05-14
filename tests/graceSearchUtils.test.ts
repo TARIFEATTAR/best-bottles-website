@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
     buildSearchCatalogToolResult,
     detectApplicatorIntent,
+    ensureVerified9mlCylinderRollOnCoverage,
     is9mlCylinderRollOnTruthQuery,
     isVerified9mlCylinderRollOnColor,
     normalizeSearchTerm,
+    selectVerified9mlCylinderRollOnRepresentatives,
 } from "../convex/graceSearchUtils";
 
 describe("detectApplicatorIntent", () => {
@@ -71,5 +73,49 @@ describe("9ml Cylinder roll-on product truth", () => {
         expect(isVerified9mlCylinderRollOnColor("Swirl")).toBe(true);
         expect(isVerified9mlCylinderRollOnColor("White")).toBe(false);
         expect(isVerified9mlCylinderRollOnColor("Green")).toBe(false);
+    });
+
+    it("selects one representative for every verified color in stable order", () => {
+        const representatives = selectVerified9mlCylinderRollOnRepresentatives([
+            { graceSku: "white-drift", family: "Cylinder", capacityMl: 9, canonicalColor: "White", applicator: "Metal Roller Ball" },
+            { graceSku: "swirl", family: "Cylinder", capacityMl: 9, canonicalColor: "Swirl", applicator: "Metal Roller Ball" },
+            { graceSku: "clear", family: "Cylinder", capacityMl: 9, canonicalColor: "Clear", applicator: "Metal Roller Ball" },
+            { graceSku: "green-other", family: "Teardrop", capacityMl: 9, canonicalColor: "Green", applicator: "Glass Stopper" },
+            { graceSku: "cobalt", family: "Cylinder", capacityMl: 9, canonicalColor: "Cobalt Blue", applicator: "Plastic Roller Ball" },
+            { graceSku: "frosted", family: "Cylinder", capacityMl: 9, canonicalColor: "Frosted", applicator: "Plastic Roller Ball" },
+            { graceSku: "amber", family: "Cylinder", capacityMl: 9, canonicalColor: "Amber", applicator: "Metal Roller Ball" },
+        ]);
+
+        expect(representatives.map((row) => row.canonicalColor)).toEqual([
+            "Amber",
+            "Clear",
+            "Cobalt Blue",
+            "Frosted",
+            "Swirl",
+        ]);
+    });
+
+    it("prepends missing verified color representatives before slicing ranked rows", () => {
+        const crowdedRankedRows = Array.from({ length: 25 }, (_, index) => ({
+            graceSku: `ranked-${index}`,
+            family: "Cylinder",
+            capacityMl: 9,
+            canonicalColor: index % 2 === 0 ? "Clear" : "Amber",
+            applicator: "Metal Roller Ball",
+        }));
+        const coverageCandidates = [
+            ...crowdedRankedRows,
+            { graceSku: "cobalt", family: "Cylinder", capacityMl: 9, canonicalColor: "Cobalt Blue", applicator: "Plastic Roller Ball" },
+            { graceSku: "frosted", family: "Cylinder", capacityMl: 9, canonicalColor: "Frosted", applicator: "Plastic Roller Ball" },
+            { graceSku: "swirl", family: "Cylinder", capacityMl: 9, canonicalColor: "Swirl", applicator: "Metal Roller Ball" },
+            { graceSku: "white-drift", family: "Cylinder", capacityMl: 9, canonicalColor: "White", applicator: "Metal Roller Ball" },
+        ];
+
+        const covered = ensureVerified9mlCylinderRollOnCoverage(crowdedRankedRows, coverageCandidates, 25);
+        const colors = new Set(covered.map((row) => row.canonicalColor));
+
+        expect(covered).toHaveLength(25);
+        expect([...colors].sort()).toEqual(["Amber", "Clear", "Cobalt Blue", "Frosted", "Swirl"]);
+        expect(colors.has("White")).toBe(false);
     });
 });
