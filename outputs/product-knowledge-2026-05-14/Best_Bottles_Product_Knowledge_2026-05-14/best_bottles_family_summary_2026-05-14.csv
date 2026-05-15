@@ -1,0 +1,40 @@
+family,variantCount,groupCount,categories,capacitiesMl,canonicalColors,applicators,neckThreadSizes,missingImageCount,promptReadyCount,promptReadinessRate,dataQualityFlagCount
+Cylinder,384,53,Glass Bottle | Roll-On Bottle,3 | 4 | 5 | 9 | 25 | 28 | 30 | 50 | 100 | 118 | 227 | 454,Amber | Clear | Cobalt Blue | Frosted | Swirl | White,Cap/Closure | Fine Mist Sprayer | Glass Rod | Lotion Pump | Metal Roller Ball | N/A | Perfume Spray Pump | Plastic Roller Ball | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,12mm | 13-415 | 16mm | 17-415 | 18-400 | 18-415,11,371,0.966,4
+Elegant,290,35,Glass Bottle,15 | 30 | 60 | 100,Clear | Frosted,Cap/Closure | Dropper | Fine Mist Sprayer | Lotion Pump | Metal Roller Ball | N/A | Perfume Spray Pump | Plastic Roller Ball | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,13-415 | 15-415 | 18-415,9,273,0.941,0
+Diva,225,22,Glass Bottle | Lotion Bottle,30 | 46 | 100,Clear | Frosted,Dropper | Lotion Pump | Perfume Spray Pump | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,18-415,6,189,0.84,0
+Circle,218,27,Glass Bottle,15 | 30 | 50 | 100,Clear | Frosted,Dropper | Fine Mist Sprayer | Lotion Pump | Metal Roller Ball | Perfume Spray Pump | Plastic Roller Ball | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,13-415 | 15-415 | 18-400 | 18-415,4,212,0.972,0
+Sleek,192,21,Glass Bottle,5 | 8 | 30 | 50 | 100,Clear,Dropper | Fine Mist Sprayer | Lotion Pump | Metal Roller Ball | Perfume Spray Pump | Plastic Roller Ball | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,13-415 | 18-415,6,184,0.958,0
+Round,186,21,Glass Bottle,78 | 128,Clear | Frosted,Dropper | Lotion Pump | Perfume Spray Pump | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,18-415,8,186,1,0
+Slim,129,15,Glass Bottle,30 | 50 | 100,Clear,Dropper | Lotion Pump | Perfume Spray Pump | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,18-415,6,129,1,0
+Boston Round,123,23,Glass Bottle,15 | 30 | 60,Amber | Clear | Cobalt Blue,Dropper | Metal Roller Ball | N/A | Plastic Roller Ball,18-400 | 20-400,1,113,0.919,0
+Empire,95,11,Glass Bottle,50 | 100,Clear,Dropper | Lotion Pump | Perfume Spray Pump | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,18-415,4,95,1,0
+Sprayer,64,7,Component,0 | 5,Black | Cobalt Blue | Gold | Matte Copper | Matte Gold | Matte Silver | Pink | Red | Shiny | Shiny Gold | Silver | White,Cap/Closure | Fine Mist Sprayer | N/A,13-415 | 15-415 | 17-415 | 18-415,21,11,0.172,35
+Rectangle,63,7,Glass Bottle,9 | 10,Clear,Fine Mist Sprayer | Glass Stopper | Metal Roller Ball | Plastic Roller Ball,13-415 | Ground,0,55,0.873,0
+Tulip,60,6,Glass Bottle,5 | 6,Amber | Clear,Fine Mist Sprayer | Metal Roller Ball | N/A | Plastic Roller Ball,13-415,1,51,0.85,0
+Diamond,45,5,Glass Bottle,60,Clear,Lotion Pump | Perfume Spray Pump | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,18-415,2,45,1,0
+Grace,45,5,Glass Bottle,55,Clear,Lotion Pump | Perfume Spray Pump | Reducer | Vintage Bulb Sprayer | Vintage Bulb Sprayer with Tassel,18-415,2,45,1,0
+Cap/Closure,39,13,Component,0 | 5 | 30 | 40,Amber | Black | Cobalt Blue | Gold | Ivory | Pink | Silver | White,Cap/Closure | Fine Mist Sprayer | N/A,8-425 | 13-415 | 13-425 | 18-400 | 18-415 | 20-400 | 22-400 | 24-400 | Press-Fit | Specialty,19,2,0.051,14
+Roll-On Cap,35,7,Component,0 | 30,Black | Copper | Gold | Pink | Silver | White,Cap/Closure | Plastic Roller Ball,13-415 | 15-415 | 17-415 | 20-400,1,0,0,2
+Flair,30,3,Glass Bottle,15,Clear,Fine Mist Sprayer | Metal Roller Ball | Plastic Roller Ball,13-415,0,26,0.867,0
+Royal,30,4,Glass Bottle,13 | 14,Clear,Fine Mist Sprayer | Metal Roller Ball | Plastic Roller Ball,11mm | 13-415,0,25,0.833,0
+Square,29,3,Glass Bottle,15,Clear,Fine Mist Sprayer | Metal Roller Ball | Plastic Roller Ball,13-415,0,25,0.862,0
+Atomizer,25,2,Metal Atomizer,5 | 10,Black | Clear | Cobalt Blue | Green | Pink,Atomizer,10mm | 13-415 | 13mm | 17mm,0,25,1,0
+Vial,24,9,Glass Bottle,1 | 2 | 3 | 4,Amber | Clear | Cobalt Blue | Green,Dropper,8-425 | 13-425 | Plug,0,4,0.167,0
+Dropper,22,4,Component,0 | 10,Amber | Black | White,Dropper,17-415 | 18-400 | 18-415 | 20-400,1,18,0.818,4
+Gift Bag,21,1,Packaging,0,Black | Cobalt Blue | Gold | Green | Ivory | Lavender | Pink | Purple | Red | Silver,,,0,0,0,2
+Cream Jar,19,10,Component | Cream Jar | Glass Jar,3 | 5 | 15 | 20 | 30 | 40 | 60 | 63,Amber | Clear | Cobalt Blue | Frosted | White,,20mm | 27mm | 37mm | 40mm | 45mm | 48/400 | 58mm | PRESS-FIT,1,0,0,2
+Gift Box,15,2,Packaging,0,Clear | Cobalt Blue | Green | Matte | Silver | White,N/A,,1,0,0,4
+Decorative,12,12,Glass Bottle,3 | 4 | 5 | 6 | 10 | 32 | 35 | 355,Clear | Cobalt Blue | Frosted | Green,Glass Stopper,8mm | 14.3mm | 17.52mm | Ground,0,3,0.25,0
+Packaging Supply,12,1,Packaging,0,Clear,,,1,0,0,10
+Lotion Pump,10,1,Component,0,Black | Clear | Copper | Gold | Silver,,18-415,3,0,0,3
+Aluminum Bottle,8,6,Aluminum Bottle | Component,65 | 100 | 120 | 250 | 500,Clear | White,Fine Mist Sprayer | Lotion Pump,20-410,1,6,0.75,1
+Bell,6,4,Glass Bottle,10,Clear,Cap/Closure | Fine Mist Sprayer | Metal Roller Ball | N/A | Plastic Roller Ball,13-415,2,3,0.5,0
+Apothecary,5,5,Glass Bottle,15 | 30 | 118,Clear | Cobalt Blue | Green,Glass Stopper,Ground,0,4,0.8,0
+Lotion Bottle,4,3,Glass Bottle,3 | 30,Clear,Lotion Pump,18mm | Snap-On,0,1,0.25,0
+Pillar,4,2,Glass Bottle,9,Clear,Fine Mist Sprayer | N/A,13-415 | 17-415,3,0,0,0
+Plastic Bottle,4,2,Plastic Bottle,10 | 30,Clear,Fine Mist Sprayer,13-415,0,3,0.75,0
+Teardrop,3,3,Glass Bottle,9,Clear | Cobalt Blue | Green,Glass Stopper,Ground,0,3,1,0
+Tool,3,1,Accessory,0,Gold | Silver,,,0,0,0,1
+Cap/Component,2,2,Component,0,Clear,N/A,13-415 | 17-415,2,0,0,0
+Tall Cylinder,1,1,Glass Bottle,9,Clear,Cap/Closure,13-415,1,1,1,0
+Unknown,1,1,Packaging,0,Clear,N/A,,1,0,0,0
