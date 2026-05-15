@@ -1,0 +1,576 @@
+issueType,field,productId,graceSku,websiteSku,family,capacityMl,rawValue,canonicalValue,note
+image_prompt_blocked,promptMissingFields,BB-GB-001-0002,GB-VIA-AMB-1ML-WHT-T,GB1mlAmbVialWht,Vial,1,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-001-0003,GB-VIA-CLR-1ML-BLK-T,GB1mlVBlk,Vial,1,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-002-0002,GB-VIA-CLR-2ML-S-02,GBVAmb2WhtCap,Vial,2,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-002-0004,GB-VIA-CLR-2ML-WHT-T,GBVialClr2mlWhtCap,Vial,2,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-003-0004,GB-VIA-CLR-3ML-GRN-S,GBVGreen2o4BlackCapSht,Vial,3,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0010,GB-VIA-CLR-3ML-S-04,GBVAmb1DrmWhtCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0007,GB-VIA-CLR-3ML-S-02,GBV1DrmWhtCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0013,GB-VIA-CLR-3ML-S-06,GBVBlu1DrmWhtCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0015,GB-VIA-CLR-3ML-S-08,GBVGr1DrmWhtCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-DR-000-0081,CMP-DRP-BKSL-20400-90,Drp20-4002ozShnSlTrimBlkBulb,Dropper,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0217,CMP-CAP-SSLV-8425-T,CP8-425TallShnSl,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0216,CMP-CAP-SGLD-8425-T,CP8-425TallShnGl,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0073,CMP-CAP-WHT-S-13-415,CP13-415WhtSht,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0064,CMP-CAP-SLV-13-415-01,CP13-415Sl,Roll-On Cap,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0063,CMP-CAP-SGLD-13-415-01,CP13-415Gl,Roll-On Cap,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0007,CMP-ROC-SLV-13415-DOT,CPRoll13-415SlDot,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0008,CMP-ROC-MSLV-13415,CPRoll13-415SlMt,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0069,GB-SLK-CLR-5ML-GLD-T,GBSleek5Gl,Sleek,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0006,CMP-ROC-PNK-13415-DOT,CPRoll13-415PinkDot,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0088,GB-SLK-CLR-5ML-SLV-T,GBSleek5Sl,Sleek,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0004,CMP-ROC-MGLD-13415,CPRoll13-415GlMt,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0097,GB-SLK-WHT-5ML-WHT-S,GBSleek5WhtSht,Sleek,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0009,CMP-ROC-SSLV-13415,CPRoll13-415SlSh,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0099,GB-CYL-AMB-5ML-GLD-T,GBTulipAmb5Gl,Tulip,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0003,CMP-ROC-MCPR-13415,CPRoll13-415Cu,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0118,GB-CYL-AMB-5ML-SLV-T,GBTulipAmb5Sl,Tulip,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0005,CMP-ROC-SGLD-13415,CPRoll13-415GlSh,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0127,GB-CYL-AMB-5ML-WHT-S,GBTulipAmb5WhtSht,Tulip,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0002,CMP-ROC-SBLK-13415,CPRoll13-415BlkSh,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-006-0003,GB-CYL-CLR-6ML-GLD-T,GBTulip6Gl,Tulip,6,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0123,CMP-SPR-MTCP-13-415-07,CP13-415SpryCuMt,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0123,CMP-SPR-MTCP-13-415-07,CP13-415SpryCuMt,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-006-0022,GB-CYL-CLR-6ML-SLV-T,GBTulip6Sl,Tulip,6,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0117,CMP-SPR-SHBK-13-415-07,CP13-415SpryBlkSh,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0117,CMP-SPR-SHBK-13-415-07,CP13-415SpryBlkSh,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-006-0030,GB-CYL-WHT-6ML-WHT-S,GBTulip6WhtSht,Tulip,6,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,BB-SP-000-0120,CMP-SPR-MTBL-13-415-07,CP13-415SpryBluMt,Sprayer,0,,Cobalt Blue,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,BB-SP-000-0120,CMP-SPR-MTBL-13-415-07,CP13-415SpryBluMt,Sprayer,0,,Cobalt Blue,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0120,CMP-SPR-MTBL-13-415-07,CP13-415SpryBluMt,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-008-0021,GB-SLK-CLR-8ML-SLV-T,GBSleek8Sl,Sleek,8,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0129,CMP-SPR-SHGD-13-415-07,CP13-415SpryGlSh,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0129,CMP-SPR-SHGD-13-415-07,CP13-415SpryGlSh,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-008-0002,GB-SLK-CLR-8ML-GLD-T,GBSleek8Gl,Sleek,8,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0126,CMP-SPR-MTGD-13-415-07,CP13-415SpryGlMt,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0126,CMP-SPR-MTGD-13-415-07,CP13-415SpryGlMt,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-008-0030,GB-SLK-WHT-8ML-WHT-S,GBSleek8WhtSht,Sleek,8,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0133,CMP-SPR-MTSL-13-415-07,CP13-415SprySlMt,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0133,CMP-SPR-MTSL-13-415-07,CP13-415SprySlMt,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-AL-500-0001,AB-ALU-CLR-500ML,Alu500,Aluminum Bottle,500,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0139,GB-CYL-CLR-9ML-GLD-T,GBTallCyl9Gl,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0136,CMP-SPR-SHSL-13-415-07,CP13-415SprySlSh,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0136,CMP-SPR-SHSL-13-415-07,CP13-415SprySlSh,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0158,GB-CYL-CLR-9ML-SLV-T,GBTallCyl9Sl,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0075,CMP-CAP-SSLV-15-415,CP15-415ShnSl,Roll-On Cap,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,NEW-ALU250SPRYBL,BB-ALU250SPRYBL,Alu250SpryBl,Aluminum Bottle,250,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,NEW-ALU250SPRYBL,BB-ALU250SPRYBL,Alu250SpryBl,Aluminum Bottle,250,hasApplicator | hasCapStyle | hasCapColor | hasHeightWithoutCap | hasHeightWithCap | hasDiameter | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0197,GB-CYL-FRS-9ML-S-02,GBTallCylFrst9WhtSht,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0169,GB-CYL-FRS-9ML-T-01,GBTallCylFrst9Gl,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PB-030-0001,OTH-PLS-CLR-30ML,PB1ozClearcap,Plastic Bottle,30,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0188,GB-CYL-FRS-9ML-T-20,GBTallCylFrst9Sl,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0019,CMP-ROC-MSLV-17415,CpRoll17-415MattSl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0024,CMP-ROC-SLV-17415-DOT,CpRoll17-415SlDot,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0020,CMP-ROC-PNK-17415-DOT,CpRoll17-415PnkDot,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0018,CMP-ROC-MGLD-17415,CpRoll17-415MattGl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0022,CMP-ROC-SGLD-17415,CpRoll17-415ShnGl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0023,CMP-ROC-SSLV-17415,CpRoll17-415ShnSl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0014,GB-RCT-CLR-10ML-GLD-T-01,GBRect10Gl,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0017,CMP-ROC-CPR-17415,CpRoll17-415Cu,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0033,GB-RCT-CLR-10ML-SLV-T-01,GBRect10Sl,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0021,CMP-ROC-SBLK-17415,CpRoll17-415ShnBlk,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0042,GB-RCT-WHT-10ML-WHT-S-01,GBRect10WhtSht,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0025,CMP-ROC-WHT-17415,CpRoll17-415White,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0044,GB-RCT-CLR-10ML-GLD-T-02,GBTallRect10Gl,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0079,CMP-LPM-MSLV-17-415,Ltn17-415MattSl,Roll-On Cap,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0063,GB-RCT-CLR-10ML-SLV-T-02,GBTallRect10Sl,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0078,CMP-LPM-SGLD-17-415,Ltn17-415Gl,Roll-On Cap,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0072,GB-RCT-WHT-10ML-WHT-S-02,GBTallRect10WhtSht,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-013-0002,GB-VIA-CLR-13ML-GLD-T,GBRoyal13Gl,Royal,13,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-013-0021,GB-VIA-CLR-13ML-SLV-T,GBRoyal13Sl,Royal,13,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0199,CMP-CAP-BLK-18-400,18-400CpShortBlk,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-013-0029,GB-VIA-WHT-13ML-WHT-S,GBRoyal13WhtSht,Royal,13,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0065,CMP-SPR-LVSL-18-415-02,AnSp18-415Lvn,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0065,CMP-SPR-LVSL-18-415-02,AnSp18-415Lvn,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0018,GB-CIR-CLR-15ML-GLD-T,GBCrcl15Gl,Circle,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0076,CMP-CAP-PNK-18-415,CP18-415AnSpPnk,Sprayer,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0037,GB-CIR-CLR-15ML-SLV-T,GBCrcl15Sl,Circle,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0067,CMP-SPR-MTSL-18-415-04,AnSp18-415MtSl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0067,CMP-SPR-MTSL-18-415-04,AnSp18-415MtSl,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0043,GB-RCT-CLR-10ML-BLK-S-02,GBTallRect10BlkSht,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0046,GB-CIR-WHT-15ML-WHT-S,GBCrcl15WhtSht,Circle,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0063,CMP-SPR-IVSL-18-415-04,AnSp18-415IvySl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0063,CMP-SPR-IVSL-18-415-04,AnSp18-415IvySl,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0067,GB-ELG-CLR-15ML-SLV-T-01,GBElg15Sl,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0059,CMP-SPR-GLD-18-415-02,AnSp18-415Gl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0059,CMP-SPR-GLD-18-415-02,AnSp18-415Gl,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-013-0001,GB-RYL-CLR-13ML-BLK-S,GBRoyal13BlkSht,Royal,13,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0076,GB-ELG-WHT-15ML-WHT-S,GBElg15WhtSht,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0061,CMP-SPR-GDIV-18-415-02,AnSp18-415IvyGl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0061,CMP-SPR-GDIV-18-415-02,AnSp18-415IvyGl,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0017,GB-CIR-CLR-15ML-BLK-S,GBCrcl15BlkSht,Circle,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0048,GB-ELG-CLR-15ML-GLD-T,GBElg15Gl,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,BB-SP-000-0077,CMP-SPR-SLWH-18-415-02,AnSp18-415Wht,Sprayer,0,,White,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,BB-SP-000-0077,CMP-SPR-SLWH-18-415-02,AnSp18-415Wht,Sprayer,0,,White,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0077,CMP-SPR-SLWH-18-415-02,AnSp18-415Wht,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0047,GB-ELG-CLR-15ML-BLK-S-01,GBElg15BlkSht,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0103,GB-ELG-FRS-15ML-WHT-S,GBElgFrst15WhtSht,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0072,CMP-SPR-RDSL-18-415-02,AnSp18-415Red,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0072,CMP-SPR-RDSL-18-415-02,AnSp18-415Red,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0077,GB-ELG-FRS-15ML-BLK-S-02,GBElgFrst15BlkSht,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0078,GB-ELG-FRS-15ML-SGLD-T,GBElgFrst15Gl,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0088,CMP-SPR-LVSLWH-18-415-02,AnSpTsl18-415Lvn,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0088,CMP-SPR-LVSLWH-18-415-02,AnSpTsl18-415Lvn,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0104,GB-FLR-CLR-15ML-BLK-S,GBFlair15BlkSht,Flair,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0095,GB-ELG-FRS-15ML-SLV-T-02,GBElgFrst15Sl,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0084,CMP-SPR-GDIVSLWH-18-415-02,AnSpTsl18-415IvyGl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0084,CMP-SPR-GDIVSLWH-18-415-02,AnSpTsl18-415IvyGl,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0105,GB-VIA-CLR-15ML-GLD-T-01,GBFlair15Gl,Flair,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0086,CMP-SPR-IVSLWH-18-415-02,AnSpTsl18-415IvySl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0086,CMP-SPR-IVSLWH-18-415-02,AnSpTsl18-415IvySl,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0134,GB-SQR-CLR-15ML-S,GBSqr15BlkSht,Square,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0124,GB-VIA-CLR-15ML-SLV-T-01,GBFlair15Sl,Flair,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,BB-SP-000-0096,CMP-SPR-SLWH-18-415-04,AnSpTsl18-415Wht,Sprayer,0,,White,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,BB-SP-000-0096,CMP-SPR-SLWH-18-415-04,AnSpTsl18-415Wht,Sprayer,0,,White,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0096,CMP-SPR-SLWH-18-415-04,AnSpTsl18-415Wht,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0057,GB-CIR-CLR-30ML-GLD-T,GBCrcl30GlCap,Circle,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0133,GB-VIA-WHT-15ML-WHT-S-01,GBFlair15WhtSht,Flair,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0092,CMP-SPR-GDPKSLWH-18-415-02,AnSpTsl18-415Pnk,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0092,CMP-SPR-GDPKSLWH-18-415-02,AnSpTsl18-415Pnk,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0094,CMP-SPR-RDSLWH-18-415-02,AnSpTsl18-415Red,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0094,CMP-SPR-RDSLWH-18-415-02,AnSpTsl18-415Red,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0090,CMP-SPR-MTSLWH-18-415-02,AnSpTsl18-415MtS,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0090,CMP-SPR-MTSLWH-18-415-02,AnSpTsl18-415MtS,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0240,CMP-SPR-GLD-18415-TSL,CP18-415AnSpTslGl,Sprayer,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0088,GB-ELG-CLR-30ML-SGLD-T,GBElg30GlCap,Elegant,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0135,GB-VIA-CLR-15ML-GLD-T-02,GBSqr15Gl,Square,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-LP-000-0052,CMP-LPM-MTGD-18-415-07,Ltn18-415MtGl,Lotion Pump,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-LP-000-0052,CMP-LPM-MTGD-18-415-07,Ltn18-415MtGl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0095,GB-ELG-FRS-30ML-GLD-T,GBElgFrst30GlCap,Elegant,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0154,GB-VIA-CLR-15ML-SLV-T-02,GBSqr15Sl,Square,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0085,CMP-LPM-SGLD-18-415,Ltn18-415ShnGl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0162,GB-VIA-WHT-15ML-WHT-S-02,GBSqr15WhtSht,Square,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0084,CMP-LPM-SBLK-18-415,Ltn18-415ShnBlk,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0058,GB-CIR-CLR-30ML-SLV-T,GBCrcl30SlCap,Circle,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-LP-000-0054,CMP-LPM-MTSL-18-415-06,Ltn18-415MtSl,Lotion Pump,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-LP-000-0054,CMP-LPM-MTSL-18-415-06,Ltn18-415MtSl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0083,CMP-LPM-MSLV-18-415-02,Ltn18-415MtSlCl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0086,CMP-LPM-SSLV-18-415,Ltn18-415ShnSl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0205,CMP-CAP-BRN-18415-LTR,CP18-415BrwnLthr,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0206,CMP-CAP-LBRN-18415-LTR,CP18-415LBrwnLthr,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0207,CMP-CAP-IVY-18415-LTR,CP18-415LIvyLthr,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0208,CMP-CAP-PNK-18415-LTR,CP18-415LPnkLthr,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0212,CMP-CAP-SGLD-18415-S,CP18-415ShnGl,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0211,CMP-CAP-SBLK-18415-T,CP18-415ShnBlkTall,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0213,CMP-CAP-SSLV-18415-S,CP18-415ShnSl,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0210,CMP-CAP-MSLV-18415-T,CP18-415MtSlTall,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0214,CMP-CAP-WHT-18415-T,CP18-415Wh,Cap/Closure,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0210,CMP-SPR-MTGD-18-415-05,Spry18-415MtGl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0210,CMP-SPR-MTGD-18-415-05,Spry18-415MtGl,Sprayer,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0217,CMP-SPR-SHGD-18-415-05,Spry18-415ShnGl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0217,CMP-SPR-SHGD-18-415-05,Spry18-415ShnGl,Sprayer,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0215,CMP-SPR-SHBK-18-415-06,Spry18-415ShnBlk,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0215,CMP-SPR-SHBK-18-415-06,Spry18-415ShnBlk,Sprayer,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0212,CMP-SPR-MTSL-18-415-06,Spry18-415MtSl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0212,CMP-SPR-MTSL-18-415-06,Spry18-415MtSl,Sprayer,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0220,CMP-SPR-SHSL-18-415-06,Spry18-415ShnSl,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0220,CMP-SPR-SHSL-18-415-06,Spry18-415ShnSl,Sprayer,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0012,CMP-ROC-MSLV-20400-T,CPRoll20-400TallMattSl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0011,CMP-ROC-MGLD-20400-T,CPRoll20-400TallMattGl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0014,CMP-ROC-SGLD-20400-T,CPRoll20-400TallShnGl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0013,CMP-ROC-SBLK-20400-T,CPRoll20-400TallShnBlk,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0015,CMP-ROC-SSLV-20400-T,CPRoll20-400TallShnSl,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0002,GB-BSR-CLR-15ML-BLK-S,GBBstn15BlkCapSht,Boston Round,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0003,GB-BSR-AMB-15ML-BLK-S,GBBstnAmb15mlBlkCapSht,Boston Round,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0010,GB-BSR-CBL-15ML-BLK-S,GBBstnBlu15BlkCapSht,Boston Round,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0004,GB-BSR-CLR-30ML-BLK-S,GBBstn1ozBlkCapSht,Boston Round,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0022,GB-BSR-AMB-30ML-BLK-S,GBBstnAmb1ozBlkCapSht,Boston Round,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0040,GB-BSR-CBL-30ML-BLK-S,GBBstnBlu1ozBlkCapSht,Boston Round,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-060-0001,GB-BSR-CLR-60ML-BLK-S,GBBstn2ozBlkCapSht,Boston Round,60,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-060-0020,GB-BSR-AMB-60ML-BLK-S,GBBstnAmb2ozBlkCapSht,Boston Round,60,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-060-0038,GB-BSR-BLU-60ML-BLK-S,GBBstnBlu2ozBlkCapSht,Boston Round,60,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0089,GB-ELG-CLR-30ML-SLV-T,GBElg30SlCap,Elegant,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0096,GB-ELG-FRS-30ML-SLV-T,GBElgFrst30SlCap,Elegant,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-AC-000-0026,ACC-FNL-GLD,FunnelMetalGl,Tool,0,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-AC-000-0027,ACC-FNL-SLV,FunnelMetalSl,Tool,0,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-AC-000-0028,ACC-FNL-02,Plastic,Tool,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-AC-000-0028,ACC-FNL-02,Plastic,Tool,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-DR-000-0016,CMP-DRP-BLK-18400-90MM,Drp18-40015mlBlckBulb,Dropper,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-DR-000-0016,CMP-DRP-BLK-18400-90MM,Drp18-40015mlBlckBulb,Dropper,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-DR-000-0018,CMP-DRP-BLK-20400-76MM-01,Drp20-4001ozBlckBulb,Dropper,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-DR-000-0018,CMP-DRP-BLK-20400-76MM-01,Drp20-4001ozBlckBulb,Dropper,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0015,ACC-ORG-BLK-4X6,OBagBlack4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0016,ACC-ORG-BLK-5X8,OBagBlack5x8,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0018,ACC-ORG-CHGN-5X8,OBagChGreen5x8,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0019,ACC-ORG-GLD-4X6,OBagGold4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0020,ACC-ORG-GLD-5X8,OBagGold5x8,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0017,ACC-ORG-CHGN-4X6,OBagChGreen4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0021,ACC-ORG-IVY-4X6,OBagIvory4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0022,ACC-ORG-LVN-5X8,OBagLavender5x8,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0023,ACC-ORG-LTPR-5X8,OBagLightPurple5x8,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0024,ACC-ORG-PNK-4X6,OBagPink4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0025,ACC-ORG-PRP-4X6,OBagPurple4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0026,ACC-ORG-RED-4X6,OBagRed4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0027,ACC-ORG-RED-5X8,OBagRed5x8,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0028,ACC-ORG-SLV-4X6-02,OBagSilver4x6,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0041,ACC-VLV-BLK-4X3,VBagBlack4x3,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0042,ACC-VLV-BLK-4X5,VBagBlack4x5,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+color_normalized_blue_to_cobalt_blue,color,BB-PK-000-0043,ACC-VLV-BLU-4X3,VBagBlue4x3,Gift Bag,0,Blue,Cobalt Blue,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0043,ACC-VLV-BLU-4X3,VBagBlue4x3,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0044,ACC-VLV-GRN-4X3,VBagGreen4x3,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0045,ACC-VLV-GRN-4X5,VBagGreen4x5,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0046,ACC-VLV-RED-4X3,VBagRed4x3,Gift Bag,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0047,ACC-VLV-RED-4X5,VBagRed4x5,Gift Bag,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0047,ACC-VLV-RED-4X5,VBagRed4x5,Gift Bag,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_normalized_blue_to_cobalt_blue,color,BB-PK-000-0003,PKG-BOX-BWIN-BLU,BoxBWndwBlueFthr,Gift Box,0,Blue,Cobalt Blue,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0003,PKG-BOX-BWIN-BLU,BoxBWndwBlueFthr,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0004,PKG-BOX-BWIN-ERTH,BoxBWndwEarthBrush,Gift Box,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0004,PKG-BOX-BWIN-ERTH,BoxBWndwEarthBrush,Gift Box,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0005,PKG-BOX-BWIN-GRN,BoxBWndwGreenBrush,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0006,PKG-BOX-BWIN-ORNG,BoxBWndwOrngShade,Gift Box,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0006,PKG-BOX-BWIN-ORNG,BoxBWndwOrngShade,Gift Box,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_normalized_blue_to_cobalt_blue,color,BB-PK-000-0007,PKG-BOX-CWIN-BLU,BoxCWndwBlueDots,Gift Box,0,Blue,Cobalt Blue,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0007,PKG-BOX-CWIN-BLU,BoxCWndwBlueDots,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0008,PKG-BOX-CWIN-GNPR,BoxCWndwGreenPrint,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0009,PKG-BOX-CWIN-GNSH,BoxCWndwGrnShd,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0010,PKG-BOX-CWIN-SLV,BoxCWndwSlvrSunFlwr,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0011,PKG-BOX-CWIN-WHT,BoxCWndwWhite,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0012,PKG-BOX-ECRM-CUBE,BoxECreamMatteCube,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0013,PKG-BOX-ECRM-RECT,BoxECreamMatteRctMed,Gift Box,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0014,PKG-BOX-WHT-1X1X2,BoxWhite101020,Gift Box,0,hasApplicator | hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0001,PKG-BOX-WHT-4X4X4,Box-4x4x4,Gift Box,0,hasApplicator | hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0002,PKG-BOX-WHT-5X5X5,Box-5x5x5,Gift Box,0,hasApplicator | hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0029,ACC-RCB-12X15,RecloseableBags12x15,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0029,ACC-RCB-12X15,RecloseableBags12x15,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0030,ACC-RCB-2X10,RecloseableBags2x10,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0030,ACC-RCB-2X10,RecloseableBags2x10,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0031,ACC-RCB-2X12,RecloseableBags2x12,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0031,ACC-RCB-2X12,RecloseableBags2x12,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0032,ACC-RCB-3X12,RecloseableBags3x12,Packaging Supply,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0033,ACC-RCB-3X3-02,RecloseableBags3x3,Packaging Supply,0,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0034,ACC-RCB-3X4,RecloseableBags3x4,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0034,ACC-RCB-3X4,RecloseableBags3x4,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0038,ACC-RCB-4X12,RecloseableBags4x12,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0038,ACC-RCB-4X12,RecloseableBags4x12,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0035,ACC-RCB-4X5,RecloseableBags4X5,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0035,ACC-RCB-4X5,RecloseableBags4X5,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0036,ACC-RCB-4X6-01,RecloseableBags4X6,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0036,ACC-RCB-4X6-01,RecloseableBags4X6,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0037,ACC-RCB-4X8,RecloseableBags4X8,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0037,ACC-RCB-4X8,RecloseableBags4X8,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-003-0001,GB-DEC-CLR-3ML-T,GB3TPlGl,Decorative,3,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0039,ACC-RCB-6X10,RecloseableBags6x10,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0039,ACC-RCB-6X10,RecloseableBags6x10,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-PK-000-0040,ACC-RCB-9X12,RecloseableBags9x12,Packaging Supply,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-PK-000-0040,ACC-RCB-9X12,RecloseableBags9x12,Packaging Supply,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-PK-000-0040,ACC-RCB-9X12,RecloseableBags9x12,Packaging Supply,0,hasApplicator | hasCapStyle | hasCapColor | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-006-0001,GB-DEC-CLR-6ML-T,GB6TPlGl,Decorative,6,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0201,CMP-CAP-BLK-20-400-1OZ,20-400cp1ozShortBlk,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0200,CMP-CAP-BLK-20-400-2OZ,20-400Cp2ozShortBlk,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0215,CMP-CAP-BLK-8425-T,CP8-425TallBlack,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0062,CMP-CAP-BLK-S-13-415,CP13-415BlkSht,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0001,CMP-ROC-BLK-13415-DOT,CPRoll13-415BlackDot,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0114,CMP-SPR-MTBK-13-415-07,CP13-415SpryBlkMt,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0114,CMP-SPR-MTBK-13-415-07,CP13-415SpryBlkMt,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-001-0001,GB-VIA-CLR-1ML,GB1mlAmbVBlk,Vial,1,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0074,CMP-CAP-SGLD-15-415,CP15-415ShnGl,Roll-On Cap,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-001-0004,GB-VIA-CLR-1ML-WHT-T,GB1mlVWht,Vial,1,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0016,CMP-ROC-BLK-17415-DOT,CpRoll17-415BlkDot,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-002-0001,GB-VIA-CLR-2ML-S-01,GBVAmb2BlackCap,Vial,2,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0077,CMP-LPM-BLK-17-415,Ltn17-415Blk,Roll-On Cap,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-002-0003,GB-VIA-CLR-2ML-BLK-T,GBVialClr2mlBlackCap,Vial,2,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0198,CMP-APP-BLK-18-400,18-400CpAppBlk,Cap/Closure,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-020-0001,GB-GRN-GRN-20ML,GBVGreen2o4WhtCapSht,Vial,3,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0057,CMP-SPR-BKSL-18-415-02,AnSp18-415Blk,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0057,CMP-SPR-BKSL-18-415-02,AnSp18-415Blk,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0008,GB-VIA-CLR-3ML-S-03,GBVAmb1DrmBlackCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0079,CMP-SPR-BKSLWH-18-415-02,AnSpTsl18-415Blk,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0079,CMP-SPR-BKSLWH-18-415-02,AnSpTsl18-415Blk,Sprayer,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0005,GB-VIA-CLR-3ML-S-01,GBV1DrmBlackCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-LP-000-0050,CMP-LPM-MTCP-18-415-05,Ltn18-415Cu,Lotion Pump,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-LP-000-0050,CMP-LPM-MTCP-18-415-05,Ltn18-415Cu,Lotion Pump,0,hasApplicator | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0011,GB-VIA-CLR-3ML-S-05,GBVBlu1DrmBlackCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0204,CMP-CAP-BLK-18415-LTR,CP18-415BlkLthr,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0209,CMP-CAP-MSLV-18415-S,CP18-415MtSl,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0002,GB-CYL-CLR-9ML-S-01,GB09BlackCapSht,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0208,CMP-SPR-MTCP-18-415-03,Spry18-415Cu,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0208,CMP-SPR-MTCP-18-415-03,Spry18-415Cu,Sprayer,0,hasApplicator | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-004-0014,GB-VIA-CLR-3ML-S-07,GBVGr1DrmBlackCapSht,Vial,4,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0010,CMP-ROC-MBLK-20400-T,CPRoll20-400TallMattBlk,Roll-On Cap,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-009-0001,CJ-JAR-CBL-9ML,CJBlu3,Cream Jar,3,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-003-0001,CJ-JAR-CLR-3ML,CJClr3,Cream Jar,3,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-005-0001,CJ-JAR-AMB-5ML-BLK,CJAmb5mlBlkCap,Cream Jar,5,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0068,GB-SLK-CLR-5ML-S,GBSleek5BlkSht,Sleek,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,NEW-CREAMJARAMB5MLSLCAP,BB-CREAMJARAMB5MLSLCAP,CreamJarAmb5mlSlcap,Cream Jar,5,,Amber,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,NEW-CREAMJARAMB5MLSLCAP,BB-CREAMJARAMB5MLSLCAP,CreamJarAmb5mlSlcap,Cream Jar,5,,Amber,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,NEW-CREAMJARAMB5MLSLCAP,BB-CREAMJARAMB5MLSLCAP,CreamJarAmb5mlSlcap,Cream Jar,5,hasApplicator | hasCapStyle | hasCapColor | hasHeightWithoutCap | hasHeightWithCap | hasDiameter,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0098,GB-DEC-AMB-5ML-S,GBTulipAmb5BlkSht,Tulip,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-005-0003,CJ-JAR-CLR-5ML-CLR,CJClr5mlClrCap,Cream Jar,5,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-006-0002,GB-DEC-CLR-6ML-S,GBTulip6BlkSht,Tulip,6,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-015-0001,CJ-JAR-CLR-15ML-PNK,CJClr15Pnk,Cream Jar,15,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-008-0001,GB-SLK-CLR-8ML-S,GBSleek8BlkSht,Sleek,8,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-015-0002,CJ-JAR-CLR-15ML-WHT,CJClr15Wht,Cream Jar,15,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0138,GB-CYL-CLR-9ML-S-02,GBTallCyl9BlkSht,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-020-0001,CJ-JAR-20ML-WHT,CJWhite20,Cream Jar,20,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0168,GB-CYL-FRS-9ML-S-01,GBTallCylFrst9BlkSht,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-030-0001,CJ-JAR-AMB-30ML-BLK,CJAmb30BlkCap,Cream Jar,30,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-030-0002,CJ-JAR-AMB-30ML-SLV,CJAmb30SlCap,Cream Jar,30,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-030-0003,CJ-JAR-FRS-30ML-BLK,CJFrst30BlkCap,Cream Jar,30,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0013,GB-RCT-CLR-10ML-BLK-S-01,GBRect10BlkSht,Rectangle,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-030-0004,CJ-JAR-FRS-30ML-SLV,CJFrst30SlCap,Cream Jar,30,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-010-0012,GB-DEC-CLR-10ML-T,GBMtlMrblLarge,Decorative,10,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-040-0001,CJ-JAR-AMB-40ML-01,CreamJarAmb40Blkcap,Cream Jar,40,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0067,GB-DEC-CLR-5ML-T,GBMtlMrblSmall,Decorative,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-040-0002,CJ-JAR-AMB-40ML-02,CJAmb40SlCap,Cream Jar,40,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-014-0001,GB-RYL-CLR-14ML-T,GBMtlCylGl,Royal,14,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-040-0003,CJ-JAR-FRS-40ML-01,CJFrst40BlkCap,Cream Jar,40,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-040-0004,CJ-JAR-FRS-40ML-02,CJFrst40SlCap,Cream Jar,40,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-032-0001,GB-GNI-BLU-32ML,GB1ozGenieBl,Decorative,32,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-060-0001,CJ-JAR-FRS-60ML,CreamJarFrstdPlsBlkPls2oz,Cream Jar,60,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-032-0002,GB-GNI-CLR-32ML,GB1ozGenieCl,Decorative,32,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-035-0001,GB-ETF-BLU-35ML,GBEternalFlameBlue,Decorative,35,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-CJ-000-0001,CJ-JAR-60ML-WHT,CJWhitePlsSlFr2oz,Cream Jar,63,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-035-0002,GB-ETF-CLR-35ML,GBEternalFlameClear,Decorative,35,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-003-0005,LB-LTB-CLR-3ML-CLR-T,LB3mlClear,Lotion Bottle,3,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-035-0003,GB-ETF-GRN-35ML,GBEternalFlameGreen,Decorative,35,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0157,LB-LTB-CLR-30ML-SGLD-T,LB1ozGl,Lotion Bottle,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-030-0166,LB-LTB-CLR-30ML-T,LBMetalSilver1oz,Lotion Bottle,30,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-118-0001,GB-DEC-CLR-118ML,GBPearClear4ozStpr,Apothecary,118,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,,GB-VIA-AMB-1.5ML-WHT-S,GBVialAmb1o5WhtCapSht,Vial,2,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,,GB-VIA-BLU-3ML-BLK-S,GBVBlu1o9BlackCapSht,Vial,3,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,,GB-PIL-CLR-9ML-SPR-MBLK,GBPillar9SpryBlkMatt,Pillar,9,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,,GB-BEL-CLR-10ML-SPR-SBLK,GBBell10SpryBlkSh,Bell,10,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-ELG-CLR-15ML-MNR-MCPR,GBElg15MinarCu,Elegant,15,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,,PKG-BOX-BRN-4X4X4,,Unknown,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,PKG-BOX-BRN-4X4X4,,Unknown,0,hasApplicator | hasCapStyle | hasCapColor | hasHeightWithCap | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,CMP-CAP-BDOT-17-415,,Cap/Component,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,CMP-CAP-BDOT-17-415,,Cap/Component,0,hasApplicator | hasCapStyle | hasCapColor | hasHeightWithoutCap | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,PKG-BOX-WHT-WINDOW-SM,,Gift Box,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,PKG-BOX-WHT-WINDOW-SM,,Gift Box,0,hasApplicator | hasCapStyle | hasCapColor | hasHeightWithCap | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,CMP-CAP-SBLK-13-415,,Cap/Component,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,CMP-CAP-SBLK-13-415,,Cap/Component,0,hasApplicator | hasCapStyle | hasCapColor | hasHeightWithoutCap | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-BLL-CLR-10ML-MRL-BDOT,GBBell10MtlRollBlkDot,Bell,10,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-BLL-CLR-10ML-MRL-BDOT,GBBell10MtlRollBlkDot,Bell,10,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-BLL-CLR-10ML-RBL-BDOT,GBBell10RollBlkDot,Bell,10,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-BLL-CLR-10ML-RBL-BDOT,GBBell10RollBlkDot,Bell,10,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-BSR-CLR-15ML-DRP-BLK,GBBstn15BlkDrp,Boston Round,15,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-BSR-CLR-15ML-DRP-BLK,GBBstn15BlkDrp,Boston Round,15,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,PB-CYL-227ML-WFLP,PbClear8ozFlpWh,Cylinder,227,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,PB-CYL-227ML-WFLP,PbClear8ozFlpWh,Cylinder,227,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,PB-CYL-CLR-118ML-WFLP,PbClear4ozFlpWh,Cylinder,118,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,PB-CYL-CLR-118ML-WFLP,PbClear4ozFlpWh,Cylinder,118,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-CYL-BLU-5ML-CAP-SBLK,GBCylBlu5BlkShSht,Cylinder,5,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,,PB-CYL-454ML-WFLP,PbNat16ozFlpWh,Cylinder,454,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,PB-CYL-454ML-WFLP,PbNat16ozFlpWh,Cylinder,454,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-ELG-FRS-15ML-CAP-SBLK,GBElgFrst15BlkShSht,Elegant,15,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-ELG-FRS-15ML-CAP-SBLK,GBElgFrst15BlkShSht,Elegant,15,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-PIL-CLR-9ML-MRL-BDOT,GBPillar9MtlRollBlkdot,Pillar,9,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-PIL-CLR-9ML-MRL-BDOT,GBPillar9MtlRollBlkdot,Pillar,9,hasApplicator | hasCapStyle | hasCapColor | hasDiameter,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-PIL-CLR-9ML-RBL-BDOT,GBPillar9RollBlkDot,Pillar,9,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-PIL-CLR-9ML-RBL-BDOT,GBPillar9RollBlkDot,Pillar,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-PIL-CLR-9ML-CAP-BLK,GBPillar9BlkShSht,Pillar,9,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-PIL-CLR-9ML-CAP-BLK,GBPillar9BlkShSht,Pillar,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GB-TUL-CLR-6ML-CAP-SBLK,GBTulip6BlkShSht,Tulip,6,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,,GB-TUL-CLR-6ML-CAP-SBLK,GBTulip6BlkShSht,Tulip,6,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0102,CMP-SPR-LVN-BULB,AntqSprBulbLavender,Sprayer,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-SP-000-0102,CMP-SPR-LVN-BULB,AntqSprBulbLavender,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0102,CMP-SPR-LVN-BULB,AntqSprBulbLavender,Sprayer,0,hasApplicator | hasCapStyle | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-SP-000-0144,CMP-SPR-RED-02,GBATom5RedBurg,Sprayer,5,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-SP-000-0144,CMP-SPR-RED-02,GBATom5RedBurg,Sprayer,5,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0144,CMP-SPR-RED-02,GBATom5RedBurg,Sprayer,5,hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0022,CMP-CLS-BLK-13-425,CP13-425Blk,Cap/Closure,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0022,CMP-CLS-BLK-13-425,CP13-425Blk,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0022,CMP-CLS-BLK-13-425,CP13-425Blk,Cap/Closure,0,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,BB-CL-000-0023,CMP-CLS-WHT-13-425,CP13-425Wht,Cap/Closure,0,,White,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,BB-CL-000-0023,CMP-CLS-WHT-13-425,CP13-425Wht,Cap/Closure,0,,White,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0023,CMP-CLS-WHT-13-425,CP13-425Wht,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0023,CMP-CLS-WHT-13-425,CP13-425Wht,Cap/Closure,0,hasCapStyle | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0005,CMP-CLS-BLK-03,CapBlackPoly22mm-400,Cap/Closure,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0005,CMP-CLS-BLK-03,CapBlackPoly22mm-400,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0005,CMP-CLS-BLK-03,CapBlackPoly22mm-400,Cap/Closure,0,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0066,CMP-CAP-PHN-24400-BLK,CP24-400BlkPls,Cap/Closure,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0066,CMP-CAP-PHN-24400-BLK,CP24-400BlkPls,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0066,CMP-CAP-PHN-24400-BLK,CP24-400BlkPls,Cap/Closure,0,hasApplicator | hasCapStyle | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0008,CMP-CLS-BLK-06,CJ30BlkCap,Cap/Closure,30,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0008,CMP-CLS-BLK-06,CJ30BlkCap,Cap/Closure,30,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0008,CMP-CLS-BLK-06,CJ30BlkCap,Cap/Closure,30,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0009,CMP-CLS-SLV-02,CJ30SlCap,Cap/Closure,30,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0009,CMP-CLS-SLV-02,CJ30SlCap,Cap/Closure,30,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0009,CMP-CLS-SLV-02,CJ30SlCap,Cap/Closure,30,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0010,CMP-CLS-BLK-07,CJ40BlkCap,Cap/Closure,40,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0010,CMP-CLS-BLK-07,CJ40BlkCap,Cap/Closure,40,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0010,CMP-CLS-BLK-07,CJ40BlkCap,Cap/Closure,40,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0011,CMP-CLS-SLV-03,CJ40SlCap,Cap/Closure,40,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0011,CMP-CLS-SLV-03,CJ40SlCap,Cap/Closure,40,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0011,CMP-CLS-SLV-03,CJ40SlCap,Cap/Closure,40,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0012,CMP-CLS-BLK-08,CJ5BlkCap,Cap/Closure,5,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0012,CMP-CLS-BLK-08,CJ5BlkCap,Cap/Closure,5,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0012,CMP-CLS-BLK-08,CJ5BlkCap,Cap/Closure,5,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0013,CMP-CLS-SLV-04,CJ5SlCap,Cap/Closure,5,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0013,CMP-CLS-SLV-04,CJ5SlCap,Cap/Closure,5,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0013,CMP-CLS-SLV-04,CJ5SlCap,Cap/Closure,5,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0083,CMP-CLS-GLD-02,CPKeyChnGld,Cap/Closure,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0083,CMP-CLS-GLD-02,CPKeyChnGld,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0083,CMP-CLS-GLD-02,CPKeyChnGld,Cap/Closure,0,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_raw_missing,color,BB-CL-000-0090,CMP-CLS-GDRD,CPTslRed,Cap/Closure,0,,,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-CL-000-0090,CMP-CLS-GDRD,CPTslRed,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CL-000-0090,CMP-CLS-GDRD,CPTslRed,Cap/Closure,0,hasCapStyle | hasHeightWithoutCap | hasCanonicalColor,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,BB-DR-000-0012,CMP-DRP-AMB,Droppers1ozElg,Dropper,10,,Amber,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,BB-DR-000-0012,CMP-DRP-AMB,Droppers1ozElg,Dropper,10,,Amber,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-DR-000-0012,CMP-DRP-AMB,Droppers1ozElg,Dropper,10,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-DR-000-0012,CMP-DRP-AMB,Droppers1ozElg,Dropper,10,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+color_derived_from_text,color,BB-RC-000-0055,CMP-ROC-WHT-03,CPWhite1Oz,Roll-On Cap,30,,White,Canonical color differs from or augments source color evidence.
+color_raw_missing,color,BB-RC-000-0055,CMP-ROC-WHT-03,CPWhite1Oz,Roll-On Cap,30,,White,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-RC-000-0055,CMP-ROC-WHT-03,CPWhite1Oz,Roll-On Cap,30,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-RC-000-0055,CMP-ROC-WHT-03,CPWhite1Oz,Roll-On Cap,30,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,,GBCyl5WhtSht,GBCyl5WhtSht,Cylinder,5,,,No primary or cap-off image URL is available.
+color_derived_from_sku_swirl,color,,GBCylSwrl9MtlRollWht,GBCylSwrl9MtlRollWht,Cylinder,9,Clear,Swirl,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,,GBCylSwrl9MtlRollWht,GBCylSwrl9MtlRollWht,Cylinder,9,,,No primary or cap-off image URL is available.
+color_derived_from_sku_swirl,color,,GBCylSwrl9RollWht,GBCylSwrl9RollWht,Cylinder,9,Clear,Swirl,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,,GBCylSwrl9RollWht,GBCylSwrl9RollWht,Cylinder,9,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,,GBTallCyl9WhtSht,GBTallCyl9WhtSht,Tall Cylinder,9,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-AL-250-0001,AB-ALU-CLR-250ML-SPR-BLK,Alu250mlSprayBlack,Aluminum Bottle,250,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0238,GB-EMP-CLR-100ML-RDC-MSLV-01,GBEmp100RdcrMtSl,Empire,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-CJ-005-0002,CJ-JAR-AMB-5ML-SLV,CJAmb5mlSlCap,Cream Jar,5,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-CJ-005-0002,CJ-JAR-AMB-5ML-SLV,CJAmb5mlSlCap,Cream Jar,5,hasApplicator | hasCapStyle,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-GB-100-0026,GB-CIR-CLR-100ML-RDC-SBLK-01,GBCrcl100RdcrShnBlk,Circle,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0026,GB-CIR-CLR-50ML-RDC-MSLV-01,GBCrcl50RdcrMtSl,Circle,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0241,GB-EMP-CLR-100ML-RDC-SBLK-01,GBEmp100RdcrShnBlk,Empire,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0029,GB-CIR-CLR-50ML-RDC-SBLK-01,GBCrcl50RdcrShnBlk,Circle,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0143,GB-EMP-CLR-50ML-RDC-MSLV-01,GBEmp50RdcrMtSl,Empire,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0067,GB-CIR-FRS-50ML-RDC-SBLK-01,GBCrclFrst50RdcrShnBlk,Circle,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0146,GB-EMP-CLR-50ML-RDC-SBLK-01,GBEmp50RdcrShnBlk,Empire,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-060-0077,GB-DMD-CLR-60ML-RDC-MSLV-01,GBDmnd2ozRdcrMtSl,Diamond,60,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-060-0080,GB-DMD-CLR-60ML-RDC-SBLK-01,GBDmnd2ozRdcrShnBlk,Diamond,60,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-055-0023,GB-GRC-CLR-55ML-RDC-MSLV-01,GBGrce55RdcrMtSl,Grace,55,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-055-0026,GB-GRC-CLR-55ML-RDC-SBLK-01,GBGrce55RdcrShnBlk,Grace,55,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-128-0024,GB-RND-CLR-128ML-RDC-MSLV-01,GBRnd128RdcrMtSl,Round,128,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-128-0027,GB-RND-CLR-128ML-RDC-SBLK-01,GBRnd128RdcrShnBlk,Round,128,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-078-0023,GB-RND-CLR-78ML-RDC-MSLV-01,GBRnd78RdcrMtSl,Round,78,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-078-0026,GB-RND-CLR-78ML-RDC-SBLK-01,GBRnd78RdcrShnBlk,Round,78,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-128-0061,GB-RND-FRS-128ML-RDC-MSLV-01,GBRndFrst128RdcrMtSl,Round,128,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-128-0064,GB-RND-FRS-128ML-RDC-SBLK-01,GBRndFrst128RdcrShnBlk,Round,128,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-078-0059,GB-RND-FRS-78ML-RDC-MSLV-01,GBRndFrst78RdcrMtSl,Round,78,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-078-0062,GB-RND-FRS-78ML-RDC-SBLK-01,GBRndFrst78RdcrShnBlk,Round,78,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0274,GB-SLK-CLR-100ML-RDC-MSLV-01,GBSlk100RdcrMtSl,Sleek,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0277,GB-SLK-CLR-100ML-RDC-SBLK-01,GBSlk100RdcrShnBlk,Sleek,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-030-0113,GB-SLK-CLR-30ML-RDC-MSLV-01,GBSlk30RdcrMtSl,Sleek,30,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-030-0116,GB-SLK-CLR-30ML-RDC-SBLK-01,GBSlk30RdcrShnBlk,Sleek,30,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0179,GB-SLK-CLR-50ML-RDC-MSLV-01,GBSlk50RdcrMtSl,Sleek,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0182,GB-SLK-CLR-50ML-RDC-SBLK-01,GBSlk50RdcrShnBlk,Sleek,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0310,GB-SLM-CLR-100ML-RDC-MSLV-01,GBSlm100RdcrMtSl,Slim,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0313,GB-SLM-CLR-100ML-RDC-SBLK-01,GBSlm100RdcrShnBlk,Slim,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-030-0141,GB-SLM-CLR-30ML-RDC-MSLV-01,GBSlm30RdcrMtSl,Slim,30,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-030-0144,GB-SLM-CLR-30ML-RDC-SBLK-01,GBSlm30RdcrShnBlk,Slim,30,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0215,GB-SLM-CLR-50ML-RDC-MSLV-01,GBSlm50RdcrMtSl,Slim,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0218,GB-SLM-CLR-50ML-RDC-SBLK-01,GBSlm50RdcrShnBlk,Slim,50,,,No primary or cap-off image URL is available.
+color_normalized_blue_to_cobalt_blue,color,BB-SP-000-0120,CMP-CAP-13-415,CP13-415SpryBluMt,Cap/Closure,0,Blue,Cobalt Blue,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-SP-000-0120,CMP-CAP-13-415,CP13-415SpryBluMt,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0120,CMP-CAP-13-415,CP13-415SpryBluMt,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0114,CMP-CAP-BLK-13-415-01,CP13-415SpryBlkMt,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0114,CMP-CAP-BLK-13-415-01,CP13-415SpryBlkMt,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0117,CMP-CAP-BLK-13-415-02,CP13-415SpryBlkSh,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0117,CMP-CAP-BLK-13-415-02,CP13-415SpryBlkSh,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0126,CMP-CAP-SGLD-13-415-02,CP13-415SpryGlMt,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0126,CMP-CAP-SGLD-13-415-02,CP13-415SpryGlMt,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0129,CMP-CAP-SGLD-13-415-03,CP13-415SpryGlSh,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0129,CMP-CAP-SGLD-13-415-03,CP13-415SpryGlSh,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0133,CMP-CAP-SLV-13-415-02,CP13-415SprySlMt,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0133,CMP-CAP-SLV-13-415-02,CP13-415SprySlMt,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0136,CMP-CAP-SLV-13-415-03,CP13-415SprySlSh,Cap/Closure,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0136,CMP-CAP-SLV-13-415-03,CP13-415SprySlSh,Cap/Closure,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0005,CMP-SPR-MTCP-13-415-01,13-415CAP4SpryCuMt,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0005,CMP-SPR-MTCP-13-415-01,13-415CAP4SpryCuMt,Sprayer,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0038,CMP-SPR-MTGD-18-415-01,18-415CAP4SpryMtGl,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0038,CMP-SPR-MTGD-18-415-01,18-415CAP4SpryMtGl,Sprayer,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0009,CMP-SPR-MTSL-13-415-01,13-415CAP4SprySlMt,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0009,CMP-SPR-MTSL-13-415-01,13-415CAP4SprySlMt,Sprayer,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0040,CMP-SPR-SHBK-18-415-01,18-415CAP4SpryShnBlk,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0040,CMP-SPR-SHBK-18-415-01,18-415CAP4SpryShnBlk,Sprayer,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0007,CMP-SPR-SHGD-13-415-01,13-415CAP4SpryGlSh,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0007,CMP-SPR-SHGD-13-415-01,13-415CAP4SpryGlSh,Sprayer,0,hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-LP-000-0050,CMP-LPM-CPR-18-415,Ltn18-415Cu,Lotion Pump,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-LP-000-0050,CMP-LPM-CPR-18-415,Ltn18-415Cu,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-LP-000-0052,CMP-LPM-MGLD-18-415,Ltn18-415MtGl,Lotion Pump,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-LP-000-0052,CMP-LPM-MGLD-18-415,Ltn18-415MtGl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-LP-000-0054,CMP-LPM-MSLV-18-415-01,Ltn18-415MtSl,Lotion Pump,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-LP-000-0054,CMP-LPM-MSLV-18-415-01,Ltn18-415MtSl,Lotion Pump,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0079,CMP-SPR-BLK-18-415-02,AnSpTsl18-415Blk,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0079,CMP-SPR-BLK-18-415-02,AnSpTsl18-415Blk,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0061,CMP-SPR-IVGD-18-415-01,AnSp18-415IvyGl,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0061,CMP-SPR-IVGD-18-415-01,AnSp18-415IvyGl,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0084,CMP-SPR-IVGD-18-415-02,AnSpTsl18-415IvyGl,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0084,CMP-SPR-IVGD-18-415-02,AnSpTsl18-415IvyGl,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0063,CMP-SPR-IVSL-18-415-01,AnSp18-415IvySl,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0063,CMP-SPR-IVSL-18-415-01,AnSp18-415IvySl,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0086,CMP-SPR-IVSL-18-415-02,AnSpTsl18-415IvySl,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0086,CMP-SPR-IVSL-18-415-02,AnSpTsl18-415IvySl,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0065,CMP-SPR-LVN-18-415-01,AnSp18-415Lvn,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0065,CMP-SPR-LVN-18-415-01,AnSp18-415Lvn,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0088,CMP-SPR-LVN-18-415-02,AnSpTsl18-415Lvn,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0088,CMP-SPR-LVN-18-415-02,AnSpTsl18-415Lvn,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0067,CMP-SPR-MSLV-18-415-01,AnSp18-415MtSl,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0067,CMP-SPR-MSLV-18-415-01,AnSp18-415MtSl,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0090,CMP-SPR-MSLV-18-415-02,AnSpTsl18-415MtS,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0090,CMP-SPR-MSLV-18-415-02,AnSpTsl18-415MtS,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0092,CMP-SPR-PNK-18-415,AnSpTsl18-415Pnk,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0092,CMP-SPR-PNK-18-415,AnSpTsl18-415Pnk,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0072,CMP-SPR-RED-18-415-01,AnSp18-415Red,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0072,CMP-SPR-RED-18-415-01,AnSp18-415Red,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0094,CMP-SPR-RED-18-415-02,AnSpTsl18-415Red,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0094,CMP-SPR-RED-18-415-02,AnSpTsl18-415Red,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0077,CMP-SPR-WHT-18-415-01,AnSp18-415Wht,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0077,CMP-SPR-WHT-18-415-01,AnSp18-415Wht,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-SP-000-0096,CMP-SPR-WHT-18-415-02,AnSpTsl18-415Wht,Sprayer,0,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-SP-000-0096,CMP-SPR-WHT-18-415-02,AnSpTsl18-415Wht,Sprayer,0,hasApplicator | hasHeightWithoutCap,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-GB-100-0095,GB-CYL-CLR-100ML-RDC-MSLV-01,GBCyl100RdcrMtSl,Cylinder,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0098,GB-CYL-CLR-100ML-RDC-SBLK-01,GBCyl100RdcrShnBlk,Cylinder,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0102,GB-CYL-CLR-50ML-RDC-MSLV-01,GBCyl50RdcrMtSl,Cylinder,50,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-050-0105,GB-CYL-CLR-50ML-RDC-SBLK-01,GBCyl50RdcrShnBlk,Cylinder,50,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-GB-005-0037,GB-CYL-WHT-5ML-WHT-S,GBCyl5WhtSht,Cylinder,5,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_derived_from_sku_swirl,color,BB-GB-009-0116,GB-CYL-WHT-9ML-MRL-WHT,GBCylSwrl9MtlRollWht,Cylinder,9,White,Swirl,Canonical color differs from or augments source color evidence.
+image_prompt_blocked,promptMissingFields,BB-GB-009-0167,GB-CYL-WHT-9ML-WHT-S,GBTallCyl9WhtSht,Cylinder,9,hasApplicator,,Required prompt fields are missing for automated image generation.
+color_derived_from_sku_swirl,color,BB-GB-009-0126,GB-CYL-WHT-9ML-ROL-WHT,GBCylSwrl9RollWht,Cylinder,9,White,Swirl,Canonical color differs from or augments source color evidence.
+missing_image,imageUrl,BB-GB-100-0167,GB-ELG-CLR-100ML-RDC-MSLV-01,GBElg100RdcrMtSl,Elegant,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0170,GB-ELG-CLR-100ML-RDC-SBLK-01,GBElg100RdcrShnBlk,Elegant,100,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0077,GB-ELG-CLR-15ML-BLK-S-02,GBElgFrst15BlkSht,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0078,GB-ELG-CLR-15ML-SGLD-T,GBElgFrst15Gl,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0095,GB-ELG-CLR-15ML-SLV-T-02,GBElgFrst15Sl,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-015-0103,GB-ELG-CLR-15ML-WHT-S,GBElgFrst15WhtSht,Elegant,15,hasApplicator,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-GB-060-0114,GB-ELG-CLR-60ML-RDC-MSLV-01,GBElg60RdcrMtSl,Elegant,60,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-060-0117,GB-ELG-CLR-60ML-RDC-SBLK-01,GBElg60RdcrShnBlk,Elegant,60,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0205,GB-ELG-FRS-100ML-RDC-SBLK-01,GBElgFrst100RdcrShnBlk,Elegant,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-060-0152,GB-ELG-FRS-60ML-RDC-MSLV-01,GBElgFrst60RdcrMtSl,Elegant,60,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-060-0155,GB-ELG-FRS-60ML-RDC-SBLK-01,GBElgFrst60RdcrShnBlk,Elegant,60,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0131,GB-DVA-CLR-100ML-RDC-MSLV-01,GBDiva100RdcrMtSl,Diva,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-100-0134,GB-DVA-CLR-100ML-RDC-SBLK-01,GBDiva100RdcrShnBlk,Diva,100,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-030-0074,GB-DVA-CLR-30ML-RDC-MSLV-01,GBDiva30RdcrMtSl,Diva,30,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-030-0077,GB-DVA-CLR-30ML-RDC-SBLK-01,GBDiva30RdcrShnBlk,Diva,30,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0080,GB-DVA-CLR-46ML-01,GBDivaFrst46SpryCu,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0081,GB-DVA-CLR-46ML-02,GBDivaFrst46SpryMtGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0082,GB-DVA-CLR-46ML-03,GBDivaFrst46SpryMtSl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0083,GB-DVA-CLR-46ML-04,GBDivaFrst46SpryShnBlk,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0084,GB-DVA-CLR-46ML-05,GBDivaFrst46SpryShnGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0085,GB-DVA-CLR-46ML-06,GBDivaFrst46SpryShnSl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+missing_image,imageUrl,BB-GB-046-0036,GB-DVA-CLR-46ML-RDC-MSLV-01,GBDiva46RdcrMtSl,Diva,46,,,No primary or cap-off image URL is available.
+missing_image,imageUrl,BB-GB-046-0039,GB-DVA-CLR-46ML-RDC-SBLK-01,GBDiva46RdcrShnBlk,Diva,46,,,No primary or cap-off image URL is available.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0050,GB-DVA-CLR-46ML-T-12,GBDivaFrst46AnSpBlk,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0051,GB-DVA-CLR-46ML-T-13,GBDivaFrst46AnSpGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0052,GB-DVA-CLR-46ML-T-14,GBDivaFrst46AnSpIvyGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0053,GB-DVA-CLR-46ML-T-15,GBDivaFrst46AnSpIvySl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0054,GB-DVA-CLR-46ML-T-16,GBDivaFrst46AnSpLvn,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0055,GB-DVA-CLR-46ML-T-17,GBDivaFrst46AnSpMtSl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0056,GB-DVA-CLR-46ML-T-18,GBDivaFrst46AnSpPnk,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0057,GB-DVA-CLR-46ML-T-19,GBDivaFrst46AnSpRed,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0058,GB-DVA-CLR-46ML-T-20,GBDivaFrst46AnSpTslBlk,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0059,GB-DVA-CLR-46ML-T-21,GBDivaFrst46AnSpTslGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0060,GB-DVA-CLR-46ML-T-22,GBDivaFrst46AnSpTslIvyGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0061,GB-DVA-CLR-46ML-T-23,GBDivaFrst46AnSpTslIvySl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0062,GB-DVA-CLR-46ML-T-24,GBDivaFrst46AnSpTslLvn,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0063,GB-DVA-CLR-46ML-T-25,GBDivaFrst46AnSpTslMtSl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0064,GB-DVA-CLR-46ML-T-26,GBDivaFrst46AnSpTslPnk,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0065,GB-DVA-CLR-46ML-T-27,GBDivaFrst46AnSpTslRed,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0066,GB-DVA-CLR-46ML-T-28,GBDivaFrst46AnSpTslWht,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0067,GB-DVA-CLR-46ML-T-29,GBDivaFrst46AnSpWht,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0068,GB-DVA-CLR-46ML-T-30,GBDivaFrst46RdcrBlkLthr,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0069,GB-DVA-CLR-46ML-T-31,GBDivaFrst46RdcrBrwnLthr,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0070,GB-DVA-CLR-46ML-T-32,GBDivaFrst46RdcrIvyLthr,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0071,GB-DVA-CLR-46ML-T-33,GBDivaFrst46RdcrLBrwnLthr,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0072,GB-DVA-CLR-46ML-T-34,GBDivaFrst46RdcrMtSl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0073,GB-DVA-CLR-46ML-T-35,GBDivaFrst46RdcrMtSlTall,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0074,GB-DVA-CLR-46ML-T-36,GBDivaFrst46RdcrPnkLthr,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0075,GB-DVA-CLR-46ML-T-37,GBDivaFrst46RdcrShnBlk,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0076,GB-DVA-CLR-46ML-T-38,GBDivaFrst46RdcrShnBlkTall,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0077,GB-DVA-CLR-46ML-T-39,GBDivaFrst46RdcrShnGl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0078,GB-DVA-CLR-46ML-T-40,GBDivaFrst46RdcrShnSl,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
+image_prompt_blocked,promptMissingFields,BB-GB-046-0079,GB-DVA-CLR-46ML-T-41,GBDivaFrst46RdcrWht,Diva,46,hasApplicator,,Required prompt fields are missing for automated image generation.
